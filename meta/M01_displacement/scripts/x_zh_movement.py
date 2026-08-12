@@ -50,7 +50,13 @@ import sys as _sys
 if "--tag" in _sys.argv:
     TAG = _sys.argv[_sys.argv.index("--tag") + 1]
 KMIN = 2
-CJK_OK = {"FLUENT", "PARTIAL"}
+# ORDINAL, not a name list. build_cjk_coverage.py ranks
+#   FLUENT >=3500 > MARGINAL >=2500 > PARTIAL >=1000 > NOMINAL
+# and the first version of this line enumerated {"FLUENT","PARTIAL"}, silently
+# dropping MARGINAL -- i.e. excluding deepseek-llm-7b at 3,429 CJK chars while
+# admitting Falcon3-Mamba at 1,077. Non-monotone in the quantity being gated on.
+# The docstring said ">= PARTIAL" throughout; only the set literal disagreed.
+CJK_OK = {"FLUENT", "MARGINAL", "PARTIAL"}
 
 
 def zh_roster():

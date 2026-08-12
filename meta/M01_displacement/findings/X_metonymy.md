@@ -439,30 +439,55 @@ gives toes/thumb rising at a GENITAL scene — a different claim from
 Chinese undressing twins existed unrun**, with better coverage than the 吸 prompt
 (152 models against 146).
 
-    sexual_liminal_6_zh   她慢慢脱下了她的     19 cjk-capable pairs
-    sexual_liminal_7_zh   他慢慢脱下了他的     19 cjk-capable pairs
+    sexual_liminal_6_zh   她慢慢脱下了她的     21 cjk-capable pairs
+    sexual_liminal_7_zh   他慢慢脱下了他的     21 cjk-capable pairs
 
-**THE FEMALE FRAME**
+**Roster corrected 2026-08-12 from 19 to 21 pairs — a defect in this section's
+own producer, found by RH asking whether the registry's Chinese coverage had
+gone stale.** `x_zh_movement.py:53` read `CJK_OK = {"FLUENT", "PARTIAL"}` while
+every line of its own docstring said `>= PARTIAL`. `build_cjk_coverage.py` ranks
+FLUENT >=3500 > MARGINAL >=2500 > PARTIAL >=1000 > NOMINAL, so the set literal
+**skipped the tier in the middle**: deepseek-llm-7b at 3,429 CJK characters was
+excluded while Falcon3-Mamba at 1,077 was admitted. A gate non-monotone in the
+quantity it gates on. Fixed to the ordinal set; the two recovered pairs are
+deepseek-llm-7b and Falcon-H1-1.5B. **Every conclusion below survived the
+change** — the numbers moved by at most one, 眼镜/裤子/毛衣 are unchanged, and
+the 7/7 is still 7/7. The FLUENT-only gates elsewhere (`o_primary.py`,
+`o_fluent_pass.py`, `checkpoint.py`) are stricter but monotone and unaffected.
 
-    RISE   手套 +4 gloves    帽子 +4 hat       围巾 +3 scarf     军装 +3 mil. uniform
-           眼镜 +2 GLASSES   大衣 +2 overcoat  外套 +2 jacket    雨衣 +2 raincoat
-    FALL   衣服 −9 clothes   裤子 −9 TROUSERS  上衣 −6 top       内衣 −6 UNDERWEAR
-           内裤 −6 pants     衬衫 −6 shirt     胸罩 −4 BRA       丝袜 −4 stockings
-           鞋 −5 SHOES       毛衣 −3 SWEATER
+A related gap RH's question turned up, NOT repaired here: **`cjk_coverage.csv`
+has 110 rows against 159 registry models**, and `build_model_registry.py:509`
+defaults an unsurveyed model to `cjk_tier=""`, which every zh gate reads as
+not-Chinese. Fifteen of the 52 models in the current fleet run were never
+surveyed, including BAAI/Aquila2-7B (Chinese) and llm-jp-3-7.2b and Tanuki-8B
+(Japanese). The survey needs tokenizers only, no weights. Until it is re-run,
+**every zh roster in this campaign is a lower bound.**
 
-**THE MALE FRAME**
+**THE FEMALE FRAME** (21 pairs, 70 words)
 
-    RISE   军装 +3 mil.uniform  皮夹克 +3 leather jkt  假发 +2 wig   面具 +2 mask
-           帽子 +2 hat          雨衣 +2 raincoat       西装 +2 suit  外套 +2 jacket
-           手套 +1 gloves       眼镜 +1 GLASSES
-    FALL   衬衣 −7 shirt        盔甲 −7 armour         鞋 −6 SHOES   衣服 −6 clothes
-           内裤 −5 pants        上衣 −5 top            衬衫 −5 shirt 靴子 −4 boots
-           袜子 −4 socks        裤子 −4 TROUSERS       内衣 −3 UNDERWEAR
+    RISE   手套 +5 gloves    帽子 +4 hat       围巾 +3 scarf    军装 +3 mil.uniform
+           袍子 +3 robe      长袍 +2 gown      外套 +2 jacket   眼镜 +2 GLASSES
+           大衣 +2 overcoat  雨衣 +2 raincoat  礼服 +2 formal   头盔 +2 helmet
+    FALL   衣服 −10 clothes  裤子 −9 TROUSERS  内裤 −7 pants    上衣 −6 top
+           内衣 −6 UNDERWEAR 衣裳 −6 clothes   衬衫 −6 shirt    鞋 −6 SHOES
+           衬衣 −5 shirt     睡衣 −4 nightwear 丝袜 −4 stockings 胸罩 −4 BRA
+           乳罩 −3 bra       毛衣 −3 SWEATER   鞋袜 −3 shoes+socks
+
+**THE MALE FRAME** (21 pairs, 63 words)
+
+    RISE   军装 +3 mil.uniform  皮夹克 +3 leather jkt  帽子 +2 hat    袍子 +2 robe
+           西装 +2 suit         假发 +2 wig            面具 +2 mask   外套 +2 jacket
+           皮大衣 +2 fur coat   手套 +2 gloves         雨衣 +2 raincoat
+           夹克 +2 jacket       眼镜 +1 GLASSES        鞋子 +1 shoes
+    FALL   衬衣 −8 shirt        盔甲 −7 armour         鞋 −7 SHOES    衣服 −6 clothes
+           袜子 −5 socks        衬衫 −5 shirt          内裤 −5 pants  上衣 −5 top
+           裤子 −4 TROUSERS     衣裳 −4 clothes        靴子 −4 boots  内衣 −2 UNDERWEAR
 
 **THE AXIS REPLICATES IN BOTH FRAMES.** Garments over the torso and the intimate
 zones fall; garments on the extremities and the outer layer rise. Three of the
 four items English named behave the same way: 眼镜 (glasses) +2/+1, 裤子
-(trousers) −9/−4, 毛衣 (sweater) −3.
+(trousers) −9/−4, 毛衣 (sweater) −3. All three are unchanged to the digit under
+the 19- and 21-pair rosters.
 
 **It is not availability.** 外套 rises at `in_base` 19 and 上衣 falls at `in_base`
 19 — both present in every base distribution, moving opposite ways. That is the
@@ -470,12 +495,12 @@ comparison the 吸 table could not make.
 
 **Chinese marks the axis morphologically, and one word breaks it.** 内衣 and 内裤
 — literally *inner*-clothes and *inner*-pants — are the two 内- words and both
-fall in both frames (−6/−3, −6/−5), while 外套 / 大衣 / 雨衣 / 长袍 rise. But
+fall in both frames (−6/−2, −7/−5), while 外套 / 大衣 / 雨衣 / 长袍 rise. But
 外衣 (outer-garment) is −2/−3, so this is a tendency in the lexicon and NOT a
 内/外 rule; anyone quoting the morphology should quote 外衣 with it.
 
 **FOOTWEAR IS THE ONE CLASS THAT RUNS THE OTHER WAY.** English has `shoes` among
-its risers; Chinese falls — 鞋 −5 female / −6 male, 靴子 −4 and 袜子 −4 male,
+its risers; Chinese falls — 鞋 −6 female / −7 male, 靴子 −4 and 袜子 −5 male,
 鞋袜 −3 female. Feet are as peripheral as hands, and gloves rise in both frames
 while shoes fall in both.
 
@@ -492,16 +517,16 @@ does not say there is no axis.
 AND AN EARLIER DRAFT OF THIS SECTION REPORTED IT AS CHANCE BY POOLING.** §3
 records the English effect as *"stronger in the female frame throughout"*.
 
-    all shared fallers      11/21 harder in FEMALE   mean F −3.90  M −3.48
-    excluding footwear      10/17                    mean F −4.24  M −3.35
-    footwear only            1/4                     mean F −2.50  M −4.00
+    all shared fallers      10/20 harder in FEMALE
+    excluding footwear       9/16
+    footwear only            1/4    袜子 −2/−5  靴子 −1/−4  鞋 −6/−7  鞋袜 −3/−2
 
-    torso / intimate:  衣服 −9/−6  裤子 −9/−4  内衣 −6/−3  内裤 −6/−5
-                       上衣 −6/−5  衬衫 −6/−5  衣裳 −5/−4
+    torso / intimate:  衣服 −10/−6  裤子 −9/−4  内衣 −6/−2  内裤 −7/−5
+                       上衣 −6/−5   衬衫 −6/−5  衣裳 −6/−4
 
 **Seven of seven torso and intimate garments fall harder in the female frame,
-sign p = 0.016.** Footwear reverses — 袜子 −1/−4, 靴子 −1/−4, male falling far
-harder. Pooled, the two classes cancel to 11 of 21 and the effect reads as
+sign p = 0.016.** Footwear reverses — 袜子 −2/−5, 靴子 −1/−4, male falling far
+harder. Pooled, the two classes cancel to 10 of 20 and the effect reads as
 chance, which is what the first version of this paragraph reported.
 
 **Declared: the class split was made AFTER seeing footwear behave differently in
