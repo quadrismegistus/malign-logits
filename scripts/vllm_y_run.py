@@ -283,7 +283,7 @@ def run_pair(pair, cfg, args):
 
     #: FIDELITY BEFORE WEIGHTS. Tokenizer-only, so a refusal costs seconds and
     #: not a 15 GB download -- the check pays for itself on the first bad box.
-    prompts = [sl["prompt"] for sl in cfg["prompts"]]
+    prompts = [sl["prompt"] for sl in (pair.get("prompts") or cfg["prompts"])]
     fid = {}
     for role, mid in (("base", b), ("aligned", a)):
         st, loader, detail = fidelity_check(mid, prompts)
@@ -307,7 +307,13 @@ def run_pair(pair, cfg, args):
     for role, mid in (("base", b), ("aligned", a)):
         print("    load %-8s %s" % (role, mid), flush=True)
         llm = build_llm(mid, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args))
-        gens[role] = gen_for(llm, cfg, cfg["prompts"], mid)
+        #: **THE ARMS ARE PER PAIR, NOT PER RUN.** Y's manifest carried one
+        #: global prompt list because every pair saw the same words. The forced
+        #: arms do not: each pair has its own faller, matched and riser per
+        #: prompt, drawn from the frozen table. A pair may therefore carry its
+        #: own `prompts`, and the global list stays the default so every
+        #: existing Y manifest runs byte-identically.
+        gens[role] = gen_for(llm, cfg, pair.get("prompts") or cfg["prompts"], mid)
         if role == "aligned" and pair.get("cross_score"):
             #: aligned is resident; score BOTH arms under it now, then the base
             #: pass below scores both under base. Two loads total, not four.
