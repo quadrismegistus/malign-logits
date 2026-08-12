@@ -30,9 +30,9 @@ signature is distributed and redundant rather than located in any nameable
 word**.
 
 **AND "WORD-LEVEL" IS THE WEAKEST WORD IN THE HEADLINE.** A univariate per-word
-AUC -- one number per (word, in-context tag), computed identically for all 3,977
-features, and the vector that agrees with the axis best at Spearman -0.451 --
-reproduces on LITERARY prompts at only **+0.233**, with 413 genuine sign flips
+AUC -- one number per (word, in-context tag), computed identically for all 4,106
+features, and the vector that agrees with the axis best at Spearman -0.461 --
+reproduces on LITERARY prompts at only **+0.238**, with 423 genuine sign flips
 (`right/noun` runs -0.36 to +0.28). A word's arm-diagnosticity is mostly a
 property of the prompt population, not of the word. That is ICC 0.131 arriving by
 a route that never touches the movement rule, and it bounds how much any
@@ -432,40 +432,54 @@ global fit is unavailable at 15,832 features against 92 models.
 What IS comparable is a univariate statistic computed identically for every
 feature: the per-model share of that model's top-20 slots, then the AUC of that
 one number across the 92 models. Bounded, no penalty, no feature set to be
-relative to. `k_word_auc.py`; `results/k/word_auc_en.tsv`, all 3,977 features
+relative to. `k_word_auc.py`; `results/k/word_auc_en.tsv`, all 4,106 features
 present in at least 20 models, and `word_auc_en_literary.tsv`.
 
-    3,977 features   AUC 0.309 / 0.420 / 0.504 / 0.587 / 0.719   (5,25,50,75,95)
-                     894 (22%) separate the arms by more than 0.15
+    4,106 features   AUC 0.308 / 0.423 / 0.503 / 0.587 / 0.715   (5,25,50,75,95)
+                     900 (22%) separate the arms by more than 0.15
 
     MOST BASE-SIDE          MOST ALIGNED-SIDE
-      back/noun     0.121     provide/verb    0.920
-      all/adverb    0.122     provided/verb   0.906
-      went/verb     0.122     inform/verb     0.901
-      put/verb      0.125     discuss/verb    0.878
-      told/verb     0.134     avoid/verb      0.872
-      threw/verb    0.139     examined/verb   0.867
-      kill/verb     0.140     focus/verb      0.867
-      get/verb      0.142     express/verb    0.866
-      go/verb       0.145     carefully/adv   0.863
-      say/verb      0.153     escalate/verb   0.861
+      went/verb     0.104     provide/verb    0.920
+      told/verb     0.110     provided/verb   0.906
+      kill/verb     0.112     inform/verb     0.901
+      put/verb      0.118     discuss/verb    0.878
+      back/noun     0.121     avoid/verb      0.872
 
-**This is the vector to quote, and it agrees with the axis at Spearman -0.451
-over 1,732 features** -- better than the norms, the coefficients, or anything
+**This is the vector to quote, and it agrees with the axis at Spearman -0.461
+over 1,798 features** -- better than the norms, the coefficients, or anything
 else in this document. The base pole is deixis and bodily action in the past
 tense; the aligned pole is a near-closed class of institutional-procedural
-infinitives. Median |AUC - 0.5| by POS: verb 0.091, adverb 0.093, noun 0.072,
-adjective 0.072.
+infinitives. Median |AUC - 0.5| by POS: verb 0.093, adverb 0.095, noun 0.071,
+adjective 0.071.
+
+RECOMPUTED 2026-08-13 AFTER A DEFECT IN THE INPUT, and the numbers above are the
+corrected ones. `twp_words` sorts on `(model, prompt, word, SOURCE)`, so `FINAL`
+collapses the storage key and leaves the analysis unit: every producer here read
+it raw, a repeated word took two of the twenty slots, and **17.76% of cells held
+fewer than 20 distinct words in their top-20** (mean 17.99, worst cell one word
+in all twenty). It was ARM-LINKED -- base 17.88 distinct against aligned 18.10,
+Mann-Whitney p=0.031 -- so it was a live confound in an arm contrast, and one
+that row-wise compositional normalisation cannot reach because it changes WHICH
+words hold the slots rather than the scale. Docket [5657], [5659].
+
+**The correction moved the numbers and not the conclusion**: old against new is
+Spearman 0.985 over the 3,977 shared features, mean |delta| 0.0136, and the
+top-100 lists overlap 86 and 90 of 100. The agreement with the axis got slightly
+STRONGER, -0.451 to -0.461, which is the direction I declined to predict before
+measuring. The mechanism is legible after the fact: the 16,237 (prompt, word)
+pairs that dedup promoted into the top-20 are **66.5% verbs**, and verbs carry
+the most arm signal of any POS here, so the defect had been diluting the
+strongest part of the vector.
 
 **0.5 IS THE NULL FOR ONE FEATURE AND NOT FOR THE CENTRE OF THE TABLE.** Rows sum
 to 1, so one arm concentrating on a minority of words pushes every other word
 slightly toward the other arm. On the full prompt set that see-saw is quiet
-(median 0.504, arm-flip null 0.504). On LITERARY prompts it is not: median 0.572,
-and the tilt grows with how widely a word is shared (0.536 for features in 20-39
-models, 0.671 for those in 80+). The arm-flip null there is 0.498, so the tilt is
+(median 0.503, arm-flip null 0.507). On LITERARY prompts it is not: median 0.576,
+and the tilt grows with how widely a word is shared (0.532 for features in 20-39
+models, 0.685 for those in 80+). The arm-flip null there is 0.496, so the tilt is
 arm-linked rather than mechanical, and the reason is a single scalar -- per-model
-concentration (row Gini) separates the arms at AUC 0.309 on literary prompts and
-0.771 on the full set. **The direction of that scalar reverses between the two
+concentration (row Gini) separates the arms at AUC 0.288 on literary prompts and
+0.764 on the full set. **The direction of that scalar reverses between the two
 prompt populations**: aligned models are the concentrated ones on designed
 prompts, base models on literary continuations. Where the median is off-centre,
 only the RANKING is quotable.
@@ -480,26 +494,26 @@ times over. What the MULTIVARIATE band sweep buys is the thing a univariate
 cannot -- joint signal, a band classifying at 0.95 whose best single word is 0.62
 -- and that is section 6's claim, which does need the fit.
 
-Sliced (COCA fiction, 3,827 of 3,977 features carry a frequency):
+Sliced (COCA fiction, 3,946 of 4,106 features carry a frequency):
 
-    Spearman(log fpm, AUC)      -0.220     direction: commoner words are base-side
+    Spearman(log fpm, AUC)      -0.228     direction: commoner words are base-side
     Spearman(log fpm, |AUC-c|)  +0.090     strength: flat
 
-    rarest quintile   n=766   median AUC 0.526   median |AUC-c| 0.073
-                        764              0.536                  0.084
-                        766              0.508                  0.080
-                        765              0.489                  0.087
-    commonest         n=766              0.458                  0.092
+    rarest quintile   n=789   median AUC 0.526   median |AUC-c| 0.073
+                        789              0.540                  0.083
+                        789              0.506                  0.081
+                        789              0.490                  0.085
+    commonest         n=790              0.453                  0.093
 
 **Direction carries a weak frequency tilt and strength carries none**: over six
-orders of magnitude the median |AUC - centre| moves 0.073 to 0.092, so
+orders of magnitude the median |AUC - centre| moves 0.073 to 0.093, so
 arm-diagnosticity is available at every frequency, which is why the sweep found
-classifiable bands at rank 3000 as well as rank 50. The -0.220 is the share
+classifiable bands at rank 3000 as well as rank 50. The -0.228 is the share
 frequency already owns -- `go get say know put back` against `escalate prioritize
 reconsider` -- but both poles span the range, `nipples checkbook rupees sterling`
 being rare and base-side, and the same vector agrees with the movement axis at
--0.451, twice the frequency correlation. On LITERARY prompts the tilt vanishes
-(-0.036), as it should if the Latinate-institutional pole carrying it is what
+-0.461, twice the frequency correlation. On LITERARY prompts the tilt vanishes,
+as it should if the Latinate-institutional pole carrying it is what
 those prompts never solicit.
 
 One detail cuts against an artifact reading. Rarer features are measured on fewer
@@ -510,10 +524,10 @@ positive slope is attenuation at the rare end, not inflation.
 
 Read against its own centre, the literary table is a weak echo of the full one.
 
-    shared features                     1,019
-    Spearman(ALL, LITERARY)             +0.233
-    sign agreement about the centre     59.0%
-    genuine sign flips                  301 base->aligned, 112 aligned->base
+    shared features                     1,034
+    Spearman(ALL, LITERARY)             +0.238
+    sign agreement about the centre     59.1%
+    genuine sign flips                  310 base->aligned, 113 aligned->base
 
     HOLDS IN BOTH   base      back/noun, all/adverb, went, told, go, know,
                               first/adj, then/adverb, would, front/noun, was,
@@ -532,7 +546,7 @@ is prompt-population specific. **A word's arm-diagnosticity is not a property of
 the word**, which is the same fact section 2 records as ICC 0.131 and reaches here
 by a route that never touches the movement rule. The literary arm's 97 prompts per
 model against 2,220 make it substantially noisier, and its instability is what
-0.233 measures as much as any real difference; it bounds the agreement from below
+0.238 measures as much as any real difference; it bounds the agreement from below
 rather than estimating it.
 
 ### What this does to the rest of P

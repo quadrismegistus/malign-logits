@@ -85,13 +85,27 @@ def main(lang="en"):
         print("resuming: %d pairs already cached" % len(done))
 
     print("fetching (prompt, word) pairs in any model's top-%d ..." % TOPN, flush=True)
+    #: FINAL AND A COLLAPSE TO (model, prompt, word), because `source` -- the
+    #: ingest batch -- is in the sorting key and `FINAL` therefore leaves the
+    #: analysis unit undeduplicated. Without it a repeated word takes two of the
+    #: twenty slots and the selection is not a top-20 at all: 17.76% of cells
+    #: held fewer than 20 distinct words. See [5657]/[5659].
+    #:
+    #: THE CACHE BUILT BEFORE THIS FIX IS NOT WRONG, IT IS SHORT. Its 365,892
+    #: pairs are all real (prompt, word) pairs and their tags stand; what it
+    #: lacks is the 12,850 pairs that dedup PROMOTES into the top-20. Those are
+    #: exactly the words any re-run needs, so a consumer reading the old cache
+    #: silently drops the words the fix surfaced. Resumability makes this cheap:
+    #: existing pairs are skipped and only the promoted ones are tagged.
     rows = A.q("""
       SELECT prompt, word FROM (
         SELECT prompt, word,
                row_number() OVER (PARTITION BY model, prompt ORDER BY p DESC) rk
-        FROM %s.twp_words
-        WHERE prompt IN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
-                         WHERE status='ACTIVE' AND language='%s'))
+        FROM (SELECT model, prompt, word, avg(p) p
+              FROM %s.twp_words FINAL
+              WHERE prompt IN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                               WHERE status='ACTIVE' AND language='%s')
+              GROUP BY model, prompt, word))
       WHERE rk <= %d
       GROUP BY prompt, word""" % (A.DB, A.DB, lang, TOPN))
     byp = collections.defaultdict(list)

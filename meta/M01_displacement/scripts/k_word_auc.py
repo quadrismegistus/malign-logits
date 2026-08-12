@@ -101,11 +101,32 @@ def main(lang="en"):
     models = "','".join(esc(m) for m in arm)
     sha = lambda s: hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
 
+    #: FINAL **AND** AN EXPLICIT COLLAPSE TO THE ANALYSIS KEY, and the second is
+    #: not implied by the first. `twp_words` sorts on (model, prompt, word,
+    #: SOURCE) where source is the ingest batch, so `FINAL` collapses the storage
+    #: key and leaves the unit: 2,133,004 triples span more than one source and
+    #: 654,206 of those disagree on `p`. A sorting key is a storage decision; an
+    #: analysis key is a claim about the unit, and dedup has to say which it
+    #: collapses to ([5657], [5659]).
+    #:
+    #: WITHOUT THIS THE TOP-20 IS NOT TWENTY WORDS. A repeated word takes two
+    #: slots: raw, 17.76% of cells held fewer than 20 distinct words in their
+    #: top-20, mean 17.99, and one cell had a single word in all twenty. It is
+    #: also ARM-LINKED -- base models averaged 17.88 distinct against aligned
+    #: 18.10, Mann-Whitney p=0.031 -- so it is a confound in any arm contrast and
+    #: one that row-wise compositional normalisation cannot reach, because it
+    #: changes WHICH words hold the slots rather than the scale.
+    #:
+    #: `avg(p)` over re-measurements is DECLARED, not obvious. Mean spread is
+    #: 3.6e-05 so it cannot move a ranking outside ties, but nearly free is not
+    #: free and 654,206 unnamed choices is the shape that keeps costing.
     rows = A.q("""
-      SELECT model, prompt, groupArray(word) ws, groupArray(p) ps
-      FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
-        SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s'%s)
+      SELECT model, prompt, groupArray(word) ws, groupArray(p) ps FROM (
+        SELECT model, prompt, word, avg(p) p
+        FROM %s.twp_words FINAL WHERE model IN ('%s') AND prompt IN (
+          SELECT DISTINCT prompt FROM %s.prompt_catalogue
+          WHERE status='ACTIVE' AND language='%s'%s)
+        GROUP BY model, prompt, word)
       GROUP BY model, prompt""" % (A.DB, models, A.DB, lang,
                                    " AND source='%s'" % SRC if SRC else ""))
     mods = sorted(arm)
