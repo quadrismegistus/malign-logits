@@ -1,0 +1,36 @@
+{
+ "_about": "Population hashes for the passage-corpus spec, with the recipe stated in the producer docstring.",
+ "_producer": "scripts/spec_population_hashes.py",
+ "_recipe": "sha256(\"\\n\".join(sorted(values)))[:16]; keys are pair, prompt, \"pair\\tprompt\", \"pair\\tprompt\\tmatched\"",
+ "_recovered": {
+  "pairs": "reproduces the spec's 8567e0ee993b457b",
+  "prompts": "reproduces the spec's 27484f7ade774b77",
+  "cells": "the spec's afbee1fab7af6941 is NOT reproduced by any of five key formats; count matches at 7,309. Superseded by the value under the stated recipe."
+ },
+ "tables": [
+  {
+   "file": "forced_arms_46reps_v4.json",
+   "file_sha256_16": "7378d52cf3f2acf5",
+   "n_cells": 8169,
+   "n_pairs": 46,
+   "n_prompts": 208,
+   "n_cells_with_matched": 7309,
+   "pairs": "8567e0ee993b457b",
+   "prompts": "27484f7ade774b77",
+   "cells": "aa5389c1420c7f76",
+   "matched": "dae03b19deef587d"
+  },
+  {
+   "file": "forced_arms_46reps_drmatch.json",
+   "file_sha256_16": "89eb642b50d00dd9",
+   "n_cells": 8169,
+   "n_pairs": 46,
+   "n_prompts": 208,
+   "n_cells_with_matched": 7309,
+   "pairs": "8567e0ee993b457b",
+   "prompts": "27484f7ade774b77",
+   "cells": "aa5389c1420c7f76",
+   "matched": "723e81b3946b6d56"
+  }
+ ]
+}
