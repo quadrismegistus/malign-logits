@@ -73,13 +73,27 @@ Split a word's own cells in half and use the fall rate in one half to predict th
 other. That is the best any function of the word alone can reach, since it uses
 the word's identity, which strictly dominates any finite feature set.
 
-    English verbs, 2,760 words, 792,549 scored cells
-      oracle (word identity)          0.7025
-      log p_base alone, same cells    0.5818
-      headroom for any word feature  +0.1207
+    population                  oracle   p_base   HEADROOM     ICC   words
+      all words, all sites      0.7065   0.5755    +0.1311   0.140   6,395
+      verbs, all sites          0.7025   0.5818    +0.1207   0.131   2,760
+      verbs, verb-eliciting     0.6971   0.5792    +0.1178   0.125   2,269
+      Chinese verbs             0.7261   0.6182    +0.1079   0.182     836
 
-    Chinese verbs, 836 words
-      oracle 0.7261, p_base 0.6182, headroom +0.1079
+**THE CEILING IS STABLE ACROSS ALL FOUR**, moving by 0.013 between the widest and
+narrowest, so the "% of the headroom" figures below do not depend on which
+population is used as the denominator. The verb-eliciting row is the one matching
+§8's population; the verbs/all-sites row is the denominator quoted elsewhere in
+this document.
+
+THE SCRIPT WAS NOT DETERMINISTIC UNTIL 2026-08-12 AND THE FIX IS RECORDED HERE
+BECAUSE THESE NUMBERS ARE CITED ELSEWHERE. Two identical invocations returned
+headroom +0.1186 and +0.1174: `words` and the cells inside each word were built
+by insertion from a ClickHouse result set with no ORDER BY, and the site key used
+`hash()` on strings, which Python randomises per process. A fixed seed does not
+make a run reproducible when the data order is not fixed. Both levels are sorted
+now and repeated runs agree exactly; the deterministic recomputation reproduces
+the previously committed English and Chinese values to four decimals, so nothing
+downstream moves.
 
 **The eighteen rated norms buy about 7% of that headroom.** And the ceiling is
 itself low: ICC(1) = 0.131 in English, 0.182 in Chinese, so **82-87% of the

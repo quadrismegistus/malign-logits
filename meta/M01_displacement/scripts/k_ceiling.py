@@ -55,7 +55,16 @@ MIN_CELLS = 10      #: a word needs this many movers before a split half means a
 MIN_SITE = 4
 
 
-def fetch(lang):
+def fetch(lang, pairs=False):
+    """`pairs=True` restricts to the verb-eliciting M01 minimal pairs.
+
+    The headroom this script measures is the denominator for every "% of the
+    headroom recovered" figure in P, and those were all computed over every
+    ACTIVE prompt -- including noun-eliciting sites where a verb in the top-50 is
+    a long shot. If the ceiling differs on the restricted population, the
+    headline 21%-vs-7% differs with it, so the denominator has to be available on
+    both populations rather than assumed stable.
+    """
     esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
     ep = " OR ".join("(m.base='%s' AND m.aligned='%s')" % (esc(b), esc(a))
                      for b, a in KP.reps(lang))
@@ -69,15 +78,17 @@ def fetch(lang):
                              ORDER BY m.p_aligned DESC) ra
         FROM %s.movement m
         INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
-                    WHERE status='ACTIVE' AND language='%s') p ON m.prompt=p.prompt
+                    WHERE status='ACTIVE' AND language='%s'%s) p ON m.prompt=p.prompt
         WHERE m.rule='canonical' AND (%s))
-      WHERE (rb<=50 OR ra<=50) AND cls IN ('fall','rise')""" % (A.DB, A.DB, lang, ep))
+      WHERE (rb<=50 OR ra<=50) AND cls IN ('fall','rise')"""
+               % (A.DB, A.DB, lang,
+                  " AND pair_role IN ('MARKED','UNMARKED')" if pairs else "", ep))
 
 
 def main(lang):
     from sklearn.metrics import roc_auc_score
     rng = np.random.default_rng(SEED)
-    rows = fetch(lang)
+    rows = fetch(lang, "--pairs" in sys.argv)
     verbs = None
     if "--verbs" in sys.argv:
         #: the same restriction k_predict uses, so the two are comparable
@@ -101,8 +112,12 @@ def main(lang):
     for r in rows:
         if verbs is not None and r["word"] not in verbs:
             continue
-        byw[r["word"]].append((1 if r["cls"] == "fall" else 0,
-                               hash((r["prompt"], r["base"], r["aligned"])),
+        #: THE SITE KEY IS A STRING, NOT hash(). Python randomises string
+        #: hashing per process, so hash((prompt, base, aligned)) differs between
+        #: runs; grouping by it is fine WITHIN a run but it cannot be used as a
+        #: sort key, and it was one.
+        byw[r["word"]].append(("%s\x00%s\x00%s" % (r["prompt"], r["base"], r["aligned"]),
+                               1 if r["cls"] == "fall" else 0,
                                math.log10(r["p_base"]) if r["p_base"] > 0 else -9.0))
     words = {w: v for w, v in byw.items() if len(v) >= MIN_CELLS}
     print("\n[%s]%s %s mover cells | %d words | %d words with >=%d cells"
@@ -113,17 +128,28 @@ def main(lang):
     #: log p_base is carried through so the nuisance model can be scored on
     #: EXACTLY the same cells -- comparing the oracle here against k_predict's
     #: nuisance AUC over there would be two populations and two splits.
+    #: SORTED, BECAUSE THE SEED ALONE DOES NOT MAKE THIS DETERMINISTIC. `words`
+    #: is built by insertion from the ClickHouse result set, and that query has
+    #: no ORDER BY, so row order can differ between runs. The rng then draws its
+    #: permutations against a different word order and the split changes. Two
+    #: identical invocations returned headroom +0.1186 and +0.1174 before this
+    #: line existed -- a 0.0012 spread that is a useful resolution figure and a
+    #: bad property for a number other documents cite.
     y, pred, site, pb, kept = [], [], [], [], 0
-    for w, v in words.items():
+    for w in sorted(words):
+        #: SORTED WITHIN THE WORD TOO. Sorting only the words left the CELLS in
+        #: result-set order, so the permutation still landed differently between
+        #: runs. Both levels have to be fixed.
+        v = sorted(words[w])
         idx = rng.permutation(len(v))
         h = len(v) // 2
-        rate = float(np.mean([v[i][0] for i in idx[:h]]))
+        rate = float(np.mean([v[i][1] for i in idx[:h]]))
         kept += 1
         for i in idx[h:]:
-            lab, s, lp = v[i]
+            s, lab, lp = v[i]
             y.append(lab); pred.append(rate); site.append(s); pb.append(lp)
     y = np.array(y); pred = np.array(pred)
-    site = np.array(site); pb = np.array(pb)
+    site = np.array(site, dtype=object); pb = np.array(pb)
     print("  oracle scored on %s held-out cells from %d words" % (f"{len(y):,}", kept))
 
     auc = roc_auc_score(y, pred)
@@ -170,8 +196,13 @@ def main(lang):
            "headroom": float(auc - auc_pb),
            "oracle_per_site_auc": float(np.mean(ps)) if ps else None,
            "n_sites": len(ps), "icc": float(icc), "fall_rate": float(y.mean())}
-    p = os.path.join(ROOT, "meta/M01_displacement/results/k/ceiling_%s%s.json"
-                     % (lang, "_verbs" if verbs is not None else ""))
+    #: THE SUFFIX MUST CARRY EVERY FLAG THAT CHANGES THE POPULATION. An earlier
+    #: version encoded --verbs and not --pairs, so a pairs run silently
+    #: overwrote the unrestricted file with different numbers under the same
+    #: name. It was caught only because this script prints the path it wrote.
+    p = os.path.join(ROOT, "meta/M01_displacement/results/k/ceiling_%s%s%s.json"
+                     % (lang, "_verbs" if verbs is not None else "",
+                        "_pairs" if "--pairs" in sys.argv else ""))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
