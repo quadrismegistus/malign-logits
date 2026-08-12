@@ -1,8 +1,20 @@
 {
  "_about": "Authoritative file per pair-stem. Empty stubs excluded; two non-empty files for one stem is a hard error, not a preference.",
+ "_dedup_key": "(pair, role, prompt_id, word)",
+ "_dedup_note": "Files in dedup_required hold EXACT duplicate rows and must be collapsed on the dedup key at ingest.",
+ "dedup_required": {
+  "HuggingFaceTB__SmolLM2-360M": {
+   "rows": 3688,
+   "distinct": 1844,
+   "dup_rows": 1844,
+   "multiplicity": {
+    "2": 1844
+   }
+  }
+ },
  "_producer": "scripts/passage_reconcile.py --ingest-manifest",
- "n_pairs": 40,
- "n_empty_stubs_skipped": 13,
+ "n_pairs": 42,
+ "n_empty_stubs_skipped": 12,
  "paths": {
   "HuggingFaceTB__SmolLM3-3B-Base": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box0b/y__HuggingFaceTB__SmolLM3-3B-Base.jsonl",
   "LLM360__Amber": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box0b/y__LLM360__Amber.jsonl",
@@ -24,6 +36,7 @@
   "EleutherAI__pythia-6.9b": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__EleutherAI__pythia-6.9b.jsonl",
   "Qwen__Qwen3-8B-Base": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__Qwen__Qwen3-8B-Base.jsonl",
   "allenai__Olmo-3-1025-7B": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__allenai__Olmo-3-1025-7B.jsonl",
+  "google__recurrentgemma-9b": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__google__recurrentgemma-9b.jsonl",
   "HuggingFaceTB__SmolLM2-360M": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__HuggingFaceTB__SmolLM2-360M.jsonl",
   "huggyllama__llama-7b": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__huggyllama__llama-7b.jsonl",
   "llm-jp__llm-jp-3-7.2b": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__llm-jp__llm-jp-3-7.2b.jsonl",
@@ -40,6 +53,7 @@
   "zai-org__glm-4-9b-hf": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box7/y__zai-org__glm-4-9b-hf.jsonl",
   "kakaocorp__kanana-2-3b-base": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxkanana/y__kakaocorp__kanana-2-3b-base.jsonl",
   "inceptionai__jais-family-6p7b": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrecjais/y__inceptionai__jais-family-6p7b.jsonl",
+  "deepseek-ai__deepseek-llm-7b-base": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrecvocab/y__deepseek-ai__deepseek-llm-7b-base.jsonl",
   "m-a-p__CT-LLM-Base": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrecvocab/y__m-a-p__CT-LLM-Base.jsonl",
   "openGPT-X__Teuken-7B-base-v0.6": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrecvocab/y__openGPT-X__Teuken-7B-base-v0.6.jsonl",
   "BAAI__Aquila2-7B": "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrescue3/y__BAAI__Aquila2-7B.jsonl",
@@ -50,14 +64,13 @@
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box0b/y__m-a-p__CT-LLM-Base.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box1/y__inceptionai__jais-family-6p7b.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box2/y__deepseek-ai__deepseek-llm-7b-base.jsonl",
-  "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__google__recurrentgemma-9b.jsonl",
+  "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box3/y__kakaocorp__kanana-2-3b-base.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__RWKV__rwkv-4-7b-pile.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__allenai__Olmo-Hybrid-7B.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box4/y__openGPT-X__Teuken-7B-base-v0.6.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box5/y__Aleph-Alpha__Pharia-1-LLM-7B-control-hf.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box5/y__BAAI__Aquila2-7B.jsonl",
   "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box5/y__baichuan-inc__Baichuan2-7B-Base.jsonl",
-  "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box5/y__openGPT-X__Teuken-7B-base-v0.6.jsonl",
-  "/Users/rj416/github/malign-logits/data/raw/passage_corpus/boxrecvocab/y__deepseek-ai__deepseek-llm-7b-base.jsonl"
+  "/Users/rj416/github/malign-logits/data/raw/passage_corpus/box5/y__openGPT-X__Teuken-7B-base-v0.6.jsonl"
  ]
 }
