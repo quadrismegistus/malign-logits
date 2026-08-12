@@ -150,4 +150,14 @@ only because it happened to un-parse: the dangerous version still
 parses; and [5616]'s relay clause: do-not-relay covers FACTS ABOUT OTHER
 SEATS' ENVIRONMENTS — write "both seats report it absent", never the
 merged flat assertion, because a relayed fact with its provenance
-stripped fails invisibly, and the receiving seat never observed it).
+stripped fails invisibly, and the receiving seat never observed it). And the
+UNDECLARED-PROPERTY clause ([5639]/[5640], two instances in one exchange):
+a design may not rely on a property of the current data that nobody
+declared — the passage ORDER BY key was collision-safe only because no
+checkpoint sits in two pairs (true, measured at [5640], never previously
+written down, and false the day tulu and tulu-no-safety enter one
+passage-style corpus), and the prompt-id split was safe only because no
+pair name contains '|' — so either DECLARE the property and ASSERT it in
+code, or prefer the operation that cannot break over the one that happens
+not to (malign's form, [5640] §4); kin to pin-the-content-not-the-envelope
+and gate-on-the-number.
