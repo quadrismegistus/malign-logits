@@ -339,7 +339,18 @@ def run_pair(pair, cfg, args):
     import torch
     b, a = pair["base"], pair["aligned"]
     path = os.path.join(args.out, "y__%s.jsonl" % b.replace("/", "__"))
-    if os.path.exists(path) and sum(1 for _ in open(path)) >= 2 * cfg["units_per_model"]:
+    #: **PER-PAIR, NOT PER-MANIFEST.** This compared a single pair's row count
+    #: against `units_per_model` for the WHOLE box, a threshold it can never
+    #: reach, so no pair was ever skipped and every restart redid finished work
+    #: -- 247 MB and about an hour for box4's SmolLM2 pair alone. The rescue of
+    #: two failed pairs would have cost more than the failures did.
+    #:
+    #: A pair is done when its file holds a row per (role, arm-cell): 2 roles
+    #: times this pair's own cells. Restarts are now idempotent, which is what
+    #: makes retrying a failure cheap enough to be worth doing.
+    _expect = 2 * sum(len(sl["cells"])
+                      for sl in (pair.get("prompts") or cfg["prompts"]))
+    if os.path.exists(path) and sum(1 for _ in open(path)) >= _expect:
         print("  COMPLETE, skipping %s" % b, flush=True)
         return True
 

@@ -10,8 +10,8 @@
                 cells 8,169 aa5389c1420c7f76
                 matched     723e81b3946b6d56
 
-    COLLECTED THIS RUN   45 pairs   1,298,080 sequences
-    NOT COLLECTED         1 pair        8,960 sequences   (0.7%)
+    COLLECTED THIS RUN   44 pairs   (see §1, §1b)
+    NOT COLLECTED         2 pairs   Zamba2 (cost), RWKV (engine)
 
 Same discipline as the spec's existing named deviations (46-not-52, 208-not-212): the population is what it is, and what was not collected is named with its reason rather than quietly absent.
 
@@ -42,6 +42,23 @@ Three named requirements, each individually satisfiable, **never yet tried toget
 **The cost fact.** Satisfying all three means a dedicated environment box for **1 pair, 8,960 sequences, 0.7% of the corpus**, against a **$21 total contingency** (vast credit $125 against a $104 run). `scripts/build_fleet.py`'s own header records a fleet that "pulled 15 GB of Zamba2 and failed on a kernel it did not have".
 
 **This amendment does not say the pair cannot be collected.** It says it is not collected at this price, and it records the full recipe so that when spending resumes the pair is a known small purchase and not an archaeology project.
+
+## 1b. A SECOND EXCLUSION, FOUND BY RUNNING RATHER THAN BY READING
+
+**`RWKV/rwkv-4-7b-pile > rwkv-raven-7b` — EXCLUDED, ENGINE INCOMPATIBILITY.** Added 2026-08-12 during the run, on RH's word.
+
+    vLLM 0.27.1: "Model architectures ['RwkvForCausalLM'] are not supported
+    for now." A ValidationError at ModelConfig, before any weights load.
+
+Not a dtype, a pin, a card or a tokenizer. **vLLM has no RWKV implementation**, so this pair cannot be collected by this runner at any price — the first exclusion in this document that is a capability fact rather than a cost one. `docs/local_capability.md` records both arms running fine on MPS under plain transformers, which is the whole distinction: the checkpoints work, the ENGINE cannot host them.
+
+**No preflight would have caught it.** `model_load_environments.json` records RWKV as loading (it does, under transformers), the fidelity guard passes (the tokenizer is fine), and `build_fleet` routed it correctly. The incompatibility exists only between this architecture and this engine, and nothing in the campaign's records is keyed that way. It surfaced as a `FAILED.jsonl` row on box4 forty minutes into the run.
+
+**Collected population is therefore 44 pairs, not 45.** Wilcoxon P 45 -> 44; SEs scale by sqrt(45/44); position profile ~2.98 -> ~2.95, four-term ~2.44 -> ~2.41. Both still clear.
+
+    RECORDED FOR WHOEVER REVISITS IT: the pair is collectable by the
+    HuggingFace path (`generate()` rather than vLLM), which this runner does
+    not implement. That is a different instrument, not a bigger box.
 
 ## 2. TWO PAIRS I PROPOSED EXCLUDING AND WAS WRONG ABOUT
 
