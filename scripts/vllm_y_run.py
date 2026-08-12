@@ -108,8 +108,27 @@ def build_llm(model, args, gpu_frac):
                trust_remote_code=True, enforce_eager=args.eager)
 
 
-def gen_for(llm, cfg, cells, seed_salt):
-    """34 units for one checkpoint. Returns {(prompt_id, word): [seqs]}."""
+def gen_for(llm, cfg, cells, seed_salt, chunk=256):
+    """All arm-cells for one checkpoint. Returns {(prompt_id, word): [seqs]}.
+
+    **BATCHED, AND THE UNBATCHED VERSION IS WHY THIS RUN WAS STOPPED AND
+    RESTARTED.** The first fleet issued ONE `llm.generate([text], sp)` per
+    arm-cell -- a single prompt with n=16. Measured on box0: 16 sequences per
+    ~10 s, i.e. **1.6 seq/s against Y's 33.8**, which projected the run to
+    21-27 hours and $121-151 against $127.67 of credit. vLLM's throughput comes
+    from hundreds of concurrent sequences; a batch of 16 leaves the scheduler
+    idle between steps, and the GPU reads 100% utilised the whole time -- the
+    gauge naming its own saturation and not its usefulness.
+
+    Submitting every arm-cell at once lets vLLM's continuous batching do the
+    work it exists for. `chunk` bounds HOST memory only (256 cells x 16 samples
+    = 4,096 concurrent sequences), not the batch vLLM forms.
+
+    **PER-CELL SEEDS SURVIVE.** `generate()` takes a LIST of SamplingParams
+    aligned to the prompts, so every cell keeps the seed it had before --
+    identical draws to the unbatched path, which is what makes this a
+    throughput fix and not a change to what is generated.
+    """
     from vllm import SamplingParams
     tok = llm.get_tokenizer()
     out = {}
@@ -119,35 +138,39 @@ def gen_for(llm, cfg, cells, seed_salt):
     #: beside the string, and `deepseek`/`croissant`/`Teuken` mangle prompts in
     #: the TOKENIZER. Irrecoverable once the checkpoints are gone.
     _bare = {}
+    reqs = []
     for slot in cells:
         pid = slot["prompt_id"]
         if pid not in _bare:
             _bare[pid] = len(tok.encode(slot["prompt"]))
         for c in slot["cells"]:
             w = c.get("word")
-            text = slot["prompt"] + ((" " + w) if w else "")
-            sp = SamplingParams(n=cfg["n_samples"], temperature=cfg["temp"],
-                                top_p=1.0, max_tokens=cfg["max_tokens"],
-                                seed=abs(hash((seed_salt, slot["prompt_id"], w or ""))) % (2 ** 31))
-            o = llm.generate([text], sp)[0]
+            reqs.append((slot, w, slot["prompt"] + ((" " + w) if w else ""),
+                         SamplingParams(
+                             n=cfg["n_samples"], temperature=cfg["temp"],
+                             top_p=1.0, max_tokens=cfg["max_tokens"],
+                             seed=abs(hash((seed_salt, pid, w or ""))) % (2 ** 31))))
+    print("      %d arm-cells -> %d sequences, batched %d per call"
+          % (len(reqs), len(reqs) * cfg["n_samples"], chunk), flush=True)
+    done = 0
+    for i in range(0, len(reqs), chunk):
+        part = reqs[i:i + chunk]
+        outs = llm.generate([r[2] for r in part], [r[3] for r in part])
+        for (slot, w, _t, _sp), o in zip(part, outs):
             plen = len(o.prompt_token_ids)
-            seqs = []
-            for s in o.outputs:
-                g = list(s.token_ids)
-                seqs.append({"full_ids": list(o.prompt_token_ids) + g,
-                             "tokens": g, "plen": plen, "text": s.text})
-            #: TWO records, because they answer different questions: what the
-            #: word encodes to on its own, and how many tokens it actually added
-            #: HERE (a merge with preceding context shows up only in the second).
             wrec = {"word": w,
                     "word_ids": (list(tok.encode(" " + w)) if w else []),
                     "word_ntok_in_context": (plen - _bare[slot["prompt_id"]]) if w else 0,
                     "prompt_plen_bare": _bare[slot["prompt_id"]]}
-            for sq in seqs:
-                sq["word_enc"] = wrec
+            seqs = []
+            for sq in o.outputs:
+                g = list(sq.token_ids)
+                seqs.append({"full_ids": list(o.prompt_token_ids) + g,
+                             "tokens": g, "plen": plen, "text": sq.text,
+                             "word_enc": wrec})
             out[(slot["prompt_id"], w or "")] = seqs
-            print("      %-20s %-12s %d seqs" % (slot["prompt_id"], w or "(undist)", len(seqs)),
-                  flush=True)
+        done += len(part)
+        print("      generated %d/%d arm-cells" % (done, len(reqs)), flush=True)
     return out
 
 
@@ -220,6 +243,37 @@ def free_llm(llm, torch, gc):
     gc.collect()
     torch.cuda.empty_cache()
     torch.cuda.synchronize()
+
+
+def score_all(llm, gens, field, chunk=4096):
+    """Cross-score EVERY sequence in `gens` under one resident model.
+
+    **THE SECOND HALF OF THE SAME THROUGHPUT DEFECT.** `score_under` is correct
+    but was called once per arm-cell, so teacher-forcing also ran 16 sequences
+    at a time. Cross-scoring is two full passes over the corpus, so at that
+    granularity it costs more than generation does. Flattening across arm-cells
+    lets vLLM schedule thousands of forced sequences at once.
+
+    The per-sequence alignment contract from `score_under` is preserved
+    exactly: a sequence the scorer cannot embed gets None and is never
+    reassigned, and every cell keeps its full sequence list.
+    """
+    flat = [(src, k, s) for src in gens for k, seqs in gens[src].items()
+            for s in seqs]
+    if not flat:
+        return 0
+    print("      cross-scoring %d sequences under %s, %d per call"
+          % (len(flat), field, chunk), flush=True)
+    dropped = 0
+    for i in range(0, len(flat), chunk):
+        part = flat[i:i + chunk]
+        rows, dr = score_under(llm, [x[2] for x in part])
+        dropped += dr
+        for (_src, _k, sq), r in zip(part, rows):
+            sq[field] = r
+        print("      scored %d/%d" % (min(i + chunk, len(flat)), len(flat)),
+              flush=True)
+    return dropped
 
 
 def fidelity_check(mid, prompts):
@@ -317,18 +371,11 @@ def run_pair(pair, cfg, args):
         if role == "aligned" and pair.get("cross_score"):
             #: aligned is resident; score BOTH arms under it now, then the base
             #: pass below scores both under base. Two loads total, not four.
-            for src in ("base", "aligned"):
-                for k, seqs in gens[src].items():
-                    rows, dr = score_under(llm, seqs)
-                    gens[src][k] = [dict(s, scored_by_aligned=r)
-                                    for s, r in zip(seqs, rows)] or seqs
+            score_all(llm, gens, "scored_by_aligned")
         free_llm(llm, torch, gc)
     if pair.get("cross_score"):
         llm = build_llm(b, args, size_frac(pair.get("pair_gb_fp16", 28.0) / 2.0, args))
-        for src in ("base", "aligned"):
-            for k, seqs in gens[src].items():
-                rows, dr = score_under(llm, seqs)
-                gens[src][k] = [dict(s, scored_by_base=r) for s, r in zip(seqs, rows)] or seqs
+        score_all(llm, gens, "scored_by_base")
         free_llm(llm, torch, gc)
     for role in ("base", "aligned"):
         for (pid, w), seqs in gens[role].items():
