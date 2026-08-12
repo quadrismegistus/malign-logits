@@ -127,4 +127,11 @@ lacan's namespace diagnosis [5608] — three eight-hex false positives, one
 of them the freeze receipt itself, where the invited "repair" would have
 swapped a content pin that survives a rebuild for a commit hash that does
 not; malign's verified acceptance and the truncated-path grep lesson
-[5609]: search the checker's own path field, never a retyped one).
+[5609]: search the checker's own path field, never a retyped one; and
+[5613], the third same-day defect of one shape: in all three the
+machine-generated value was fine and the hand-built text channel was not
+— an unquoted heredoc executed markdown backticks and deleted two paths
+while displaying the hash correctly, so post bodies travel by FILE, never
+by interpolating heredoc, and a deletion is the benign end of the class
+only because it happened to un-parse: the dangerous version still
+parses).
