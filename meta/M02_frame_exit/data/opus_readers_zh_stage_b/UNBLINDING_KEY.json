@@ -1,0 +1,6409 @@
+{
+ "seed": 20260813,
+ "window_chars": 100,
+ "n": 800,
+ "stage": "B",
+ "excludes": "stage-A 800 by (model,prompt,sample_idx)",
+ "key": {
+  "30000": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 7
+  },
+  "30001": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 18
+  },
+  "30002": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 5
+  },
+  "30003": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 16
+  },
+  "30004": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 13
+  },
+  "30005": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 9
+  },
+  "30006": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 18
+  },
+  "30007": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 3
+  },
+  "30008": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 5
+  },
+  "30009": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 19
+  },
+  "30010": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 0
+  },
+  "30011": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30012": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30013": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 12
+  },
+  "30014": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30015": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 16
+  },
+  "30016": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30017": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 18
+  },
+  "30018": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 8
+  },
+  "30019": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 1
+  },
+  "30020": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 12
+  },
+  "30021": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 15
+  },
+  "30022": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 0
+  },
+  "30023": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 10
+  },
+  "30024": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 19
+  },
+  "30025": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 8
+  },
+  "30026": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 2
+  },
+  "30027": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 11
+  },
+  "30028": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 3
+  },
+  "30029": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 1
+  },
+  "30030": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 9
+  },
+  "30031": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30032": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 1
+  },
+  "30033": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 14
+  },
+  "30034": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 12
+  },
+  "30035": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 7
+  },
+  "30036": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 3
+  },
+  "30037": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 5
+  },
+  "30038": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 4
+  },
+  "30039": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 8
+  },
+  "30040": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 17
+  },
+  "30041": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 0
+  },
+  "30042": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 13
+  },
+  "30043": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 12
+  },
+  "30044": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 0
+  },
+  "30045": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 18
+  },
+  "30046": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 3
+  },
+  "30047": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 13
+  },
+  "30048": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 7
+  },
+  "30049": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 6
+  },
+  "30050": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 4
+  },
+  "30051": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 11
+  },
+  "30052": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 10
+  },
+  "30053": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 16
+  },
+  "30054": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 3
+  },
+  "30055": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 14
+  },
+  "30056": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 10
+  },
+  "30057": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30058": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 2
+  },
+  "30059": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 7
+  },
+  "30060": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 11
+  },
+  "30061": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 13
+  },
+  "30062": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 0
+  },
+  "30063": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 7
+  },
+  "30064": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 1
+  },
+  "30065": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 9
+  },
+  "30066": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 7
+  },
+  "30067": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 12
+  },
+  "30068": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 11
+  },
+  "30069": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 9
+  },
+  "30070": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 2
+  },
+  "30071": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 15
+  },
+  "30072": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 13
+  },
+  "30073": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 13
+  },
+  "30074": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 6
+  },
+  "30075": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 15
+  },
+  "30076": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 10
+  },
+  "30077": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 1
+  },
+  "30078": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 19
+  },
+  "30079": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 16
+  },
+  "30080": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 4
+  },
+  "30081": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30082": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 7
+  },
+  "30083": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 16
+  },
+  "30084": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 4
+  },
+  "30085": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 7
+  },
+  "30086": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 9
+  },
+  "30087": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 15
+  },
+  "30088": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 12
+  },
+  "30089": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 7
+  },
+  "30090": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 13
+  },
+  "30091": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 13
+  },
+  "30092": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 6
+  },
+  "30093": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 0
+  },
+  "30094": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 8
+  },
+  "30095": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 8
+  },
+  "30096": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 17
+  },
+  "30097": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 11
+  },
+  "30098": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 5
+  },
+  "30099": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30100": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 13
+  },
+  "30101": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 10
+  },
+  "30102": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 17
+  },
+  "30103": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 12
+  },
+  "30104": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 11
+  },
+  "30105": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 8
+  },
+  "30106": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 2
+  },
+  "30107": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 9
+  },
+  "30108": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 1
+  },
+  "30109": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30110": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 9
+  },
+  "30111": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 13
+  },
+  "30112": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 15
+  },
+  "30113": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 7
+  },
+  "30114": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 13
+  },
+  "30115": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 9
+  },
+  "30116": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30117": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 8
+  },
+  "30118": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 19
+  },
+  "30119": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 0
+  },
+  "30120": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 12
+  },
+  "30121": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 2
+  },
+  "30122": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 17
+  },
+  "30123": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 3
+  },
+  "30124": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 6
+  },
+  "30125": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 11
+  },
+  "30126": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 19
+  },
+  "30127": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 9
+  },
+  "30128": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 3
+  },
+  "30129": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 2
+  },
+  "30130": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 10
+  },
+  "30131": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 8
+  },
+  "30132": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 10
+  },
+  "30133": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 11
+  },
+  "30134": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 6
+  },
+  "30135": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 10
+  },
+  "30136": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 10
+  },
+  "30137": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 15
+  },
+  "30138": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 3
+  },
+  "30139": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 9
+  },
+  "30140": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 18
+  },
+  "30141": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 1
+  },
+  "30142": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 0
+  },
+  "30143": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 4
+  },
+  "30144": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 12
+  },
+  "30145": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 5
+  },
+  "30146": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 8
+  },
+  "30147": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 1
+  },
+  "30148": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 16
+  },
+  "30149": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 8
+  },
+  "30150": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 4
+  },
+  "30151": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 3
+  },
+  "30152": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 2
+  },
+  "30153": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 16
+  },
+  "30154": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 14
+  },
+  "30155": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 6
+  },
+  "30156": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 10
+  },
+  "30157": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30158": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 2
+  },
+  "30159": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 0
+  },
+  "30160": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 9
+  },
+  "30161": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 19
+  },
+  "30162": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 5
+  },
+  "30163": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 18
+  },
+  "30164": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 10
+  },
+  "30165": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 11
+  },
+  "30166": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 19
+  },
+  "30167": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 0
+  },
+  "30168": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 7
+  },
+  "30169": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 7
+  },
+  "30170": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30171": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 4
+  },
+  "30172": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 11
+  },
+  "30173": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 19
+  },
+  "30174": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 5
+  },
+  "30175": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 4
+  },
+  "30176": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 7
+  },
+  "30177": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30178": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 16
+  },
+  "30179": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30180": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 10
+  },
+  "30181": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 6
+  },
+  "30182": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 4
+  },
+  "30183": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30184": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 9
+  },
+  "30185": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 3
+  },
+  "30186": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 12
+  },
+  "30187": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 0
+  },
+  "30188": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 5
+  },
+  "30189": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 16
+  },
+  "30190": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 19
+  },
+  "30191": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 16
+  },
+  "30192": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 8
+  },
+  "30193": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30194": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 14
+  },
+  "30195": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 2
+  },
+  "30196": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 11
+  },
+  "30197": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30198": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 3
+  },
+  "30199": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 15
+  },
+  "30200": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 3
+  },
+  "30201": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 1
+  },
+  "30202": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 3
+  },
+  "30203": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 1
+  },
+  "30204": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 6
+  },
+  "30205": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 19
+  },
+  "30206": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 8
+  },
+  "30207": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 16
+  },
+  "30208": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 3
+  },
+  "30209": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 19
+  },
+  "30210": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 7
+  },
+  "30211": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 11
+  },
+  "30212": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 7
+  },
+  "30213": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30214": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 14
+  },
+  "30215": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 0
+  },
+  "30216": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 9
+  },
+  "30217": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30218": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 2
+  },
+  "30219": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 1
+  },
+  "30220": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 0
+  },
+  "30221": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 4
+  },
+  "30222": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 10
+  },
+  "30223": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 1
+  },
+  "30224": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 15
+  },
+  "30225": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 2
+  },
+  "30226": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 11
+  },
+  "30227": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 7
+  },
+  "30228": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 16
+  },
+  "30229": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 9
+  },
+  "30230": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 10
+  },
+  "30231": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 17
+  },
+  "30232": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30233": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 15
+  },
+  "30234": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 11
+  },
+  "30235": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 9
+  },
+  "30236": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 19
+  },
+  "30237": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 18
+  },
+  "30238": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 15
+  },
+  "30239": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 5
+  },
+  "30240": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 9
+  },
+  "30241": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 5
+  },
+  "30242": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 8
+  },
+  "30243": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 0
+  },
+  "30244": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 19
+  },
+  "30245": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 3
+  },
+  "30246": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 16
+  },
+  "30247": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 14
+  },
+  "30248": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 14
+  },
+  "30249": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 19
+  },
+  "30250": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30251": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 17
+  },
+  "30252": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 8
+  },
+  "30253": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 0
+  },
+  "30254": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 14
+  },
+  "30255": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 4
+  },
+  "30256": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 13
+  },
+  "30257": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 14
+  },
+  "30258": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 10
+  },
+  "30259": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 3
+  },
+  "30260": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 2
+  },
+  "30261": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 13
+  },
+  "30262": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 6
+  },
+  "30263": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 18
+  },
+  "30264": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 5
+  },
+  "30265": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 8
+  },
+  "30266": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 7
+  },
+  "30267": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 14
+  },
+  "30268": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 19
+  },
+  "30269": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 18
+  },
+  "30270": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 15
+  },
+  "30271": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 8
+  },
+  "30272": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 12
+  },
+  "30273": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 19
+  },
+  "30274": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 11
+  },
+  "30275": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 14
+  },
+  "30276": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 18
+  },
+  "30277": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 12
+  },
+  "30278": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 7
+  },
+  "30279": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 2
+  },
+  "30280": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 8
+  },
+  "30281": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 4
+  },
+  "30282": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 16
+  },
+  "30283": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 3
+  },
+  "30284": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 3
+  },
+  "30285": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 15
+  },
+  "30286": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 15
+  },
+  "30287": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 11
+  },
+  "30288": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 10
+  },
+  "30289": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 8
+  },
+  "30290": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 5
+  },
+  "30291": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 16
+  },
+  "30292": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 6
+  },
+  "30293": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 15
+  },
+  "30294": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 9
+  },
+  "30295": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 8
+  },
+  "30296": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 11
+  },
+  "30297": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 14
+  },
+  "30298": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 14
+  },
+  "30299": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 12
+  },
+  "30300": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 8
+  },
+  "30301": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 18
+  },
+  "30302": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 19
+  },
+  "30303": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 17
+  },
+  "30304": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 17
+  },
+  "30305": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 12
+  },
+  "30306": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 16
+  },
+  "30307": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30308": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 4
+  },
+  "30309": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 19
+  },
+  "30310": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 6
+  },
+  "30311": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 7
+  },
+  "30312": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 2
+  },
+  "30313": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 2
+  },
+  "30314": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 8
+  },
+  "30315": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 16
+  },
+  "30316": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 18
+  },
+  "30317": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 4
+  },
+  "30318": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 1
+  },
+  "30319": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 15
+  },
+  "30320": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 3
+  },
+  "30321": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 0
+  },
+  "30322": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 6
+  },
+  "30323": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 15
+  },
+  "30324": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 8
+  },
+  "30325": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 5
+  },
+  "30326": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 9
+  },
+  "30327": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 7
+  },
+  "30328": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 0
+  },
+  "30329": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 9
+  },
+  "30330": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 1
+  },
+  "30331": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 18
+  },
+  "30332": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 6
+  },
+  "30333": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 7
+  },
+  "30334": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 18
+  },
+  "30335": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 15
+  },
+  "30336": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 1
+  },
+  "30337": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 9
+  },
+  "30338": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 12
+  },
+  "30339": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 13
+  },
+  "30340": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 15
+  },
+  "30341": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 2
+  },
+  "30342": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 3
+  },
+  "30343": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 4
+  },
+  "30344": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 11
+  },
+  "30345": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 9
+  },
+  "30346": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30347": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 3
+  },
+  "30348": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 14
+  },
+  "30349": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 13
+  },
+  "30350": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 7
+  },
+  "30351": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 7
+  },
+  "30352": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 12
+  },
+  "30353": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 12
+  },
+  "30354": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 16
+  },
+  "30355": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 8
+  },
+  "30356": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 7
+  },
+  "30357": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 17
+  },
+  "30358": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 13
+  },
+  "30359": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 11
+  },
+  "30360": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 16
+  },
+  "30361": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 6
+  },
+  "30362": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 2
+  },
+  "30363": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30364": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 11
+  },
+  "30365": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 11
+  },
+  "30366": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 7
+  },
+  "30367": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 9
+  },
+  "30368": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 7
+  },
+  "30369": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 10
+  },
+  "30370": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 10
+  },
+  "30371": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 19
+  },
+  "30372": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 13
+  },
+  "30373": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 8
+  },
+  "30374": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 14
+  },
+  "30375": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 9
+  },
+  "30376": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 1
+  },
+  "30377": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 17
+  },
+  "30378": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 3
+  },
+  "30379": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 8
+  },
+  "30380": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 8
+  },
+  "30381": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30382": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 18
+  },
+  "30383": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 8
+  },
+  "30384": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 4
+  },
+  "30385": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 6
+  },
+  "30386": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 8
+  },
+  "30387": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 4
+  },
+  "30388": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 1
+  },
+  "30389": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 3
+  },
+  "30390": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 4
+  },
+  "30391": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 15
+  },
+  "30392": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 10
+  },
+  "30393": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 9
+  },
+  "30394": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 16
+  },
+  "30395": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 2
+  },
+  "30396": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 5
+  },
+  "30397": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 16
+  },
+  "30398": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 10
+  },
+  "30399": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 17
+  },
+  "30400": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 8
+  },
+  "30401": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 11
+  },
+  "30402": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 0
+  },
+  "30403": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 16
+  },
+  "30404": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 2
+  },
+  "30405": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 17
+  },
+  "30406": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30407": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 14
+  },
+  "30408": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 6
+  },
+  "30409": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 16
+  },
+  "30410": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 13
+  },
+  "30411": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 6
+  },
+  "30412": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 17
+  },
+  "30413": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 19
+  },
+  "30414": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 18
+  },
+  "30415": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 6
+  },
+  "30416": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 3
+  },
+  "30417": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 10
+  },
+  "30418": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 4
+  },
+  "30419": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 14
+  },
+  "30420": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 11
+  },
+  "30421": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 18
+  },
+  "30422": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 10
+  },
+  "30423": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30424": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 18
+  },
+  "30425": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 17
+  },
+  "30426": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 14
+  },
+  "30427": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 19
+  },
+  "30428": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 1
+  },
+  "30429": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 3
+  },
+  "30430": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 10
+  },
+  "30431": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 11
+  },
+  "30432": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 14
+  },
+  "30433": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 6
+  },
+  "30434": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 9
+  },
+  "30435": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 0
+  },
+  "30436": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 1
+  },
+  "30437": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 16
+  },
+  "30438": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 6
+  },
+  "30439": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 1
+  },
+  "30440": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  "30441": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 0
+  },
+  "30442": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 14
+  },
+  "30443": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 13
+  },
+  "30444": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 1
+  },
+  "30445": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 14
+  },
+  "30446": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 13
+  },
+  "30447": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 1
+  },
+  "30448": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 8
+  },
+  "30449": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 18
+  },
+  "30450": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 19
+  },
+  "30451": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 6
+  },
+  "30452": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 10
+  },
+  "30453": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 8
+  },
+  "30454": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 7
+  },
+  "30455": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 9
+  },
+  "30456": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 6
+  },
+  "30457": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 9
+  },
+  "30458": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 14
+  },
+  "30459": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 1
+  },
+  "30460": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 6
+  },
+  "30461": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 2
+  },
+  "30462": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 19
+  },
+  "30463": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 15
+  },
+  "30464": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 13
+  },
+  "30465": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 4
+  },
+  "30466": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 7
+  },
+  "30467": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 13
+  },
+  "30468": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 19
+  },
+  "30469": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 9
+  },
+  "30470": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 18
+  },
+  "30471": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 12
+  },
+  "30472": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 14
+  },
+  "30473": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 2
+  },
+  "30474": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 0
+  },
+  "30475": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 19
+  },
+  "30476": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 4
+  },
+  "30477": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 10
+  },
+  "30478": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 9
+  },
+  "30479": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 13
+  },
+  "30480": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 12
+  },
+  "30481": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 0
+  },
+  "30482": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 8
+  },
+  "30483": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 18
+  },
+  "30484": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 4
+  },
+  "30485": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 3
+  },
+  "30486": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 14
+  },
+  "30487": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 19
+  },
+  "30488": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 4
+  },
+  "30489": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 1
+  },
+  "30490": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30491": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 17
+  },
+  "30492": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 10
+  },
+  "30493": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 2
+  },
+  "30494": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 11
+  },
+  "30495": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 12
+  },
+  "30496": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 16
+  },
+  "30497": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 4
+  },
+  "30498": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 19
+  },
+  "30499": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 14
+  },
+  "30500": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 6
+  },
+  "30501": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 10
+  },
+  "30502": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 0
+  },
+  "30503": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 11
+  },
+  "30504": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 6
+  },
+  "30505": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 9
+  },
+  "30506": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 6
+  },
+  "30507": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 16
+  },
+  "30508": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 13
+  },
+  "30509": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 12
+  },
+  "30510": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 13
+  },
+  "30511": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30512": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 16
+  },
+  "30513": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 14
+  },
+  "30514": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 13
+  },
+  "30515": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 7
+  },
+  "30516": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 3
+  },
+  "30517": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 2
+  },
+  "30518": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 12
+  },
+  "30519": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 5
+  },
+  "30520": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 6
+  },
+  "30521": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 19
+  },
+  "30522": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 6
+  },
+  "30523": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 0
+  },
+  "30524": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 2
+  },
+  "30525": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 14
+  },
+  "30526": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 11
+  },
+  "30527": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 17
+  },
+  "30528": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 12
+  },
+  "30529": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 0
+  },
+  "30530": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 7
+  },
+  "30531": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 8
+  },
+  "30532": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 15
+  },
+  "30533": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 1
+  },
+  "30534": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 15
+  },
+  "30535": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 2
+  },
+  "30536": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 12
+  },
+  "30537": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 3
+  },
+  "30538": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  "30539": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 0
+  },
+  "30540": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 3
+  },
+  "30541": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 6
+  },
+  "30542": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 16
+  },
+  "30543": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 2
+  },
+  "30544": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 19
+  },
+  "30545": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 0
+  },
+  "30546": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 15
+  },
+  "30547": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 1
+  },
+  "30548": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30549": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 9
+  },
+  "30550": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 15
+  },
+  "30551": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 5
+  },
+  "30552": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 12
+  },
+  "30553": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 13
+  },
+  "30554": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 17
+  },
+  "30555": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 5
+  },
+  "30556": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 10
+  },
+  "30557": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 17
+  },
+  "30558": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 11
+  },
+  "30559": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 1
+  },
+  "30560": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 11
+  },
+  "30561": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 3
+  },
+  "30562": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 12
+  },
+  "30563": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30564": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 16
+  },
+  "30565": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 12
+  },
+  "30566": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 9
+  },
+  "30567": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 1
+  },
+  "30568": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 5
+  },
+  "30569": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 12
+  },
+  "30570": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 9
+  },
+  "30571": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 14
+  },
+  "30572": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 8
+  },
+  "30573": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 12
+  },
+  "30574": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 10
+  },
+  "30575": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 17
+  },
+  "30576": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 8
+  },
+  "30577": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 19
+  },
+  "30578": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 0
+  },
+  "30579": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 2
+  },
+  "30580": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 1
+  },
+  "30581": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 18
+  },
+  "30582": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 6
+  },
+  "30583": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 7
+  },
+  "30584": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 3
+  },
+  "30585": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 8
+  },
+  "30586": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 6
+  },
+  "30587": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 7
+  },
+  "30588": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 12
+  },
+  "30589": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 8
+  },
+  "30590": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 4
+  },
+  "30591": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 15
+  },
+  "30592": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 17
+  },
+  "30593": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 5
+  },
+  "30594": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 0
+  },
+  "30595": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 10
+  },
+  "30596": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 12
+  },
+  "30597": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 17
+  },
+  "30598": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 2
+  },
+  "30599": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 9
+  },
+  "30600": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30601": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 8
+  },
+  "30602": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 7
+  },
+  "30603": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 0
+  },
+  "30604": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 7
+  },
+  "30605": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 12
+  },
+  "30606": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 0
+  },
+  "30607": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 5
+  },
+  "30608": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 2
+  },
+  "30609": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 1
+  },
+  "30610": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 11
+  },
+  "30611": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 4
+  },
+  "30612": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 6
+  },
+  "30613": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 11
+  },
+  "30614": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 17
+  },
+  "30615": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 11
+  },
+  "30616": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 17
+  },
+  "30617": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 1
+  },
+  "30618": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 1
+  },
+  "30619": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 1
+  },
+  "30620": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 10
+  },
+  "30621": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 8
+  },
+  "30622": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 16
+  },
+  "30623": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 0
+  },
+  "30624": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 3
+  },
+  "30625": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 16
+  },
+  "30626": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 12
+  },
+  "30627": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 18
+  },
+  "30628": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 12
+  },
+  "30629": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 4
+  },
+  "30630": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 10
+  },
+  "30631": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 14
+  },
+  "30632": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 7
+  },
+  "30633": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 12
+  },
+  "30634": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 7
+  },
+  "30635": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 9
+  },
+  "30636": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 6
+  },
+  "30637": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 8
+  },
+  "30638": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30639": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 18
+  },
+  "30640": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 2
+  },
+  "30641": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 0
+  },
+  "30642": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 6
+  },
+  "30643": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 14
+  },
+  "30644": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 15
+  },
+  "30645": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 3
+  },
+  "30646": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 12
+  },
+  "30647": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 7
+  },
+  "30648": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30649": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 11
+  },
+  "30650": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 12
+  },
+  "30651": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 16
+  },
+  "30652": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 6
+  },
+  "30653": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 7
+  },
+  "30654": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 11
+  },
+  "30655": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 12
+  },
+  "30656": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 1
+  },
+  "30657": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 13
+  },
+  "30658": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 5
+  },
+  "30659": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 19
+  },
+  "30660": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 12
+  },
+  "30661": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 7
+  },
+  "30662": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 11
+  },
+  "30663": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_beauty_zh",
+   "sample_idx": 18
+  },
+  "30664": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 4
+  },
+  "30665": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 0
+  },
+  "30666": {
+   "model": "BSC-LT/salamandra-7b",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 12
+  },
+  "30667": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 8
+  },
+  "30668": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 16
+  },
+  "30669": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 16
+  },
+  "30670": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 6
+  },
+  "30671": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 8
+  },
+  "30672": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 16
+  },
+  "30673": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_holy_zh",
+   "sample_idx": 18
+  },
+  "30674": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 3
+  },
+  "30675": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 6
+  },
+  "30676": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 17
+  },
+  "30677": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 9
+  },
+  "30678": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 18
+  },
+  "30679": {
+   "model": "zai-org/glm-4-9b-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30680": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 8
+  },
+  "30681": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 11
+  },
+  "30682": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 11
+  },
+  "30683": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 11
+  },
+  "30684": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 10
+  },
+  "30685": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 6
+  },
+  "30686": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 14
+  },
+  "30687": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 9
+  },
+  "30688": {
+   "model": "LLM360/Amber",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_zh",
+   "sample_idx": 13
+  },
+  "30689": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 1
+  },
+  "30690": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 16
+  },
+  "30691": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 7
+  },
+  "30692": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 14
+  },
+  "30693": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 17
+  },
+  "30694": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 15
+  },
+  "30695": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_he_zh",
+   "sample_idx": 12
+  },
+  "30696": {
+   "model": "LLM360/AmberSafe",
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 12
+  },
+  "30697": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 18
+  },
+  "30698": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 7
+  },
+  "30699": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 0
+  },
+  "30700": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_create_zh",
+   "sample_idx": 2
+  },
+  "30701": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 16
+  },
+  "30702": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 2
+  },
+  "30703": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 18
+  },
+  "30704": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 14
+  },
+  "30705": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 0
+  },
+  "30706": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 4
+  },
+  "30707": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 12
+  },
+  "30708": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 9
+  },
+  "30709": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 12
+  },
+  "30710": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_sensation_zh",
+   "sample_idx": 12
+  },
+  "30711": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 10
+  },
+  "30712": {
+   "model": "openbmb/MiniCPM5-1B",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 9
+  },
+  "30713": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 0
+  },
+  "30714": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_faithful_zh",
+   "sample_idx": 15
+  },
+  "30715": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 8
+  },
+  "30716": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 0
+  },
+  "30717": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 7
+  },
+  "30718": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_loyal_zh",
+   "sample_idx": 5
+  },
+  "30719": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 11
+  },
+  "30720": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 6
+  },
+  "30721": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 6
+  },
+  "30722": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 15
+  },
+  "30723": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_love_he_zh",
+   "sample_idx": 6
+  },
+  "30724": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 3
+  },
+  "30725": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 3
+  },
+  "30726": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 6
+  },
+  "30727": {
+   "model": "EleutherAI/pythia-6.9b",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 19
+  },
+  "30728": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 11
+  },
+  "30729": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_reason_zh",
+   "sample_idx": 15
+  },
+  "30730": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 6
+  },
+  "30731": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 5
+  },
+  "30732": {
+   "model": "01-ai/Yi-1.5-9B",
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 15
+  },
+  "30733": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 15
+  },
+  "30734": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 12
+  },
+  "30735": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_faithful_zh",
+   "sample_idx": 18
+  },
+  "30736": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_create_zh",
+   "sample_idx": 9
+  },
+  "30737": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 17
+  },
+  "30738": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_desire_zh",
+   "sample_idx": 7
+  },
+  "30739": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_he_zh",
+   "sample_idx": 6
+  },
+  "30740": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 16
+  },
+  "30741": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_trust_zh",
+   "sample_idx": 13
+  },
+  "30742": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 2
+  },
+  "30743": {
+   "model": "m-a-p/CT-LLM-Base",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 14
+  },
+  "30744": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 10
+  },
+  "30745": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 10
+  },
+  "30746": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 15
+  },
+  "30747": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 12
+  },
+  "30748": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_captive_zh",
+   "sample_idx": 15
+  },
+  "30749": {
+   "model": "bigscience/bloomz-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 13
+  },
+  "30750": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_sensation_zh",
+   "sample_idx": 19
+  },
+  "30751": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 2
+  },
+  "30752": {
+   "model": "Qwen/Qwen2.5-7B",
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 9
+  },
+  "30753": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 8
+  },
+  "30754": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  "30755": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_class_zh",
+   "sample_idx": 19
+  },
+  "30756": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_guilt_zh",
+   "sample_idx": 11
+  },
+  "30757": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 3
+  },
+  "30758": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_class_zh",
+   "sample_idx": 18
+  },
+  "30759": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 15
+  },
+  "30760": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 15
+  },
+  "30761": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_holy_zh",
+   "sample_idx": 2
+  },
+  "30762": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_gender_zh",
+   "sample_idx": 17
+  },
+  "30763": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_holy_zh",
+   "sample_idx": 1
+  },
+  "30764": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 10
+  },
+  "30765": {
+   "model": "Qwen/Qwen3-8B",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_create_zh",
+   "sample_idx": 6
+  },
+  "30766": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_gender_she_zh",
+   "sample_idx": 17
+  },
+  "30767": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 17
+  },
+  "30768": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 6
+  },
+  "30769": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_trust_zh",
+   "sample_idx": 12
+  },
+  "30770": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 5
+  },
+  "30771": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_love_he_zh",
+   "sample_idx": 8
+  },
+  "30772": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_reason_zh",
+   "sample_idx": 13
+  },
+  "30773": {
+   "model": "EleutherAI/pythia-2.8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_ugly_zh",
+   "sample_idx": 6
+  },
+  "30774": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_parent_zh",
+   "sample_idx": 14
+  },
+  "30775": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 17
+  },
+  "30776": {
+   "model": "bigscience/bloom-7b1",
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 18
+  },
+  "30777": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 16
+  },
+  "30778": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 17
+  },
+  "30779": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_desire_zh",
+   "sample_idx": 2
+  },
+  "30780": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 8
+  },
+  "30781": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_zh",
+   "sample_idx": 1
+  },
+  "30782": {
+   "model": "m-a-p/neo_7b",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_beauty_zh",
+   "sample_idx": 9
+  },
+  "30783": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 2
+  },
+  "30784": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_beauty_zh",
+   "sample_idx": 14
+  },
+  "30785": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_captive_zh",
+   "sample_idx": 5
+  },
+  "30786": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_loyal_zh",
+   "sample_idx": 2
+  },
+  "30787": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_love_zh",
+   "sample_idx": 6
+  },
+  "30788": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_guilt_zh",
+   "sample_idx": 14
+  },
+  "30789": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_faithful_zh",
+   "sample_idx": 17
+  },
+  "30790": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_loyal_zh",
+   "sample_idx": 13
+  },
+  "30791": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_reason_zh",
+   "sample_idx": 19
+  },
+  "30792": {
+   "model": "huggyllama/llama-7b",
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_love_zh",
+   "sample_idx": 0
+  },
+  "30793": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 8
+  },
+  "30794": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "arm": "aligned",
+   "role": "control_b",
+   "group": "f11_sensation_zh",
+   "sample_idx": 2
+  },
+  "30795": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "arm": "base",
+   "role": "control_a",
+   "group": "f11_captive_b_zh",
+   "sample_idx": 19
+  },
+  "30796": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "control_a",
+   "group": "f11_guilt_zh",
+   "sample_idx": 17
+  },
+  "30797": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "arm": "aligned",
+   "role": "both",
+   "group": "f11_trust_zh",
+   "sample_idx": 14
+  },
+  "30798": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "arm": "base",
+   "role": "both",
+   "group": "f11_desire_zh",
+   "sample_idx": 16
+  },
+  "30799": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "arm": "base",
+   "role": "control_b",
+   "group": "f11_class_zh",
+   "sample_idx": 1
+  }
+ }
+}

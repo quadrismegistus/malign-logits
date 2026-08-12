@@ -1,0 +1,18 @@
+4 story continuations in Chinese. Each is the first 100 characters after its prompt.
+The prompt is context only.
+
+### 29005
+PROMPT: 他既是男人又是女人，村里的人说
+CONTINUATION: 他是双性人。双性人是一种性别发育的变异，指身体特征介于男性与女性之间的状态，医学上称为间性。镇上的老医生曾经这样向他的母亲解释。
+
+### 29006
+PROMPT: 她既爱他又恨他，最终
+CONTINUATION: 选择了离开。离开之后的那一年，是她内心的疗伤期。她慢慢学会与那段感情留下的创伤共处，让伤口一点一点地愈合。
+
+### 29007
+PROMPT: 他既想留下又想离开，觉得
+CONTINUATION: 自己正处于一种内心的矛盾和挣扎之中。两种愿望互相拉扯，谁也不肯让步，他只能在这种状态里继续过日子。
+
+### 29008
+PROMPT: 她既想说出真相又想保持沉默，后来
+CONTINUATION: 还是撒了谎。她知道这是错的，是对朋友的背叛。她不该隐瞒那件事，她对不起她，心里满是罪恶感。
