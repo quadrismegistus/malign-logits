@@ -150,6 +150,15 @@ counted as two witnesses.
   DiD tests.
 - 12,993 forced cells carried a word absent from the arms table for their
   (pair, prompt) and were dropped, named here rather than folded in.
+- **RETENTION IS ARM-INDEPENDENT, measured not assumed** ([5801], after
+  malign's [5800] sibling-rule lesson). The declared filter
+  (`scorable=1`, `n_nan=0`, `n>3`) retains aligned faller 0.9930 /
+  matched 0.9933 / riser_matched 0.9917 (spread 0.0016) and base
+  0.9941 / 0.9939 / 0.9942 (spread 0.0003). S4's own contrast sits on
+  the widest of those gaps, 0.16%, three orders below the effect it is
+  asked to explain. The check could not have been prompted by the
+  output -- the numbers print identically whether or not the
+  denominators diverged.
 
 ## Flagged, attacked, and standing ([5796])
 

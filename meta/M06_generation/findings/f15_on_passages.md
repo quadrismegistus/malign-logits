@@ -181,6 +181,16 @@ predictability and trajectory (here): the aligned model's response to a
 forced transgressive word is, on every measure this campaign has built, the
 same response the base model gives.
 
+RETENTION BY ARM, added [5801] after malign's [5800] sibling-rule lesson --
+the finding had reported truncation survival by ROLE (base 0.836, aligned
+0.805) and treated that as the selection fence, but a role-level rate is
+silent about arms. Measured: aligned faller 0.7923 / matched 0.7969 /
+riser_matched 0.7985 (spread 0.0062); base 0.8078 / 0.8046 / 0.8039
+(spread 0.0039). Under 0.7% in both roles with the sign flipping between
+them, so the surviving set is effectively arm-independent. Note the
+direction anyway: in the aligned arm the faller is retained LEAST, which
+would deflate a faller effect rather than manufacture one.
+
 ## Open, declared -- and one F15 claim this redo did NOT carry
 
 DISCHARGED since this section was written: the bge-m3 fidelity gate
