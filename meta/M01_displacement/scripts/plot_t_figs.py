@@ -225,9 +225,113 @@ def t14():
     print(f"wrote {out}")
 
 
+
+
+def t14_words():
+    """The words themselves: surviving word->word substitution flows
+    (s_everything_wordpairs_edgeunit, TOKEN labeling, Bonferroni AND
+    edge-consistent p_edge < .05). Three panels: ALL (top 20 content
+    flows of 2,458 — function words excluded, truncation stated),
+    violence (ALL 5 surviving content pairs — kill->scream on the page),
+    sexual (all 3 — the whispered sink). Line weight = forward
+    occurrences; the reverse count rides the label. Strata shown
+    stratified, never pooled (T-11's fence)."""
+    from plotnine import (aes, element_blank, element_text, facet_wrap,
+                          geom_segment, geom_text, ggplot, labs,
+                          scale_size_continuous, scale_x_continuous,
+                          theme, theme_minimal)
+
+    STOP = set(("a an the and or but of to in on at by for with from as is "
+                "are was were be been being do does did done have has had it "
+                "its this that these those he she they them his her their i "
+                "you we not no just get then").split())
+    w = pd.read_csv(os.path.join(RESULTS,
+                                 "s_everything_wordpairs_edgeunit.csv"))
+    keep = w[w.bonferroni & (w.p_edge < 0.05)
+             & ~w.frm.isin(STOP) & ~w.to.isin(STOP)
+             & w.frm.str.len().gt(2) & w.to.str.len().gt(2)]
+
+    panels = []
+    specs = [("ALL", 20, "ALL (top 20 of {n} content flows)"),
+             ("violence", 99, "violence (all {n} surviving)"),
+             ("sexual", 99, "sexual (all {n} surviving)")]
+    for st, top, title in specs:
+        sub = keep[keep.stratum == st].nlargest(top, "E").copy()
+        n_all = (keep.stratum == st).sum()
+        sub["panel"] = title.format(n=n_all)
+        panels.append(sub)
+    flows = pd.concat(panels)
+
+    segs, labels = [], []
+    for panel, g in flows.groupby("panel", sort=False):
+        out_w = g.groupby("frm").fwd.sum().sort_values()
+        in_w = g.groupby("to").fwd.sum().sort_values()
+        ly = {wd: i / max(len(out_w) - 1, 1) for i, wd in enumerate(out_w.index)}
+        ry = {wd: i / max(len(in_w) - 1, 1) for i, wd in enumerate(in_w.index)}
+        for r in g.itertuples():
+            segs.append(dict(panel=panel, x=0, xend=1,
+                             y=ly[r.frm], yend=ry[r.to], fwd=r.fwd))
+        for wd, y in ly.items():
+            labels.append(dict(panel=panel, x=-0.06, y=y, word=wd,
+                               role="faller"))
+        for wd, y in ry.items():
+            labels.append(dict(panel=panel, x=1.06, y=y, word=wd,
+                               role="riser"))
+    segs = pd.DataFrame(segs)
+    labels = pd.DataFrame(labels)
+    labels["ha"] = labels.role.map({"faller": "right", "riser": "left"})
+
+    cat = list(flows.panel.unique())
+    segs["panel"] = pd.Categorical(segs.panel, categories=cat)
+    labels["panel"] = pd.Categorical(labels.panel, categories=cat)
+
+    pl = (ggplot()
+          + geom_segment(segs, aes(x="x", xend="xend", y="y", yend="yend",
+                                   size="fwd"), color="#7a7a7a", alpha=0.45)
+          + geom_text(labels[labels.role == "faller"],
+                      aes(x="x", y="y", label="word"),
+                      color="#c0392b", size=7, ha="right",
+                      adjust_text={"only_move": {"text": "y"},
+                                   "arrowprops": {"arrowstyle": "-",
+                                                  "color": "#dddddd",
+                                                  "lw": 0.3}})
+          + geom_text(labels[labels.role == "riser"],
+                      aes(x="x", y="y", label="word"),
+                      color="#2e6da4", size=7, ha="left",
+                      adjust_text={"only_move": {"text": "y"},
+                                   "arrowprops": {"arrowstyle": "-",
+                                                  "color": "#dddddd",
+                                                  "lw": 0.3}})
+          + facet_wrap("~panel", nrow=1, scales="free_y")
+          + scale_x_continuous(breaks=[0, 1],
+                               labels=["demoted word", "promoted word"],
+                               limits=(-0.55, 1.55))
+          + scale_size_continuous(range=(0.3, 3.0), guide=None)
+          + labs(x="", y="",
+                 title="The substitutions themselves: surviving word-to-word flows",
+                 subtitle=("TOKEN labeling, Bonferroni survivors, "
+                           "edge-consistent (p_edge < .05); line weight = "
+                           "forward occurrences; function words excluded "
+                           "(list in code).\nviolence: kill->scream 245 "
+                           "forward / 21 reverse. sexual: the whispered "
+                           "sink (kissed->whispered 291/3). Strata "
+                           "stratified, never pooled."))
+          + theme_minimal()
+          + theme(figure_size=(14, 6),
+                  axis_text_y=element_blank(),
+                  panel_grid=element_blank(),
+                  strip_text=element_text(size=10, weight="bold"),
+                  plot_subtitle=element_text(size=8),
+                  plot_title=element_text(size=12, weight="bold")))
+    out = os.path.join(FIGURES, "t14_words_flows.png")
+    pl.save(out, dpi=300, verbose=False)
+    print(f"wrote {out}")
+
+
 REGISTRY = {
     "t14": t14,
     "t14_dumbbell": t14_dumbbell,
+    "t14_words": t14_words,
     # future: t5 (sink structure), t7 (concreteness densities),
     # t8 (bodily_violence->speech_act diverging bar), t11 (stratified
     # heatmap; NEVER pooled), t12 (USAS lollipop), t18 (affect DiD
