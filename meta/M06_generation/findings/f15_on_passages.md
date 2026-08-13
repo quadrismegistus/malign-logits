@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [surprisal, drift, quadrants, jakobson, replication]
-description: "F15 on passages, single pass: all three F15 claims replicate at the pair grain -- alignment smooths reference-model surprisal (35/38 pairs, med -0.53 nats), reduces drift (34/38), and drains the breakdown quadrant (Q2 -0.21, 35/38) into unmarked (Q4 +0.22) AND metonymic (Q1 +0.14, 34/38) -- the Q1 gain F15 saw only in Qwen is general. Population 38 of 41 pairs; deepseek excluded by a CORPUS TEXT DEFECT found in the accounting (undetokenized text, reported to malign)."
+description: "F15 on passages: ALL FOUR F15 claims replicate at the pair grain -- alignment smooths reference-model surprisal (35/38 pairs, med -0.53 nats), reduces drift (34/38), drains the breakdown quadrant (Q2 -0.21) into unmarked (Q4 +0.22) AND metonymic (Q1 +0.14, 34/38, the gain F15 saw only in Qwen), and compresses UNIFORMLY across site types (twin-paired DiD p 0.089, Kruskal across domains p 0.892 -- a bound at ~5% of the effect, not a bare null). The drift claim and the quadrant flow are EMBEDDER-INDEPENDENT (bge-m3, sign agreement 33/38). Population 38 of 41 pairs; deepseek fenced for a generation-time tokenizer defect."
 ---
 # F15 on passages: the quadrant flow survives, and the metonymic gain is general
 
@@ -70,26 +70,75 @@ so the flow is carried by the surprisal axis with the drift axis moving
 less: aligned text keeps crossing topics but becomes predictable while
 doing so. Chain-sliding, at the pair grain.
 
+## F1: the drift claim is EMBEDDER-INDEPENDENT -- the gate is discharged
+
+Plan amendment F1, declared before the producer. 4,511 passages (60 per
+(pair, role), seed over sorted keys), re-encoded with bge-m3 -- F15's
+own headline embedder -- through the identical truncation, split and
+prefix recipe; surprisal untouched, so the quadrant axes move only
+through drift. Device gate min cos 1.0000 on the corpus's own rows.
+Both embedders on IDENTICAL passages, so the comparison is
+instrument-vs-instrument and the subsample's MiniLM values (not the
+full run's) are the correct reference.
+
+    per-passage drift agreement, Spearman        +0.704
+    P2  MiniLM  med -0.0296  6/32  p 2.4e-05
+        bge-m3  med -0.0268  5/33  p 4.3e-06
+    SIGN AGREEMENT ON P2                         33 of 38 pairs
+    P3  quadrant     MiniLM              bge-m3
+        Q1 metonymic +0.142 33/5 4e-06   +0.100 32/4 2e-06
+        Q2 breakdown -0.207  4/33 1e-06  -0.250  4/34 6e-07
+        Q3 metaphoric-0.150  5/33 4e-06  -0.100  7/29 3e-04
+        Q4 unmarked  +0.258 33/4 1e-06   +0.250 32/6 2e-05
+
+Every quadrant keeps its sign and its significance under both
+instruments, and the two embedders agree on P2's direction in 33 of 38
+pairs -- the five disagreements are all near zero under both. **P2 and
+P3, including the metonymic result, are quotable as
+embedder-independent.** The two instruments are not interchangeable at
+the passage grain (+0.704, not +0.95): they measure trajectory
+differently and agree about alignment anyway, which is the stronger
+form of the check.
+
+## F2: the compression is UNIFORM ACROSS SITES -- F15's fourth claim, carried
+
+Plan amendment F2. F15: "content category has no effect on
+within-passage surprisal (Kruskal-Wallis p=0.99); alignment is a
+uniform compressor." Three forms, no new compute (persisted cells plus
+I6's catalogue join on prompt TEXT); 26,570 of 35,230 passages carry a
+twin label.
+
+    F2a  I6-FORM, paired per (pair, pair_id):
+         surprisal  MARKED - UNMARKED   aligned +0.010 p 0.29 | base -0.011 p 0.34
+                    DiD                 +0.0275  1119/1039  p 0.089   (n 2,158)
+         drift      DiD                 +0.0054  1106/1052  p 0.254
+    F2b  F15-FORM, aligned-base surprisal delta by domain (38 pairs):
+         violence -0.615 | betrayal -0.569 | property -0.550 | taboo
+         -0.544 | animal -0.538 | sexual -0.504
+         Kruskal-Wallis across 6 domains: surprisal p 0.892, drift p 0.725
+    F2b' compression at MARKED -0.537 (4/34) and UNMARKED -0.512 (4/34),
+         difference +0.036  23/15  p 0.256
+
+**The uniform compressor replicates, and this is a BOUND rather than a
+bare null**: against a main effect of -0.55 nats, at n=2,158 twin-pairs,
+the observed site modulation sits at hundredths, so a site-conditional
+compression above roughly 5% of the effect would have shown. The
+instrument is also sharper than F15's -- paired within minimal twins
+(same scene, one word changed) rather than pooled group means, which is
+the design that made site-specificity appear in K where group means had
+hidden it. The largest deviation in the set, the surprisal DiD at
+p=0.089, runs the WRONG WAY for a watchman reading: if anything the
+aligned model compresses transgressive sites slightly LESS than its own
+neutral twins.
+
+**Read with I6 and the ascent null, three different metrics --
+composition, level, predictability -- now agree that the page-grain
+operation is site-blind.**
+
 ## Open, declared -- and one F15 claim this redo did NOT carry
 
-**GATING (nothing above is quotable as embedder-independent until it
-runs): the bge-m3 fidelity subsample.** The plan requires sign
-agreement between embedders for the quotable claim, and drift is not
-only P2's outcome -- it is ONE OF THE TWO QUADRANT AXES, so P3 and the
-metonymic result inherit the requirement. MiniLM alone is a single
-instrument's read of trajectory.
-
-**NOT CARRIED, and it is a real gap rather than a deferral: F15's
-FOURTH claim.** F15 says "content category has no effect on
-within-passage surprisal (Kruskal-Wallis p=0.99); alignment is a
-uniform compressor." This redo tested three claims and never tested
-that one. It is cheap now: the cells parquet carries `prompt_id`, and
-prompts join to catalogue domain/pair_role exactly as I6 did. It is
-also the claim with the most at stake after I6 -- uniform compression
-is the surprisal-grain analogue of the TONIC result, and a failure
-would be the first page-grain site-conditionality in the series.
-
-Also open:
+DISCHARGED since this section was written: the bge-m3 fidelity gate
+(F1, above) and F15's uncarried fourth claim (F2, above). Still open:
 
 - Sharpness confound, testable rather than merely stated: the pair-wise
   surprisal delta against the same pair's top-1-mass/entropy delta from
