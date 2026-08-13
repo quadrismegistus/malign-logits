@@ -61,8 +61,15 @@ def main(lang="en"):
     from scipy.stats import spearmanr
     from k_frequency import fpm
 
-    z = np.load(os.path.join(DATA, "delta_verbs_%s.npz" % lang), allow_pickle=True)
-    D = z["D"].astype(np.float32)
+    #: --all: the full-vocabulary store (delta_all_*, movement-all-cls union
+    #: top-20 AUC population). The verb restriction disappears IMPLICITLY --
+    #: the cell loop keeps only (prompt, word) pairs the store carries, so the
+    #: store IS the population filter, declared here rather than hidden.
+    ALL = "--all" in sys.argv
+    stem = ("delta_all_%s" if ALL else "delta_verbs_%s") % lang
+    sfx = "_all" if ALL else ""
+    z = np.load(os.path.join(DATA, "%s.npz" % stem), allow_pickle=True)
+    D = z["D"]                      # float16 on disk; cast per chunk below
     key = {(p, w): i for i, (p, w) in enumerate(zip(z["prompt_sha16"], z["word"]))}
     sha = lambda s: hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
 
@@ -98,8 +105,13 @@ def main(lang="en"):
           % (lang, format(len(y), ","), format(len(set(g)), ","),
              format(len(set(pr)), ","), y.mean()))
 
-    pca = PCA(n_components=NPC, random_state=SEED).fit(D[::7])
-    DP = pca.transform(D).astype(np.float32)
+    pca = PCA(n_components=NPC, random_state=SEED).fit(
+        D[::7].astype(np.float32))
+    #: chunked transform: the all-store is 1.7M x 1024 and a single float32
+    #: pass is ~7 GB transient; 200k chunks keep it bounded
+    DP = np.empty((D.shape[0], NPC), np.float32)
+    for i in range(0, D.shape[0], 200_000):
+        DP[i:i + 200_000] = pca.transform(D[i:i + 200_000].astype(np.float32))
     F = DP[X_i]
     sc = StandardScaler().fit(F)
     clf = LogisticRegression(max_iter=3000, C=0.1).fit(sc.transform(F), y)
@@ -132,7 +144,7 @@ def main(lang="en"):
     wm = {w: float(proj[np.array(idx)].mean()) for w, idx in byw.items()}
     #: per-word scores written out so the pole-list builder has one producer per
     #: instrument rather than recomputing the fit
-    with open(os.path.join(K, "delta_word_scores_%s.tsv" % lang), "w",
+    with open(os.path.join(K, "delta_word_scores_%s.tsv" % (lang + sfx)), "w",
               encoding="utf-8") as fh:
         fh.write("word\tproj\tn_cells\n")
         for w in sorted(wm, key=lambda x: -wm[x]):
@@ -200,7 +212,7 @@ def main(lang="en"):
                            "pbase_wmean": wmean(aucs_p)},
            "in_sample_auc": float(roc_auc_score(y, proj)),
            "correlates": corr}
-    p = os.path.join(K, "delta_interpret_%s.json" % lang)
+    p = os.path.join(K, "delta_interpret_%s.json" % (lang + sfx))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0

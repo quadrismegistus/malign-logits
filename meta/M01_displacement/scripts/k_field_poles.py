@@ -98,9 +98,17 @@ def main(lang="en"):
     #: it in the intersection would cut the vocabulary straight back to the 423
     #: rated verbs the widening exists to escape. Two instruments, declared.
     WIDE = "--wide" in sys.argv
+    #: --delta-variant <sfx> reads delta_word_scores_<lang>_<sfx>.tsv; with the
+    #: `all` variant the delta covers the full vocabulary, so it no longer
+    #: strangles the wide intersection and stays IN even under --wide
+    DVAR = (sys.argv[sys.argv.index("--delta-variant") + 1]
+            if "--delta-variant" in sys.argv else None)
     inst["axisBGE"] = axis_scores("axis_%s_bge.json" % lang,
                                   "embed_%s_bge%s.npz" % (lang, "_wide" if WIDE else ""))
-    if not WIDE:
+    if DVAR:
+        inst["delta"] = tsv(os.path.join(
+            K, "delta_word_scores_%s_%s.tsv" % (lang, DVAR)), col=1)
+    elif not WIDE:
         inst["delta"] = tsv(os.path.join(K, "delta_word_scores_%s.tsv" % lang), col=1)
     inst = {k: v for k, v in inst.items() if v}
     shared = sorted(set.intersection(*[set(v) for v in inst.values()]))
@@ -222,8 +230,9 @@ def main(lang="en"):
                            "n": d[names[0]]["n"],
                            "z": {i: d[i]["z"] for i in names},
                            "q": {i: d[i]["q"] for i in names}} for mz, f, d in cons]}
-    p = os.path.join(K, "field_poles_%s%s%s.json"
-                     % (lang, "_" + VAR if VAR else "", "_wide" if WIDE else ""))
+    p = os.path.join(K, "field_poles_%s%s%s%s.json"
+                     % (lang, "_" + VAR if VAR else "", "_wide" if WIDE else "",
+                        "_d" + DVAR if DVAR else ""))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
