@@ -80,6 +80,23 @@ not an artefact of English alignment data.
 - 25 pairs, 24 of them dpo, so this is a DPO result with one ppo rider.
 - Absolute drift levels differ by language (zh 0.638, en 0.604) and are NOT
   compared; only within-language differences are, so the level cancels.
+- **CUSTODY FACT ABOUT `f11_l2`, verified at two seats ([5844], and
+  independently here): its `pair` and `role` columns are EMPTY.** All 228,520
+  rows carry the blank string in both -- one distinct value each, against
+  `passage`'s 42 and 2. **Anyone joining this corpus on `pair` or `role` gets
+  one giant group and no error.** Pairing must come from the model names
+  through the registry, which is what this producer does.
+- **THE POPULATION DEPENDS ON WHICH PAIRING SOURCE YOU USE, and the two
+  disagree.** This plan declared `data/base_aligned_pairs.json`: 26 pairs
+  with rows in both languages, 25 after the floors. The single loss is
+  `bloom-7b1>bloomz-7b1`, whose aligned arm has no surviving Chinese
+  passages -- bloom being the model that supplied 155 of 195 empty texts in
+  the passage corpus, so a known-degenerate generator rather than a harsh
+  floor. A TRANSITIVE walk of the model registry (`dpo_of` names the SFT, so
+  `sft_of` must be followed upward) reaches **29**. Three pairs therefore
+  exist that this population does not carry. They were NOT added after the
+  result was visible; the larger population is owed a plan of its own that
+  declares it in advance.
 
 ## A defect in this producer's own control, found and fixed before reporting
 
