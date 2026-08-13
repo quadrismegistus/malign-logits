@@ -187,10 +187,18 @@ def load_poems(n=3):
         partner = {"ABAB": 2, "AABB": 3, "unrhymed": 2}[r["scheme"]]
         tw = last_word(lines[partner - 1])
         nw = last_word(lines[{"ABAB": 3, "AABB": 1, "unrhymed": 3}[r["scheme"]] - 1])
+        aw = last_word(lines[3])
+        tk, ak = rime_key(tw), rime_key(aw)
+        # [5739]/[5740] flag-not-filter: does the key put the poem's OWN
+        # rhyme pair in one class? Measured 91.7% pre-1900 / 85.0% 1900+
+        # (data/verse_fleet_key_resolution_check.csv); gates are columns.
         out.append({**r, "lines": lines, "partner_line": partner,
-                    "target_word": tw, "target_key": rime_key(tw),
+                    "target_word": tw, "target_key": tk,
                     "nonpartner_word": nw, "nonpartner_key": rime_key(nw),
-                    "actual_word": last_word(lines[3])})
+                    "actual_word": aw, "actual_key": ak,
+                    "key_resolves_own_rhyme":
+                        bool(tk and ak and tk == ak
+                             and r["scheme"] != "unrhymed")})
     return out
 
 
@@ -300,6 +308,7 @@ def smoke():
                          in NONPARTNER_CALLED_AT[p["scheme"]]) or \
                         (s["slot"] == "end_partner_prior" and False)
             rows.append({"id_human": p["id_human"], "scheme": p["scheme"],
+                         "key_resolves_own_rhyme": p["key_resolves_own_rhyme"],
                          "slot": s["slot"], "phase": s["phase"],
                          "class_mass": mass, "close_given_class": close_w,
                          "p_actual": pa, "p_close_actual": closes.get(p["actual_word"]),
