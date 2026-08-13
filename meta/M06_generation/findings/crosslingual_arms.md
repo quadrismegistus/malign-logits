@@ -68,13 +68,25 @@ This is the design the Chinese work has never had: same models, same corpus,
 same rung, language as the only manipulation. It says the drift reduction is
 not an artefact of English alignment data.
 
-- **PROMPTS ARE NOT MATCHED ACROSS LANGUAGES.** 97 Chinese and 100 English
-  prompts are different texts, so the language comparison is between prompt
-  SETS. The DiD is partly protected -- a prompt-set difference would have to
-  INTERACT with alignment to fake a null -- but a null DiD is exactly what a
-  weak or noisy design also produces, and at 25 pairs this one is not
-  powered to bound a small language difference. **The null is undetected,
-  not zero.**
+- **THE PROMPTS ARE MATCHED ACROSS LANGUAGES. This fence was WRONG and RH
+  corrected it.** The original text said the two prompt sets are different
+  texts and the language comparison is between SETS. Measured on the
+  catalogue: every Chinese prompt has an English counterpart, keyed on
+  `pair_id` base plus role suffix (`f11_love_he` x `CONTROL_B`) -- **97
+  matched keys, ZERO Chinese-only, 8 English extras.** So the design is
+  stronger than the finding claimed: topic, construct and role are held by
+  construction and only language varies.
+
+  **DECLARED BEFORE RUNNING (committed before the matched DiD exists):** the
+  pooled DiD above was null across four constructions. On matched prompts
+  the prompt-content variance is removed, so the test has MORE power to
+  detect a language difference. Direction stated in advance: if the
+  invariance is real the matched DiD stays null; **if a language difference
+  appears only now, the pooled null was a power failure and the invariance
+  reading must be withdrawn.** Either outcome is reported.
+
+  Remaining, and unchanged: at 25 pairs a null still bounds nothing. **The
+  null is undetected, not zero.**
 - ONE EMBEDDER. `f15_on_passages` had two and they agreed; this has bge-m3
   alone.
 - 25 pairs, 24 of them dpo, so this is a DPO result with one ppo rider.
