@@ -76,7 +76,7 @@ def main():
     #: which member actually survived a collision: the stored plen must equal
     #: the candidate's token count under that model's tokenizer. plen is the
     #: only trace of the prompt left in the row.
-    resolved_collisions = {}
+    resolved_collisions, n_votes = {}, {}
     if collide:
         import warnings
         warnings.filterwarnings("ignore")
@@ -87,7 +87,7 @@ def main():
             rows = q("SELECT model, any(plen) AS plen FROM "
                      "malign_logits.gen_sequences WHERE corpus='passage' "
                      "AND forced_word='' AND prompt='%s' GROUP BY model "
-                     "LIMIT 4" % p.replace("'", "\\'"))
+                     "LIMIT 25" % p.replace("'", "\\'"))
             votes = collections.Counter()
             for r in rows:
                 m = r["model"]
@@ -104,15 +104,29 @@ def main():
                     n = len(tk(f, add_special_tokens=False)["input_ids"])
                     if n == r["plen"]:
                         votes[f] += 1
-            if votes and len(votes) == 1:
-                resolved_collisions[p] = votes.most_common(1)[0][0]
+            #: A COLLIDED KEY IS A PER-MODEL MIXTURE, NOT A SURVIVOR. The
+            #: collision was resolved independently for each model -- whichever
+            #: source record that model's rows were written from won -- so
+            #: r2bpw_049 has 8 models matching UNMARKED, 4 matching MARKED and 6
+            #: matching neither. A majority vote over models would stamp one
+            #: member on the whole key and silently mislabel the rest, which is
+            #: the flattening this campaign keeps paying for. So no key-level
+            #: member is assigned: the map records the per-model split and the
+            #: key stays MIXED.
+            #:
+            #: The `neither` models are unexplained and NOT chased here. Most
+            #: likely plen counts a BOS that add_special_tokens=False omits, but
+            #: an unverified explanation is not a resolution, so they are
+            #: reported as unmatched rather than folded into a majority.
+            resolved_collisions[p] = None
+            n_votes[p] = {byprompt[f]["member"]: n for f, n in votes.items()}
 
     res = {"_schema": {"truncated": "the 60-char prompt as stored in "
                        "gen_sequences/gen_scores for corpus=passage",
                        "prompt": "verbatim prompt, from " + DRMATCH,
-                       "how": "unique-prefix | plen-identified",
-                       "note": "stems marked plen-identified lost their OTHER "
-                               "member to a store-key collision"},
+                       "how": "unique-prefix | MIXED-per-model",
+                       "note": "MIXED-per-model keys hold BOTH members, split by "
+                               "model; they carry no single verbatim prompt"},
            "_provenance": {"built_by": "meta/M06_generation/scripts/"
                                        "m06_passage_prompt_audit.py",
                            "source": DRMATCH,
@@ -125,12 +139,17 @@ def main():
         res["map"][p] = {"prompt": f, "how": "unique-prefix", "stem": c["stem"],
                          "member": c["member"], "domain": c["domain"],
                          "stratum": c["stratum"]}
-    for p, f in resolved_collisions.items():
-        c = byprompt[f]
-        lost = [byprompt[x]["member"] for x in collide[p] if x != f]
-        res["map"][p] = {"prompt": f, "how": "plen-identified", "stem": c["stem"],
-                         "member": c["member"], "domain": c["domain"],
-                         "stratum": c["stratum"], "lost_members": lost}
+    for p in collide:
+        c = byprompt[collide[p][0]]
+        res["map"][p] = {"how": "MIXED-per-model", "stem": c["stem"],
+                         "member": None, "domain": c["domain"],
+                         "stratum": c["stratum"],
+                         "candidates": {byprompt[f]["member"]: f
+                                        for f in collide[p]},
+                         "models_matching": n_votes.get(p),
+                         "warning": "this key holds rows from BOTH members, "
+                                    "split by model; resolve per (key, model) "
+                                    "via plen before using"}
     outp = os.path.join(ROOT, OUT)
     json.dump(res, open(outp, "w"), indent=1, ensure_ascii=False)
 
@@ -159,18 +178,21 @@ def main():
     w("  passage keys                     %d" % len(pp))
     w("  resolved by unique prefix        %d" % len(clean))
     w("  collided (MARKED+UNMARKED)       %d" % len(collide))
-    w("    of those, survivor identified  %d  (stored plen vs tokenized candidates)"
-      % len(resolved_collisions))
+    w("    all of them are PER-MODEL MIXTURES, no single member")
     w("  drmatch prompts never generated  %d" % len(orphan))
-    w("  keys left unresolved             %d"
-      % (len(pp) - len(clean) - len(resolved_collisions)))
+    w("  keys carrying a verbatim prompt   %d of %d" % (len(clean), len(pp)))
     w("")
-    w("GENERATIONS ABSENT FROM THE STORE (recoverable only by re-ingest)")
-    w("  overwritten members %d + never generated %d = %d of %d drmatch prompts"
-      % (sum(1 for p in collide), len(orphan),
-         sum(1 for p in collide) + len(orphan), len(full)))
-    for k, n in missing.most_common():
-        w("    domain=%-8s stratum=%-12s %d" % (k[0], k[1], n))
+    w("WHAT THE 9 COLLIDED KEYS ACTUALLY HOLD (models whose plen matches each")
+    w("member; a key with BOTH is a per-model mixture, not a survivor)")
+    for p in sorted(collide):
+        c = byprompt[collide[p][0]]
+        v = n_votes.get(p) or {}
+        w("  %-11s %-12s %s" % (c["stem"], c["stratum"],
+          "  ".join("%s=%d" % (k, n) for k, n in sorted(v.items())) or "no match"))
+    w("")
+    w("  drmatch prompts never generated at all: %d" % len(orphan))
+    w("  NOTE: plen is matched with add_special_tokens=False; models matching")
+    w("  NEITHER candidate are most likely a BOS offset, NOT chased here.")
     w("")
     w("WROTE %s  (%d entries)" % (OUT, len(res["map"])))
     body = "\n".join(L)

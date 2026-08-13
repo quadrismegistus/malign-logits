@@ -2,8 +2,8 @@
  "_schema": {
   "truncated": "the 60-char prompt as stored in gen_sequences/gen_scores for corpus=passage",
   "prompt": "verbatim prompt, from data/forced_arms_46reps_drmatch.json",
-  "how": "unique-prefix | plen-identified",
-  "note": "stems marked plen-identified lost their OTHER member to a store-key collision"
+  "how": "unique-prefix | MIXED-per-model",
+  "note": "MIXED-per-model keys hold BOTH members, split by model; they carry no single verbatim prompt"
  },
  "_provenance": {
   "built_by": "meta/M06_generation/scripts/m06_passage_prompt_audit.py",
@@ -1525,81 +1525,143 @@
    "stratum": "R_INVISIBLE"
   },
   "Before signing the release, the officer wanted the parolee t": {
-   "prompt": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_072",
-   "member": "MARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "UNMARKED"
-   ]
+   "candidates": {
+    "MARKED": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "UNMARKED": "Before signing the release, the officer wanted the parolee to confirm his new address, and then"
+   },
+   "models_matching": {
+    "MARKED": 12
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "Before stamping the passport, the officer wanted the travele": {
-   "prompt": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_024",
-   "member": "MARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "UNMARKED"
-   ]
+   "candidates": {
+    "MARKED": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "UNMARKED": "Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then"
+   },
+   "models_matching": {
+    "MARKED": 13
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "The athlete was told her roster spot would depend on whether": {
-   "prompt": "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_082",
-   "member": "UNMARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "MARKED"
-   ]
+   "candidates": {
+    "MARKED": "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so",
+    "UNMARKED": "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so"
+   },
+   "models_matching": {
+    "UNMARKED": 2
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "The board president told her the renovation would be approve": {
-   "prompt": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_097",
-   "member": "UNMARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "MARKED"
-   ]
+   "candidates": {
+    "MARKED": "The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and",
+    "UNMARKED": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and"
+   },
+   "models_matching": {
+    "UNMARKED": 12,
+    "MARKED": 3
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "The inspector told her the certification would be approved o": {
-   "prompt": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_049",
-   "member": "UNMARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "MARKED"
-   ]
+   "candidates": {
+    "MARKED": "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and",
+    "UNMARKED": "The inspector told her the certification would be approved once she submitted the updated floor plan, and"
+   },
+   "models_matching": {
+    "UNMARKED": 11,
+    "MARKED": 7
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+  },
+  "The landlord made clear that fixing the heating was continge": {
+   "how": "MIXED-per-model",
+   "stem": "r2bpw_013",
+   "member": null,
+   "domain": "power",
+   "stratum": "R_INVISIBLE",
+   "candidates": {
+    "MARKED": "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",
+    "UNMARKED": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which"
+   },
+   "models_matching": {
+    "MARKED": 8,
+    "UNMARKED": 10
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "The officer made clear that the transfer to a lower-supervis": {
-   "prompt": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_069",
-   "member": "MARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "UNMARKED"
-   ]
+   "candidates": {
+    "MARKED": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "UNMARKED": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which"
+   },
+   "models_matching": {
+    "MARKED": 13
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   },
   "The supervisor explained that the priority lane access depen": {
-   "prompt": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
-   "how": "plen-identified",
+   "how": "MIXED-per-model",
    "stem": "r2bpw_111",
-   "member": "MARKED",
+   "member": null,
    "domain": "power",
    "stratum": "R_INVISIBLE",
-   "lost_members": [
-    "UNMARKED"
-   ]
+   "candidates": {
+    "MARKED": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "UNMARKED": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though"
+   },
+   "models_matching": {
+    "MARKED": 7
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+  },
+  "The treasurer explained that the fee reduction depended on t": {
+   "how": "MIXED-per-model",
+   "stem": "r2bpw_103",
+   "member": null,
+   "domain": "power",
+   "stratum": "R_INVISIBLE",
+   "candidates": {
+    "MARKED": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",
+    "UNMARKED": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though"
+   },
+   "models_matching": {
+    "UNMARKED": 3,
+    "MARKED": 4
+   },
+   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
   }
  }
 }
