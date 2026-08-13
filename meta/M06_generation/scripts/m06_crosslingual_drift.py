@@ -115,7 +115,7 @@ def main():
             continue
         ss = list(ss)
         ss[0] = prompt + " " + ss[0]
-        kept["zh"].append((model, prompt, i, ss, nw))
+        kept["zh"].append((model, prompt, i, ss, nw, text))
         if (j + 1) % 4000 == 0:
             print("  zh segmentation %d/%d (%.1f min)"
                   % (j + 1, len(work["zh"]), (time.time() - t0) / 60))
@@ -131,7 +131,7 @@ def main():
             continue
         ss = list(ss)
         ss[0] = prompt + " " + ss[0]
-        kept["en"].append((model, prompt, i, ss, len(t2)))
+        kept["en"].append((model, prompt, i, ss, len(t2), text))
     for lang in ("zh", "en"):
         tot = len(work[lang])
         print("%s floors: kept %s of %s (%.1f%%), dropped %s"
@@ -151,13 +151,23 @@ def main():
     #: while a list turns every float into a ~20-char decimal repr: measured
     #: through this cache at 26.3 KB/vector against 8.8 KB for the ndarray.
     #: One method call was 3x the storage of the whole campaign's embeddings.
+    #: KEY ON THE RAW TEXT, the campaign convention that
+    #: `compute_passage_metrics` uses -- my first version keyed on the JOINED
+    #: SENTENCES, which no other producer would ever construct, so the
+    #: entries would have been invisible to everyone including a future me.
+    #: BUT the embedder field carries the SPLITTER, because the convention's
+    #: key does NOT record how the text was split and this producer splits
+    #: Chinese with stanza where everything else uses NLTK. A reader asking
+    #: for plain 'BAAI/bge-m3' must not silently receive stanza-split
+    #: vectors. Correctness over reuse, stated rather than assumed.
     from malign_logits.cache import get_cache
     cache = get_cache()
+    CKEY = {"zh": BGE + "|stanza-zh", "en": BGE + "|nltk-en"}
 
     #: DIAGNOSTIC, not a gate: does the mps hazard reach sentence-length Chinese?
     diag = None
     if torch.backends.mps.is_available() and kept["zh"]:
-        flat = sorted({s for _, _, _, ss, _ in kept["zh"][:400] for s in ss},
+        flat = sorted({s for _, _, _, ss, _, _ in kept["zh"][:400] for s in ss},
                       key=lambda s: (len(s), s))[:60]
         a = emb.encode(flat, show_progress_bar=False)
         emb.to("mps")
@@ -183,16 +193,15 @@ def main():
     for lang in ("zh", "en"):
         rows, t0 = [], time.time()
         n_hit = 0
-        for i, (model, prompt, sidx, ss, ln) in enumerate(kept[lang]):
-            ctext = "\n".join(ss)
-            got = cache.get_sent_embeddings(BGE, prompt, ctext)
+        for i, (model, prompt, sidx, ss, ln, text_raw) in enumerate(kept[lang]):
+            got = cache.get_sent_embeddings(CKEY[lang], prompt, text_raw)
             if got is not None:
                 v = np.asarray(got, dtype=np.float32)   # accepts either form
                 n_hit += 1
             else:
                 v = emb.encode(ss, show_progress_bar=False)
                 v = v / (np.linalg.norm(v, axis=1, keepdims=True) + 1e-10)
-                cache.set_sent_embeddings(BGE, prompt, ctext, v)
+                cache.set_sent_embeddings(CKEY[lang], prompt, text_raw, v)
             d = drift_metrics_from_embeddings(v.tolist())
             #: PERSIST THE WHOLE METRIC VECTOR, not two fields of seven.
             #: The encode is the expensive step; everything derived from it is
