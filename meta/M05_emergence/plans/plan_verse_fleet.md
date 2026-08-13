@@ -113,13 +113,20 @@ it.
   entirely in caching the primer so continuation tokens are incremental
   (approaches the 0.05x one-forward floor). The fleet producer caches or
   the redesign buys theta-safety at no cost saving.
-- SLOT ARITHMETIC, DECLARED for costing ([5727] §3): per roster poem,
-  4 slots — 1 CALLED (last line's final word) + 3 UNCALLED NULLS (two
-  mid-line positions, one uncalled line-end; exact positions computed by
-  the producer against the poem's own lines, rule declared in the slot
-  manifest it emits) = 720 verse slots; plus ~300 prose-battery
-  comparison slots (genre-conditional norms) = ~1,020 slots per rung.
-  Closure probes ride each slot as one cached batched forward.
+- SLOT ARITHMETIC, DECLARED for costing ([5727] §3, prose baseline
+  REVISED on RH's word 2026-08-13): per roster poem, 4 slots — 1 CALLED
+  (last line's final word) + 3 UNCALLED NULLS (two mid-line positions,
+  one uncalled line-end; positions computed by the producer against the
+  poem's own lines, rule in the slot manifest) = 720 verse slots; PLUS
+  the 102 LITERARY prompts (prompt_categorisation.json source=LITERARY,
+  found human fiction mid-passage) as the PRIMARY genre-licence
+  baseline — found prose against found verse, matched provenance; PLUS
+  ~100 M05-battery slots retained ONLY as the census-calibration anchor
+  (expand-era numbers exist at shared rungs = the instrument-drift
+  alarm), NEVER as the licence comparison — the battery stems are
+  engineered affect-loaded one-liners and would confound licence with
+  their built-in charge. Total ~922 slots per rung. Closure probes ride
+  each slot as one cached batched forward.
 - Provisioning budgeted in wall-clock and babysitting, not dollars
   (the L2 fleet's 6-of-14 casualty rate is the standing tax).
 
