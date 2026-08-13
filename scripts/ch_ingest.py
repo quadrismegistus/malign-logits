@@ -1095,6 +1095,8 @@ def main():
     ap.add_argument("--beams", action="store_true", help="beam_fc")
     ap.add_argument("--passages", action="store_true",
                     help="the M06 passage corpus, manifest-driven")
+    ap.add_argument("--passages-run2", action="store_true",
+                    help="SmolLM2 second pass as held-out replicate [5711]")
     ap.add_argument("--force", action="store_true",
                     help="re-ingest a corpus that already has rows")
     ap.add_argument("--dry-run", action="store_true",
@@ -1134,6 +1136,8 @@ def main():
         ingest_y(a.limit)
     if a.passages:
         ingest_passages(a.limit, force=a.force, dry_run=a.dry_run)
+    if a.passages_run2:
+        ingest_passages(a.limit, force=a.force, dry_run=a.dry_run, run2=True)
     if a.beams:
         ingest_beams(a.limit)
     if a.registry:
@@ -1143,7 +1147,8 @@ def main():
     if a.check:
         return 1 if check() else 0
     if not any((a.create, a.twp, a.logits, a.index, a.catalogue, a.drift, a.l2,
-                a.y, a.beams, a.passages, a.registry, a.verify, a.check)):
+                a.y, a.beams, a.passages, a.passages_run2, a.registry, a.verify,
+                a.check)):
         ap.print_help()
 
 
@@ -1299,7 +1304,8 @@ PASSAGE_ARMS = "data/forced_arms_46reps_drmatch.json"
 PASSAGE_ARMS_SHA16 = "89eb642b50d00dd9"
 
 
-def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
+def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False,
+                    run2=False):
     """The M06 forced-arms corpus: 42 delivered pairs, forced continuation at 208
     prompts, cross-scored by both arms. Rulings at [5639]/[5640], booked [5641],
     corpus label ruled at [5642]/[5643].
@@ -1358,6 +1364,15 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
     schema. `ingest_y`'s `continue` on a null scorer would have made 9.92% of
     Aquila2 an absence.
     """
+    #: --passages-run2 ([5711], corpus custody's ruling): SmolLM2-360M's file
+    #: holds every cell TWICE with different content -- one producer emitted two
+    #: passes into one output. `passage` keeps the FIRST occurrence per key (the
+    #: declared retention rule); this mode ingests the SECOND occurrences under
+    #: their own corpus label, `passage_run2`, as a DECLARED HELD-OUT REPLICATE,
+    #: never population. Scope fence, malign's words: the probe this enables
+    #: measures run-to-run variance FOR ONE PAIR, the smallest model in the
+    #: roster -- a property measured on one member of a class is not a fact
+    #: about the class. Expected: 1,844 cells, 29,504 sequences.
     man_p = os.path.join(ROOT, PASSAGE_MANIFEST)
     if not os.path.exists(man_p):
         raise SystemExit("no manifest at %s -- run passage_reconcile.py "
@@ -1411,13 +1426,19 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
                          % (len(missing), missing[:5]))
     print("  tree agrees with manifest: no unlisted non-empty files")
 
+    corpus = PASSAGE_CORPUS + "_run2" if run2 else PASSAGE_CORPUS
+    if run2:
+        #: only the stems the manifest flags as duplicated carry a second pass
+        paths = {k: v for k, v in paths.items() if k in dedup_required}
+        print("  run2 mode: %d stem(s) with a second pass: %s"
+              % (len(paths), ", ".join(sorted(paths))))
     if not force and not dry_run:
         have = int(ch_read("SELECT count() FROM %s.gen_sequences "
-                           "WHERE corpus='%s'" % (DB, PASSAGE_CORPUS)) or 0)
+                           "WHERE corpus='%s'" % (DB, corpus)) or 0)
         if have:
             print("  %s rows already present for corpus=%r. Re-inserting is "
                   "idempotent under ReplacingMergeTree, but pass --force to say "
-                  "so deliberately." % (format(have, ","), PASSAGE_CORPUS))
+                  "so deliberately." % (format(have, ","), corpus))
             return
 
     #: A DRY RUN DOES EVERY CHECK AND EVERY ROW-SHAPING STEP AND WRITES NOTHING.
@@ -1463,10 +1484,18 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
             ptxt = pid[len(pfx):]
 
             key = (pair, role, pid, word)
-            if key in seen_key:
-                n_dup += 1
-                continue
-            seen_key.add(key)
+            if run2:
+                #: KEEP the second occurrence, skip the first: the mirror of the
+                #: retention rule, so run1 + run2 partition the file exactly
+                if key not in seen_key:
+                    seen_key.add(key)
+                    n_dup += 1      # counted as "skipped first occurrences"
+                    continue
+            else:
+                if key in seen_key:
+                    n_dup += 1
+                    continue
+                seen_key.add(key)
             n_lines += 1
 
             arms = {}
@@ -1474,7 +1503,7 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
                 b, a = pair.split(">", 1); arms = {"base": b, "aligned": a}
             forced = word or ""
             for i, q in enumerate(d.get("sequences") or []):
-                seqs.append(_seq_rows(PASSAGE_CORPUS, model, ptxt, i, q.get("tokens"),
+                seqs.append(_seq_rows(corpus, model, ptxt, i, q.get("tokens"),
                                       q.get("text"), q.get("plen"), "", forced,
                                       0, role, pair, pid, d.get("temp"), 0, 0))
                 per_pair[pair] += 1
@@ -1483,7 +1512,7 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
                     ok = isinstance(lp, list)
                     if not ok:
                         n_unscorable += 1
-                    scores.append({"corpus": PASSAGE_CORPUS, "model": model,
+                    scores.append({"corpus": corpus, "model": model,
                                    "prompt": ptxt, "forced_word": forced,
                                    "sample_idx": i, "scorer": arms.get(arm, arm),
                                    "logprobs": [float(x) for x in lp] if ok else [],
@@ -1500,9 +1529,10 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
     put("gen_scores", scores); m += len(scores)
 
     print("\n%s: %s lines, %s sequences, %s score rows%s"
-          % (PASSAGE_CORPUS, format(n_lines, ","), format(n, ","), format(m, ","),
+          % (corpus, format(n_lines, ","), format(n, ","), format(m, ","),
              "   [DRY RUN, nothing written]" if dry_run else ""))
-    print("  duplicate lines collapsed at ingest   %s" % format(n_dup, ","))
+    print("  %s  %s" % ("run-1 lines skipped (mirror rule)   " if run2 else
+                          "duplicate lines collapsed at ingest ", format(n_dup, ",")))
     print("  rows refused for a bad prompt prefix  %s" % format(n_refused, ","))
     print("  unscorable score rows (scorable=0)    %s  %.2f%%"
           % (format(n_unscorable, ","), 100 * n_unscorable / max(m, 1)))
