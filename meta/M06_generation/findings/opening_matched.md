@@ -1,11 +1,76 @@
 ---
-status: draft
-grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is audit-grade until a second seat reproduces from results/opening_matched.json
+status: WITHDRAWN
+grade: ungraded
 date: 2026-08-13
 role: finding
-topics: [self-surprisal, chain, syntagmatic, forced-arms]
-description: "Opening-matched comparison (RH's design): COMPENSATION, not damage. Holding the opening token's surprisal fixed -- and, in the strictest version, holding the prompt fixed and requiring a word-like opening -- a forced passage is LESS surprising to its own model than one of its own passages that opened equally improbably. Every arm, both roles, three estimators, all negative. THE ARM ORDERING IS NOT ESTABLISHED and the earlier 'imposition, not demotion' headline is WITHDRAWN ([5805]): all three paired arm contrasts are ns, the ordering inverts between median and mean, and the interval does not bound out an arm effect the size of one the ladder already detects. Not alignment-specific either; no DiD survives correction."
+topics: [self-surprisal, chain, syntagmatic, forced-arms, withdrawn]
+description: "WITHDRAWN AT CONSTRUCTION LEVEL ([5811]), not amended. The comparison never matched openings: the forced word conditions the generation but is absent from BOTH the prompt and the scored text, so forced rows are scored on a continuation carrying one more word of context than undisturbed rows. Every forced-vs-undisturbed number here -- main effect, profile, ANCOVA, word-like-opening control, POS and Zipf matching -- compares sequences with different amounts of conditioning. The context asymmetry is a sufficient explanation for the whole effect and requires nothing of the models."
 ---
+# WITHDRAWN: opening-matched (the comparison was never opening-matched)
+
+**Withdrawn 2026-08-13 at construction level. Nothing below is a result.**
+The text is kept because the docket carries it ([5803], [5808], [5809]) and
+because the way it failed is worth more than the way it read.
+
+## The defect
+
+The forced word conditions generation but is in NEITHER the prompt NOR the
+scored text, and is absent from the logprob array. Three measurements, made
+after malign's [5810] §3 named the exact condition that would collapse their
+own structural argument:
+
+    text starts with the forced word     0.0008  of 904,544 forced rows
+    prompt ends with the forced word     0.0000
+    logprobs[1] within-site sd           1.749 mean / 1.677 median over
+                                         56,509 sites -- a forced word's
+                                         logprob at a fixed site is
+                                         DETERMINISTIC, so this is the first
+                                         SAMPLED token after it
+    len(logprobs) vs tokens(text)        equal exactly (pythia-6.9b: 256/256,
+                                         256/255, 256/256)
+
+Example: `forced_word='moved'`, prompt tail *"scooped the goldfish out of its
+bowl and"*, text head *" into another room, carrying it with her"*. The word
+`moved` appears nowhere.
+
+**So `x` was not a matched opening.** For undisturbed rows it is the model's
+own first sampled token; for forced rows it is the first sampled token AFTER
+an unmeasured imposed word. Forced rows carry one more word of conditioning
+context than undisturbed rows at the same nominal position, and more context
+makes a continuation more predictable. That is a sufficient explanation for
+the entire "compensation" effect and it requires nothing of the models.
+
+## Why every control survived
+
+The controls -- prompt fixed effects, word-like openings, contextual POS
+matching, Zipf-band matching -- were elaborations on top of a broken
+comparison. **None of them touched the asymmetry**, because each matched a
+property of the word in position 1 while the defect was an entire word
+sitting OUTSIDE the measured window. A control can only remove what it
+compares.
+
+## What this does not touch
+
+Checked, not assumed: everything ARM-vs-ARM, because all forced arms share
+the same structure. `self_surprisal.md`'s S3 and S4 stand. F3a compares an
+aligned-base gap within forced-matched against the same gap within
+undisturbed, so the asymmetry is common to both roles and cancels. F3b, F3c,
+I5, the ascent branch and I7 are arm-vs-arm; F15 and I6 are
+undisturbed-only.
+
+## The lesson, which is not the one I was collecting
+
+I ran four controls on this comparison and each survival raised my
+confidence. **All four were downstream of a defect in what the two arms ARE**,
+and no amount of covariate matching reaches that. The question I never asked
+was the cheapest one available: *what exactly is in the sequence being
+scored?* malign asked it from outside, about a producer neither of us wrote,
+and it took three queries to answer.
+
+---
+
+*Original text follows, superseded in full.*
+
 # Opening-matched: the chain compensates for being handed a word
 
 Plan: `plans/plan_opening_matched.md`, committed before this producer, with
