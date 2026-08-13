@@ -170,9 +170,11 @@ SCOPE LINE, above both clauses because it governs every claim made under
 them: A VERIFICATION CLAIM CARRIES ITS SCOPE. "X is clean" is a fact
 about X — the register, then meta/, then the tree, then scripts/, four
 times in one night, the gap moving down a directory each time — so every
-clean/complete/verified sentence names what it covered AND what it did
-not, and two known cases stand in for a population only after the
-population is enumerated.
+clean/complete/verified sentence names what it covered and THE NEAREST
+THING IT DID NOT — the adjacent scope a reader would otherwise assume
+was inside it, never the unbounded complement, which nobody can name and
+which turns the rule decorative ([5674]) — and two known cases stand in
+for a population only after the population is enumerated.
 
 CLAUSE 1 — READS (engine-state). A figure read from a live table is a
 claim about an ENGINE STATE, not only a time. Every ReplacingMergeTree
@@ -197,7 +199,10 @@ skipped — is a claim about the query at least as much as about the
 world, and is re-derived when the query changes rather than carried
 forward as a fact about the data (the 27 no-coverage rows; and
 passage_reconcile's narrower precedent: absence is counted from the
-DECLARED POPULATION, never from the absence of a failure file).
+DECLARED POPULATION, never from the absence of a failure file — a
+precedent that sat in the tree as a special case for three weeks before
+anyone generalised it; the sentence entered the law because a
+no-coverage row cost something, not because anyone was careful, [5674]).
 
 CLAUSE 2 — WRITES (resumption and provenance). An output artifact
 records WHAT was produced, not what PRODUCED it, so a resumable producer
