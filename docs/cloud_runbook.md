@@ -545,3 +545,46 @@ After the run:
 - [ ] `malign cloud --yes stop`
 - [ ] `vastai show instances` returns zero
 - [ ] Anything learned goes into `data/model_load_environments.json` and this file
+
+### 2.25 The verse fleet, 13 Aug — EIGHT launch-time failures, and the pattern is that seven of them REPORT SUCCESS
+
+A fleet of 8 dense boxes over 250 rungs. Every one of these cost 10-45 minutes and every one but the last presents as working. **The runbook already held §2.16 and §2.19; I hit their siblings anyway, which is the standing lesson that a doc informs and only a guard refuses.**
+
+**(a) `malign cloud setup` clones the WHOLE REPO — `.git` is 10 GB.** It stalled at 257 MB and left a `.git` with no working tree on branch `master` (the repo uses `main`), so `pip install -e .` failed with "neither setup.py nor pyproject.toml". **For a fleet, ship a PAYLOAD instead**: `malign_logits/` + `scripts/twp_cloud.py` + `pyproject.toml` + the jieba dict + the spec = **12.8 MB compressed**, scp'd in seconds. Cloning a data-carrying repo to N boxes is the wrong shape for a run whose bill is model downloads.
+
+**(b) `--shards` is CONCURRENT PROCESSES ON ONE CARD, not boxes.** `--shards 8 --gpu-budget-gb 45` sets a 45/8 = 6 GB per-model ceiling; all 250 18 GB models "exceeded" it and were segregated into the heavy phase — **one box, 46 hours, planned in silence.** To split across boxes, split the SPEC file. Read the `--shards` help text before assuming it means what the word means elsewhere.
+
+**(c) `malign cloud` is ONE BOX PER STATE FILE.** Seven launches in a row refused with "Instance already exists". Use `MALIGN_VAST_STATE=.vastai.<name>.json`; `cloud.py:20-31` says so and the fleet is the normal case.
+
+**(d) A payload path skips whatever `setup` would have done — starting with HF_TOKEN.** Seven boxes downloaded unauthenticated; one hit `HF RATE LIMIT (attempt 4/6)` and two crawled. `~/.cache/huggingface/token` plus `~/.bashrc`, and **verify with `HfApi().whoami()`**, not by writing the file.
+
+**(e) `pgrep -f twp_cloud` SELF-MATCHES the ssh command line** — §2.16's sibling, in the health check rather than the kill. It made eight boxes report RUN including four with no payload, **and because the start command was `pgrep ... || tmux new-session`, the self-match returned true and THE BATCH NEVER STARTED on three provisioned boxes.** Always `'[t]wp_cloud'`.
+
+**(f) `/workspace` DOES NOT EXIST on some images.** Four boxes failed scp four times with "failed to upload file" and no reason. A plain `cat > file` surfaced "No such file or directory" in one attempt. **`mkdir -p` first; and when scp fails without a cause, stream once to get the real error.**
+
+**(g) Nested quoting kills tmux starts silently.** Three attempts killed the old process and never started the new one. **Write a `start.sh` to the box and `tmux new-session -d -s x 'bash /workspace/start.sh'`** — stop fighting the escaping.
+
+**(h) THE DANGEROUS ONE: DOWNLOAD STARVATION READS AS PROGRESS.** Three boxes on one host (machine 56458) each cycled through **18-19 of 31 models in 45 minutes with an HF cache of 1-7 MB and ZERO cells**. Every fetch rate-limited, backed off, gave up, and the runner ADVANCED. `pgrep` said RUN, the log said `[19/31]`, the GPU said 0%. **The discriminator is whether `~/.cache/huggingface` GROWS across ~45 s** — static is a state, growing is a race. Blocklisted; **and a replacement box landed back on the same machine minutes later, which is why the blocklist is keyed on MACHINE and must be written at acquisition, not at post-mortem.**
+
+**What a fleet check must therefore measure:** rows in the output files, HF cache growth, GPU utilisation, and a bracketed pgrep. Any three of those can look healthy while nothing is produced.
+
+## 2.26 THE PROXY REFUSES, THE BOX IS FINE — and a probe that carried four wrong constants (13 Aug 2026)
+
+**A verse-fleet box reported UNREACHABLE on three consecutive attempts with `Permission denied (publickey)` while producing normally.** `vastai attach ssh` answered `SSH key already associated with instance`. The box had 18,991 cells written, was on model 11/31 at 1.82 p/s, and had been up 2.95 h with 9.5 GB downloaded. **The vast PROXY (`ssh9.vast.ai:28582`) was refusing; the DIRECT route (`public_ipaddr:direct_port_start`, here `91.108.80.253:22395`) worked first try.**
+
+    vastai show instances --raw | jq '.[] | {id, ssh_host, ssh_port, public_ipaddr, direct_port_start}'
+    vastai ssh-url <id>          # prints the direct route
+
+**THIS IS WHY THE DESTROY GATE IS BYTE-LEVEL VERIFICATION AND NOT UNREACHABILITY.** Standing permission is to destroy a verified box; an unreachable box is not a verified box and is not a dead box either. **One route's silence is a fact about the route.** Had `unreachable` been treated as `dead`, a healthy box with 19k cells and its whole shard would have been destroyed — and the shard's models appear on no other box, so the loss would have been silent and permanent.
+
+**AND THE PROBE THAT FOUND IT WAS WRONG FOUR WAYS, EACH REPORTING A HEALTHY FLEET AS DEAD.** The ad-hoc sweep read:
+
+    b['host'], b['port']     -- the record stores `ssh` as one "host:port" STRING   -> "no-host"
+    pgrep -f verse_batch     -- no such process; the runner is twp_cloud.py         -> matched only my own ssh command line
+    /workspace/out/*.jsonl   -- the SCRIPT DEFAULT is /workspace/twp and the LAUNCH
+                                FLAG was --out /workspace/verse                     -> 0 files
+    446,500 vs 455,000       -- (this one was right, and is the only one that was)
+
+**Every wrong constant failed toward ALARM, which is the direction that gets noticed** — so the fleet was never at risk from them. A reader error pointing the other way (probing a path that always has files) would have reported a dead fleet as healthy and nobody would have looked. **The rule: a fleet probe must derive its process name, output path and route FROM THE LAUNCH COMMAND (`ps -eo args`), never from the script's defaults or from prose.** `ps` is the only artifact that knows which flags actually ran.
+
+Pinned in `scripts/verse_fleet_sweep.py`, which tries proxy then direct and prints WHICH route answered.
