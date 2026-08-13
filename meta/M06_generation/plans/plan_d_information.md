@@ -33,6 +33,19 @@ gate ON ITS OWN ROWS (never probe strings), encodes short strings on CPU
 or behind a second-device gate, and inherits lacan's producer-level
 device policy verbatim.
 
+Extended per [5701] (malign's own-rows audit of sent_embeddings: clean —
+0/60 below cos 0.99 — but BY ACCIDENT of its input distribution, not by
+design): (1) the encode-unit lesson binds here — MEASURE THE LENGTH OF
+WHAT WAS PASSED TO encode(), never the row (the producer encodes
+SENTENCES, not passages; a row profile hides the at-risk unit); (2) this
+plan's producer decision, as owner: the GUARD form is adopted, not the
+pin — `embedding.py` remains shared and untouched; D's producer wraps it
+with (a) CPU for any encode-unit under 12 characters, (b) mps otherwise
+behind a second-device gate on its own rows that REFUSES TO WRITE on
+mismatch — lacan's measured 46.6/sec CPU trade makes short-unit CPU
+free at D's scale. Malign's boundary carried: the 60-row audit licenses
+"the found class is absent", never "the store is verified".
+
 POS caution from [5632] stands: nothing here reaches for `fields._byu()`;
 any POS need is served by the shared Stanza parses.
 
