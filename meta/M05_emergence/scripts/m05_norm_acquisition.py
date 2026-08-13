@@ -78,15 +78,14 @@ def main():
                     wp = word_probs(m, p)
                 except Exception:
                     continue
-                if not wp:
-                    continue
-                total = sum(wp.values())
+                probs = getattr(wp, "probs", None) or {}
+                total = sum(probs.values())
                 if total <= 0:
                     continue
                 sums = [0.0] * len(K_SCALES)
                 rated_mass = 0.0
                 n_rated = 0
-                for w, pr in wp.items():
+                for w, pr in probs.items():
                     r = ratings.get(w.lower())
                     if r is None:
                         continue
@@ -97,7 +96,8 @@ def main():
                 row = {"ladder": ladder, "model": m,
                        "model_id": c["model_id"], "role": c["role"],
                        "stage": c.get("stage"), "step": c.get("step", 0),
-                       "prompt": p, "total_mass": total,
+                       "prompt": p, "resolved_mass": total,
+                       "residual": float(getattr(wp, "residual", 0.0)),
                        "k_rated_mass_share": rated_mass / total,
                        "n_rated_words": n_rated}
                 for i, sc in enumerate(K_SCALES):

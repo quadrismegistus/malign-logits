@@ -76,6 +76,9 @@ def build_flags():
     return df
 
 
+PAIR_DELTAS = []
+
+
 def paired_reads(d, measures, label, out):
     for meas, direction in measures:
         if meas not in d.columns:
@@ -99,8 +102,13 @@ def paired_reads(d, measures, label, out):
         out[f"{label}:{meas}"] = {
             "cells": int(len(delta)), "cell_median_delta": float(delta.median()),
             "pair_median_delta": float(pm.median()),
-            "pairs_up": up, "pairs_dn": dn, "n_pairs": n,
-            "p_sign": p_sign, "p_wilcoxon": p_wil, "direction": direction}
+            "pairs_up": up, "pairs_dn": dn, "n_ties": n - up - dn,
+            "n_pairs": n, "p_sign": p_sign, "p_wilcoxon": p_wil,
+            "hypothesis": direction,
+            "observed": ("aligned HIGHER" if pm.median() > 0 else
+                         "aligned LOWER" if pm.median() < 0 else "flat")}
+        PAIR_DELTAS.extend({"label": label, "metric": meas, "pair": pr,
+                            "delta": float(v)} for pr, v in pm.items())
         print(f"{label:10s} {meas:36s} Δmed {delta.median():+.4f} "
               f"pairs {up}/{dn} of {n}  p_sign {p_sign if p_sign is None else round(p_sign,5)}",
               flush=True)
@@ -115,13 +123,18 @@ def main():
     print(f"merged: {len(df)} passages, {df.pair.nunique()} pairs", flush=True)
 
     flags = build_flags()
+    flags = flags.drop_duplicates(["pair", "role", "prompt_id", "seq_idx"])
     df = df.merge(flags, on=["pair", "role", "prompt_id", "seq_idx"], how="left")
+    assert len(df) == df.drop_duplicates(["pair", "role", "prompt_id", "seq_idx"]).shape[0], \
+        "merge exploded duplicate keys"  # [5705]'s catch, now impossible silently
     df["degenerate"] = ((df.top_word_share >= 0.20) |
                         (df.non_ascii_alpha_share >= 0.20))
     df["english"] = df.english_nltkwords_share >= 0.60
     df["hard"] = df.is_prose & (~df.degenerate) & df.english
 
-    out = {"n_passages": int(len(df)), "n_pairs": int(df.pair.nunique())}
+    out = {"n_passages_distinct": int(len(df)),
+           "n_flags_rows_raw_tree": int(len(flags)),
+           "n_pairs": int(df.pair.nunique())}
     # descriptions: per-arm strata rates
     for col in ["is_prose", "degenerate", "english", "list_lines_share"]:
         out[f"desc:{col}_by_arm"] = df.groupby("role")[col].mean().round(4).to_dict()
@@ -159,6 +172,9 @@ def main():
         paired_reads(dt[dt.spw_tertile == t],
                      [("ttr_mattr_w100", f"A.H2 within {t}")], f"tert_{t}", out)
 
+    pd.DataFrame(PAIR_DELTAS).to_parquet(
+        os.path.join(RESULTS, "m06_pair_deltas.parquet"))
+    print(f"pair deltas: {len(PAIR_DELTAS)} rows", flush=True)
     with open(os.path.join(RESULTS, "m06_verdicts.json"), "w") as fh:
         json.dump(out, fh, indent=2, default=str)
     print("wrote results/m06_verdicts.json", flush=True)
