@@ -37,13 +37,50 @@ import sys
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from rhyme_pull_pilot import rime_key, last_word  # pinned-prosodic helpers
+from rhyme_pull_pilot import last_word  # pinned-prosodic helper
+
+_RIME_CACHE_V2 = {}
+
+
+def rime_key(word):
+    """v2, PHONEMIC (the audit's fix: v1 fell back to syllable SPELLING and
+    shattered /eI/ into 'ay'/'ey'/'eigh'). Key = rime phonemes of the final
+    stressed syllable FROM ITS FIRST VOWEL (strips onset-glide leaks like
+    weigh->weI) + full IPA of any following syllables, stress marks removed."""
+    w = word.lower().strip("'\"")
+    if w in _RIME_CACHE_V2:
+        return _RIME_CACHE_V2[w]
+    key = None
+    try:
+        import prosodic
+        pw = prosodic.Word(w)
+        sylls = pw.children[0].children
+        idx = 0
+        for i in range(len(sylls) - 1, -1, -1):
+            if sylls[i].is_stressed:
+                idx = i
+                break
+        parts = []
+        for j in range(idx, len(sylls)):
+            if j == idx:
+                phs = list(sylls[j].rime.children) if sylls[j].rime is not None else []
+                vi = next((k for k, ph in enumerate(phs)
+                           if getattr(ph, "is_vowel", False)), 0)
+                parts.append("".join(ph.txt for ph in phs[vi:]))
+            else:
+                ipa = getattr(sylls[j], "ipa", None) or sylls[j].txt
+                parts.append(str(ipa).replace("\u02c8", "").replace("\u02cc", ""))
+        key = "|".join(x for x in parts if x) or None
+    except Exception:
+        key = None
+    _RIME_CACHE_V2[w] = key
+    return key
 
 REPO = os.path.expanduser("~/github/malign-logits")
 ROSTER = os.path.join(REPO, "data/rhyme_fleet_roster.json")
 CSV = os.path.expanduser(
     "~/github/generative-formalism1/data/data_as_in_paper/genai_rhyme_completions.csv.gz")
-RIME_VOCAB = os.path.join(REPO, "data/rime_class_vocab.json")
+RIME_VOCAB = os.path.join(REPO, "data/rime_class_vocab_v2.json")
 OUT_DIR = os.path.join(REPO, "meta/M05_emergence/data")
 
 SMOKE_MODEL = "HuggingFaceTB/SmolLM2-360M"
@@ -71,7 +108,7 @@ def build_rime_vocab(limit=None):
         if i and i % 2000 == 0:
             print(f"  rime vocab {i}/{len(words)}", flush=True)
     json.dump({"_meta": {"vocabulary": "k_ratings en word list",
-                         "rule": "rime_key = final-stressed-syllable-onward IPA, onset-stripped (paper-pinned prosodic)",
+                         "rule": "v2 PHONEMIC: rime phonemes of final stressed syllable from first vowel (audit fix: v1 was orthographic and shattered /eI/), plus following sylls full IPA, stress marks stripped",
                          "n_words_in": len(words), "n_keys": len(k2w)},
                "key_to_words": k2w}, open(RIME_VOCAB, "w"))
     print(f"rime vocab: {len(k2w)} keys", flush=True)
