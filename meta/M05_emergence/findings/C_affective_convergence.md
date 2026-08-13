@@ -82,13 +82,25 @@ lineage's final base) and disagree in sign. ROBUST across both: the affect
 gap is real and label-tied. NOT ROBUST: whether alignment widens or narrows
 it. Read Result 3 as OLMo-specific and superseded on the sign by T-18.
 
-## Result 4: two alignment tactics by domain — displace vs refuse
+## Result 4: WITHDRAWN PENDING DEFINITION (2026-08-13) — the recapture
+contrast does not reproduce
 
-Where mass does move, its destination splits by domain: violence prompts
-CONCENTRATE the demoted mass onto a substitute act (displacement/metonymy —
-riser-recapture ~1), sexual prompts DIFFUSE it into the tail (refusal/
-foreclosure — recapture 0.08-0.45, most mass to the unresolved tail). One is
-metonymy, the other foreclosure; both are alignment, on different domains.
+As published: violence prompts CONCENTRATE demoted mass onto a substitute
+(recapture ~1), sexual prompts DIFFUSE it (0.08-0.45) — displace vs refuse.
+The numbers came from an ad-hoc session computation with no producer
+(producer-debt.md Class 1B). The producer now exists
+(`m05_pair_displacement.py --recapture`, results/m05_recapture.json, 315
+prompt rows at three alignment endpoints) with a declared definition —
+riser excess-above-the-renormalisation-null over faller loss, the family's
+own instrument — and under it THE CONTRAST IS ABSENT: recapture_all is
+~1.0-1.2 for violence AND sexual at every endpoint; top-1 riser share is
+~0.32-0.36 for both. The only domain that separates is power (top-1
+0.73-0.85) against animal (0.25-0.28) — a contrast the prose never claimed.
+Either the original computation used a definition nobody recorded (and it
+yields to this artifact per the debt entry's own rule), or R4 was an
+artifact of that computation. THE DISPLACE-VS-REFUSE SENTENCE IS NOT
+QUOTABLE. The R1-R3 results are untouched; the fig7c by-domain figure
+remains descriptive.
 
 ## A correction on the record
 

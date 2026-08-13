@@ -81,6 +81,57 @@ def load_pairs():
     return pairs
 
 
+def recapture():
+    """C Result 4's producer, written 2026-08-13 to discharge the Class-1B
+    debt (producer-debt.md: 'recaptur' appeared in exactly two files, both
+    prose). DECLARED DEFINITION, chosen where the prose was silent:
+    per MARKED prompt at each alignment endpoint vs base_main,
+        faller_loss   L = -sum(delta[w] for w in fallers)
+        recapture_all   = sum(max(excess[w],0) for w in risers) / L
+        recapture_top1  = max(excess[w]) / L
+    excess is the riser gain ABOVE the renormalisation null (movement.py),
+    so recapture measures mass reappearing as SPECIFIC substitutes rather
+    than diffuse bookkeeping. ~1 = concentrated displacement; ->0 = the
+    demoted mass diffuses into the tail. If the published prose range does
+    not reproduce under this definition, the prose yields to this artifact.
+    Writes results/m05_recapture.json (raw per-prompt rows + domain medians)."""
+    from malign_logits.movement import CANONICAL
+    from malign_logits.step import Step
+    pop = population()
+    ends = [(i, m, r) for i, m, r in pop
+            if r in ("sft_endpoint", "dpo_endpoint")] +            [max(((i, m, r) for i, m, r in pop if r == "rlvr_step"),
+                key=lambda t: t[0])]
+    pairs = load_pairs()
+    rows = []
+    for idx, mid, role in ends:
+        step = Step(BASE_MAIN, mid)
+        for stem, dom, subd, marked, unmarked in pairs:
+            c = step.cell(marked)
+            if not c.is_present:
+                continue
+            m = c.movement(CANONICAL)
+            L = -sum(m.delta[w] for w in m.fallers)
+            if L <= 0:
+                continue
+            gains = [max(float(m.excess.get(w, 0.0)), 0.0) for w in m.risers]
+            rows.append(dict(role=role, stem=stem, domain=dom, subdomain=subd,
+                             faller_loss=float(L),
+                             recapture_all=float(sum(gains) / L),
+                             recapture_top1=float(max(gains) / L if gains else 0.0),
+                             n_risers=len(m.risers), n_fallers=len(m.fallers)))
+    df = pd.DataFrame(rows)
+    med = (df.groupby(["role", "domain"])[["recapture_all", "recapture_top1"]]
+             .median().round(4).reset_index())
+    out = {"definition": "see recapture() docstring; excess-above-null over faller loss",
+           "n_rows": len(df), "rows": df.to_dict("records"),
+           "domain_medians": med.to_dict("records")}
+    os.makedirs("meta/M05_emergence/results", exist_ok=True)
+    with open("meta/M05_emergence/results/m05_recapture.json", "w") as fh:
+        json.dump(out, fh, indent=1)
+    print(med.to_string(index=False))
+    print(f"wrote results/m05_recapture.json: {len(df)} prompt rows")
+
+
 def main():
     from malign_logits.movement import CANONICAL, RESIDUAL_KEY
     from malign_logits.step import Step
@@ -226,5 +277,8 @@ def main():
     return 0
 
 
+if __name__ == "__main__" and "--recapture" in sys.argv:
+    recapture()
+    sys.exit(0)
 if __name__ == "__main__":
     sys.exit(main())
