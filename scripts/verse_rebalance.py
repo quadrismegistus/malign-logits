@@ -167,11 +167,30 @@ def main(argv=None):
                         print("     TRUNCATED on dead box %s: %s has %d rows -- will re-run"
                               % (d, f, n))
                 held[d] = done
+        #: EXCLUDE WORK ALREADY IN FLIGHT. `held` is what is on DISK, so a model
+        #: being generated RIGHT NOW on another box still looks owed -- and the
+        #: second idle box was handed the identical 15, both burning to produce
+        #: the same rungs. Ask every live box what spec it is running.
+        inflight = set()
+        for bid_, i_ in inst.items():
+            out_ = live(routes(i_),
+                        "cat %s/data/recover.json 2>/dev/null" % REMOTE)
+            if not out_: continue
+            try:
+                for e_ in json.loads(out_):
+                    m_ = e_.get('model') if isinstance(e_, dict) else e_
+                    if m_: inflight.add(safe(m_))
+            except Exception:
+                pass
+        if inflight:
+            print("  %d model(s) already in flight on a live box; excluded" % len(inflight))
+
         orphaned = {}
         for bid, models in held.items():
             if bid in live and state.get(bid): continue      # box still with us
             sname = max(rs, key=lambda sn: len(models & set(safe(m) for m in rs[sn])))
-            missing = [m for m in rs[sname] if safe(m) not in models]
+            missing = [m for m in rs[sname]
+                       if safe(m) not in models and safe(m) not in inflight]
             if missing: orphaned[bid] = (sname, missing)
         if not orphaned:
             print("  no orphaned shard work. Nothing to recover."); return 0
