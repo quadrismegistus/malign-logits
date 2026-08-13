@@ -25,6 +25,14 @@ cross-corpus fact worth having; nothing is predicted.
 - `drift_bge_m3` — embedding drift along the passage, cache method
   `sent_embeddings` (keyed embedder/prompt/text).
 
+DEVICE ALERT inherited from [5699] before any D producer exists: bge-m3
+on this machine's mps deterministically corrupts short-string embeddings
+(measured on single CJK characters; 89% of that class, invisible to
+re-audits down the same path). D's drift instrument therefore runs its
+gate ON ITS OWN ROWS (never probe strings), encodes short strings on CPU
+or behind a second-device gate, and inherits lacan's producer-level
+device policy verbatim.
+
 POS caution from [5632] stands: nothing here reaches for `fields._byu()`;
 any POS need is served by the shared Stanza parses.
 
