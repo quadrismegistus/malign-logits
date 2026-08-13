@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [drift, cross-lingual, chinese, arms]
-description: "The cross-lingual arm contrast: ALIGNMENT REDUCES TRAJECTORY DRIFT IN CHINESE AS IT DOES IN ENGLISH, on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction (p 0.23 to 1), so the effect is a property of the operation rather than of the language it was tuned on. First arm effect this campaign has measured on Chinese GENERATED TEXT."
+description: "The cross-lingual arm contrast: ALIGNMENT REDUCES TRAJECTORY DRIFT IN CHINESE AS IT DOES IN ENGLISH, on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
 ---
 # The cross-lingual arm contrast: the same operation in both languages
 
@@ -58,15 +58,39 @@ matching, at 24 of 25 pairs on three of the four constructions.
 
 **Q2: THE LANGUAGE DiD IS NULL EVERYWHERE.** English-minus-Chinese runs
 -0.0023 (p 0.42), +0.0021 (p 1.0), +0.0133 (p 0.23), +0.0120 (p 0.23) across
-the four constructions -- it does not even hold a sign. **Alignment reduces
-drift by the same amount in a language it was mostly not tuned on**, which
-makes the effect a property of the operation rather than of English.
+the four constructions -- it does not even hold a sign.
+
+## The strongest construction: MATCHED PROMPTS
+
+RH corrected a fence this finding had wrong (see the limits): the two prompt
+sets are not different texts. Keyed on `pair_id` base plus role suffix
+(`f11_love_he` x `CONTROL_B`) there are **97 matched keys, ZERO
+Chinese-only, 8 English extras** -- every Chinese prompt has an English
+partner. So the contrast can be run with topic, construct and role held BY
+CONSTRUCTION.
+
+Declared before it existed (81a86eed): removing prompt-content variance
+gives the test MORE power, so a language difference appearing only now would
+mean the pooled null was a power failure and the invariance reading had to be
+withdrawn. Run after (30e4341d), 22,461 passages over 100 matched keys,
+1,901 (pair, key) units:
+
+    total_drift  zh -0.0314 (4/21, p 9.1e-04) | en -0.0169 (2/23, p 1.9e-05)
+                 DiD en-zh  -0.0041  11/14  p 0.69
+    mean_drift   zh -0.0462 (1/24, p 1.6e-06) | en -0.0427 (0/25, p 6.0e-08)
+                 DiD en-zh  +0.0141  14/11  p 0.69
+
+**THE INVARIANCE HOLDS ON MATCHED CONTENT.** Both arms' reductions survive,
+the DiD is null on both metrics and holds no sign. **Alignment reduces
+trajectory drift by the same amount in Chinese and English ON THE SAME
+PROMPTS**, which makes the effect a property of the operation rather than of
+English.
 
 ## What it is worth, and the limits that bound it
 
 This is the design the Chinese work has never had: same models, same corpus,
-same rung, language as the only manipulation. It says the drift reduction is
-not an artefact of English alignment data.
+same rung, same prompts, language as the only manipulation. It says the drift
+reduction is not an artefact of English alignment data.
 
 - **THE PROMPTS ARE MATCHED ACROSS LANGUAGES. This fence was WRONG and RH
   corrected it.** The original text said the two prompt sets are different
@@ -77,31 +101,16 @@ not an artefact of English alignment data.
   stronger than the finding claimed: topic, construct and role are held by
   construction and only language varies.
 
-  **DECLARED BEFORE RUNNING (committed before the matched DiD exists):** the
-  pooled DiD above was null across four constructions. On matched prompts
-  the prompt-content variance is removed, so the test has MORE power to
-  detect a language difference. Direction stated in advance: if the
-  invariance is real the matched DiD stays null; **if a language difference
-  appears only now, the pooled null was a power failure and the invariance
-  reading must be withdrawn.** Either outcome is reported.
+  The matched-prompt contrast this unlocked is reported above as the
+  strongest construction. **How the error happened, since it is the
+  reusable part: I saw 97 prompts against 100, inferred different texts, and
+  never looked for a key.** The catalogue carries one, in the field whose
+  name says so. **A COUNT MISMATCH IS NOT EVIDENCE OF NON-CORRESPONDENCE** --
+  97 and 100 differ by exactly the English extras, which is what a matched
+  design with a few spares looks like.
 
-  **RESULT (run after the declaration above was committed at 81a86eed):
-  THE INVARIANCE HOLDS ON MATCHED PROMPTS.** 22,461 passages over 100
-  matched keys, 1,901 (pair, key) units with both languages:
-
-      total_drift  zh -0.0314 (4/21, p 9.1e-04) | en -0.0169 (2/23, p 1.9e-05)
-                   DiD en-zh  -0.0041  11/14  p 0.69
-      mean_drift   zh -0.0462 (1/24, p 1.6e-06) | en -0.0427 (0/25, p 6.0e-08)
-                   DiD en-zh  +0.0141  14/11  p 0.69
-
-  Both arms' reductions survive on matched content, the DiD is null on both
-  metrics and does not hold a sign, and this is the version of the test with
-  topic, construct and role held by construction. **Alignment reduces
-  trajectory drift by the same amount in Chinese and English on the SAME
-  prompts.**
-
-  Remaining, and unchanged: at 25 pairs a null still bounds nothing. **The
-  null is undetected, not zero.**
+  Remaining, and unchanged by any of this: at 25 pairs a null still bounds
+  nothing. **The null is undetected, not zero.**
 - ONE EMBEDDER. `f15_on_passages` had two and they agreed; this has bge-m3
   alone.
 - 25 pairs, 24 of them dpo, so this is a DPO result with one ppo rider.
