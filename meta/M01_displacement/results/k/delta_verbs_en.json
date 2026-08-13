@@ -1,0 +1,12 @@
+{
+ "encoder": "BAAI/bge-m3",
+ "lang": "en",
+ "n_pairs": 293172,
+ "n_prompts": 2162,
+ "n_words": 5334,
+ "dim": 1024,
+ "dtype": "float16",
+ "join": "space",
+ "population": "movement rule=canonical, cls in (fall,rise), verbs from embed_en_glove.npz",
+ "seconds": 533.9
+}
