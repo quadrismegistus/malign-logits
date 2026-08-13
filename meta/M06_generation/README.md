@@ -109,6 +109,27 @@ Topic modeling was considered and DROPPED at open: content is pinned by
 construction, so topic variation mostly recovers prompt identity; drift is
 D's job and frame exit is M02's.
 
+## Findings
+
+One row per document in `findings/`. Status is quoted from the document;
+quotability lives in the claims register.
+
+**Theme 1 — the style of alignment (plans A/B):**
+
+| doc | claim | status |
+|---|---|---|
+| [AB_surface_and_clauses.md](findings/AB_surface_and_clauses.md) | Compression, not simplification: aligned prose is LESS lexically diverse (A.H2 REVERSED, p .003, survives its own conditioning tertiles) and packs MORE dependent clauses per 1,000 words (29/11, p .0064) into SHORTER clauses (p .028) while every per-sentence ratio sits flat — the surface per-sentence denominators cannot see. Sentence length: non-finding. Ns synced to the corrected verdicts JSON ([5705]/[5706]; 13/13 verdicts held). | current; single analysis pass, no cross-seat audit |
+
+**Theme 2 — the arm signature on the page (plan P-on-passages, I1-I7):**
+
+| doc | claim | status |
+|---|---|---|
+| [p_on_passages.md](findings/p_on_passages.md) | The signature survives the trip and the drag is priming: cross-grain Spearman +0.500; page classifier real-minus-null-MEAN 0.39-0.50 against a 200-flip null DISTRIBUTION (the single-draw nulls of [5743] are superseded — the flip-null saga, [5744]-[5747]); forcing a faller drags BOTH arms base-poleward equally (I5 DiD p .63); ascent DEAD (second-order predication is contradiction-triggered, not transgression-triggered); I6 the signature is TONIC (site drag equal in both arms, DiD p .90) — site-specificity lives at the distribution grain, not on the page; I7 one thin crack, the saturation interaction, FLAGGED NOT QUOTED (med -0.00101, p .015 uncorrected, 4% of IQR; earn condition = a second corpus). | draft; aggregation layer second-seated ([5760]/[5762]), producer layer single-pass |
+
+Open, unexplained, carried visibly: the ECHO ASYMMETRY — aligned repeats ANY
+injected word more than base (matched 0.219 vs 0.138), arm-general, site-flat,
+mention-not-use reading lost with the ascent null.
+
 ## Scope
 
 English first. zh clause parsing is a separate instrument gate, phase two.
