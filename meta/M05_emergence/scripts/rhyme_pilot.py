@@ -65,22 +65,32 @@ def pick_primers():
 
 
 def rhyme_score(txt):
-    """Paper semantics: rhyming lines (<= max_dist 4) and perfect (dist 0)."""
+    """EXACT mirror of generative_formalism get_rhyme_for_txt semantics:
+    max_dist = RHYME_MAX_DIST = 1 (constants.py:351); rhyming/perfect counted
+    over the SET OF LINES participating (union of both members per pair),
+    perfect = score 0 (the paper's exact-rime criterion); denominator =
+    prosodic's text.num_lines."""
     import prosodic
     lines = [l for l in txt.splitlines() if l.strip()]
     if len(lines) < 4:
         return None
-    t = prosodic.Text("\n".join(lines))
     try:
-        pairs = t.get_rhyming_lines(max_dist=4)
+        t = prosodic.Text("\n".join(lines))
+        rhyme_d = t.get_rhyming_lines(max_dist=1)
+        all_rhyming, all_perfect = set(), set()
+        for l1, (score, l2) in rhyme_d.items():
+            all_rhyming.update({l1, l2})
+            if not score:
+                all_perfect.update({l1, l2})
+        n_lines = t.num_lines
     except Exception:
         return None
-    n_lines = len(lines)
-    n_rhy = len(pairs)
-    n_perf = sum(1 for v in pairs.values() if v and v[0] == 0)
-    return {"n_lines": n_lines, "n_rhyming": n_rhy, "n_perfect": n_perf,
-            "rhyming_per10": 10.0 * n_rhy / n_lines,
-            "perfect_per10": 10.0 * n_perf / n_lines}
+    if not n_lines:
+        return None
+    return {"n_lines": n_lines,
+            "n_rhyming": len(all_rhyming), "n_perfect": len(all_perfect),
+            "rhyming_per10": 10.0 * len(all_rhyming) / n_lines,
+            "perfect_per10": 10.0 * len(all_perfect) / n_lines}
 
 
 def main():
