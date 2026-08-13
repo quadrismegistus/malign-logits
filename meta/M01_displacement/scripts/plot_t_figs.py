@@ -315,7 +315,13 @@ def t14_words():
                            "(list in code).\nviolence: kill->scream 245 "
                            "forward / 21 reverse. sexual: the whispered "
                            "sink (kissed->whispered 291/3). Strata "
-                           "stratified, never pooled."))
+                           "stratified, never pooled.\n"
+                           "A pair is CO-DISPLACEMENT (X fell while Y rose "
+                           "in the same next-word distribution), not a "
+                           "witnessed token swap; significance is by EDGE "
+                           "VOTES (one per model pair, ~44 max), never by "
+                           "the occurrence counts the site-crossing "
+                           "manufactures."))
           + theme_minimal()
           + theme(figure_size=(14, 6),
                   axis_text_y=element_blank(),
