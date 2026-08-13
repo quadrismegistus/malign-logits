@@ -89,6 +89,26 @@ def main():
         print("  %-10s %-8s %-6s %-9s %-6s %-10s %s" % (
             bid, d.get('prog','?'), d.get('files'), f"{c:,}",
             d.get('free'), d.get('rate','?'), d['_route']))
+    #: A DESTROYED BOX IS DELISTED, AND ITS CELLS ARE NOT LOST -- THEY ARE ON DISK.
+    #: The total is built from what vast LISTS, so tearing down a finished box made
+    #: WRITTEN fall 372,818 -> 320,870, and inflated the ETA to match. Same shape as
+    #: the unreachable case one door along, and staged teardown would repeat it on
+    #: every destroy. Add the locally-held cells of every box-id directory that is
+    #: no longer live.
+    live_ids = {str(i['id']) for i in inst}
+    if os.path.isdir(DEST_LOCAL):
+        for d in sorted(os.listdir(DEST_LOCAL)):
+            if d.startswith('_') or not d.isdigit() or d in live_ids:
+                continue
+            n = 0
+            for f in os.listdir(os.path.join(DEST_LOCAL, d)):
+                if f.endswith('.jsonl'):
+                    with open(os.path.join(DEST_LOCAL, d, f), 'rb') as fh:
+                        n += sum(1 for _ in fh)
+            if n:
+                tot += n
+                print("  %-10s RETIRED, counting %s cells held locally" % (d, f"{n:,}"))
+
     pct = 100*tot/TOTAL_EXPECTED
     print("\n  WRITTEN %s / %s  (%.2f%%)" % (f"{int(tot):,}", f"{TOTAL_EXPECTED:,}", pct))
     print("  producing %d/%d    burn $%.2f/hr" % (producing, len(res), burn))
