@@ -134,9 +134,22 @@ def main(argv):
     print("\n  READY TO DESTROY: %s" % (ready or 'none'))
     if ready and do_destroy:
         for bid in ready:
-            r=subprocess.run(['vastai','destroy','instance',str(bid)],
-                             capture_output=True,text=True,timeout=60)
-            print("  destroyed %s: %s" % (bid, r.stdout.strip() or r.stderr.strip()))
+            #: -y IS REQUIRED. Without it vastai prints "Are you sure ... [y/N]"
+            #: and exits 0 having destroyed NOTHING, and this loop then printed
+            #: "destroyed <id>" on the strength of a zero exit code. A box kept
+            #: burning $0.67/hr behind a success message. Confirm by RE-READING
+            #: the instance list, never by trusting the command's return.
+            r = subprocess.run(['vastai','destroy','instance',str(bid),'-y'],
+                               capture_output=True, text=True, timeout=60)
+            still = subprocess.run(['vastai','show','instances','--raw'],
+                                   capture_output=True, text=True, timeout=90)
+            gone = True
+            try:
+                gone = not any(i['id'] == bid for i in json.loads(still.stdout))
+            except Exception:
+                gone = False
+            print("  %s %s: %s" % ("DESTROYED" if gone else "STILL PRESENT --",
+                                   bid, (r.stdout or r.stderr).strip()[:80]))
     elif ready:
         print("  (report only -- pass --destroy to act)")
     return 0
