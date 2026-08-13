@@ -16,6 +16,13 @@
   "aligned": 0.0004997501249375312,
   "base": 0.050474762618690654
  },
+ "coherent_null": {
+  "n": 500,
+  "p_aligned": 0.05189620758483034,
+  "p_base": 0.3872255489021956,
+  "strongest_draw": 0.42326635122299194,
+  "strongest_seed": "期待"
+ },
  "poles": {
   "en_base": [
    "went",

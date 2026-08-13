@@ -285,7 +285,7 @@ word class. So all three readings were run and they agree at Spearman 0.984 to
 -0.578 / -0.607 / -0.567 across them. **Quote the no-pos table**; the tag adds
 nothing here and costs half the vocabulary to defend.
 
-**AND THE TWO LANGUAGES' ALIGNED POLES OCCUPY THE SAME REGION OF ONE SPACE.**
+**DO THE TWO LANGUAGES' ALIGNED POLES OCCUPY THE SAME REGION OF ONE SPACE? ON THE WEAK NULL YES, ON THE STRONG NULL NOT DEMONSTRATED.**
 `k_pole_bridge.py`, bge-m3 for both languages (checked to be one `model` string,
 and each language centred on its own mean first -- multilingual encoders separate
 languages far more strongly than anything within one, so raw cosines would make
@@ -294,23 +294,42 @@ the test unfailable):
     cos(zh aligned, en aligned)  +0.5451     cos(zh aligned, en base)  +0.1771
     cos(zh base,    en base)     +0.3025     cos(zh base,    en aligned) +0.1554
 
-    contrast, aligned  +0.3680   permutation p < 0.001   (2,000 draws, floor)
-    contrast, base     +0.1471   permutation p = 0.0505  NOT significant
+    contrast, aligned  +0.3680     uniform permutation p < 0.001
+    contrast, base     +0.1471     uniform permutation p = 0.0505
 
-**The aligned poles correspond across languages; the base poles do not, or only
-marginally.** The null permutes the zh pole assignment while holding English and
-the Chinese vocabulary fixed, so it destroys only the thing under test. This does
-not pass through the movement rule in either language.
+**AND THAT NULL IS TOO EASY TO BEAT, WHICH THE STRONGER ONE SHOWS.** A uniform
+permutation builds semantically INCOHERENT zh sets whose centroids partly cancel,
+so the contrast can be rewarded for coherence rather than correspondence. The
+second null draws COHERENT sets not selected by arm -- a random seed word and its
+100 nearest zh neighbours -- and also absorbs the register objection, since some
+seeds land in institutional-procedural vocabulary:
 
-WHAT IT DOES NOT SHOW, and one alternative I cannot presently exclude. Centroid
-geometry is compatible with two overlapping but distinct regions, so this is not
-"the poles are translations". And institutional-procedural vocabulary is the
-register of international technical and bureaucratic discourse, which may simply
-have tighter cross-lingual neighbourhoods **for any word set drawn from it,
-regardless of arm**. The control that would settle it -- matched-register,
-matched-frequency word sets drawn without reference to arm -- has not been run.
-Until it is, the honest form is: the aligned poles correspond, and part of that
-correspondence may be a property of the register rather than of alignment.
+    COHERENT null, 500 draws
+      aligned contrast +0.3680 beaten by 5.0% of them    p = 0.0519
+      base    contrast +0.1471 beaten by 38.6%           p = 0.3872
+      strongest coherent draw +0.4233, seeded on 期待 "expect"
+
+**So the cross-language pole correspondence does not survive its own control, and
+the claim is withdrawn to a much weaker one.** A randomly seeded coherent Chinese
+cluster reaches this correspondence one time in twenty, and one of them beat it
+outright. What can be said is that the zh aligned pole sits in a region of the
+shared space that leans toward the en aligned pole at roughly the 95th percentile
+of coherent Chinese clusters -- suggestive, one-sided, and not a result. The base
+pole shows nothing at all (38.6%).
+
+The coherence measurement that motivated the second null is itself worth keeping,
+because it argues against the easy dismissal too: centroid norms are aligned
+0.1237, base 0.1625, random-100 0.1015. **The BASE pole is the more coherent of
+the two and has the WEAKER contrast**, so whatever is happening on the aligned
+side is not simply that our selection produced a tight cluster.
+
+WHAT WOULD SETTLE IT. The coherent null may be too conservative in the other
+direction: a seed-plus-neighbours set is maximally tight, while an AUC-selected
+pole is not selected for proximity at all, so the comparison asks our pole to beat
+sets built to be coherent. A matched-dispersion null -- coherent draws constrained
+to the observed pole's centroid norm -- is the test that would separate these, and
+it has not been run. Until then this section supports the WORD-LEVEL zh result
+above and nothing cross-lingual.
 
 
 

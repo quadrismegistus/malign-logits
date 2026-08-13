@@ -132,11 +132,47 @@ def main():
     print("  permutation null, %d draws: aligned p=%.4f | base p=%.4f"
           % (NPERM, p_al, p_ba))
 
+    #: A SECOND NULL, BECAUSE THE FIRST ONE IS TOO EASY TO BEAT. A uniform
+    #: permutation builds semantically INCOHERENT zh sets, whose centroids
+    #: partly cancel, so the observed contrast could be measuring coherence
+    #: rather than correspondence. Measured centroid norms: aligned 0.1237, base
+    #: 0.1625, random-100 0.1015 -- less of a gap than feared, and note the BASE
+    #: pole is the more coherent of the two while having the WEAKER contrast,
+    #: which already argues against the coherence reading.
+    #:
+    #: This null draws COHERENT sets not selected by arm: a random seed word and
+    #: its 100 nearest zh neighbours. It also absorbs the register objection --
+    #: some seeds land in institutional-procedural vocabulary, so if that region
+    #: simply translates well, these draws will show it.
+    ZW = [u for u in dict.fromkeys(words)]
+    M = np.stack([ZH[w] for w in ZW])
+    M = M / np.maximum(np.linalg.norm(M, axis=1, keepdims=True), 1e-12)
+    ca = cb = 0
+    NC = 500
+    best = (-9, None)
+    for _ in range(NC):
+        i = int(rng.integers(len(ZW)))
+        nb_ = np.argsort(-(M @ M[i]))[:TOP]
+        S = cen([ZW[j] for j in nb_], ZH)
+        a = float(S @ EA - S @ EB)
+        ca += a >= d_al; cb += a >= d_ba
+        if a > best[0]:
+            best = (a, ZW[i])
+    p_ca = (ca + 1) / (NC + 1); p_cb = (cb + 1) / (NC + 1)
+    print("  COHERENT null (%d seed+100NN sets, not arm-selected):" % NC)
+    print("    aligned contrast %+.4f beaten by %.1f%% of them (p=%.4f)"
+          % (d_al, 100 * ca / NC, p_ca))
+    print("    base    contrast %+.4f beaten by %.1f%% of them (p=%.4f)"
+          % (d_ba, 100 * cb / NC, p_cb))
+    print("    strongest coherent draw %+.4f, seeded on %r" % best)
+
     rep = {"encoder": m_en, "top_n": TOP, "n_perm": NPERM,
            "cos": {"zhA_enA": float(ZA @ EA), "zhA_enB": float(ZA @ EB),
                    "zhB_enB": float(ZB @ EB), "zhB_enA": float(ZB @ EA)},
            "contrast": {"aligned": d_al, "base": d_ba},
            "p": {"aligned": p_al, "base": p_ba},
+           "coherent_null": {"n": NC, "p_aligned": p_ca, "p_base": p_cb,
+                             "strongest_draw": best[0], "strongest_seed": best[1]},
            "poles": {"en_base": eb[:25], "en_aligned": ea[:25],
                      "zh_base": zb[:25], "zh_aligned": za[:25]}}
     out = os.path.join(K, "pole_bridge.json")
