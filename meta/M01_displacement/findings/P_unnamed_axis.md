@@ -162,15 +162,16 @@ Two encoders that agree about nothing else land within 0.005 of each other. GloV
 is near-isotropic (median pairwise cosine 0.037) and bge-m3 is not (0.529); one
 is 300 dimensions and the other 1024.
 
-**CHINESE RECOVERS MORE THAN ENGLISH**, 26,692 cells over 2,005 words, bge-m3:
-trees add +0.0246 to +0.0270 per-site over their own shuffle across k = 10 to
-200, which against the Chinese headroom of +0.1079 is about **24%** where English
-is 18-21%. The Chinese figure is a single draw and inherits the same OpenMP
-nondeterminism, so 24% against 19% is inside the English band and the ordering is
-not established. Read the tree rows only: the Chinese logistic increment climbs from
-+0.0317 to +0.0767 across the sweep, but the real model is flat (0.6546 to
-0.6505) while the SHUFFLE collapses (0.6229 to 0.5738) -- the same widening-gap
-artifact as English, where an increment grows because both of its terms fall.
+**CHINESE RECOVERS ABOUT AS MUCH AS ENGLISH, PERHAPS MORE**, 26,692 cells over
+2,005 words, bge-m3 (RECOMPUTED 2026-08-13 on the rebuilt store; see the
+corruption record in 5b): trees add +0.019 to +0.034 over their own shuffle
+across k = 10 to 200, which against the Chinese headroom of +0.1079 is
+**18-31%** where English is 18-21%. Single draws under the same OpenMP
+nondeterminism; the bands overlap and the ordering is not established. Read the
+tree rows only: the Chinese logistic increment climbs from +0.0221 to +0.0788
+across the sweep, but the real model is nearly flat (0.6406 to 0.6536) while the
+SHUFFLE collapses (0.6185 to 0.5748) -- the same widening-gap artifact as
+English, where an increment grows because both of its terms fall.
 
 ENCODERS ARE GATED ON BARE WORDS BEFORE USE, because docket [459] gate-checked
 bge-m3 on `prompt + " " + word`, a SENTENCE, and a gate passed for one use is not
@@ -307,7 +308,7 @@ transgression.
 
 THE AXIS FAILED ITS OWN PRE-DECLARED STABILITY GATE. Minimum pairwise cosine
 between the five fold axes was 0.841 in English against a gate of 0.9 set before
-the run; en/bge is 0.826 and zh/bge 0.834. Consistent across all three, so not
+the run; en/bge is 0.826 and zh/bge 0.852 (rebuilt store). Consistent across all three, so not
 selective, and too low to have passed a line that does not move afterwards.
 **Every named direction here is provisional in that same way.**
 
@@ -368,7 +369,7 @@ noisy side of the comparison.
     ALIGNED     关注 0.870  编写 0.863  需要 0.862  寻求 0.853  采取行动 0.844
                 质疑 0.843  采取 0.830  准备 0.827  无法 0.824  进行 0.820
 
-**It agrees with the Chinese movement axis at Spearman -0.578, stronger than
+**It agrees with the Chinese movement axis at Spearman -0.616, stronger than
 English's -0.461**, and the reading is the English one in an unrelated lexicon:
 deixis, motion and bodily action against institutional-procedural verbs.
 
@@ -381,8 +382,26 @@ Dropping the unisolated ones selects on candidate length, which correlates with
 word class. So all three readings were run and they agree at Spearman 0.984 to
 0.995: `word_auc_zh_nopos.tsv` (no tag, every word), `word_auc_zh_exact.tsv`
 (tagged, isolated only), `word_auc_zh.tsv` (tagged, all). The axis agreement is
--0.578 / -0.607 / -0.567 across them. **Quote the no-pos table**; the tag adds
+-0.616 / -0.611 / -0.628 across them. **Quote the no-pos table**; the tag adds
 nothing here and costs half the vocabulary to defend.
+
+**THE zh bge STORE WAS CORRUPTED AND EVERY zh/bge NUMBER IN THIS DOCUMENT IS THE
+REBUILT ONE** (2026-08-13). `embed_zh_bge.npz` held, for 576 of 3,978 rows --
+89% of the single-character words, 0% of everything else -- vectors that were
+not the model's output (median cos 0.51 against a CPU referee, worst 0.16). The
+build path was a large multi-batch encode on this machine's mps (torch 2.11),
+which corrupts some single-CJK-character embeddings DETERMINISTICALLY: a
+re-audit down the same path reproduces the corruption and reads as clean, and
+only a standalone call or the CPU breaks the tie. The English store audits
+clean, 0 of 6,120, so every en/bge number stands. It surfaced because a re-run
+gate refused to reproduce the stored one (0.0896 against 0.319); the old gate
+had passed because its probes were encoded in a small call while the store rows
+came from the corrupted path -- the gate certified an instrument other than the
+one in use. Corrupted store and axis kept as `*.MPSCORRUPT.*`; rebuild on CPU,
+same population, gate recomputed on the store's own rows (0.3190). **Correction
+moved every zh number toward the finding, not away**: axis agreement -0.578 to
+-0.616, recovery 24% to 18-31%, axis stability 0.834 to 0.852 (still failing
+its 0.9 gate).
 
 **DO THE TWO LANGUAGES' ALIGNED POLES OCCUPY THE SAME REGION OF ONE SPACE? ON THE WEAK NULL YES, ON THE STRONG NULL NOT DEMONSTRATED.**
 `k_pole_bridge.py`, bge-m3 for both languages (checked to be one `model` string,
@@ -963,27 +982,33 @@ The description surviving elimination is **ENACTED -> REPRESENTED**: what falls
 is immediate bodily doing, what rises is action that passes through
 representation -- a mind, a speech act, or an institution. That is M01's
 deliberation-replaces-action (six lexicons, 684 pairs) reached by elimination.
-And the Chinese replication (-0.578, section 5b) does specific work here: an
+And the Chinese replication (-0.616, section 5b) does specific work here: an
 etymological-seam reading predicts NO replication in a language with an
 unrelated lexical history; the functional reading predicts exactly what is
 observed -- the same function deposited in a different vocabulary.
 
 AND THE NAME ONLY HALF-TRANSFERS TO CHINESE, WHICH THE TRANSLATION BRIDGE
-ALREADY PREDICTED. The same field test on the zh instruments (`field_poles_zh`,
-armAUC-nopos + axis/bge + delta, all-tags zh-USAS at 89.6% coverage) is
-UNDERPOWERED -- the shared vocabulary is 423 words because the bge store embeds
-only coder-rated verbs, and 0 of 219 tests survive FDR -- so nothing zh-side is
-quotable alone. Directionally: the PROCEDURAL face transfers (X2.4 examine/test
-z -2.83 against en's -4.60; Q1.2 documents/writing rises; M2 transport and B1
-body fall weakly), but everyday VOLITION AND AFFECT (X7 wanting, E2 liking,
-E4.1, X5.2) fall in zh, and G3 warfare RISES -- the zh aligned pole genuinely
-holds attack vocabulary, as section 5c found by translation. So what crosses
-languages at field grain is ENACTED -> REPRESENTED (documents, examination,
-carried-out procedure); the specifically MENTAL-PREDICATE face of the name is
-the English-literary form and should not be claimed for zh. One instrument
-caveat cutting both languages: USAS decorations are stripped, so antonym pairs
-share a field (E3 is calm AND violent, E4.1 happy AND sad) -- no E-field's sign
-may be read as one pole.
+ALREADY PREDICTED -- REWRITTEN AFTER THE STORE REBUILD, WHICH RETRACTED PART OF
+THE FIRST VERSION. The zh field test (`field_poles_zh`, armAUC-nopos + axis/bge
++ delta at 423 shared words; `--wide`, two instruments at 1,212) is UNDERPOWERED
+-- 0 of 219 and 0 of 278 tests survive FDR, 34 models being the wall -- so
+everything here is directional and nothing is quotable alone. What leans, on
+both runs: the PROCEDURAL-DOCUMENTARY face rises (X2.4 examine/test -3.21
+against en's -4.60; A1.1.1 general action/making -3.48; T2 -3.24; Q1.2
+documents; Q4.3 media; Y2 IT; S8 helping), together with G3 warfare -- the zh
+aligned pole genuinely holds attack vocabulary, as section 5c found by
+translation -- while DISCOURSE-DEIXIS falls (Z4 +2.41, Z8 pronouns +1.13) with
+everyday volition and affect leaning the same way weakly (X7 wanting, E2
+liking). **The first version of this paragraph also had body and transport
+falling; that did not survive the store correction** (B1 loses sign-consistency,
+M2 goes ambiguous), so the zh evidence for the CONTACT face is currently nil,
+not weak. What crosses languages at field grain is ENACTED -> REPRESENTED only
+in the narrow form: represented, procedural, documentary action rises; deictic
+and vernacular matter falls. The MENTAL-PREDICATE face of the name is the
+English-literary form and must not be claimed for zh. One instrument caveat
+cutting both languages: USAS decorations are stripped, so antonym pairs share a
+field (E3 is calm AND violent, E4.1 happy AND sad) -- no E-field's sign may be
+read as one pole.
 
 CONVERGENT, FROM GENERATED PROSE RATHER THAN LOGITS: M02's field analysis of
 54,080 continuations over 26 pairs reads, in its own words, "off the concrete

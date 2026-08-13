@@ -93,9 +93,15 @@ def main(lang="en"):
         inst["armAUC"] = {w: -v for w, v in au.items()}
     inst["axisGloVe"] = axis_scores("axis_%s.json" % lang,
                                     "embed_%s_glove.npz" % lang)
+    #: --wide (zh): the widened bge store over the full armAUC vocabulary, and
+    #: the DELTA IS DROPPED -- it is movement-verbs by construction, so keeping
+    #: it in the intersection would cut the vocabulary straight back to the 423
+    #: rated verbs the widening exists to escape. Two instruments, declared.
+    WIDE = "--wide" in sys.argv
     inst["axisBGE"] = axis_scores("axis_%s_bge.json" % lang,
-                                  "embed_%s_bge.npz" % lang)
-    inst["delta"] = tsv(os.path.join(K, "delta_word_scores_%s.tsv" % lang), col=1)
+                                  "embed_%s_bge%s.npz" % (lang, "_wide" if WIDE else ""))
+    if not WIDE:
+        inst["delta"] = tsv(os.path.join(K, "delta_word_scores_%s.tsv" % lang), col=1)
     inst = {k: v for k, v in inst.items() if v}
     shared = sorted(set.intersection(*[set(v) for v in inst.values()]))
     print("[%s] instruments %s | shared vocabulary %s words"
@@ -216,8 +222,8 @@ def main(lang="en"):
                            "n": d[names[0]]["n"],
                            "z": {i: d[i]["z"] for i in names},
                            "q": {i: d[i]["q"] for i in names}} for mz, f, d in cons]}
-    p = os.path.join(K, "field_poles_%s%s.json"
-                     % (lang, "_" + VAR if VAR else ""))
+    p = os.path.join(K, "field_poles_%s%s%s.json"
+                     % (lang, "_" + VAR if VAR else "", "_wide" if WIDE else ""))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
