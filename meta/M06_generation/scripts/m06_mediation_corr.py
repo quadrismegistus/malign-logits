@@ -77,11 +77,19 @@ def main():
     print("M06 side: %d pairs, %d (pair, word) rows" % (len(pairs), len(PW)))
 
     plist = "','".join(p.replace("'", "\\'") for p in pairs)
-    q = ("SELECT concat(base,'>',aligned) AS pair, word, count() AS cells, "
+    #: READ DISTINCT. The canonical slice carries 3,982,956 excess rows over
+    #: 73,642,696 distinct (base, aligned, prompt, word) keys -- 5.1% -- and the
+    #: duplication is CONCENTRATED, not uniform: the Llama-3.1-8B pair has none
+    #: at all. Counting rows would inflate each word's cell count by however
+    #: much its own pair happens to be duplicated, which is a per-pair bias in
+    #: the denominator of every percentage here. [5872] reports zero cls
+    #: disagreements among the duplicates, so collapsing them is safe.
+    q = ("SELECT pair, word, count() AS cells, "
          "countIf(cls='fall') AS nf, countIf(cls='rise') AS nr, "
          "avg(log(greatest(p_base,%g)/greatest(p_aligned,%g))) AS logratio "
-         "FROM malign_logits.movement "
-         "WHERE rule='canonical' AND concat(base,'>',aligned) IN ('%s') "
+         "FROM (SELECT DISTINCT concat(base,'>',aligned) AS pair, prompt, word, "
+         "      p_base, p_aligned, cls FROM malign_logits.movement "
+         "      WHERE rule='canonical' AND concat(base,'>',aligned) IN ('%s')) "
          "GROUP BY pair, word" % (THETA, THETA, plist))
     rows = list(ch_rows(q))
     M = pd.DataFrame(rows)
