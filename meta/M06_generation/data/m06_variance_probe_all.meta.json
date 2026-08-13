@@ -1,0 +1,10 @@
+{
+  "arms": "all",
+  "n_rows": 58988,
+  "n_run1": 29493,
+  "n_run2": 29495,
+  "parser": "stanza-1.14.0:tokenize,mwt,pos,lemma,depparse",
+  "osp_commit": "56f2562",
+  "fence": "SmolLM2-360M only; unknown transfer to other pairs",
+  "_invocation": "meta/M06_generation/scripts/m06_variance_probe.py --arms all"
+}
