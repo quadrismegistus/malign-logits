@@ -88,6 +88,47 @@ the faller is lowest, as the mirror predicts. All forced arms sit below
 undisturbed in both roles, but that comparison is fenced (see below) and
 carries no weight.
 
+## Why undisturbed is the MOST surprising arm, and why it carries no weight
+
+RH asked. The mechanism is entropy propagation from the first token, and it
+is measurable rather than a story: within undisturbed self-scored passages
+(224,307 rows, n>40), the correlation between the FIRST token's logprob and
+the mean logprob of everything after it is **+0.365**, and between the early
+window (positions 2-8) and the late one (9 onward) it is **+0.466**. A
+passage that opens improbably stays improbable.
+
+Undisturbed generation samples its first token at temperature 1.0 from the
+whole distribution, so that token averages -4.70 -- near the negative
+entropy -- and lands in the tail often. Forced arms are conditioned on a
+SELECTED high-mass candidate averaging -2.2. So the undisturbed arm is
+systematically conditioned on an atypical opening and the forced arms on a
+typical one, and the rest of the passage inherits it. **This is a fact about
+the sampling regime, not about alignment**, which is why every contrast
+against `undisturbed` is fenced below and none is read.
+
+## Relation to M04's ladder -- overlapping, NOT independent ([5798])
+
+RH asked whether this is the same result as M04's ladder. It is not the
+same measurement, and the evidence is not independent either.
+
+    M04 rose-minus-flat  +0.0510  13/27  p 0.0436   on D = A|A - B|A
+    S4 aligned           -0.0077  13/27  p 0.0385   on A|A
+
+Identical sign counts, adjacent p, same direction -- but the producers
+differ in window and term. M04's `k8` is `arraySlice(logprobs, 1, 8)`: the
+FIRST EIGHT TOKENS INCLUDING THE FORCED WORD, differenced against B|A.
+Mine is `arraySlice(logprobs, 2)`: position 2 to the end, ~222 tokens, the
+forced word excluded, on A|A alone. The relation is asymmetric: M04's
+window sits almost entirely INSIDE mine (positions 2-8) but is about 3% of
+my measure's tokens, while their D subtracts a term mine does not have.
+(Position 1 CANCELS in their D, since both arms force the same word -- a
+design property that makes including it harmless there.)
+
+**So "the first non-null DiD in the forced series" above is scoped to THIS
+seat's series (I5, ascent, I6, I7, F3). M04's ladder reached a rose-flat
+non-null first, on an overlapping quantity.** The two should never be
+counted as two witnesses.
+
 ## Fences
 
 - **Anything against `undisturbed` is confounded** and is reported only for
@@ -110,12 +151,34 @@ carries no weight.
 - 12,993 forced cells carried a word absent from the arms table for their
   (pair, prompt) and were dropped, named here rather than folded in.
 
-## Flagged, not quoted
+## Flagged, attacked, and standing ([5796])
 
-**This is the first positive result this seat has produced after a long run
-of nulls, which is exactly the condition under which its own ledger says
-positives get checked least.** The per-cell parquet is keyed
-(pair, role, prompt, arm) for the [5760]-form reconstruction, and the S4 DiD
-should not be leaned on until a second seat rebuilds it. The specific thing
-to attack: whether the base arm's typicality confound, which the DiD
-inherits, is doing the work.
+This was posted flagged rather than claimed, because it is this seat's first
+positive after a long run of nulls -- the condition under which its own
+ledger says positives get checked least. Both asks have now been run by an
+independent seat.
+
+RECONSTRUCTION: every number at both grains, and the aligned pair-grain arm
+ordering, rebuilt exactly from the parquet. One qualification found in the
+rebuild and adopted here: **at POOLED CELL grain the arm ordering differs**
+(matched and riser_matched rise above undisturbed), so the ordering claim
+above is PAIR-GRAIN-SPECIFIC and must travel with that label.
+
+THE TYPICALITY ATTACK -- the one this finding named as its own weakest
+point -- WAS RUN AND DOES NOT LAND. Joining the S4 contrasts to the arms
+table's base probabilities (6,941 cells), the exposure is real as stated:
+riser_matched words are less base-typical than matched words, median gap
+-0.745 log2. But it does not reach the result, twice over:
+
+- the S4 contrast is UNCORRELATED with the base-probability gap in both
+  arms (Spearman -0.030 base, -0.024 aligned). If typicality drove the base
+  leg, the base contrast would track the gap; it does not.
+- the DiD holds its sign in EVERY tertile of |gap| -- -0.0161 small,
+  -0.0255 mid (p 0.011), -0.0105 large -- with no monotone growth in the
+  confound, and the near-matched tertile, where typicality has almost
+  nothing to bite on, carries the same-sized effect as the pooled read.
+
+**So the mirror sentence -- each arm is soothed by the vocabulary it
+promoted -- is the best-defended non-null in the forced series.** Still
+single-pass at the PRODUCER layer per [5503]: the parquet's own construction
+(position-1 drop, per-arm scoring) has not been regenerated independently.
