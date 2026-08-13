@@ -135,6 +135,52 @@ neutral twins.
 composition, level, predictability -- now agree that the page-grain
 operation is site-blind.**
 
+## F3: forcing does not alter the movements -- and the one thing it does move is symmetric
+
+Plan amendment F3, RH's question. 48,335 forced passages (three arms:
+faller / matched / riser_matched, cap 2 per (pair, prompt, role, arm),
+SmolLM2 excluded and deepseek fenced), same truncation and metrics as the
+main run.
+
+    F3a  DOES THE ARM CONTRAST SURVIVE FORCING (P6: declared yes)
+         surprisal  forced-matched -0.5237  5/33  p 4e-06
+                    undisturbed    -0.5259  3/35  p 7e-08
+         drift      forced-matched -0.0302  9/29  p 0.0017
+                    undisturbed    -0.0227  4/34  p 6e-07
+
+    F3b  DOES FORCING ITSELF MOVE THE METRICS (Q3: open, no direction)
+         surprisal  aligned faller-matched         -0.0213  p 0.066  (n 4,198)
+                    base    faller-matched         -0.0337  p 0.0014 (n 4,263)
+                    aligned riser_matched-matched  +0.0089  p 0.42
+                    base    riser_matched-matched  -0.0073  p 0.37
+         drift      all four contrasts             p 0.25 to 0.94
+    F3c  DiD faller  surprisal +0.0186  p 0.281  |  drift +0.0028  p 0.463
+
+**P6 CONFIRMED and it is the load-bearing leg: injecting a word does not
+abolish the register difference.** The aligned-base surprisal gap on forced
+passages is -0.524 against -0.526 undisturbed -- the same number. Drift's
+gap survives too, noisier under perturbation as expected. So the signature
+is not a fragile property of undisturbed generation.
+
+**Q3 ANSWERED, and against the more interesting hypothesis**: a forced
+faller makes the continuation LESS surprising, not more. There is no cost
+signature, no disruption, no symptom. And it is faller-SPECIFIC rather than
+forcing-general -- riser_matched, forced at the same aligned probability,
+is null in both arms -- so what moves the metric is the word's movement
+class, not the act of injection. The natural reading is that a faller is a
+word the BASE prefers, so it is corpus-typical, and corpus-typical material
+makes the following text more predictable to a third-party reference. That
+it runs numerically LARGER in base (-0.034 vs -0.021) fits that story, but
+the DiD is null (p 0.281) and the difference is not claimable.
+
+**Drift does not move at all** -- four within-arm nulls and a null DiD. The
+trajectory of a passage is indifferent to what word was injected into it.
+
+**FOURTH NULL DiD IN THE FORCED SERIES.** Composition (I5), level (ascent),
+predictability and trajectory (here): the aligned model's response to a
+forced transgressive word is, on every measure this campaign has built, the
+same response the base model gives.
+
 ## Open, declared -- and one F15 claim this redo did NOT carry
 
 DISCHARGED since this section was written: the bge-m3 fidelity gate
