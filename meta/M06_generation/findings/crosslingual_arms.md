@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [drift, cross-lingual, chinese, arms]
-description: "The cross-lingual arm contrast: ALIGNMENT REDUCES TRAJECTORY DRIFT IN CHINESE AS IT DOES IN ENGLISH, on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
+description: "The cross-lingual arm contrast: ALIGNMENT NARROWS THE SEMANTIC SPREAD OF A PASSAGE IN CHINESE AS IT DOES IN ENGLISH (the metric is ORDER-INVARIANT and is NOT a trajectory claim -- corrected below), on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
 ---
 # The cross-lingual arm contrast: the same operation in both languages
 
@@ -20,6 +20,30 @@ Single pass; [5503] applies.
 25 base/aligned pairs complete in BOTH languages (24 dpo, 1 ppo), 23,677 of
 26,981 passages, `f11_l2`, 97 Chinese and 100 English prompts, bge-m3 drift.
 A sign test over 25 pairs needs 18 of 25 for p<0.05, stated before the run.
+
+## WHAT `total_drift` MEASURES, corrected 2026-08-13
+
+**`total_drift` IS ORDER-INVARIANT AND THIS FINDING CALLED IT A TRAJECTORY.**
+It is `1 - min(pairwise similarity)`: the DIAMETER of the passage's sentence
+set. Shuffle the sentences and it does not move -- verified rather than read
+off the code (three random 8-sentence passages, permuted: total_drift
+identical to four decimals in every case, mean_drift changed in every case).
+
+So the result below is about **SEMANTIC SPREAD**: aligned passages occupy a
+NARROWER REGION of embedding space. **It is not a claim about how a passage
+moves**, and every sentence in this document that implied otherwise is
+wrong. `mean_drift` IS order-dependent but inherits the spread effect -- if
+all sentences sit closer together, successive ones do too -- so it is a
+mixture and cannot carry the trajectory reading either.
+
+The numbers are unaffected. What changes is the noun.
+
+**The separable version, not run:** within-passage permutation holds the
+sentence set fixed BY CONSTRUCTION, and under a random order the expected
+successive distance is just the mean of all pairwise distances. So
+`mean successive - mean all-pairs` is a pure ORDERING measure with
+composition removed exactly. That is the test of whether alignment shapes
+the chain rather than the lexicon, and this instrument does not answer it.
 
 ## Coverage and the confound, printed before any contrast
 

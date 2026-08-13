@@ -211,6 +211,27 @@ DISCHARGED since this section was written: the bge-m3 fidelity gate
   ([5772]/[5775], all six aggregates rebuilt from the cells); the fetch,
   strata, truncation and metric application remain single-pass.
 
+## WHAT THE DRIFT AXIS MEASURES, corrected 2026-08-13
+
+**`total_drift` is ORDER-INVARIANT** -- `1 - min(pairwise similarity)`, the
+DIAMETER of the sentence set, unchanged when the sentences are shuffled
+(verified by permutation). P2 is therefore a claim about **SEMANTIC SPREAD**,
+not about trajectory: aligned passages occupy a narrower region. The numbers
+stand; the noun was wrong wherever this document said the passage "drifts
+less" in a sequential sense.
+
+**This qualifies the QUADRANT reading too.** The quadrant axes are drift x
+surprisal, and Q1 is labelled METONYMIC -- but an order-invariant axis cannot
+distinguish a directed chain from a bounded wander with the same diameter.
+So "metonymic" is a label applied to a NON-SEQUENTIAL measure, and the
+Jakobsonian reading of Q1 is not earned by this instrument. What Q1 says
+without interpretation: semantically DISPERSED and PREDICTABLE.
+
+The measure that would earn it exists in the same function and was discarded
+by these producers: `directedness = total_drift / path_length`, plus the
+within-passage permutation test (`mean successive - mean all-pairs`), which
+holds composition fixed by construction.
+
 ## Fences
 
 Different corpus AND rung from F15: agreement extends it, and this is
