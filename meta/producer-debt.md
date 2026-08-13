@@ -232,3 +232,12 @@ screens — collapse is low-TTR, salad is HIGH-TTR). Every verdict on such
 a corpus declares which behavioural strata it conditions on, reports
 per-arm strata rates as description beside the verdict, and prefers
 medians where the behaviour lives in the tails.
+
+THE DISJOINT-WINDOW CLAUSE ([5687]-[5689], three instances in one
+analysis): A CUMULATIVE WINDOW CAN HIDE A REAL EFFECT BY AVERAGING IT
+WITH THE RANGE WHERE NOTHING HAPPENS — it cost A's late A|A effect (five
+cumulative windows, all null, over a band effect at p 1e-4) and made the
+decay profile untestable (cumulative means share data). Cumulative
+windows are this campaign's producer default and the WRONG default for
+anything positional: where a claim is about WHERE in a sequence
+something happens, the windows are disjoint or the test cannot see it.
