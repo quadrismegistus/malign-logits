@@ -35,11 +35,24 @@ pairs = {(root(c), c) for c, (p, t) in parent.items()
 
 **So the open question is: IS AN SFT-ONLY CHECKPOINT AN ALIGNED ENDPOINT?** For a family whose only post-training release is an SFT, the JSON says yes. The recipe says no. Neither is obviously right and **a plan must declare which it means**, because for some families it changes n.
 
-## The gap that started this was NEITHER of those
+## The gap that started this was NEITHER of those — it is the `ambiguous` flag
 
-**Within `f11_l2` coverage the two sources agree EXACTLY: 29 and 29, zero symmetric difference.** The 29-vs-26 gap is entirely in the **coverage predicate** — malign's "≥1 row in both languages in `gen_sequences`" against lacan's passage-level test. Not the source, not the floors.
+**Four attributions were proposed before anyone enumerated the members.** lacan said the pairing source; malign said the declared floors; malign then said the coverage predicate. All three name real differences between the two lists. **None of them is this gap.**
 
-**The lesson is the shape, not the number: two seats each proposed a plausible cause for a discrepancy, both causes were real differences between the sources, and neither was THE cause.** A real difference in the right place is not evidence that it produced the observed gap — decompose before attributing.
+Measured, one source, one coverage predicate (≥1 row in both languages in `f11_l2`):
+
+    all entries in base_aligned_pairs.json      29
+    non-ambiguous only                          26      <- the declared population
+    ---------------------------------------------------
+    difference                                   3
+
+    EleutherAI/pythia-2.8b   > archangel_sft-dpo_pythia2-8b   ambiguous, ruled
+    allenai/Olmo-3-1025-7B   > Olmo-3-7B-Instruct-DPO         ambiguous, ruled
+    meta-llama/Llama-3.1-8B  > Llama-3.1-8B-Instruct          ambiguous, ruled
+
+**`ambiguous` IS NOT A PAIRING FACT, IT IS AN ADJUDICATION — and it lives in only one of the two sources.** The registry records a relation whether or not a curator considered the pair contested, so the two lists can have symmetric difference **0 on identity** and still yield different populations. **A transitive walk cannot reproduce a curated exclusion, however correct its graph traversal.** Any plan pairing from the registry must state what it does about ambiguity, because the flag it would need is not there.
+
+**THE RULE, and it is the cheapest one on this page: WHEN TWO COUNTS DISAGREE, ENUMERATE THE DIFFERING MEMBERS BEFORE NAMING A MECHANISM.** Three names took one command. Four rounds of plausible mechanisms took an evening and produced three wrong answers, each of which was a true statement about the sources.
 
 ## Custody note on `f11_l2`
 
