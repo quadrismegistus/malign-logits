@@ -1,0 +1,12 @@
+{
+ "encoder": "BAAI/bge-m3",
+ "lang": "zh",
+ "n_pairs": 782751,
+ "n_prompts": 407,
+ "n_words": 113011,
+ "dim": 1024,
+ "dtype": "float16",
+ "join": "none",
+ "population": "UNION: movement rule=canonical all cls + top-20-by-p per cell (FINAL, avg over source)",
+ "seconds": 1243.4
+}

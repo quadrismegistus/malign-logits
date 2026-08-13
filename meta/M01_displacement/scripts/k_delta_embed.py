@@ -71,20 +71,53 @@ def sha16(s):
 def main(lang="en"):
     from sentence_transformers import SentenceTransformer
 
-    emb = "embed_%s_%s.npz" % (lang, "glove" if lang == "en" else "bge")
-    z = np.load(os.path.join(K, emb), allow_pickle=True)
-    verbs = sorted(set(z["words"].tolist()))
-    esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
-    vs = "','".join(esc(v) for v in verbs)
-    print("[%s] %d verbs from %s" % (lang, len(verbs), emb))
+    #: --all: THE POPULATION IS THE UNION OF EVERYTHING ANY INSTRUMENT SCORES --
+    #: the full canonical movement table (every class including `still`; RH:
+    #: why only movement words?) plus the arm-AUC population (top-20 by
+    #: probability per (model, prompt) cell, mover or not, which includes words
+    #: the movement rule never classifies). The verbs-only mover default below
+    #: was never a property of the store: verbs came from matching the oracle's
+    #: population, movers from the fall-vs-rise outcome. A store is a keyed
+    #: cache and its natural population is the union. Writes delta_all_<lang>;
+    #: the original delta_verbs_<lang> is untouched.
+    ALL = "--all" in sys.argv
+    stem = "delta_all_%s" % lang if ALL else "delta_verbs_%s" % lang
 
-    rows = A.q("""
-      SELECT DISTINCT m.prompt AS prompt, m.word AS word
-      FROM %s.movement m
-      INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
-                  WHERE status='ACTIVE' AND language='%s') pc ON m.prompt=pc.prompt
-      WHERE m.rule='canonical' AND m.cls IN ('fall','rise')
-        AND m.word IN ('%s')""" % (A.DB, A.DB, lang, vs))
+    if ALL:
+        rows = A.q("""
+          SELECT DISTINCT prompt, word FROM (
+            SELECT m.prompt prompt, m.word word FROM %s.movement m
+              INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                          WHERE status='ACTIVE' AND language='%s') p
+                ON m.prompt=p.prompt
+              WHERE m.rule='canonical'
+            UNION ALL
+            SELECT prompt, word FROM (
+              SELECT prompt, word,
+                     row_number() OVER (PARTITION BY model, prompt
+                                        ORDER BY p DESC) rk
+              FROM (SELECT model, prompt, word, avg(p) p
+                    FROM %s.twp_words FINAL
+                    WHERE prompt IN (SELECT DISTINCT prompt
+                                     FROM %s.prompt_catalogue
+                                     WHERE status='ACTIVE' AND language='%s')
+                    GROUP BY model, prompt, word)) WHERE rk <= 20
+          )""" % (A.DB, A.DB, lang, A.DB, A.DB, lang))
+        print("[%s] union population: movement(all cls) + top-20 AUC" % lang)
+    else:
+        emb = "embed_%s_%s.npz" % (lang, "glove" if lang == "en" else "bge")
+        z = np.load(os.path.join(K, emb), allow_pickle=True)
+        verbs = sorted(set(z["words"].tolist()))
+        esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
+        vs = "','".join(esc(v) for v in verbs)
+        print("[%s] %d verbs from %s" % (lang, len(verbs), emb))
+        rows = A.q("""
+          SELECT DISTINCT m.prompt AS prompt, m.word AS word
+          FROM %s.movement m
+          INNER JOIN (SELECT DISTINCT prompt FROM %s.prompt_catalogue
+                      WHERE status='ACTIVE' AND language='%s') pc ON m.prompt=pc.prompt
+          WHERE m.rule='canonical' AND m.cls IN ('fall','rise')
+            AND m.word IN ('%s')""" % (A.DB, A.DB, lang, vs))
     pairs = [(r["prompt"], r["word"]) for r in rows]
     prompts = sorted({p for p, _ in pairs})
     print("  %s (prompt, word) pairs over %s prompts"
@@ -150,16 +183,16 @@ def main(lang="en"):
         raise SystemExit("REFUSING TO WRITE: store disagrees with the CPU referee")
 
     os.makedirs(DATA, exist_ok=True)
-    out = os.path.join(DATA, "delta_verbs_%s.npz" % lang)
+    out = os.path.join(DATA, "%s.npz" % stem)
     np.savez_compressed(out, D=D, prompt_sha16=np.array(keys_p),
                         word=np.array(keys_w, dtype=object), model=MODEL)
     side = {"encoder": MODEL, "lang": lang, "n_pairs": len(pairs),
             "n_prompts": len(prompts), "n_words": len(set(keys_w)),
             "dim": int(D.shape[1]), "dtype": "float16",
             "join": "space" if lang == "en" else "none",
-            "population": "movement rule=canonical, cls in (fall,rise), verbs from " + emb,
+            "population": ("UNION: movement rule=canonical all cls + top-20-by-p per cell (FINAL, avg over source)" if ALL else "movement rule=canonical, cls in (fall,rise), verbs from embed store"),
             "seconds": round(time.time() - t0, 1)}
-    json.dump(side, open(os.path.join(K, "delta_verbs_%s.json" % lang), "w"), indent=1)
+    json.dump(side, open(os.path.join(K, "%s.json" % stem), "w"), indent=1)
     print("\n  %s vectors in %.1f min -> %s (%.0f MB)"
           % (format(len(pairs), ","), (time.time() - t0) / 60,
              os.path.relpath(out, ROOT), os.path.getsize(out) / 1e6))
