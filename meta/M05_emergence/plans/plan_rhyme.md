@@ -92,7 +92,14 @@ CODE, not just method) — installed via `uv pip` (same dynamic-deps note
 as stanza's). `espeak-ng` installed via brew (phonemizer's backend; plain
 `espeak` does not serve). ROUND-TRIP GATE PASSED: Gray's Elegy quatrain
 returns its ABAB scheme with me/lea at rime distance 0 and way/day
-matched — install AND function verified, not install alone. [5693]'s
+matched — install AND function verified, not install alone. HAND-CHECK
+(RH's three cases, 2026-08-13): door/snore YES (dist 0), door/bark NO,
+bark/aardvark — the instrument says YES (dist 0) and the paper's own venv
+returns the IDENTICAL answer: espeak marks -vark with (secondary) stress,
+prosodic treats secondary as stressed, so the rime is -ark alone under the
+paper's final-syllable rule and the pair rhymes. Construct note inherited,
+not a defect: secondary-stress finals rhyme on their own syllable, in our
+runs exactly as in the published ones. [5693]'s
 `twp_words` cautions acknowledged: `rhyme_pull` writes its OWN results,
 never into `twp_words`; any read of `twp_words` follows the engine-state
 clause (FINAL + GROUP BY the analysis key).
