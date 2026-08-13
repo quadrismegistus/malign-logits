@@ -82,7 +82,24 @@ def main():
             print("  %-10s ALL ROUTES FAILED  -- do NOT destroy on this alone; "
                   "counting %s cells held locally" % (bid, f"{lc:,}"))
             attention.append((bid,'unreachable')); continue
-        c = int(d.get('cells','0') or 0); tot += c
+        #: TAKE THE MAX OF LIVE AND LOCAL. A box that has been restarted by vast
+        #: comes back with an EMPTY disk but answers ssh, so the live reading is 0
+        #: and it silently replaces the 30,079 cells we hold for it -- ROWS WRITTEN
+        #: fell 446,097 -> 417,105 the moment that happened. Live is authoritative
+        #: for PROGRESS, never for a floor on what exists.
+        c = int(d.get('cells','0') or 0)
+        _lp = os.path.join(DEST_LOCAL, str(bid))
+        if os.path.isdir(_lp):
+            _lc = 0
+            for _f in os.listdir(_lp):
+                if _f.endswith('.jsonl'):
+                    with open(os.path.join(_lp, _f), 'rb') as _fh:
+                        _lc += sum(1 for _ in _fh)
+            if _lc > c:
+                print("  %-10s live reads %s cells but %s are held locally; using local"
+                      % (bid, f"{c:,}", f"{_lc:,}"))
+                c = _lc
+        tot += c
         alive = d.get('proc','0').strip() not in ('0','')
         if alive and c > 0: producing += 1
         else: attention.append((bid, 'proc=%s cells=%d' % (d.get('proc'), c)))
