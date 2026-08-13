@@ -234,6 +234,43 @@ This was only possible because of the prompt repair: the passage corpus stored
 prompts truncated to 60 characters, destroying exactly this join, and
 `prompt_full` (560e44a2) restored it.
 
+## Mechanism: one candidate measured and REFUTED
+
+RH asked why a demoted word should still cost more once its aligned probability
+is matched. The obvious candidate: **demotion generalises across contexts and
+promotion does not**, so equalising probability at one slot would leave the
+demoted word lower everywhere else. Measured, and it is false — the asymmetry
+runs the other way.
+
+Consistency = |n_fall - n_rise| / (n_fall + n_rise) per (pair, word), over words
+with >= 20 mover cells, DISTINCT rows:
+
+                      consistency mean   median    words
+    fall-dominant           0.533         0.526    45,724
+    rise-dominant           0.580         0.613    49,211
+    per-pair fall - rise   -0.0361   n=152 pairs  p 0.0027  [59/152 positive]
+
+**PROMOTION IS THE MORE CONSISTENT OPERATION.** A word alignment promotes tends
+to be promoted wherever it appears; a word it demotes is demoted more
+selectively. So the mechanism is dead, and it dies in a way that makes the
+result harder rather than easier to explain: a site-specific demotion should
+leave the word near its normal level away from that site, hence LESS surprising
+elsewhere, not more.
+
+**UNTESTED, and flagged as speculation rather than a reading:** the scope of a
+demotion may be the SCENE rather than the site or the lexicon. Passages continue
+the very prompts where movement was measured, so their contexts stay inside that
+scene; a demotion inactive in unrelated scenes would look inconsistent across
+prompts while holding throughout a passage grown from a scene where it is
+active. That would reconcile the two observations, and it has not been tested.
+The obvious discriminator — whether the contrast decays as a passage drifts from
+its prompt — sits close to the passage-position territory this campaign closed,
+so it wants a design rather than the nearest available query.
+
+**Fences on this section specifically**: exploratory, no direction declared in
+advance, and computed over ALL 152 movement pairs rather than the 36 of the
+mediation — it characterises `movement`'s structure, not this population.
+
 ## Superseded en route, so nothing stale is quoted
 
 - **The classified mover sets.** Bare majority gave movers 72% of all tokens;
