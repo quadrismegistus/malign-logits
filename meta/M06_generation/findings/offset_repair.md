@@ -104,10 +104,32 @@ defect never touched it, and it was already answered on two instruments:
     faller - matched, THIRD-PARTY surprisal (GPT-2, f15_on_passages.md F3b)
         aligned -0.0213 p 0.066 | base -0.0337 p 0.0014
 
-**Both instruments, both roles, the same sign: negative.** Against the
-control the corpus was built to provide, forcing a demoted word makes the
-continuation MORE predictable, not less. On RH's original pair of theses that
-is COMPENSATION and not damage -- and it never needed the undisturbed arm.
+**NARROWED ([5825], on RH's reading of this very table).** The signs agree
+across instruments and roles, but the SIGNIFICANCE sits entirely in BASE.
+Aligned is p=.154 on self-surprisal (pair grain) and p=.066 on third-party
+(CELL grain, 4,198 cells -- a marginal p on that many observations is weak
+evidence, not a near miss), and the faller DiD is null (p=.636 / p=.281).
+So three things hold at once: significant in base, NOT significant in
+aligned, and no evidence the two differ. **The compensation reading is
+established for BASE models and unestablished for aligned ones**, which is
+the role the theory is about.
+
+What the same table does support is a DIAGONAL rather than a main effect.
+Self-surprisal, each word type against the matched non-mover:
+
+              faller (base-preferred)   riser_matched (alignment-promoted)
+    base       -0.0199  p .0003  SIG     +0.0012  p .75   ns
+    aligned    -0.0053  p .154   ns      -0.0077  p .038  SIG
+
+Each model is smoothed by its OWN preferred vocabulary and not the other's,
+with both off-diagonal cells null as the pattern requires. **Only the riser
+half is established as differing between arms** (DiD -0.0150, p .0166 pair /
+p .0013 cell, survived the typicality attack at [5796]); the faller half is
+not. So the surviving alignment-specific result is on the PROMOTED side, not
+the demoted one: the aligned model settles when made to say a word alignment
+promoted, and the base does not. On the demoted side the aligned model shows
+no detectable syntagmatic response at all -- not damage, not repair, not
+level escalation, not composition shift.
 
 The forced-vs-undisturbed comparison asks a different and structurally
 messier question (forcing at all, against free generation), and it is the one
