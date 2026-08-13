@@ -133,6 +133,41 @@ the model's pooled hardened-stratum undisturbed passages.
       (taboo/violence/animal/betrayal/property/sexual) exploratory,
       descriptive, no directions. Per-cell scores persisted.
 
+  I7  SITE x FORCED-WORD INTERACTION (amendment, 2026-08-13, RH's
+      question, added after I5/I6 ran but before this instrument was
+      built or any of its numbers existed). Does the faller's drag
+      depend on the site? Transgressive prompt PLUS demoted word vs
+      neutral prompt PLUS demoted word: the 2x2 the corpus supports (68
+      pair_id twins have BOTH sides in the forced corpus; support
+      checked before this declaration, no outcomes looked at).
+      Cell values are the I5 per-cell parquet's axis scores, already
+      second-seated at the aggregation layer ([5760]); site labels
+      attach by mapping (pair, prompt) to prompt TEXT within
+      gen_sequences itself (asserting the map is single-valued) and
+      joining text to the catalogue -- the id fragment never crosses a
+      system boundary.
+
+        DRAG(pair, role, side)  = faller - matched cell means, within
+                                  each twin side
+        I7a  per arm, paired per (pair, pair_id):
+             DRAG(MARKED) - DRAG(UNMARKED), sign test
+        I7b  triple difference: I7a(aligned) - I7a(base), paired per
+             (pair, pair_id)
+
+      Declared readings: I5 and I6 established both main effects as
+      arm-symmetric priming (word drags, site drags, DiDs null). The
+      open question is the INTERACTION, declared without direction:
+      ADDITIVE (I7a null in both arms -- word-priming and site-priming
+      compose independently), POTENTIATED (I7a positive -- the site
+      amplifies the faller's drag; if arm-symmetric it is more priming,
+      and only I7b non-null would make it an alignment operation),
+      SATURATED (I7a negative -- transgressive context absorbs the
+      faller; the word adds less where the site already primed).
+      The tonic picture predicts I7b null; that prediction is written
+      here before the number. Echo by site type travels as an
+      exploratory column (the [5757] echo asymmetry, split MARKED vs
+      UNMARKED), descriptive only.
+
 ## Declared directions
 
   P1 (directional, from M02's field replication on f11_l2 and the M06
