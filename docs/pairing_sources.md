@@ -52,6 +52,25 @@ Measured, one source, one coverage predicate (≥1 row in both languages in `f11
 
 **`ambiguous` IS NOT A PAIRING FACT, IT IS AN ADJUDICATION — and it lives in only one of the two sources.** The registry records a relation whether or not a curator considered the pair contested, so the two lists can have symmetric difference **0 on identity** and still yield different populations. **A transitive walk cannot reproduce a curated exclusion, however correct its graph traversal.** Any plan pairing from the registry must state what it does about ambiguity, because the flag it would need is not there.
 
+### `ambiguous` and `ruled` are TWO fields — reading only the first silently under-includes
+
+Measured over all 54 entries of `base_aligned_pairs.json`:
+
+    (ambiguous, ruled)      count
+    (False, False)            51
+    (True,  True)              3
+    (True,  False)             0      <- NOTHING is unresolved
+
+**`ambiguous: true` in this file never means "contested and unusable". It means A CURATOR FACED A CHOICE AND MADE IT**, and all three carry an explicit `candidates` list recording what was chosen from what:
+
+    pythia-2.8b       -> archangel_sft-dpo_pythia2-8b   from 4 candidates
+    Olmo-3-1025-7B    -> Olmo-3-7B-Instruct-DPO         from 2 candidates
+    Llama-3.1-8B      -> Llama-3.1-8B-Instruct          from 7 Tulu variants plus meta-llama's own
+
+So `if not p.get('ambiguous')` **drops three pairs that were already resolved**, including `Llama-3.1-8B > Llama-3.1-8B-Instruct` — an entirely standard pair whose only ambiguity was which of seven Tulu variants to prefer. **The defensible filter is `ambiguous AND NOT ruled`, which today excludes nothing** and is the right predicate for future entries. This cost lacan's cross-lingual finding a declared population of 25 where 28 was correct; re-run as a sensitivity ([5850]) it moved medians by hundredths and improved every sign count, so nothing in the reading changed.
+
+**Neither field exists in the registry**, so a transitive walk can express neither the ambiguity nor its resolution.
+
 **THE RULE, and it is the cheapest one on this page: WHEN TWO COUNTS DISAGREE, ENUMERATE THE DIFFERING MEMBERS BEFORE NAMING A MECHANISM.** Three names took one command. Four rounds of plausible mechanisms took an evening and produced three wrong answers, each of which was a true statement about the sources.
 
 ## Custody note on `f11_l2`
