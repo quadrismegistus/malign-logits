@@ -9,13 +9,15 @@ ClickHouse movement tables rather than a per-cell walk (RH's redirect,
 2026-08-14: inspect the store first — the walk existed as a 77.6M-row
 table, built 2026-08-12, canonical rule, theta 0.001).
 
-POPULATION AND THE UNIT (RH's max-n catch): the July test voted 43 edges
-over 34 bases, so sibling edges cast correlated votes. Here the unit is
-DECLARED BY THE STORE: movement_edges carries the adjudication as schema,
-and the primary population is is_model_pair=1 AND is_representative=1 —
-51 EDGES, ONE PER LINEAGE, independent by the roster's own ruling. The
-sensitivity population adds the 6 non-representative model pairs (57).
-Nothing is clustered at analysis time because nothing needs to be.
+POPULATION AND THE UNIT, corrected twice (RH's max-n catch, then RH's
+"we have 46" and malign's [5873]): is_representative marks which BASE
+represents a lineage — it is NOT a one-per-lineage edge deduplicator
+(52 flagged edges over 47 lineages; pythia-2.8b casts FOUR archangel
+votes). The one-per-lineage artifact is data/lineage_representative_
+pairs.txt — 46 DECLARED PAIRS, the M02 unit, full movement coverage
+verified — and that is the PRIMARY population here. The flagged-52 and
+all-model-pairs populations are retained as sensitivities, labeled with
+their correlation exposure.
 
 STORE DISCIPLINE, measured not assumed: movement is a plain MergeTree
 carrying 3,982,956 duplicate keys (5.1%, re-ingest), ZERO of which
@@ -122,16 +124,33 @@ def main():
         if r.get("language") == "en" and r.get("domain"):
             domains.setdefault(r["domain"], []).append(r["prompt"])
 
+    declared = [l.strip() for l in
+                open("data/lineage_representative_pairs.txt")
+                if l.strip() and not l.startswith("#")]
+    pairs_in = ",".join(
+        "('" + esc(b) + "','" + esc(a) + "')"
+        for b, a in (p.split(">") for p in declared))
+    declared_clause = (
+        "AND (base, aligned) IN (" + pairs_in + ")")
+
     outs = []
-    for pop, rep_clause in [("representative", "AND is_representative = 1"),
-                            ("all_model_pairs", "")]:
+    for pop, rep_clause in [
+            ("declared46", None),
+            ("flagged52_correlated", "AND is_representative = 1"),
+            ("all_model_pairs", "")]:
         strata = [("ALL", "")]
         for dom, ps in sorted(domains.items()):
             inlist = ",".join("'" + esc(p) + "'" for p in ps)
             strata.append((dom, f"AND f.prompt IN ({inlist})"))
         for name, clause in strata:
-            flows = ch(SQL.format(rep_clause=rep_clause,
-                                  prompt_clause=clause))
+            if rep_clause is None:
+                sql = SQL.replace(
+                    "SELECT base, aligned FROM malign_logits.movement_edges\n    WHERE is_model_pair = 1 {rep_clause}",
+                    "SELECT base, aligned FROM (SELECT DISTINCT base, aligned FROM malign_logits.movement) WHERE 1=1 " + declared_clause,
+                ).format(rep_clause="", prompt_clause=clause)
+            else:
+                sql = SQL.format(rep_clause=rep_clause, prompt_clause=clause)
+            flows = ch(sql)
             T = direction(flows)
             T["stratum"] = name
             T["population"] = pop
