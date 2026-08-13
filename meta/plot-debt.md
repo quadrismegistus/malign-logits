@@ -58,7 +58,11 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    rebounds concreteness to dead heat / RLVR re-suppresses; plus the
    Pythia differentiation curve (concreteness 1.08 -> 2.87 from step
    128, coverage fence shaded). data/m05_norm_mass.parquet.
-8. OPEN — M01 T-14 dumbbell (shortlist 1) — `s_everything_marginal.csv`.
+8. SHIPPED 2026-08-14 — M01 T-14 dumbbell (shortlist 1):
+   `figures/t14_fallers_risers_dumbbell.png` via
+   `scripts/plot_t_figs.py t14` (registry script, booked-number asserts,
+   slice in subtitle, counts on marks). First figure of the per-letter
+   script convention.
 9. OPEN — T-18 x M05-C sign-disagreement dumbbell (shortlist 2).
 10. OPEN — M05 A-R4 joined ratio/pole-sep panel (shortlist 3).
 11. OPEN — M03 E survivor scatter (shortlist 5) + remaining shortlist
