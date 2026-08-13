@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [syntagmatic, propagation, forced-arms, chain]
-description: "RH's reframe answered: forcing an improbable word DOES damage the chain, and the damage is ~1%. The propagation slope is +0.0088 aligned / +0.0073 base nats-per-bit (35/5 and 36/4 of 40 pairs, p 1.4e-06 and 1.9e-07) = about 1.3% of the opening's improbability reaching the continuation. The undisturbed self-sampled baseline is 1.6-2.4%, so an IMPOSED improbable word propagates no more than a self-sampled one. H2 in direction, H1 in magnitude: the syntagm absorbs roughly 99% of a paradigmatic imposition, and imposition as such costs nothing extra. No role difference (aligned - base p 0.27)."
+description: "RH's reframe answered: forcing an improbable word DOES damage the chain, and the damage is ~1%. Propagation slope +0.0083 aligned / +0.0073 base nats-per-bit (37/3 and 36/4 of 40 pairs, p 2.0e-08 and 1.9e-07) = about 1.3% of the opening's improbability reaching the continuation. The undisturbed self-sampled baseline is 1.6-2.4%, so an IMPOSED improbable word propagates no more than a self-sampled one. H2 in direction, H1 in magnitude: the syntagm absorbs roughly 99% of a paradigmatic imposition. Role difference marginal and variant-dependent after the inherited-predicate repair (p 0.081 pooled / 0.039 single-token, worth 0.003 nats-per-bit) -- not quotable as an alignment effect."
 ---
 # The propagation slope: the chain absorbs about 99% of an imposition
 
@@ -105,8 +105,8 @@ alignment; they were the chain doing what this slope says it does.
   arm words are single-token under the pythia tokenizer, where the two
   coincide; the restricted variant is reported and agrees on the slope.
 - Four points per cell is a thin regression. Cells with fewer than three arms
-  present are dropped; the within-cell log2-q spread (median 3.75 bits) is
-  reported so the slope is not read off a corner.
+  present are dropped; the within-cell log2-q spread is
+  reported so the slope is not read off a corner (median 3.78 bits).
 - The undisturbed reference comes from a different fit (token logprob as x,
   within prompt) so H3 is an order-of-magnitude comparison of like-shaped
   quantities, not of identical estimators. A single-instrument version is
