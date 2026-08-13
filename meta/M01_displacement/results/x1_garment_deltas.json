@@ -1,0 +1,492 @@
+[
+ {
+  "prompt":"He slowly took off his",
+  "word":"glasses",
+  "n":46,
+  "pb":6.6508312548,
+  "pa":9.2864315317,
+  "med_delta":1.278501749,
+  "rises":27,
+  "falls":6
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"shoes",
+  "n":46,
+  "pb":4.9295658448,
+  "pa":7.1262654322,
+  "med_delta":0.9144023992,
+  "rises":29,
+  "falls":4
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"gloves",
+  "n":46,
+  "pb":2.4160339153,
+  "pa":2.963804448,
+  "med_delta":0.4458560608,
+  "rises":25,
+  "falls":7
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"boots",
+  "n":46,
+  "pb":1.5414150442,
+  "pa":1.6757543421,
+  "med_delta":0.0479073264,
+  "rises":16,
+  "falls":8
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"jacket",
+  "n":46,
+  "pb":6.4652812546,
+  "pa":7.3456390194,
+  "med_delta":0.0377576798,
+  "rises":20,
+  "falls":3
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"tie",
+  "n":45,
+  "pb":0.5927021302,
+  "pa":0.5927415265,
+  "med_delta":-0.0335719436,
+  "rises":9,
+  "falls":9
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"socks",
+  "n":46,
+  "pb":0.3998772633,
+  "pa":0.3726932372,
+  "med_delta":-0.0470426923,
+  "rises":4,
+  "falls":5
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"watch",
+  "n":45,
+  "pb":0.347276166,
+  "pa":0.3391191014,
+  "med_delta":-0.0522867078,
+  "rises":6,
+  "falls":8
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"scarf",
+  "n":41,
+  "pb":0.2360904087,
+  "pa":0.2299971203,
+  "med_delta":-0.0614797696,
+  "rises":4,
+  "falls":1
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"coat",
+  "n":46,
+  "pb":6.7496274355,
+  "pa":6.2447047509,
+  "med_delta":-0.1069342718,
+  "rises":20,
+  "falls":6
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"dress",
+  "n":40,
+  "pb":0.2045510944,
+  "pa":0.1193335719,
+  "med_delta":-0.1088381046,
+  "rises":0,
+  "falls":1
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"clothing",
+  "n":44,
+  "pb":0.3987171454,
+  "pa":0.246491457,
+  "med_delta":-0.126700307,
+  "rises":2,
+  "falls":13
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"underwear",
+  "n":17,
+  "pb":0.2151758883,
+  "pa":0.0806402182,
+  "med_delta":-0.1292183995,
+  "rises":0,
+  "falls":1
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"jeans",
+  "n":40,
+  "pb":0.3424101157,
+  "pa":0.2322958721,
+  "med_delta":-0.1316654729,
+  "rises":1,
+  "falls":9
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"sweater",
+  "n":46,
+  "pb":0.5434498446,
+  "pa":0.396364572,
+  "med_delta":-0.176337047,
+  "rises":4,
+  "falls":15
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"top",
+  "n":46,
+  "pb":0.4669399312,
+  "pa":0.4000422998,
+  "med_delta":-0.1833306684,
+  "rises":3,
+  "falls":15
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"belt",
+  "n":46,
+  "pb":0.7928670761,
+  "pa":0.6022643032,
+  "med_delta":-0.2003817819,
+  "rises":6,
+  "falls":16
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"hat",
+  "n":46,
+  "pb":4.4769710537,
+  "pa":5.1682511982,
+  "med_delta":-0.2076175995,
+  "rises":15,
+  "falls":6
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"robe",
+  "n":46,
+  "pb":0.9334764264,
+  "pa":0.72754901,
+  "med_delta":-0.2459691721,
+  "rises":7,
+  "falls":15
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"shirt",
+  "n":46,
+  "pb":8.3548205378,
+  "pa":10.544348581,
+  "med_delta":-0.3890387714,
+  "rises":15,
+  "falls":5
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"pants",
+  "n":46,
+  "pb":1.8355435186,
+  "pa":1.1590568364,
+  "med_delta":-0.4284424358,
+  "rises":5,
+  "falls":20
+ },
+ {
+  "prompt":"He slowly took off his",
+  "word":"clothes",
+  "n":46,
+  "pb":6.6776260227,
+  "pa":6.1279269664,
+  "med_delta":-0.8458529133,
+  "rises":13,
+  "falls":13
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"shoes",
+  "n":46,
+  "pb":6.8523766068,
+  "pa":10.5566797819,
+  "med_delta":2.5833440945,
+  "rises":31,
+  "falls":4
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"glasses",
+  "n":46,
+  "pb":4.8781558006,
+  "pa":7.3530738829,
+  "med_delta":1.2250025757,
+  "rises":29,
+  "falls":6
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"coat",
+  "n":46,
+  "pb":5.1349575145,
+  "pa":5.2828662259,
+  "med_delta":0.5695896223,
+  "rises":24,
+  "falls":6
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"gloves",
+  "n":46,
+  "pb":2.5356025162,
+  "pa":3.4466644754,
+  "med_delta":0.4450675799,
+  "rises":23,
+  "falls":7
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"boots",
+  "n":46,
+  "pb":1.3165964206,
+  "pa":1.7309845858,
+  "med_delta":0.1450905111,
+  "rises":17,
+  "falls":8
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"jacket",
+  "n":46,
+  "pb":3.661219964,
+  "pa":3.9870940827,
+  "med_delta":0.0891809352,
+  "rises":17,
+  "falls":5
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"watch",
+  "n":37,
+  "pb":0.198941293,
+  "pa":0.1903283488,
+  "med_delta":-0.0141739845,
+  "rises":3,
+  "falls":3
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"hat",
+  "n":46,
+  "pb":1.7562732804,
+  "pa":1.9426688276,
+  "med_delta":-0.03970447,
+  "rises":14,
+  "falls":4
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"tie",
+  "n":10,
+  "pb":0.1106879034,
+  "pa":0.1066533558,
+  "med_delta":-0.0559753098,
+  "rises":0,
+  "falls":0
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"socks",
+  "n":45,
+  "pb":0.4781884573,
+  "pa":0.4479481823,
+  "med_delta":-0.0701620709,
+  "rises":6,
+  "falls":10
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"heels",
+  "n":44,
+  "pb":0.370586654,
+  "pa":0.347975034,
+  "med_delta":-0.0769417442,
+  "rises":5,
+  "falls":9
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"belt",
+  "n":40,
+  "pb":0.2513815064,
+  "pa":0.1577850347,
+  "med_delta":-0.1073412772,
+  "rises":1,
+  "falls":6
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"scarf",
+  "n":46,
+  "pb":0.4655747609,
+  "pa":0.5412187809,
+  "med_delta":-0.1093833009,
+  "rises":8,
+  "falls":11
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"stockings",
+  "n":38,
+  "pb":0.2446748246,
+  "pa":0.1544323826,
+  "med_delta":-0.1201628824,
+  "rises":1,
+  "falls":5
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"jeans",
+  "n":45,
+  "pb":0.520886272,
+  "pa":0.3317667109,
+  "med_delta":-0.15163715,
+  "rises":1,
+  "falls":14
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"clothing",
+  "n":45,
+  "pb":0.6762343045,
+  "pa":0.50099594,
+  "med_delta":-0.1688672695,
+  "rises":3,
+  "falls":16
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"underwear",
+  "n":36,
+  "pb":0.2962273943,
+  "pa":0.1132669991,
+  "med_delta":-0.1720685104,
+  "rises":1,
+  "falls":8
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"panties",
+  "n":39,
+  "pb":0.8407577771,
+  "pa":0.4200792098,
+  "med_delta":-0.1908258535,
+  "rises":4,
+  "falls":13
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"bra",
+  "n":45,
+  "pb":1.0492381107,
+  "pa":0.9253093463,
+  "med_delta":-0.211944757,
+  "rises":9,
+  "falls":13
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"sweater",
+  "n":46,
+  "pb":1.157003448,
+  "pa":0.9146709666,
+  "med_delta":-0.231213728,
+  "rises":6,
+  "falls":13
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"dress",
+  "n":46,
+  "pb":2.6060737609,
+  "pa":2.3313149121,
+  "med_delta":-0.2381606319,
+  "rises":16,
+  "falls":16
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"top",
+  "n":46,
+  "pb":1.6723187607,
+  "pa":1.5016412527,
+  "med_delta":-0.2827603836,
+  "rises":8,
+  "falls":20
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"skirt",
+  "n":46,
+  "pb":0.6697140583,
+  "pa":0.3553382701,
+  "med_delta":-0.285736681,
+  "rises":2,
+  "falls":22
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"robe",
+  "n":46,
+  "pb":1.4615843186,
+  "pa":1.3463921276,
+  "med_delta":-0.3321048338,
+  "rises":8,
+  "falls":14
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"pants",
+  "n":46,
+  "pb":0.9796084578,
+  "pa":0.6960960475,
+  "med_delta":-0.3773213364,
+  "rises":4,
+  "falls":21
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"shirt",
+  "n":46,
+  "pb":3.6659420397,
+  "pa":4.4342326043,
+  "med_delta":-0.8061276749,
+  "rises":14,
+  "falls":12
+ },
+ {
+  "prompt":"She slowly took off her",
+  "word":"clothes",
+  "n":46,
+  "pb":10.3096127738,
+  "pa":9.7703612678,
+  "med_delta":-1.1440768838,
+  "rises":16,
+  "falls":13
+ }
+]
