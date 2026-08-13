@@ -18,7 +18,9 @@ Population: the passage corpus's undisturbed arm (plan A Amendment 2),
 238,381 passages over 42 pairs after row dedup; hardened stratum = prose
 AND non-degenerate AND English (Amendments 4/5; screens computed from
 stored text: top_word_share >= .20 | non_ascii_alpha_share >= .20 ->
-degenerate; english_nltkwords_share >= .60 -> English), 202,780 passages.
+degenerate; english_nltkwords_share >= .60 -> English), 197,186 passages
+(all Ns synced to the corrected verdicts JSON after the [5705]/[5706]
+flags-dedup fix; malign's counterfactual check: all 13 verdicts hold).
 Unit: (pair, prompt) cell mean per arm; aligned minus base; pair medians;
 sign test over pairs, Wilcoxon beside (results/m06_verdicts.json). Pooled
 prose reads beside every stratified one. Producer m06_verdicts.py at the
@@ -34,7 +36,7 @@ robust to the registered decision rule.
     ttr_mattr_w50    Δmed −0.0169   12 up / 27 dn of 39   p_sign 0.024
     pooled prose     Δmed −0.0258   10 up / 31 dn of 41   p_sign 0.0015
     within sents-per-window tertiles (Amendment 1 rule):
-      t1 −0.0231 p 0.0095 · t2 −0.0249 p 0.0034 · t3 −0.0222 p 0.024
+      t1 −0.0230 (11/28) p 0.0095 · t2 −0.0250 (10/29) p 0.0034 · t3 −0.0222 (11/28) p 0.0095
 
 The Amendment-1 coupling worry (windowed TTR moved by sentence length,
 not diversity) is answered by its own table: the contrast holds INSIDE
@@ -61,13 +63,13 @@ surfaces, and the moving surface is the per-word one
 As registered (per-sentence ratios), both hypotheses are flat:
 
     parataxis_indep_clauses_per_sent  Δmed −0.0112  13/26 of 41  p 0.053
-    hypotaxis_dep_clauses_per_sent    Δmed −0.0219  20/20 of 41  p 1.0
+    hypotaxis_dep_clauses_per_sent    Δmed −0.0216  20/20 of 41  p 1.0
     dep_clause_share (the mix)        Δmed +0.0014  23/18 of 41  p 0.53
 
 Per Amendment 1's rule, neither B.H1 nor B.H2 is reportable as a finding
 from those rows. The denominator-free reads move instead, and together:
 
-    dep_clauses_per_1000w    Δmed +3.67   30/10 of 41   p_sign 0.0022
+    dep_clauses_per_1000w    Δmed +3.67   29/11 of 41   p_sign 0.0064
     clause_len_words_mean    Δmed −0.224  13/28 of 41   p_sign 0.028
       (pooled: −0.299, 11/31 of 42, p 0.0029)
 
@@ -86,11 +88,11 @@ depth: flat.
     list-formatted lines   aligned 4.8% vs base 2.1%   (the format
       attractor at passage grain, 2.3x, direction never registered)
     prose passages         aligned 88.9% vs base 94.5%
-    degenerate             aligned 8.0% vs base 5.6%   <- NOTE: aligned
+    degenerate             aligned 8.1% vs base 5.7%   <- NOTE: aligned
       degenerates MORE by this screen; unexpected, unexamined, and worth
       its own look before anyone repeats "degeneration is a base-model
       behaviour" from the pilot close reading
-    English                aligned 97.9% vs base 95.4% (base drifts out
+    English                aligned 97.8% vs base 95.3% (base drifts out
       of English more — Teuken-base and kin)
 
 ## Limits
