@@ -119,6 +119,15 @@ not an artefact of English alignment data.
   should be **unchanged**; if it moves materially that is evidence of
   fragility and is the more important outcome.
 
+  **RESULT of that sensitivity (run after the paragraph above was
+  committed at 8e88ffc0): unchanged, and every cell strengthens on
+  count.** 28 pairs: total_drift zh -0.0242 (4/24, p 1.8e-04) and en
+  -0.0194 (1/27, p 2.2e-07); mean_drift zh -0.0456 (2/26, p 3.0e-06) and
+  en -0.0339 (0/28, p 7.5e-09). Medians move by hundredths in both
+  directions, the sign counts improve with the larger n, and nothing about
+  the reading changes. **The 25-pair headline stands and is not fragile to
+  the population question that produced four wrong attributions.**
+
 ## A defect in this producer's own control, found and fixed before reporting
 
 The first run's `n_sents`-matched variant returned **zero units** and printed
