@@ -1,0 +1,25 @@
+{
+ "lang": "en",
+ "n_cells": 1487514,
+ "n_words_within": 2372,
+ "within_word": {
+  "delta_median": 0.5254414431387155,
+  "delta_wmean": 0.5402139963341505,
+  "delta_frac_above_half": 0.6096121416526138,
+  "pbase_median": 0.6842105263157895,
+  "pbase_wmean": 0.48974801193091705
+ },
+ "in_sample_auc": 0.6528572606132693,
+ "correlates": {
+  "register_level": -0.1382384690595331,
+  "concreteness": 0.24442843541244827,
+  "charge": 0.001739135446449347,
+  "transgressiveness": 0.12035512738003326,
+  "valence": -0.13773491763303589,
+  "bodily_harm": 0.1770965129865802,
+  "vulgarity": 0.04125467371898495,
+  "log_fpm": 0.20474864243882926,
+  "length": -0.352716102617679,
+  "per_word_arm_auc": -0.49464817834076363
+ }
+}
