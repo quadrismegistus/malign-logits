@@ -92,11 +92,32 @@ not an artefact of English alignment data.
   `bloom-7b1>bloomz-7b1`, whose aligned arm has no surviving Chinese
   passages -- bloom being the model that supplied 155 of 195 empty texts in
   the passage corpus, so a known-degenerate generator rather than a harsh
-  floor. A TRANSITIVE walk of the model registry (`dpo_of` names the SFT, so
-  `sft_of` must be followed upward) reaches **29**. Three pairs therefore
-  exist that this population does not carry. They were NOT added after the
-  result was visible; the larger population is owed a plan of its own that
-  declares it in advance.
+  floor.
+
+  **THE 26-vs-29 GAP IS THE `ambiguous` FLAG, MEASURED after four wrong
+  attributions between two seats ([5848], confirmed [5849]).** Not the
+  pairing source, not the floors, not the coverage predicate -- all three
+  were real differences between the lists and none was this one. The three
+  are `pythia-2.8b>archangel_sft-dpo_pythia2-8b`,
+  `Olmo-3-1025-7B>Olmo-3-7B-Instruct-DPO` and
+  `Llama-3.1-8B>Llama-3.1-8B-Instruct`.
+
+  **AND MY FILTER WAS OVER-STRICT, which is my error rather than the
+  file's.** All three carry `ambiguous: true` AND `ruled: true` with an
+  explicit `candidates` list: the flag means A CURATOR FACED A CHOICE AND
+  MADE IT, not that the pair is unusable. `Llama-3.1-8B>Llama-3.1-8B-Instruct`
+  is excluded by my filter although its "ambiguity" was only which of seven
+  Tulu variants to prefer, resolved in favour of meta-llama's own Instruct.
+  The defensible filter is `ambiguous AND NOT ruled`, which here excludes
+  nothing, so **the correct population is 28 rather than 25.**
+
+  **DECLARED BEFORE RUNNING (this paragraph is committed before the
+  sensitivity exists):** the three pairs are added as a SENSITIVITY, never
+  as a replacement, because the headline was computed on 25 and moving the
+  population after seeing a result is the post-hoc move this finding already
+  refused once. Direction stated in advance: at 24/25 and 0/25 the result
+  should be **unchanged**; if it moves materially that is evidence of
+  fragility and is the more important outcome.
 
 ## A defect in this producer's own control, found and fixed before reporting
 
