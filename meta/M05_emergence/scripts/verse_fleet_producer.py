@@ -84,6 +84,17 @@ def strip_last_word(line):
     return re.sub(r"[A-Za-z']+\W*$", "", line).rstrip()
 
 
+# per-slot called/uncalled status for BOTH classes (the smoke's lesson:
+# the "nonpartner" class is ITSELF called at its own scheme positions --
+# line-1/3 ends in ABAB carry the A-rime -- so every class is pull-measure
+# where called and control where not; the flag makes that explicit).
+NONPARTNER_CALLED_AT = {  # slots where the nonpartner class is called
+    "ABAB": {"end1", "end3"},      # A-rime at lines 1,3
+    "AABB": {"end1", "end2"},      # A-couplet at lines 1,2 (end2=partner-prior of A)
+    "unrhymed": set(),
+}
+
+
 def poem_slots(lines, partner_line):
     """The nine declared slots. Context is always a PREFIX of the poem text."""
     slots = []
@@ -233,10 +244,14 @@ def smoke():
             pa = res.get(p["actual_word"], {}).get("p_word", 0.0)
             nres, _ = score_slot(model, tok, dev, s["context"], ncls, nl_ids, torch)
             nmass = sum(r["p_word"] for r in nres.values())
+            np_called = (s["slot"].replace("_partner_prior", str(p["partner_line"]))
+                         in NONPARTNER_CALLED_AT[p["scheme"]]) or \
+                        (s["slot"] == "end_partner_prior" and False)
             rows.append({"id_human": p["id_human"], "scheme": p["scheme"],
                          "slot": s["slot"], "phase": s["phase"],
                          "class_mass": mass, "close_given_class": close_w,
                          "p_actual": pa, "nonpartner_mass": nmass,
+                         "nonpartner_called_here": bool(np_called),
                          "n_class": len(res), "ctx_chars": len(s["context"])})
             print(f"  {s['slot']:16s} [{s['phase']:8s}] class {mass:.5f} "
                   f"nonp {nmass:.5f} close|cls {close_w if close_w is None else round(close_w,3)} "
