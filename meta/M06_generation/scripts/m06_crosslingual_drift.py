@@ -59,6 +59,17 @@ def ch_rows(q):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--cap", type=int, default=3)
+    ap.add_argument("--no-truncate", action="store_true",
+                    help="analyse the WHOLE generation: no word floor, only "
+                         "the >=3-sentence requirement. Measured on 3,000 "
+                         "passages: 11 sentences and 55 pairwise sims against "
+                         "5 and 10 under the 75-word floor, and 95.1%% of "
+                         "passages retained against 86.1%% -- the floor costs "
+                         "data AND resolution. It is a CROSS-CORPUS length "
+                         "normalisation (F15/F16) with no function in a "
+                         "within-corpus arm contrast where one token cap "
+                         "already governs length. Writes to _full outputs so "
+                         "it can run BESIDE the truncated instrument.")
     args = ap.parse_args()
 
     import torch
@@ -110,7 +121,7 @@ def main():
         for thr in (50, 75, 100):
             if nw >= thr and len(ss) >= MIN_SENTS:
                 sens["zh_words_%d" % thr] += 1
-        if nw < MIN_WORDS_ZH or len(ss) < MIN_SENTS:
+        if (not args.no_truncate and nw < MIN_WORDS_ZH) or len(ss) < MIN_SENTS:
             dropped["zh"] += 1
             continue
         ss = list(ss)
@@ -120,8 +131,11 @@ def main():
             print("  zh segmentation %d/%d (%.1f min)"
                   % (j + 1, len(work["zh"]), (time.time() - t0) / 60))
     for model, prompt, i, text in work["en"]:
-        tr = truncate_to_min_sentences(text, min_words=MIN_WORDS_EN)
-        t2 = tr[0] if isinstance(tr, tuple) else tr
+        if args.no_truncate:
+            t2 = text
+        else:
+            tr = truncate_to_min_sentences(text, min_words=MIN_WORDS_EN)
+            t2 = tr[0] if isinstance(tr, tuple) else tr
         if t2 is None:
             dropped["en"] += 1
             continue
@@ -162,7 +176,9 @@ def main():
     #: vectors. Correctness over reuse, stated rather than assumed.
     from malign_logits.cache import get_cache
     cache = get_cache()
-    CKEY = {"zh": BGE + "|stanza-zh", "en": BGE + "|nltk-en"}
+    SUF = "|full" if args.no_truncate else ""
+    CKEY = {"zh": BGE + "|stanza-zh" + SUF, "en": BGE + "|nltk-en" + SUF}
+    OSUF = "_full" if args.no_truncate else ""
 
     #: DIAGNOSTIC, not a gate: does the mps hazard reach sentence-length Chinese?
     diag = None
@@ -237,7 +253,7 @@ def main():
               % (lang, format(n_hit, ","), format(len(kept[lang]), ","),
                  100 * n_hit / max(len(kept[lang]), 1)))
         df = pd.DataFrame(rows)
-        pq = os.path.join(OUTD, "crosslingual_drift_%s_cells.parquet" % lang)
+        pq = os.path.join(OUTD, "crosslingual_drift_%s%s_cells.parquet" % (lang, OSUF))
         df.to_parquet(pq)
         out["languages"][lang] = {
             "n_passages": len(df), "n_models": int(df.model.nunique()),
@@ -252,7 +268,7 @@ def main():
                  out["languages"][lang]["total_drift_median"],
                  out["languages"][lang]["total_drift_iqr"][0],
                  out["languages"][lang]["total_drift_iqr"][1]))
-        json.dump(out, open(os.path.join(OUTD, "crosslingual_drift.json"), "w"),
+        json.dump(out, open(os.path.join(OUTD, "crosslingual_drift%s.json" % OSUF), "w"),
                   indent=1)
 
     print("\nNO ARM CONTRAST COMPUTED -- the base/aligned split is a separate "
