@@ -110,7 +110,7 @@ def main():
     for name, _ in MEAS:
         v = per[name]
         d, allb, alla = [], [], []
-        for p in {x[0] for x in v}:
+        for p in sorted({x[0] for x in v}):
             b, a = v.get((p, "base")), v.get((p, "aligned"))
             if not b or not a:
                 continue

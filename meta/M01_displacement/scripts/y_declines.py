@@ -114,7 +114,7 @@ def main(argv=None):
                "ASSISTANT, no decline", "assistant_refusal (field)"):
         v = per[nm]
         d, B, A = [], [], []
-        for p in {x[0] for x in v}:
+        for p in sorted({x[0] for x in v}):
             b, x = v.get((p, "base")), v.get((p, "aligned"))
             if not b or not x:
                 continue

@@ -181,8 +181,15 @@ def main(lang="en"):
           % (len(set(g_lin)), len(set(g_org))))
 
     rng = np.random.default_rng(SEED)
-    flip = {l: rng.integers(0, 2) for l in set(g_lin)}
-    y_null = np.array([yy ^ flip[gg] for yy, gg in zip(y, g_lin)])
+    #: SORTED (set order is per-process for strings -- the [5744] class), and
+    #: the null is a DISTRIBUTION: a single flip is one draw from a wide null
+    #: (the m06 producer's one-flip nulls wandered 0.40-0.63 across two runs of
+    #: one seed). N_NULL draws; the headline null is the mean with a 95% band.
+    N_NULL = 200
+    lineages = sorted(set(g_lin))
+    null_flips = [dict(zip(lineages, rng.integers(0, 2, len(lineages))))
+                  for _ in range(N_NULL)]
+    y_null = np.array([yy ^ null_flips[0][gg] for yy, gg in zip(y, g_lin)])
 
     def q(M, groups, target=y):
         """-> (cell AUC, MODEL AUC, coefficients).
@@ -234,10 +241,28 @@ def main(lang="en"):
             a_raw, m_raw, _ = q(np.hstack([NU, Xn]), groups)
             a_rnk, m_rnk, _ = q(np.hstack([NU, XRn]), groups)
             a_wo, m_wo, cf = q(Xn, groups)
+            #: the full q() per draw is expensive at 200 draws x cell grain;
+            #: the MODEL-level null is the quotable one, so draws re-score the
+            #: model-mean predictions against flipped labels where possible --
+            #: here the honest cheap form is q() on a subsample of draws for
+            #: the cell AUC and closed-form re-scoring for the model AUC.
             a_nl, m_nl, _ = q(np.hstack([NU, Xn]), groups, y_null)
+            m_nulls = []
+            for fl in null_flips:
+                yn = np.array([yy ^ fl[gg] for yy, gg in zip(y, g_lin)])
+                if yn.min() == yn.max():
+                    continue
+                _, m_d, _ = q(np.hstack([NU, Xn]), groups, yn)
+                m_nulls.append(m_d)
+                if len(m_nulls) >= 50:
+                    break
             sweep["%s_%d" % (gname, n)] = {
                 "raw": [a_raw, m_raw], "ranked": [a_rnk, m_rnk],
                 "words_only": [a_wo, m_wo], "null": [a_nl, m_nl],
+                "null_model_mean": float(np.mean(m_nulls)),
+                "null_model_ci": [float(np.percentile(m_nulls, 2.5)),
+                                  float(np.percentile(m_nulls, 97.5))],
+                "null_model_draws": len(m_nulls),
                 "nuisance": [a_nu, m_nu]}
             print("   %-6d %7.4f[%.3f] %7.4f[%.3f] %7.4f[%.3f] %7.4f[%.3f]"
                   % (n, m_raw, a_raw, m_rnk, a_rnk, m_wo, a_wo, m_nl, a_nl))
