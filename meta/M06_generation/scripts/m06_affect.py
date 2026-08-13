@@ -70,6 +70,19 @@ def measure(doc, warr, brys):
             r = k_rating(w.text) or (k_rating(w.lemma) if w.lemma else None)
             if r:
                 kd.append(r)
+    # Distributions, not just means (RH's caution: a 185-word mean hides
+    # the tail where sparse norms live). K scales are integer 1-7, so a
+    # 7-cell count vector per scale is the FULL word-grain distribution,
+    # lossless; continuous norms get fixed bins (V/A/D 1-9 in 16 bins,
+    # concreteness 1-5 in 16 bins). Densities, tail shares at any cut,
+    # and means all derive from these at analysis time.
+    def hist(vals, lo, hi, nb=16):
+        h = [0] * nb
+        for v in vals:
+            i = int((v - lo) / (hi - lo) * nb)
+            h[min(max(i, 0), nb - 1)] += 1
+        return h
+
     out = {
         "n_content_words": n,
         "warriner_coverage": len(wv) / n,
@@ -80,9 +93,19 @@ def measure(doc, warr, brys):
         "dominance_warriner_mean": (sum(d_ for v, a, d_ in wv) / len(wv) if wv else None),
         "concreteness_brysbaert_mean": (sum(bc) / len(bc) if bc else None),
         "k_coverage": len(kd) / n,
+        "valence_warriner_hist": hist([v for v, a, d_ in wv], 1, 9),
+        "arousal_warriner_hist": hist([a for v, a, d_ in wv], 1, 9),
+        "dominance_warriner_hist": hist([d_ for v, a, d_ in wv], 1, 9),
+        "concreteness_brysbaert_hist": hist(bc, 1, 5),
+        "valence_warriner_mean": (sum(v for v, a, d_ in wv) / len(wv) if wv else None),
     }
     for sc in K_SCALES:
-        out[f"k_{sc}_mean"] = (sum(r[sc] for r in kd) / len(kd)) if kd else None
+        vals = [r[sc] for r in kd]
+        out[f"k_{sc}_mean"] = (sum(vals) / len(vals)) if vals else None
+        cnt = [0] * 7
+        for v in vals:
+            cnt[int(v) - 1] += 1
+        out[f"k_{sc}_counts"] = cnt
     return out
 
 

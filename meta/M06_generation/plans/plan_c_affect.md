@@ -72,6 +72,31 @@ paired arm contrasts are order-like and permitted, absolute thresholds
 are not). And `k_concreteness_mean` beside `concreteness_brysbaert_mean`
 is the built-in convergence check at passage grain (word-level r 0.88).
 
+## Amendment 2 (2026-08-13, RH's caution: the mean over a 185-word passage hides the tail)
+
+Sparse norms live in the tail — one "kill" against none barely moves a
+passage mean — so the producer stores DISTRIBUTIONS, not only means: for
+each K scale a lossless 7-cell count vector per passage (the scales are
+integer); for the continuous human norms fixed 16-bin histograms (V/A/D
+over 1-9, concreteness over 1-5). Declared reads built on them:
+
+1. **Density/ECDF figures, base vs aligned, at WORD grain** — the pooled
+   word-value distributions per norm, the plot RH asked for, with
+   per-pair small multiples behind any pooled panel (prompt-unit
+   discipline applies to figures too).
+2. **Tail shares as measures**: per passage, the share of content words
+   in the TOP DECILE of the pooled word-value distribution for that norm
+   (threshold computed once from the pooled distribution at analysis
+   time — a RANK-based cut, satisfying the K ranks-not-levels rider;
+   never an absolute scale value). Paired arm contrasts on tail shares
+   ride beside the mean contrasts; where mean and tail disagree, the
+   tail is presumptively the honest one for sparse scales and the
+   disagreement is reported, not resolved silently.
+3. `valence_warriner_mean` (SIGNED) joins the battery — the declared
+   dominance check from the pilot: is aligned prose more POSITIVE rather
+   than less extreme (sweetening at passage grain, which Registration C
+   could not adjudicate).
+
 ## Unit, strata, tests
 
 Identical to plan A as amended: undisturbed arm primary; (pair, prompt)
