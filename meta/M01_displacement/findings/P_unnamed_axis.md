@@ -422,8 +422,26 @@ words reach 0.9371, misclassifying 8 models of 92 against 13.
 
 Binary top-N BY RANK: each cell contributes exactly N ones, so mass, top-1 and
 support size are constant and cannot signal. Collapsed to per-model fractions --
-92 rows, the honest unit -- top-20 at k=50 reaches **AUC 0.9589, 91.3%**, above
-the probability version. So the signature is about WHICH WORDS ARE IN CONTENTION,
+92 rows, the honest unit -- top-20 at k=50 reaches **AUC 0.9560, 92.4%**, above
+the probability version's 0.9371 on the same org holdout.
+
+**AND THAT FIGURE IS ONE CELL OF AN 18-POINT GRID THAT NOTHING PRE-DECLARED.**
+The sweep is depth of binarisation (top-N in 5, 20, 50) crossed with feature
+count (k in 5 to 200), and no registration, spec or docstring names a primary
+cell -- checked, not assumed. Across the grid model-level AUC runs 0.8147 to
+0.9575, and top-20/k=50 is neither the best nor the worst:
+
+    per-model AUC        k=5     10      25      50      100     200
+      top-5            0.8147  0.8544  0.9026  0.9362  0.9438  0.9390
+      top-20           0.8530  0.8686  0.9286  0.9560  0.9537  0.9480
+      top-50           0.8889  0.9036  0.9376  0.9575  0.9565  0.9353
+
+**So quote the plateau, not the maximum.** Everything at k>=25 lies in
+0.903-0.958 with median 0.941, and the depth of binarisation barely matters
+there; the honest single sentence is "above 0.9 model-level for any feature set
+of 25 words or more, best 0.958". A reader given 0.9560 alone is being handed a
+selected cell, which is the same defect as the sufficiency comparison this
+document already refuses to quote. So the signature is about WHICH WORDS ARE IN CONTENTION,
 not about how peaked the distribution is.
 
 "Present in the stored table" would NOT have worked in place of rank: the stored
