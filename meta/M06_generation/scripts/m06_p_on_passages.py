@@ -34,10 +34,11 @@ GRID = (25, 50, 100, 200)              # declared in the plan; plateau quotable
 SEED = 20260813
 
 
-def fetch(smoke):
-    q = ("SELECT model, pair, role, prompt_id, sample_idx, text "
+def fetch(smoke, forced=False):
+    cond = "forced_word != ''" if forced else "forced_word = ''"
+    q = ("SELECT model, pair, role, prompt_id, sample_idx, forced_word, text "
          "FROM malign_logits.gen_sequences "
-         "WHERE corpus='passage' AND forced_word='' FORMAT JSONEachRow")
+         "WHERE corpus='passage' AND %s FORMAT JSONEachRow" % cond)
     pr = subprocess.Popen([CH, "client", "-q", q], stdout=subprocess.PIPE,
                           text=True, bufsize=1 << 20)
     for line in pr.stdout:
@@ -153,7 +154,161 @@ def main():
               % (w, ("%.3f" % gen[w]) if w in gen else "absent",
                  ("%.3f" % logit[w]) if w in logit else "-"))
 
-    out = {"stage": "smoke" if smoke else "full",
+    extra = {}
+    if not smoke:
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.model_selection import LeaveOneGroupOut
+        from sklearn.preprocessing import StandardScaler
+
+        #: I2 -- classifier over the declared grid, org holdout, flip null
+        org = np.array([m.split("/")[0] for m in models], dtype=object)
+        lin = {}
+        for pair in hard.pair.unique():
+            b, a = pair.split(">", 1)
+            lin[b] = pair; lin[a] = pair
+        ling = np.array([lin[m] for m in models], dtype=object)
+        rng = np.random.default_rng(SEED)
+        flip = {p2: int(rng.integers(0, 2)) for p2 in set(ling)}
+        ynull = np.array([y[i] ^ flip[ling[i]] for i in range(len(y))])
+        pooled = collections.Counter()
+        for m in models:
+            pooled.update(counts[m])
+        freq_order = [w for w, _ in pooled.most_common() if w in set(words)]
+        logo = LeaveOneGroupOut()
+        extra["I2"] = {}
+        print("\nI2 classifier (org holdout; grid declared; plateau quotable)")
+        for k in GRID:
+            cols = freq_order[:k]
+            X = np.array([[1000.0 * counts[m][w] / max(toks[m], 1) for w in cols]
+                          for m in models])
+            def run(target):
+                pr = np.zeros(len(target))
+                for tr, te in logo.split(X, target, groups=org):
+                    sc = StandardScaler().fit(X[tr])
+                    mdl = LogisticRegression(max_iter=3000, C=0.1)
+                    mdl.fit(sc.transform(X[tr]), target[tr])
+                    pr[te] = mdl.predict_proba(sc.transform(X[te]))[:, 1]
+                return roc_auc_score(target, pr)
+            a_real, a_null = run(y), run(ynull)
+            extra["I2"][k] = {"auc": float(a_real), "null": float(a_null)}
+            print("  k=%-4d AUC %.4f | flip-null %.4f" % (k, a_real, a_null))
+
+        #: I3(b) -- same-prompts logit vector, produced by k_word_auc
+        #: --prompts-from-corpus passage before this script ran
+        lp = {}
+        f3 = os.path.join(K, "word_auc_en_passageprompts.tsv")
+        if os.path.exists(f3):
+            for ln in open(f3, encoding="utf-8"):
+                q2 = ln.rstrip("\n").split("\t")
+                if len(q2) > 2 and q2[0] != "word":
+                    lp.setdefault(q2[0], float(q2[2]))
+            sh2 = sorted(set(gen) & set(lp))
+            rho2 = spearmanr([gen[w] for w in sh2],
+                             [lp[w] for w in sh2]).statistic
+            extra["I3b"] = {"rho": float(rho2), "n": len(sh2)}
+            print("\nI3(b) PRIMARY -- same prompts, both grains: Spearman %+.3f (n=%d)"
+                  % (rho2, len(sh2)))
+            #: I4 -- amplification map on the same-prompts pair
+            amp = {w: float(gen[w] - lp[w]) for w in sh2}
+            o = sorted(amp, key=lambda w: amp[w])
+            extra["I4"] = {"most_attenuated": [(w, amp[w]) for w in o[:25]],
+                           "most_amplified": [(w, amp[w]) for w in o[-25:][::-1]]}
+            print("I4 amplification map: most amplified on the page: %s"
+                  % ", ".join(w for w, _ in extra["I4"]["most_amplified"][:10]))
+            print("   most attenuated (distribution-only): %s"
+                  % ", ".join(w for w, _ in extra["I4"]["most_attenuated"][:10]))
+        else:
+            print("\nI3(b) SKIPPED: %s absent -- run k_word_auc "
+                  "--prompts-from-corpus passage first" % os.path.basename(f3))
+
+        #: I5 -- forced-arm signature displacement
+        arms = json.load(open(os.path.join(ROOT,
+                              "data/forced_arms_46reps_drmatch.json")))
+        armof = {}
+        for c in arms["cells"]:
+            for col, aname in (("faller", "faller"), ("matched", "matched"),
+                               ("riser", "riser"),
+                               ("riser_matched", "riser_matched"),
+                               ("faller-matched", "matched"),
+                               ("riser-matched", "riser_matched")):
+                w = c.get(col)
+                if w:
+                    armof[(c["pair"], c["prompt"], w)] = aname
+        print("\nI5 arm lookup: %s (pair, prompt, word) -> arm entries"
+              % format(len(armof), ","))
+
+        z = np.load(os.path.join(K, "embed_en_glove.npz"), allow_pickle=True)
+        axv = np.array(json.load(open(os.path.join(K, "axis_en.json")))["axis"],
+                       np.float32)
+        axv /= np.linalg.norm(axv)
+        E = z["E"].astype(np.float32)
+        E /= np.maximum(np.linalg.norm(E, axis=1, keepdims=True), 1e-12)
+        AXPOS = {str(w): float(v) for w, v in zip(z["words"], E @ axv)}
+
+        frows = list(fetch(smoke, forced=True))
+        fdf = pd.DataFrame(frows)
+        fdf = fdf.merge(flags, on=["pair", "role", "prompt_id", "sample_idx"],
+                        how="left")
+        fdf = fdf[(fdf.degenerate == False) & (fdf.english == True)]  # noqa: E712
+        pid_prompt = lambda pid, pair: pid[len(pair) + 1:]
+        def score(text, exclude):
+            ws = [w for w in FL.tokens(text) if w != exclude]
+            vals = [AXPOS[w] for w in ws if w in AXPOS]
+            echo = sum(1 for w in FL.tokens(text) if w == exclude)
+            return ((float(np.mean(vals)) if vals else None),
+                    (len(vals) / max(len(ws), 1)), echo, len(ws))
+        cellsc = collections.defaultdict(list)
+        n_unk = 0
+        for r in fdf.itertuples():
+            prm = pid_prompt(r.prompt_id, r.pair)
+            arm = armof.get((r.pair, prm, r.forced_word))
+            if arm is None:
+                n_unk += 1
+                continue
+            sc2, cov, echo, nt = score(r.text, r.forced_word.strip().lower())
+            if sc2 is not None:
+                cellsc[(r.pair, prm, r.role, arm)].append((sc2, echo, nt))
+        print("  forced passages scored: %s | arm-unmatched rows %s"
+              % (format(sum(len(v) for v in cellsc.values()), ","),
+                 format(n_unk, ",")))
+        agg = {k2: (float(np.mean([a for a, _, _ in v])),
+                    float(np.mean([e for _, e, _ in v])))
+               for k2, v in cellsc.items()}
+        def contrast(role, a1, a2):
+            ds = []
+            for (pair, prm, rl, arm), (m1, _) in agg.items():
+                if rl == role and arm == a1 and (pair, prm, rl, a2) in agg:
+                    ds.append(m1 - agg[(pair, prm, rl, a2)][0])
+            if len(ds) < 30:
+                return None
+            ds = np.array(ds)
+            up = int((ds > 0).sum()); dn = int((ds < 0).sum())
+            from math import comb
+            lo = min(up, dn)
+            pv = min(1.0, sum(comb(up + dn, i) for i in range(lo + 1))
+                     / 2 ** (up + dn) * 2)
+            return {"median": float(np.median(ds)), "n": len(ds),
+                    "up": up, "dn": dn, "p_sign": pv}
+        extra["I5"] = {}
+        print("  I5a within-arm ladder (axis score; positive = toward fall/base pole)")
+        for role in ("aligned", "base"):
+            for a1 in ("faller", "riser_matched", "riser"):
+                r5 = contrast(role, a1, "matched")
+                extra["I5"]["%s:%s-matched" % (role, a1)] = r5
+                if r5:
+                    print("    %-8s %-14s vs matched  med %+.5f  %d/%d  p %.4f"
+                          % (role, a1, r5["median"], r5["up"], r5["dn"],
+                             r5["p_sign"]))
+        echo_by = collections.defaultdict(list)
+        for (pair, prm, rl, arm), (_, e) in agg.items():
+            echo_by[(rl, arm)].append(e)
+        extra["I5"]["echo_mean"] = {"%s:%s" % k2: float(np.mean(v))
+                                    for k2, v in echo_by.items()}
+        print("  echo (mean occurrences of the forced word in the generation):")
+        for k2, v in sorted(extra["I5"]["echo_mean"].items()):
+            print("    %-24s %.3f" % (k2, v))
+
+    out = {"stage": "smoke" if smoke else "full", **extra,
            "n_passages_hard": int(len(hard)), "n_models": len(models),
            "n_words": len(words), "shared_with_logit": len(sh),
            "spearman_gen_logit_canonical": rho,

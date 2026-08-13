@@ -107,8 +107,14 @@ def main(lang="en"):
     #: Writes to a _<lang2>dom-suffixed file; never touches the main table.
     DLIKE = (sys.argv[sys.argv.index("--domains-like") + 1]
              if "--domains-like" in sys.argv else None)
+    #: --prompts-from-corpus <corpus>: restrict to the DISTINCT prompt texts of a
+    #: gen_sequences corpus (e.g. `passage`), for same-prompts cross-grain
+    #: comparisons. Suffixed output; nothing overwritten.
+    PCORP = (sys.argv[sys.argv.index("--prompts-from-corpus") + 1]
+             if "--prompts-from-corpus" in sys.argv else None)
     sfx = ("_" + SRC.lower() if SRC else "") + ("_nopos" if NOPOS else "") \
-        + ("_exact" if EXACT else "") + ("_%sdom" % DLIKE if DLIKE else "")
+        + ("_exact" if EXACT else "") + ("_%sdom" % DLIKE if DLIKE else "") \
+        + ("_%sprompts" % PCORP if PCORP else "")
     out = os.path.join(K, "word_auc_%s%s.tsv" % (lang, sfx))
 
     TAG = {}
@@ -162,6 +168,13 @@ def main(lang="en"):
         GROUP BY model, prompt, word)
       GROUP BY model, prompt""" % (A.DB, models, A.DB, lang,
                                    " AND source='%s'" % SRC if SRC else ""))
+    if PCORP:
+        keepP = {r["prompt"] for r in A.q(
+            "SELECT DISTINCT prompt FROM %s.gen_sequences WHERE corpus='%s'"
+            % (A.DB, PCORP))}
+        rows = [r for r in rows if r["prompt"] in keepP]
+        print("  restricted to %d prompts of corpus %r; cells now %s"
+              % (len(keepP), PCORP, f"{len(rows):,}"))
     if DLIKE:
         import collections as _c
         want = {r["domain"]: r["c"] for r in A.q(
