@@ -127,9 +127,11 @@ parquet; site labels via text join (5,498 of 7,262 forced (pair, prompt)
 cells sit on a twin side); DRAG = faller - matched, per (pair, role,
 pair_id, side); drags persisted (`p_on_passages_i7_drag.parquet`).
 
-    I7a  aligned DRAG(MARKED) - DRAG(UNMARKED)  -0.00070   998/1040  p=0.36
-         base                                   +0.00060  1029/954   p=0.10
-    I7b  triple difference (aligned - base)     -0.00131   934/1043  p=0.015
+    (medians travel -- the location summary consistent with the sign
+     test; means beside, labelled, per [5762])
+    I7a  aligned DRAG(MARKED) - DRAG(UNMARKED)  med -0.00034 (mean -0.00070)   998/1040  p=0.36
+         base                                   med +0.00059 (mean +0.00060)  1029/954   p=0.10
+    I7b  triple difference (aligned - base)     med -0.00101 (mean -0.00131)   934/1043  p=0.015
 
 Both component interactions are individually null; the triple difference
 reaches nominal significance from opposite-sign trends. Direction:
@@ -142,8 +144,13 @@ at its actual weight: p=0.015 uncorrected across the three declared
 contrasts (Bonferroni 0.045, marginal), single pass, one corpus, and
 the tonic reading it dents was this seat's own declared prediction --
 which is exactly the direction of result this seat checks least, so it
-is flagged for second-seat reconstruction from the drag parquet before
-anyone quotes it. NOT a refutation of I6: the MAIN site effect remains
+was flagged for second-seat reconstruction from the drag parquet before
+anyone quotes it. Reconstruction done ([5762]): every count and p to the
+digit; registrar's robustness reads cut both ways -- FOR: per-base-model
+I7b medians split 25 negative / 14 positive of 39 families, so no small
+set of lineages carries it; AGAINST: the median is 4% of the IQR
+(0.0010 vs 0.026). Flag stands; a second corpus is what would earn the
+saturation reading. NOT a refutation of I6: the MAIN site effect remains
 arm-symmetric; the candidate asymmetry lives only in the interaction.
 
 Echo by site (exploratory): flat -- the [5757] echo asymmetry is
