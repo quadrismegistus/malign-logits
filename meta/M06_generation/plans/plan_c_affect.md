@@ -54,6 +54,24 @@ that instrument's contrast with per-arm exclusion rates reported
 nouns are not in the norms, and NNP runs 7/1000w lower aligned, so
 coverage is EXPECTED to differ; the rate travels as description).
 
+## Amendment 1 (2026-08-13, RH's word: include the K coder scales)
+
+The seven K coder scales join the battery as passage means over content
+words — `k_vulgarity_mean`, `k_register_level_mean`,
+`k_transgressiveness_mean`, `k_charge_mean`, `k_valence_mean`,
+`k_bodily_harm_mean`, `k_concreteness_mean` — joined on SURFACE with
+lemma fallback (K rated emitted forms), `k_coverage` reported.
+NO DIRECTIONS REGISTERED for any of them. The `fields.py` riders travel
+verbatim: these are ONE MODEL's judgments at ONE frozen instrument
+(never presented beside the human norms as the same kind of object — the
+k_ prefix is load-bearing); `register_level` is NOT ESTABLISHED
+(descriptor only, never evidence); `vulgarity` is a sparse indicator
+(variance on 463 of 27,242 words — floors are not nulls); RANKS NOT
+LEVELS (levels shift between instrument versions at stable order —
+paired arm contrasts are order-like and permitted, absolute thresholds
+are not). And `k_concreteness_mean` beside `concreteness_brysbaert_mean`
+is the built-in convergence check at passage grain (word-level r 0.88).
+
 ## Unit, strata, tests
 
 Identical to plan A as amended: undisturbed arm primary; (pair, prompt)

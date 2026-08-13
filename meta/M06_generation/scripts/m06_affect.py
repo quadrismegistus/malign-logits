@@ -29,6 +29,8 @@ from m06_style import (REPO, OUT_DIR, iter_passages, parse_cached, parser_id,
                        osp_commit, is_pseudo_sent, list_lines_share)
 
 NORMS = "/Users/rj416/Dropbox/Prof/Articles/TheoryMachines/norms_sources"
+K_SCALES = ("vulgarity", "register_level", "transgressiveness", "charge",
+            "valence", "bodily_harm", "concreteness")
 CONTENT_UPOS = {"NOUN", "VERB", "ADJ", "ADV"}
 
 
@@ -54,6 +56,20 @@ def measure(doc, warr, brys):
         return None
     wv = [warr[l] for l in lemmas if l in warr]
     bc = [brys[l] for l in lemmas if l in brys]
+    # K coder scales: join on SURFACE (K rated emitted forms), lemma fallback.
+    # k_ prefix is load-bearing (fields.py): one model's judgments, not human
+    # norms; register_level not established; vulgarity a sparse indicator.
+    from malign_logits.fields import k_rating
+    kd = []
+    for s_ in doc.sentences:
+        if is_pseudo_sent(s_):
+            continue
+        for w in s_.words:
+            if w.upos not in CONTENT_UPOS:
+                continue
+            r = k_rating(w.text) or (k_rating(w.lemma) if w.lemma else None)
+            if r:
+                kd.append(r)
     out = {
         "n_content_words": n,
         "warriner_coverage": len(wv) / n,
@@ -63,7 +79,10 @@ def measure(doc, warr, brys):
         "arousal_warriner_mean": (sum(a for v, a, d_ in wv) / len(wv) if wv else None),
         "dominance_warriner_mean": (sum(d_ for v, a, d_ in wv) / len(wv) if wv else None),
         "concreteness_brysbaert_mean": (sum(bc) / len(bc) if bc else None),
+        "k_coverage": len(kd) / n,
     }
+    for sc in K_SCALES:
+        out[f"k_{sc}_mean"] = (sum(r[sc] for r in kd) / len(kd)) if kd else None
     return out
 
 
