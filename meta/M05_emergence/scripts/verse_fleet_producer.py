@@ -89,7 +89,7 @@ CSV = os.path.expanduser(
 RIME_VOCAB = os.path.join(REPO, "data/rime_class_vocab_v2.json")
 OUT_DIR = os.path.join(REPO, "meta/M05_emergence/data")
 
-SMOKE_MODEL = "HuggingFaceTB/SmolLM2-360M"
+SMOKE_MODEL = os.environ.get("VERSE_SMOKE_MODEL", "HuggingFaceTB/SmolLM2-360M")
 
 
 # ── rime-class vocabulary ────────────────────────────────────────
