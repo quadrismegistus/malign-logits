@@ -115,6 +115,22 @@ def main(argv):
     for bid,st,detail,nf,nbad in sorted(res, key=lambda x:str(x[0])):
         print("  %-10s %-11s %s" % (bid,st,detail))
         if st=='READY': ready.append(bid)
+    # FLEET-LEVEL COVERAGE. Per-shard completeness is not enough once work has
+    # been rebalanced: a box then holds models from two shards, and its own
+    # roster check cannot see a MOVED rung that never ran. The union is the only
+    # test that adds up -- 250 rungs must exist locally, whoever produced them.
+    allrungs=set()
+    for r in rosters.values(): allrungs |= set(safe(m) for m in r)
+    local=set()
+    for d in os.listdir(DEST):
+        if d.startswith('_'): continue
+        for f in glob.glob(os.path.join(DEST,d,'*.jsonl')):
+            local.add(os.path.basename(f)[:-6])
+    miss = allrungs - local
+    print("\n  FLEET COVERAGE: %d/%d rungs present locally" % (len(allrungs)-len(miss), len(allrungs)))
+    if miss:
+        print("  %d not yet collected%s" % (len(miss), (': '+', '.join(sorted(miss)[:3])+' ...') if len(miss)<=3 else ''))
+
     print("\n  READY TO DESTROY: %s" % (ready or 'none'))
     if ready and do_destroy:
         for bid in ready:
