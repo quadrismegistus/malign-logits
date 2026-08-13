@@ -120,6 +120,34 @@ def parse_cached(text):
     return doc
 
 
+def parse_many(texts):
+    """Batch variant of parse_cached: one pipeline call for all stash misses.
+
+    Stanza processes a list of Documents as a batch, which is several times
+    faster than per-text calls on CPU. Same stash, same pickle-bytes format,
+    so bulk and single-parse runs share work interchangeably."""
+    import pickle
+    from malign_logits.cache import get_cache
+    cache = get_cache()
+    pid = parser_id()
+    docs, misses = {}, []
+    for t in texts:
+        if t in docs:
+            continue
+        hit = cache.get_stanza_doc(pid, t)
+        if hit is not None:
+            docs[t] = pickle.loads(hit)
+        else:
+            misses.append(t)
+    if misses:
+        from stanza import Document
+        parsed = get_nlp()([Document([], text=t) for t in misses])
+        for t, d in zip(misses, parsed):
+            cache.set_stanza_doc(pid, t, pickle.dumps(d, protocol=5))
+            docs[t] = d
+    return docs
+
+
 # ── corpus iteration ─────────────────────────────────────────────
 
 def iter_rows():
@@ -220,11 +248,12 @@ def is_pseudo_sent(sent):
     return bool(_MARKER_ONLY.match(sent.text.strip()))
 
 
-def measure_passage(text):
+def measure_passage(text, doc=None):
     """All plan A and plan B measures for one passage. Naming rule applies."""
     from osp.features import (extract_pos_feats, extract_deprel_feats,
                               extract_syntax_feats_sent)
-    doc = parse_cached(text)
+    if doc is None:
+        doc = parse_cached(text)
     all_sents = doc.sentences
     sents = [x for x in all_sents if not is_pseudo_sent(x)]
     n_sents = len(sents)
@@ -287,17 +316,30 @@ def run_measures(mode, arms, per_cell, limit=None, shard=None):
     rows = []
     if shard:
         mode = f"{mode}_shard{shard.replace('/', 'of')}"
-    for i, p in enumerate(iter_passages(arms=arms, per_cell=per_cell, shard=shard)):
-        if limit and i >= limit:
-            break
-        m = measure_passage(p["text"])
-        if m is None:
-            continue
-        rows.append({**{k: p[k] for k in
-                        ("pair", "role", "model", "prompt_id", "arm_word", "seq_idx")},
-                     **m})
-        if i and i % 500 == 0:
+    CHUNK = 64
+    buf, i = [], 0
+    def flush_buf():
+        nonlocal buf, i
+        docs = parse_many([p["text"] for p in buf])
+        for p in buf:
+            m = measure_passage(p["text"], doc=docs.get(p["text"]))
+            if m is None:
+                continue
+            rows.append({**{k: p[k] for k in
+                            ("pair", "role", "model", "prompt_id", "arm_word", "seq_idx")},
+                         **m})
+        i += len(buf)
+        if i % 512 < CHUNK:
             print(f"  {i} passages measured", flush=True)
+        buf = []
+    for p in iter_passages(arms=arms, per_cell=per_cell, shard=shard):
+        if limit and i + len(buf) >= limit:
+            break
+        buf.append(p)
+        if len(buf) >= CHUNK:
+            flush_buf()
+    if buf:
+        flush_buf()
     df = pd.DataFrame(rows)
     os.makedirs(OUT_DIR, exist_ok=True)
     out = os.path.join(OUT_DIR, f"m06_style_{mode}.parquet")
