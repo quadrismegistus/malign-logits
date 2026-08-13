@@ -169,6 +169,25 @@ per poem, LITERARY + battery prose baselines, expand() + closure rider
 per slot, residual dict stored per cell. Changes past this line are
 docket matters.
 
+## DECLARED ANALYSIS CONSTRAINT — depth confound ([5751]/[5752], pre-data)
+
+RH spotted the symptom in the slot prompts; malign named it: slot position
+is confounded with context depth (mid1/end1 sit in line 1; called carries
+~9x mid1's context; a next-word distribution sharpens with context
+regardless of lineation). Booked BEFORE any fleet data exists:
+
+- PRIMARY: called vs {mid4, near} — depth-matched, 4 lines each.
+- VALID: mid_k vs end_k at matched k (within-depth contrasts).
+- NOT VALID raw: any across-depth gradient read as locality; any null
+  pool mixing mid1-3 with called.
+- RIDER ([5752]): the across-depth locality read survives ONLY as a
+  DIFFERENCE-IN-GRADIENTS — (rhymed mid1→mid4) minus (unrhymed
+  mid1→mid4) — the unrhymed arm carries the same nine slots at the same
+  depths with a target_key and no scheme calling it, so its gradient IS
+  the context-sharpening baseline on the same instrument.
+- Every quoted contrast states the depth of both arms; context_len
+  travels into every read.
+
 ## Costing: SETTLED ([5737])
 
 A-at-922 $13.07 / B-at-922 $13.28 / A-at-1,822 $18.10 / B-at-1,822
