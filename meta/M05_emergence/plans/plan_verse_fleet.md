@@ -107,6 +107,19 @@ it.
   discovery floor. Malign's rider is plan text: where any instrument
   still carries a theta, THETA IS PART OF THE ROSTER — changing it
   after close is a re-run of every cell, not a tweak.
+- KV-CACHING IS A REQUIREMENT, NOT AN OPTIMISATION ([5727] §2, malign's
+  own correction of the adopted design's cost claim): naive candidate-set
+  scoring costs what expand() cost (1.01x measured); the saving lives
+  entirely in caching the primer so continuation tokens are incremental
+  (approaches the 0.05x one-forward floor). The fleet producer caches or
+  the redesign buys theta-safety at no cost saving.
+- SLOT ARITHMETIC, DECLARED for costing ([5727] §3): per roster poem,
+  4 slots — 1 CALLED (last line's final word) + 3 UNCALLED NULLS (two
+  mid-line positions, one uncalled line-end; exact positions computed by
+  the producer against the poem's own lines, rule declared in the slot
+  manifest it emits) = 720 verse slots; plus ~300 prose-battery
+  comparison slots (genre-conditional norms) = ~1,020 slots per rung.
+  Closure probes ride each slot as one cached batched forward.
 - Provisioning budgeted in wall-clock and babysitting, not dollars
   (the L2 fleet's 6-of-14 casualty rate is the standing tax).
 
