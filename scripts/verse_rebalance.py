@@ -40,6 +40,7 @@ import argparse, json, os, subprocess, sys, glob
 
 ROOT   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPECS  = os.path.join(ROOT, "data", "verse_fleet", "specs")
+DEST_LOCAL = os.path.join(ROOT, "data", "raw", "verse_fleet")
 REMOTE = "/workspace/malign-logits"
 
 def vast_instances():
@@ -100,6 +101,8 @@ def main(argv=None):
     ap.add_argument('--to',   dest='dst')
     ap.add_argument('--auto', action='store_true',
                     help='pair every idle box with the donor holding most unstarted work')
+    ap.add_argument('--recover', action='store_true',
+                    help='reassign a DEAD box\'s unfinished models from LOCAL state')
     ap.add_argument('--apply', action='store_true')
     a=ap.parse_args(argv)
 
@@ -114,6 +117,59 @@ def main(argv=None):
         if not s: return []
         sname,have,_=s
         return [m for m in rs[sname] if safe(m) not in have]
+
+    # ---- dead-donor recovery -------------------------------------------------
+    # A box can be STOPPED by vast (GPU reclaimed) rather than merely unreachable:
+    # actual_status='running' beside cur_state='stopped', direct route refused,
+    # `vastai start` answering "resources currently unavailable, state change
+    # queued". Its shard then has no live donor, so the normal path cannot move
+    # the work. What it DID write is already pulled, so the local tree is the
+    # record of what survives and the roster minus that is what must be re-run.
+    if a.recover:
+        live = set(inst)
+        held = {}
+        if os.path.isdir(DEST_LOCAL):
+            for d in os.listdir(DEST_LOCAL):
+                if d.startswith('_'): continue
+                held[d] = {f[:-6] for f in os.listdir(os.path.join(DEST_LOCAL, d))
+                           if f.endswith('.jsonl')}
+        orphaned = {}
+        for bid, models in held.items():
+            if bid in live and state.get(bid): continue      # box still with us
+            sname = max(rs, key=lambda sn: len(models & set(safe(m) for m in rs[sn])))
+            missing = [m for m in rs[sname] if safe(m) not in models]
+            if missing: orphaned[bid] = (sname, missing)
+        if not orphaned:
+            print("  no orphaned shard work. Nothing to recover."); return 0
+        for bid,(sname,missing) in orphaned.items():
+            print("  DEAD BOX %s ran %s: %d of %d models held locally, %d TO RE-RUN"
+                  % (bid, sname.replace('.json',''), len(rs[sname])-len(missing),
+                     len(rs[sname]), len(missing)))
+            for m in missing[:5]: print("      %s" % m)
+            if len(missing)>5: print("      ... and %d more" % (len(missing)-5))
+        idle = [b for b,st_ in state.items() if st_ and not st_[2]]
+        if not idle:
+            print("  no idle box to take it yet -- re-run when one frees."); return 0
+        allm = [m for _,ms in orphaned.values() for m in ms]
+        per = max(1, len(allm)//len(idle))
+        for n,b in enumerate(idle):
+            chunk = allm[n*per:(n+1)*per] if n < len(idle)-1 else allm[n*per:]
+            if not chunk: continue
+            print("  -> %d models to %s" % (len(chunk), b))
+            if not a.apply: continue
+            mp = os.path.join(SPECS, 'recover_to_%s.json' % b)
+            json.dump(chunk, open(mp,'w'))
+            if not scp(inst[b], mp, REMOTE+'/data/recover.json'):
+                print("     scp FAILED"); continue
+            run=("cd %s && tmux kill-session -t verse 2>/dev/null; "
+                 "tmux new-session -d -s verse 'cd %s && python3 scripts/twp_cloud.py "
+                 "--models data/recover.json --out /workspace/verse --purge "
+                 "--gpu-budget-gb 45 --dict %s/data/dict/jieba_dict_big.txt "
+                 ">> /workspace/verse.log 2>&1'") % (REMOTE, REMOTE, REMOTE)
+            sh(inst[b], run)
+            print("     launched")
+        if not a.apply: print("  dry run. re-run with --apply.")
+        return 0
 
     pairs=[]
     if a.auto:

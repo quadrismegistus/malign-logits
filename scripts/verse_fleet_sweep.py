@@ -14,8 +14,9 @@ proxy with 'Permission denied (publickey)' while producing normally over the
 direct IP.  An unreachable box and a dead box look identical from one route.
 NEVER destroy on a single route's silence.
 """
-import json, subprocess, sys, concurrent.futures as cf
+import json, os, subprocess, sys, concurrent.futures as cf
 
+DEST_LOCAL = 'data/raw/verse_fleet'
 TOTAL_EXPECTED = 446_500          # 250 rungs x 1,786 distinct contexts. NOT 455,000.
 PROBE = ("echo -n 'proc=';  pgrep -fc 'twp_clou[d]' || echo 0; "
          "echo -n 'files='; ls /workspace/verse/*.jsonl 2>/dev/null | wc -l; "
@@ -63,7 +64,20 @@ def main():
     for bid, d, dph, err in sorted(res, key=lambda x: str(x[0])):
         burn += dph
         if d is None:
-            print("  %-10s ALL ROUTES FAILED  -- do NOT destroy on this alone" % bid)
+            #: AN UNREACHABLE BOX MUST NOT SILENTLY REDUCE THE TOTAL. It did once:
+            #: 237,417 -> 208,215 when one box dropped out, and a monotone counter
+            #: going DOWN is the impossibility that revealed it. Fall back to what
+            #: we hold LOCALLY for that box, which is a floor on what it wrote.
+            local = os.path.join(DEST_LOCAL, str(bid))
+            lc = 0
+            if os.path.isdir(local):
+                for f in os.listdir(local):
+                    if f.endswith('.jsonl'):
+                        with open(os.path.join(local, f), 'rb') as fh:
+                            lc += sum(1 for _ in fh)
+            tot += lc
+            print("  %-10s ALL ROUTES FAILED  -- do NOT destroy on this alone; "
+                  "counting %s cells held locally" % (bid, f"{lc:,}"))
             attention.append((bid,'unreachable')); continue
         c = int(d.get('cells','0') or 0); tot += c
         alive = d.get('proc','0').strip() not in ('0','')
