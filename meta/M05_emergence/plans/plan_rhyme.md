@@ -54,22 +54,48 @@ design pattern of M05's census instruments; runs wherever word_probs runs.
 Control arm: the same primers with line 3's final word replaced to break
 the rime expectation (mass on the same candidate set = the base rate).
 
-**Secondary — `rhyme_maintenance` (generative; the paper's instrument
-proper).** At each rung, continue rhymed and unrhymed verse primers;
-score line-pair rime matches in the continuation (Prosodic, exact rime);
-capacity = P(continuation rhymes | rhymed primer) − P(rhymes | unrhymed
-primer); STUCKNESS = rhyme rate under unrhymed primers, tracked across
-SFT/DPO/RLVR. Requires a checkpoint generation run that does not yet
-exist (`mega_generations` covers the OLMo ladder thinly and without verse
-prompts) — COSTED SEPARATELY, RH's word before any spend, per cool-off.
+**Secondary — `rhyme_maintenance` (generative; the paper's protocol,
+REVISED 2026-08-13 to RH's own completion design).** RH's paper data
+(`generative-formalism1/data/data_as_in_paper/genai_rhyme_completions.csv.gz`,
+326,862 rows, structure learned: one row per LINE of a completion event;
+`id_human` names the source poem, `first_n_lines` the primer length,
+`line_gen` NaN over the primer rows, and `line_real` / `line_gen` ALIGNED
+thereafter) already implements the three-way comparison: the human
+continuation and the model continuation of the same real-poem primer,
+line by line. The ladder run REUSES this protocol and primer roster
+(same `id_human` poems, same `first_n_lines`), making checkpoint rungs
+directly commensurable with (a) the paper's deployed-model numbers and
+(b) the HUMAN `line_real` baseline, which arrives built in. Scoring
+mirrors the paper's `get_rhyme_for_txt` semantics: perfect rime =
+distance 0 (the exact-rime criterion), near rime <= max_dist reported
+beside, the >=4-per-10 poem threshold for categorical reads. STUCKNESS =
+rhyme rate in continuations of UNRHYMED primers, tracked across
+SFT/DPO/RLVR. Requires a checkpoint generation run — COSTED SEPARATELY,
+RH's word before any spend, per cool-off.
 
 ## The memorization fence
 
-Pythia's Pile and OLMo's mixes contain the canon: continuation of a famous
-quatrain can be recall, not capacity. PRIMERS ARE CONSTRUCTED (written for
-this plan, never in any training corpus), primary; a small famous-poem arm
-rides beside as the MEMORIZATION PROBE, and the constructed-minus-famous
-difference is reported as the memorization share, never folded.
+Real-poem primers make memorization a live concern on ladders trained on
+the canon (the Pile contains Dunbar). The CONSTRUCTED-primer arm (novel
+AABB/ABAB quatrains written for this plan) therefore rides as the
+MEMORIZATION PROBE beside the paper-protocol primary: paper-protocol
+minus constructed difference = the memorization share, reported, never
+folded. A rung that continues Dunbar in rhyme but cannot continue a novel
+couplet is remembering, not rhyming.
+
+## Instrument state (gated 2026-08-13, per [5693])
+
+`prosodic` is PINNED IN THIS REPO'S VENV at the paper's own commit —
+`git+...prosodic.git@31db244b` (the version question answered from the
+paper repo's requirements.txt: the paper pins its prosodic, so we inherit
+CODE, not just method) — installed via `uv pip` (same dynamic-deps note
+as stanza's). `espeak-ng` installed via brew (phonemizer's backend; plain
+`espeak` does not serve). ROUND-TRIP GATE PASSED: Gray's Elegy quatrain
+returns its ABAB scheme with me/lea at rime distance 0 and way/day
+matched — install AND function verified, not install alone. [5693]'s
+`twp_words` cautions acknowledged: `rhyme_pull` writes its OWN results,
+never into `twp_words`; any read of `twp_words` follows the engine-state
+clause (FINAL + GROUP BY the analysis key).
 
 ## Population, unit, tests
 
