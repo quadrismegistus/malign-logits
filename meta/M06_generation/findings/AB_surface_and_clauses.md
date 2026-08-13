@@ -95,6 +95,22 @@ depth: flat.
     English                aligned 97.8% vs base 95.3% (base drifts out
       of English more — Teuken-base and kin)
 
+## Deepseek exposure ([5770] defect, checked same day)
+
+The deepseek pair's stored passage texts are undetokenized (spaceless,
+byte markers); its flags were computed pre-defect on spaced text, so
+2,481 of its passages sat INSIDE the hardened stratum carrying garbage
+measures. Exclusion rerun, every verdict INSENSITIVE: both TTR rows are
+bit-identical (the w100 window never fits spaceless text — deepseek was
+structurally absent from A.H2 all along, one of the three missing pairs
+behind n=39); dep_clauses_per_1000w unchanged at 29/11; clause_len
+slightly STRONGER without it (12/28, p .018 vs .028); every null stays
+null. The per-arm description rates stand — the flags' spaced-text
+source is the right instrument for "did the model degenerate" (the
+store lost the decode, not the model). The pair is fenced from
+text-grain analyses until the store is repaired ([5770]: malign's to
+repair or fence).
+
 ## Limits
 
 Single analysis pass, no cross-seat reproduction of any number here yet
