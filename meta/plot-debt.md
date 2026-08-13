@@ -81,6 +81,13 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     remaining basins (epistemic/expression/stasis) are one command
     each; chain-exhibit strip (fired->aimed->pointed, kill->shout->hum)
     still owed.
+13a. SHIPPED 2026-08-14 — X.1 GARMENT-LAYERS INFOGRAPHIC (RH's design,
+    Opus-agent craft): `x1_garment_layers.svg/png` — stick figures with
+    garment layers colored red(base)/blue(aligned) by median delta at
+    the two verbatim X.1 prompts; data producer `x1_garment_deltas.py`
+    (declared 46; X.1's registered k>=2 counts remain the registered
+    form; gradient REPLICATES on the independent population; socks-her
+    reversal + hat count-vs-median tension named).
 13b. NEW (2026-08-14, pair-cascade instrument, plan_pair_cascade.md):
     the HUM SINK (sing/shake/tremble/weep->hum — expressive
     de-intensification, split-half certified); the PROCEED cluster
