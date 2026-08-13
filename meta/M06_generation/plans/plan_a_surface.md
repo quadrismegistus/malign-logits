@@ -226,11 +226,24 @@ from the pilot's own extremes): a passage is DEGENERATE if
 OR `non_ascii_alpha_share >= 0.20` (a fifth of alphabetic characters
 outside ASCII — the salad signal; note zh is out of scope for these
 plans, so this is safe HERE and is NOT a general degeneracy definition).
-Rules: (1) per-arm degenerate rates travel as DESCRIPTION (a finding
-candidate in its own right); (2) the PRIMARY stratum for every A and B
-verdict is prose AND non-degenerate; (3) pooled reads reported beside;
-(4) pair MEDIANS remain the location statistic everywhere — the tails
-are exactly where the degeneracy lives.
+AND AN ENGLISH FILTER, on RH's word (2026-08-13, in session: "looks
+like we need to filter to English"), as its own flag beside the
+degeneracy one: the non-ASCII heuristic catches Cyrillic/Greek/CJK soup
+but PASSES Latin-script non-English (Polish, Lithuanian, Hungarian ride
+mostly ASCII). Operationalisation, naming rule applied:
+`english_nltkwords_share` = fraction of alphabetic tokens found in the
+NLTK words lexicon, computed at analysis time from stored text; a
+passage is NON-ENGLISH if the share is < 0.60 (threshold declared now,
+before any analysis-time computation exists). The corpus is nominally
+English-prompted, so the per-arm non-English rate is itself description
+worth having — which models drift out of English, and in which arm.
+
+Rules: (1) per-arm DEGENERATE and NON-ENGLISH rates travel as
+DESCRIPTION (finding candidates in their own right); (2) the PRIMARY
+stratum for every A and B verdict is prose AND non-degenerate AND
+English; (3) pooled reads reported beside; (4) pair MEDIANS remain the
+location statistic everywhere — the tails are exactly where the
+pathology lives.
 
 ## What this plan does not claim
 
