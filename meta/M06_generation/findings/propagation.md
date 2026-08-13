@@ -33,15 +33,27 @@ a full-vocabulary `q`, so the slope is computable after all.
         is not in it, [5811])
     b = dy/dx within (pair, prompt, role), one point per arm
 
-    574,430 rows | 10,552 cells | 9,153 fitted
-    median log2-q spread within a cell: 3.75 bits
+    601,324 rows | 10,658 cells | 9,423 fitted
+    median log2-q spread within a cell: 3.78 bits
 
-    ALL ARM WORDS        aligned +0.0088  35/5   p 1.4e-06  (40 pairs)
+    ALL ARM WORDS        aligned +0.0083  37/3   p 2.0e-08  (40 pairs)
                          base    +0.0073  36/4   p 1.9e-07
-                         aligned - base +0.0033  p 0.268
-    SINGLE-TOKEN ONLY    aligned +0.0101  35/5   p 1.4e-06
+                         aligned - base +0.0039  p 0.081
+    SINGLE-TOKEN ONLY    aligned +0.0081  38/2   p 1.5e-09
                          base    +0.0068  32/8   p 1.8e-04
-                         aligned - base +0.0027  p 0.154
+                         aligned - base +0.0029  p 0.039
+
+**CORRECTED before these numbers were second-seated ([5828]): the first run
+carried an INHERITED PREDICATE.** I required the reconstructed base
+probability `p > 0` for every arm word, but `p` is used only by the BASE
+role, which takes it as its x; the ALIGNED fit never touches it. The filter
+dropped 8.4% of arm-words and did so ARM-ASYMMETRICALLY -- **23.5% of
+`riser_matched` against 0.0% of `faller`**, because a word that rose from
+p=0 is exactly the kind that fails it -- so it removed the most extreme
+risers from the aligned regression's high-q end. Same defect malign found
+in `ladder_confirm.py` the same hour; theirs cost ~23% of a magnitude, mine
+cost little (aligned +0.0088 to +0.0083) but the exposure was structural,
+not small. Numbers above are the repaired run.
 
 ## Both hypotheses are right, at different scales
 
@@ -64,8 +76,13 @@ which is what the architecture requires if provenance is invisible to the
 forward pass (malign's argument, [5810] §1), and this is the first version
 of that prediction that is actually testable rather than broken.
 
-**And it is not alignment.** aligned - base is +0.0033 (p 0.268) pooled and
-+0.0027 (p 0.154) single-token. Both arms absorb at the same rate.
+**And it is essentially not alignment, with one honest wrinkle.** aligned -
+base is +0.0039 (p 0.081) pooled and +0.0029 (p 0.039) single-token. The
+repaired run moved this from clearly null to marginal, and the two variants
+disagree across 0.05. **The difference, if real, is 0.003 nats-per-bit -- a
+third of a percent of propagation -- so it changes nothing about the reading
+and should not be quoted as an alignment effect on a single variant crossing
+a threshold.** Both arms absorb at essentially the same rate.
 
 ## What it means, stated at the right scope
 
@@ -84,9 +101,9 @@ alignment; they were the chain doing what this slope says it does.
 
 ## Fences
 
-- `q` is a WORD probability, the continuation is scored in TOKENS. 72.2% of
+- `q` is a WORD probability, the continuation is scored in TOKENS. 68.7% of
   arm words are single-token under the pythia tokenizer, where the two
-  coincide; the restricted variant is reported and agrees.
+  coincide; the restricted variant is reported and agrees on the slope.
 - Four points per cell is a thin regression. Cells with fewer than three arms
   present are dropped; the within-cell log2-q spread (median 3.75 bits) is
   reported so the slope is not read off a corner.

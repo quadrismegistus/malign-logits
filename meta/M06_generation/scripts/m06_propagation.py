@@ -78,9 +78,14 @@ def main():
                 continue
             p = c.get("faller_p") if arm == "faller" else (
                 None if c.get(dk) is None else q - c[dk])
-            if p is None or p <= 0:
-                continue
-            info[(c["pair"], c["prompt"], w)] = (arm, float(q), float(p))
+            #: INHERITED PREDICATE, FIXED ([5828]). p>0 is required only by the
+            #: BASE role, which uses p as its x. Requiring it for every arm
+            #: dropped 8.4% of arm-words ARM-ASYMMETRICALLY -- 23.5% of
+            #: riser_matched (words that rose from p=0, the most extreme
+            #: movers) against 0.0% of faller -- from the ALIGNED fit, which
+            #: never touches p. The base row still requires it, arithmetically.
+            info[(c["pair"], c["prompt"], w)] = (
+                arm, float(q), (float(p) if p is not None and p > 0 else None))
         b, a = c["pair"].split(">")
         model2pair[b] = (c["pair"], "base")
         model2pair[a] = (c["pair"], "aligned")
@@ -114,7 +119,7 @@ def main():
         arm, q, p = inf
         prob = q if role == "aligned" else p
         y = float(r["y"])
-        if prob <= 0 or not np.isfinite(y):
+        if prob is None or prob <= 0 or not np.isfinite(y):
             continue
         n_rows += 1
         cells[(pair, r["prompt"], role)].append(
