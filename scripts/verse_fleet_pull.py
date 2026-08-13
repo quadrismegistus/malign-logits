@@ -41,11 +41,21 @@ def main():
                       capture_output=True, text=True, timeout=90).stdout)
     with cf.ThreadPoolExecutor(min(8, len(inst))) as ex:
         res = list(ex.map(pull, inst))
-    tot = 0.0
     for bid, st, n, gb, h in sorted(res):
-        tot += gb
         print("  %-10s %-7s jsonl=%-4s %6.2f GB  %s" % (bid, st, n, gb, h or ''))
-    print("  TOTAL LOCAL %.2f GB in %s (f32 tier excluded)" % (tot, DEST))
+    #: MEASURE THE DISK, NOT THE TRANSFER. Summing per-box return values made the
+    #: total FALL (24.92 -> 24.20 GB) the moment a box became unreachable, because
+    #: a failed pull reports 0 GB while its 3.0 GB sits on disk untouched. An
+    #: accumulating total that decreases is an impossibility, and it is the third
+    #: instance of this shape in these tools today.
+    tot = 0.0
+    for root_, _dirs, files in os.walk(DEST):
+        if os.path.basename(root_).startswith('_'): continue
+        for f in files:
+            try: tot += os.path.getsize(os.path.join(root_, f))
+            except OSError: pass
+    tot /= 1e9
+    print("  TOTAL LOCAL %.2f GB in %s (f32 tier excluded; measured on disk)" % (tot, DEST))
     free = os.statvfs('.').f_bavail * os.statvfs('.').f_frsize / 1e9
     print("  local free %.1f GB" % free)
     if free < 20: print("  WARNING: below the 20 GB floor")
