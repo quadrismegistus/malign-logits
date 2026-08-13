@@ -36,7 +36,7 @@ LEX_LABELS = {
 }
 
 
-def t14():
+def t14_dumbbell():
     """T-14: few large fallers, many small risers — dumbbell per lexicon.
 
     Slice of record (T-14 amendment, corrected 2026-08-12): stratum=ALL,
@@ -118,8 +118,116 @@ def t14():
     print(f"wrote {out}")
 
 
+
+
+def t14():
+    """T-14 v2: slopegraph of the individual FIELDS — fallers left, risers
+    right, placed at their |delta| (log y), connected where a Bonferroni-
+    surviving DIRECTED flow runs between two T-14 survivor fields
+    (s_everything_direction_edgeunit, edge-consistent p_edge < .05). The
+    lines are actual displacement routes, not decoration. Four lexicons
+    carry qualifying flows (framenet 238, verbnet 152, usas 57,
+    gi_primary 23); top flows per lexicon drawn, truncation stated on the
+    panel — no silent caps."""
+    from plotnine import (aes, element_blank, element_text, facet_wrap,
+                          geom_point, geom_segment, geom_text, ggplot,
+                          labs, scale_alpha_continuous, scale_color_manual,
+                          scale_x_continuous, scale_y_log10, theme,
+                          theme_minimal)
+
+    TOP_FLOWS = 12
+
+    m = pd.read_csv(os.path.join(RESULTS, "s_everything_marginal.csv"))
+    d = pd.read_csv(os.path.join(RESULTS,
+                                 "s_everything_direction_edgeunit.csv"))
+    surv = m[(m.stratum == "ALL") & (m.labeling != "TOKEN") & m.bonferroni]
+    mag = {(r.labeling, r.category): abs(r.delta)
+           for r in surv.itertuples()}
+    # display names where the artifact declares them (USAS codes are
+    # cryptic; category_name carries 'Speech acts' etc.) — declared
+    # column over code, the day's own rule
+    disp = {}
+    for r in m[m.category_name.notna()].itertuples():
+        nm = str(r.category_name)
+        disp[(r.labeling, r.category)] = (nm[:22] + "…") if len(nm) > 23 else nm
+    fal = {(r.labeling, r.category) for r in surv.itertuples() if r.delta < 0}
+    ris = {(r.labeling, r.category) for r in surv.itertuples() if r.delta > 0}
+
+    dd = d[(d.stratum == "ALL") & (d.labeling != "TOKEN") & d.bonferroni
+           & (d.p_edge < 0.05)]
+    flows = dd[[((r.labeling, r.frm) in fal) and ((r.labeling, r.to) in ris)
+                for r in dd.itertuples()]].copy()
+    n_total = len(flows)
+    flows = (flows.sort_values("E", ascending=False)
+                  .groupby("labeling").head(TOP_FLOWS).copy())
+
+    rows, segs = [], []
+    for r in flows.itertuples():
+        yf, yr = mag[(r.labeling, r.frm)], mag[(r.labeling, r.to)]
+        lex = LEX_LABELS.get(r.labeling, r.labeling)
+        segs.append(dict(lex=lex, x=0, xend=1, y=yf, yend=yr, E=r.E))
+        rows.append(dict(lex=lex, x=0, y=yf, role="faller",
+                         field=disp.get((r.labeling, r.frm), r.frm)))
+        rows.append(dict(lex=lex, x=1, y=yr, role="riser",
+                         field=disp.get((r.labeling, r.to), r.to)))
+    pts = pd.DataFrame(rows).drop_duplicates(["lex", "x", "field"])
+    segs = pd.DataFrame(segs)
+    kept = len(segs)
+
+    pl = (ggplot()
+          + geom_segment(segs, aes(x="x", xend="xend", y="y", yend="yend",
+                                   alpha="E"), color="#808080", size=0.5)
+          + geom_point(pts, aes(x="x", y="y", color="role"), size=2.2)
+          + geom_text(pts[pts.role == "faller"],
+                      aes(x="x", y="y", label="field", color="role"),
+                      size=5.5, ha="right", nudge_x=-0.04,
+                      adjust_text={"only_move": {"text": "y"},
+                                   "arrowprops": {"arrowstyle": "-",
+                                                  "color": "#cccccc",
+                                                  "lw": 0.4}},
+                      show_legend=False)
+          + geom_text(pts[pts.role == "riser"],
+                      aes(x="x", y="y", label="field", color="role"),
+                      size=5.5, ha="left", nudge_x=0.04,
+                      adjust_text={"only_move": {"text": "y"},
+                                   "arrowprops": {"arrowstyle": "-",
+                                                  "color": "#cccccc",
+                                                  "lw": 0.4}},
+                      show_legend=False)
+          + facet_wrap("~lex", nrow=1)
+          + scale_x_continuous(breaks=[0, 1],
+                               labels=["fallers", "risers"],
+                               limits=(-0.9, 1.9))
+          + scale_y_log10()
+          + scale_alpha_continuous(range=(0.15, 0.7), guide=None)
+          + scale_color_manual({"faller": "#c0392b", "riser": "#2e6da4"},
+                               guide=None)
+          + labs(x="", y="field |delta| (log scale)",
+                 title="T-14: displacement routes between survivor fields",
+                 subtitle=(f"Lines = Bonferroni-surviving directed flows, "
+                           f"faller field -> riser field, edge-consistent "
+                           f"(p_edge < .05), line weight = edges agreeing; "
+                           f"top {TOP_FLOWS} flows per lexicon shown of "
+                           f"{n_total} qualifying ({kept} drawn).\n"
+                           f"Fields at their T-14 survivor |delta| "
+                           f"(slice: ALL / non-TOKEN / Bonferroni). "
+                           f"wordnet, rid and induced carry no qualifying "
+                           f"flows and are absent, stated not hidden."))
+          + theme_minimal()
+          + theme(figure_size=(14, 6),
+                  axis_text_x=element_text(size=9),
+                  strip_text=element_text(size=10, weight="bold"),
+                  plot_subtitle=element_text(size=8),
+                  panel_grid_minor=element_blank(),
+                  plot_title=element_text(size=12, weight="bold")))
+    out = os.path.join(FIGURES, "t14_fields_slopegraph.png")
+    pl.save(out, dpi=300, verbose=False)
+    print(f"wrote {out}")
+
+
 REGISTRY = {
     "t14": t14,
+    "t14_dumbbell": t14_dumbbell,
     # future: t5 (sink structure), t7 (concreteness densities),
     # t8 (bodily_violence->speech_act diverging bar), t11 (stratified
     # heatmap; NEVER pooled), t12 (USAS lollipop), t18 (affect DiD
