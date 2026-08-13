@@ -230,10 +230,44 @@ stayed where it was. Q3 is nearly as one-sided (+0.82 / +0.14). Only Q2 and
 Q4 carry real drift loading.
 
 **So "alignment drains breakdown into metonymic and unmarked" is largely a
-re-description of "alignment lowers surprisal."** The surprisal effect is
--0.53 nats and overwhelming; the drift effect is -0.023 and small; the
-quadrants are a median split that converts those two marginals into four
-shares, and for Q1 and Q3 the second marginal contributes almost nothing.
+re-description of "alignment lowers surprisal."** The quadrants are a median
+split converting two marginals into four shares, and for Q1 and Q3 the
+second marginal contributes almost nothing.
+
+**AND THE MECHANISM IS MEASUREMENT NOISE, not effect size -- RH's question,
+measured.** Comparing -0.53 nats against -0.023 cosine units compares
+incommensurable scales, and standardising exposes that the gap is mostly an
+artefact of how the two quantities are BUILT. Surprisal averages ~107 tokens
+per passage; `total_drift` is the MINIMUM over ~10 pairwise similarities
+among ~5 sentences -- an extreme statistic over a handful of units.
+Variance decomposition on 9,501 three-sample cells (within-cell = same
+model, same prompt, different sample = pure noise):
+
+    metric           total SD   within SD   between SD    ICC
+    mean_surprisal     0.7343      0.5822       0.4475   0.371
+    total_drift        0.1397      0.1338       0.0401   0.082
+    mean_drift         0.1191      0.1104       0.0448   0.141
+
+**`total_drift` is 92% NOISE at the passage level.** So Cohen's d divides
+the drift effect by a denominator that is almost entirely measurement error.
+The ratio depends entirely on which standardisation you pick:
+
+    surprisal : drift    4.4x  raw / total SD      (what this document quoted)
+                         2.1x  raw / BETWEEN SD    (noise removed)
+                         1.3x  dz                  (paired signal-to-noise)
+
+**AND THIS EXPLAINS THE QUADRANT RESULT MECHANICALLY.** A median split on an
+axis that is 92% noise assigns passages to sides close to at random, so the
+drift axis cannot carry a quadrant flow however real the underlying shift
+is. Q1's rho of -0.05 with drift is not evidence that dispersion did not
+move -- it moved at dz -0.98 -- it is evidence that a median split on
+`total_drift` is mostly splitting on sampling error.
+
+**Consequence for any future drift axis: use `mean_drift`, not
+`total_drift`.** It is a mean rather than an extreme (ICC 0.141 against
+0.082), it is order-DEPENDENT rather than invariant, and its own effect is
+larger on every standardisation (raw -0.051, between-SD -1.13, dz -1.53).
+Every property that matters is better.
 
 **THE NAMES ARE NOT EARNED BY THESE AXES.** `total_drift` is order-invariant
 (below), so it cannot distinguish a metonymic CHAIN from an undirected
