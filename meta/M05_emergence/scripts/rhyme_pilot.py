@@ -94,6 +94,7 @@ def rhyme_score(txt):
 
 
 def main():
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
     primers = pick_primers()
     print(f"{len(primers)} primers selected", flush=True)
     rows = []
