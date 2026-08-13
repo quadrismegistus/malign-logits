@@ -62,7 +62,10 @@ def main():
     print("  %-10s %-8s %-6s %-9s %-6s %-10s %s" %
           ("id","prog","files","cells","free","rate","route"))
     for bid, d, dph, err in sorted(res, key=lambda x: str(x[0])):
-        burn += dph
+        #: only RUNNING boxes burn GPU. A stopped box still appears in
+        #: `vastai show instances` with its full dph_total, which overstated
+        #: burn by $0.70/hr the moment vast reclaimed one.
+        if d is not None: burn += dph
         if d is None:
             #: AN UNREACHABLE BOX MUST NOT SILENTLY REDUCE THE TOTAL. It did once:
             #: 237,417 -> 208,215 when one box dropped out, and a monotone counter

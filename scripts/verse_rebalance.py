@@ -41,6 +41,7 @@ import argparse, json, os, subprocess, sys, glob
 ROOT   = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SPECS  = os.path.join(ROOT, "data", "verse_fleet", "specs")
 DEST_LOCAL = os.path.join(ROOT, "data", "raw", "verse_fleet")
+ROWS_COMPLETE = 1820   # measured: median 1820, p10 1820 over 132 pulled files
 REMOTE = "/workspace/malign-logits"
 
 def vast_instances():
@@ -127,12 +128,24 @@ def main(argv=None):
     # record of what survives and the roster minus that is what must be re-run.
     if a.recover:
         live = set(inst)
+        #: A PRESENT FILE IS NOT A FINISHED MODEL. Box 47630611 died mid-write and
+        #: left `pythia-6.9b@step8000.jsonl` with 959 rows; every complete model in
+        #: this corpus has exactly ROWS_COMPLETE (median 1820, p10 1820 over 132
+        #: files). Counting presence would have retired that rung silently -- the
+        #: same two-states-one-appearance shape the byte-level teardown exists for,
+        #: and it cannot run here because the remote is gone.
         held = {}
         if os.path.isdir(DEST_LOCAL):
             for d in os.listdir(DEST_LOCAL):
                 if d.startswith('_'): continue
-                held[d] = {f[:-6] for f in os.listdir(os.path.join(DEST_LOCAL, d))
-                           if f.endswith('.jsonl')}
+                done = set()
+                for f in os.listdir(os.path.join(DEST_LOCAL, d)):
+                    if not f.endswith('.jsonl'): continue
+                    with open(os.path.join(DEST_LOCAL, d, f), 'rb') as fh:
+                        n = sum(1 for _ in fh)
+                    if n >= ROWS_COMPLETE: done.add(f[:-6])
+                    else: print("     TRUNCATED %s/%s: %d rows -- re-running" % (d, f, n))
+                held[d] = done
         orphaned = {}
         for bid, models in held.items():
             if bid in live and state.get(bid): continue      # box still with us
