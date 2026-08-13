@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [arm-signature, lexical, replication, amplification, forced-arms]
-description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null ~0.35); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch (M02 markers) declared, not yet run."
+description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch (M02 markers) declared, not yet run."
 ---
 # P on passages: the signature survives the trip, and the drag is priming
 
@@ -27,14 +27,21 @@ Half the distributional ranking survives temperature-1 sampling and ~200
 tokens of autoregression, on identical prompts and models: grain is the
 only thing that varies. All ten probe words sit at their logit poles.
 
-## I2: the page classifier -- quotable only as real-minus-null
+## I2: the page classifier -- against a null DISTRIBUTION (corrected, [5744])
 
-    k=25 .851 | k=50 .912 | k=100 .953 | k=200 .966
-    flip-nulls 0.52-0.63 (logit-side sat ~0.51)   real-minus-null ~0.35
+    k=25 .851 | 50 .912 | 100 .953 | 200 .966
+    200-flip null: mean .465-.468, 95% band [.30, .65]
+    REAL-MINUS-NULL-MEAN: .387 / .448 / .486 / .499
 
-The null elevation is undiagnosed (candidates: 41-pair org structure;
-lineage signatures in rates). Until it is, the number that travels is
-real-minus-null, not the AUC.
+THE FIRST TWO VERSIONS OF THIS SECTION QUOTED SINGLE DRAWS. The flip
+assignment iterated an unsorted set, so one seed gave 0.52-0.63 in one
+process and 0.40-0.49 in the next ([5744], malign's catch; the k_ceiling
+defect of 12 Aug recommitted here). Both draws sit inside the corrected
+band: neither an "elevation" nor a "depression" existed -- a one-flip null
+at 41 lineages wobbles +-0.15 and nobody had characterised it. The
+quotable form is real-minus-null-mean, 0.39-0.50 across the grid. One
+residue kept visible: the null MEAN is 0.465, slightly below 0.5 with 200
+draws behind it -- small, real, unexplained, and not load-bearing.
 
 ## I4: the amplification map (exploratory, as declared)
 

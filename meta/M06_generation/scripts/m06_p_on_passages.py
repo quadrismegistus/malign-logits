@@ -168,8 +168,16 @@ def main():
             lin[b] = pair; lin[a] = pair
         ling = np.array([lin[m] for m in models], dtype=object)
         rng = np.random.default_rng(SEED)
-        flip = {p2: int(rng.integers(0, 2)) for p2 in set(ling)}
-        ynull = np.array([y[i] ^ flip[ling[i]] for i in range(len(y))])
+        #: SORTED, because set iteration order is per-process (string-hash
+        #: randomisation): the first two runs of this producer printed nulls of
+        #: 0.52-0.63 and 0.40-0.49 from the SAME seed, caught at [5744]. And a
+        #: single flip is a single draw from a high-variance distribution over
+        #: 2^41 assignments -- the null is a DISTRIBUTION here, 200 draws,
+        #: reported as mean with a percentile band.
+        lineages = sorted(set(ling))
+        NDRAWS = 200
+        flips = [dict(zip(lineages, rng.integers(0, 2, len(lineages))))
+                 for _ in range(NDRAWS)]
         pooled = collections.Counter()
         for m in models:
             pooled.update(counts[m])
@@ -189,9 +197,24 @@ def main():
                     mdl.fit(sc.transform(X[tr]), target[tr])
                     pr[te] = mdl.predict_proba(sc.transform(X[te]))[:, 1]
                 return roc_auc_score(target, pr)
-            a_real, a_null = run(y), run(ynull)
-            extra["I2"][k] = {"auc": float(a_real), "null": float(a_null)}
-            print("  k=%-4d AUC %.4f | flip-null %.4f" % (k, a_real, a_null))
+            a_real = run(y)
+            nulls = []
+            for fl in flips:
+                yn = np.array([y[i] ^ fl[ling[i]] for i in range(len(y))])
+                if yn.min() == yn.max():
+                    continue
+                nulls.append(run(yn))
+            nulls = np.array(nulls)
+            lo, hi = np.percentile(nulls, [2.5, 97.5])
+            extra["I2"][k] = {"auc": float(a_real),
+                              "null_mean": float(nulls.mean()),
+                              "null_ci": [float(lo), float(hi)],
+                              "null_draws": int(len(nulls)),
+                              "real_minus_null_mean": float(a_real - nulls.mean())}
+            print("  k=%-4d AUC %.4f | null %.4f [%.4f,%.4f] over %d flips | "
+                  "real-null %.4f"
+                  % (k, a_real, nulls.mean(), lo, hi, len(nulls),
+                     a_real - nulls.mean()))
 
         #: I3(b) -- same-prompts logit vector, produced by k_word_auc
         #: --prompts-from-corpus passage before this script ran
@@ -271,6 +294,13 @@ def main():
         print("  forced passages scored: %s | arm-unmatched rows %s"
               % (format(sum(len(v) for v in cellsc.values()), ","),
                  format(n_unk, ",")))
+        cellrows = [{"pair": k2[0], "prompt": k2[1], "role": k2[2],
+                     "arm": k2[3], "axis_score": a, "echo": e, "n_tokens": nt}
+                    for k2, v in cellsc.items() for a, e, nt in v]
+        pd.DataFrame(cellrows).to_parquet(
+            os.path.join(OUTD, "p_on_passages_i5_cells.parquet"))
+        print("  per-cell I5 scores persisted: %s rows -> p_on_passages_i5_cells.parquet"
+              % format(len(cellrows), ","))
         agg = {k2: (float(np.mean([a for a, _, _ in v])),
                     float(np.mean([e for _, e, _ in v])))
                for k2, v in cellsc.items()}
