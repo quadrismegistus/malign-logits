@@ -82,8 +82,13 @@ def main(lang="en"):
     inst = {}
     #: zh quotes the NO-POS arm table per P section 5b -- the tagged table
     #: defends its tag with half the vocabulary
-    au = tsv(os.path.join(K, "word_auc_%s.tsv"
-                          % (lang if lang == "en" else lang + "_nopos")))
+    #: optional arm-table variant (e.g. `zhdom` for the domain-matched en
+    #: table); output file carries the same suffix so nothing is overwritten
+    VAR = (sys.argv[sys.argv.index("--arm-variant") + 1]
+           if "--arm-variant" in sys.argv else None)
+    au = tsv(os.path.join(K, "word_auc_%s%s.tsv"
+                          % ((lang if lang == "en" else lang + "_nopos"),
+                             "_" + VAR if VAR else "")))
     if au:
         inst["armAUC"] = {w: -v for w, v in au.items()}
     inst["axisGloVe"] = axis_scores("axis_%s.json" % lang,
@@ -211,7 +216,8 @@ def main(lang="en"):
                            "n": d[names[0]]["n"],
                            "z": {i: d[i]["z"] for i in names},
                            "q": {i: d[i]["q"] for i in names}} for mz, f, d in cons]}
-    p = os.path.join(K, "field_poles_%s.json" % lang)
+    p = os.path.join(K, "field_poles_%s%s.json"
+                     % (lang, "_" + VAR if VAR else ""))
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0

@@ -101,8 +101,14 @@ def main(lang="en"):
     #: ranking agrees, which is the only claim either can support.
     NOPOS = "--no-pos" in sys.argv
     EXACT = "--exact-only" in sys.argv
+    #: --domains-like <lang2>: subsample THIS language's prompts to the other
+    #: language's domain histogram (exact counts per domain, seeded), to test
+    #: whether a cross-language asymmetry is an artifact of prompt population.
+    #: Writes to a _<lang2>dom-suffixed file; never touches the main table.
+    DLIKE = (sys.argv[sys.argv.index("--domains-like") + 1]
+             if "--domains-like" in sys.argv else None)
     sfx = ("_" + SRC.lower() if SRC else "") + ("_nopos" if NOPOS else "") \
-        + ("_exact" if EXACT else "")
+        + ("_exact" if EXACT else "") + ("_%sdom" % DLIKE if DLIKE else "")
     out = os.path.join(K, "word_auc_%s%s.tsv" % (lang, sfx))
 
     TAG = {}
@@ -156,6 +162,31 @@ def main(lang="en"):
         GROUP BY model, prompt, word)
       GROUP BY model, prompt""" % (A.DB, models, A.DB, lang,
                                    " AND source='%s'" % SRC if SRC else ""))
+    if DLIKE:
+        import collections as _c
+        want = {r["domain"]: r["c"] for r in A.q(
+            "SELECT domain, count() c FROM %s.prompt_catalogue "
+            "WHERE status='ACTIVE' AND language='%s' GROUP BY domain"
+            % (A.DB, DLIKE))}
+        have = _c.defaultdict(list)
+        for r in A.q("SELECT DISTINCT prompt, domain FROM %s.prompt_catalogue "
+                     "WHERE status='ACTIVE' AND language='%s'" % (A.DB, lang)):
+            have[r["domain"]].append(r["prompt"])
+        rng0 = np.random.default_rng(20260813)
+        keep = set()
+        short = {}
+        for d, n in sorted(want.items()):
+            pool = sorted(have.get(d, []))
+            take = min(n, len(pool))
+            if take < n:
+                short[d] = (take, n)
+            keep.update(rng0.choice(pool, take, replace=False).tolist()
+                        if take else [])
+        print("  domain-matched to %s: %d prompts kept%s"
+              % (DLIKE, len(keep),
+                 "  SHORTFALLS %s" % short if short else ""))
+        rows = [r for r in rows if r["prompt"] in keep]
+        print("  cells after match: %s" % f"{len(rows):,}")
     mods = sorted(arm)
     mi = {m: i for i, m in enumerate(mods)}
     cnt = collections.defaultdict(lambda: np.zeros(len(mods)))
