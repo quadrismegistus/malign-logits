@@ -233,6 +233,16 @@ a corpus declares which behavioural strata it conditions on, reports
 per-arm strata rates as description beside the verdict, and prefers
 medians where the behaviour lives in the tails.
 
+THE SOURCE-COMPLETENESS CLAUSE ([5710], with [5573] as its older narrow
+form): A COMPLETENESS QUESTION CANNOT BE ANSWERED FROM THE ARTIFACT
+ALONE — a store cannot report what never reached it. CH said count =
+FINAL = distinct = 29,504, in normal company, and every number was true
+while exactly half the pair's sequences sat outside the store;
+16-samples-of-two-runs and 16-samples-of-one-run are the same row count.
+Completeness is asked of the SOURCE against a declaration (the fleet's
+manifests-never-absent-failure-records rule was this clause for one
+corpus); the artifact answers only uniqueness and internal consistency.
+
 THE DISJOINT-WINDOW CLAUSE ([5687]-[5689], three instances in one
 analysis): A CUMULATIVE WINDOW CAN HIDE A REAL EFFECT BY AVERAGING IT
 WITH THE RANGE WHERE NOTHING HAPPENS — it cost A's late A|A effect (five
