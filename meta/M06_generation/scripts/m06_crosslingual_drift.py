@@ -143,6 +143,17 @@ def main():
     emb = SentenceTransformer(BGE, device="cpu")
     print("embedder device: %s (CPU mandatory, mps-CJK family)" % emb.device)
 
+    #: CACHE THE VECTORS, so this is the LAST full encode of this corpus.
+    #: Measured: encode+write 0.321 s/passage against a cached read at
+    #: 0.004 s/passage -- 88x on any second run ([5858] pilot).
+    #: PASS THE NDARRAY, NEVER `.tolist()`. The stash serialises ndarrays
+    #: natively (verified: dtype, shape and BITWISE equality all preserved),
+    #: while a list turns every float into a ~20-char decimal repr: measured
+    #: through this cache at 26.3 KB/vector against 8.8 KB for the ndarray.
+    #: One method call was 3x the storage of the whole campaign's embeddings.
+    from malign_logits.cache import get_cache
+    cache = get_cache()
+
     #: DIAGNOSTIC, not a gate: does the mps hazard reach sentence-length Chinese?
     diag = None
     if torch.backends.mps.is_available() and kept["zh"]:
@@ -171,9 +182,17 @@ def main():
 
     for lang in ("zh", "en"):
         rows, t0 = [], time.time()
+        n_hit = 0
         for i, (model, prompt, sidx, ss, ln) in enumerate(kept[lang]):
-            v = emb.encode(ss, show_progress_bar=False)
-            v = v / (np.linalg.norm(v, axis=1, keepdims=True) + 1e-10)
+            ctext = "\n".join(ss)
+            got = cache.get_sent_embeddings(BGE, prompt, ctext)
+            if got is not None:
+                v = np.asarray(got, dtype=np.float32)   # accepts either form
+                n_hit += 1
+            else:
+                v = emb.encode(ss, show_progress_bar=False)
+                v = v / (np.linalg.norm(v, axis=1, keepdims=True) + 1e-10)
+                cache.set_sent_embeddings(BGE, prompt, ctext, v)
             d = drift_metrics_from_embeddings(v.tolist())
             #: PERSIST THE WHOLE METRIC VECTOR, not two fields of seven.
             #: The encode is the expensive step; everything derived from it is
@@ -205,6 +224,9 @@ def main():
             if (i + 1) % 2000 == 0:
                 print("  %s %d/%d (%.1f min)" % (lang, i + 1, len(kept[lang]),
                                                  (time.time() - t0) / 60))
+        print("  %s cache: %s hits of %s (%.1f%%)"
+              % (lang, format(n_hit, ","), format(len(kept[lang]), ","),
+                 100 * n_hit / max(len(kept[lang]), 1)))
         df = pd.DataFrame(rows)
         pq = os.path.join(OUTD, "crosslingual_drift_%s_cells.parquet" % lang)
         df.to_parquet(pq)
