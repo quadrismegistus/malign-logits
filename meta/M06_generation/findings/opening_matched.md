@@ -4,9 +4,9 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [self-surprisal, chain, syntagmatic, forced-arms]
-description: "Opening-matched comparison (RH's design): COMPENSATION, not damage. Holding the opening token's surprisal fixed -- and, in the strictest version, holding the prompt fixed and requiring a word-like opening -- a forced passage is LESS surprising to its own model than one of its own passages that opened equally improbably. Every arm, both roles, three estimators, all negative. And it is IMPOSITION rather than DEMOTION: the flat non-mover shows it as strongly as the faller. DiDs do not survive correction; the effect is not alignment-specific."
+description: "Opening-matched comparison (RH's design): COMPENSATION, not damage. Holding the opening token's surprisal fixed -- and, in the strictest version, holding the prompt fixed and requiring a word-like opening -- a forced passage is LESS surprising to its own model than one of its own passages that opened equally improbably. Every arm, both roles, three estimators, all negative. THE ARM ORDERING IS NOT ESTABLISHED and the earlier 'imposition, not demotion' headline is WITHDRAWN ([5805]): all three paired arm contrasts are ns, the ordering inverts between median and mean, and the interval does not bound out an arm effect the size of one the ladder already detects. Not alignment-specific either; no DiD survives correction."
 ---
-# Opening-matched: the chain compensates, and it is about imposition not demotion
+# Opening-matched: the chain compensates for being handed a word
 
 Plan: `plans/plan_opening_matched.md`, committed before this producer, with
 BOTH signs declared. Producer `scripts/m06_opening_matched.py`; results
@@ -65,16 +65,54 @@ content word. Removed by restricting the undisturbed arm to rows whose first
 whitespace word is alphabetic and >= 2 characters (211,152 of 238,400
 qualify). The effect survives and every primary estimate GREW slightly.
 
-## Q1: imposition, not demotion
+## Q1: NOT ESTABLISHED -- the ordering claim is WITHDRAWN ([5805])
 
-The three arms are matched on ALIGNED probability, so an arm difference
-would separate demotion from imposition per se. **There is none of the right
-shape**: `matched` -- the flat non-mover -- shows the LARGEST aligned
-compensation (-0.0551 primary, -0.0378 under the context control), and the
-faller the smallest. So what produces compensation is being handed a word,
-not the word's movement class. This is the cleanest separation in the
-forced series, and it runs against the intuition that a demoted word is
-what disturbs the chain.
+**This section previously read "imposition, not demotion" and made the arm
+ordering the headline. That claim was not tested and is withdrawn.** Caught
+by malign at [5805]; their arm-vs-arm contrasts reproduce exactly under my
+own recomputation from the parquet.
+
+Every test in this finding asks *does this arm compensate* -- arm against
+ZERO. The ordering claim is about arms against EACH OTHER, and no such test
+existed. Run now, paired over pairs:
+
+    aligned  faller - matched         +0.0117  14-/26+  p 0.081
+             faller - riser_matched   +0.0065  18-/21+  p 0.749
+             matched - riser_matched  +0.0071  17-/22+  p 0.522
+    base     faller - matched         +0.0090  13-/25+  p 0.073
+             faller - riser_matched   +0.0210  14-/24+  p 0.143
+             matched - riser_matched  +0.0130  14-/24+  p 0.143
+
+**No contrast reaches significance and two are at coin-flip. The three-rung
+ordering the section was named after is not distinguishable from no ordering
+at all.** Reproducing three medians in an order is not testing the order.
+
+**AND IT INVERTS UNDER THE OTHER ESTIMATOR, in exactly the arm the claim
+elevated:**
+
+    by MEDIAN  matched -0.0551 > riser_matched -0.0477 > faller -0.0342
+    by MEAN    riser_matched -0.0192 > faller -0.0155 > matched +0.0055
+
+`matched` is first by median, last by mean, and changes sign. The
+mean/median divergence was fenced below as a readers' note about heavy
+tails; it is not a note, it is the ordering. The median is the right
+traveller for each arm's OWN compensation (35 of 40 negative), per [5762] --
+but an ordering compares MAGNITUDES, and magnitude is what heavy tails
+destabilise.
+
+**"NOT DEMOTION" IS ALSO WITHDRAWN, as an accepted null the data cannot
+bound.** The faller-matched interval is 95% bootstrap [-0.0030, +0.0301],
+which spans zero and does not exclude an arm effect the size of one already
+detected elsewhere: M04's ladder finds faller-matched on D at -0.0673,
+32/10, p 0.0009. Different quantity, same arms, same corpus. So movement
+class is an UNDETECTED arm difference on this instrument, not an absent one.
+
+What may be said: **being handed a word produces compensation, robustly, in
+every arm and both roles, and this instrument cannot resolve whether the
+word's movement class matters.** One hint, recorded as a hint: the faller
+compensates LEAST in both roles at p 0.081 and 0.073, the same direction
+twice, uncorrected -- not evidence, and not evidence for the withdrawn
+reading either.
 
 ## Q2: not alignment-specific
 
@@ -94,8 +132,10 @@ Nothing here is alignment-specific and nothing should be read as such.
   is passage-weighted and agrees in sign, which is why both are reported.
 - Mean and median diverge in several aligned cells (e.g. matched primary,
   median -0.0551 against mean +0.0055): the bin-level deltas have heavy
-  tails. **The median travels**, per [5762]; the means are printed beside it
-  and the divergence is stated rather than smoothed.
+  tails. **The median travels**, per [5762], for each arm's OWN
+  compensation. It does NOT travel for a comparison of magnitudes between
+  arms -- see the withdrawn Q1 above, where this divergence turned out to
+  BE the claim rather than a note about it.
 - The forced arms remain SECONDARY population per plan A Amendment 1.
 - AGGREGATION LAYER SECOND-SEATED ([5804]): all six contrasts, the sign
   counts, the imposition ordering (matched -0.0551 > riser_matched -0.0477
