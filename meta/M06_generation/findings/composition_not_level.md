@@ -134,6 +134,36 @@ The control absorbs some and eliminates nothing, and it is close to the harshest
 constructible: under CANONICAL a faller at a slot is partly DEFINED by its
 aligned probability there, so covariate and predictor are entangled by rule.
 
+### The partial had a common-support problem; the contrast does not
+
+@malign flagged ([5882]) that a covariate holding current probability cannot
+separate a word pushed DOWN from one pushed UP to the same place. The predictor
+here IS direction, so the design encodes it -- but the objection lands for a
+reason neither of us stated: **fallers and risers barely share a p_aligned
+range**, so conditioning on it linearly extrapolates rather than compares.
+
+    log p_aligned bin        fall    rise   minority share
+    (-3.001, -2.963]        30601      0     0.000
+    (-2.963, -2.734]        15300      0     0.000
+    (-2.734, -2.464]        14676    625     0.041
+    (-2.464, -2.145]        10128   5172     0.338
+    (-2.145, -1.841]         4521  10779     0.295
+    (-1.841, -1.465]         1941  13359     0.127
+    (-1.465, -0.0009]         450  14851     0.029
+
+45,901 fall cells sit in bins holding ZERO risers. Restricted to the common
+support band (-2.464 .. -1.465), as a direct contrast rather than a partial:
+
+    median(level | fall) - median(level | rise)
+      base-generated      +0.3471   34/35 pairs positive   p 1.2e-10
+      aligned-generated   +0.4435   35/35                  p 5.8e-11
+
+**At matched aligned probability, a word alignment pushed DOWN costs ~0.35-0.44
+nats more in context than one it pushed UP to the same place.** That is the
+ladder's own contrast -- rungs at one probability -- obtained observationally,
+and it is the form to quote. The partial correlations above stand only as the
+weaker, extrapolating version.
+
 **Raw values here are NOT comparable to Result 3's** — the predictor changed
 from a continuous per-word net score to a categorical per-slot direction. Only
 raw-to-partial within a grain compares.
@@ -162,9 +192,18 @@ prompts truncated to 60 characters, destroying exactly this join, and
   ratio rule. Nothing here may describe fallers as though they were tested.
 - **Roster**: 46 declared, 42 with passage generations, 36 surviving text
   reconstruction. The 6 drops are DROP-RETOK; Aquila has a genuine tokenizer
-  divergence. **36 pairs are not 36 independent lineages** — no lineage dedup was
-  applied ([5875] reports declared46 vs flagged52 moves nothing material for
-  registrar's measure, which does not transfer to this one).
+  divergence. **Independence is NOT a limit here**: verified against
+  `data/lineage_map_models.json`, the 42 passage pairs are 42 distinct lineages
+  and the 36 are 36, with no lineage contributing more than one pair (@malign,
+  [5882]). Contrast [5872], where the same-sounding worry was real because a
+  representative BASE in `movement_edges` can carry several aligned children —
+  different table, different unit, opposite answer.
+- **LEVEL IS MEASURED ONLY WHERE THE WORD WAS EMITTED**, which is selection on
+  the outcome. Displaced words appear less often, so the occasions where they
+  still surface may be contexts that demand them unusually strongly. The forced
+  ladder does not have this problem because it makes the model emit the word;
+  this instrument cannot, and no amount of data fixes selection on the outcome.
+  **This is the limitation to carry, in place of the independence one.**
 - **No presence/increment control.** [5880] separates site selection from
   coupling (x4.7 versus x1.44 on kill/scream); this instrument has no equivalent
   and would be strengthened by one.
