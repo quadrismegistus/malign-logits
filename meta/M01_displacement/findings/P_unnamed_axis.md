@@ -328,8 +328,63 @@ direction: a seed-plus-neighbours set is maximally tight, while an AUC-selected
 pole is not selected for proximity at all, so the comparison asks our pole to beat
 sets built to be coherent. A matched-dispersion null -- coherent draws constrained
 to the observed pole's centroid norm -- is the test that would separate these, and
-it has not been run. Until then this section supports the WORD-LEVEL zh result
-above and nothing cross-lingual.
+it has not been run. The cross-lingual question is instead answered below by a
+route that does not use embedding geometry at all.
+
+### 5c. The bridge as a declared instrument: blinded translation
+
+Every multilingual embedding space is TRAINED to place translation equivalents
+together, so a cross-language geometry test partly measures its own aligner. The
+replacement makes the bridge explicit and auditable: four blinded translators,
+one pole each, shuffled, no scores and no pole label, one equivalent per item --
+then look up each translation's arm AUC in the other language's table. Lists,
+blinded copies, the prediction recorded BEFORE any translation existed, and the
+result are in `pole_lists.md`.
+
+    pole          ->    n    median    dev from centre    predicted   got
+    en base       zh    63   0.4498      -0.0900            LOW       low
+    en aligned    zh    28   0.6972      +0.1574            HIGH      high
+    zh base       en    57   0.3757      -0.1309            LOW       low
+    zh aligned    en    69   0.5144      +0.0078            HIGH      ~zero
+
+**AND THE FIRST TWO NULLS WERE BOTH CONFOUNDED BY LENGTH**, which is worth
+recording because the confound is the same shape as the coverage problem. AUC
+correlates with character length in both tables (+0.253 zh, +0.272 en) and the
+surviving translations differ in length by pole, so a random-word null and a
+label-permutation null each destroy pole and length together and cannot separate
+them. Controlling for length directly:
+
+    OLS  AUC ~ pole + chars
+      A/B -> zh (n=91)    pole +0.1912 (t +5.46)   chars +0.0772 (t +2.37)
+      C/D -> en (n=126)   pole +0.0851 (t +2.96)   chars +0.0608 (t +6.85)
+    gap vs LENGTH-MATCHED random draws: p = 0.0001 both directions
+
+**The pole term survives, so translation carries information the tokenizer
+artifact does not explain.** On the en side length is the larger term (t 6.85
+against 2.96), so for zh->en length explains more than pole does even though pole
+is real.
+
+WHAT IS QUOTABLE AND WHAT IS NOT. The pre-declared coverage floor BINDS on the en
+aligned list at 28%: the length control shows the 28 survivors behave as
+predicted and says nothing about the 72 that never entered, which are
+systematically the multi-character compounds that pole is made of. And `zh
+aligned -> en` is +0.008 on 69% coverage -- a real null, not a coverage failure --
+so the C/D pole coefficient is carried almost entirely by the BASE side.
+
+**THE ASYMMETRY IS THE FINDING AND IT IS NOT NOISE.** By majority in-context tag
+the en aligned pole is 89% verbs; the zh aligned pole is 38% verbs and 33% NOUNS,
+and the nouns are concrete -- 面包 bread, 木头 wood, 香料 spice, 糖 sugar, 盐 salt,
+鹿 deer, 长椅 bench. Translated into English those land at the English centre,
+which is exactly the +0.008. **The two aligned poles are not the same object**:
+English's is a near-pure class of institutional-procedural verbs, Chinese's is
+that class plus a large concrete-noun component with no English counterpart. So
+the correspondence is PARTIAL AND DIRECTIONAL, and a single symmetric statistic
+would have averaged a real effect with a null.
+
+The cleanly supported claim is the BASE one, which inverts the withdrawn
+geometric result -- consistent with bare-word bge being the weaker instrument
+(English synonym gap 0.138 against GloVe's 0.400) rather than with either pole
+being special.
 
 
 
