@@ -185,6 +185,16 @@ regardless of lineation). Booked BEFORE any fleet data exists:
   mid1→mid4) — the unrhymed arm carries the same nine slots at the same
   depths with a target_key and no scheme calling it, so its gradient IS
   the context-sharpening baseline on the same instrument.
+- COMPANION CONTRAST ([5753] §1): called vs end3 — position-matched
+  (both line-final), depth off by one line — named beside the
+  depth-matched primary. Agreement = the rhyme read is robust to both
+  confounds; disagreement localises which confound carries it. Neither
+  contrast alone can do that (the smoke's closure 0.95-vs-0.02 shows
+  line-finality is its own distributional mode).
+- COLLISION-AWARE NULL ([5753] §2): in the 11 poems where near
+  duplicates mid4 (context_collides_with set), the pool {mid4, near} is
+  ONE context measured twice — the null there is a single slot; no
+  duplicate averaged into extra precision.
 - Every quoted contrast states the depth of both arms; context_len
   travels into every read.
 
