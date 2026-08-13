@@ -109,7 +109,14 @@ def _encoder(name):
         return enc
 
     from sentence_transformers import SentenceTransformer
-    m = SentenceTransformer(MODELS[name])
+    #: CPU, ALWAYS, FOR WORD STORES. On this machine (torch 2.11) large
+    #: multi-batch mps encodes corrupt some single-CJK-character embeddings
+    #: deterministically -- 576 of 3,978 zh rows were wrong and re-auditing down
+    #: the same path read as clean (commit 852e43ea). Word stores are small
+    #: enough that CPU costs minutes; the 12x mps speedup belongs to
+    #: passage-scale encodes, which spot-verify clean and carry their own gate
+    #: in k_delta_embed.
+    m = SentenceTransformer(MODELS[name], device="cpu")
 
     def enc(ws):
         return list(ws), m.encode(list(ws), normalize_embeddings=True,

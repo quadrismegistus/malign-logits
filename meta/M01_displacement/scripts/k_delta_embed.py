@@ -123,6 +123,32 @@ def main(lang="en"):
                   % (format(i, ","), format(len(pairs), ","), i / el,
                      (len(pairs) - i) / max(i / el, 1) / 60), flush=True)
 
+    #: THE SECOND-DEVICE GATE. mps is 12x faster here and its known defect is
+    #: single-CJK-char bare words, not sentences -- but that scoping is an
+    #: empirical claim, so every store this script writes is spot-verified
+    #: against a CPU referee before the write: the 20 shortest words plus 40
+    #: random rows, recomputed end to end. REFUSES TO WRITE on any mismatch. A
+    #: gate must run on the artifact's own rows ([5657]-era lesson, and the zh
+    #: store corruption at 852e43ea is what happens otherwise).
+    mc = SentenceTransformer(MODEL, device="cpu")
+    encc = lambda xs: mc.encode(list(xs), normalize_embeddings=True,
+                                show_progress_bar=False)
+    order = np.argsort([len(w) for _, w in pairs])
+    rng2 = np.random.default_rng(7)
+    check = list(order[:20]) + list(rng2.choice(len(pairs), 40, replace=False))
+    bad = 0
+    for i in check:
+        pr, w = pairs[i]
+        pvec, jvec = encc([pr, join(pr, w)])
+        d = jvec - pvec
+        d = d / max(np.linalg.norm(d), 1e-12)
+        if float(d @ D[i].astype(np.float32)) < 0.98:
+            bad += 1
+            print("  GATE MISMATCH row %d %r" % (i, w))
+    print("  second-device gate: %d checked, %d mismatch" % (len(check), bad))
+    if bad:
+        raise SystemExit("REFUSING TO WRITE: store disagrees with the CPU referee")
+
     os.makedirs(DATA, exist_ok=True)
     out = os.path.join(DATA, "delta_verbs_%s.npz" % lang)
     np.savez_compressed(out, D=D, prompt_sha16=np.array(keys_p),
