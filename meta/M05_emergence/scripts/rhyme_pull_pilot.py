@@ -43,6 +43,7 @@ LADDER = [
     "allenai/Olmo-3-7B-Instruct",
 ]
 N_PRIMERS = 12
+N_UNRHYMED = 8
 TOP_K = 40
 
 _RIME_CACHE = {}
@@ -126,11 +127,48 @@ def pick_primers():
             continue
         stub = re.sub(r"[A-Za-z']+\W*$", "", lines[3]).rstrip()
         prompt = "\n".join(lines[:3]) + "\n" + stub
-        out.append({"id_human": id_human, "prompt": prompt,
+        out.append({"id_human": id_human, "prompt": prompt, "scheme": "rhymed",
                     "partner_line": partner, "target_key": tkey,
                     "target_word": target_word, "actual_word": actual_word,
                     "nonpartner_key": nonp[1]})
         if len(out) >= N_PRIMERS:
+            break
+
+    # UNRHYMED ARM (RH, 2026-08-13): poems whose first 4 lines show NO rhyme
+    # pair at dist<=1. Same measurement protocol with a POSITION-MATCHED
+    # pseudo-target (line 2's end-word class, where an ABAB partner would sit)
+    # and line 3's as pseudo-nonpartner. Rhymed-minus-unrhymed on the
+    # partner-position class = the scheme effect proper; unrhymed rungs where
+    # rhyme mass loads anyway = the distributional face of stuckness.
+    n_un = 0
+    for id_human, g in df5.groupby("id_human"):
+        if any(o["id_human"] == id_human for o in out):
+            continue
+        g0 = g[g.id == g.id.iloc[0]].sort_values("line_num")
+        lines = g0[g0.line_num <= 4]["line_real"].tolist()
+        if len(lines) < 4 or not all(isinstance(x, str) and x.strip() for x in lines):
+            continue
+        try:
+            t = prosodic.Text("\n".join(lines))
+            rd = t.get_rhyming_lines(max_dist=1)
+        except Exception:
+            continue
+        if rd:
+            continue  # any rhyme pair disqualifies
+        w2, w3 = last_word(lines[1]), last_word(lines[2])
+        k2 = rime_key(w2) if w2 else None
+        k3 = rime_key(w3) if w3 else None
+        if not k2 or not k3 or k2 == k3:
+            continue
+        stub = re.sub(r"[A-Za-z']+\W*$", "", lines[3]).rstrip()
+        out.append({"id_human": id_human,
+                    "prompt": "\n".join(lines[:3]) + "\n" + stub,
+                    "scheme": "unrhymed", "partner_line": 2,
+                    "target_key": k2, "target_word": w2,
+                    "actual_word": last_word(lines[3]),
+                    "nonpartner_key": k3})
+        n_un += 1
+        if n_un >= N_UNRHYMED:
             break
     return out
 
@@ -191,7 +229,8 @@ def main():
                 probs = torch.softmax(lg[i, lens[i] - 1, :].float(), -1)
                 pr_nl.append(float(probs[nl_ids].sum()))
             row = {"model": model_id, **{k: p[k] for k in
-                   ("id_human", "partner_line", "target_word", "actual_word")}}
+                   ("id_human", "scheme", "partner_line", "target_word",
+                    "actual_word")}}
             tot = sum(pb for _, pb in cand) or 1e-12
             cw = sum(pb * c for (_, pb), c in zip(cand, pr_nl))
             def share(keyname):
