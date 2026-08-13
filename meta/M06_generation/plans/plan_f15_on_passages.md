@@ -87,6 +87,72 @@ unmarked (low, low). Per (pair, role): share of passages per quadrant.
       instruments are not conflated: axis score is COMPOSITION, drift is
       TRAJECTORY; no sentence reads one as the other.
 
+## Amendments, 2026-08-13, declared AFTER the main run and BEFORE their producers
+
+The main run's numbers are known; these three instruments are not, and
+each direction below is written before its producer exists.
+
+  F1  BGE-M3 FIDELITY (the gating item; the plan already required it).
+      Declared subsample of the SCORED passages: 60 per (pair, role),
+      seed 20260813 over sorted keys. Same truncation, same sentence
+      split, same prefix-on-first-sentence recipe, bge-m3 in place of
+      MiniLM, device gate as in the main producer. Surprisal is
+      UNCHANGED (same GPT-2 values from the cells parquet), so the
+      quadrant axes move only through drift.
+      Declared test: SIGN AGREEMENT on P2 per pair, and the direction
+      of the quadrant flow under bge. The quotable form of P2/P3 is
+      whatever survives BOTH embedders; where they disagree the claim
+      is embedder-dependent and is said so.
+      Direction P4: the two embedders agree in sign on P2 for a
+      LARGE MAJORITY of the 38 pairs. No threshold is set in advance
+      beyond "majority", because a fidelity check with a pass mark
+      chosen by its author is not a check.
+
+  F2  SITE SPECIFICITY OF THE COMPRESSION -- F15's FOURTH CLAIM,
+      uncarried by the main run and carried here. F15: "content
+      category has no effect on within-passage surprisal
+      (Kruskal-Wallis p=0.99); alignment is a uniform compressor."
+      No new compute: the cells parquet plus the catalogue join used
+      by I6 (prompt TEXT, never id).
+        F2a  I6-FORM, primary, paired per (pair, pair_id):
+             MARKED - UNMARKED for mean_surprisal and total_drift
+             within each arm, then the DiD (aligned excess minus base
+             excess).
+        F2b  F15-FORM, secondary: per (pair, domain) aligned-minus-base
+             surprisal delta; Kruskal-Wallis across domains over pair
+             deltas; per-domain deltas reported whatever the test says.
+      Direction P5 (from I6's tonic result AND F15 independently, so
+      the two converge): the DiD is NULL and the domain test does not
+      reject -- compression is uniform across site types. The
+      alternative is named and would be the first page-grain
+      site-conditionality in this series: a NEGATIVE DiD on surprisal
+      would mean the aligned model compresses transgressive sites
+      HARDER than its own neutral twins, over and above base.
+
+  F3  DOES FORCING ALTER THE MOVEMENTS? (RH's question, 2026-08-13.)
+      I5 asked what forcing does to COMPOSITION and the ascent branch
+      to LEVEL; this asks TRAJECTORY and PREDICTABILITY. Forced
+      passages, same strata, arms from the committed arms table
+      (faller / matched / riser_matched), capped 2 per (pair, prompt,
+      role, arm), same truncation and metrics.
+        F3a  DOES THE ARM CONTRAST SURVIVE FORCING: per pair, the
+             aligned-minus-base gap in surprisal and drift computed on
+             the MATCHED arm (a forced but non-transgressive word),
+             compared with the undisturbed gap from the main run.
+        F3b  DOES FORCING ITSELF MOVE THE METRICS: per (pair, prompt)
+             within arm, faller - matched and riser_matched - matched
+             for surprisal and drift, sign test.
+        F3c  THE DiD: (aligned faller-excess) - (base faller-excess),
+             the I5b design with F15's metrics as outcomes.
+      Directions: P6, the arm contrast SURVIVES forcing (the signature
+      is a disposition, per I5/I6; forcing one word should not abolish
+      a whole-passage register difference). Q3, open, no direction:
+      whether a forced faller RAISES surprisal (the injected word is
+      off-policy for the aligned model, so its continuation may be
+      locally surprising to a third-party reference) or LOWERS it
+      (the model recovers into generic continuation). Q4, open:
+      whether F3c is null like every other DiD in this series.
+
 ## Fences
 
 - Different corpus AND different rung from F15 (forced continuation on
