@@ -304,6 +304,37 @@ def main():
             echo_by[(rl, arm)].append(e)
         extra["I5"]["echo_mean"] = {"%s:%s" % k2: float(np.mean(v))
                                     for k2, v in echo_by.items()}
+        #: I5b -- the DiD, paired per (pair, prompt): does the aligned model
+        #: respond to the demoted word differently than base responds to the
+        #: same word at the same site, priming subtracted
+        def did(a1):
+            ds = []
+            for (pair, prm, rl, arm), (m1, _) in agg.items():
+                if rl != "aligned" or arm != a1:
+                    continue
+                k_am = (pair, prm, "aligned", "matched")
+                k_bf = (pair, prm, "base", a1)
+                k_bm = (pair, prm, "base", "matched")
+                if k_am in agg and k_bf in agg and k_bm in agg:
+                    ds.append((m1 - agg[k_am][0])
+                              - (agg[k_bf][0] - agg[k_bm][0]))
+            if len(ds) < 30:
+                return None
+            ds = np.array(ds)
+            up = int((ds > 0).sum()); dn = int((ds < 0).sum())
+            from math import comb
+            lo = min(up, dn)
+            pv = min(1.0, sum(comb(up + dn, i) for i in range(lo + 1))
+                     / 2 ** (up + dn) * 2)
+            return {"median": float(np.median(ds)), "n": len(ds),
+                    "up": up, "dn": dn, "p_sign": pv}
+        print("  I5b DiD (aligned response minus base response, priming subtracted)")
+        for a1 in ("faller", "riser_matched", "riser"):
+            r5 = did(a1)
+            extra["I5"]["DiD:%s" % a1] = r5
+            if r5:
+                print("    %-14s med %+.5f  %d/%d  p %.4f"
+                      % (a1, r5["median"], r5["up"], r5["dn"], r5["p_sign"]))
         print("  echo (mean occurrences of the forced word in the generation):")
         for k2, v in sorted(extra["I5"]["echo_mean"].items()):
             print("    %-24s %.3f" % (k2, v))

@@ -1,0 +1,25 @@
+{
+ "lang": "zh",
+ "n_cells": 143040,
+ "n_words_within": 2149,
+ "within_word": {
+  "delta_median": 0.5400311526479751,
+  "delta_wmean": 0.5669949737814151,
+  "delta_frac_above_half": 0.6044671940437413,
+  "pbase_median": 0.6,
+  "pbase_wmean": 0.517896458561301
+ },
+ "in_sample_auc": 0.6752033254048107,
+ "correlates": {
+  "register_level": -0.1583242898782409,
+  "concreteness": 0.0691850742799002,
+  "charge": -0.11665733525975988,
+  "transgressiveness": -0.03808094988225776,
+  "valence": -0.03476577248709981,
+  "bodily_harm": 0.0017705600231934602,
+  "vulgarity": 0.06565430954631883,
+  "log_fpm": 0.030192862789227153,
+  "length": -0.11989214952299393,
+  "per_word_arm_auc": -0.41177938362405425
+ }
+}
