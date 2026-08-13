@@ -110,8 +110,13 @@ tonic signature itself, on the page, as the positive control).
 I5's priming prediction confirmed in both arms; the DiD is dead null.
 **The interiority signature is TONIC: a constant register shift, not a
 site-conditional deployment. Site-specificity lives only at the
-distribution grain (F01); on the page, transgressive content drags both
-arms equally and alignment neither amplifies nor defends there.** With
+distribution grain -- and there in the sharpened M-era form, not the F01
+shorthand: the WITHDRAWAL is transgression-specific (T.13 breadth/depth;
+K's 745-pair property gradients; S.2's softening degree, with its
+rates-not-odds caveat; S.4's two odds-scale operations), while the
+substitution side is general (T) and the architecture-level shifts are
+site-blind (J). On the page, transgressive content drags both arms
+equally and alignment neither amplifies nor defends there.** With
 I5, the page-grain picture is uniform: what alignment installs is a
 disposition, and every site-conditional operation so far observed
 (displacement F01, second-order M02) lives in the policy, not the

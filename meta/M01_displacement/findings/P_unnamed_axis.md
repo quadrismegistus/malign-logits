@@ -530,8 +530,22 @@ within a model -- in 46 lineages. And the lineage is NOT the right holdout: 21 o
 46 lineages share an ORG with another (tiiuae 5, allenai 4, six more with 2), so
 holding one out leaves siblings in training and the classifier can recognise the
 org rather than the arm. Held out by org, 33 groups. **The leak was real and
-small: 0.9560 by lineage, 0.9371 by org.** All figures below are model-level, over
-the 92.
+small: 0.9452 by lineage against 0.9357 by org at k=100.** All figures below are
+model-level, over the 92.
+
+**AMENDED 2026-08-13, and the run behind this section changed.** The original
+run's JSON was never committed -- its numbers lived only in stdout, this
+document's own file-is-the-record defect. The producer was rerun with two
+repairs: lineages sorted before any seeded assignment (the [5744]
+set-iteration defect; fold composition moves, so point estimates shift at the
+third decimal -- org k=100 was quoted 0.9371, is 0.9357), and the
+within-lineage flip null upgraded from a single draw to a 50-draw model-level
+distribution. **The null: mean 0.483, 95% band [0.36, 0.62] at org k=100
+(by-lineage 0.487 [0.36, 0.64]); single draws wander the full band -- this
+run's first draw sat at 0.36 -- so no single-draw null is quoted anywhere in
+this section.** The committed artifact is now `results/k/armclf_en.json`;
+the nuisance-block figures below have their own committed artifact
+(`armclf_minimal_en.json`) and are untouched. Readings unchanged throughout.
 
 ### Most of it is one number, and it is not a word
 
@@ -542,14 +556,15 @@ the 92.
 **The probability of the single most likely next token identifies an aligned
 model at AUC 0.889.** The four-feature nuisance block is worse than that one
 feature, because stored mass is at chance and drags the fit. A hundred content
-words reach 0.9371, misclassifying 8 models of 92 against 13.
+words reach 0.9357 (the misclassification counts were the old run's and are
+not re-quoted).
 
 ### Removing the confound by construction beats controlling for it
 
 Binary top-N BY RANK: each cell contributes exactly N ones, so mass, top-1 and
 support size are constant and cannot signal. Collapsed to per-model fractions --
 92 rows, the honest unit -- top-20 at k=50 reaches **AUC 0.9560, 92.4%**, above
-the probability version's 0.9371 on the same org holdout.
+the probability version's 0.9357 on the same org holdout.
 
 **AND THAT FIGURE IS ONE CELL OF AN 18-POINT GRID THAT NOTHING PRE-DECLARED.**
 The sweep is depth of binarisation (top-N in 5, 20, 50) crossed with feature
@@ -604,7 +619,8 @@ coefficients would have named the wrong words.
 
 **Negative IS agreement** -- a word that falls under alignment should be less
 present in the aligned arm -- and it is stronger than the probability version's
--0.285 / -0.203. Two instruments sharing no machinery, one built on the movement
+-0.308 / -0.209 (rerun values; the old run read -0.285 / -0.203). Two
+instruments sharing no machinery, one built on the movement
 rule and one that has never heard of it, point the same way.
 
 ### Where in the lexicon it lives, and what the prompts decide
