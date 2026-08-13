@@ -97,5 +97,14 @@ Nothing here is alignment-specific and nothing should be read as such.
   tails. **The median travels**, per [5762]; the means are printed beside it
   and the divergence is stated rather than smoothed.
 - The forced arms remain SECONDARY population per plan A Amendment 1.
-- Not yet second-seated. The per-pair parquet is keyed (pair, role, arm) for
-  the [5760]-form reconstruction.
+- AGGREGATION LAYER SECOND-SEATED ([5804]): all six contrasts, the sign
+  counts, the imposition ordering (matched -0.0551 > riser_matched -0.0477
+  > faller -0.0342) and the mean/median divergence all reconstruct to the
+  digit from the parquet. **The ANCOVA and word-like-opening controls live
+  UPSTREAM of that parquet and remain single-pass with the producer** --
+  which is to say the two controls this finding most depends on are the
+  part nobody has independently rebuilt.
+- NOT A FRESH WITNESS RELATIVE TO S4 (`self_surprisal.md`): different
+  quantity -- a residual against opening surprisal rather than a level --
+  but the same corpus, the same arms, the same collection. One collection,
+  two readings.
