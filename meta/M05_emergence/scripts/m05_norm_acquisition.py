@@ -44,6 +44,11 @@ def battery_texts():
     return list(dict.fromkeys(texts))
 
 
+def model_string(c):
+    return (c["model_id"] if c["revision"] == "main"
+            else f"{c['model_id']}@{c['revision']}")
+
+
 def load_population(path):
     pop = json.load(open(path))["checkpoints"]
     pop = sorted(pop, key=lambda c: (ROLE_ORDER[c["role"]],
@@ -67,7 +72,7 @@ def main():
         print(f"== {ladder}: {len(pop)} checkpoints", flush=True)
         prompts = battery_texts()
         for ci, c in enumerate(pop):
-            m = c["model"]
+            m = model_string(c)
             for p in prompts:
                 try:
                     wp = word_probs(m, p)
@@ -89,7 +94,8 @@ def main():
                     n_rated += 1
                     for i, v in enumerate(r):
                         sums[i] += pr * v
-                row = {"ladder": ladder, "model": m, "role": c["role"],
+                row = {"ladder": ladder, "model": m,
+                       "model_id": c["model_id"], "role": c["role"],
                        "stage": c.get("stage"), "step": c.get("step", 0),
                        "prompt": p, "total_mass": total,
                        "k_rated_mass_share": rated_mass / total,
