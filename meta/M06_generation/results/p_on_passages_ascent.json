@@ -1,0 +1,128 @@
+{
+ "instrument": "z_second_order SO/DE, first 50 words",
+ "n_cells": 40134,
+ "ANY_SO": {
+  "aligned:faller-matched": {
+   "median": 0.0,
+   "mean": 2.2510219743826362e-05,
+   "n": 4880,
+   "up": 411,
+   "dn": 416,
+   "p_sign": 0.8893870432831342
+  },
+  "aligned:riser_matched-matched": {
+   "median": 0.0,
+   "mean": 0.0002674714796727906,
+   "n": 4729,
+   "up": 406,
+   "dn": 395,
+   "p_sign": 0.7238632532607459
+  },
+  "aligned:riser-matched": {
+   "median": 0.0,
+   "mean": 0.00038284294495474617,
+   "n": 4830,
+   "up": 434,
+   "dn": 410,
+   "p_sign": 0.4285570020853259
+  },
+  "base:faller-matched": {
+   "median": 0.0,
+   "mean": 0.0002778743759756418,
+   "n": 4740,
+   "up": 418,
+   "dn": 417,
+   "p_sign": 1.0
+  },
+  "base:riser_matched-matched": {
+   "median": 0.0,
+   "mean": -0.00012378981863316068,
+   "n": 4596,
+   "up": 386,
+   "dn": 399,
+   "p_sign": 0.6684609964296048
+  },
+  "base:riser-matched": {
+   "median": 0.0,
+   "mean": 8.546369663402281e-05,
+   "n": 4691,
+   "up": 420,
+   "dn": 419,
+   "p_sign": 1.0
+  },
+  "DiD:faller": {
+   "median": 0.0,
+   "mean": -0.0003605648721805005,
+   "n": 4735,
+   "up": 711,
+   "dn": 715,
+   "p_sign": 0.9366830886134737
+  }
+ },
+ "ANY_SO_ambient": {
+  "aligned": 0.00708266925102281,
+  "base": 0.006707775538977196
+ },
+ "ANY_DE": {
+  "aligned:faller-matched": {
+   "median": 0.0,
+   "mean": 0.0007788869827804255,
+   "n": 4880,
+   "up": 1265,
+   "dn": 1204,
+   "p_sign": 0.2272286500979556
+  },
+  "aligned:riser_matched-matched": {
+   "median": 0.0,
+   "mean": 0.0026860518772127994,
+   "n": 4729,
+   "up": 1266,
+   "dn": 1183,
+   "p_sign": 0.09750192622413628
+  },
+  "aligned:riser-matched": {
+   "median": 0.0,
+   "mean": 0.001506222383551576,
+   "n": 4830,
+   "up": 1249,
+   "dn": 1206,
+   "p_sign": 0.39662985574368037
+  },
+  "base:faller-matched": {
+   "median": 0.0,
+   "mean": 0.0015565415011617543,
+   "n": 4740,
+   "up": 1276,
+   "dn": 1226,
+   "p_sign": 0.327280197286347
+  },
+  "base:riser_matched-matched": {
+   "median": 0.0,
+   "mean": 0.0023961521024184205,
+   "n": 4596,
+   "up": 1288,
+   "dn": 1171,
+   "p_sign": 0.019303574373555676
+  },
+  "base:riser-matched": {
+   "median": 0.0,
+   "mean": 0.00222641323952345,
+   "n": 4691,
+   "up": 1290,
+   "dn": 1231,
+   "p_sign": 0.24802031278112793
+  },
+  "DiD:faller": {
+   "median": 0.0,
+   "mean": -0.0009991985018384171,
+   "n": 4735,
+   "up": 1683,
+   "dn": 1690,
+   "p_sign": 0.9177188085421895
+  }
+ },
+ "ANY_DE_ambient": {
+  "aligned": 0.03860766097537089,
+  "base": 0.036115481800103405
+ }
+}

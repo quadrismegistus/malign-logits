@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [arm-signature, lexical, replication, amplification, forced-arms]
-description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch (M02 markers) declared, not yet run."
+description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch RUN and DEAD: M02's marker sets flat on faller vs matched in both arms (DiD p 0.94) -- second-order predication is contradiction-triggered, not transgression-triggered."
 ---
 # P on passages: the signature survives the trip, and the drag is priming
 
@@ -16,7 +16,7 @@ Population: 232,384 undisturbed passages, 41 pairs (SmolLM2 excluded --
 flag ambiguity, [5707]); stratum non-degenerate AND English at 90.2%
 (prose screen deferred: the flags parquet carries screen quantities, and
 `is_prose` lives in the measure shards -- a full-stratum rerun is the
-declared follow-up alongside the ascent branch).
+declared follow-up; the ascent branch has now run, below).
 
 ## I3: the cross-grain replication -- P1 CONFIRMED
 
@@ -64,13 +64,33 @@ the same sites, so the displacement is autoregressive priming. **What
 alignment installs, it does not defend at composition grain; and it is not
 differentially vulnerable either.**
 
-ECHO, unexplained and carried: aligned models repeat the injected word
-more than base across ALL arms (faller 0.255 vs 0.217; matched 0.219 vs
-0.138) -- an arm-general echo propensity, not faller-specific. Whether it
-is instruction-adjacent coherence or the ascent move is exactly what the
-UNRUN third branch decides: M02's second-order markers on these passages
-(declared in the plan, not yet run, and nothing about ascent may be
-claimed until it runs).
+THE ASCENT BRANCH IS DEAD (run 2026-08-13,
+`scripts/m06_p_on_passages_ascent.py` ->
+`results/p_on_passages_ascent.json`). M02's committed marker sets,
+imported from `z_second_order` (15 SO + 5 DE regexes, first 50 words --
+the instrument, not a reimplementation), on the same forced passages,
+same pairing, same strata (793,517 passages, 40,134 cells):
+
+    ANY_SO  aligned faller vs matched   411/416   p=0.89
+            base    faller vs matched   418/417   p=1
+            DiD faller                  711/715   p=0.94
+    ANY_DE  aligned faller vs matched   1265/1204 p=0.23
+            DiD faller                  1683/1690 p=0.92
+    ambient ANY_SO: aligned 0.0071 | base 0.0067
+
+No faller-excess in either arm, either marker family; the one nominal p
+(base riser_matched ANY_DE, p=0.019) is 1 of 12 contrasts and does not
+survive any correction. Two consequences, both declared in the producer
+before the numbers existed: (1) forcing a transgressive word does NOT
+trigger second-order predication -- M02's excess is
+contradiction-specific in trigger, not a general aligned response to
+transgressive matter; (2) the echo asymmetry (aligned repeats ANY
+injected word more: faller 0.255 vs 0.217, matched 0.219 vs 0.138) loses
+its "mention not use" support leg and stands as instruction-adjacent
+coherence, arm-general and unexplained. Power caveat: ANY_SO is sparse
+(ambient 0.007), so per-pair medians are zero and the sign tests run on
+the ~830 nonzero pairs; a small faller-specific shift below that grain
+is not excluded, but the M02-size effect is.
 
 ## Fences
 
