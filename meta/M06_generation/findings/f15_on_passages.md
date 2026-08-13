@@ -213,6 +213,10 @@ DISCHARGED since this section was written: the bge-m3 fidelity gate
 
 ## THE QUADRANT FLOW IS ONE-DIMENSIONAL, and the metonymic gain has NO drift component
 
+*(The full instrument audit behind this section -- order-invariance, the
+92%-noise decomposition, directedness being sentence count, and the
+truncation cost -- is consolidated in `drift_metric_audit.md`.)*
+
 Measured on RH's question (are the quadrants and their names convincing?),
 from the persisted cells, 38 pairs. Per-pair Spearman of each quadrant's
 share change against the pair's own surprisal change and drift change:
