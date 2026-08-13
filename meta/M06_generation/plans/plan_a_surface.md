@@ -201,6 +201,37 @@ the adapter before the pilot:
 The segmentation gate otherwise PASSES on RH's read (2026-08-12, in
 session: "Looks good except for these bullets-as-sentences").
 
+## Amendment 5 (pre-verdict, 2026-08-13, from close reading the pilot extremes)
+
+Pulling exemplar sentences at the clause-measure extremes (RH's ask)
+surfaced TWO DEGENERACY MODES dominating the tails, and they are the
+fourth instance of the arm-behaviour class ([5648]), so the class is now
+a standing rule and this plan conditions on it:
+
+- **Repetition collapse** ("he said said said...", one sentence, 111
+  "dependent clauses", embedding depth 100): LOW raw TTR, caught by any
+  diversity screen. Base-heavy.
+- **Multilingual word-salad** (Teuken-base's academic soup): HIGH raw TTR
+  — every token a different language — so a diversity screen PASSES it.
+  Caught instead by script/lexicon signals. Base-heavy.
+
+The parser scores both dutifully; both masquerade as extreme syntax; both
+are generation BEHAVIOUR, not style, and their incidence is arm-linked
+(they are F15's breakdown quadrant arriving in M06's corpus).
+
+Screen, declared now, computed at analysis time from stored text (no
+change to the running shards; thresholds are declarations, illustrative
+from the pilot's own extremes): a passage is DEGENERATE if
+`top_word_share >= 0.20` (most frequent word carries a fifth of tokens)
+OR `non_ascii_alpha_share >= 0.20` (a fifth of alphabetic characters
+outside ASCII — the salad signal; note zh is out of scope for these
+plans, so this is safe HERE and is NOT a general degeneracy definition).
+Rules: (1) per-arm degenerate rates travel as DESCRIPTION (a finding
+candidate in its own right); (2) the PRIMARY stratum for every A and B
+verdict is prose AND non-degenerate; (3) pooled reads reported beside;
+(4) pair MEDIANS remain the location statistic everywhere — the tails
+are exactly where the degeneracy lives.
+
 ## What this plan does not claim
 
 No register/formality construct (that is plan B territory and the naming

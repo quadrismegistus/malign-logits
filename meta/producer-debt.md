@@ -219,3 +219,16 @@ population and says nothing about provenance; only a fingerprint does
 (the 240 bands a resume would have reprinted; vllm_y_run.py:396's
 row-count skip, saved by an empty directory; Teuken's 2,692 drops as
 ACCIDENTAL positive provenance — an accident, not a design).
+
+THE ARM-BEHAVIOUR CLAUSE (named [5648], fourth instance 2026-08-13, rule
+per its own threshold): ON A MATCHED CORPUS, A SURFACE QUANTITY IS
+EXPOSED TO BEHAVIOURAL DIFFERENCES BETWEEN THE ARMS THAT MASQUERADE AS
+THE QUANTITY — formatting (bullets-as-sentences, found by reading),
+termination (length x mean_lp coupling, found by measuring), coverage
+(window-fit missingness, found by counting), and degeneration
+(repetition collapse and multilingual word-salad scoring as extreme
+syntax, found by close reading the tails; the two modes evade OPPOSITE
+screens — collapse is low-TTR, salad is HIGH-TTR). Every verdict on such
+a corpus declares which behavioural strata it conditions on, reports
+per-arm strata rates as description beside the verdict, and prefers
+medians where the behaviour lives in the tails.
