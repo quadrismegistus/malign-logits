@@ -84,12 +84,15 @@ Stated before the run because each is a shape someone will otherwise read into t
 
   **THE BAND NUMBERS CARRY A CONDITIONING THE CUMULATIVE ONES DO NOT — checked 13 Aug, and it does not bite.** §2 declares truncation-never-filtering, and the cumulative series obeys it (`arraySlice(logprobs,1,k)`, no predicate). The disjoint bands cannot: `ladder_confirm.py:68` reads `if(length(logprobs) >= s, ...)`, because a 20-token sequence has no tokens at 33–64. **The conditioning is definitional, not a choice — but it makes the band denominator a SELECTED set, and if the arms retained differently the late effect would be a survivorship artefact.** Measured on the aligned role, per arm, mean over sites:
 
-      band start   faller   matched   gap (relative)
-        >= 33      0.9310   0.9306    +0.04%
-        >= 65      0.8899   0.8912    -0.15%
-        >= 129     0.8336   0.8359    -0.27%
+                     ALIGNED role                    BASE role
+      band     faller  matched  spread(4 arms)   faller  matched  spread
+      >= 33    0.9310   0.9306      0.0008       0.9774   0.9776   0.0009
+      >= 65    0.8899   0.8912      0.0018       0.9402   0.9411   0.0017
+      >= 129   0.8336   0.8359      0.0035       0.8897   0.8933   0.0040
 
-  **The arms retain within 0.27% of each other everywhere, so the selected set is effectively arm-independent and the band result is not survivorship.** Recorded because the exposure is invisible from the numbers themselves — the same `-0.0166 / -0.0161 / -0.0119` would print whether or not the denominators diverged. The single-offset (`f`) series carries the identical predicate and the identical check.
+  **The arms retain within 0.40% of each other in BOTH roles, so the selected set is effectively arm-independent and the band result is not survivorship.** **BOTH roles, because D = A|A − B|A and the base role supplies half the statistic** — an aligned-only table would have been the same sibling-shaped omission one level down, and it was checked only because lacan booked the reciprocal at [5801].
+
+  **The residual selection points the SAFE way.** In both roles the faller is retained *least* (−0.0023 aligned, −0.0037 base at ≥129), so whatever the conditioning does to a faller effect it DEFLATES it. The late negative is if anything understated. Same direction lacan measured independently in `f15_forced` and the self-surprisal filter. Recorded because the exposure is invisible from the numbers themselves — the same `-0.0166 / -0.0161 / -0.0119` would print whether or not the denominators diverged. The single-offset (`f`) series carries the identical predicate and the identical check.
 
   **Neither half is damage, and the late effect is the stronger evidence against it.** Negative here means LESS surprising: late in a passage that began with a demoted word the aligned model's own continuation is *more* predictable, not less. Damage requires the opposite sign. **The quotable form is "margin narrowing, not chain breaking" — never "no effect anywhere."**
 - **NOT greater sensitivity in the aligned model.** Same absolute preference-sensitivity as the base (paired log slope ratio −0.0195, p=0.76); 25% lower baseline surprisal. Any "pickier" reading is a denominator effect and belongs to F18.
