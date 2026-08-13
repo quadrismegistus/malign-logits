@@ -46,6 +46,22 @@ mismatch — lacan's measured 46.6/sec CPU trade makes short-unit CPU
 free at D's scale. Malign's boundary carried: the 60-row audit licenses
 "the found class is absent", never "the store is verified".
 
+Extended per [5780] (lacan's BLT measurement, third mps-CJK instance and
+the first in a causal LM's logits, so the family generalises past
+embedders): BLT (itazap/blt-1b-hf) on this machine's mps both
+catastrophically fails Chinese passages (437/437 byte-units non-finite on
+one of four) AND shifts survivors 1-2%; CPU returns zero non-finite units
+on the same rows. Two rules adopted into this plan as owner: (1) ANY
+cross-lingual `bits_per_char_blt` run computes on CPU — mps is not
+trustworthy for CJK byte sequences on this box, CPU is the referee; an
+English-only run does not inherit this (measured unaffected). (2) The
+producer COUNTS NON-FINITE UNITS PER PASSAGE and reports them beside the
+number — never a bare nanmean, which would return a plausible language
+figure from the surviving passages and hide the failed one entirely (the
+silent form; np.mean's whole-language NaN is the visible form and the
+better default). Existence proof at n=4 passages; the rate is unmeasured
+and the rule does not need it.
+
 POS caution from [5632] stands: nothing here reaches for `fields._byu()`;
 any POS need is served by the shared Stanza parses.
 
