@@ -76,3 +76,37 @@ So `if not p.get('ambiguous')` **drops three pairs that were already resolved**,
 ## Custody note on `f11_l2`
 
 **`pair` and `role` are EMPTY** on all 228,520 rows — one distinct blank value each, against `passage`'s 42 and 2. **A join on either returns one group and no error.** Pairing must come from model names through one of the two sources above.
+
+---
+
+# `prompt_catalogue`: two declared columns, and why nobody used them
+
+Added 13 Aug 2026 after two seats each mis-keyed this table in a different direction on the same evening.
+
+## The table declares what both of us inferred from string shape
+
+    language     'en' / 'zh'      -- malign inferred it from a `_zh` suffix THREE TIMES
+    pair_role    MARKED / NOT_A_POLE / ...  -- lacan inferred it from a prompt_id tail
+
+**Neither producer read either column.** Both facts are declared, typed and `LowCardinality`.
+
+## `prompt_id` IS NOT A CROSS-LANGUAGE JOIN KEY
+
+F11 carries **two incompatible prompt_id conventions**:
+
+    f11_beauty_CONTROL_A                  <- English rows
+    setf_f11_create_both_matched_02_zh    <- the `setf_` family
+
+**14 of 216 rows have a `prompt_id` that does not start with its `pair_id`.** The parse-free key is **`(pair_id with `_zh` stripped, pair_role)`** — declared columns only, no positional assumption.
+
+## The two failures, because they are opposite and instructive
+
+- **LOUD**: `substring(prompt_id, length(pair_id) + 2)` slices mid-word on the `setf_` family — `setf_f11_create_both_matched_02_zh` against pair_id `f11_create_zh` yields `e_both_matched_02_zh`. It **manufactured 5 phantom Chinese-only prompts**, nearly posted as a refutation of a correct claim.
+- **QUIET, AND WORSE**: `prompt_id[len(pair_id):].lstrip('_')` guarded by `startswith` returned `None` for those same 14 rows, which then **never entered the analysis at all** — no error, no warning, in a DiD that had just been promoted to a finding's headline.
+
+**A POSITIONAL PARSE IS A CLAIM ABOUT EVERY FIELD BEFORE THE ONE YOU WANT.** If a declared column holds the same information, the parse is never the right instrument however well it works on the rows you happened to look at.
+
+## And the count that started it
+
+97 Chinese against 100 English prompts is **not** evidence of non-correspondence: every Chinese pair-group has an English counterpart (21 zh groups, 26 en groups, **0** zh-only). **A COUNT MISMATCH IS NOT EVIDENCE OF NON-CORRESPONDENCE** — the difference is English extras, which is what a matched design with a few additions looks like. A limit was written into a finding on the strength of that inference and had to be struck.
+
