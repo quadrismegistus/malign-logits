@@ -588,3 +588,16 @@ A fleet of 8 dense boxes over 250 rungs. Every one of these cost 10-45 minutes a
 **Every wrong constant failed toward ALARM, which is the direction that gets noticed** — so the fleet was never at risk from them. A reader error pointing the other way (probing a path that always has files) would have reported a dead fleet as healthy and nobody would have looked. **The rule: a fleet probe must derive its process name, output path and route FROM THE LAUNCH COMMAND (`ps -eo args`), never from the script's defaults or from prose.** `ps` is the only artifact that knows which flags actually ran.
 
 Pinned in `scripts/verse_fleet_sweep.py`, which tries proxy then direct and prints WHICH route answered.
+
+## 2.27 A MACHINE'S RENTAL WINDOW IS ON THE OFFER, AND WE NEVER CHECKED IT (13 Aug 2026)
+
+**Box 47630611 died 4.10 hours into an 8-hour job. It was not preempted, not outbid, and its GPU was not reclaimed.** `is_bid: False`, `reliability2: 0.9966`, `verification: verified`. It started at 13:47:21 with `end_date` **17:53:28** and stopped precisely there. **The host had advertised that machine as available for four hours and we rented it for eight.**
+
+    vastai show instances --raw | jq '.[] | {id, start_date, end_date}'
+    # window_hours = (end_date - start_date) / 3600
+
+The fleet's other seven windows ran 21.5 h to effectively unbounded, so this was one bad draw rather than a systemic exposure — **which is exactly why it went unnoticed: seven boxes gave no signal at all.**
+
+**PREFLIGHT: reject any offer whose `end_date` is inside the job's expected wall clock, with margin.** The field is present at search time, before money is spent. `scripts/verse_fleet_sweep.py` now warns when a running box's remaining window is shorter than the run's remaining ETA.
+
+**The diagnostic trap, worth more than the rule.** The dead box reported `actual_status: running` beside `cur_state: stopped`, and `vastai start` answered *"Required resources are currently unavailable, state change queued"* — which reads exactly like a reclaimed GPU and is what this seat first concluded and wrote down. **The queued-start message means the host has since re-let the slot, not that anything was taken from us.** The discriminator is `end_date` against `start_date`, and it is unambiguous. **A plausible cause that fits the symptom is not the cause; the timestamps were on the record the whole time.**

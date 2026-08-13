@@ -98,6 +98,24 @@ def main():
         agg = sum(rates)
         hrs = (TOTAL_EXPECTED - tot)/agg/3600
         print("  aggregate %.1f p/s -> ~%.1f h remaining, ~$%.2f more needed" % (agg, hrs, hrs*burn))
+    #: RENTAL WINDOWS. Box 47630611 was lost on 13 Aug not to preemption and not
+    #: to a reclaimed GPU -- is_bid was False and host reliability 0.9966 -- but
+    #: because its advertised availability window was 4.10 h (13:47:21 start,
+    #: 17:53:28 end_date) against a job needing ~8. It stopped exactly at its
+    #: end_date. The field is on the OFFER before you rent, so this is a
+    #: preflight check that was never run, not a hazard.
+    import time as _t
+    for i in inst:
+        ed = i.get('end_date')
+        if not ed or i.get('cur_state') != 'running': continue
+        hrs = (ed - _t.time()) / 3600
+        if rates and tot < TOTAL_EXPECTED:
+            need = (TOTAL_EXPECTED - tot) / sum(rates) / 3600
+            if hrs < need:
+                print("  WINDOW RISK %s: rental ends in %.1f h, run needs %.1f h"
+                      % (i['id'], hrs, need))
+                attention.append((i['id'], 'window %.1fh < need %.1fh' % (hrs, need)))
+
     if attention:
         print("  ATTENTION: %s" % attention)
     return 0
