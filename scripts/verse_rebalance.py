@@ -184,12 +184,20 @@ def main(argv=None):
         if inflight:
             print("  %d model(s) already in flight on a live box; excluded" % len(inflight))
 
+        #: COMPLETENESS IS GLOBAL, NOT PER-DIRECTORY. A recovered model lands in
+        #: the directory of the box that RAN it, not the dead box's. Crediting
+        #: only `held[dead_box]` made shard5 look 7 models short after two other
+        #: boxes had already produced them, and relaunched a finished set.
+        all_done = set()
+        for _d, _ms in held.items():
+            all_done |= _ms
+
         orphaned = {}
         for bid, models in held.items():
             if bid in live_ids and state.get(bid): continue      # box still with us
             sname = max(rs, key=lambda sn: len(models & set(safe(m) for m in rs[sn])))
             missing = [m for m in rs[sname]
-                       if safe(m) not in models and safe(m) not in inflight]
+                       if safe(m) not in all_done and safe(m) not in inflight]
             if missing: orphaned[bid] = (sname, missing)
         if not orphaned:
             print("  no orphaned shard work. Nothing to recover."); return 0
