@@ -83,6 +83,21 @@ def roster(path):
     ms=json.load(open(path))
     return [(m if isinstance(m,str) else (m.get('model') or m.get('id'))) for m in ms]
 
+
+def roster_entries(path):
+    """model name -> the FULL spec entry.
+
+    twp_cloud.py reads entry["model"] and entry["prompts"]; a list of bare model
+    NAMES makes it die on `TypeError: string indices must be integers` the
+    instant it starts. The recovery wrote names and the freed box sat idle.
+    """
+    out={}
+    for m in json.load(open(path)):
+        if isinstance(m, dict):
+            k = m.get('model') or m.get('id')
+            if k: out[k] = m
+    return out
+
 def rosters():
     return {os.path.basename(f): roster(f) for f in sorted(glob.glob(os.path.join(SPECS,'shard*.json')))}
 
@@ -176,8 +191,19 @@ def main(argv=None):
             if not chunk: continue
             print("  -> %d models to %s" % (len(chunk), b))
             if not a.apply: continue
+            entries=[]
+            for sname_ in sorted(glob.glob(os.path.join(SPECS,'shard*.json'))):
+                ent = roster_entries(sname_)
+                for m in chunk:
+                    if m in ent and not any(e.get('model')==m for e in entries):
+                        entries.append(ent[m])
+            missing_e=[m for m in chunk if not any(e.get('model')==m for e in entries)]
+            if missing_e:
+                print("     REFUSING: no spec entry for %s" % missing_e[:3]); continue
             mp = os.path.join(SPECS, 'recover_to_%s.json' % b)
-            json.dump(chunk, open(mp,'w'))
+            json.dump(entries, open(mp,'w'))
+            print("     wrote %d full entries (%d prompts each)"
+                  % (len(entries), len(entries[0].get('prompts',[]))))
             if not scp(inst[b], mp, REMOTE+'/data/recover.json'):
                 print("     scp FAILED"); continue
             run=("cd %s && tmux kill-session -t verse 2>/dev/null; "
