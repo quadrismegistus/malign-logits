@@ -968,6 +968,23 @@ etymological-seam reading predicts NO replication in a language with an
 unrelated lexical history; the functional reading predicts exactly what is
 observed -- the same function deposited in a different vocabulary.
 
+AND THE NAME ONLY HALF-TRANSFERS TO CHINESE, WHICH THE TRANSLATION BRIDGE
+ALREADY PREDICTED. The same field test on the zh instruments (`field_poles_zh`,
+armAUC-nopos + axis/bge + delta, all-tags zh-USAS at 89.6% coverage) is
+UNDERPOWERED -- the shared vocabulary is 423 words because the bge store embeds
+only coder-rated verbs, and 0 of 219 tests survive FDR -- so nothing zh-side is
+quotable alone. Directionally: the PROCEDURAL face transfers (X2.4 examine/test
+z -2.83 against en's -4.60; Q1.2 documents/writing rises; M2 transport and B1
+body fall weakly), but everyday VOLITION AND AFFECT (X7 wanting, E2 liking,
+E4.1, X5.2) fall in zh, and G3 warfare RISES -- the zh aligned pole genuinely
+holds attack vocabulary, as section 5c found by translation. So what crosses
+languages at field grain is ENACTED -> REPRESENTED (documents, examination,
+carried-out procedure); the specifically MENTAL-PREDICATE face of the name is
+the English-literary form and should not be claimed for zh. One instrument
+caveat cutting both languages: USAS decorations are stripped, so antonym pairs
+share a field (E3 is calm AND violent, E4.1 happy AND sad) -- no E-field's sign
+may be read as one pole.
+
 CONVERGENT, FROM GENERATED PROSE RATHER THAN LOGITS: M02's field analysis of
 54,080 continuations over 26 pairs reads, in its own words, "off the concrete
 particulars of narrative and onto interiority" -- 39 of 79 fields surviving,
