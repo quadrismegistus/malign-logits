@@ -306,6 +306,25 @@ holds composition fixed by construction.
 
 ## Fences
 
+
+- **EVERY DRIFT NUMBER HERE IS COMPUTED ON ROUGHLY THE FIRST HALF OF EACH
+  PASSAGE**, and that is an inherited convention rather than a design choice.
+  Generations run to a 256-token cap (median 183 words); the
+  fewest-sentences-exceeding-75-words rule leaves a median of 84 words and 5
+  sentences, so **46% of the generated words are analysed**. Measured on
+  3,000 passages, dropping truncation entirely would give 11 sentences and 55
+  pairwise similarities instead of 5 and 10 -- and would KEEP MORE PASSAGES
+  (95.1% against 86.1%), because the word floor discards short generations
+  that have three or more sentences anyway.
+
+  The rule comes from F15/F16, where it normalises length across corpora with
+  wildly different natural lengths (dreams against abstracts against
+  fiction). **Applied to a within-corpus arm contrast, where every generation
+  already shares one token cap, it normalises nothing and costs both data and
+  trajectory resolution.** So `total_drift`'s 92%-noise figure is
+  substantially self-inflicted: five sentences were analysed where eleven
+  were available. The successor instrument should carry no truncation and
+  `n_sents` as a declared covariate.
 Different corpus AND rung from F15: agreement extends it, and this is
 agreement. Sharpness confound stated in the plan: reference surprisal
 entangles generator sharpness with text predictability on the page;
