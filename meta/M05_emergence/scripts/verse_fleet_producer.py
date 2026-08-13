@@ -393,6 +393,21 @@ def build_manifest():
             cells.append({"cell_type": "prose_battery", "block": blk_name,
                           "slot": "battery", "phase": "battery",
                           "context": txt})
+    # [5755] §3: the store keys on (model, prompt) — cells sharing a context
+    # ACROSS poems collapse on ingest too; flag them so no analysis joins one
+    # measurement into two poems' worth of precision
+    by_ctx = {}
+    for i, c in enumerate(cells):
+        by_ctx.setdefault(c["context"], []).append(i)
+    for ctx, idxs in by_ctx.items():
+        if len(idxs) > 1:
+            for i in idxs:
+                others = [cells[j].get("id_human") or cells[j].get("prompt_id")
+                          or cells[j].get("block") for j in idxs if j != i]
+                cells[i]["context_shared_with"] = sorted(set(
+                    o for o in others
+                    if o != (cells[i].get("id_human") or cells[i].get("prompt_id")
+                             or cells[i].get("block")))) or None
     n = {"verse": 0, "prose_literary": 0, "prose_battery": 0}
     for c in cells:
         c["context_len"] = len(c["context"])
@@ -403,7 +418,8 @@ def build_manifest():
                "rime_key": "v2.1 phonemic (final stressed syll from first vowel; glide-strip; schwa normalized)",
                "slots_per_poem": 9,
                "resolve_rate_denominator": "quote key_resolves_own_rhyme rates over RHYMED cells only — the 540 unrhymed cells are False by construction ([5749] §2)",
-               "amendments": "[5749]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
+               "n_distinct_contexts_note": "1,786 distinct contexts over 1,820 cells — completeness gates use 250 x 1,786 = 446,500, NEVER 455,000 ([5755] §2)",
+               "amendments": "[5749]+[5755]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
                "battery_rule": "100 of 584 unique, stratified by block proportional, seed 20260813",
                "counts": n, "n_cells": len(cells)},
            "cells": cells}

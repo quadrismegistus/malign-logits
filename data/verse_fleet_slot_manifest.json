@@ -6,7 +6,8 @@
   "rime_key": "v2.1 phonemic (final stressed syll from first vowel; glide-strip; schwa normalized)",
   "slots_per_poem": 9,
   "resolve_rate_denominator": "quote key_resolves_own_rhyme rates over RHYMED cells only — the 540 unrhymed cells are False by construction ([5749] §2)",
-  "amendments": "[5749]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
+  "n_distinct_contexts_note": "1,786 distinct contexts over 1,820 cells — completeness gates use 250 x 1,786 = 446,500, NEVER 455,000 ([5755] §2)",
+  "amendments": "[5749]+[5755]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
   "battery_rule": "100 of 584 unique, stratified by block proportional, seed 20260813",
   "counts": {
    "verse": 1620,
@@ -5486,6 +5487,7 @@
    "actual_key": "ʌst",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 213
   },
   {
@@ -5504,6 +5506,7 @@
    "actual_key": "ʌst",
    "key_resolves_own_rhyme": true,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 213
   },
   {
@@ -6512,6 +6515,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 30
   },
   {
@@ -6530,6 +6536,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 64
   },
   {
@@ -6548,6 +6557,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 104
   },
   {
@@ -6566,6 +6578,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 13
   },
   {
@@ -6584,6 +6599,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 50
   },
   {
@@ -6602,6 +6620,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 91
   },
   {
@@ -6620,6 +6641,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 135
   },
   {
@@ -6638,6 +6662,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 145
   },
   {
@@ -6656,6 +6683,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296597"
+   ],
    "context_len": 149
   },
   {
@@ -8942,6 +8972,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 30
   },
   {
@@ -8960,6 +8993,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 64
   },
   {
@@ -8978,6 +9014,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 104
   },
   {
@@ -8996,6 +9035,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 13
   },
   {
@@ -9014,6 +9056,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 50
   },
   {
@@ -9032,6 +9077,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 91
   },
   {
@@ -9050,6 +9098,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 135
   },
   {
@@ -9068,6 +9119,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 145
   },
   {
@@ -9086,6 +9140,9 @@
    "actual_key": "ɔːt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296597"
+   ],
    "context_len": 149
   },
   {
@@ -14720,6 +14777,7 @@
    "actual_key": "ɑr|mə|niːz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 123
   },
   {
@@ -14738,6 +14796,7 @@
    "actual_key": "ɑr|mə|niːz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 123
   },
   {
@@ -14882,6 +14941,7 @@
    "actual_key": "eɪ",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 67
   },
   {
@@ -14900,6 +14960,7 @@
    "actual_key": "eɪ",
    "key_resolves_own_rhyme": true,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 67
   },
   {
@@ -15368,6 +15429,7 @@
    "actual_key": "ɪŋ",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 105
   },
   {
@@ -15386,6 +15448,7 @@
    "actual_key": "ɪŋ",
    "key_resolves_own_rhyme": true,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 105
   },
   {
@@ -16880,6 +16943,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 23
   },
   {
@@ -16898,6 +16964,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 57
   },
   {
@@ -16916,6 +16985,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 90
   },
   {
@@ -16934,6 +17006,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 6
   },
   {
@@ -16952,6 +17027,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 45
   },
   {
@@ -16970,6 +17048,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 74
   },
   {
@@ -16988,6 +17069,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 116
   },
   {
@@ -17006,6 +17090,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 127
   },
   {
@@ -17024,6 +17111,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "modern/car1702/Z200296541"
+   ],
    "context_len": 131
   },
   {
@@ -18608,6 +18698,7 @@
    "actual_key": "aɪt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 89
   },
   {
@@ -18626,6 +18717,7 @@
    "actual_key": "aɪt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 89
   },
   {
@@ -18986,6 +19078,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 23
   },
   {
@@ -19004,6 +19099,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 57
   },
   {
@@ -19022,6 +19120,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 90
   },
   {
@@ -19040,6 +19141,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 6
   },
   {
@@ -19058,6 +19162,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 45
   },
   {
@@ -19076,6 +19183,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 74
   },
   {
@@ -19094,6 +19204,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 116
   },
   {
@@ -19112,6 +19225,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 127
   },
   {
@@ -19130,6 +19246,9 @@
    "actual_key": "oʊt",
    "key_resolves_own_rhyme": true,
    "context_collides_with": null,
+   "context_shared_with": [
+    "c20-english/car1702/Z200296541"
+   ],
    "context_len": 131
   },
   {
@@ -24440,6 +24559,7 @@
    "actual_key": "ɛ|stɛːz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 90
   },
   {
@@ -24458,6 +24578,7 @@
    "actual_key": "ɛ|stɛːz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 90
   },
   {
@@ -25016,6 +25137,7 @@
    "actual_key": "ɛ|riː",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 99
   },
   {
@@ -25070,6 +25192,7 @@
    "actual_key": "ɛ|riː",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "end3",
+   "context_shared_with": null,
    "context_len": 99
   },
   {
@@ -25088,6 +25211,7 @@
    "actual_key": "ɛ|riː",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 124
   },
   {
@@ -25106,6 +25230,7 @@
    "actual_key": "ɛ|riː",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 124
   },
   {
@@ -25826,6 +25951,7 @@
    "actual_key": "ə|zənt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 137
   },
   {
@@ -25880,6 +26006,7 @@
    "actual_key": "ə|zənt",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "end3",
+   "context_shared_with": null,
    "context_len": 137
   },
   {
@@ -26222,6 +26349,7 @@
    "actual_key": "æm",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 80
   },
   {
@@ -26240,6 +26368,7 @@
    "actual_key": "æm",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 80
   },
   {
@@ -26276,6 +26405,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 5
   },
   {
@@ -26312,6 +26442,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 41
   },
   {
@@ -26330,6 +26461,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "end1",
+   "context_shared_with": null,
    "context_len": 5
   },
   {
@@ -26366,6 +26498,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "end3",
+   "context_shared_with": null,
    "context_len": 41
   },
   {
@@ -26384,6 +26517,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 53
   },
   {
@@ -26402,6 +26536,7 @@
    "actual_key": "ɪks",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 53
   },
   {
@@ -26546,6 +26681,7 @@
    "actual_key": "iːsts",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 89
   },
   {
@@ -26564,6 +26700,7 @@
    "actual_key": "iːsts",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 89
   },
   {
@@ -27734,6 +27871,7 @@
    "actual_key": "ɛz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 8
   },
   {
@@ -27788,6 +27926,7 @@
    "actual_key": "ɛz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "end1",
+   "context_shared_with": null,
    "context_len": 8
   },
   {
@@ -28814,6 +28953,7 @@
    "actual_key": "aɪvz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": null,
+   "context_shared_with": null,
    "context_len": 102
   },
   {
@@ -28832,6 +28972,7 @@
    "actual_key": "aɪvz",
    "key_resolves_own_rhyme": false,
    "context_collides_with": "mid4",
+   "context_shared_with": null,
    "context_len": 102
   },
   {
