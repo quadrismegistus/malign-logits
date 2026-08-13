@@ -74,7 +74,14 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
 12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
     A's half now has artifacts AND figures (A_position_*, 2026-08-13);
     the combined attention-vs-A panel remains undrawn.
-13. NEW (2026-08-14, pair-cascade instrument, plan_pair_cascade.md):
+13. SHIPPED 2026-08-14 — displacement network viz, first pieces:
+    `displacement_network_core.dot/svg` (135-edge working map, maps/
+    idiom, basin clusters) and `displacement_basin_procedure` panel
+    (52 edges, chains visible) via `plot_displacement_network.py`;
+    remaining basins (epistemic/expression/stasis) are one command
+    each; chain-exhibit strip (fired->aimed->pointed, kill->shout->hum)
+    still owed.
+13b. NEW (2026-08-14, pair-cascade instrument, plan_pair_cascade.md):
     the HUM SINK (sing/shake/tremble/weep->hum — expressive
     de-intensification, split-half certified); the PROCEED cluster
     (formalization axis at word grain); the TAXONOMY figure (1,851
