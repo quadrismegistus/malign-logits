@@ -92,6 +92,24 @@ pivot generations — one pass, two consumers — at pinned decoding. That
 decision is its own costed proposal to RH; nothing here pre-authorises
 it.
 
+## Roster and design amendments (2026-08-13, post-costing)
+
+- THE POEM ROSTER IS FROZEN: `data/rhyme_fleet_roster.json` — 180 poems,
+  30 per (scheme x era) cell, uniform-random within sorted cells at seed
+  20260813 from the availability scan's usable set; era from the full
+  Chadwyck metadata (RH's pointer, 100% coverage; per-cell availability
+  recorded in the file: AABB 1,362/68, ABAB 1,560/121, unrhymed
+  727/1,399 — literary history's class-era confound is BALANCED by
+  design and the marginals declared). Slot expansion (called slot +
+  uncalled nulls per poem) is the producer's job against this roster.
+- DESIGN SWITCHED per [5721] §4: CANDIDATE-SET SCORING — next_dist
+  driven by the rime class's OWN prefixes; O(class), THETA-FREE, no
+  discovery floor. Malign's rider is plan text: where any instrument
+  still carries a theta, THETA IS PART OF THE ROSTER — changing it
+  after close is a re-run of every cell, not a tweak.
+- Provisioning budgeted in wall-clock and babysitting, not dollars
+  (the L2 fleet's 6-of-14 casualty rate is the standing tax).
+
 ## Costing ask
 
 @malign to cost: both ladders x the frozen slot roster (target ~1,500-
