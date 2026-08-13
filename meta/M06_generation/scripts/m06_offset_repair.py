@@ -164,6 +164,31 @@ def main():
                           % (arm, role, r5["median"], r5["mean"], r5["up"],
                              r5["dn"], r5["p_sign"], r5["n"]))
 
+    #: PER-PAIR ROWS, so a second seat can RECONSTRUCT rather than only
+    #: verify internal consistency ([5817], the [5704] shape)
+    import pandas as pd
+    rows = []
+    for tag in ("k1", "k2"):
+        means = {k: v[0] / v[1] for k, v in acc[tag].items() if v[1] >= 3}
+        for arm in ARMS:
+            for role in ("aligned", "base"):
+                per = collections.defaultdict(list)
+                for (pair, prompt, r2, a2), m in means.items():
+                    if a2 != arm or r2 != role:
+                        continue
+                    u = means.get((pair, prompt, role, "undisturbed"))
+                    if u is not None:
+                        per[pair].append(m - u)
+                for pair, v in per.items():
+                    if len(v) >= 3:
+                        rows.append({"k": tag, "arm": arm, "role": role,
+                                     "pair": pair, "n_prompts": len(v),
+                                     "delta": float(np.median(v))})
+    pq = os.path.join(OUTD, "offset_repair_pairs.parquet")
+    pd.DataFrame(rows).to_parquet(pq)
+    print("per-pair rows persisted: %s -> %s"
+          % (format(len(rows), ","), os.path.basename(pq)))
+
     p = os.path.join(OUTD, "offset_repair.json")
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))

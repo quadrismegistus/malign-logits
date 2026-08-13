@@ -56,22 +56,62 @@ continuation the model finds harder than a word it sampled itself. It is
 strongest for the FALLER in the BASE arm (+0.035, 36 of 39 pairs, p 3.6e-08)
 and weakest -- null -- for `matched` in the aligned arm.
 
-**This is NOT yet a result about imposition, and the plan said so before the
-run.** The remaining difference between arms is not only provenance: a
-sampled first word is by construction a draw from the model's own
-distribution at that site, while a forced word comes from the arms table. If
-forced words sit systematically lower in the model's own probability at their
-sites than sampled words do, a harder continuation follows without any
-imposition effect. The plan declined to match on opening probability because
-the two arms' opening probabilities are DIFFERENT OBJECTS -- `logprobs[1]` is
-a token logprob, the arms table's `q` is a word probability -- and the
-campaign has paid for that confusion before.
+**This is NOT yet a result about imposition.** The remaining difference
+between arms is not only provenance: a sampled first word is by construction
+a draw from the model's own distribution at that site, while a forced word
+comes from the arms table. If forced words sit systematically lower in the
+model's own probability at their sites, a harder continuation follows with no
+imposition effect.
 
-**So the honest statement is: the withdrawn finding's effect was the offset;
-under repair the sign is positive; and separating imposition from opening
-probability requires a single-token-restricted instrument that does not yet
-exist.** No arm ordering and no role comparison is claimed -- those need
-their own paired tests ([5805]), which are not run here.
+**CORRECTED ([5818], [5819]): the plan's stated GROUNDS for that fence were
+wrong, and the fence survives on different ones.** I wrote that opening
+probability could not be matched because `logprobs[1]` is a token logprob and
+the arms table's `q` is a word probability -- DIFFERENT OBJECTS. They are the
+same object. `twp.expand` softmaxes over the full vocabulary and books
+unselected mass as tail/drop, so nothing is renormalised: on a real record,
+word masses 0.347764 + tail 0.259579 + drop 0.392657 = 1.000000. For a
+single-token word -- 91.9-94.2% of openings by this finding's own audit --
+`log q` and a token logprob are the same quantity. **The match is runnable.**
+
+What survives as the actual caution: it has not been run; `q` is under the
+ALIGNED model, so the undisturbed side must come from aligned-scorer rows;
+and the single-token restriction is itself a selection whose ~8% remainder is
+longer and rarer, so a null there bounds common openings and says nothing
+about the tail. **A fence resting on a false premise fails the moment someone
+checks the premise** (malign's line), which is why the grounds are replaced
+rather than the fence removed.
+
+A live trap recorded with it: **this repo has two functions computing "word
+probability" and only one returns a probability.**
+`core.py:score_words_from_logits` renormalises over the candidate set;
+`twp.expand` does not. The arms table comes from the twp path. Any future `q`
+must be attributed to its PRODUCER before being compared to anything.
+
+## And the comparison this corpus was actually built for
+
+RH, on reading the above: *"why don't we trust our faller-matched and
+riser-matched baselines? We spent $60 getting a corpus of them for this exact
+purpose."*
+
+Correct, and it reframes this whole line of work. **The undisturbed arm was
+never the designed control.** `matched` is: a non-mover held at the faller's
+own aligned probability, built so that faller-vs-matched isolates DEMOTION
+with probability held fixed. That comparison is arm-vs-arm, so the offset
+defect never touched it, and it was already answered on two instruments:
+
+    faller - matched, SELF-surprisal (A|A, self_surprisal.md S3)
+        aligned -0.0053 p 0.154 | base -0.0199 p 0.00029
+    faller - matched, THIRD-PARTY surprisal (GPT-2, f15_on_passages.md F3b)
+        aligned -0.0213 p 0.066 | base -0.0337 p 0.0014
+
+**Both instruments, both roles, the same sign: negative.** Against the
+control the corpus was built to provide, forcing a demoted word makes the
+continuation MORE predictable, not less. On RH's original pair of theses that
+is COMPENSATION and not damage -- and it never needed the undisturbed arm.
+
+The forced-vs-undisturbed comparison asks a different and structurally
+messier question (forcing at all, against free generation), and it is the one
+that broke twice. The designed control was intact throughout.
 
 ## Fences
 
