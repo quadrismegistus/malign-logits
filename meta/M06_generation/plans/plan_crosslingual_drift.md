@@ -38,21 +38,36 @@ All 58 models, both languages. Cap 3 passages per (model, prompt), seed
 20260813 over sorted keys; ~20 exist per cell, so the cap is a subsample of
 samples and NOT of cells.
 
-Floors, declared with their arithmetic:
+Floors, declared with their arithmetic. **AMENDED before the producer ran,
+on RH's question "can we do it in a principled way like we do with nltk" --
+the first version of this section used a hand-written regex and a declared
+character conversion, and BOTH were replaced after measurement.**
 
-- SENTENCES: >= 3, as in the F15 producer. Chinese split on `。！？；!?`
-  with the delimiter retained; English keeps the NLTK splitter. The Chinese
-  rule is simpler than English's because Chinese has no abbreviation
-  ambiguity.
-- LENGTH: >= 120 CHARACTERS for Chinese, declared as the equivalent of the
-  English producer's 75-WORD floor at roughly 0.6 English words per Chinese
-  character. Measured before this plan was written: 72.2% of Chinese
-  passages clear both floors (median 334 chars, median 5 sentences), so the
-  instrument has usable coverage rather than a floor that eats the corpus.
-  Sensitivity at 100 and 150 characters is reported beside the headline.
-  English keeps the 75-word rule so the two arms are each on their own
-  language's version of the same criterion, which is the honest form: a
-  word count has no referent in Chinese and a character count flatters it.
+- SENTENCES: >= 3, as in the F15 producer. Chinese uses **stanza's
+  `zh-hans` tokenize processor** (treebank-trained, joint segmentation and
+  sentence splitting); English keeps NLTK punkt. Both are trained
+  statistical tokenizers, so the two arms use the same CLASS of instrument
+  rather than one trained model and one hand rule.
+
+  **Why not the regex, measured rather than assumed**: a `。！？；!?`
+  splitter agrees with stanza at mean Jaccard **0.639** on sentence sets and
+  **0.500** on sentence counts over 60 passages. That is not adequate, and
+  the mechanism is legible: these generations are only **68% CJK by
+  character** (median), so they carry substantial embedded English, and the
+  regex never split an English period. A rule tuned on the assumption of
+  monolingual Chinese fails on a corpus that is a third English. Stanza runs
+  at 0.01 s/passage, so there is no cost argument for the cheap instrument
+  either.
+
+- LENGTH: **>= 75 WORDS in both languages**, with Chinese words from
+  **jieba** (the segmenter, which is what jieba is for -- it has no sentence
+  tokenizer). This replaces the earlier "120 characters" rule and its
+  declared 0.6-words-per-character conversion. The same NUMBER under each
+  language's own segmenter is a stronger criterion than a converted one: no
+  ratio is asserted, and the arithmetic that would have to be defended
+  (jieba gives ~0.66 words per character, so 75 words is ~114 characters)
+  is reported rather than relied on. Coverage under the new floors is
+  printed by the producer before any embedding.
 
 Passage -> (model, prompt) cell -> model. Pairing to base/aligned arms
 happens at ANALYSIS time from the roster, not in this producer.
