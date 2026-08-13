@@ -342,7 +342,18 @@ def build_manifest():
     cells = []
     poems = load_poems(n=10**9)
     for p in poems:
-        for sl in poem_slots(p["lines"], p["partner_line"]):
+        slots = poem_slots(p["lines"], p["partner_line"])
+        # [5749] defect 1: in short poems two slots can land on the SAME
+        # prefix (mid4==near etc.) — one measurement under two labels.
+        # Flag-not-nudge, malign's §5: analysis fences, design unchanged.
+        first_at = {}
+        for sl in slots:
+            if sl["context"] in first_at:
+                sl["context_collides_with"] = first_at[sl["context"]]
+            else:
+                sl["context_collides_with"] = None
+                first_at[sl["context"]] = sl["slot"]
+        for sl in slots:
             cells.append({
                 "cell_type": "verse", "id_human": p["id_human"],
                 "scheme": p["scheme"], "era": p["era"],
@@ -352,7 +363,8 @@ def build_manifest():
                 "nonpartner_word": p["nonpartner_word"],
                 "nonpartner_key": p["nonpartner_key"],
                 "actual_word": p["actual_word"], "actual_key": p["actual_key"],
-                "key_resolves_own_rhyme": p["key_resolves_own_rhyme"]})
+                "key_resolves_own_rhyme": p["key_resolves_own_rhyme"],
+                "context_collides_with": sl["context_collides_with"]})
     cat = json.load(open(os.path.join(REPO, "data/prompt_categorisation.json")))
     lit = [r for r in cat["prompts"] if r.get("source") == "LITERARY"]
     for r in lit:
@@ -383,12 +395,14 @@ def build_manifest():
                           "context": txt})
     n = {"verse": 0, "prose_literary": 0, "prose_battery": 0}
     for c in cells:
+        c["context_len"] = len(c["context"])
         n[c["cell_type"]] += 1
     out = {"_provenance": {
                "design": "B ([5735]/[5736]/[5737]); plan_verse_fleet.md frozen 2026-08-13",
                "roster": os.path.basename(ROSTER), "seed": 20260813,
                "rime_key": "v2.1 phonemic (final stressed syll from first vowel; glide-strip; schwa normalized)",
                "slots_per_poem": 9,
+               "amendments": "[5749]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
                "battery_rule": "100 of 584 unique, stratified by block proportional, seed 20260813",
                "counts": n, "n_cells": len(cells)},
            "cells": cells}
