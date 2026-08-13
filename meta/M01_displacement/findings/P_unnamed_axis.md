@@ -17,7 +17,11 @@ unsupervised GloVe dimensions recover 18-21% of that headroom against the rated
 norms' 7%. The direction replicates in Chinese on an unrelated historical seam.
 Every named component of it (corpus register, concreteness, length) is a
 minority share, and what is left after removing them predicts better than any of
-them.**
+them. Its nameable face now has a PROVISIONAL NAME -- INTERIORITY, or enacted ->
+represented (section 7b): blind-rateable at rho 0.26-0.36 on held-out words, 77%
+colinear with concreteness by the structure of the lexicon, sharpened past
+concreteness by the perception wedge, replicated in generated prose by M02, and
+worth roughly a quarter of the direction. The majority remains unnamed.**
 
 **AND A SECOND INSTRUMENT THAT NEVER TOUCHES THE MOVEMENT RULE FINDS THE SAME
 DIRECTION.** A classifier reading base from aligned out of word probabilities
@@ -905,6 +909,91 @@ cluster whose members correlate +0.34 to +0.83. A real Latinate marker would be
 inside it, so the "orthographic form" result was mostly word length, and testing
 Latinateness needs an etymological resource rather than a suffix regex.
 
+## 7b. The provisional name, and exactly how much it covers: INTERIORITY
+
+The direction now has a provisional name, arrived at by three routes that were
+run in order and are kept in that order, because each fences the next.
+
+**FIRST, THE NAME A READER WOULD GIVE IS REAL AND NOT A RORSCHACH.** 300 words
+drawn at random from the shared vocabulary -- not from the poles -- were rated
+blind on the poles' characterisation (unplanned/bodily/vernacular against
+deliberative/procedural), rater seeing no scores, ranks or purpose
+(`nameability_en.json`). The rating predicts words it was never derived from:
+
+    vs axis/GloVe   rho +0.364      vs arm AUC   +0.311      vs delta   +0.261
+
+**SECOND, THAT NAME IS 77% CONCRETENESS** (rho -0.769 against the coder scale on
+the same words), and partialling concreteness out leaves +0.09 to +0.16. So the
+surface nameability is mostly the one component human intuition is built to see,
+and it was already in section 7's ledger at about a quarter of the prediction.
+
+**THIRD, THE TAXONOMIES SHARPEN IT PAST CONCRETENESS** (`k_field_poles`, 112
+fields, size-matched nulls, all four instruments one orientation, BH over 448
+tests; 109 survive q<0.05 against ~22 expected):
+
+    FALL / BASE                          RISE / ALIGNED
+    wordnet:contact      z +8.77 n=307   wordnet:communication  -5.02 n=273
+    matter/objects       +4.69           inquiry/education      -4.90
+    consumption          +3.73           cognition (x2 sources) -4.40 / -4.37
+    motion               +2.83           perception             -3.58
+    body/health          +2.70           evaluation/modality    -3.44
+
+**The wedge is `perception` rising**: perception verbs are concrete -- done with
+the body -- and they rise with cognition. A pure concrete->abstract axis cannot
+produce that row. The rise pole is the class of MENTAL PREDICATES (cognition,
+perception, evaluation, communication), for which INTERIORITY is the working
+name.
+
+WHY NO FINER ADJUDICATION IS POSSIBLE, AND WHY THAT IS A FINDING RATHER THAN A
+GAP. Interiority and abstraction are colinear by the construction of the
+concreteness norm (mental events score low BY INSTRUCTION) and by the history of
+the language (English packed mental, evaluative and institutional vocabulary
+into one Latinate stratum). Residualising one on the other chases the thin
+subpopulation where the lexicon lets them apart. What CAN be done is to ask
+which name covers the measured exceptions, and each simple name fails on one
+subpopulation that rises anyway:
+
+    concreteness    fails on perception verbs (concrete, mental -- they rise)
+    interiority     fails on the designed-prompt pole (provide, inform,
+                    escalate: abstract, institutional, fully exterior)
+    latinateness    fails on the literary-prompt pole (felt, seemed, wished,
+                    dreamt: Germanic, and maximally interior)
+
+The description surviving elimination is **ENACTED -> REPRESENTED**: what falls
+is immediate bodily doing, what rises is action that passes through
+representation -- a mind, a speech act, or an institution. That is M01's
+deliberation-replaces-action (six lexicons, 684 pairs) reached by elimination.
+And the Chinese replication (-0.578, section 5b) does specific work here: an
+etymological-seam reading predicts NO replication in a language with an
+unrelated lexical history; the functional reading predicts exactly what is
+observed -- the same function deposited in a different vocabulary.
+
+CONVERGENT, FROM GENERATED PROSE RATHER THAN LOGITS: M02's field analysis of
+54,080 continuations over 26 pairs reads, in its own words, "off the concrete
+particulars of narrative and onto interiority" -- 39 of 79 fields surviving,
+DOWN personal names, places, objects, bodies, time; UP cognition, emotion,
+communication, evaluation, and again perception
+(`M02/field_signature_not_contradiction_specific.md`). Two grains, one
+signature.
+
+AND TWO FENCES FROM M02 THAT KEEP THE NAME FROM OVERREACHING. The field shift is
+NOT contradiction-specific (0 of 79 with a form-matched control), while the
+second-order ascent at contradiction is real (3.37x, controls 1.00) -- so the
+interiority shift is ambient REGISTER, not a triggered response to content. And
+the two do not covary across the 26 pairs (Spearman +0.080, p 0.695, MDE 0.391,
+disjoint passages; `M02/results/ambient_vs_ascent.json`): **the vocabulary shift
+and the metarepresentational operation are separately installed.** The name
+covers the register, not the operation.
+
+WHAT THE NAME DOES NOT COVER IS STILL THE MAJORITY. The blind rating's
+predictive content is a quarter-share; the delta residual after every named
+component still outpredicts the names; and the within-word 87% is untouched by
+any of this, interiority included -- interiority is a property of words, and
+most of what alignment does to a word is not about the word. The claim below is
+AMENDED by this section, not replaced: the direction has a nameable face, the
+face is interiority (enacted -> represented), it is worth roughly a quarter, and
+the body remains unnamed.
+
 ## 8. External validation of the register construct
 
 Brooke, Wang & Hirst (2010), hand-curated material only; their induced lexicon is
@@ -1025,7 +1114,13 @@ tried for the direction takes a minority share of it, and the unnamed residual
 outpredicts all of them.
 
 That is not a failure of the experiment. It is the result: **the dimension
-alignment sorts on is not in the descriptive vocabulary we have for words.**
+alignment sorts on is mostly not in the descriptive vocabulary we have for
+words.** Section 7b amends this claim by a quarter: the direction's nameable
+face is INTERIORITY -- enacted bodily process falls, represented (mental,
+perceptual, communicative, evaluative) process rises -- named blind, fenced by
+its collinearity with concreteness, and covering roughly a quarter of the
+prediction. The remaining three quarters, and 87% of the within-word variance,
+answer to no name that has been tried.
 
 ## The distinction this rests on, and its one named precedent
 
