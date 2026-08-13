@@ -137,6 +137,40 @@ net_fall) inherit the same problem: they are computed against a level whose bulk
 is off-policy shift. **The contrast at matched probability is the claim; those
 correlations are not.**
 
+### What "costs more" means, and what it does NOT mean
+
+Surprisal is `-log p(word | the words before it)`, in nats, so the cross-scorer
+level is **two models' opinions about ONE FIXED token sequence**. +0.35 nats
+means the aligned model finds that word about 1.4x less probable, in that exact
+context, than the base model finds it. Nothing about the text changes; only the
+reader does.
+
+**THIS IS NOT DAMAGE TO THE SYNTAGM, AND THE DESIGN COULD NOT SHOW DAMAGE IF
+THERE WERE ANY.** The chain is held constant by construction — the same tokens
+are scored twice — so a claim about the passage cohering less has no purchase
+here. Two measurements in this series say the chain is in fact intact:
+
+- **Decomposition level is +0.0249.** When each model generates AND scores its
+  own passage, a word costs about the same to whichever model wrote it.
+  Aligned passages are not less coherent to their own author.
+- **Propagation slope ~+0.008 nats-per-bit.** An imposed improbable word damages
+  the continuation in direction but ~1.3% in magnitude; the chain absorbs it
+  within a few tokens.
+
+What the contrast registers is **DISAGREEMENT, NOT INJURY**: at every position
+where a displaced word appears, the aligned model's distribution says *this is
+not the word I would have reached for*. A standing paradigmatic disposition,
+legible wherever the word occurs, which does not become damage along the chain.
+
+That agrees with `A_post_utterance_shock.md`'s own channel-3 result from the
+other side — the charge on the demoted signifier is LOCAL, "paid at the word,
+bleeding one token past it, then nothing." Alignment operates on selection and
+leaves combination alone.
+
+**Limit:** because level is measured only where the word was emitted, and always
+on a fixed text, this instrument cannot address chain damage at all. The
+propagation study is the instrument for that question.
+
 ## Result 4: demoted, not merely improbable — the M04.A confound, separated
 
 `A_post_utterance_shock.md` names this exactly:
