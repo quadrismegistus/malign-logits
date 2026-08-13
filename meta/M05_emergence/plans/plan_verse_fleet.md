@@ -156,6 +156,19 @@ it.
 - Provisioning budgeted in wall-clock and babysitting, not dollars
   (the L2 fleet's 6-of-14 casualty rate is the standing tax).
 
+## MANIFEST FROZEN (2026-08-13, post-[5740])
+
+All gates passed: Design B unanimous ([5736]/[5737]), rime-key v2
+phonemic with the key-resolution check run per era ([5740]: pre-1900
+0.917 / 1900+ 0.850, flag-not-filter column carried), apostrophe
+last-word artifact fixed producer-side, 7B closure check PASSED
+(OLMo-2-7B: close|class 0.945-0.973 at called slots vs 0.001-0.023
+mid-line; called-slot class pull 0.22-0.98 with capacity-vs-recall
+separation visible). Roster v2 (180 poems, seed 20260813), nine slots
+per poem, LITERARY + battery prose baselines, expand() + closure rider
+per slot, residual dict stored per cell. Changes past this line are
+docket matters.
+
 ## Costing: SETTLED ([5737])
 
 A-at-922 $13.07 / B-at-922 $13.28 / A-at-1,822 $18.10 / B-at-1,822
