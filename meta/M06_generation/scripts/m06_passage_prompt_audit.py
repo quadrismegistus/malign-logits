@@ -91,8 +91,8 @@ def main():
         for p, cands in collide.items():
             rows = q("SELECT model, any(plen) AS plen FROM "
                      "malign_logits.gen_sequences WHERE corpus='passage' "
-                     "AND forced_word='' AND prompt='%s' GROUP BY model "
-                     "LIMIT 25" % p.replace("'", "\\'"))
+                     "AND forced_word='' AND prompt='%s' GROUP BY model"
+                     % p.replace("'", "\\'"))
             votes = collections.Counter()
             for r in rows:
                 m = r["model"]
