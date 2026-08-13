@@ -140,7 +140,15 @@ def iter_rows():
                 yield row
 
 
-def iter_passages(arms="undisturbed", per_cell=None):
+def _shard_keep(pair, shard):
+    if not shard:
+        return True
+    i, n = (int(x) for x in shard.split("/"))
+    import hashlib
+    return int(hashlib.sha256(pair.encode()).hexdigest(), 16) % n == i
+
+
+def iter_passages(arms="undisturbed", per_cell=None, shard=None):
     """Yield dicts: pair, role, model, prompt_id, word(arm), seq_idx, text.
 
     arms='undisturbed' -> word is None only (plan A Amendment 2 primary).
@@ -149,6 +157,8 @@ def iter_passages(arms="undisturbed", per_cell=None):
     seen_rows = set()
     for row in iter_rows():
         if arms == "undisturbed" and row.get("word") is not None:
+            continue
+        if not _shard_keep(row["pair"], shard):
             continue
         rk = (row["pair"], row["role"], row["prompt_id"], row.get("word"))
         if rk in seen_rows:
@@ -272,10 +282,12 @@ def measure_passage(text):
 
 # ── modes ────────────────────────────────────────────────────────
 
-def run_measures(mode, arms, per_cell, limit=None):
+def run_measures(mode, arms, per_cell, limit=None, shard=None):
     import pandas as pd
     rows = []
-    for i, p in enumerate(iter_passages(arms=arms, per_cell=per_cell)):
+    if shard:
+        mode = f"{mode}_shard{shard.replace('/', 'of')}"
+    for i, p in enumerate(iter_passages(arms=arms, per_cell=per_cell, shard=shard)):
         if limit and i >= limit:
             break
         m = measure_passage(p["text"])
@@ -336,12 +348,13 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("mode", choices=["gate", "pilot", "run", "smoke"])
     ap.add_argument("--arms", default="undisturbed", choices=["undisturbed", "all"])
+    ap.add_argument("--shard", default=None, help="i/N: process pairs with sha256(pair) %% N == i")
     args = ap.parse_args()
     if args.mode == "gate":
         gate()
     elif args.mode == "pilot":
         run_measures("pilot", args.arms, per_cell=1)
     elif args.mode == "run":
-        run_measures("run", args.arms, per_cell=None)
+        run_measures("run", args.arms, per_cell=None, shard=args.shard)
     elif args.mode == "smoke":
         run_measures("smoke", "undisturbed", per_cell=1, limit=3)
