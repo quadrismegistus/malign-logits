@@ -402,6 +402,7 @@ def build_manifest():
                "roster": os.path.basename(ROSTER), "seed": 20260813,
                "rime_key": "v2.1 phonemic (final stressed syll from first vowel; glide-strip; schwa normalized)",
                "slots_per_poem": 9,
+               "resolve_rate_denominator": "quote key_resolves_own_rhyme rates over RHYMED cells only — the 540 unrhymed cells are False by construction ([5749] §2)",
                "amendments": "[5749]: context_collides_with (13 poems, duplicate prefixes flagged) + context_len (4-char primer tail fence)",
                "battery_rule": "100 of 584 unique, stratified by block proportional, seed 20260813",
                "counts": n, "n_cells": len(cells)},
