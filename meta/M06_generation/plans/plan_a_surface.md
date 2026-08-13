@@ -205,4 +205,10 @@ session: "Looks good except for these bullets-as-sentences").
 
 No register/formality construct (that is plan B territory and the naming
 rule guards it); no verbosity direction (see above); no zh (separate gate,
-phase two); nothing about WHY — mechanism talk waits for C and D.
+phase two); nothing about WHY — mechanism talk waits for C and D. And NO
+sentence reading A.H2's lexical diversity against distributional
+concentration (lacan's row-Gini over next-token candidates, [5670]):
+TTR-over-generated-text and the shape of the candidate distribution are
+different objects — a model can be flat over candidates and repetitive
+in output, or the reverse — and neither tension nor corroboration may be
+claimed between them without a declared bridge.
