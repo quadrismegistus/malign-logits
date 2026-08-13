@@ -206,11 +206,9 @@ def main():
                            "%s: %s" % (type(e).__name__, str(e)[:60]), 0, 0.0))
             print("[%d/%d] %-58s TOKENIZER-UNAVAILABLE" % (pi, len(pairs), pair[:58]))
             continue
-        if not tk.is_fast:
-            report.append((pair, "TOKENIZER-SLOW", "no offset mapping", 0, 0.0))
-            print("[%d/%d] %-52s TOKENIZER-SLOW" % (pi, len(pairs), pair[:52]))
-            continue
-
+        #: NO is_fast GATE. It tested for offset mapping, which this producer
+        #: stopped using when token_surfaces replaced re-tokenization; it went
+        #: on rejecting 4 of 42 pairs for a capability nothing here needs.
         seqs, seen = {}, collections.Counter()
         for r in ch_rows(
                 "SELECT model, prompt, sample_idx, role, token_ids, text "
