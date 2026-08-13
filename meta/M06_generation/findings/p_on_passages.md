@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [arm-signature, lexical, replication, amplification, forced-arms]
-description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch RUN and DEAD: M02's marker sets flat on faller vs matched in both arms (DiD p 0.94) -- second-order predication is contradiction-triggered, not transgression-triggered. I6: the signature is TONIC -- MARKED sites drag both arms base-poleward equally (p 1e-18 each), DiD null (p 0.90); site-specificity lives at the distribution grain, not on the page."
+description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch RUN and DEAD: M02's marker sets flat on faller vs matched in both arms (DiD p 0.94) -- second-order predication is contradiction-triggered, not transgression-triggered. I6: the signature is TONIC -- MARKED sites drag both arms base-poleward equally (p 1e-18 each), DiD null (p 0.90); site-specificity lives at the distribution grain, not on the page. I7: one thin crack -- the site x forced-word triple difference is nominally non-null (p 0.015, saturation direction, components null); flagged for second-seat reconstruction before quoting."
 ---
 # P on passages: the signature survives the trip, and the drag is priming
 
@@ -118,6 +118,37 @@ disposition, and every site-conditional operation so far observed
 sampled text. Domain decomposition exploratory: animal/taboo/violence
 carry the priming, betrayal is null in both arms, and no domain's DiD
 reaches 0.05 (min p 0.09 of six, uncorrected).
+
+## I7: site x forced word -- the first crack in the tonic picture, thin
+
+Plan amendment 796a1ca9 (declared before the producer; the tonic
+prediction for I7b written down first). Cells from the second-seated I5
+parquet; site labels via text join (5,498 of 7,262 forced (pair, prompt)
+cells sit on a twin side); DRAG = faller - matched, per (pair, role,
+pair_id, side); drags persisted (`p_on_passages_i7_drag.parquet`).
+
+    I7a  aligned DRAG(MARKED) - DRAG(UNMARKED)  -0.00070   998/1040  p=0.36
+         base                                   +0.00060  1029/954   p=0.10
+    I7b  triple difference (aligned - base)     -0.00131   934/1043  p=0.015
+
+Both component interactions are individually null; the triple difference
+reaches nominal significance from opposite-sign trends. Direction:
+RELATIVE SATURATION -- in the aligned arm the forced faller adds LESS
+drag at transgressive sites than at neutral ones, relative to base,
+which trends the other way. If real, it is the first site-conditional
+page-grain effect in the series: the site's own priming (I6) occupies
+in the aligned arm some of the room the faller would have used. Stated
+at its actual weight: p=0.015 uncorrected across the three declared
+contrasts (Bonferroni 0.045, marginal), single pass, one corpus, and
+the tonic reading it dents was this seat's own declared prediction --
+which is exactly the direction of result this seat checks least, so it
+is flagged for second-seat reconstruction from the drag parquet before
+anyone quotes it. NOT a refutation of I6: the MAIN site effect remains
+arm-symmetric; the candidate asymmetry lives only in the interaction.
+
+Echo by site (exploratory): flat -- the [5757] echo asymmetry is
+unmodulated by site type in either arm (aligned faller 0.250 MARKED vs
+0.259 UNMARKED; base 0.209 vs 0.225).
 
 ## Fences
 

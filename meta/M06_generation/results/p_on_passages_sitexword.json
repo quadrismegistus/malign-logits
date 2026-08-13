@@ -1,0 +1,94 @@
+{
+ "plan": "plans/plan_p_on_passages.md#I7",
+ "n_drag_cells": 9453,
+ "I7a_aligned": {
+  "median": -0.0003372435361292344,
+  "mean": -0.0006998133987747901,
+  "n": 2038,
+  "up": 998,
+  "dn": 1040,
+  "p_sign": 0.3637757161349459
+ },
+ "I7a_base": {
+  "median": 0.0005941174021432474,
+  "mean": 0.0006049110335305921,
+  "n": 1983,
+  "up": 1029,
+  "dn": 954,
+  "p_sign": 0.09653464706646976
+ },
+ "I7b_triple": {
+  "median": -0.0010057063713559047,
+  "mean": -0.0013058053775853791,
+  "n": 1977,
+  "up": 934,
+  "dn": 1043,
+  "p_sign": 0.015121229431811023
+ },
+ "echo_by_site": {
+  "aligned:faller:MARKED": {
+   "mean": 0.25017539673801115,
+   "n": 2731
+  },
+  "aligned:faller:UNMARKED": {
+   "mean": 0.2587527080090009,
+   "n": 2622
+  },
+  "aligned:matched:MARKED": {
+   "mean": 0.214488501931448,
+   "n": 2410
+  },
+  "aligned:matched:UNMARKED": {
+   "mean": 0.21920068146988,
+   "n": 2383
+  },
+  "aligned:riser:MARKED": {
+   "mean": 0.3118817250017927,
+   "n": 2661
+  },
+  "aligned:riser:UNMARKED": {
+   "mean": 0.3276144848845436,
+   "n": 2555
+  },
+  "aligned:riser_matched:MARKED": {
+   "mean": 0.21320731942249302,
+   "n": 2333
+  },
+  "aligned:riser_matched:UNMARKED": {
+   "mean": 0.19611642385993036,
+   "n": 2310
+  },
+  "base:faller:MARKED": {
+   "mean": 0.20934294160055153,
+   "n": 2661
+  },
+  "base:faller:UNMARKED": {
+   "mean": 0.22490333504641624,
+   "n": 2551
+  },
+  "base:matched:MARKED": {
+   "mean": 0.13464740351452448,
+   "n": 2348
+  },
+  "base:matched:UNMARKED": {
+   "mean": 0.13936726160808233,
+   "n": 2315
+  },
+  "base:riser:MARKED": {
+   "mean": 0.18753016610159465,
+   "n": 2590
+  },
+  "base:riser:UNMARKED": {
+   "mean": 0.19111394315127755,
+   "n": 2491
+  },
+  "base:riser_matched:MARKED": {
+   "mean": 0.11156849539105475,
+   "n": 2274
+  },
+  "base:riser_matched:UNMARKED": {
+   "mean": 0.10741863876863876,
+   "n": 2250
+  }
+ }
+}
