@@ -110,14 +110,14 @@ the mean logprob of everything after it is **+0.365**, and between the early
 window (positions 2-8) and the late one (9 onward) it is **+0.466**. A
 passage that opens improbably stays improbable.
 
-Undisturbed generation samples its first token at temperature 1.0 from the
-whole distribution, so that token averages -4.70 -- near the negative
-entropy -- and lands in the tail often. Forced arms are conditioned on a
-SELECTED high-mass candidate averaging -2.2. So the undisturbed arm is
-systematically conditioned on an atypical opening and the forced arms on a
-typical one, and the rest of the passage inherits it. **This is a fact about
-the sampling regime, not about alignment**, which is why every contrast
-against `undisturbed` is fenced below and none is read.
+**SUPERSEDED ([5811]) as an EXPLANATION, though the correlations above are
+real measurements about undisturbed passages.** I attributed the level gap
+to the arms' opening typicality (-2.2 forced against -4.70 undisturbed).
+The actual asymmetry is larger and simpler: **the forced arms are scored on
+a continuation that follows an extra, unmeasured word**, so they have one
+more word of conditioning context than the undisturbed arm at the same
+nominal position. More context, more predictable continuation. Every
+contrast against `undisturbed` is withdrawn rather than fenced.
 
 ## Relation to M04's ladder -- overlapping, NOT independent ([5798])
 
@@ -128,10 +128,14 @@ same measurement, and the evidence is not independent either.
     S4 aligned           -0.0077  13/27  p 0.0385   on A|A
 
 Identical sign counts, adjacent p, same direction -- but the producers
-differ in window and term. M04's `k8` is `arraySlice(logprobs, 1, 8)`: the
-FIRST EIGHT TOKENS INCLUDING THE FORCED WORD, differenced against B|A.
-Mine is `arraySlice(logprobs, 2)`: position 2 to the end, ~222 tokens, the
-forced word excluded, on A|A alone. The relation is asymmetric: M04's
+differ in window and term. M04's `k8` is `arraySlice(logprobs, 1, 8)`, the
+first eight tokens; mine is `arraySlice(logprobs, 2)`, position 2 to the end.
+**CORRECTED ([5811]): neither window contains the forced word** -- it is
+absent from the scored text entirely, so both are windows onto the
+continuation AFTER it. My earlier description of M04's window as "including
+the forced word", and the credit I gave it for a position-1-cancels-in-D
+property, are both void: there is no forced-word position in the array to
+include or to cancel. The relation is asymmetric: M04's
 window sits almost entirely INSIDE mine (positions 2-8) but is about 3% of
 my measure's tokens, while their D subtracts a term mine does not have.
 (Position 1 CANCELS in their D, since both arms force the same word -- a
