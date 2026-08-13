@@ -1,0 +1,20 @@
+{
+ "stage": "smoke",
+ "n_passages_hard": 23773,
+ "n_models": 8,
+ "n_words": 7874,
+ "shared_with_logit": 2764,
+ "spearman_gen_logit_canonical": 0.3921825041210312,
+ "gen_auc": {
+  "provide": 1.0,
+  "inform": 0.5625,
+  "consider": 1.0,
+  "carefully": 1.0,
+  "kill": 0.0,
+  "went": 0.0,
+  "told": 0.0,
+  "back": 0.3125,
+  "get": 0.0,
+  "say": 0.0
+ }
+}

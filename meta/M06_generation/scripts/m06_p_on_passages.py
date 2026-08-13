@@ -66,25 +66,33 @@ def main():
     print("undisturbed passages fetched: %s over %d pairs, %d models"
           % (format(len(df), ","), df.pair.nunique(), df.model.nunique()))
 
+    #: the parquet carries the raw screen QUANTITIES; the verdicts are computed
+    #: here from the DECLARED thresholds (plan A Amendments 5): degenerate =
+    #: top_word_share >= 0.20 OR non_ascii_alpha_share >= 0.20; English =
+    #: english_nltkwords_share >= 0.60. `is_prose` lives in the measure shards,
+    #: not in this parquet -- the smoke stratum is therefore non-degenerate AND
+    #: English, with the prose screen DEFERRED to the full run (joined from the
+    #: shards there); the plan's "hardened" means all three and the smoke says
+    #: so out loud rather than quietly narrowing the word.
     flags = pd.read_parquet(FLAGS)
-    fcols = [c for c in ("is_prose", "degenerate", "english") if c in flags.columns]
-    print("flags: %s rows | using columns %s" % (format(len(flags), ","), fcols))
-    #: the flags parquet still carries SmolLM2's double-keyed rows; we excluded
-    #: that pair above, so the join must NOT explode -- assert it, per house rule
-    flags = flags[["pair", "role", "prompt_id", "seq_idx"] + fcols].rename(
-        columns={"seq_idx": "sample_idx"})
+    print("flags: %s rows (raw screen quantities)" % format(len(flags), ","))
+    flags = flags.rename(columns={"seq_idx": "sample_idx"})
     flags = flags[~flags.pair.str.contains(EXCLUDE_PAIR_SUBSTR)]
+    flags["degenerate"] = ((flags.top_word_share >= 0.20)
+                           | (flags.non_ascii_alpha_share >= 0.20))
+    flags["english"] = flags.english_nltkwords_share >= 0.60
+    flags = flags[["pair", "role", "prompt_id", "sample_idx",
+                   "degenerate", "english"]]
     before = len(df)
     df = df.merge(flags, on=["pair", "role", "prompt_id", "sample_idx"], how="left")
     assert len(df) == before, "merge exploded duplicate keys"
-    matched = df[fcols[0]].notna().mean() if fcols else 0.0
+    matched = df.degenerate.notna().mean()
     print("flag join: %d rows, %.1f%% matched (explosion assert passed)"
           % (len(df), 100 * matched))
 
-    hard = df[(df.get("is_prose") == True)          # noqa: E712
-              & (df.get("degenerate") == False)     # noqa: E712
-              & (df.get("english") == True)]        # noqa: E712
-    print("hardened stratum: %s of %s passages (%.1f%%)"
+    hard = df[(df.degenerate == False) & (df.english == True)]   # noqa: E712
+    print("stratum (non-degenerate AND English; prose screen deferred to full "
+          "run): %s of %s passages (%.1f%%)"
           % (format(len(hard), ","), format(len(df), ","),
              100 * len(hard) / max(len(df), 1)))
 
