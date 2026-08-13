@@ -1,0 +1,1463 @@
+{
+ "_meta": {
+  "built": "2026-08-13",
+  "rule": "uniform random within (scheme x era) cell, seed 20260813, cell lists sorted before sampling; usable = template-exact window + valid distinct target/nonpartner rime keys; era = chadwyck_corpus_metadata year < 1900 (RH's pointer, 100% roster coverage)",
+  "cells": "30 per (ABAB,AABB,unrhymed) x (pre-1900,1900+) = 180 poems",
+  "availability": {
+   "AABB": {
+    "pre-1900": 1362,
+    "1900+": 68
+   },
+   "ABAB": {
+    "pre-1900": 1560,
+    "1900+": 121
+   },
+   "unrhymed": {
+    "pre-1900": 727,
+    "1900+": 1399
+   }
+  }
+ },
+ "poems": [
+  {
+   "id_human": "american/am0590/Z200166628",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1833,
+   "author": "Calvert, George Henry, 1803-1889",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0751/Z200172155",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1833,
+   "author": "Whitman, Sarah Helen, 1803-1878",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0912/Z300176257",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1858,
+   "author": "Timrod, Henry, 1828-1867",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "english-ed2/clarejoh/Z300313273",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1823,
+   "author": "Clare, John, 1793-1864",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/clarejoh/Z300313518",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1823,
+   "author": "Clare, John, 1793-1864",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/clarejoh/Z400314344",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1823,
+   "author": "Clare, John, 1793-1864",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2316/Z200654623",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1857,
+   "author": "Collins, Mortimer, 1827-1876",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/anderso2/Z300260634",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1800,
+   "author": "Anderson, R. (Robert), 1770-1833",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/arminrob/Z300263108",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1640,
+   "author": "Armin, Robert, fl. 1610",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/barlowge/Z400270097",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1877,
+   "author": "Barlow, George, 1847-1914",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/barneswi/Z200272441",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1831,
+   "author": "Barnes, William, 1801-1886",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/bowleswi/Z300285643",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1792,
+   "author": "Bowles, William Lisle, 1762-1850",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/byromjoh/Z300293808",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1722,
+   "author": "Byrom, John, 1692-1763",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/colerhar/Z400316622",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1826,
+   "author": "Coleridge, Hartley, 1796-1849",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/dowdened/Z200341418",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1873,
+   "author": "Dowden, Edward, 1843-1913",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/downmanh/Z300341542",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1770,
+   "author": "Downman, Hugh, 1740-1809",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/hayleywi/Z300389078",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1775,
+   "author": "Hayley, William, 1745-1820",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/keatsjoh/Z200408062",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1825,
+   "author": "Keats, John, 1795-1821",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/moirdavi/Z500442602",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1828,
+   "author": "Moir, D. M. (David Macbeth), 1798-1851",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/oldiswor/Z300452208",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1710,
+   "author": "Oldisworth, William, 1680-1734 (trans.) / Horace, 65-8 BC (orig.)",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/smithjoh/Z200489465",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1743,
+   "author": "Smith, John, fl. 1713",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/stevens4/Z300497867",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1880,
+   "author": "Stevenson, Robert Louis, 1850-1894",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/storyrob/Z200498570",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1825,
+   "author": "Story, Robert, 1795-1860",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wattsala/Z200522102",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1827,
+   "author": "Watts, Alaric Alexander, 1797-1864",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400526472",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400526675",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400531810",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400532249",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z500531039",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z500531107",
+   "scheme": "ABAB",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "american/am0092/Z200146077",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1916,
+   "author": "Seeger, Alan, 1886-1916",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-african-american/da20018/Z200326739",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1920,
+   "author": "McKay, Claude, 1890-1948.",
+   "subcorpus": "African-American Poetry"
+  },
+  {
+   "id_human": "c20-african-american/da20026/Z300327014",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1908,
+   "author": "Braithwaite, William Stanley, 1878-1962",
+   "subcorpus": "African-American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20053/Z300213181",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1931,
+   "author": "Bowers, Mildred, 1901-1984",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20063/Z300213797",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1952,
+   "author": "Horan, Robert, 1922-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20067/Z300213997",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1926,
+   "author": "Lyman, Dean B., Jr., 1896-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22124/Z300297991",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1924,
+   "author": "Cummings, E. E. (Edward Estlin), 1894-1962.",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22170/Z400246157",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1942,
+   "author": "Sarton, May, 1912-1995",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am23101/Z400257776",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1922,
+   "author": "Millay, Edna St. Vincent, 1892-1950",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am23101/Z400257848",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1922,
+   "author": "Millay, Edna St. Vincent, 1892-1950",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z200296523",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z200296538",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z200296550",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z200296570",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z300296627",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep11001/Z200300984",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1936,
+   "author": "Empson, William, 1906-1984",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep12001/Z300301461",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1950,
+   "author": "Enright, D. J. (Dennis Joseph), 1920-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep17001/Z300302707",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1925,
+   "author": "Graves, Robert, 1895-1985",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20136/Z200598640",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1967,
+   "author": "Harrison, Tony, 1937-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30092/Z300604659",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1993,
+   "author": "Kinsella, John, 1963-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/maxwell/Z200610351",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1992,
+   "author": "Maxwell, Glyn, 1962-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "faber/fa20402/Z200564730",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1916,
+   "author": "Sassoon, Siegfried, 1886-1967",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "faber/fa20402/Z300564338",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1916,
+   "author": "Sassoon, Siegfried, 1886-1967",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "modern/car1702/Z200296530",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car1702/Z200296555",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car1702/Z300296624",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "modern/car1702/Z300296641",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "modern/car3801/Z300553603",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1942,
+   "author": "Ridler, Anne, 1912-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car4101/Z300554078",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 2003,
+   "author": "Schwartzman, Adam, 1973-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car5101/Z300555854",
+   "scheme": "ABAB",
+   "era": "1900+",
+   "year": 1970,
+   "author": "Waterman, Andrew, 1940-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "american/am0214/Z400150953",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1874,
+   "author": "Gilder, Richard Watson, 1844-1909",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0313/Z400155176",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1872,
+   "author": "Bierce, Ambrose, 1842-1914?",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0338/Z200157225",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1880,
+   "author": "Wilcox, Ella Wheeler, 1850-1919",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2181/Z200649811",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1747,
+   "author": "Carter, Elizabeth, 1717-1806",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2495/Z200666408",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1878,
+   "author": "Lawson, Louisa, 1848-1920",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/sigerso2/Z200577415",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1869,
+   "author": "Sigerson, George, 1839-1925",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/arwakere/Z200264162",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1760,
+   "author": "Arwaker, Edmund, d. 1730",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/billings/Z400279712",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1663,
+   "author": "Billingsley, Nicholas, 1633-1709",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/careyhen/Z200309172",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1717,
+   "author": "Carey, Henry, 1687?-1743",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/clarejoh/Z300313142",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1823,
+   "author": "Clare, John, 1793-1864",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/cokaynes/Z400316190",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1638,
+   "author": "Cokain, Aston, Sir, 1608-1684",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/cowperwi/Z200323299",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1761,
+   "author": "Cowper, William, 1731-1800",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/crabbege/Z400323760",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1784,
+   "author": "Crabbe, George, 1754-1832",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/embunyan/Z200349986",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1658,
+   "author": "Bunyan, John, 1628-1688",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/farleyro/Z200372814",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1663,
+   "author": "Farley, Robert, fl. 1633",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/fullerth/Z200376928",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1638,
+   "author": "Fuller, Thomas, 1608-1661",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/fullerth/Z200377007",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1638,
+   "author": "Fuller, Thomas, 1608-1661",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/goldsmit/Z200379907",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1760,
+   "author": "Goldsmith, Oliver, 1730?-1774",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/jenynsso/Z200404900",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1734,
+   "author": "Jenyns, Soame, 1704-1787",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/jerningh/Z200404974",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1767,
+   "author": "Jerningham, Mr. (Edward), 1737?-1812",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/mastersm/Z200427165",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1724,
+   "author": "Masters, Mary, 1694?-1771",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/miscell2/Z200439243",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1745,
+   "author": "Graves, Richard, 1715-1804",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/philipsa/Z300461440",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1704,
+   "author": "Philips, Ambrose, 1674-1749 (trans.) / Anacreon, b. ca. 570 BC (orig.)",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/roweeliz/Z300479024",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1704,
+   "author": "Rowe, Elizabeth Singer, 1674-1737",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/sblawes/Z300491919",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1630,
+   "author": "Lawes, Henry, 1600-1662",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/speedsam/Z200495876",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1661,
+   "author": "Speed, Samuel, 1631-1682",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/thurlowe/Z200510579",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1811,
+   "author": "Thurlow, Edward Hovell-Thurlow, Baron, 1781-1829",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wardedwa/Z200517449",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1697,
+   "author": "Ward, Edward, 1667-1731",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wardedwa/Z300518004",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1697,
+   "author": "Ward, Edward, 1667-1731",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wilmotjo/Z200538399",
+   "scheme": "AABB",
+   "era": "pre-1900",
+   "year": 1677,
+   "author": "Rochester, John Wilmot, Earl of, 1647-1680",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "african-american/dunbarpa/Z200343481",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1902,
+   "author": "Dunbar, Paul Laurence, 1872-1906",
+   "subcorpus": "African-American Poetry"
+  },
+  {
+   "id_human": "american/am0255/Z300153227",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1904,
+   "author": "Stickney, Trumbull, 1874-1904",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0255/Z300153228",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1904,
+   "author": "Stickney, Trumbull, 1874-1904",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0977/Z500178533",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1909,
+   "author": "Lindsay, Vachel, 1879-1931",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am1046/Z200183186",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1908,
+   "author": "Crapsey, Adelaide, 1878-1914",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-african-american/da20044/Z300304316",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1916,
+   "author": "Johnson, Georgia Douglas Camp, 1886-1966",
+   "subcorpus": "African-American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20088/Z400215902",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1986,
+   "author": "Wohlfeld, Valerie, 1956-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22125/Z300243448",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1941,
+   "author": "Cunningham, J. V. (James Vincent), 1911-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am23028/Z300252662",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1925,
+   "author": "Ginsberg, Louis, 1895-1976",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am30009/Z300354290",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1924,
+   "author": "Taggard, Genevieve, 1894\u20131948",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am30024/Z300356701",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1971,
+   "author": "Clark, Tom, 1941-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-english/car1702/Z300296521",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "c20-english/ep02001/Z300300534",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1915,
+   "author": "Young, Andrew, 1885-1971.",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep03001/Z300300824",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1936,
+   "author": "Betjeman, John, Sir, 1906-1984",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20004/Z300593359",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1983,
+   "author": "Woods, Gregory, 1953-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20004/Z300593363",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1983,
+   "author": "Woods, Gregory, 1953-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20143/Z300599773",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1932,
+   "author": "Smith, Stevie, 1902-1971",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20143/Z300600070",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1932,
+   "author": "Smith, Stevie, 1902-1971",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20143/Z300600097",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1932,
+   "author": "Smith, Stevie, 1902-1971",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30026/Z200601843",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1982,
+   "author": "Clifton, Harry, 1952-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30061/Z300602604",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1991,
+   "author": "Herbert, W. N., 1961-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30061/Z400602771",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1991,
+   "author": "Herbert, W. N., 1961-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30107/Z300604964",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1962,
+   "author": "Mitchell, Adrian, 1932-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/maxwell/Z300610278",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1992,
+   "author": "Maxwell, Glyn, 1962-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2220/Z300651637",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1900,
+   "author": "Moore, T. Sturge (Thomas Sturge), 1870-1944",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2539/Z200669586",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1901,
+   "author": "Brereton, John Le Gay, 1871-1933.",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2557/Z200671052",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1946,
+   "author": "Gouldsbury, Cullen, d. 1916.",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "modern/car1702/Z200296541",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 2001,
+   "author": "Hannah, Sophie, 1971-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car3204/Z300552824",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1968,
+   "author": "Murray, Les A., 1938-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car4503/Z200555490",
+   "scheme": "AABB",
+   "era": "1900+",
+   "year": 1944,
+   "author": "Sisson, C. H. (Charles Hubert), 1914-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "american/am0657/Z200169483",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1832,
+   "author": "Pinkney, Edward Coote, 1802-1828",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0694/Z200170599",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1849,
+   "author": "Longfellow, Samuel, 1819-1892",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am0747/Z200171888",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1853,
+   "author": "Duganne, A. J. H. (Augustine Joseph Hickey), 1823-1884",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am1013/Z400181793",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1849,
+   "author": "Lowell, James Russell, 1819-1891",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "american/am1302/Z200198263",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1821,
+   "author": "Sigourney, L. H. (Lydia Howard), 1791-1865",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30176/Z300606875",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1891,
+   "author": "Tagore, Rabindranath, 1861-1941 (orig.) / Dyson, Ketaki Kushari, 1940- (trans.)",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2178/Z200647865",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1775,
+   "author": "Dibdin, Charles, 1745-1814",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2504/Z200632773",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1805,
+   "author": "Austen, Jane, 1775-1817",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/ep2564/Z300672587",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1843,
+   "author": "Harpur, Charles, 1813-1868",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english-ed2/watsonsi/Z300681673",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1888,
+   "author": "Watson, William, 1858-1935",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/blackiej/Z300280852",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1839,
+   "author": "Blackie, John Stuart, 1809-1895",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/cavenmar/Z300309956",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1654,
+   "author": "Newcastle, Margaret Cavendish, Duchess of, 1624?-1674",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/colersam/Z300317684",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1802,
+   "author": "Coleridge, Samuel Taylor, 1772-1834",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/danielg1/Z300331539",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1646,
+   "author": "Daniel, George, 1616-1657",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/devereau/Z300336755",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1844,
+   "author": "De Vere, Aubrey, 1814-1902",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/heyrickt/Z300394804",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1724,
+   "author": "Heyrick, Thomas, d. 1694",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/heywoodt/Z200395995",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1671,
+   "author": "Heywood, Thomas, d. 1641",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/joycerob/Z300407024",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1866,
+   "author": "Joyce, Robert Dwyer, 1836-1883",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/landonla/Z300411989",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1832,
+   "author": "L. E. L. (Letitia Elizabeth Landon), 1802-1838",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/loversam/Z300418171",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1827,
+   "author": "Lover, Samuel, 1797-1868",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/popewalt/Z200464170",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1744,
+   "author": "Pope, Walter, d. 1714",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/sblawes/Z300491702",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1630,
+   "author": "Lawes, Henry, 1600-1662",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/stuarthy/Z200500968",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1836,
+   "author": "Stuart-Wortley, Emmeline, Lady, 1806-1855",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wattsisa/Z300523049",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1704,
+   "author": "Watts, Isaac, 1674-1748",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400526717",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400526789",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400531926",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z400532048",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z500529932",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "english/wesleych/Z500529948",
+   "scheme": "unrhymed",
+   "era": "pre-1900",
+   "year": 1733,
+   "author": "Wesley, John, 1703-1791 / Wesley, Charles, 1707-1788",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-american/am20012/Z400328293",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1914,
+   "author": "Teasdale, Sara, 1884-1933.",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20014/Z300203988",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1956,
+   "author": "Creeley, Robert, 1926-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20014/Z400203660",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1956,
+   "author": "Creeley, Robert, 1926-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20077/Z300215024",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1993,
+   "author": "Shepherd, Reginald, 1963-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20091/Z300216027",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1983,
+   "author": "Wojahn, David, 1953-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am20127/Z300226372",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1941,
+   "author": "Patchen, Kenneth, 1911-1972.",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22057/Z300233807",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1954,
+   "author": "Nathan, Leonard, 1924-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22057/Z300233892",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1954,
+   "author": "Nathan, Leonard, 1924-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22097/Z200239334",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1956,
+   "author": "Ammons, A. R., 1926-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am22206/Z400249684",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1942,
+   "author": "Everson, William, 1912-1994",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am23017/Z200251141",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1957,
+   "author": "Eigner, Larry, 1927-1996",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-american/am23086/Z300255979",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1962,
+   "author": "Pastan, Linda, 1932-",
+   "subcorpus": "American Poetry"
+  },
+  {
+   "id_human": "c20-english/abarnett/Z300683487",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1971,
+   "author": "Barnett, Anthony, 1941-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/car3401/Z300135228",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1978,
+   "author": "Powell, Neil, 1948-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20070/Z200591935",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1991,
+   "author": "Kay, Jackie, 1961-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep20160/Z300601424",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1986,
+   "author": "Bhatt, Sujata, 1956-.",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30101/Z300604861",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1980,
+   "author": "McGuckian, Medbh, 1950-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep30127/Z300606148",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1959,
+   "author": "Ramanujan, A. K., 1929-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep33001/Z200299891",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1983,
+   "author": "Petit, Pascale, 1953-",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "c20-english/ep51001/Z300307383",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1903,
+   "author": "Ford, Ford Madox, 1873-1939",
+   "subcorpus": "English Poetry"
+  },
+  {
+   "id_human": "faber/ep20068/Z400596647",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1950,
+   "author": "Douglas, Keith Castellain, 1920-1944 (trans.) / Rimbaud, Arthur, 1854-1891 (orig.)",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "faber/fa1301/Z300561415",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1960,
+   "author": "Hughes, Ted, 1930-1998",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "faber/fa1801/Z200563129",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1993,
+   "author": "Paterson, Don, 1963-",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "faber/fa20502/Z300564910",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1986,
+   "author": "Smart, Harry, 1956-",
+   "subcorpus": "The Faber Poetry Library"
+  },
+  {
+   "id_human": "modern/car1901/Z200548433",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1995,
+   "author": "Johnson, Adam, 1965-1993",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car4101/Z300554178",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 2003,
+   "author": "Schwartzman, Adam, 1973-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car4301/Z200554627",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1954,
+   "author": "Shapiro, Harvey, 1924-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/car5101/Z300555781",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1970,
+   "author": "Waterman, Andrew, 1940-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/ent1701/Z300575099",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1972,
+   "author": "Henry, Michael, 1942-",
+   "subcorpus": "Modern Poetry"
+  },
+  {
+   "id_human": "modern/oxf0901/Z200245162",
+   "scheme": "unrhymed",
+   "era": "1900+",
+   "year": 1996,
+   "author": "Oswald, Alice, 1966-",
+   "subcorpus": "Modern Poetry"
+  }
+ ]
+}
