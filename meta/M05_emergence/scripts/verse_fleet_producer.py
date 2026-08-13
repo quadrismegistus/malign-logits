@@ -330,7 +330,76 @@ def smoke():
           f"words store: {len(wrows)} rows", flush=True)
 
 
+MANIFEST = os.path.join(REPO, "data/verse_fleet_slot_manifest.json")
+
+
+def build_manifest():
+    """The frozen slot manifest — every (prompt, slot) cell the fleet runs,
+    as an artifact malign can execute and audit. Contexts resolved HERE, once;
+    the fleet never re-derives a prefix. Verse: 9 slots x roster poems.
+    Prose: 102 LITERARY (licence baseline) + battery (calibration anchor),
+    one slot each at snippet end."""
+    cells = []
+    poems = load_poems(n=10**9)
+    for p in poems:
+        for sl in poem_slots(p["lines"], p["partner_line"]):
+            cells.append({
+                "cell_type": "verse", "id_human": p["id_human"],
+                "scheme": p["scheme"], "era": p["era"],
+                "slot": sl["slot"], "phase": sl["phase"],
+                "context": sl["context"],
+                "target_word": p["target_word"], "target_key": p["target_key"],
+                "nonpartner_word": p["nonpartner_word"],
+                "nonpartner_key": p["nonpartner_key"],
+                "actual_word": p["actual_word"], "actual_key": p["actual_key"],
+                "key_resolves_own_rhyme": p["key_resolves_own_rhyme"]})
+    cat = json.load(open(os.path.join(REPO, "data/prompt_categorisation.json")))
+    lit = [r for r in cat["prompts"] if r.get("source") == "LITERARY"]
+    for r in lit:
+        cells.append({"cell_type": "prose_literary",
+                      "prompt_id": r["prompt_id"], "slot": "prose",
+                      "phase": "prose", "context": r["prompt"]})
+    b = json.load(open(os.path.join(REPO, "data/m05_battery.json")))
+    # calibration anchor is ~100 prompts BY PLAN, not the full battery (584
+    # unique): stratified by block, proportional, seeded — the anchor only
+    # needs enough overlap with the expand-era store to alarm on drift
+    import random as _random
+    rng = _random.Random(20260813)
+    seen = set()
+    by_block = {}
+    for blk_name, blk in sorted(b["blocks"].items()):
+        for t in blk["texts"]:
+            txt = t if isinstance(t, str) else t.get("text", t.get("prompt"))
+            if txt in seen:
+                continue
+            seen.add(txt)
+            by_block.setdefault(blk_name, []).append(txt)
+    total = sum(len(v) for v in by_block.values())
+    for blk_name, txts in sorted(by_block.items()):
+        k = max(1, round(100 * len(txts) / total))
+        for txt in rng.sample(sorted(txts), min(k, len(txts))):
+            cells.append({"cell_type": "prose_battery", "block": blk_name,
+                          "slot": "battery", "phase": "battery",
+                          "context": txt})
+    n = {"verse": 0, "prose_literary": 0, "prose_battery": 0}
+    for c in cells:
+        n[c["cell_type"]] += 1
+    out = {"_provenance": {
+               "design": "B ([5735]/[5736]/[5737]); plan_verse_fleet.md frozen 2026-08-13",
+               "roster": os.path.basename(ROSTER), "seed": 20260813,
+               "rime_key": "v2.1 phonemic (final stressed syll from first vowel; glide-strip; schwa normalized)",
+               "slots_per_poem": 9,
+               "battery_rule": "100 of 584 unique, stratified by block proportional, seed 20260813",
+               "counts": n, "n_cells": len(cells)},
+           "cells": cells}
+    with open(MANIFEST, "w") as f:
+        json.dump(out, f, ensure_ascii=False, indent=1)
+    print(f"wrote {MANIFEST}: {len(cells)} cells {n}")
+
+
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else "smoke"
     if mode == "smoke":
         smoke()
+    elif mode == "manifest":
+        build_manifest()
