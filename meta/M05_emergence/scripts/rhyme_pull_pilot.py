@@ -81,8 +81,10 @@ def rime_key(word):
 
 
 def last_word(line):
-    m = re.findall(r"[A-Za-z']+", line)
-    return m[-1] if m else None
+    # a token must CONTAIN a letter — bare apostrophes/quote marks are not
+    # words (the apostrophe class: one roster poem's line-4 "word" was ')
+    m = re.findall(r"[A-Za-z']*[A-Za-z][A-Za-z']*", line)
+    return m[-1].strip("'") if m else None
 
 
 def _window_pairs(lines):

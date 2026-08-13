@@ -124,7 +124,9 @@ def build_rime_vocab(limit=None):
 # ── slot manifest ────────────────────────────────────────────────
 
 def strip_last_word(line):
-    return re.sub(r"[A-Za-z']+\W*$", "", line).rstrip()
+    # symmetric with last_word: the stripped token must CONTAIN a letter,
+    # so a line ending in a bare quote mark loses its true final word too
+    return re.sub(r"[A-Za-z']*[A-Za-z][A-Za-z']*[^A-Za-z]*$", "", line).rstrip()
 
 
 # per-slot called/uncalled status for BOTH classes (the smoke's lesson:
