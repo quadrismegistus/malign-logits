@@ -83,14 +83,41 @@ def main(lang="en"):
     from scipy.stats import spearmanr
 
     SRC = sys.argv[sys.argv.index("--source") + 1] if "--source" in sys.argv else None
-    out = os.path.join(K, "word_auc_%s%s.tsv" % (lang, "_" + SRC.lower() if SRC else ""))
+    #: THE FEATURE IS (word, in-context tag) IN ENGLISH AND CANNOT BE IN CHINESE.
+    #: Our word unit comes from `twp.py`'s tokenizer-boundary rule, not from a
+    #: Chinese lexicon, so pkuseg is being asked to tag strings it does not treat
+    #: as words. Measured on all 132,318 zh pairs, the segmenter isolates the
+    #: candidate only 71.6% of the time, and the failure is STRUCTURED: 93.7% at
+    #: one character, 74.7% at two, 21.1% at three, 33.3% at six; 46.0% of the
+    #: 26,887 word types are NEVER isolated at any site.
+    #:
+    #: So `--exact-only` (keep the tag, drop the 28.4%) buys a clean tag at the
+    #: cost of a selection on candidate LENGTH, which is correlated with word
+    #: class -- selecting on a correlate of the thing being measured. And
+    #: `--no-pos` keeps every word and gives up the tag, which for Chinese costs
+    #: less than it would in English because the disambiguation the tag exists
+    #: for (kiss-as-verb vs kiss-as-noun) is not what the zh unit ambiguity is.
+    #: NEITHER IS THE RIGHT ANSWER ON ITS OWN; run both and report whether the
+    #: ranking agrees, which is the only claim either can support.
+    NOPOS = "--no-pos" in sys.argv
+    EXACT = "--exact-only" in sys.argv
+    sfx = ("_" + SRC.lower() if SRC else "") + ("_nopos" if NOPOS else "") \
+        + ("_exact" if EXACT else "")
+    out = os.path.join(K, "word_auc_%s%s.tsv" % (lang, sfx))
 
-    tagf = os.path.join(K, "pos_context_%s.tsv" % lang)
     TAG = {}
-    for ln in open(tagf, encoding="utf-8"):
-        p = ln.rstrip("\n").split("\t")
-        if len(p) >= 4:
-            TAG[(p[0], p[1])] = p[3]
+    if not NOPOS:
+        tagf = os.path.join(K, "pos_context_%s.tsv" % lang)
+        n_drop = 0
+        for ln in open(tagf, encoding="utf-8"):
+            p = ln.rstrip("\n").split("\t")
+            if len(p) >= 4:
+                if EXACT and len(p) >= 5 and p[4] != "1":
+                    n_drop += 1
+                    continue
+                TAG[(p[0], p[1])] = p[3]
+        print("  POS cache: %s tags%s" % (f"{len(TAG):,}",
+              "  (%s dropped as re-segmented)" % f"{n_drop:,}" if n_drop else ""))
 
     pairs = KP.reps(lang)
     arm, lin = {}, {}
@@ -138,6 +165,11 @@ def main(lang="en"):
         i = mi[r["model"]]; nc[i] += 1
         h = sha(r["prompt"])
         for j in np.argsort(-ps)[:TOPN]:
+            if NOPOS:
+                #: every word kept, tag slot carries a constant so the feature
+                #: key shape and every downstream reader are unchanged
+                cnt[(r["ws"][j], "any")][i] += 1
+                continue
             t = TAG.get((h, r["ws"][j]))
             if t in KEEP:
                 cnt[(r["ws"][j], t)][i] += 1
@@ -186,17 +218,24 @@ def main(lang="en"):
             print("   " + "  ".join("%-22s %.3f" % ("%s/%s" % feats[j], auc[j])
                                     for j in idx[k:k + 4]))
 
-    print("\nby POS, median |AUC-0.5|")
+    print("\nby POS, median |AUC-0.5|" if not NOPOS else
+          "\n(no POS decomposition: --no-pos)")
     for t in KEEP:
         m = [abs(auc[j] - .5) for j, f in enumerate(feats) if f[1] == t]
         if m:
             print("  %-11s %.4f  (%d features)" % (t, float(np.median(m)), len(m)))
 
     try:
-        z = np.load(os.path.join(K, "embed_%s_glove.npz" % lang), allow_pickle=True)
+        #: GloVe is English-only; zh uses bge, and the axis file is named for the
+        #: encoder it was fit in. A cross-encoder comparison is forbidden by P's
+        #: own "what not to quote", so the pairing is fixed per language rather
+        #: than falling back to whatever loads.
+        emb, axf = (("embed_en_glove.npz", "axis_en.json") if lang == "en"
+                    else ("embed_%s_bge.npz" % lang, "axis_%s_bge.json" % lang))
+        z = np.load(os.path.join(K, emb), allow_pickle=True)
         EM = {w: v for w, v in zip(z["words"], z["E"])}
         t2u = json.load(open(os.path.join(K, "normalisation_%s.json" % lang)))["token_to_unit"]
-        ax = np.array(json.load(open(os.path.join(K, "axis_en.json")))["axis"])
+        ax = np.array(json.load(open(os.path.join(K, axf)))["axis"])
         ax = ax / np.linalg.norm(ax)
         ok = [(j, f) for j, f in enumerate(feats) if t2u.get(f[0], f[0]) in EM]
         pos = [float(EM[t2u.get(f[0], f[0])] @ ax

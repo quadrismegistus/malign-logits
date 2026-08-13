@@ -255,6 +255,65 @@ of the cells.
 
 ## 6. A second instrument, sharing no machinery, finds the same direction
 
+### 5b. Chinese, and the aligned pole is the one that crosses languages
+
+The per-word AUC runs on zh: 13,691 cells, **34 models over 17 lineages and 13
+orgs**, against English's 92/46. A third of the n, and every number below is the
+noisy side of the comparison.
+
+    1,212 features   AUC 0.343 / 0.460 / 0.540 / 0.623 / 0.737   (5,25,50,75,95)
+                     observed median 0.540 | arm-flip null 0.516
+
+    BASE-SIDE   自己 0.194  喜欢 0.208  去 0.208  已 0.211  再 0.214  哭 0.225
+                往 0.228  不 0.239  到 0.242  打电话 0.251  叫 0.256  能 0.256
+    ALIGNED     关注 0.870  编写 0.863  需要 0.862  寻求 0.853  采取行动 0.844
+                质疑 0.843  采取 0.830  准备 0.827  无法 0.824  进行 0.820
+
+**It agrees with the Chinese movement axis at Spearman -0.578, stronger than
+English's -0.461**, and the reading is the English one in an unrelated lexicon:
+deixis, motion and bodily action against institutional-procedural verbs.
+
+THE POS DECISION DOES NOT DRIVE IT, WHICH HAD TO BE CHECKED BECAUSE IN CHINESE
+THE FEATURE IS NOT WELL DEFINED. Our word unit is `twp.py`'s tokenizer boundary,
+not a Chinese lexicon, so pkuseg isolates the candidate in only **71.6%** of
+132,318 pairs and the failure is structured -- 93.7% at one character, 21.1% at
+three, and **46.0% of the 26,887 word types are never isolated at any site**.
+Dropping the unisolated ones selects on candidate length, which correlates with
+word class. So all three readings were run and they agree at Spearman 0.984 to
+0.995: `word_auc_zh_nopos.tsv` (no tag, every word), `word_auc_zh_exact.tsv`
+(tagged, isolated only), `word_auc_zh.tsv` (tagged, all). The axis agreement is
+-0.578 / -0.607 / -0.567 across them. **Quote the no-pos table**; the tag adds
+nothing here and costs half the vocabulary to defend.
+
+**AND THE TWO LANGUAGES' ALIGNED POLES OCCUPY THE SAME REGION OF ONE SPACE.**
+`k_pole_bridge.py`, bge-m3 for both languages (checked to be one `model` string,
+and each language centred on its own mean first -- multilingual encoders separate
+languages far more strongly than anything within one, so raw cosines would make
+the test unfailable):
+
+    cos(zh aligned, en aligned)  +0.5451     cos(zh aligned, en base)  +0.1771
+    cos(zh base,    en base)     +0.3025     cos(zh base,    en aligned) +0.1554
+
+    contrast, aligned  +0.3680   permutation p < 0.001   (2,000 draws, floor)
+    contrast, base     +0.1471   permutation p = 0.0505  NOT significant
+
+**The aligned poles correspond across languages; the base poles do not, or only
+marginally.** The null permutes the zh pole assignment while holding English and
+the Chinese vocabulary fixed, so it destroys only the thing under test. This does
+not pass through the movement rule in either language.
+
+WHAT IT DOES NOT SHOW, and one alternative I cannot presently exclude. Centroid
+geometry is compatible with two overlapping but distinct regions, so this is not
+"the poles are translations". And institutional-procedural vocabulary is the
+register of international technical and bureaucratic discourse, which may simply
+have tighter cross-lingual neighbourhoods **for any word set drawn from it,
+regardless of arm**. The control that would settle it -- matched-register,
+matched-frequency word sets drawn without reference to arm -- has not been run.
+Until it is, the honest form is: the aligned poles correspond, and part of that
+correspondence may be a property of the register rather than of alignment.
+
+
+
 **Everything above depends on the canonical movement rule.** The rule thresholds
 a p_base-relative quantity, and several defects corrected in this document came
 from exactly that. So the direction wants corroboration from an instrument that

@@ -52,15 +52,45 @@ BATCH = 2000
 #: PTB tags collapsed to the four content classes plus a residue. The verb series
 #: includes participles and gerunds (VBG, VBN) BECAUSE THAT IS THE POINT -- BYU
 #: files those under adjective and noun respectively.
-COARSE = {}
+COARSE_EN = {}
 for t in ("VB", "VBD", "VBG", "VBN", "VBP", "VBZ", "MD"):
-    COARSE[t] = "verb"
+    COARSE_EN[t] = "verb"
 for t in ("NN", "NNS", "NNP", "NNPS"):
-    COARSE[t] = "noun"
+    COARSE_EN[t] = "noun"
 for t in ("JJ", "JJR", "JJS"):
-    COARSE[t] = "adjective"
+    COARSE_EN[t] = "adjective"
 for t in ("RB", "RBR", "RBS", "WRB"):
-    COARSE[t] = "adverb"
+    COARSE_EN[t] = "adverb"
+
+#: CHINESE TREEBANK TAGS, AND THE ONE MAPPING THAT IS A CONSTRUCT DECISION RATHER
+#: THAN A TRANSLATION. CTB `VA` is the "predicative adjective" -- a stative verb
+#: that heads its own predicate without a copula, so 门开了 is VA and not JJ. It is
+#: filed under VERB here, which is the standard treebank reading and is still a
+#: CHOICE: an analysis asking "does alignment move adjectives" would want it the
+#: other way. It is declared rather than assumed, and `k_word_auc` reports the
+#: four classes separately so a reader can see how much rests on it.
+#:
+#: `VC` (是) and `VE` (有) are copula and existential; both are verbs and neither
+#: is a content verb in the sense the English series means, so they are kept but
+#: are worth remembering when a verb median is quoted.
+COARSE_ZH = {}
+for t in ("VV", "VA", "VC", "VE"):
+    COARSE_ZH[t] = "verb"
+for t in ("NN", "NR", "NT"):
+    COARSE_ZH[t] = "noun"
+for t in ("JJ",):
+    COARSE_ZH[t] = "adjective"
+for t in ("AD",):
+    COARSE_ZH[t] = "adverb"
+
+#: Per language: the spaCy model, the tag map, and WHETHER A SPACE JOINS THE
+#: PROMPT TO THE CANDIDATE. Chinese is not space-delimited, so inserting one
+#: would both misrepresent the string the model predicted into and hand the
+#: segmenter a boundary it would not otherwise have.
+LANGS = {
+    "en": {"model": "en_core_web_sm", "coarse": COARSE_EN, "space": True},
+    "zh": {"model": "zh_core_web_sm", "coarse": COARSE_ZH, "space": False},
+}
 
 
 def sha16(s):
@@ -73,6 +103,15 @@ def main(lang="en"):
         from tqdm import tqdm
     except ImportError:
         tqdm = lambda x, **k: x
+
+    if lang not in LANGS:
+        print("no tagger config for %r; known: %s" % (lang, ", ".join(LANGS)))
+        return 1
+    CFG = LANGS[lang]
+    if not spacy.util.is_package(CFG["model"]):
+        print("REFUSING: %s is not installed. `uv run python -m spacy download %s`"
+              % (CFG["model"], CFG["model"]))
+        return 1
 
     out = os.path.join(K, "pos_context_%s.tsv" % lang)
     done = set()
@@ -121,20 +160,33 @@ def main(lang="en"):
 
     #: only the tagger is needed, and the pipeline is a third of the cost without
     #: the parser and NER
-    nlp = spacy.load("en_core_web_sm", exclude=["parser", "ner", "lemmatizer",
-                                                "attribute_ruler", "senter"])
-    print("  spacy pipeline: %s" % ", ".join(nlp.pipe_names), flush=True)
+    nlp = spacy.load(CFG["model"], exclude=["parser", "ner", "lemmatizer",
+                                            "attribute_ruler", "senter"])
+    print("  spacy pipeline: %s (%s)" % (", ".join(nlp.pipe_names), CFG["model"]),
+          flush=True)
+    COARSE = CFG["coarse"]
 
     texts, keys = [], []
     for prompt, words in byp.items():
         h = sha16(prompt)
-        base = prompt if prompt.endswith((" ", "\n")) else prompt + " "
+        if CFG["space"]:
+            base = prompt if prompt.endswith((" ", "\n")) else prompt + " "
+        else:
+            base = prompt
         for w in words:
-            texts.append(base + w.strip())
+            texts.append(base + (w.strip() if CFG["space"] else w))
             keys.append((h, w))
 
     fh = open(out, "a", encoding="utf-8")
     n_by = collections.Counter()
+    #: THE SEGMENTER CAN SWALLOW THE CANDIDATE, AND IN CHINESE THAT IS THE
+    #: DEFAULT RISK RATHER THAN AN EDGE CASE. With no space at the join, pkuseg
+    #: is free to re-segment across the boundary, so the final token may be a
+    #: word that spans prompt and candidate -- and then the tag is not about the
+    #: candidate at all. Counted, reported, and written to the file as a column
+    #: so a consumer can filter on it. This is the check that makes the tag a
+    #: measurement rather than an assumption.
+    n_exact = 0
     with tqdm(total=len(texts), unit="pair", desc="tagging") as bar:
         for i in range(0, len(texts), BATCH):
             chunk = texts[i:i + BATCH]
@@ -145,13 +197,21 @@ def main(lang="en"):
                 #: is the head for the hyphenated and clitic cases that occur.
                 tag = doc[-1].tag_ if len(doc) else "XX"
                 c = COARSE.get(tag, "other")
+                #: did the final token isolate the candidate, or absorb part of
+                #: the prompt into it?
+                exact = 1 if (len(doc) and doc[-1].text == w.strip()) else 0
+                n_exact += exact
                 n_by[c] += 1
-                fh.write("%s\t%s\t%s\t%s\n" % (h, w, tag, c))
+                fh.write("%s\t%s\t%s\t%s\t%d\n" % (h, w, tag, c, exact))
             fh.flush()
             bar.update(len(chunk))
     fh.close()
 
     print("\n  tagged %s pairs" % f"{sum(n_by.values()):,}")
+    print("  final token EXACTLY the candidate: %s (%.1f%%)%s"
+          % (f"{n_exact:,}", 100 * n_exact / max(sum(n_by.values()), 1),
+             "" if n_exact == sum(n_by.values())
+             else "   <- the rest were re-segmented across the join"))
     for c, n in n_by.most_common():
         print("    %-11s %8s  %5.1f%%" % (c, f"{n:,}", 100 * n / sum(n_by.values())))
     print("\n  -> %s" % os.path.relpath(out, ROOT))
