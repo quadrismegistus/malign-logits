@@ -175,6 +175,9 @@ def main():
                     help="max texts per (pair, role); 0 = all")
     ap.add_argument("--pairs", type=int, default=0, help="first K pairs; 0 = all")
     ap.add_argument("--out", default="mediation_words.parquet")
+    ap.add_argument("--by-prompt", action="store_true",
+                    help="key on the VERBATIM prompt too, so p_aligned can be "
+                         "conditioned per context instead of per word")
     args = ap.parse_args()
 
     import re
@@ -211,7 +214,7 @@ def main():
         #: on rejecting 4 of 42 pairs for a capability nothing here needs.
         seqs, seen = {}, collections.Counter()
         for r in ch_rows(
-                "SELECT model, prompt, sample_idx, role, token_ids, text "
+                "SELECT model, prompt, prompt_full, sample_idx, role, token_ids, text "
                 "FROM malign_logits.gen_sequences WHERE corpus='%s' "
                 "AND forced_word='' AND pair='%s' ORDER BY role, sample_idx"
                 % (CORPUS, pair)):
@@ -274,7 +277,8 @@ def main():
                 key = norm(w)
                 if not key or not pos:
                     continue
-                a = acc[(q["role"], key)]
+                a = acc[(q["role"], q.get("prompt_full") or "", key)
+                        if args.by_prompt else (q["role"], key)]
                 a[0] += 1
                 a[1] += len(pos)
                 # stored values are logprobs; surprisal = -logprob
@@ -298,11 +302,18 @@ def main():
                  per_role["base"], per_role["aligned"], (time.time() - t0) / 60))
         if verdict != "OK":
             continue
-        for (role, w), a in acc.items():
-            rows.append((pair, role, w, a[0], a[1], a[2], a[3]))
+        for k, a in acc.items():
+            if args.by_prompt:
+                role, prm, w = k
+                rows.append((pair, role, prm, w, a[0], a[1], a[2], a[3]))
+            else:
+                role, w = k
+                rows.append((pair, role, w, a[0], a[1], a[2], a[3]))
 
-    df = pd.DataFrame(rows, columns=["pair", "role", "word", "occurrences",
-                                     "tokens", "sum_s_base", "sum_s_aligned"])
+    cols = (["pair", "role", "prompt", "word"] if args.by_prompt
+            else ["pair", "role", "word"]) + ["occurrences", "tokens",
+                                              "sum_s_base", "sum_s_aligned"]
+    df = pd.DataFrame(rows, columns=cols)
     os.makedirs(OUTD, exist_ok=True)
     out = os.path.join(OUTD, args.out)
     df.to_parquet(out, index=False)
