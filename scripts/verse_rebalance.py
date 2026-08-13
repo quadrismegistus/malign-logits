@@ -142,7 +142,7 @@ def main(argv=None):
     # the work. What it DID write is already pulled, so the local tree is the
     # record of what survives and the roster minus that is what must be re-run.
     if a.recover:
-        live = set(inst)
+        live_ids = set(inst)
         #: A PRESENT FILE IS NOT A FINISHED MODEL. Box 47630611 died mid-write and
         #: left `pythia-6.9b@step8000.jsonl` with 959 rows; every complete model in
         #: this corpus has exactly ROWS_COMPLETE (median 1820, p10 1820 over 132
@@ -159,7 +159,7 @@ def main(argv=None):
                     with open(os.path.join(DEST_LOCAL, d, f), 'rb') as fh:
                         n = sum(1 for _ in fh)
                     if n >= ROWS_COMPLETE: done.add(f[:-6])
-                    elif d not in live:
+                    elif d not in live_ids:
                         #: only say this for a box that is actually GONE. On a live
                         #: box a short file is the model being written right now and
                         #: nothing is re-running it -- announcing otherwise is prose
@@ -173,8 +173,7 @@ def main(argv=None):
         #: the same rungs. Ask every live box what spec it is running.
         inflight = set()
         for bid_, i_ in inst.items():
-            out_ = live(routes(i_),
-                        "cat %s/data/recover.json 2>/dev/null" % REMOTE)
+            out_ = sh(i_, "cat %s/data/recover.json 2>/dev/null" % REMOTE)
             if not out_: continue
             try:
                 for e_ in json.loads(out_):
@@ -187,7 +186,7 @@ def main(argv=None):
 
         orphaned = {}
         for bid, models in held.items():
-            if bid in live and state.get(bid): continue      # box still with us
+            if bid in live_ids and state.get(bid): continue      # box still with us
             sname = max(rs, key=lambda sn: len(models & set(safe(m) for m in rs[sn])))
             missing = [m for m in rs[sname]
                        if safe(m) not in models and safe(m) not in inflight]
