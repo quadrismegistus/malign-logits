@@ -109,8 +109,15 @@ def main():
                 tot += n
                 print("  %-10s RETIRED, counting %s cells held locally" % (d, f"{n:,}"))
 
-    pct = 100*tot/TOTAL_EXPECTED
-    print("\n  WRITTEN %s / %s  (%.2f%%)" % (f"{int(tot):,}", f"{TOTAL_EXPECTED:,}", pct))
+    #: TWO UNITS, AND THEY ARE NOT THE SAME. `tot` counts ROWS on disk and the
+    #: runner writes 1,820 per model; TOTAL_EXPECTED is 250 rungs x 1,786 DISTINCT
+    #: contexts, which is the science target. Dividing rows by distinct contexts
+    #: read 99.6% while 8 of 250 rungs were still outstanding. Rows are compared
+    #: to rows; RUNG COVERAGE below is the honest progress measure.
+    rows_expected = 250 * 1820
+    print("\n  ROWS WRITTEN %s / %s  (%.1f%%)   [science target: %s distinct cells]"
+          % (f"{int(tot):,}", f"{rows_expected:,}", 100*tot/rows_expected,
+             f"{TOTAL_EXPECTED:,}"))
     print("  producing %d/%d    burn $%.2f/hr" % (producing, len(res), burn))
     rates = [float(d['rate'].split()[0]) for _,d,_,_ in res
              if d and d.get('rate','').strip()]
