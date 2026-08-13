@@ -1339,11 +1339,20 @@ def ingest_passages(limit=None, batch=20_000, force=False, dry_run=False):
         id: that fallback is how an id reached a text column before, and it is
         invisible afterwards because the row looks populated.
 
-    DEDUP AT INGEST, NOT AT MERGE. `SmolLM2-360M` holds every
-    `(pair, role, prompt_id, word)` exactly twice. `ReplacingMergeTree` would
-    collapse them eventually, on no schedule -- correct after an unpredictable
-    delay, wrong before it, invisible either way. Reads should still say `FINAL`
-    or `argMax`.
+    DEDUP AT INGEST, NOT AT MERGE -- AND THE "DUPLICATES" WERE NOT DUPLICATES.
+    `SmolLM2-360M` holds every `(pair, role, prompt_id, word)` exactly twice,
+    and the collapse below keeps the FIRST occurrence in file order. At ingest
+    time the manifest called these "EXACT duplicate rows" and nobody, this
+    docstring included, verified the contents: measured later ([5707]), ALL
+    1,844 key-pairs carry WHOLLY DIFFERENT texts -- two independent generation
+    runs landed under the same keys. So the collapse kept one arbitrary run per
+    cell and left the other in the raw jsonl (nothing on disk is lost; the
+    omission is CH-only and reversible). A dedup key is an independence claim,
+    and collapsing on it asserted contents this code never checked. Population
+    semantics (one-run-per-cell vs restore-with-run-index) are the corpus
+    custodian's call, recorded on the docket. `ReplacingMergeTree` would have
+    collapsed them the same way eventually, on no schedule; reads still say
+    `FINAL` or `argMax`.
 
     UNSCORABLE SEQUENCES BECOME ROWS WITH `scorable=0`, see the `gen_scores`
     schema. `ingest_y`'s `continue` on a null scorer would have made 9.92% of
