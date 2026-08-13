@@ -78,6 +78,37 @@ How much more the aligned model likes its own continuation than the base's. It s
                    comparison over the 42 pairs
     exploratory    +0.117 (41/42) vs +0.069 (35/42)
 
+### POPULATION LIMIT: the passage corpus STORES A 60-CHARACTER PROMPT, and this plan's population was silently filtered by it
+
+**Found by lacan 13 Aug ([5874]/[5876]), measured here.** The passage producer wrote `prompt_id = pair + "|" + prompt[:60]` and stored the prompt nowhere else, so `gen_sequences.prompt` is truncated at 60 characters (`beam_fc` stores 148, so nothing structural forced it).
+
+`arm_map()` keys on the FULL prompt from the frozen table and `collect()` looks up with the truncated one, so **every arms-table prompt over 60 characters silently contributed no arms**:
+
+    arms table                                208 distinct prompts
+    ladder prompts                            198
+      verbatim, usable                        118   <- the declared population
+      truncated, contributing nothing          80
+    usable sites                            3,938
+    ladder domains         taboo, animal, violence, property, sexual, betrayal
+                           POWER ABSENT ENTIRELY
+
+**Length is not random** — the long prompts are the elaborated institutional scenarios, and `power` is the domain built from them. So H1's declared population is not "the passage corpus"; it is the corpus minus everything over 60 characters.
+
+**THE COLLISIONS DO NOT REACH THIS PLAN, and only by luck.** Nine 60-char keys carry two full prompts each (a MARKED/UNMARKED pair) and collided in a ReplacingMergeTree, resolving *per model*. **Of 3,938 usable sites, ZERO rest on a non-verbatim prompt and ZERO on a collided key** — the truncation that caused the damage is what fenced this plan out of it. *A lookup that fails loudly enough to drop a row protected a quantity that a lookup succeeding wrongly would have poisoned.*
+
+**SENSITIVITY, run on `data/passage_prompt_resolution.json` (399d388c), reported BESIDE the declared population and not replacing it** — the correct numbers are knowable only with the result already visible, and swapping now is the post-hoc move [5850] refused:
+
+    contrast        declared (3,938 sites)        with map (4,950 sites)
+    fell - flat     -0.0637  30/10  p=0.0022      -0.0544  30/10  p=0.0022
+    rose - flat     +0.0380  13/27  p=0.0385      +0.0348  12/28  p=0.0166
+    fell - rose     -0.0796  33/ 7  p<0.0001      -0.0578  32/ 8  p=0.0002
+
+**Every direction holds, every contrast stays significant, `rose - flat` strengthens.** The ladder is not an artefact of the length filter. Magnitudes shrink 15-27%, the same direction as the arm-asymmetric-filter repair above.
+
+**What remains a standing limit even with the map: the 9 MIXED-per-model keys are unusable by anyone, and all are power/R_INVISIBLE — so power returns at 7 of its designed 30.** The honest scope statement is *"power is present but thinned by 9 stems lost to a store-key collision"*, not *"power is absent"*.
+
+**Any confirmatory run must resolve through the map BEFORE matching, and declare it in advance.**
+
 ## 4. Declared negative results — things that must NOT appear
 
 Stated before the run because each is a shape someone will otherwise read into the data:
