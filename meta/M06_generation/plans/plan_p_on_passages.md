@@ -97,6 +97,42 @@ the model's pooled hardened-stratum undisturbed passages.
       SECONDARY population per plan A Amendment 1, so I5 is reported
       beside the undisturbed primary, never pooled with it.
 
+  I6  MARKED vs UNMARKED SITE SIGNATURE (amendment, 2026-08-13, RH's
+      question, added AFTER I1-I5 ran but BEFORE this instrument was
+      built or any of its numbers existed; I5's results are the only
+      prior knowledge and are cited as the priming prediction below).
+      UNDISTURBED passages only, hardened stratum, SmolLM2 excluded.
+      Prompts join to `prompt_catalogue` ON PROMPT TEXT (never id, the
+      standing rule) for pair_role in {MARKED, UNMARKED}, twins paired
+      by pair_id; unjoined prompt texts are counted and reported, not
+      silently dropped. Per-passage axis score exactly as I5 (rate-
+      weighted mean GloVe axis position of content words; no exclusion
+      word here). Aggregate per (model pair, role, pair_id, pair_role)
+      over that side's passages; a twin enters only if BOTH sides are
+      present for that (pair, role).
+
+        I6a  within each arm, paired per (pair, pair_id):
+             MARKED - UNMARKED axis score, sign test.
+        I6b  the difference-in-differences:
+             (aligned MARKED-excess) - (base MARKED-excess), paired per
+             (pair, pair_id).
+
+      Declared readings: from I5's dragged-symmetric result, MARKED
+      content is EXPECTED to pull composition base-poleward in BOTH
+      arms (priming; I6a directional in both). The open question is
+      I6b, declared without direction: TONIC (DiD null; the interiority
+      signature is a constant register shift and site-specificity lives
+      only at the distribution grain, F01's) vs PHASIC (DiD non-null;
+      alignment modulates the signature at transgressive sites beyond
+      priming -- if the aligned excess is MORE interior at MARKED sites
+      the page shows a site-conditional deployment, the generation-grain
+      analogue of F01's specificity; if LESS, the site drags aligned
+      text harder than base, a vulnerability reading). Axis orientation
+      is anchored empirically in the output (per-role ambient means),
+      not assumed from the axis file's sign. Domain decomposition
+      (taboo/violence/animal/betrayal/property/sexual) exploratory,
+      descriptive, no directions. Per-cell scores persisted.
+
 ## Declared directions
 
   P1 (directional, from M02's field replication on f11_l2 and the M06
