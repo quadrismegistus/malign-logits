@@ -198,9 +198,20 @@ regardless of lineation). Booked BEFORE any fleet data exists:
 - Every quoted contrast states the depth of both arms; context_len
   travels into every read.
 
-## Costing: SETTLED ([5737])
+## Costing: CORRECTED IN FLIGHT ([5767] supersedes [5737]'s totals)
 
 A-at-922 $13.07 / B-at-922 $13.28 / A-at-1,822 $18.10 / B-at-1,822
 $18.50: the instrument choice costs $0.21, the slot expansion $5.03,
 independent decisions. Design B at the nine-slot manifest = ~$18.50.
 Fleet spend takes RH's word with the number, per cool-off.
+
+MEASURED FROM THE RUNNING FLEET ([5767]): ~$37.50, not $18.50 — the
+fitted rate came from runs at ~574 cells/checkpoint where download
+overhead dominated; this fleet does 1,786 cells/checkpoint and the GPUs
+run at 99-100%. A rate fitted on one work shape does not transfer to
+another shape even when the unit is the same; cells-per-checkpoint is
+the shape parameter. The "+$5.03 per 900 slots/rung" marginal is
+likewise ~2x low (~$10). The DESIGN arguments survive: the
+instrument-vs-candidate delta stays proportionally trivial, and slots
+remain cheap relative to a second fleet. RH informed at the corrected
+number; fleet continues (8/8 boxes, ~9.1h projected, credit $66).
