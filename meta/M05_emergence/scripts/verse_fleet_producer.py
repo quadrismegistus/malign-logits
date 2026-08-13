@@ -66,11 +66,17 @@ def rime_key(word):
                 phs = list(sylls[j].rime.children) if sylls[j].rime is not None else []
                 vi = next((k for k, ph in enumerate(phs)
                            if getattr(ph, "is_vowel", False)), 0)
-                parts.append("".join(ph.txt for ph in phs[vi:]))
+                seg = "".join(ph.txt for ph in phs[vi:])
+                # glide leak (way->weI) and espeak/lexicon vowel-symbol
+                # divergence (blisses 'VZ' vs kisses '@z') split true classes
+                seg = seg.lstrip("wj")
+                parts.append(seg)
             else:
-                ipa = getattr(sylls[j], "ipa", None) or sylls[j].txt
-                parts.append(str(ipa).replace("\u02c8", "").replace("\u02cc", ""))
+                ipa = str(getattr(sylls[j], "ipa", None) or sylls[j].txt)
+                parts.append(ipa.replace("\u02c8", "").replace("\u02cc", ""))
         key = "|".join(x for x in parts if x) or None
+        if key:
+            key = key.replace("\u1d7b", "\u0259").replace("\u0268", "\u026a")
     except Exception:
         key = None
     _RIME_CACHE_V2[w] = key
