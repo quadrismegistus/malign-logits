@@ -69,6 +69,34 @@ the model's pooled hardened-stratum undisturbed passages.
       that sampling rarely realises (candidates: tail-rank words). Field
       decomposition of the map via `k_field_poles` machinery.
 
+  I5  FORCED-ARM SIGNATURE DISPLACEMENT (amendment, 2026-08-13, RH's
+      question, added BEFORE the full run; the smoke did not touch forced
+      arms). Passage-level axis score: the rate-weighted mean axis position
+      of the passage's content words, THE FORCED WORD ITSELF EXCLUDED from
+      the score; echo (rate of the forced word in the generation) travels
+      as its own column, since repeating the faller is one form of being
+      dragged and must not contaminate the composition measure.
+
+        I5a  within the ALIGNED arm, paired per (pair, prompt):
+             faller - matched, and riser_matched - matched -- same aligned
+             probability, only the word's movement class differs (the
+             corpus's own ladder, [5687]).
+        I5b  the difference-in-differences against base:
+             (aligned_faller - aligned_matched) - (base_faller -
+             base_matched) -- alignment-specific response, priming
+             subtracted.
+
+      Three readings declared WITHOUT direction, all three written as
+      findings: DRAGGED (faller pulls the aligned text toward the base
+      pole; the signature is a disposition), HOMEOSTATIC (aligned text
+      overcorrects past its matched control; the signature defends
+      itself), ASCENT (composition flat but M02's second-order markers
+      rise; the response is a level shift, not a vocabulary shift --
+      checked with the committed marker sets on the same passages).
+      Strata and per-1,000-token denominators as in I1; forced arms are
+      SECONDARY population per plan A Amendment 1, so I5 is reported
+      beside the undisturbed primary, never pooled with it.
+
 ## Declared directions
 
   P1 (directional, from M02's field replication on f11_l2 and the M06
