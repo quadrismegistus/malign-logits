@@ -161,3 +161,56 @@ pair name contains '|' — so either DECLARE the property and ASSERT it in
 code, or prefer the operation that cannot break over the one that happens
 not to (malign's form, [5640] §4); kin to pin-the-content-not-the-envelope
 and gate-on-the-number.
+
+THE ENGINE-STATE CLAUSES (drafted [5668], marked up [5670], countersigned
+[5670]/[5671], committed on both signatures; the night of five instances
+and four mechanisms, [5649]-[5667], is the trail throughout).
+
+SCOPE LINE, above both clauses because it governs every claim made under
+them: A VERIFICATION CLAIM CARRIES ITS SCOPE. "X is clean" is a fact
+about X — the register, then meta/, then the tree, then scripts/, four
+times in one night, the gap moving down a directory each time — so every
+clean/complete/verified sentence names what it covered AND what it did
+not, and two known cases stand in for a population only after the
+population is enumerated.
+
+CLAUSE 1 — READS (engine-state). A figure read from a live table is a
+claim about an ENGINE STATE, not only a time. Every ReplacingMergeTree
+read WHOSE FIGURE TRAVELS goes through FINAL; a read taken deliberately
+raw is a MEASUREMENT OF ENGINE STATE and says so at the call site
+(ch_reconcile's raw column is the named instance — the rule must not
+outlaw the instrument that motivated it, and the 57x cost of FINAL
+[5671] is why the universal form would be routed around). FINAL is
+necessary, not sufficient: A SORTING KEY IS A STORAGE DECISION; AN
+ANALYSIS KEY IS A CLAIM ABOUT THE UNIT, and deduplication names which
+one it collapses to — operational shape FINAL + GROUP BY the analysis
+key, the aggregation over surviving re-measurements NAMED as a declared
+choice with its harmlessness MEASURED, not assumed. Worked example, on
+twp_words the night this was written: raw 68,243,599; FINAL 60,425,347;
+uniqExact(model,prompt,word) 58,292,343 — the last two disagree by
+2,133,004, the cross-source triples exactly, so "add FINAL and you are
+done" is off by the entire span of the defect. A defect in a read
+propagates into whatever the read was used to CHOOSE, not only what it
+measured — re-verification re-runs the SELECTION, not just the values.
+And an instrument's own report of ABSENCE — no coverage, insufficient n,
+skipped — is a claim about the query at least as much as about the
+world, and is re-derived when the query changes rather than carried
+forward as a fact about the data (the 27 no-coverage rows; and
+passage_reconcile's narrower precedent: absence is counted from the
+DECLARED POPULATION, never from the absence of a failure file).
+
+CLAUSE 2 — WRITES (resumption and provenance). An output artifact
+records WHAT was produced, not what PRODUCED it, so a resumable producer
+treats "already done" and "done correctly" as one fact. The skip
+predicate therefore consults a PRODUCER FINGERPRINT — the code SHA or
+the parameters that matter — never existence or row count alone
+(fingerprint leads because it needs nobody to remember anything); where
+a fingerprint is impractical, the producer refuses to resume across a
+version change loudly, or resumption is opt-in per run. Correcting a
+query is never sufficient: the results cache is invalidated BY HAND,
+moved not deleted, staleness in the FILENAME (.RAWDUP / .CONTAMINATED /
+.DESTROYED-<utc>-<id>-<reason>). Reconciliation counts rows against a
+population and says nothing about provenance; only a fingerprint does
+(the 240 bands a resume would have reprinted; vllm_y_run.py:396's
+row-count skip, saved by an empty directory; Teuken's 2,692 drops as
+ACCIDENTAL positive provenance — an accident, not a design).
