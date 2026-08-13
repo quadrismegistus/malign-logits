@@ -85,111 +85,64 @@ def last_word(line):
     return m[-1] if m else None
 
 
-RHYME_GT = CSV.replace(".csv.gz", "_real.rhyme_data.csv").replace(
-    "genai_rhyme_completions_real", "genai_rhyme_completions_real")
+def _window_pairs(lines):
+    import prosodic
+    t = prosodic.Text("\n".join(lines))
+    d = t.get_rhyming_lines(max_dist=1)
+    out = set()
+    for l1, (score, l2) in d.items():
+        a, b = getattr(l1, "num", 0), getattr(l2, "num", 0)
+        out.add((min(a, b), max(a, b)))
+    return out
 
 
 def pick_primers():
-    """Selection grounded in the paper's own rhyme_data for the REAL poems
-    (RH, 2026-08-13): rhymed arm requires the whole real poem to clear the
-    paper's threshold (perfect >= 4 per 10 lines) AND a window partner;
-    unrhymed arm requires the whole poem near-rhymeless (rhyming <= 1 per
-    10) AND a clean window -- fixing the off-window-scheme leak."""
-    import prosodic
-    gt = pd.read_csv(os.path.expanduser(
-        "~/github/generative-formalism1/data/data_as_in_paper/"
-        "genai_rhyme_completions_real.rhyme_data.csv"))
-    gt = gt.dropna(subset=["num_lines"])
-    gt = gt[gt.num_lines >= 6]
-    gt["perfect_per10"] = 10 * gt.num_perfectly_rhyming_lines / gt.num_lines
-    gt["rhyming_per10"] = 10 * gt.num_rhyming_lines / gt.num_lines
-    gt_rhymed = set(gt[gt.perfect_per10 >= 4]["id"])
-    gt_unrhymed = set(gt[gt.rhyming_per10 <= 1]["id"])
+    """Template classes IN THE PROMPT WINDOW (RH, 2026-08-13): for a
+    next-word measure the window IS the ground truth -- the model only
+    knows what it is shown. ABAB (line 4 partners line 2), AABB (line 4
+    partners line 3), UNRHYMED (no pair among lines 1-4). Templates must
+    be exact: the defining pairs present, no cross-pairs."""
     df = pd.read_csv(CSV)
     df5 = df[df.first_n_lines == 5]
-    out = []
+    out, counts = [], {"ABAB": 0, "AABB": 0, "unrhymed": 0}
+    PER_CLASS = {"ABAB": 8, "AABB": 8, "unrhymed": 8}
     for id_human, g in df5.groupby("id_human"):
-        g0 = g[g.id == g.id.iloc[0]].sort_values("line_num")
-        if g0.id.iloc[0] not in gt_rhymed:
-            continue  # ground truth: whole real poem clears the paper threshold
-        lines = g0[g0.line_num <= 4]["line_real"].tolist()
-        if len(lines) < 4 or not all(isinstance(x, str) and x.strip() for x in lines):
-            continue
-        try:
-            t = prosodic.Text("\n".join(lines))
-            rd = t.get_rhyming_lines(max_dist=1)
-        except Exception:
-            continue
-        partner = None
-        for l1, (score, l2) in rd.items():
-            a, b = getattr(l1, "num", 0), getattr(l2, "num", 0)
-            if 4 in (a, b):
-                partner = (a + b) - 4
-        if not partner or partner == 4:
-            continue
-        target_word = last_word(lines[partner - 1])
-        actual_word = last_word(lines[3])
-        tkey = rime_key(target_word) if target_word else None
-        if not tkey:
-            continue
-        nonp = None
-        for j in (3, 2, 1):
-            if j == partner:
-                continue
-            wj = last_word(lines[j - 1])
-            kj = rime_key(wj) if wj else None
-            if kj and kj != tkey:
-                nonp = (j, kj)
-                break
-        if not nonp:
-            continue
-        stub = re.sub(r"[A-Za-z']+\W*$", "", lines[3]).rstrip()
-        prompt = "\n".join(lines[:3]) + "\n" + stub
-        out.append({"id_human": id_human, "prompt": prompt, "scheme": "rhymed",
-                    "partner_line": partner, "target_key": tkey,
-                    "target_word": target_word, "actual_word": actual_word,
-                    "nonpartner_key": nonp[1]})
-        if len(out) >= N_PRIMERS:
+        if all(counts[k] >= PER_CLASS[k] for k in counts):
             break
-
-    # UNRHYMED ARM (RH, 2026-08-13): poems whose first 4 lines show NO rhyme
-    # pair at dist<=1. Same measurement protocol with a POSITION-MATCHED
-    # pseudo-target (line 2's end-word class, where an ABAB partner would sit)
-    # and line 3's as pseudo-nonpartner. Rhymed-minus-unrhymed on the
-    # partner-position class = the scheme effect proper; unrhymed rungs where
-    # rhyme mass loads anyway = the distributional face of stuckness.
-    n_un = 0
-    for id_human, g in df5.groupby("id_human"):
-        if any(o["id_human"] == id_human for o in out):
-            continue
         g0 = g[g.id == g.id.iloc[0]].sort_values("line_num")
-        if g0.id.iloc[0] not in gt_unrhymed:
-            continue  # ground truth: whole real poem near-rhymeless
         lines = g0[g0.line_num <= 4]["line_real"].tolist()
         if len(lines) < 4 or not all(isinstance(x, str) and x.strip() for x in lines):
             continue
         try:
-            t = prosodic.Text("\n".join(lines))
-            rd = t.get_rhyming_lines(max_dist=1)
+            pairs = _window_pairs(lines)
         except Exception:
             continue
-        if rd:
-            continue  # any rhyme pair disqualifies
-        w2, w3 = last_word(lines[1]), last_word(lines[2])
-        k2 = rime_key(w2) if w2 else None
-        k3 = rime_key(w3) if w3 else None
-        if not k2 or not k3 or k2 == k3:
+        scheme = None
+        if pairs == {(1, 3), (2, 4)}:
+            scheme, partner, nonpartner = "ABAB", 2, 3
+        elif pairs == {(1, 2), (3, 4)}:
+            scheme, partner, nonpartner = "AABB", 3, 1
+        elif not pairs:
+            scheme, partner, nonpartner = "unrhymed", 2, 3
+        if not scheme or counts[scheme] >= PER_CLASS[scheme]:
+            continue
+        tw = last_word(lines[partner - 1])
+        nw = last_word(lines[nonpartner - 1])
+        aw = last_word(lines[3])
+        tkey = rime_key(tw) if tw else None
+        nkey = rime_key(nw) if nw else None
+        if not tkey or not nkey or tkey == nkey:
             continue
         stub = re.sub(r"[A-Za-z']+\W*$", "", lines[3]).rstrip()
+        if not stub:
+            continue
         out.append({"id_human": id_human,
                     "prompt": "\n".join(lines[:3]) + "\n" + stub,
-                    "scheme": "unrhymed", "partner_line": 2,
-                    "target_key": k2, "target_word": w2,
-                    "actual_word": last_word(lines[3]),
-                    "nonpartner_key": k3})
-        n_un += 1
-        if n_un >= N_UNRHYMED:
-            break
+                    "scheme": scheme, "partner_line": partner,
+                    "target_key": tkey, "target_word": tw,
+                    "actual_word": aw, "nonpartner_key": nkey})
+        counts[scheme] += 1
+    print("selected:", counts, flush=True)
     return out
 
 
