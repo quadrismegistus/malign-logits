@@ -1,0 +1,307 @@
+{
+ "predictions": "P1 function share falls with x; P2 within-POS compensation shrinks",
+ "n_rows": 684517,
+ "function_share": {
+  "-1.0": {
+   "undisturbed": 0.22242990654205608,
+   "matched": 0.0,
+   "n_undist": 10165
+  },
+  "-2.0": {
+   "undisturbed": 0.34053887921319537,
+   "matched": 0.0,
+   "n_undist": 19522
+  },
+  "-3.0": {
+   "undisturbed": 0.2949788638003918,
+   "matched": 0.0,
+   "n_undist": 29097
+  },
+  "-4.0": {
+   "undisturbed": 0.22158823529411764,
+   "matched": 0.0,
+   "n_undist": 34000
+  },
+  "-5.0": {
+   "undisturbed": 0.16109251414521433,
+   "matched": 0.0,
+   "n_undist": 33757
+  },
+  "-6.0": {
+   "undisturbed": 0.1325324035473357,
+   "matched": 0.0,
+   "n_undist": 26386
+  },
+  "-7.0": {
+   "undisturbed": 0.11936746350751005,
+   "matched": 0.0,
+   "n_undist": 18908
+  },
+  "-8.0": {
+   "undisturbed": 0.10247292710522063,
+   "matched": 0.0,
+   "n_undist": 12374
+  },
+  "-9.0": {
+   "undisturbed": 0.08711528429838289,
+   "matched": 0.0,
+   "n_undist": 7668
+  },
+  "-10.0": {
+   "undisturbed": 0.06303786574870912,
+   "matched": 0.0,
+   "n_undist": 4648
+  },
+  "-11.0": {
+   "undisturbed": 0.04392129304286718,
+   "matched": 0.0,
+   "n_undist": 2846
+  },
+  "-12.0": {
+   "undisturbed": 0.03050471436494731,
+   "matched": 0.0,
+   "n_undist": 1803
+  },
+  "-13.0": {
+   "undisturbed": 0.01282051282051282,
+   "matched": 0.0,
+   "n_undist": 2184
+  },
+  "-14.0": {
+   "undisturbed": 0.03648424543946932,
+   "matched": 0.0,
+   "n_undist": 603
+  },
+  "-15.0": {
+   "undisturbed": 0.10306406685236769,
+   "matched": 0.0,
+   "n_undist": 359
+  },
+  "-16.0": {
+   "undisturbed": 0.012738853503184714,
+   "matched": 0.0,
+   "n_undist": 157
+  },
+  "-17.0": {
+   "undisturbed": 0.016129032258064516,
+   "matched": 0.0,
+   "n_undist": 62
+  }
+ },
+ "within_pos": {
+  "VERB only|faller|aligned": {
+   "median": -0.02255279426128498,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "VERB only|faller|base": {
+   "median": -0.021022067610933615,
+   "n": 39,
+   "up": 12,
+   "dn": 27,
+   "p_sign": 0.023702702470473014
+  },
+  "VERB only|matched|aligned": {
+   "median": -0.04418459909262462,
+   "n": 40,
+   "up": 9,
+   "dn": 31,
+   "p_sign": 0.0006795482549932785
+  },
+  "VERB only|matched|base": {
+   "median": -0.030993765735971568,
+   "n": 39,
+   "up": 7,
+   "dn": 32,
+   "p_sign": 7.025478407740593e-05
+  },
+  "VERB only|riser_matched|aligned": {
+   "median": -0.05094985828957754,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "VERB only|riser_matched|base": {
+   "median": -0.014530445692804816,
+   "n": 39,
+   "up": 13,
+   "dn": 26,
+   "p_sign": 0.05325191409792751
+  },
+  "content (VERB/NOUN/ADJ/ADV)|faller|aligned": {
+   "median": -0.023707912202386106,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "content (VERB/NOUN/ADJ/ADV)|faller|base": {
+   "median": -0.021022067610933615,
+   "n": 39,
+   "up": 10,
+   "dn": 29,
+   "p_sign": 0.0033778479119064286
+  },
+  "content (VERB/NOUN/ADJ/ADV)|matched|aligned": {
+   "median": -0.048204186432196816,
+   "n": 40,
+   "up": 10,
+   "dn": 30,
+   "p_sign": 0.0022214337732293643
+  },
+  "content (VERB/NOUN/ADJ/ADV)|matched|base": {
+   "median": -0.03475049608420755,
+   "n": 39,
+   "up": 6,
+   "dn": 33,
+   "p_sign": 1.429926123819314e-05
+  },
+  "content (VERB/NOUN/ADJ/ADV)|riser_matched|aligned": {
+   "median": -0.05736456759541542,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "content (VERB/NOUN/ADJ/ADV)|riser_matched|base": {
+   "median": -0.03432220901302496,
+   "n": 40,
+   "up": 10,
+   "dn": 29,
+   "p_sign": 0.0033778479119064286
+  },
+  "all POS pooled|faller|aligned": {
+   "median": -0.023707912202386106,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "all POS pooled|faller|base": {
+   "median": -0.020703032978155456,
+   "n": 40,
+   "up": 10,
+   "dn": 29,
+   "p_sign": 0.0033778479119064286
+  },
+  "all POS pooled|matched|aligned": {
+   "median": -0.048204186432196816,
+   "n": 40,
+   "up": 10,
+   "dn": 30,
+   "p_sign": 0.0022214337732293643
+  },
+  "all POS pooled|matched|base": {
+   "median": -0.03475049608420755,
+   "n": 39,
+   "up": 6,
+   "dn": 33,
+   "p_sign": 1.429926123819314e-05
+  },
+  "all POS pooled|riser_matched|aligned": {
+   "median": -0.05736456759541542,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "all POS pooled|riser_matched|base": {
+   "median": -0.03432220901302496,
+   "n": 40,
+   "up": 10,
+   "dn": 29,
+   "p_sign": 0.0033778479119064286
+  }
+ },
+ "pos_collapsed": {
+  "faller|aligned": {
+   "median": -0.03178245819005754,
+   "n": 40,
+   "up": 10,
+   "dn": 30,
+   "p_sign": 0.0022214337732293643
+  },
+  "faller|base": {
+   "median": -0.012628705707966592,
+   "n": 39,
+   "up": 11,
+   "dn": 28,
+   "p_sign": 0.009475304279476404
+  },
+  "matched|aligned": {
+   "median": -0.04619459586030156,
+   "n": 40,
+   "up": 9,
+   "dn": 31,
+   "p_sign": 0.0006795482549932785
+  },
+  "matched|base": {
+   "median": -0.036283993871871534,
+   "n": 39,
+   "up": 9,
+   "dn": 30,
+   "p_sign": 0.0010650196345523
+  },
+  "riser_matched|aligned": {
+   "median": -0.049679877662229255,
+   "n": 40,
+   "up": 8,
+   "dn": 32,
+   "p_sign": 0.0001821658297558315
+  },
+  "riser_matched|base": {
+   "median": -0.030993912595856044,
+   "n": 39,
+   "up": 10,
+   "dn": 29,
+   "p_sign": 0.0033778479119064286
+  }
+ },
+ "pos_and_freq": {
+  "faller|aligned": {
+   "median": -0.024379131894791572,
+   "n": 40,
+   "up": 13,
+   "dn": 27,
+   "p_sign": 0.03847730828420026
+  },
+  "faller|base": {
+   "median": -0.028244900843852894,
+   "n": 40,
+   "up": 5,
+   "dn": 34,
+   "p_sign": 2.4299079086631536e-06
+  },
+  "matched|aligned": {
+   "median": -0.05693708416193921,
+   "n": 39,
+   "up": 4,
+   "dn": 35,
+   "p_sign": 3.353161446284503e-07
+  },
+  "matched|base": {
+   "median": -0.04603021867293089,
+   "n": 39,
+   "up": 7,
+   "dn": 31,
+   "p_sign": 0.00011616700794547796
+  },
+  "riser_matched|aligned": {
+   "median": -0.03358448385456808,
+   "n": 40,
+   "up": 11,
+   "dn": 29,
+   "p_sign": 0.006426576095691416
+  },
+  "riser_matched|base": {
+   "median": -0.047488215343821416,
+   "n": 40,
+   "up": 8,
+   "dn": 31,
+   "p_sign": 0.0002940768754342571
+  }
+ }
+}

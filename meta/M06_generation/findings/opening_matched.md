@@ -173,11 +173,60 @@ Compensation would then be a fact about lexical specificity, not about
 imposition at all -- which is consistent with its absence in the tail, where
 both arms' openings are specific.
 
-**NEXT TEST, named rather than assumed:** the part of speech and syntactic
-role of the opening word by arm and bin. If the mechanism is specificity,
-the undisturbed openings at x >= -3 should be disproportionately function
-words and the effect should vanish when the comparison is restricted to
-content-word openings on both sides. Not run.
+## The specificity candidate: HALF CONFIRMED, AND THEN REFUTED
+
+Run on RH's instruction, using `taxonomy.get_pos(words, prompt)` -- CONTEXTUAL
+tagging at the prediction site, which matters because an out-of-context tagger
+calls `fall break kiss punch` nouns at exactly these sites. Producer
+`scripts/m06_opening_pos.py`, results `results/opening_pos.json`.
+
+**P1 CONFIRMED.** The function-word share of undisturbed openings tracks x
+exactly as the candidate requires -- and forced openings are 0% function words
+at every bin, by construction:
+
+    x bin      -1    -2    -3    -5    -7    -10   -13
+    undist   0.222 0.341 0.295 0.161 0.119 0.063 0.013
+    forced   0.000 0.000 0.000 0.000 0.000 0.000 0.000
+
+So where the compensation lives (x >= -4) roughly a third of the model's own
+openings are function words, and where it vanishes almost none are.
+
+**P2 REFUTED, and this is what kills the candidate.** Same rows, same 1-nat
+bins, POS COLLAPSED against POS MATCHED (verb against verb):
+
+    arm            role      POS collapsed   VERB-vs-VERB
+    faller         aligned      -0.0318         -0.0226
+    matched        aligned      -0.0462         -0.0442
+    riser_matched  aligned      -0.0497         -0.0509
+    faller         base         -0.0126         -0.0210
+    matched        base         -0.0363         -0.0310
+    riser_matched  base         -0.0310         -0.0145
+
+**Matching part of speech removes almost none of it** -- the aligned arm
+retains 71% to 102% of the effect, and every within-POS cell stays
+significant. Nor does adding a frequency band: matched on POS **and** a
+0.5-Zipf band, so a rare verb is never compared against a common one
+(~1,700-1,800 cell comparisons per arm and role):
+
+    faller aligned -0.0244 p 0.039 | base -0.0282 p 2.4e-06
+    matched        -0.0569 p 3.4e-07 |      -0.0460 p 1.2e-04
+    riser_matched  -0.0336 p 0.006   |      -0.0475 p 2.9e-04
+
+**So the compensation is not a part-of-speech effect and not a frequency
+effect.** Two candidate mechanisms have now been tested and killed: repair
+after disruption (the profile inverts) and lexical specificity (survives
+POS and frequency matching). The function-word gradient in P1 is real and
+explains none of it.
+
+**WHAT REMAINS UNEXPLAINED, stated as such rather than filled in.** At the
+same prompt, the same opening probability, the same part of speech and the
+same frequency band, a passage whose opening was IMPOSED is more predictable
+to the model than one whose opening it SAMPLED. The remaining structural
+difference between the arms is not a property of the word at all: it is that
+one opening was drawn from the model's own distribution and the other was
+not. What that could do mechanically -- given the model cannot see the
+difference -- is the open question, and this seat does not have a candidate
+it believes.
 
 ## Q2: not alignment-specific
 
