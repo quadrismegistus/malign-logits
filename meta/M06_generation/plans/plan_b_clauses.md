@@ -145,6 +145,40 @@ OSP-main clauses, and B.H1 is operationalised as that, not as a direct
 count of grammatically coordinate clauses; and IC is floored at 1 per
 sentence.
 
+## Amendment 2 (pre-verdict, 2026-08-13, RH's refinement question + the pilot feature diff)
+
+Close reading showed the per-sentence ratios' EXTREMES mark run-on
+narration (subordinator chains inside unpunctuated flow) rather than
+periodic embedding — high-DC exemplars from this corpus are breathless
+skaz, not Moore. And the pilot's per-1,000-word battery shows WHY the
+per-sentence ratio reads flat while something real moves underneath:
+aligned prose is HIGHER on `deprel_acl`, `deprel_advcl`, `deprel_xcomp`,
+`pos_VBG`, `pos_VBN`, `pos_TO` (28/39, 27/39, 26/39 pairs and kin) —
+non-finite, participial subordination — while sentences shorten and
+punctuation rises. The candidate picture: alignment converts finite
+clausal CHAINING into non-finite participial EMBEDDING — compressed
+subordination — which a clauses-per-sentence ratio cannot see because
+the sentence denominator shrinks in step.
+
+Refined operationalisations, declared before any full-run verdict,
+computable from cached parses (shards untouched):
+
+- `hypotaxis_dep_clauses_per_1000w` (already emitted) PROMOTES to
+  co-primary beside the per-sentence ratio: length-robust, run-on-robust.
+- NEW, named secondaries: `hypotaxis_finite_per_1000w` (clause heads
+  whose subtree carries an explicit subordinator `mark` or a finite verb)
+  vs `hypotaxis_nonfinite_per_1000w` (xcomp, acl with VBG/VBN head,
+  to-infinitives) — the split the pilot diff motivates; direction
+  registered for NEITHER (the finding, if any, is the split itself).
+- `dep_clause_word_share` (DCw/(DCw+ICw), words under subordination) —
+  denominator-free mass form.
+- Per-sentence ratio EXTREMES are demoted to description; tail exemplars
+  are never quoted as periodic style (close-reading note, 2026-08-13).
+
+B.H1/B.H2 stay registered as written and are reported as registered;
+verdict language already requires denominator-free agreement (Amendment
+1 §1), and the refined battery are the denominator-free forms.
+
 ## What this plan does not claim
 
 Nothing named "register" or "formality" — if a composite is ever built from
