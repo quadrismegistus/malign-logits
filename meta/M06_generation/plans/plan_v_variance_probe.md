@@ -1,8 +1,8 @@
 ---
-status: plan
+status: run
 grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives in the claims register
 date: 2026-08-13
-role: plan
+role: plan  # RUN 2026-08-13: producer scripts/m06_variance_probe.py, results/m06_variance_probe.json, data/m06_variance_probe_undisturbed.parquet (12,031 rows; forced arms not yet run)
 topics: [variance, replication]
 description: "Plan V: the within-cell generation-variance probe on passage_run2 — SmolLM2-360M's 1,844 cells generated twice under identical settings. SCOPE FENCE IN THE HEADER: prices run-to-run variance FOR SmolLM2-360M; for other pairs a hint of unknown transfer; a cross-pair estimate is a separate costed run."
 ---
