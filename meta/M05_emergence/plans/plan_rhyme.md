@@ -43,16 +43,31 @@ the joint pattern is reported, never merged.
 
 ## Operationalisations (naming rule)
 
-**Primary — `rhyme_pull` (distributional; no generation; the ladder's own
-word_probs machinery).** Constructed verse primers ending immediately
-before a line-final word: three lines of an AABB opening (lines 1-2 a
-couplet, line 3 setting the B rime) plus line 4 up to its final slot.
-Measure: probability mass on RIME-MATCHING candidates (rime classes
-precomputed over the vocabulary via Prosodic) minus mass on
-frequency-matched non-rhyming controls, per prompt, per rung. The exact
-design pattern of M05's census instruments; runs wherever word_probs runs.
-Control arm: the same primers with line 3's final word replaced to break
-the rime expectation (mass on the same candidate set = the base rate).
+**Primary — `rhyme_pull` (distributional; REVISED 2026-08-13 on RH's
+closure objection, which became the design).** RH's redesign: all M05
+capacities are next-word-probability objects, so rhyme is too — primer =
+a real poem's opening lines minus the last line's FINAL WORD, measured at
+that slot via `malign_logits.twp` (the verified local path, [5698];
+never `scripts/true_word_probs.py`, rule constants untouched). RH's
+confound, caught before any run: a non-rhyming slot distribution may
+mean the model does not know THE LINE ENDS THERE (a metrical failure),
+not that it cannot rhyme. THE FIX IS A DECOMPOSITION, and it yields two
+capacities from one instrument:
+
+- `line_closure` — mass-weighted P(newline | primer + w) over the slot
+  candidates: does the model treat the slot as line-final at all? This
+  is the METER/syllable-counting capacity, measured on its own.
+- `rhyme_given_closure` — among candidates the model itself treats as
+  line-closing, the share of mass in the TARGET RIME CLASS (the scheme
+  partner's class, scheme read off the real poem's own opening by the
+  pinned instrument). Memorization split built in: p(actual word)
+  reported apart from p(rime class minus actual). Controls: the
+  non-partner line's rime class, and a shuffled-primer variant.
+
+Low closure scores as metrical, never as rhyme failure; closure and
+conditional rime may have DIFFERENT ONSETS on the ladder, which is
+itself a declared question (does counting install before anticipating?).
+Cost: one expand() plus ~30 batched closure probes per primer per rung.
 
 **Secondary — `rhyme_maintenance` (generative; the paper's protocol,
 REVISED 2026-08-13 to RH's own completion design).** RH's paper data
@@ -70,8 +85,9 @@ mirrors the paper's `get_rhyme_for_txt` semantics: perfect rime =
 distance 0 (the exact-rime criterion), near rime <= max_dist reported
 beside, the >=4-per-10 poem threshold for categorical reads. STUCKNESS =
 rhyme rate in continuations of UNRHYMED primers, tracked across
-SFT/DPO/RLVR. Requires a checkpoint generation run — COSTED SEPARATELY,
-RH's word before any spend, per cool-off.
+SFT/DPO/RLVR — generation is retained for exactly what one slot cannot
+see: sustained scheme maintenance and stuckness. Requires a checkpoint
+generation run — COSTED SEPARATELY, RH's word before any spend.
 
 ## The memorization fence
 
