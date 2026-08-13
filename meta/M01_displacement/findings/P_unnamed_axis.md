@@ -181,6 +181,82 @@ separate from unrelated pairs on bare input.
 **So the rated dimensions are not a coarse version of the right axis. They are
 substantially the wrong basis.**
 
+### 3b. A CELL-level feature, and the ceiling is not a wall
+
+Everything above assigns one vector per WORD, so everything above is bounded by
+section 2's oracle. **`V(prompt + word) - V(prompt)` is not** -- the same word
+gets a different vector at every site. RH's proposal; three scripts, cheap check
+first.
+
+THE CONSTRUCT WAS PROBED BEFORE ANYTHING WAS SPENT (`k_delta_probe`). Bare-word
+bge separates near-synonyms from unrelated pairs by 0.1382 at anisotropy 0.5569;
+the within-prompt delta by **0.6027 at 0.1610**, beating GloVe's 0.4001 reference
+with the encoder that was this study's worst instrument. The synonym cosine
+barely moves (0.677 to 0.732); the UNRELATED cosine collapses, 0.539 to 0.129.
+Subtracting the prompt removes the shared component, and anisotropy is a shared
+component. Chinese 0.319 to 0.715.
+
+    held out by WORD / by PROMPT      k_delta_predict, 1,487,514 cells, 4,064 words
+      log p_base alone       0.5046   0.5172
+      + site vector          0.5377   0.5382    <- the control
+      + DELTA                0.6158   0.6517
+      oracle headroom on this population  +0.1638
+
+**68% and 82% of the headroom, against GloVe's 18-21% and the norms' 7%.** The
+site control matters and it passes: a site vector alone buys +0.033, the delta
+clears it by +0.078 to +0.114, and the delta scores HIGHER under the
+prompt-disjoint split -- a model living on site identity cannot transfer to
+prompts it never saw. The oracle here is computed on these rows, not read from
+section 2, after a first version compared a 4,064-word population against a
+2,760-word ceiling.
+
+**IT DOES NOT BEAT THE ORACLE (0.6517 against 0.6821), so the ceiling stands as a
+ceiling.** And the delta contains word identity, so this is mostly evidence that
+it is an excellent WORD feature.
+
+THE NARROW TEST IS THE ONE THAT MOVES SECTION 2. Hold the word fixed and ask
+whether the projection orders that word's OWN falling cells above its own rising
+ones. A word-level feature scores exactly 0.5 by construction.
+
+    within-word, 2,372 words with both classes and >=10 cells
+      delta projection   median 0.5254   weighted mean 0.5402   61% of words >0.5
+
+**So the 87% is reachable, and barely.** Section 2's "unreachable by any
+word-level feature" is exactly true and slightly misleading: it is a ceiling on a
+CLASS, not on the variance. `log p_base` is not a floor for this test despite
+varying within a word -- the movement rule defines a faller relative to p_base,
+so it selects on its own predictor, as section 1 says of the binary outcome.
+
+AND IT HAS NO NAME EITHER. Word-mean projection correlates with length **-0.353**
+(the strongest NAMED correlate, and section 7 shows length is removable from the
+axis at zero cost), concreteness +0.244, frequency +0.205, bodily_harm +0.177,
+register -0.138, and **charge +0.002** -- the third independent instrument to
+find the campaign's headline construct orthogonal to what predicts.
+
+### 3c. Four instruments, one convention, and the vocabulary is not the finding
+
+`k_instrument_poles` puts every word-scoring instrument on one orientation
+(fall/base = high; the ARM outcome runs backwards, which is why agreement with it
+is reported as a negative correlation) over the 1,708-word shared vocabulary.
+
+    pairwise Spearman        0.465 to 0.649
+    top-100 pole overlap     22 to 46 of 100
+
+**No two instruments share more than half their poles** -- including two versions
+of the same axis differing only in encoder, at 46/100. And yet the semantic
+character is identical in all four: bodily and vernacular action against
+procedural deliberation. `delta` fall = `punching stabbing kick threw killed
+smacked`; `delta` rise = `qualify contemplated engage evaluate assessed ensure`;
+GloVe fall = `drop fuck whacked dump lick bury shoot`; GloVe rise = `explore
+automate prioritize communicate respond verified`.
+
+**The characterisation is the invariant; the vocabulary is not.** Any specific
+hundred-word list is instrument-specific, so a figure quoting one as the finding
+would be quoting the unstable part. One cluster is delta-specific and worth its
+own look: manner-of-speaking verbs on the rise side (`murmured whispered mumbled
+snarled snorted`), which the arm AUC also carries (`whispered 0.858, muttered
+0.787, barked 0.768`) and GloVe does not.
+
 ## 4. The direction
 
 The GloVe direction predicting FALL, extracted with `log p_base` and `log fpm` in
