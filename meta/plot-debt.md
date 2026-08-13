@@ -74,7 +74,15 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
 12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
     A's half now has artifacts AND figures (A_position_*, 2026-08-13);
     the combined attention-vs-A panel remains undrawn.
-13. INCOMING — VERSE FLEET figures (fleet lands 2026-08-14 early am):
+13. NEW (2026-08-14, pair-cascade instrument, plan_pair_cascade.md):
+    the HUM SINK (sing/shake/tremble/weep->hum — expressive
+    de-intensification, split-half certified); the PROCEED cluster
+    (formalization axis at word grain); the TAXONOMY figure (1,851
+    displacement-coupled vs 20,130 frame pairs — the rarity of true
+    coupling as an image). t14_words is HELD: it quotes the retired
+    binomial's numbers and awaits the T amendment on the new
+    instrument.
+14. INCOMING — VERSE FLEET figures (fleet lands 2026-08-14 early am):
     the nine-slot within-poem time course; called-slot rhyme pull
     across pretraining rungs; scheme matrix; closure gradient. Likely
     the book's centerpiece panels. Wait for reconciliation + first
