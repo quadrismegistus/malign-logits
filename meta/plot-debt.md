@@ -81,6 +81,20 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     remaining basins (epistemic/expression/stasis) are one command
     each; chain-exhibit strip (fired->aimed->pointed, kill->shout->hum)
     still owed.
+13c. PARKED 2026-08-14 (RH: store and move on) — NETWORK
+    VISUALISATIONS ON DISPLACEMENT PAIRS, the consolidated queue:
+    (a) three remaining basin panels (epistemic/expression/stasis),
+    one `plot_displacement_network.py <basin>` command each;
+    (b) chain-exhibit strip — NB fired->aimed->pointed is FRAME
+    taxonomy (certified, co-rising), not displacement-coupled, and
+    kill->shout->hum dies at shout->hum under the verb restriction:
+    quote accordingly; (c) VERB-NETWORK redraws — core map + basin
+    panels on pair_cascade_replicated_verbs.parquet (795 coupled
+    pairs / 419 words; reach 29/0, understand 19/1, show, prepare;
+    lifts compress ~half, kill->scream 2.2x survives); (d) mutual-best
+    couples table; (e) graph-structure pass (components, depth,
+    condensation). Data all committed; producer takes a --verbs
+    source flag as the natural next step.
 13a. SHIPPED 2026-08-14 — X.1 GARMENT-LAYERS INFOGRAPHIC (RH's design,
     Opus-agent craft): `x1_garment_layers.svg/png` — stick figures with
     garment layers colored red(base)/blue(aligned) by median delta at
