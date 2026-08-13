@@ -104,6 +104,25 @@ withdrawn. Run after (30e4341d), 22,461 passages over 100 matched keys,
     mean_drift   zh -0.0462 (1/24, p 1.6e-06) | en -0.0427 (0/25, p 6.0e-08)
                  DiD en-zh  +0.0141  14/11  p 0.69
 
+**KEY ROBUSTNESS, added after malign's [5855] showed the parse trap.** My
+matched key was `(pair_id base, prompt_id suffix)` -- a POSITIONAL PARSE, and
+14 of 216 catalogue rows have a `prompt_id` that does not start with its
+`pair_id` (the `setf_` family), so my key returned None for them and **they
+were silently dropped**. `prompt_catalogue` carries a declared `pair_role`
+column that needs no parsing, and the two languages use two incompatible
+`prompt_id` conventions, so `prompt_id` is not a cross-language join key at
+all. Rerun on the parse-free key `(pair_id base, pair_role)` -- 23,677
+passages, 71 keys, every passage in the paired population retained:
+
+    total_drift  zh -0.0263 (5/20, p 4.1e-03) | en -0.0171 (3/22, p 1.6e-04)
+                 DiD en-zh  -0.0020  11/14  p 0.69
+    mean_drift   zh -0.0454 (1/24, p 1.6e-06) | en -0.0409 (0/25, p 6.0e-08)
+                 DiD en-zh  +0.0042  13/12  p 1.0
+
+Same conclusion on both keys; the DiD stays null and holds no sign either
+way. **The parse-free key is the one that travels**, since it drops nothing
+and rests on declared columns.
+
 **THE INVARIANCE HOLDS ON MATCHED CONTENT.** Both arms' reductions survive,
 the DiD is null on both metrics and holds no sign. **Alignment reduces
 trajectory drift by the same amount in Chinese and English ON THE SAME
