@@ -21,11 +21,20 @@ gens?*
 
 ## The design facts, both taken from the artifacts
 
-POSITION 1 IS THE FORCED TOKEN and is dropped from every arm including
-undisturbed: forced words average -2.18 to -2.28 there while the model's own
-sampled first token averages -4.70, because forced words are selected
-high-mass candidates and a temp-1.0 draw is not. Comparing with position 1
-in would measure the selection rule.
+**CORRECTED 2026-08-13 ([5811]): POSITION 1 IS NOT THE FORCED TOKEN.** This
+section originally said it was. Measured: the forced word is in neither the
+prompt (0.0000) nor the scored text (0.0008), `len(logprobs)` equals
+`tokens(text)` exactly, and `logprobs[1]` VARIES within a forced site (sd
+1.75) where a forced word's logprob would be deterministic. Position 1 is
+the first SAMPLED token after an unmeasured imposed word.
+
+**Consequences, scoped:** dropping position 1 was still SYMMETRIC across the
+forced arms, so **S3 and S4 are unaffected in value and stand**. But every
+comparison involving `undisturbed` is confounded far more deeply than the
+conditioning fence below admits -- the forced arms carry ONE MORE WORD of
+context than the undisturbed arm. **S1, S2, S5 and the ARM LEVELS table are
+withdrawn**, including the ordering RH's question asked about, which cannot
+be answered from this instrument.
 
 THE ARMS ARE fell / flat / rose AT ONE ALIGNED PROBABILITY. `matched` is the
 non-mover (median delta +0.0002), `riser_matched` is a RISER held at the
@@ -73,7 +82,11 @@ that**. The clean sentence is the aligned-only one: at held aligned
 probability, a RISEN word lowers aligned self-surprisal and a FALLEN word
 does not measurably.
 
-## RH's ordering question, answered directly
+## RH's ordering question -- WITHDRAWN ([5811])
+
+The table below compares sequences with different amounts of conditioning
+context (forced arms are scored after an unmeasured imposed word) and is not
+an answer to the question. It is kept only because [5795] posted it.
 
 Pair-grain median self-surprisal by arm:
 
