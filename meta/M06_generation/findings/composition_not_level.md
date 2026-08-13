@@ -96,18 +96,46 @@ disqualifies itself arithmetically instead of being excluded by hand. A generic
 "unstable words behave differently" effect would show in `pct_moved`; it does
 not. Top decile of fallers: -212 occurrences per 10k tokens; top risers +58.
 
-## Result 3: displaced words also COST MORE in context
+## Result 3: displaced words cost more RELATIVE TO RISERS — the contrast, not the level
 
-`level` = s_aligned - s_base on identical text, so positive means the aligned
-model finds the word more costly where it appears.
+**TWO DIFFERENT QUANTITIES ARE BOTH CALLED "LEVEL" AND EARLIER DRAFTS OF THIS
+FILE CONFLATED THEM.** RH caught it by asking how, if the effect is all
+composition, the same words can cost differently.
 
-    net_fall vs LEVEL (base-generated text)   +0.284  35/36 positive
-    net_fall vs LEVEL (aligned-generated)     +0.320  36/36 positive
+    DECOMPOSITION level   s_aligned|aligned-text - s_base|base-text
+                          each model on ITS OWN generations.  ~ 0 (+0.0249)
+    CROSS-SCORER level    s_aligned(T) - s_base(T)
+                          two scorers, ONE fixed text.  LARGE and positive
 
-Words M01 says fell are used LESS and cost MORE where they survive. A slot
-probability dropping entails fewer emissions; it entails nothing about cost in
-contexts hundreds of tokens downstream under a different scorer on the same
-tokens.
+They are not the same term and they support different claims. Results 3 and 4
+use the second.
+
+**And the cross-scorer level is dominated by a generic off-policy shift, not by
+displacement.** Occurrence-weighted, on base-generated text:
+
+    class         tokens   share   mean level   contribution
+    fall         1293354    7.6%     +0.3806      +0.0288
+    rise          596374    3.5%     +0.1443      +0.0050
+    still        2948340   17.3%     +0.2574      +0.0444
+    unmeasured  12242204   71.7%     +0.6137      +0.4399
+    TOTAL                                         +0.5181
+
+**Everything is more costly to the aligned model on base text, and the LARGEST
+effect is on words M01 never measured.** Base text is simply foreign to the
+aligned model. Against that backdrop fallers at +0.381 sit BELOW the corpus
+average, so "displaced words cost more in context" is true and NOT DISTINCTIVE.
+
+The distinctive quantity is the CONTRAST between directions, on a fixed text
+where the generic shift applies equally to both:
+
+    fall +0.3806  vs  rise +0.1443                     raw, all cells
+    median(level|fall) - median(level|rise)  +0.3471   common support, 34/35
+                                             +0.4435   aligned-gen, 35/35
+
+The correlations that were reported here as the result (+0.284 / +0.320 against
+net_fall) inherit the same problem: they are computed against a level whose bulk
+is off-policy shift. **The contrast at matched probability is the claim; those
+correlations are not.**
 
 ## Result 4: demoted, not merely improbable — the M04.A confound, separated
 
