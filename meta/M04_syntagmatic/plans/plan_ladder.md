@@ -52,6 +52,8 @@ How much more the aligned model likes its own continuation than the base's. It s
 
 **H1 (primary) — MONOTONE IN DIRECTION.** At held aligned probability, D decreases from the up rung to the flat rung to the down rung.
 
+> **THE EXPLORATORY FIGURES BELOW ARE PRE-GATE AND FROM A DIFFERENT PRODUCER — checked 13 Aug, and I wrote both halves of the mismatch.** `-0.0673 (32/10)` is **n=42**, computed by `a_matched_control.py` before `ladder_confirm.py` existed; §2 declares the analysis at **n=40** after the retention gate. Re-running the declared producer on unchanged data (store last ingested 12 Aug 23:03) gives **−0.0600, 31/11, p=0.0029 ungated** and **−0.0516, 29/11, p=0.0064 gated**. Every construction is negative and significant, so **H1's direction and the ladder's ordering are unaffected** — but the magnitude spans ~30% across producer and population, and **no figure in this section may be quoted to three decimals until the two producers are reconciled.** The population half is now explained; the producer half is not. Docket [5826].
+
     supported if   fell - flat < 0 AND rose - flat > 0, both at sign p < 0.05,
                    AND fell - rose < 0 at p < 0.01 with permutation p < 0.05
     exploratory    -0.0673 (32/10, p=0.0009) · +0.0345 (14/28, p=0.044) · -0.0806 (35/7, p<0.0001)
