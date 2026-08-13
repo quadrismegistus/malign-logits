@@ -97,13 +97,17 @@ institutionalised clarity-and-helpfulness injunction. Where aligned prose
 lands on that map — and whether it moves toward the analytic-philosophy
 cluster — is a figure, not a hypothesis, and is disclosed as exploratory.
 
-Queued behind A and B, not yet drafted: **C** — the affect bridge
-(`concreteness_brysbaert_mean`, passage valence extremity; does word-level
-de-extremification surface in the prose lexicon); **D** — the existing
-instruments (BLT bits/char, Pythia surprisal, bge-m3 drift). Topic modeling
-was considered and DROPPED at open: content is pinned by construction, so
-topic variation mostly recovers prompt identity; drift is D's job and frame
-exit is M02's.
+**C and D are DRAFTED** (2026-08-13, RH's word):
+[plan_c_affect.md](plans/plan_c_affect.md) — the affect bridge, directions
+INHERITED from C/E/K and flagged for RH's countersign;
+[plan_d_information.md](plans/plan_d_information.md) — the information
+instruments, descriptive, pilot deferred behind the A/B shards. The live
+proposal ledger (legacy-corpus replication, plan E's human anchors and the
+Basic-English simplification vector, the prompt-provenance check, the OSP
+map prerequisites, the forced-arms secondary) lives in [TODO.md](TODO.md).
+Topic modeling was considered and DROPPED at open: content is pinned by
+construction, so topic variation mostly recovers prompt identity; drift is
+D's job and frame exit is M02's.
 
 ## Scope
 
