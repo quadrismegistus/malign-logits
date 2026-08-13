@@ -85,15 +85,33 @@ def last_word(line):
     return m[-1] if m else None
 
 
+RHYME_GT = CSV.replace(".csv.gz", "_real.rhyme_data.csv").replace(
+    "genai_rhyme_completions_real", "genai_rhyme_completions_real")
+
+
 def pick_primers():
-    """Poems whose line 4 rhymes (dist<=1) with an earlier line, plus a
-    non-partner line whose end word does NOT share the target rime."""
+    """Selection grounded in the paper's own rhyme_data for the REAL poems
+    (RH, 2026-08-13): rhymed arm requires the whole real poem to clear the
+    paper's threshold (perfect >= 4 per 10 lines) AND a window partner;
+    unrhymed arm requires the whole poem near-rhymeless (rhyming <= 1 per
+    10) AND a clean window -- fixing the off-window-scheme leak."""
     import prosodic
+    gt = pd.read_csv(os.path.expanduser(
+        "~/github/generative-formalism1/data/data_as_in_paper/"
+        "genai_rhyme_completions_real.rhyme_data.csv"))
+    gt = gt.dropna(subset=["num_lines"])
+    gt = gt[gt.num_lines >= 6]
+    gt["perfect_per10"] = 10 * gt.num_perfectly_rhyming_lines / gt.num_lines
+    gt["rhyming_per10"] = 10 * gt.num_rhyming_lines / gt.num_lines
+    gt_rhymed = set(gt[gt.perfect_per10 >= 4]["id"])
+    gt_unrhymed = set(gt[gt.rhyming_per10 <= 1]["id"])
     df = pd.read_csv(CSV)
     df5 = df[df.first_n_lines == 5]
     out = []
     for id_human, g in df5.groupby("id_human"):
         g0 = g[g.id == g.id.iloc[0]].sort_values("line_num")
+        if g0.id.iloc[0] not in gt_rhymed:
+            continue  # ground truth: whole real poem clears the paper threshold
         lines = g0[g0.line_num <= 4]["line_real"].tolist()
         if len(lines) < 4 or not all(isinstance(x, str) and x.strip() for x in lines):
             continue
@@ -145,6 +163,8 @@ def pick_primers():
         if any(o["id_human"] == id_human for o in out):
             continue
         g0 = g[g.id == g.id.iloc[0]].sort_values("line_num")
+        if g0.id.iloc[0] not in gt_unrhymed:
+            continue  # ground truth: whole real poem near-rhymeless
         lines = g0[g0.line_num <= 4]["line_real"].tolist()
         if len(lines) < 4 or not all(isinstance(x, str) and x.strip() for x in lines):
             continue
