@@ -175,10 +175,29 @@ def main():
             v = emb.encode(ss, show_progress_bar=False)
             v = v / (np.linalg.norm(v, axis=1, keepdims=True) + 1e-10)
             d = drift_metrics_from_embeddings(v.tolist())
+            #: PERSIST THE WHOLE METRIC VECTOR, not two fields of seven.
+            #: The encode is the expensive step; everything derived from it is
+            #: free AT THIS MOMENT and costs a full re-encode later. Storing
+            #: two fields cost exactly that once already.
+            #: `mean_pairwise` is the extra scalar the ORDERING test needs:
+            #: under a random sentence order the expected successive distance
+            #: IS the mean of all pairwise distances, so
+            #: mean_drift - mean_pairwise is a pure ordering measure with
+            #: composition held fixed by construction -- computable forever
+            #: from this column, with no embeddings retained.
+            sim = v @ v.T
+            n = len(v)
+            mean_pairwise = (float((1.0 - sim).sum() / (n * (n - 1)))
+                             if n > 1 else float("nan"))
             rows.append({"lang": lang, "model": model, "prompt": prompt,
                          "sample_idx": sidx, "n_sents": len(ss), "length": ln,
                          "total_drift": d["total_drift"],
-                         "mean_drift": d["mean_drift"]})
+                         "mean_drift": d["mean_drift"],
+                         "max_drift": d["max_drift"],
+                         "std_drift": d["std_drift"],
+                         "path_length": d["path_length"],
+                         "directedness": d["directedness"],
+                         "mean_pairwise": mean_pairwise})
             if i == 99:
                 r = (time.time() - t0) / 100
                 print("  %s throughput %.3f s/passage -> ETA %.1f min"
