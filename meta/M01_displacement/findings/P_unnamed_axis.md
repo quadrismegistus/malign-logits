@@ -226,7 +226,15 @@ ones. A word-level feature scores exactly 0.5 by construction.
     within-word, 2,372 words with both classes and >=10 cells
       delta projection   median 0.5254   weighted mean 0.5402   61% of words >0.5
 
-**So the 87% is reachable, and barely.** Section 2's "unreachable by any
+**So the 87% is reachable, and barely -- and the reach is VERB-CONCENTRATED**:
+on the full vocabulary (`--all` store, 5,452 words) the within-word median falls
+to 0.5066 with 51.9% of words above the floor, against verbs' 0.5254/61%. The
+within-word variance the delta touches lives where the movement action is.
+And the page-behaviour anchor now exists: the arm signature survives generation
+at same-prompts cross-grain Spearman +0.500 (M06, `p_on_passages.md`,
+single-pass), with forced fallers dragging BOTH arms equally (DiD p=0.63) --
+the signature is a disposition sampling partially realises, not a defended
+boundary. Section 2's "unreachable by any
 word-level feature" is exactly true and slightly misleading: it is a ceiling on a
 CLASS, not on the variance. `log p_base` is not a floor for this test despite
 varying within a word -- the movement rule defines a faller relative to p_base,
