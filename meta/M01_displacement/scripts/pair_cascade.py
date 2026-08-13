@@ -20,6 +20,16 @@ Outputs (results/):
                                    taxonomy label
   pair_cascade.json                gates, seed, counts, M=50 sensitivity
 
+--verbs (added 2026-08-14, RH's design): restrict the UNIVERSE to cells
+where the word is a verbal continuation at that site — is_verb from
+data/verb_context_mask_m01.parquet (producer verb_context_mask.py,
+contextual POS via taxonomy.get_pos). The filter is applied at the CELL
+level inside the movement CTE, before any aggregation, so word gates,
+joint support, and the outside denominators are all verb-cell quantities
+and both ends of every pair are verbs-in-context. The mask is loaded
+into malign_logits.verb_context_mask_m01 (replaced each run). Outputs
+carry the _verbs suffix.
+
 Everything here is single-pass until a second seat rebuilds from the
 parquet; the per-half counts are persisted precisely so that is possible
 ([5819]: reconstructable, not merely re-agreeable).
@@ -57,14 +67,56 @@ def esc(s):
     return s.replace("\\", "\\\\").replace("'", "\\'")
 
 
-def pull(edges, smoke=False):
+MASK_TABLE = "malign_logits.verb_context_mask_m01"
+MASK_PARQUET = "data/verb_context_mask_m01.parquet"
+
+
+def load_mask():
+    """(Re)load the verb-context mask into ClickHouse; return the CTE
+    join clause fragment used to restrict mv to verb cells."""
+    for q in (f"DROP TABLE IF EXISTS {MASK_TABLE}",
+              f"""CREATE TABLE {MASK_TABLE}
+                  (prompt String, word String, pos String, is_verb Bool)
+                  ENGINE = MergeTree ORDER BY (prompt, word)"""):
+        r = subprocess.run([CH, "client", "-q", q], capture_output=True,
+                           text=True)
+        if r.returncode:
+            sys.exit(r.stderr[:800])
+    with open(MASK_PARQUET, "rb") as fh:
+        r = subprocess.run(
+            [CH, "client", "-q",
+             f"INSERT INTO {MASK_TABLE} FORMAT Parquet"],
+            stdin=fh, capture_output=True, text=True)
+    if r.returncode:
+        sys.exit(r.stderr[:800])
+    r = subprocess.run([CH, "client", "-q",
+                        f"SELECT count(), countIf(is_verb) FROM "
+                        f"{MASK_TABLE} FORMAT JSONEachRow"],
+                       capture_output=True, text=True)
+    print(f"mask loaded: {r.stdout.strip()}", flush=True)
+
+
+def mv_sql(inlist, verbs):
+    if not verbs:
+        return (f"SELECT DISTINCT base,aligned,prompt,word,cls "
+                f"FROM malign_logits.movement "
+                f"WHERE (base,aligned) IN ({inlist})")
+    return (f"SELECT DISTINCT m.base AS base, m.aligned AS aligned, "
+            f"m.prompt AS prompt, m.word AS word, m.cls AS cls "
+            f"FROM malign_logits.movement m "
+            f"INNER JOIN {MASK_TABLE} v "
+            f"ON m.prompt = v.prompt AND m.word = v.word "
+            f"WHERE v.is_verb AND (m.base, m.aligned) IN ({inlist})")
+
+
+def pull(edges, smoke=False, verbs=False):
     inlist = ",".join("('" + esc(b) + "','" + esc(a) + "')"
                       for b, a in (p.split(">") for p in edges))
     g = GATES
+    mv = mv_sql(inlist, verbs)
     qw = f"""SELECT word, count() AS cells, countIf(cls='rise') AS rises,
         countIf(cls='fall') AS falls
-      FROM (SELECT DISTINCT base,aligned,prompt,word,cls
-            FROM malign_logits.movement WHERE (base,aligned) IN ({inlist}))
+      FROM ({mv})
       GROUP BY word HAVING cells >= {g['word_cells']} FORMAT JSONEachRow"""
     r = subprocess.run([CH, "client", "-q", qw], capture_output=True,
                        text=True)
@@ -77,8 +129,7 @@ def pull(edges, smoke=False):
         fal, ris = fal[:40], ris[:40]
     fl = ",".join("'" + esc(w) + "'" for w in fal)
     rl = ",".join("'" + esc(w) + "'" for w in ris)
-    qj = f"""WITH mv AS (SELECT DISTINCT base,aligned,prompt,word,cls
-        FROM malign_logits.movement WHERE (base,aligned) IN ({inlist}))
+    qj = f"""WITH mv AS ({mv})
       SELECT f.word AS F, r.word AS R, count() AS n_joint,
              countIf(r.cls='rise') AS jRr, countIf(f.cls='fall') AS jFf,
              countIf(f.cls='fall' AND r.cls='rise') AS jboth
@@ -128,6 +179,9 @@ def discover(A, m_prior):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--smoke", action="store_true")
+    ap.add_argument("--verbs", action="store_true",
+                    help="restrict universe to verb-in-context cells "
+                         "(both ends), via verb_context_mask_m01")
     args = ap.parse_args()
 
     declared = [ln.strip() for ln in
@@ -136,8 +190,10 @@ def main():
     random.Random(SEED).shuffle(declared)
     hA, hB = declared[:23], declared[23:]
 
-    A = pull(hA, args.smoke)
-    B = pull(hB, args.smoke)
+    if args.verbs:
+        load_mask()
+    A = pull(hA, args.smoke, args.verbs)
+    B = pull(hB, args.smoke, args.verbs)
     print(f"gated pairs: A {len(A):,} | B {len(B):,}", flush=True)
 
     A, disc = discover(A, M_PRIOR)
@@ -167,7 +223,7 @@ def main():
                                 "displacement-coupled", "frame")
 
     os.makedirs(OUT, exist_ok=True)
-    tag = "_smoke" if args.smoke else ""
+    tag = ("_verbs" if args.verbs else "") + ("_smoke" if args.smoke else "")
     surv.reset_index().to_parquet(
         os.path.join(OUT, f"pair_cascade_replicated{tag}.parquet"))
     n_in_B, n_rep = len(conf), int(conf.replicated.sum())
