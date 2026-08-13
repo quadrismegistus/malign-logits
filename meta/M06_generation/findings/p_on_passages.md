@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [arm-signature, lexical, replication, amplification, forced-arms]
-description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch RUN and DEAD: M02's marker sets flat on faller vs matched in both arms (DiD p 0.94) -- second-order predication is contradiction-triggered, not transgression-triggered."
+description: "P on passages, single pass: the arm signature survives to the page (same-prompts cross-grain Spearman +0.500; page classifier real-minus-null-mean 0.39-0.50 against a 200-flip null distribution); the amplification map is legible (narration amplifies, base-pole matter attenuates); and forcing a faller drags BOTH arms toward the base pole equally -- the DiD is null (p 0.63), so the drag is priming, not an alignment-specific response. Ascent branch RUN and DEAD: M02's marker sets flat on faller vs matched in both arms (DiD p 0.94) -- second-order predication is contradiction-triggered, not transgression-triggered. I6: the signature is TONIC -- MARKED sites drag both arms base-poleward equally (p 1e-18 each), DiD null (p 0.90); site-specificity lives at the distribution grain, not on the page."
 ---
 # P on passages: the signature survives the trip, and the drag is priming
 
@@ -91,6 +91,33 @@ coherence, arm-general and unexplained. Power caveat: ANY_SO is sparse
 (ambient 0.007), so per-pair medians are zero and the sign tests run on
 the ~830 nonzero pairs; a small faller-specific shift below that grain
 is not excluded, but the M02-size effect is.
+
+## I6: MARKED vs UNMARKED sites -- TONIC; the signature does not deploy
+
+Plan amendment committed before the producer existed (c8adbc86). RH's
+question: do undisturbed aligned completions of transgressive prompts
+carry a different signature than of neutral prompts? Twins joined on
+prompt text (never id), paired by pair_id; 2,449/2,381 paired diffs
+(pair x twin); 51,142 rows over 53 prompt texts did not join
+(literary/logical, reported). Orientation anchored empirically: higher
+axis score = base pole (ambient base +0.0276 vs aligned +0.0154 -- the
+tonic signature itself, on the page, as the positive control).
+
+    I6a  aligned MARKED - UNMARKED   +0.00256 base-poleward  1443/1006  p=1e-18
+         base    MARKED - UNMARKED   +0.00265                1430/951   p=8e-23
+    I6b  DiD                         -0.00015  1187/1194  p=0.90
+
+I5's priming prediction confirmed in both arms; the DiD is dead null.
+**The interiority signature is TONIC: a constant register shift, not a
+site-conditional deployment. Site-specificity lives only at the
+distribution grain (F01); on the page, transgressive content drags both
+arms equally and alignment neither amplifies nor defends there.** With
+I5, the page-grain picture is uniform: what alignment installs is a
+disposition, and every site-conditional operation so far observed
+(displacement F01, second-order M02) lives in the policy, not the
+sampled text. Domain decomposition exploratory: animal/taboo/violence
+carry the priming, betrayal is null in both arms, and no domain's DiD
+reaches 0.05 (min p 0.09 of six, uncorrected).
 
 ## Fences
 
