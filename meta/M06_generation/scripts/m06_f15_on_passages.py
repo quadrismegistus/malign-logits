@@ -190,12 +190,10 @@ def main():
 
     df = pd.DataFrame(out_rows)
     suf = "_smoke" if args.smoke else ""
-    pq = os.path.join(OUTD, "f15_on_passages%s_cells.parquet" % suf)
-    df.to_parquet(pq)
-    print("per-passage metrics persisted: %s rows -> %s"
-          % (format(len(df), ","), os.path.basename(pq)))
 
-    #: quadrants -- pooled medians over both arms, computed once, reported
+    #: quadrants -- pooled medians over both arms, computed once, reported;
+    #: assigned BEFORE the persist so the flow is checkable from the cells
+    #: parquet alone ([5772])
     med_d = float(df.total_drift.median())
     med_s = float(df.mean_surprisal.median())
     df["quadrant"] = np.select(
@@ -203,6 +201,11 @@ def main():
          (df.total_drift >= med_d) & (df.mean_surprisal < med_s),
          (df.total_drift < med_d) & (df.mean_surprisal >= med_s)],
         ["Q2", "Q1", "Q3"], default="Q4")
+
+    pq = os.path.join(OUTD, "f15_on_passages%s_cells.parquet" % suf)
+    df.to_parquet(pq)
+    print("per-passage metrics persisted (with quadrant labels): %s rows -> %s"
+          % (format(len(df), ","), os.path.basename(pq)))
 
     cell = df.groupby(["pair", "role"]).agg(
         surp=("mean_surprisal", "mean"), drift=("total_drift", "mean"),
