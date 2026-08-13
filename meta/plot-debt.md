@@ -9,17 +9,84 @@ Two kinds of entry, kept apart: **inventory** (what has a figure, what exists
 only as numbers-in-prose or data-on-disk — checkable facts) and **candidates**
 (what looks figure-worthy — reader judgment, flagged as such throughout). The
 finding documents govern their own numbers; nothing here upgrades a grade or
-resolves a tension. This is a triage doc: it gets consumed, not maintained.
+resolves a tension.
 
-## The shape of the debt
+REGIME CHANGE (RH, 2026-08-14): this is now a RUNNING FIGURE TODO,
+maintained by the registrar — the original "consumed, not maintained"
+rule is retired. The RUNNING TODO section below is the live queue;
+per-folder candidate lists remain the backlog; statuses are dated.
+
+## The shape of the debt (refreshed 2026-08-14)
 
 | Folder | Finding docs | Figures | Note |
 |---|---|---|---|
-| M01_displacement | 18 | 1 (`x_intimacy_vs_movement`) | one plotting script among ~156 |
-| M02_frame_exit | 10 | 0 (`figures/` exists, empty) | results/ largely plot-ready |
+| M01_displacement | 21 | 38 | 36 are K's exploratory norm-pair biplots; shortlist items still undrawn |
+| M02_frame_exit | 11 | 1 (`z_depth_exit_null`) | results/ largely plot-ready |
 | M03_proceduralization | 4 | 4 (all in D, `f_figures.py`) | A, B_C, E entirely unplotted |
-| M04_syntagmatic | 2 | 0 (no `figures/` dir) | debt is total |
-| M05_emergence | 4 | 48 files, 16 embedded | 11 orphaned; the exception |
+| M04_syntagmatic | 2 | 14 (Finding A family) | produce-first DISCHARGED; attention two-panel still undrawn |
+| M05_emergence | 10 | 66 | fig19-23 sense family added; A-R4 joined panel still undrawn |
+| M06_generation | 3 | 3 (plan-C density pilots) | verdict-grade findings entirely unplotted |
+
+81 figure files landed 08-11 -> 08-14, essentially none from the
+cross-folder shortlist: seats drew producer-adjacent diagnostics, not
+the paper-facing figures.
+
+## RUNNING TODO (live queue; registrar maintains; dated statuses)
+
+Priority order, RH-adjustable. "open" = undrawn and unblocked.
+
+1. OPEN — M01 N cluster dot plot (shortlist 20/anchor): the campaign's
+   flagship result (91% of 82,775 cells, 34/34 clusters) has no
+   picture. `result_n_primary.json`. Trivial.
+2. OPEN — M02 calibration number line (shortlist 4): 0.000 / 0.907 /
+   1.006 / 4.031, per-cell strip behind, zh twin panel.
+3. OPEN — NEW (2026-08-13): S4 DIAGONAL — each model soothed by its own
+   promoted vocabulary; 2x2 role x word-class with one significant cell
+   per arm ([5795]/[5825]; self_surprisal_cells.parquet). The surviving
+   alignment-specific result of the forced-word program.
+4. OPEN — NEW (2026-08-13): F15-ON-PASSAGES QUADRANT FLOW — Q2
+   breakdown drains to metonymic/unmarked, 34/38 pairs
+   (f15_on_passages_cells.parquet with per-passage quadrant labels).
+   Natural flow/alluvial diagram.
+5. OPEN — NEW (2026-08-13): CROSS-LINGUAL INVARIANCE — paired zh/en
+   drift reductions + null DiD on matched prompts
+   (crosslingual_arms_pairs.parquet, parse-free key version).
+6. OPEN — NEW (2026-08-13): PROPAGATION SLOPE — the ~1.3%/99% line;
+   per-pair slopes both roles, aligned-minus-base null
+   (propagation_cells.parquet at 22aee418, post-repair).
+7. OPEN — NEW (2026-08-13): FINDINGS H STAGE PLOT — SFT installs / DPO
+   rebounds concreteness to dead heat / RLVR re-suppresses; plus the
+   Pythia differentiation curve (concreteness 1.08 -> 2.87 from step
+   128, coverage fence shaded). data/m05_norm_mass.parquet.
+8. OPEN — M01 T-14 dumbbell (shortlist 1) — `s_everything_marginal.csv`.
+9. OPEN — T-18 x M05-C sign-disagreement dumbbell (shortlist 2).
+10. OPEN — M05 A-R4 joined ratio/pole-sep panel (shortlist 3).
+11. OPEN — M03 E survivor scatter (shortlist 5) + remaining shortlist
+    items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
+    M02 dumbbell) — unblocked, order per original ranking.
+12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
+    A's half now has artifacts AND figures (A_position_*, 2026-08-13);
+    the combined attention-vs-A panel remains undrawn.
+13. INCOMING — VERSE FLEET figures (fleet lands 2026-08-14 early am):
+    the nine-slot within-poem time course; called-slot rhyme pull
+    across pretraining rungs; scheme matrix; closure gradient. Likely
+    the book's centerpiece panels. Wait for reconciliation + first
+    reads before drawing.
+
+## STATUS CHANGES (2026-08-13/14)
+
+- M05 C-R4 recapture bars: BLOCKED -> DEAD. R4 withdrawn ([5781]) —
+  the domain contrast does not reproduce; nothing to draw.
+- OPENING-MATCHED FAMILY: UNPLOTTABLE — withdrawn at construction
+  level ([5811]); nothing from it may be drawn in any form. Its
+  arm-ORDERING was additionally never established ([5805]) — no
+  ordering bar chart even from surviving arm-vs-arm quantities without
+  the paired test drawn beside it.
+- LADDER (M04) figures: quarantine lifted ([5832]) — draw only from
+  the REPAIRED producer values (two producers now agree exactly);
+  magnitudes pre-repair are dead.
+- M04 produce-first (items 2-4 of the M04 folder list): DISCHARGED —
+  A_position_figures shipped with sentence-aligned indexing.
 
 ## Producer, artifact and write-up debt
 
