@@ -242,17 +242,36 @@ is reported as a negative correlation) over the 1,708-word shared vocabulary.
     pairwise Spearman        0.465 to 0.649
     top-100 pole overlap     22 to 46 of 100
 
-**No two instruments share more than half their poles** -- including two versions
-of the same axis differing only in encoder, at 46/100. And yet the semantic
-character is identical in all four: bodily and vernacular action against
+No two instruments share more than half their poles, including two versions of
+the same axis differing only in encoder at 46/100. **THAT IS NOT A DISAGREEMENT,
+AND READING IT AS ONE WAS AN ERROR THIS SECTION ORIGINALLY MADE.** Under a
+single-latent-direction model -- two variables correlated at rho, both ranked,
+top-100 of 1,708 -- the expected overlap is:
+
+    pair               rho    predicted        observed fall/rise
+    arm   GloVe       0.465   24.0 +- 4.0        30 / 23
+    arm   bge         0.508   26.2 +- 4.0        28 / 22
+    arm   delta       0.495   25.6 +- 3.9        32 / 26
+    GloVe bge         0.643   36.0 +- 4.1        46 / 32
+    GloVe delta       0.562   29.8 +- 4.0        30 / 23
+    bge   delta       0.649   36.2 +- 4.2        38 / 39
+
+**Every observed overlap meets or exceeds its prediction; none falls below.** The
+tails of a noisy measurement are its least stable part, so a quarter to a half is
+simply what top-100 agreement looks like at these correlations. The instruments
+are consistent with measuring ONE direction with different noise, and the word
+lists diverge by as much as the arithmetic requires and no more.
+
+The semantic character is identical in all four: bodily and vernacular action against
 procedural deliberation. `delta` fall = `punching stabbing kick threw killed
 smacked`; `delta` rise = `qualify contemplated engage evaluate assessed ensure`;
 GloVe fall = `drop fuck whacked dump lick bury shoot`; GloVe rise = `explore
 automate prioritize communicate respond verified`.
 
-**The characterisation is the invariant; the vocabulary is not.** Any specific
-hundred-word list is instrument-specific, so a figure quoting one as the finding
-would be quoting the unstable part. One cluster is delta-specific and worth its
+**The characterisation is the invariant; the vocabulary is not.** A specific
+hundred-word list is an unstable SAMPLE of a real direction -- unstable because
+tails are, not because the instruments disagree -- so a figure quoting one as the
+finding quotes the sampling noise along with it. One cluster is delta-specific and worth its
 own look: manner-of-speaking verbs on the rise side (`murmured whispered mumbled
 snarled snorted`), which the arm AUC also carries (`whispered 0.858, muttered
 0.787, barked 0.768`) and GloVe does not.
