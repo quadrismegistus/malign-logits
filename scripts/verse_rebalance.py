@@ -144,7 +144,13 @@ def main(argv=None):
                     with open(os.path.join(DEST_LOCAL, d, f), 'rb') as fh:
                         n = sum(1 for _ in fh)
                     if n >= ROWS_COMPLETE: done.add(f[:-6])
-                    else: print("     TRUNCATED %s/%s: %d rows -- re-running" % (d, f, n))
+                    elif d not in live:
+                        #: only say this for a box that is actually GONE. On a live
+                        #: box a short file is the model being written right now and
+                        #: nothing is re-running it -- announcing otherwise is prose
+                        #: asserting an action that is not happening.
+                        print("     TRUNCATED on dead box %s: %s has %d rows -- will re-run"
+                              % (d, f, n))
                 held[d] = done
         orphaned = {}
         for bid, models in held.items():
