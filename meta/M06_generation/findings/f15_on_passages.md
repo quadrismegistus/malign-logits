@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [surprisal, drift, quadrants, jakobson, replication]
-description: "F15 on passages: ALL FOUR F15 claims replicate at the pair grain -- alignment smooths reference-model surprisal (35/38 pairs, med -0.53 nats), reduces drift (34/38), drains the breakdown quadrant (Q2 -0.21) into unmarked (Q4 +0.22) AND metonymic (Q1 +0.14, 34/38, the gain F15 saw only in Qwen), and compresses UNIFORMLY across site types (twin-paired DiD p 0.089, Kruskal across domains p 0.892 -- a bound at ~5% of the effect, not a bare null). The drift claim and the quadrant flow are EMBEDDER-INDEPENDENT (bge-m3, sign agreement 33/38). Population 38 of 41 pairs; deepseek fenced for a generation-time tokenizer defect."
+description: "F15 on passages: ALL FOUR F15 claims replicate at the pair grain -- alignment smooths reference-model surprisal (35/38 pairs, med -0.53 nats), reduces drift (34/38), drains the breakdown quadrant (Q2 -0.21) into unmarked (Q4 +0.22) AND metonymic (Q1 +0.14, 34/38, the gain F15 saw only in Qwen) -- BUT the quadrant flow is ONE-DIMENSIONAL: Q1's share change correlates with surprisal at -0.83 and with drift at -0.05, so the 'metonymic' gain has no drift component and the labels are not earned by these axes, and compresses UNIFORMLY across site types (twin-paired DiD p 0.089, Kruskal across domains p 0.892 -- a bound at ~5% of the effect, not a bare null). The drift claim and the quadrant flow are EMBEDDER-INDEPENDENT (bge-m3, sign agreement 33/38). Population 38 of 41 pairs; deepseek fenced for a generation-time tokenizer defect."
 ---
 # F15 on passages: the quadrant flow survives, and the metonymic gain is general
 
@@ -210,6 +210,44 @@ DISCHARGED since this section was written: the bge-m3 fidelity gate
 - Producer-layer reproduction: the aggregation layer is second-seated
   ([5772]/[5775], all six aggregates rebuilt from the cells); the fetch,
   strata, truncation and metric application remain single-pass.
+
+## THE QUADRANT FLOW IS ONE-DIMENSIONAL, and the metonymic gain has NO drift component
+
+Measured on RH's question (are the quadrants and their names convincing?),
+from the persisted cells, 38 pairs. Per-pair Spearman of each quadrant's
+share change against the pair's own surprisal change and drift change:
+
+    quadrant   median shift    rho(surprisal)   rho(drift)
+    Q1 metonymic   +0.137          -0.827         -0.050
+    Q2 breakdown   -0.211          +0.916         +0.696
+    Q3 metaphoric  -0.157          +0.822         +0.142
+    Q4 unmarked    +0.224          -0.874         -0.717
+
+**Q1's gain -- this document's headline result -- tracks surprisal at -0.83
+and drift at -0.05.** It has NO drift component. Passages entered the
+"metonymic" quadrant by crossing the surprisal median while their dispersion
+stayed where it was. Q3 is nearly as one-sided (+0.82 / +0.14). Only Q2 and
+Q4 carry real drift loading.
+
+**So "alignment drains breakdown into metonymic and unmarked" is largely a
+re-description of "alignment lowers surprisal."** The surprisal effect is
+-0.53 nats and overwhelming; the drift effect is -0.023 and small; the
+quadrants are a median split that converts those two marginals into four
+shares, and for Q1 and Q3 the second marginal contributes almost nothing.
+
+**THE NAMES ARE NOT EARNED BY THESE AXES.** `total_drift` is order-invariant
+(below), so it cannot distinguish a metonymic CHAIN from an undirected
+scatter of the same diameter; "metonymic" names a sequential relation that
+the measurement is blind to. "Metaphoric" for Q3 imports substitution
+without measuring substitution. And the quadrant boundaries are this
+corpus's own pooled medians, so membership is a fact about a passage
+relative to its cohort rather than a type.
+
+**What survives, and it is not small:** alignment lowers reference surprisal
+hugely and narrows semantic dispersion slightly, both replicated across
+corpora, embedders and languages. That is two numbers. The four shares are a
+presentation of those two numbers, and the Jakobsonian labels are a
+hypothesis laid over them rather than a result read out of them.
 
 ## WHAT THE DRIFT AXIS MEASURES, corrected 2026-08-13
 
