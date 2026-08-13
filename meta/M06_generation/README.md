@@ -79,8 +79,8 @@ disagree; the answer is genuinely open.)
 
 | Plan | Question | Hypotheses (RH's, fixed at open) | Status |
 |---|---|---|---|
-| [plan_a_surface.md](plans/plan_a_surface.md) | Surface accounting: length, sentences, lexical diversity | **A.H1** alignment makes SHORTER SENTENCES; **A.H2** alignment makes HIGHER TTR (windowed) | drafted, gate not run |
-| [plan_b_clauses.md](plans/plan_b_clauses.md) | Clause architecture, on the OSP pipeline | **B.H1** base models more PARATACTIC (more independent clauses per sentence); **B.H2** aligned more HYPOTACTIC (more dependent clauses per sentence) | drafted, gate not run |
+| [plan_a_surface.md](plans/plan_a_surface.md) | Surface accounting: length, sentences, lexical diversity | **A.H1** alignment makes SHORTER SENTENCES; **A.H2** alignment makes HIGHER TTR (windowed) | RUN — verdicts in [findings/AB_surface_and_clauses.md](findings/AB_surface_and_clauses.md): A.H2 REVERSED (de-diversification, p .003, survives conditioning); A.H1 not supported |
+| [plan_b_clauses.md](plans/plan_b_clauses.md) | Clause architecture, on the OSP pipeline | **B.H1** base models more PARATACTIC; **B.H2** aligned more HYPOTACTIC (per sentence) | RUN — per-sentence ratios FLAT; resolves as COMPRESSED SUBORDINATION via denominator-free reads (dep clauses/1000w UP p .002, clause length DOWN p .028); see findings/AB_surface_and_clauses.md |
 
 Both plans share ONE instrument run (Stanza, Universal Dependencies — the
 pipeline of Ettel & Heuser, *Ordinary Style Philosophy*, §3.1-3.3): plan A

@@ -1,0 +1,344 @@
+{
+  "n_passages": 244397,
+  "n_pairs": 42,
+  "desc:is_prose_by_arm": {
+    "aligned": 0.8889,
+    "base": 0.9453
+  },
+  "desc:degenerate_by_arm": {
+    "aligned": 0.0796,
+    "base": 0.0558
+  },
+  "desc:english_by_arm": {
+    "aligned": 0.9787,
+    "base": 0.954
+  },
+  "desc:list_lines_share_by_arm": {
+    "aligned": 0.0482,
+    "base": 0.0208
+  },
+  "n_hard": 202780,
+  "hard:sent_len_words_mean": {
+    "cells": 7068,
+    "cell_median_delta": -0.8590005924874369,
+    "pair_median_delta": -0.5361964764875058,
+    "pairs_up": 17,
+    "pairs_dn": 24,
+    "n_pairs": 41,
+    "p_sign": 0.34888887944907765,
+    "p_wilcoxon": 0.08247574753477238,
+    "direction": "A.H1 aligned LOWER"
+  },
+  "hard:ttr_mattr_w100": {
+    "cells": 6720,
+    "cell_median_delta": -0.026296498216939745,
+    "pair_median_delta": -0.033876636005775285,
+    "pairs_up": 10,
+    "pairs_dn": 29,
+    "n_pairs": 39,
+    "p_sign": 0.0033778479119064286,
+    "p_wilcoxon": 0.000249561282544164,
+    "direction": "A.H2 aligned HIGHER"
+  },
+  "hard:ttr_mattr_w50": {
+    "cells": 6800,
+    "cell_median_delta": -0.016927102617697587,
+    "pair_median_delta": -0.01942399140196016,
+    "pairs_up": 12,
+    "pairs_dn": 27,
+    "n_pairs": 39,
+    "p_sign": 0.023702702470473014,
+    "p_wilcoxon": 0.0008905232716642786,
+    "direction": "secondary"
+  },
+  "hard:len_words": {
+    "cells": 7068,
+    "cell_median_delta": -1.7990384615384727,
+    "pair_median_delta": -2.0945512820512846,
+    "pairs_up": 18,
+    "pairs_dn": 23,
+    "n_pairs": 41,
+    "p_sign": 0.5327092552361137,
+    "p_wilcoxon": 0.44858183588075917,
+    "direction": "description"
+  },
+  "hard:n_sents": {
+    "cells": 7068,
+    "cell_median_delta": -0.02708333333333357,
+    "pair_median_delta": -0.03397435897435841,
+    "pairs_up": 19,
+    "pairs_dn": 22,
+    "n_pairs": 41,
+    "p_sign": 0.755228657504631,
+    "p_wilcoxon": 0.6595106955502945,
+    "direction": "description"
+  },
+  "hard:parataxis_indep_clauses_per_sent": {
+    "cells": 7068,
+    "cell_median_delta": -0.011245733418447701,
+    "pair_median_delta": -0.010063543170248712,
+    "pairs_up": 13,
+    "pairs_dn": 26,
+    "n_pairs": 41,
+    "p_sign": 0.05325191409792752,
+    "p_wilcoxon": 0.024855553961970145,
+    "direction": "B.H1 base HIGHER"
+  },
+  "hard:hypotaxis_dep_clauses_per_sent": {
+    "cells": 7068,
+    "cell_median_delta": -0.02187021378452747,
+    "pair_median_delta": 0.0,
+    "pairs_up": 20,
+    "pairs_dn": 20,
+    "n_pairs": 41,
+    "p_sign": 1.0,
+    "p_wilcoxon": 0.7852034492480016,
+    "direction": "B.H2 aligned HIGHER"
+  },
+  "hard:dep_clause_share": {
+    "cells": 7068,
+    "cell_median_delta": 0.0014229481366315744,
+    "pair_median_delta": 0.0006281014861679868,
+    "pairs_up": 23,
+    "pairs_dn": 18,
+    "n_pairs": 41,
+    "p_sign": 0.5327092552361137,
+    "p_wilcoxon": 0.6078300836870767,
+    "direction": "denominator-free"
+  },
+  "hard:indep_clauses_per_1000w": {
+    "cells": 7068,
+    "cell_median_delta": 2.277062217715006,
+    "pair_median_delta": 1.601758819688257,
+    "pairs_up": 22,
+    "pairs_dn": 19,
+    "n_pairs": 41,
+    "p_sign": 0.755228657504631,
+    "p_wilcoxon": 0.44858183588075917,
+    "direction": "denominator-free"
+  },
+  "hard:dep_clauses_per_1000w": {
+    "cells": 7068,
+    "cell_median_delta": 3.6746052157591365,
+    "pair_median_delta": 2.446518352378348,
+    "pairs_up": 30,
+    "pairs_dn": 10,
+    "n_pairs": 41,
+    "p_sign": 0.0022214337732293643,
+    "p_wilcoxon": 0.006657873602307518,
+    "direction": "denominator-free"
+  },
+  "hard:clause_len_words_mean": {
+    "cells": 7068,
+    "cell_median_delta": -0.22452924642542138,
+    "pair_median_delta": -0.1312945023650185,
+    "pairs_up": 13,
+    "pairs_dn": 28,
+    "n_pairs": 41,
+    "p_sign": 0.027533155829587486,
+    "p_wilcoxon": 0.005374416155973449,
+    "direction": "joint adjudicator"
+  },
+  "hard:clause_depth_max": {
+    "cells": 7068,
+    "cell_median_delta": -0.12359307359307348,
+    "pair_median_delta": -0.125,
+    "pairs_up": 16,
+    "pairs_dn": 24,
+    "n_pairs": 41,
+    "p_sign": 0.26818725105476915,
+    "p_wilcoxon": 0.14106444699971799,
+    "direction": "secondary"
+  },
+  "hard:modal_density_md_per_1000w": {
+    "cells": 7068,
+    "cell_median_delta": -0.04529897361896662,
+    "pair_median_delta": -0.3267425380315707,
+    "pairs_up": 16,
+    "pairs_dn": 23,
+    "n_pairs": 41,
+    "p_sign": 0.3367836351899315,
+    "p_wilcoxon": 0.8091913358475722,
+    "direction": "secondary"
+  },
+  "pooled_prose:sent_len_words_mean": {
+    "cells": 7450,
+    "cell_median_delta": -1.0953408529096604,
+    "pair_median_delta": -0.7627624803358781,
+    "pairs_up": 17,
+    "pairs_dn": 25,
+    "n_pairs": 42,
+    "p_sign": 0.27995623852893914,
+    "p_wilcoxon": 0.012224804767811293,
+    "direction": "A.H1 aligned LOWER"
+  },
+  "pooled_prose:ttr_mattr_w100": {
+    "cells": 7102,
+    "cell_median_delta": -0.025799711548708637,
+    "pair_median_delta": -0.030847892969773305,
+    "pairs_up": 10,
+    "pairs_dn": 31,
+    "n_pairs": 41,
+    "p_sign": 0.0014504910141113214,
+    "p_wilcoxon": 0.00013123439202900045,
+    "direction": "A.H2 aligned HIGHER"
+  },
+  "pooled_prose:ttr_mattr_w50": {
+    "cells": 7182,
+    "cell_median_delta": -0.017068267900462786,
+    "pair_median_delta": -0.019838932655588448,
+    "pairs_up": 12,
+    "pairs_dn": 29,
+    "n_pairs": 41,
+    "p_sign": 0.011507789735333063,
+    "p_wilcoxon": 0.0005380795382734505,
+    "direction": "secondary"
+  },
+  "pooled_prose:len_words": {
+    "cells": 7450,
+    "cell_median_delta": -2.4708333333333314,
+    "pair_median_delta": -2.5024305555555557,
+    "pairs_up": 18,
+    "pairs_dn": 24,
+    "n_pairs": 42,
+    "p_sign": 0.44079906734259566,
+    "p_wilcoxon": 0.2798322811518119,
+    "direction": "description"
+  },
+  "pooled_prose:n_sents": {
+    "cells": 7450,
+    "cell_median_delta": 0.0,
+    "pair_median_delta": -0.022916666666666696,
+    "pairs_up": 21,
+    "pairs_dn": 21,
+    "n_pairs": 42,
+    "p_sign": 1.0,
+    "p_wilcoxon": 0.8856623963214871,
+    "direction": "description"
+  },
+  "pooled_prose:parataxis_indep_clauses_per_sent": {
+    "cells": 7450,
+    "cell_median_delta": -0.01423915747688087,
+    "pair_median_delta": -0.014183610197110064,
+    "pairs_up": 13,
+    "pairs_dn": 27,
+    "n_pairs": 42,
+    "p_sign": 0.03847730828420026,
+    "p_wilcoxon": 0.00899504264089046,
+    "direction": "B.H1 base HIGHER"
+  },
+  "pooled_prose:hypotaxis_dep_clauses_per_sent": {
+    "cells": 7450,
+    "cell_median_delta": -0.03518703142754587,
+    "pair_median_delta": -0.02171826753656214,
+    "pairs_up": 20,
+    "pairs_dn": 22,
+    "n_pairs": 42,
+    "p_sign": 0.8776143287523154,
+    "p_wilcoxon": 0.46462993279101283,
+    "direction": "B.H2 aligned HIGHER"
+  },
+  "pooled_prose:dep_clause_share": {
+    "cells": 7450,
+    "cell_median_delta": 0.0012906958646676514,
+    "pair_median_delta": 0.004109684377693032,
+    "pairs_up": 24,
+    "pairs_dn": 18,
+    "n_pairs": 42,
+    "p_sign": 0.44079906734259566,
+    "p_wilcoxon": 0.8430783107964999,
+    "direction": "denominator-free"
+  },
+  "pooled_prose:indep_clauses_per_1000w": {
+    "cells": 7450,
+    "cell_median_delta": 4.4521707864128786,
+    "pair_median_delta": 3.9545964671212914,
+    "pairs_up": 24,
+    "pairs_dn": 18,
+    "n_pairs": 42,
+    "p_sign": 0.44079906734259566,
+    "p_wilcoxon": 0.07356559387244488,
+    "direction": "denominator-free"
+  },
+  "pooled_prose:dep_clauses_per_1000w": {
+    "cells": 7450,
+    "cell_median_delta": 3.5504933412255966,
+    "pair_median_delta": 2.2468669250974838,
+    "pairs_up": 29,
+    "pairs_dn": 13,
+    "n_pairs": 42,
+    "p_sign": 0.019520472782460274,
+    "p_wilcoxon": 0.006279030217683612,
+    "direction": "denominator-free"
+  },
+  "pooled_prose:clause_len_words_mean": {
+    "cells": 7450,
+    "cell_median_delta": -0.2989174804786132,
+    "pair_median_delta": -0.27812954273340096,
+    "pairs_up": 11,
+    "pairs_dn": 31,
+    "n_pairs": 42,
+    "p_sign": 0.002887247974285856,
+    "p_wilcoxon": 0.00027329088561600656,
+    "direction": "joint adjudicator"
+  },
+  "pooled_prose:clause_depth_max": {
+    "cells": 7450,
+    "cell_median_delta": -0.10428113553113572,
+    "pair_median_delta": -0.0748168498168501,
+    "pairs_up": 14,
+    "pairs_dn": 24,
+    "n_pairs": 42,
+    "p_sign": 0.14330665429588407,
+    "p_wilcoxon": 0.15104829068082828,
+    "direction": "secondary"
+  },
+  "pooled_prose:modal_density_md_per_1000w": {
+    "cells": 7450,
+    "cell_median_delta": 0.0,
+    "pair_median_delta": -0.48621448879946083,
+    "pairs_up": 17,
+    "pairs_dn": 23,
+    "n_pairs": 42,
+    "p_sign": 0.42959050784338615,
+    "p_wilcoxon": 0.7245544941888511,
+    "direction": "secondary"
+  },
+  "ttr_w100_fit_rate_by_arm": {
+    "aligned": 0.8362,
+    "base": 0.8875
+  },
+  "tert_t1:ttr_mattr_w100": {
+    "cells": 5764,
+    "cell_median_delta": -0.023052510679630545,
+    "pair_median_delta": -0.029465741220180752,
+    "pairs_up": 11,
+    "pairs_dn": 28,
+    "n_pairs": 39,
+    "p_sign": 0.009475304279476404,
+    "p_wilcoxon": 0.00014731190822203644,
+    "direction": "A.H2 within t1"
+  },
+  "tert_t2:ttr_mattr_w100": {
+    "cells": 6274,
+    "cell_median_delta": -0.02486853654712634,
+    "pair_median_delta": -0.03340847177316508,
+    "pairs_up": 10,
+    "pairs_dn": 29,
+    "n_pairs": 39,
+    "p_sign": 0.0033778479119064286,
+    "p_wilcoxon": 3.506975554046221e-05,
+    "direction": "A.H2 within t2"
+  },
+  "tert_t3:ttr_mattr_w100": {
+    "cells": 5648,
+    "cell_median_delta": -0.022152180862125503,
+    "pair_median_delta": -0.02367205900595748,
+    "pairs_up": 12,
+    "pairs_dn": 27,
+    "n_pairs": 39,
+    "p_sign": 0.023702702470473014,
+    "p_wilcoxon": 0.001115645449317526,
+    "direction": "A.H2 within t3"
+  }
+}
