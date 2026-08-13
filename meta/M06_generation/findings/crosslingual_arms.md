@@ -207,6 +207,20 @@ reduction is not an artefact of English alignment data.
   the reading changes. **The 25-pair headline stands and is not fragile to
   the population question that produced four wrong attributions.**
 
+## Truncation
+
+- **EVERY DRIFT NUMBER HERE IS COMPUTED ON ROUGHLY THE FIRST HALF OF EACH
+  PASSAGE.** Generations run to a 256-token cap (median 183 words); the
+  fewest-sentences-exceeding-75-words rule leaves a median of 84 words and 5
+  sentences, so 46% of the generated words are analysed. Measured on 3,000
+  passages, dropping truncation gives 11 sentences and 55 pairwise
+  similarities instead of 5 and 10, and RETAINS MORE passages (95.1% against
+  86.1%). The rule comes from F15/F16, where it normalises length across
+  corpora of wildly different natural lengths; applied to a within-corpus arm
+  contrast where one token cap already governs length it normalises nothing.
+  An untruncated variant is running beside this one (`--no-truncate`,
+  `*_full` outputs).
+
 ## A defect in this producer's own control, found and fixed before reporting
 
 The first run's `n_sents`-matched variant returned **zero units** and printed
