@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [drift, cross-lingual, chinese, arms]
-description: "The cross-lingual arm contrast: ALIGNMENT REDUCES TRAJECTORY DRIFT IN CHINESE AS IT DOES IN ENGLISH, on the same 25 pairs, the same corpus and the same rung, with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction (p 0.23 to 1), so the effect is a property of the operation rather than of the language it was tuned on. First arm effect this campaign has measured on Chinese GENERATED TEXT."
+description: "The cross-lingual arm contrast: ALIGNMENT REDUCES TRAJECTORY DRIFT IN CHINESE AS IT DOES IN ENGLISH, on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction (p 0.23 to 1), so the effect is a property of the operation rather than of the language it was tuned on. First arm effect this campaign has measured on Chinese GENERATED TEXT."
 ---
 # The cross-lingual arm contrast: the same operation in both languages
 
@@ -84,6 +84,21 @@ not an artefact of English alignment data.
   invariance is real the matched DiD stays null; **if a language difference
   appears only now, the pooled null was a power failure and the invariance
   reading must be withdrawn.** Either outcome is reported.
+
+  **RESULT (run after the declaration above was committed at 81a86eed):
+  THE INVARIANCE HOLDS ON MATCHED PROMPTS.** 22,461 passages over 100
+  matched keys, 1,901 (pair, key) units with both languages:
+
+      total_drift  zh -0.0314 (4/21, p 9.1e-04) | en -0.0169 (2/23, p 1.9e-05)
+                   DiD en-zh  -0.0041  11/14  p 0.69
+      mean_drift   zh -0.0462 (1/24, p 1.6e-06) | en -0.0427 (0/25, p 6.0e-08)
+                   DiD en-zh  +0.0141  14/11  p 0.69
+
+  Both arms' reductions survive on matched content, the DiD is null on both
+  metrics and does not hold a sign, and this is the version of the test with
+  topic, construct and role held by construction. **Alignment reduces
+  trajectory drift by the same amount in Chinese and English on the SAME
+  prompts.**
 
   Remaining, and unchanged: at 25 pairs a null still bounds nothing. **The
   null is undetected, not zero.**
