@@ -1,149 +1,317 @@
 {
  "SFT-base:transgressiveness": {
   "n": 581,
-  "median": -0.004025457502276453,
   "up": 120,
   "dn": 332,
-  "p_sign": 4.560203956766556e-24
+  "ties": 129,
+  "median": -0.004025457502276453,
+  "median_nonzero": -0.011992293312309776,
+  "p_sign_ties_excluded": 4.560203956766556e-24
  },
  "SFT-base:bodily_harm": {
   "n": 581,
-  "median": -0.0006631302329516142,
   "up": 119,
   "dn": 299,
-  "p_sign": 5.7447125764439e-19
+  "ties": 163,
+  "median": -0.0006631302329516142,
+  "median_nonzero": -0.01136559445524099,
+  "p_sign_ties_excluded": 5.7447125764439e-19
  },
  "SFT-base:concreteness": {
   "n": 581,
-  "median": -0.02921230952876952,
   "up": 242,
   "dn": 328,
-  "p_sign": 0.0003619402584782103
+  "ties": 11,
+  "median": -0.02921230952876952,
+  "median_nonzero": -0.03189298183252309,
+  "p_sign_ties_excluded": 0.0003619402584782103
  },
  "SFT-base:charge": {
   "n": 581,
-  "median": -0.02586866960804879,
   "up": 186,
   "dn": 365,
-  "p_sign": 2.0030709964881366e-14
+  "ties": 30,
+  "median": -0.02586866960804879,
+  "median_nonzero": -0.03028025246593291,
+  "p_sign_ties_excluded": 2.0030709964881366e-14
  },
  "SFT-base:valence": {
   "n": 581,
-  "median": 0.0030324084438380083,
   "up": 313,
   "dn": 231,
-  "p_sign": 0.0005037058847237211
+  "ties": 37,
+  "median": 0.0030324084438380083,
+  "median_nonzero": 0.008178589205113607,
+  "p_sign_ties_excluded": 0.0005037058847237211
  },
  "SFT-base:register_level": {
   "n": 581,
-  "median": 0.004638996583107069,
   "up": 324,
   "dn": 236,
-  "p_sign": 0.0002302080985032417
+  "ties": 21,
+  "median": 0.004638996583107069,
+  "median_nonzero": 0.005997699500283948,
+  "p_sign_ties_excluded": 0.0002302080985032417
  },
  "SFT-base:vulgarity": {
   "n": 581,
-  "median": 0.0,
   "up": 143,
   "dn": 186,
-  "p_sign": 0.020443516471540874
+  "ties": 252,
+  "median": 0.0,
+  "median_nonzero": -0.0006039357147551438,
+  "p_sign_ties_excluded": 0.020443516471540874
  },
  "DPO-SFT:transgressiveness": {
   "n": 581,
-  "median": 0.0004005839208995887,
   "up": 324,
   "dn": 89,
-  "p_sign": 1.8505959322083762e-32
+  "ties": 168,
+  "median": 0.0004005839208995887,
+  "median_nonzero": 0.00219853094812561,
+  "p_sign_ties_excluded": 1.8505959322083762e-32
  },
  "DPO-SFT:bodily_harm": {
   "n": 581,
-  "median": 0.0,
   "up": 252,
   "dn": 130,
-  "p_sign": 4.2861149935558535e-10
+  "ties": 199,
+  "median": 0.0,
+  "median_nonzero": 0.00097370570860289,
+  "p_sign_ties_excluded": 4.2861149935558535e-10
  },
  "DPO-SFT:concreteness": {
   "n": 581,
-  "median": 0.04572439877096457,
   "up": 451,
   "dn": 111,
-  "p_sign": 1.4357275342244952e-49
+  "ties": 19,
+  "median": 0.04572439877096457,
+  "median_nonzero": 0.04755637573158844,
+  "p_sign_ties_excluded": 1.4357275342244952e-49
  },
  "DPO-SFT:charge": {
   "n": 581,
-  "median": 0.011870188105087554,
   "up": 450,
   "dn": 82,
-  "p_sign": 1.6843683524043742e-62
+  "ties": 49,
+  "median": 0.011870188105087554,
+  "median_nonzero": 0.015317160426480347,
+  "p_sign_ties_excluded": 1.6843683524043742e-62
  },
  "DPO-SFT:valence": {
   "n": 581,
-  "median": -9.239120593340644e-05,
   "up": 222,
   "dn": 298,
-  "p_sign": 0.0009870892821054135
+  "ties": 61,
+  "median": -9.239120593340644e-05,
+  "median_nonzero": -0.0008716424893138175,
+  "p_sign_ties_excluded": 0.0009870892821054135
  },
  "DPO-SFT:register_level": {
   "n": 581,
-  "median": 0.0,
   "up": 268,
   "dn": 272,
-  "p_sign": 0.8972945043594205
+  "ties": 41,
+  "median": 0.0,
+  "median_nonzero": -2.782602518158761e-05,
+  "p_sign_ties_excluded": 0.8972945043594205
  },
  "DPO-SFT:vulgarity": {
   "n": 581,
-  "median": 0.0,
   "up": 119,
   "dn": 132,
-  "p_sign": 0.44885539360960136
+  "ties": 330,
+  "median": 0.0,
+  "median_nonzero": -1.0194502779503622e-05,
+  "p_sign_ties_excluded": 0.44885539360960136
  },
  "RLVR-DPO:transgressiveness": {
   "n": 580,
-  "median": -0.0006127590264092264,
   "up": 44,
   "dn": 366,
-  "p_sign": 2.706330008026723e-64
+  "ties": 170,
+  "median": -0.0006127590264092264,
+  "median_nonzero": -0.001915021309452869,
+  "p_sign_ties_excluded": 2.706330008026723e-64
  },
  "RLVR-DPO:bodily_harm": {
   "n": 580,
-  "median": -0.00029583601418115,
   "up": 49,
   "dn": 329,
-  "p_sign": 4.800020673285741e-52
+  "ties": 202,
+  "median": -0.00029583601418115,
+  "median_nonzero": -0.0016951891383969464,
+  "p_sign_ties_excluded": 4.800020673285741e-52
  },
  "RLVR-DPO:concreteness": {
   "n": 580,
-  "median": -0.02214880876412495,
   "up": 103,
   "dn": 458,
-  "p_sign": 2.192071616931373e-54
+  "ties": 19,
+  "median": -0.02214880876412495,
+  "median_nonzero": -0.02264390972007302,
+  "p_sign_ties_excluded": 2.192071616931373e-54
  },
  "RLVR-DPO:charge": {
   "n": 580,
-  "median": -0.008562139328747498,
   "up": 58,
   "dn": 473,
-  "p_sign": 6.185193915139708e-82
+  "ties": 49,
+  "median": -0.008562139328747498,
+  "median_nonzero": -0.010252306490296403,
+  "p_sign_ties_excluded": 6.185193915139708e-82
  },
  "RLVR-DPO:valence": {
   "n": 580,
-  "median": -0.00024605450844727983,
   "up": 209,
   "dn": 309,
-  "p_sign": 1.2857316825603952e-05
+  "ties": 62,
+  "median": -0.00024605450844727983,
+  "median_nonzero": -0.0008403417500617572,
+  "p_sign_ties_excluded": 1.2857316825603952e-05
  },
  "RLVR-DPO:register_level": {
   "n": 580,
-  "median": 0.0006176444438534823,
   "up": 333,
   "dn": 204,
-  "p_sign": 2.8659019405894683e-08
+  "ties": 43,
+  "median": 0.0006176444438534823,
+  "median_nonzero": 0.0009964752043392089,
+  "p_sign_ties_excluded": 2.8659019405894683e-08
  },
  "RLVR-DPO:vulgarity": {
   "n": 580,
-  "median": 0.0,
   "up": 42,
   "dn": 199,
-  "p_sign": 1.2652096166022353e-25
+  "ties": 339,
+  "median": 0.0,
+  "median_nonzero": -0.00022789424505775813,
+  "p_sign_ties_excluded": 1.2652096166022353e-25
+ },
+ "NET base->DPO:transgressiveness": {
+  "n": 581,
+  "up": 136,
+  "dn": 318,
+  "ties": 127,
+  "median": -0.002482767368865435,
+  "median_nonzero": -0.009643211281523567,
+  "p_sign_ties_excluded": 7.140387097497832e-18
+ },
+ "NET base->DPO:bodily_harm": {
+  "n": 581,
+  "up": 130,
+  "dn": 287,
+  "ties": 164,
+  "median": 0.0,
+  "median_nonzero": -0.009896927091569419,
+  "p_sign_ties_excluded": 1.0613500750177633e-14
+ },
+ "NET base->DPO:concreteness": {
+  "n": 581,
+  "up": 285,
+  "dn": 286,
+  "ties": 10,
+  "median": 0.0,
+  "median_nonzero": -0.002425420538301637,
+  "p_sign_ties_excluded": 1.0
+ },
+ "NET base->DPO:charge": {
+  "n": 581,
+  "up": 212,
+  "dn": 339,
+  "ties": 30,
+  "median": -0.010879148237659342,
+  "median_nonzero": -0.014956045653462757,
+  "p_sign_ties_excluded": 7.014552988214398e-08
+ },
+ "NET base->DPO:valence": {
+  "n": 581,
+  "up": 310,
+  "dn": 234,
+  "ties": 37,
+  "median": 0.0029414949777768484,
+  "median_nonzero": 0.005943968866795046,
+  "p_sign_ties_excluded": 0.0012808744234625057
+ },
+ "NET base->DPO:register_level": {
+  "n": 581,
+  "up": 336,
+  "dn": 224,
+  "ties": 21,
+  "median": 0.005624910694824958,
+  "median_nonzero": 0.007609109873312647,
+  "p_sign_ties_excluded": 2.532720433800264e-06
+ },
+ "NET base->DPO:vulgarity": {
+  "n": 581,
+  "up": 142,
+  "dn": 182,
+  "ties": 257,
+  "median": 0.0,
+  "median_nonzero": -0.0007394011023368341,
+  "p_sign_ties_excluded": 0.030102826001022546
+ },
+ "NET base->RLVR:transgressiveness": {
+  "n": 580,
+  "up": 120,
+  "dn": 332,
+  "ties": 128,
+  "median": -0.003377473458741065,
+  "median_nonzero": -0.011225407236237883,
+  "p_sign_ties_excluded": 4.560203956766556e-24
+ },
+ "NET base->RLVR:bodily_harm": {
+  "n": 580,
+  "up": 113,
+  "dn": 302,
+  "ties": 165,
+  "median": -0.001091941284851572,
+  "median_nonzero": -0.012000412360480661,
+  "p_sign_ties_excluded": 5.591129905903735e-21
+ },
+ "NET base->RLVR:concreteness": {
+  "n": 580,
+  "up": 261,
+  "dn": 309,
+  "ties": 10,
+  "median": -0.01143381357438411,
+  "median_nonzero": -0.016579539117937858,
+  "p_sign_ties_excluded": 0.048902300476418824
+ },
+ "NET base->RLVR:charge": {
+  "n": 580,
+  "up": 192,
+  "dn": 358,
+  "ties": 30,
+  "median": -0.020146342689280283,
+  "median_nonzero": -0.027405955433891016,
+  "p_sign_ties_excluded": 1.3500300089733654e-12
+ },
+ "NET base->RLVR:valence": {
+  "n": 580,
+  "up": 308,
+  "dn": 234,
+  "ties": 38,
+  "median": 0.001734184456363197,
+  "median_nonzero": 0.004294553752334229,
+  "p_sign_ties_excluded": 0.0016900305994322464
+ },
+ "NET base->RLVR:register_level": {
+  "n": 580,
+  "up": 336,
+  "dn": 221,
+  "ties": 23,
+  "median": 0.006666502466197155,
+  "median_nonzero": 0.009150385195495492,
+  "p_sign_ties_excluded": 1.2551725180049184e-06
+ },
+ "NET base->RLVR:vulgarity": {
+  "n": 580,
+  "up": 131,
+  "dn": 189,
+  "ties": 260,
+  "median": 0.0,
+  "median_nonzero": -0.0011388327865746728,
+  "p_sign_ties_excluded": 0.0014027754545624033
  }
 }
