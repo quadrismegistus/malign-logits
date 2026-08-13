@@ -25,6 +25,16 @@ already produced at least one of each:
 of a failure file.** That is the whole point: a pair nobody recorded failing and
 nobody collected is invisible to every other instrument in this run.
 
+**THIS IS A SPECIAL CASE OF A STANDING RULE, AND IT SAT HERE AS A SPECIAL CASE
+FOR THREE WEEKS BEFORE ANYONE GENERALISED IT.** The general form, added to the
+campaign's standing rules on 2026-08-13 after a `no coverage` row cost a
+re-run: *an instrument's own report of ABSENCE — no coverage, insufficient n,
+skipped — is a claim about the QUERY at least as much as about the world, and is
+re-derived when the query changes rather than carried forward as a fact about
+the data.* The narrow version below was written for one corpus and one failure
+mode; the general one was found by accident elsewhere. Cite the rule, not this
+paragraph.
+
 ## THE UNIT, AND WHY DEDUP IS PART OF THE COUNT
 
 A row is one (pair, role, prompt_id, word) cell. **The dedup key IS an
