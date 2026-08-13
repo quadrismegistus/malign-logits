@@ -158,6 +158,16 @@ set of lineages carries it; AGAINST: the median is 4% of the IQR
 saturation reading. NOT a refutation of I6: the MAIN site effect remains
 arm-symmetric; the candidate asymmetry lives only in the interaction.
 
+SENSITIVITY (2026-08-13, after the deepseek corpus defect surfaced --
+its passage texts are stored undetokenized, so its cells carry
+fragment-tokenized junk): excluding the deepseek pair moves I7b from
+p=0.0151 to p=0.0272 (med -0.00101 to -0.00082), which FAILS the
+Bonferroni-over-3 line (0.0167) it previously sat inside. I5 and I6 are
+insensitive to the same exclusion (I5 aligned faller p 3.1e-9 to
+2.6e-9, DiD 0.63 to 0.57; I6 aligned 1.0e-18 to 6.4e-19, DiD 0.902 to
+0.901). The I7 flag was already flagged-not-quoted; it is now also
+Bonferroni-failing on the cleaner population, which lowers it further.
+
 Echo by site (exploratory): flat -- the [5757] echo asymmetry is
 unmodulated by site type in either arm (aligned faller 0.250 MARKED vs
 0.259 UNMARKED; base 0.209 vs 0.225).
