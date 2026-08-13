@@ -30,7 +30,7 @@ Cross-ladder sentences on the token clock with the absent-rate column
 PolyPythias (arXiv:2503.09543) is the declared noise floor for any
 Pythia onset sentence.
 
-## The instrument battery (all candidate-set-mass at declared slots;
+## The instrument battery (Design B: expand() at every declared slot;
 one expand() per (rung, prompt); capture folds ride free — word probs,
 logit sidecar, final-position hidden states)
 
@@ -102,38 +102,63 @@ it.
   727/1,399 — literary history's class-era confound is BALANCED by
   design and the marginals declared). Slot expansion (called slot +
   uncalled nulls per poem) is the producer's job against this roster.
-- DESIGN SWITCHED per [5721] §4: CANDIDATE-SET SCORING — next_dist
-  driven by the rime class's OWN prefixes; O(class), THETA-FREE, no
-  discovery floor. Malign's rider is plan text: where any instrument
-  still carries a theta, THETA IS PART OF THE ROSTER — changing it
-  after close is a re-run of every cell, not a tweak.
-- KV-CACHING IS A REQUIREMENT, NOT AN OPTIMISATION ([5727] §2, malign's
-  own correction of the adopted design's cost claim): naive candidate-set
-  scoring costs what expand() cost (1.01x measured); the saving lives
-  entirely in caching the primer so continuation tokens are incremental
-  (approaches the 0.05x one-forward floor). The fleet producer caches or
-  the redesign buys theta-safety at no cost saving.
-- SLOT ARITHMETIC, DECLARED for costing ([5727] §3, prose baseline
-  REVISED on RH's word 2026-08-13): per roster poem, 4 slots — 1 CALLED
-  (last line's final word) + 3 UNCALLED NULLS (two mid-line positions,
-  one uncalled line-end; positions computed by the producer against the
-  poem's own lines, rule in the slot manifest) = 720 verse slots; PLUS
-  the 102 LITERARY prompts (prompt_categorisation.json source=LITERARY,
-  found human fiction mid-passage) as the PRIMARY genre-licence
-  baseline — found prose against found verse, matched provenance; PLUS
-  ~100 M05-battery slots retained ONLY as the census-calibration anchor
-  (expand-era numbers exist at shared rungs = the instrument-drift
-  alarm), NEVER as the licence comparison — the battery stems are
-  engineered affect-loaded one-liners and would confound licence with
-  their built-in charge. Total ~922 slots per rung. Closure probes ride
-  each slot as one cached batched forward.
+- DESIGN B ADOPTED (2026-08-13, [5735] proposed / [5736] lacan firmly /
+  [5737] malign concurs): TWP BACKBONE — the frozen `expand()` at EVERY
+  declared slot (full resolved word distribution, theta=0.001), with the
+  rime-class read moved to ANALYSIS TIME (class mass = sum of stored
+  surface mass over rime-key membership; the store answers questions
+  nobody has yet asked — lacan [5736] §3). The closure probe rides as a
+  small batched forward per slot (actual next word + top-8 class members
+  by expand mass). This SUPERSEDES the [5721] §4 candidate-set design:
+  priced apart ([5737] §2), the instrument change costs $0.21; A was
+  "not the cheaper design, it is NO design" for the discovery-mode
+  instruments (P/interiority/norms) that ride this fleet.
+- THETA DECLARATION CARRIED (lacan [5736] §4): expand's theta=0.001
+  Zipf-censors rare words. For mass-weighted composition means this is
+  nearly harmless BY CONSTRUCTION (tails carry little mass), but nearly
+  harmless is a MEASUREMENT, not an assumption — every cell stores
+  expand's residual dict (tail/drop/open/mojibake/total) and every
+  downstream read quotes its cell's censored share beside the number.
+- CACHING REQUIREMENT WITHDRAWN ([5737] §3b, malign's own correction):
+  `twp.py` never cached — `next_dist` runs a full forward per call; the
+  cost anchors WERE the uncached price ($13-18 band stands). The [5727]
+  "$110 if caching is missed" was a double-count and is dead. Caching is
+  demoted to "if someone is in there anyway"; nobody touches the frozen
+  instrument (RULE_VERSION 3, 301,147 stored cells) for five dollars.
+  Rider caveat ([5737] §6): `_BATCH` is module-level OOM-backoff state
+  shared between expand and the rider — one arm's OOM halves the other's
+  batch for the rest of the run; wall-clock, not correctness.
+- SLOT ARITHMETIC, DESIGN B: NINE declared slots per poem (end1-3 with
+  the partner line as end_partner_prior/class-PRIOR, mid1-4, near,
+  called — the producer's `poem_slots`), 180 poems = 1,620 verse slots;
+  PLUS the 102 LITERARY prompts (prompt_categorisation.json
+  source=LITERARY, found human fiction mid-passage) as the PRIMARY
+  genre-licence baseline — found prose against found verse, matched
+  provenance; PLUS ~100 M05-battery slots retained ONLY as the
+  census-calibration anchor (expand-era numbers exist at shared rungs =
+  the instrument-drift alarm), NEVER as the licence comparison. Total
+  ~1,822 slots per rung; malign's price at that count: ~$18.50 total,
+  both ladders ([5737] §2). The within-poem uncalled slots are not
+  precision padding — the paired called-minus-uncalled read IS the null
+  (the R-decoy lesson: no matched control word-sets), and the mid/end
+  spread is the time-course instrument.
+- RIME-KEY v2 (audit, 2026-08-13): v1 keyed on syllable SPELLING and
+  shattered /eɪ/ into ay/ey/eigh (72% singleton keys). v2 keys on rime
+  PHONEMES of the final stressed syllable from its first vowel (glide
+  leak stripped, espeak/lexicon schwa variants normalized); RH's
+  hand-check pairs all cohere (day/way, obey/weigh, door/snore,
+  hold/told, bark/aardvark; door/bark splits). Declared residual: OOV
+  words take espeak syllabifications that can split them from lexicon
+  neighbours (blisses/kisses) — conservative false-splits that shrink
+  classes, never merge non-rhymes. Under Design B the vocab table is an
+  ANALYSIS-TIME artifact (fleet stores surfaces, not classes), so key
+  fixes never invalidate collected cells.
 - Provisioning budgeted in wall-clock and babysitting, not dollars
   (the L2 fleet's 6-of-14 casualty rate is the standing tax).
 
-## Costing ask
+## Costing: SETTLED ([5737])
 
-@malign to cost: both ladders x the frozen slot roster (target ~1,500-
-2,500 slots including verse primers, prose-battery comparison slots,
-and uncalled-null positions), expand() + closure probes per slot,
-capture folds on. Fleet spend takes RH's word with the number, per
-cool-off.
+A-at-922 $13.07 / B-at-922 $13.28 / A-at-1,822 $18.10 / B-at-1,822
+$18.50: the instrument choice costs $0.21, the slot expansion $5.03,
+independent decisions. Design B at the nine-slot manifest = ~$18.50.
+Fleet spend takes RH's word with the number, per cool-off.

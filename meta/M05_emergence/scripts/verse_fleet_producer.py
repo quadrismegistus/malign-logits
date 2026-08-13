@@ -206,55 +206,50 @@ def newline_ids(tok, n):
     return sorted(ids)
 
 
-def score_slot(model, tok, dev, context, class_words, nl_ids, torch):
-    """One prefix pass (cached), then all candidates as one padded batch
-    branching off the cache. Returns per-candidate (p_word, p_close) and the
-    prefix-softmax for free reads."""
-    enc = tok(context, return_tensors="pt").to(dev)
-    with torch.no_grad():
-        out = model(**enc, use_cache=True)
-    prefix_logits = out.logits[0, -1, :].float()
-    prefix_probs = torch.softmax(prefix_logits, -1)
-    past = out.past_key_values
+def expand_slot(model, tok, dev, context, bmask):
+    """Design B backbone ([5735]/[5736]/[5737]): the frozen twp expand() at the
+    slot, full resolved word distribution at theta=0.001. Returns per-SURFACE
+    mass (expand keys are (surface, first_token) tuples — RH's catch: sum per
+    surface) plus the residual dict, which IS the declared censoring
+    measurement (lacan [5736] §4: 'nearly harmless' is measured, not assumed).
+    """
+    from malign_logits import twp
+    words, res, _calls = twp.expand(model, tok, context, dev, bmask)
+    surface = {}
+    for (surf, _t1), m in words.items():
+        surface[surf] = surface.get(surf, 0.0) + float(m)
+    return surface, res
 
-    # candidates: " word" continuation tokens
-    cand_ids = []
-    for w in class_words:
-        ids = tok(" " + w, add_special_tokens=False)["input_ids"]
-        if 0 < len(ids) <= 6:
-            cand_ids.append((w, ids))
-    if not cand_ids:
-        return {}, prefix_probs
-    maxlen = max(len(ids) for _, ids in cand_ids)
+
+def closure_rider(model, tok, dev, context, rider_words, nl_ids, torch):
+    """The class-branch rider: p(newline-family | context + " w") for a small
+    set of rider words (the poem's actual next word + top class members by
+    expand mass). One padded batch of full sequences — no cache assumed;
+    malign [5737]: twp never cached, so the rider shares the honest price."""
+    ctx_ids = tok(context, return_tensors="pt")["input_ids"][0].tolist()
+    rows = []
+    for w in rider_words:
+        wid = tok(" " + w, add_special_tokens=False)["input_ids"]
+        if 0 < len(wid) <= 6:
+            rows.append((w, ctx_ids + wid))
+    if not rows:
+        return {}
+    maxlen = max(len(ids) for _, ids in rows)
     pad = tok.eos_token_id or 0
-    batch = torch.full((len(cand_ids), maxlen), pad, dtype=torch.long)
-    for i, (_, ids) in enumerate(cand_ids):
+    batch = torch.full((len(rows), maxlen), pad, dtype=torch.long)
+    att = torch.zeros((len(rows), maxlen), dtype=torch.long)
+    for i, (_, ids) in enumerate(rows):
         batch[i, :len(ids)] = torch.tensor(ids)
-    batch = batch.to(dev)
-
-    # expand cache along batch dim
-    def expand_past(past, n):
-        if hasattr(past, "batch_repeat_interleave"):
-            p2 = past.batch_repeat_interleave(n)
-            return p2
-        return tuple(tuple(t.expand(n, -1, -1, -1).contiguous() for t in layer)
-                     for layer in past)
-    past_n = expand_past(past, len(cand_ids))
+        att[i, :len(ids)] = 1
     with torch.no_grad():
-        out2 = model(input_ids=batch, past_key_values=past_n, use_cache=False)
-    logits2 = out2.logits.float()  # (n, maxlen, vocab)
+        out = model(input_ids=batch.to(dev), attention_mask=att.to(dev))
+    lg = out.logits.float()
+    nl = torch.tensor(nl_ids, device=lg.device)
+    return {w: float(torch.softmax(lg[i, len(ids) - 1, :], -1)[nl].sum())
+            for i, (w, ids) in enumerate(rows)}
 
-    results = {}
-    logp_first = torch.log_softmax(prefix_logits, -1)
-    for i, (w, ids) in enumerate(cand_ids):
-        lp = float(logp_first[ids[0]])
-        for j in range(1, len(ids)):
-            lp += float(torch.log_softmax(logits2[i, j - 1, :], -1)[ids[j]])
-        close = float(torch.softmax(logits2[i, len(ids) - 1, :], -1)[
-            torch.tensor(nl_ids, device=logits2.device)].sum())
-        results[w] = {"p_word": float(torch.exp(torch.tensor(lp))),
-                      "p_close": close, "n_tokens": len(ids)}
-    return results, prefix_probs
+
+N_RIDER_CLASS = 8  # top class members by expand mass joining the closure batch
 
 
 def smoke():
@@ -271,8 +266,11 @@ def smoke():
         SMOKE_MODEL, dtype=torch.bfloat16).to(dev).eval()
     nl_ids = newline_ids(tok, model.config.vocab_size)
     print(f"newline family: {len(nl_ids)} token ids", flush=True)
+    from malign_logits import twp
+    bmask = twp.boundary_mask(tok, model.config.vocab_size)
 
     rows = []
+    wrows = []
     for p in poems:
         cls = list(dict.fromkeys(
             (k2w.get(p["target_key"], []) + [p["target_word"], p["actual_word"]])))
@@ -280,29 +278,45 @@ def smoke():
         print(f"\n== {p['id_human']} [{p['scheme']}] target '{p['target_word']}' "
               f"class n={len(cls)} nonpartner n={len(ncls)}", flush=True)
         for s in poem_slots(p["lines"], p["partner_line"]):
-            res, _ = score_slot(model, tok, dev, s["context"], cls, nl_ids, torch)
-            mass = sum(r["p_word"] for r in res.values())
-            close_w = (sum(r["p_word"] * r["p_close"] for r in res.values()) / mass
-                       if mass > 0 else None)
-            pa = res.get(p["actual_word"], {}).get("p_word", 0.0)
-            nres, _ = score_slot(model, tok, dev, s["context"], ncls, nl_ids, torch)
-            nmass = sum(r["p_word"] for r in nres.values())
+            surface, resid = expand_slot(model, tok, dev, s["context"], bmask)
+            in_cls = set(cls)
+            in_ncls = set(ncls)
+            mass = sum(m for w, m in surface.items() if w.lower() in in_cls)
+            nmass = sum(m for w, m in surface.items() if w.lower() in in_ncls)
+            pa = surface.get(p["actual_word"], 0.0) + \
+                surface.get(p["actual_word"].capitalize(), 0.0)
+            top_cls = sorted((w for w in surface if w.lower() in in_cls),
+                             key=lambda w: -surface[w])[:N_RIDER_CLASS]
+            closes = closure_rider(model, tok, dev, s["context"],
+                                   list(dict.fromkeys([p["actual_word"]] + top_cls)),
+                                   nl_ids, torch)
+            cm = sum(surface[w] for w in top_cls)
+            close_w = (sum(surface[w] * closes[w] for w in top_cls if w in closes)
+                       / cm if cm > 0 else None)
+            for w, m in surface.items():
+                wrows.append({"id_human": p["id_human"], "slot": s["slot"],
+                              "surface": w, "prob": m})
             np_called = (s["slot"].replace("_partner_prior", str(p["partner_line"]))
                          in NONPARTNER_CALLED_AT[p["scheme"]]) or \
                         (s["slot"] == "end_partner_prior" and False)
             rows.append({"id_human": p["id_human"], "scheme": p["scheme"],
                          "slot": s["slot"], "phase": s["phase"],
                          "class_mass": mass, "close_given_class": close_w,
-                         "p_actual": pa, "nonpartner_mass": nmass,
+                         "p_actual": pa, "p_close_actual": closes.get(p["actual_word"]),
+                         "nonpartner_mass": nmass,
+                         "resid_total": resid["total"], "resid_tail": resid["tail"],
                          "nonpartner_called_here": bool(np_called),
-                         "n_class": len(res), "ctx_chars": len(s["context"])})
+                         "n_words_stored": len(surface), "ctx_chars": len(s["context"])})
             print(f"  {s['slot']:16s} [{s['phase']:8s}] class {mass:.5f} "
                   f"nonp {nmass:.5f} close|cls {close_w if close_w is None else round(close_w,3)} "
                   f"p_act {pa:.5f}", flush=True)
     df = pd.DataFrame(rows)
     os.makedirs(OUT_DIR, exist_ok=True)
     df.to_parquet(os.path.join(OUT_DIR, "verse_fleet_smoke.parquet"))
-    print(f"\nwrote verse_fleet_smoke.parquet: {len(df)} rows", flush=True)
+    pd.DataFrame(wrows).to_parquet(
+        os.path.join(OUT_DIR, "verse_fleet_smoke_words.parquet"))
+    print(f"\nwrote verse_fleet_smoke.parquet: {len(df)} rows; "
+          f"words store: {len(wrows)} rows", flush=True)
 
 
 if __name__ == "__main__":
