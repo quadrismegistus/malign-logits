@@ -1,0 +1,71 @@
+// procedure basin watershed — sinks (computed: purity>=0.9,
+// in>=5) + top-6 feeders each + top-2 second-hop feeders.
+// All edges displacement-coupled and split-half certified.
+digraph basin {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=12];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  "reach" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "prepare" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "adjust" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "continue" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "approach" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "examined" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "followed" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "replaced" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "slid" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "promptly" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "first" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "keep" -> "adjust" [label="7x"];
+  "try" -> "adjust" [label="6x"];
+  "call" -> "adjust" [label="6x"];
+  "write" -> "adjust" [label="5x"];
+  "not" -> "reach" [label="4x"];
+  "ask" -> "reach" [label="4x"];
+  "also" -> "reach" [label="4x"];
+  "mention" -> "reach" [label="3x"];
+  "leave" -> "promptly" [label="3x"];
+  "go" -> "promptly" [label="3x"];
+  "know" -> "prepare" [label="3x"];
+  "take" -> "promptly" [label="3x"];
+  "be" -> "first" [label="3x"];
+  "use" -> "first" [label="3x"];
+  "have" -> "first" [label="3x"];
+  "get" -> "first" [label="3x"];
+  "let" -> "prepare" [label="3x"];
+  "just" -> "prepare" [label="3x"];
+  "not" -> "prepare" [label="3x"];
+  "give" -> "promptly" [label="3x"];
+  "know" -> "approach" [label="2x"];
+  "probably" -> "approach" [label="2x"];
+  "probably" -> "continue" [label="2x"];
+  "not" -> "approach" [label="2x"];
+  "go" -> "followed" [label="2x"];
+  "also" -> "approach" [label="2x"];
+  "take" -> "followed" [label="2x"];
+  "brought" -> "examined" [label="2x"];
+  "make" -> "followed" [label="2x"];
+  "send" -> "followed" [label="2x"];
+  "note" -> "continue" [label="2x"];
+  "stuck" -> "examined" [label="2x"];
+  "laid" -> "examined" [label="2x"];
+  "like" -> "continue" [label="2x"];
+  "went" -> "examined" [label="2x"];
+  "it" -> "replaced" [label="2x"];
+  "signed" -> "slid" [label="2x"];
+  "all" -> "continue" [label="2x"];
+  "replaced" -> "slid" [label="2x"];
+  "had" -> "replaced" [label="2x"];
+  "walked" -> "slid" [label="2x"];
+  "went" -> "slid" [label="2x"];
+  "is" -> "replaced" [label="2x"];
+  "a" -> "replaced" [label="1x"];
+  "required" -> "had" [label="4x"];
+  "have" -> "try" [label="3x"];
+  "included" -> "had" [label="3x"];
+  "address" -> "just" [label="3x"];
+  "explain" -> "just" [label="3x"];
+  "have" -> "ask" [label="3x"];
+  "kill" -> "went" [label="3x"];
+  "throw" -> "went" [label="3x"];
+}
