@@ -1535,9 +1535,64 @@
     "UNMARKED": "Before signing the release, the officer wanted the parolee to confirm his new address, and then"
    },
    "models_matching": {
-    "MARKED": 12
+    "MARKED": 24,
+    "UNMARKED": 1
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "MARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "MARKED",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "UNMARKED",
+    "inceptionai/jais-family-6p7b-chat": "MARKED",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "MARKED",
+    "kakaocorp/kanana-2-3b-instruct": "MARKED",
+    "openbmb/MiniCPM5-1B-Base": "MARKED",
+    "BSC-LT/salamandra-7b-instruct": "MARKED",
+    "llm-jp/llm-jp-3-7.2b": "MARKED",
+    "zai-org/glm-4-9b-hf": "MARKED",
+    "OpenLLM-France/Lucie-7B": "MARKED",
+    "google/recurrentgemma-9b": "MARKED",
+    "internlm/internlm2-base-7b": "MARKED",
+    "kakaocorp/kanana-1.5-8b-base": "MARKED",
+    "mistralai/Mistral-7B-v0.1": "MARKED",
+    "ibm-granite/granite-3.0-8b-base": "MARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "MARKED",
+    "stabilityai/stablelm-2-1_6b": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B": "MARKED",
+    "google/recurrentgemma-9b-it": "MARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "MARKED",
+    "allenai/OLMo-2-0425-1B": "MARKED",
+    "bigscience/bloom-7b1": "MARKED",
+    "BSC-LT/salamandra-7b": "MARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "baichuan-inc/Baichuan2-7B-Chat": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "Before signing the release, the officer wanted the parolee to confirm his new address, and then",
+    "inceptionai/jais-family-6p7b-chat": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "kakaocorp/kanana-2-3b-instruct": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "openbmb/MiniCPM5-1B-Base": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "BSC-LT/salamandra-7b-instruct": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "llm-jp/llm-jp-3-7.2b": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "zai-org/glm-4-9b-hf": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "OpenLLM-France/Lucie-7B": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "google/recurrentgemma-9b": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "internlm/internlm2-base-7b": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "kakaocorp/kanana-1.5-8b-base": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "mistralai/Mistral-7B-v0.1": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "ibm-granite/granite-3.0-8b-base": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "HuggingFaceTB/SmolLM3-3B-Base": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "stabilityai/stablelm-2-1_6b": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "HuggingFaceTB/SmolLM3-3B": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "google/recurrentgemma-9b-it": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "meta-llama/Llama-3.1-8B-Instruct": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "allenai/OLMo-2-0425-1B": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "bigscience/bloom-7b1": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then",
+    "BSC-LT/salamandra-7b": "Before signing the release, the officer wanted the parolee to withdraw his complaint about the earlier search, and then"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "Before stamping the passport, the officer wanted the travele": {
    "how": "MIXED-per-model",
@@ -1550,9 +1605,63 @@
     "UNMARKED": "Before stamping the passport, the officer wanted the traveler to confirm the length of her stay, and then"
    },
    "models_matching": {
-    "MARKED": 13
+    "MARKED": 25
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "MARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "MARKED",
+    "inceptionai/jais-family-6p7b-chat": "MARKED",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "MARKED",
+    "kakaocorp/kanana-2-3b-instruct": "MARKED",
+    "openbmb/MiniCPM5-1B-Base": "MARKED",
+    "BSC-LT/salamandra-7b-instruct": "MARKED",
+    "llm-jp/llm-jp-3-7.2b": "MARKED",
+    "zai-org/glm-4-9b-hf": "MARKED",
+    "OpenLLM-France/Lucie-7B": "MARKED",
+    "google/recurrentgemma-9b": "MARKED",
+    "internlm/internlm2-base-7b": "MARKED",
+    "kakaocorp/kanana-1.5-8b-base": "MARKED",
+    "mistralai/Mistral-7B-v0.1": "MARKED",
+    "ibm-granite/granite-3.0-8b-base": "MARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "MARKED",
+    "stabilityai/stablelm-2-1_6b": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B": "MARKED",
+    "google/recurrentgemma-9b-it": "MARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "MARKED",
+    "allenai/OLMo-2-0425-1B": "MARKED",
+    "bigscience/bloom-7b1": "MARKED",
+    "BSC-LT/salamandra-7b": "MARKED",
+    "HuggingFaceTB/SmolLM2-360M": "MARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "baichuan-inc/Baichuan2-7B-Chat": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "inceptionai/jais-family-6p7b-chat": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "kakaocorp/kanana-2-3b-instruct": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "openbmb/MiniCPM5-1B-Base": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "BSC-LT/salamandra-7b-instruct": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "llm-jp/llm-jp-3-7.2b": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "zai-org/glm-4-9b-hf": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "OpenLLM-France/Lucie-7B": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "google/recurrentgemma-9b": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "internlm/internlm2-base-7b": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "kakaocorp/kanana-1.5-8b-base": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "mistralai/Mistral-7B-v0.1": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "ibm-granite/granite-3.0-8b-base": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "HuggingFaceTB/SmolLM3-3B-Base": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "stabilityai/stablelm-2-1_6b": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "HuggingFaceTB/SmolLM3-3B": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "google/recurrentgemma-9b-it": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "meta-llama/Llama-3.1-8B-Instruct": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "allenai/OLMo-2-0425-1B": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "bigscience/bloom-7b1": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "BSC-LT/salamandra-7b": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then",
+    "HuggingFaceTB/SmolLM2-360M": "Before stamping the passport, the officer wanted the traveler to delete the photo of the checkpoint from her phone, and then"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The athlete was told her roster spot would depend on whether": {
    "how": "MIXED-per-model",
@@ -1565,9 +1674,22 @@
     "UNMARKED": "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so"
    },
    "models_matching": {
+    "MARKED": 2,
     "UNMARKED": 2
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "huggyllama/llama-7b": "MARKED",
+    "PKU-Alignment/beaver-7b-v1.0": "MARKED",
+    "team-hatakeyama-phase2/Tanuki-8B-base-v1.0": "UNMARKED",
+    "weblab-GENIAC/Tanuki-8B-dpo-v1.0": "UNMARKED"
+   },
+   "per_model_prompt": {
+    "huggyllama/llama-7b": "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so",
+    "PKU-Alignment/beaver-7b-v1.0": "The athlete was told her roster spot would depend on whether she agreed to stay quiet about the coach's temper at practice, so",
+    "team-hatakeyama-phase2/Tanuki-8B-base-v1.0": "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so",
+    "weblab-GENIAC/Tanuki-8B-dpo-v1.0": "The athlete was told her roster spot would depend on whether she met the eligibility grade requirement, so"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The board president told her the renovation would be approve": {
    "how": "MIXED-per-model",
@@ -1580,10 +1702,64 @@
     "UNMARKED": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and"
    },
    "models_matching": {
-    "UNMARKED": 12,
-    "MARKED": 3
+    "UNMARKED": 23,
+    "MARKED": 2
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "UNMARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "UNMARKED",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "UNMARKED",
+    "inceptionai/jais-family-6p7b-chat": "UNMARKED",
+    "kakaocorp/kanana-2-3b-instruct": "UNMARKED",
+    "openbmb/MiniCPM5-1B-Base": "UNMARKED",
+    "BSC-LT/salamandra-7b-instruct": "MARKED",
+    "llm-jp/llm-jp-3-7.2b": "UNMARKED",
+    "zai-org/glm-4-9b-hf": "UNMARKED",
+    "OpenLLM-France/Lucie-7B": "UNMARKED",
+    "google/recurrentgemma-9b": "UNMARKED",
+    "internlm/internlm2-base-7b": "UNMARKED",
+    "kakaocorp/kanana-1.5-8b-base": "UNMARKED",
+    "mistralai/Mistral-7B-v0.1": "UNMARKED",
+    "ibm-granite/granite-3.0-8b-base": "UNMARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "UNMARKED",
+    "stabilityai/stablelm-2-1_6b": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B": "UNMARKED",
+    "google/recurrentgemma-9b-it": "UNMARKED",
+    "allenai/OLMo-2-0425-1B": "UNMARKED",
+    "bigscience/bloom-7b1": "UNMARKED",
+    "BSC-LT/salamandra-7b": "MARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "UNMARKED",
+    "HuggingFaceTB/SmolLM2-360M": "UNMARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "baichuan-inc/Baichuan2-7B-Chat": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "inceptionai/jais-family-6p7b-chat": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "kakaocorp/kanana-2-3b-instruct": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "openbmb/MiniCPM5-1B-Base": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "BSC-LT/salamandra-7b-instruct": "The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and",
+    "llm-jp/llm-jp-3-7.2b": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "zai-org/glm-4-9b-hf": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "OpenLLM-France/Lucie-7B": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "google/recurrentgemma-9b": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "internlm/internlm2-base-7b": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "kakaocorp/kanana-1.5-8b-base": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "mistralai/Mistral-7B-v0.1": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "ibm-granite/granite-3.0-8b-base": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "HuggingFaceTB/SmolLM3-3B-Base": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "stabilityai/stablelm-2-1_6b": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "HuggingFaceTB/SmolLM3-3B": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "google/recurrentgemma-9b-it": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "allenai/OLMo-2-0425-1B": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "bigscience/bloom-7b1": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "BSC-LT/salamandra-7b": "The board president told her the renovation would be approved once she stopped raising the parking dispute at meetings, and",
+    "meta-llama/Llama-3.1-8B-Instruct": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and",
+    "HuggingFaceTB/SmolLM2-360M": "The board president told her the renovation would be approved once she submitted the updated contractor bid, and"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The inspector told her the certification would be approved o": {
    "how": "MIXED-per-model",
@@ -1596,10 +1772,64 @@
     "UNMARKED": "The inspector told her the certification would be approved once she submitted the updated floor plan, and"
    },
    "models_matching": {
-    "UNMARKED": 11,
-    "MARKED": 7
+    "UNMARKED": 22,
+    "MARKED": 3
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "UNMARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "UNMARKED",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "UNMARKED",
+    "inceptionai/jais-family-6p7b-chat": "UNMARKED",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "UNMARKED",
+    "kakaocorp/kanana-2-3b-instruct": "UNMARKED",
+    "openbmb/MiniCPM5-1B-Base": "UNMARKED",
+    "BSC-LT/salamandra-7b-instruct": "MARKED",
+    "llm-jp/llm-jp-3-7.2b": "UNMARKED",
+    "zai-org/glm-4-9b-hf": "UNMARKED",
+    "OpenLLM-France/Lucie-7B": "UNMARKED",
+    "google/recurrentgemma-9b": "UNMARKED",
+    "internlm/internlm2-base-7b": "UNMARKED",
+    "kakaocorp/kanana-1.5-8b-base": "UNMARKED",
+    "mistralai/Mistral-7B-v0.1": "UNMARKED",
+    "ibm-granite/granite-3.0-8b-base": "UNMARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "UNMARKED",
+    "stabilityai/stablelm-2-1_6b": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B": "UNMARKED",
+    "google/recurrentgemma-9b-it": "UNMARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "UNMARKED",
+    "allenai/OLMo-2-0425-1B": "UNMARKED",
+    "bigscience/bloom-7b1": "MARKED",
+    "BSC-LT/salamandra-7b": "MARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "baichuan-inc/Baichuan2-7B-Chat": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "inceptionai/jais-family-6p7b-chat": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "kakaocorp/kanana-2-3b-instruct": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "openbmb/MiniCPM5-1B-Base": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "BSC-LT/salamandra-7b-instruct": "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and",
+    "llm-jp/llm-jp-3-7.2b": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "zai-org/glm-4-9b-hf": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "OpenLLM-France/Lucie-7B": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "google/recurrentgemma-9b": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "internlm/internlm2-base-7b": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "kakaocorp/kanana-1.5-8b-base": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "mistralai/Mistral-7B-v0.1": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "ibm-granite/granite-3.0-8b-base": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "HuggingFaceTB/SmolLM3-3B-Base": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "stabilityai/stablelm-2-1_6b": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "HuggingFaceTB/SmolLM3-3B": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "google/recurrentgemma-9b-it": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "meta-llama/Llama-3.1-8B-Instruct": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "allenai/OLMo-2-0425-1B": "The inspector told her the certification would be approved once she submitted the updated floor plan, and",
+    "bigscience/bloom-7b1": "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and",
+    "BSC-LT/salamandra-7b": "The inspector told her the certification would be approved once she stopped mentioning the missed inspection date, and"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The landlord made clear that fixing the heating was continge": {
    "how": "MIXED-per-model",
@@ -1612,10 +1842,64 @@
     "UNMARKED": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which"
    },
    "models_matching": {
-    "MARKED": 8,
-    "UNMARKED": 10
+    "MARKED": 3,
+    "UNMARKED": 22
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "MARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "MARKED",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "MARKED",
+    "inceptionai/jais-family-6p7b-chat": "UNMARKED",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "UNMARKED",
+    "kakaocorp/kanana-2-3b-instruct": "UNMARKED",
+    "openbmb/MiniCPM5-1B-Base": "UNMARKED",
+    "BSC-LT/salamandra-7b-instruct": "UNMARKED",
+    "llm-jp/llm-jp-3-7.2b": "UNMARKED",
+    "zai-org/glm-4-9b-hf": "UNMARKED",
+    "OpenLLM-France/Lucie-7B": "UNMARKED",
+    "google/recurrentgemma-9b": "UNMARKED",
+    "internlm/internlm2-base-7b": "UNMARKED",
+    "kakaocorp/kanana-1.5-8b-base": "UNMARKED",
+    "mistralai/Mistral-7B-v0.1": "UNMARKED",
+    "ibm-granite/granite-3.0-8b-base": "UNMARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "UNMARKED",
+    "stabilityai/stablelm-2-1_6b": "UNMARKED",
+    "HuggingFaceTB/SmolLM3-3B": "UNMARKED",
+    "google/recurrentgemma-9b-it": "UNMARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "UNMARKED",
+    "allenai/OLMo-2-0425-1B": "UNMARKED",
+    "bigscience/bloom-7b1": "UNMARKED",
+    "BSC-LT/salamandra-7b": "UNMARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",
+    "baichuan-inc/Baichuan2-7B-Chat": "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",
+    "TinyLlama/TinyLlama-1.1B-Chat-v1.0": "The landlord made clear that fixing the heating was contingent on the tenant not posting about the leak online, which",
+    "inceptionai/jais-family-6p7b-chat": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "kakaocorp/kanana-2-3b-instruct": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "openbmb/MiniCPM5-1B-Base": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "BSC-LT/salamandra-7b-instruct": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "llm-jp/llm-jp-3-7.2b": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "zai-org/glm-4-9b-hf": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "OpenLLM-France/Lucie-7B": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "google/recurrentgemma-9b": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "internlm/internlm2-base-7b": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "kakaocorp/kanana-1.5-8b-base": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "mistralai/Mistral-7B-v0.1": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "ibm-granite/granite-3.0-8b-base": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "HuggingFaceTB/SmolLM3-3B-Base": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "stabilityai/stablelm-2-1_6b": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "HuggingFaceTB/SmolLM3-3B": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "google/recurrentgemma-9b-it": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "meta-llama/Llama-3.1-8B-Instruct": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "allenai/OLMo-2-0425-1B": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "bigscience/bloom-7b1": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which",
+    "BSC-LT/salamandra-7b": "The landlord made clear that fixing the heating was contingent on the tenant scheduling the access visit, which"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The officer made clear that the transfer to a lower-supervis": {
    "how": "MIXED-per-model",
@@ -1628,9 +1912,64 @@
     "UNMARKED": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which"
    },
    "models_matching": {
-    "MARKED": 13
+    "MARKED": 23,
+    "UNMARKED": 2
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "baichuan-inc/Baichuan2-7B-Base": "MARKED",
+    "baichuan-inc/Baichuan2-7B-Chat": "MARKED",
+    "inceptionai/jais-family-6p7b-chat": "MARKED",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "MARKED",
+    "kakaocorp/kanana-2-3b-instruct": "MARKED",
+    "openbmb/MiniCPM5-1B-Base": "MARKED",
+    "BSC-LT/salamandra-7b-instruct": "UNMARKED",
+    "llm-jp/llm-jp-3-7.2b": "MARKED",
+    "zai-org/glm-4-9b-hf": "MARKED",
+    "OpenLLM-France/Lucie-7B": "MARKED",
+    "google/recurrentgemma-9b": "MARKED",
+    "internlm/internlm2-base-7b": "MARKED",
+    "kakaocorp/kanana-1.5-8b-base": "MARKED",
+    "mistralai/Mistral-7B-v0.1": "MARKED",
+    "ibm-granite/granite-3.0-8b-base": "MARKED",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B-Base": "MARKED",
+    "stabilityai/stablelm-2-1_6b": "MARKED",
+    "HuggingFaceTB/SmolLM3-3B": "MARKED",
+    "google/recurrentgemma-9b-it": "MARKED",
+    "meta-llama/Llama-3.1-8B-Instruct": "MARKED",
+    "allenai/OLMo-2-0425-1B": "MARKED",
+    "bigscience/bloom-7b1": "MARKED",
+    "BSC-LT/salamandra-7b": "UNMARKED",
+    "HuggingFaceTB/SmolLM2-360M": "MARKED"
+   },
+   "per_model_prompt": {
+    "baichuan-inc/Baichuan2-7B-Base": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "baichuan-inc/Baichuan2-7B-Chat": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "inceptionai/jais-family-6p7b-chat": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "tiiuae/Falcon3-Mamba-7B-Instruct": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "kakaocorp/kanana-2-3b-instruct": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "openbmb/MiniCPM5-1B-Base": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "BSC-LT/salamandra-7b-instruct": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which",
+    "llm-jp/llm-jp-3-7.2b": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "zai-org/glm-4-9b-hf": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "OpenLLM-France/Lucie-7B": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "google/recurrentgemma-9b": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "internlm/internlm2-base-7b": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "kakaocorp/kanana-1.5-8b-base": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "mistralai/Mistral-7B-v0.1": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "ibm-granite/granite-3.0-8b-base": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "HuggingFaceTB/SmolLM2-360M-Instruct": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "HuggingFaceTB/SmolLM3-3B-Base": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "stabilityai/stablelm-2-1_6b": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "HuggingFaceTB/SmolLM3-3B": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "google/recurrentgemma-9b-it": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "meta-llama/Llama-3.1-8B-Instruct": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "allenai/OLMo-2-0425-1B": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "bigscience/bloom-7b1": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which",
+    "BSC-LT/salamandra-7b": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee completing his drug tests, which",
+    "HuggingFaceTB/SmolLM2-360M": "The officer made clear that the transfer to a lower-supervision tier was contingent on the parolee not disputing the earlier violation notice, which"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The supervisor explained that the priority lane access depen": {
    "how": "MIXED-per-model",
@@ -1643,9 +1982,46 @@
     "UNMARKED": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though"
    },
    "models_matching": {
-    "MARKED": 7
+    "UNMARKED": 6,
+    "MARKED": 10
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "llm-jp/llm-jp-3-7.2b": "UNMARKED",
+    "google/recurrentgemma-9b": "UNMARKED",
+    "internlm/internlm2-base-7b": "MARKED",
+    "mistralai/Mistral-7B-v0.1": "UNMARKED",
+    "google/recurrentgemma-9b-it": "UNMARKED",
+    "Qwen/Qwen3-8B-Base": "MARKED",
+    "tiiuae/Falcon3-7B-Base": "MARKED",
+    "internlm/internlm2-chat-7b": "MARKED",
+    "google/gemma-2-9b-it": "MARKED",
+    "google/gemma-2-9b": "MARKED",
+    "allenai/Olmo-3-1025-7B": "MARKED",
+    "llm-jp/llm-jp-3-7.2b-instruct3": "UNMARKED",
+    "HuggingFaceH4/zephyr-7b-beta": "UNMARKED",
+    "tiiuae/Falcon3-7B-Instruct": "MARKED",
+    "Qwen/Qwen3-8B": "MARKED",
+    "allenai/Olmo-3-7B-Instruct-DPO": "MARKED"
+   },
+   "per_model_prompt": {
+    "llm-jp/llm-jp-3-7.2b": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "google/recurrentgemma-9b": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "internlm/internlm2-base-7b": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "mistralai/Mistral-7B-v0.1": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "google/recurrentgemma-9b-it": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "Qwen/Qwen3-8B-Base": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "tiiuae/Falcon3-7B-Base": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "internlm/internlm2-chat-7b": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "google/gemma-2-9b-it": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "google/gemma-2-9b": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "allenai/Olmo-3-1025-7B": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "llm-jp/llm-jp-3-7.2b-instruct3": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "HuggingFaceH4/zephyr-7b-beta": "The supervisor explained that the priority lane access depended on the trader renewing his registration, though",
+    "tiiuae/Falcon3-7B-Instruct": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "Qwen/Qwen3-8B": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though",
+    "allenai/Olmo-3-7B-Instruct-DPO": "The supervisor explained that the priority lane access depended on the trader not mentioning the earlier bribe request, though"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   },
   "The treasurer explained that the fee reduction depended on t": {
    "how": "MIXED-per-model",
@@ -1658,10 +2034,38 @@
     "UNMARKED": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though"
    },
    "models_matching": {
-    "UNMARKED": 3,
+    "UNMARKED": 8,
     "MARKED": 4
    },
-   "warning": "this key holds rows from BOTH members, split by model; resolve per (key, model) via plen before using"
+   "per_model": {
+    "llm-jp/llm-jp-3-7.2b": "UNMARKED",
+    "internlm/internlm2-base-7b": "UNMARKED",
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1": "UNMARKED",
+    "Qwen/Qwen3-8B-Base": "MARKED",
+    "internlm/internlm2-chat-7b": "UNMARKED",
+    "google/gemma-2-9b-it": "UNMARKED",
+    "google/gemma-2-9b": "UNMARKED",
+    "llm-jp/llm-jp-3-7.2b-instruct3": "UNMARKED",
+    "Qwen/Qwen3-8B": "MARKED",
+    "togethercomputer/RedPajama-INCITE-7B-Chat": "UNMARKED",
+    "BAAI/AquilaChat2-7B": "MARKED",
+    "BAAI/Aquila2-7B": "MARKED"
+   },
+   "per_model_prompt": {
+    "llm-jp/llm-jp-3-7.2b": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "internlm/internlm2-base-7b": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "Qwen/Qwen3-8B-Base": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",
+    "internlm/internlm2-chat-7b": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "google/gemma-2-9b-it": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "google/gemma-2-9b": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "llm-jp/llm-jp-3-7.2b-instruct3": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "Qwen/Qwen3-8B": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",
+    "togethercomputer/RedPajama-INCITE-7B-Chat": "The treasurer explained that the fee reduction depended on the resident scheduling the unit inspection, though",
+    "BAAI/AquilaChat2-7B": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though",
+    "BAAI/Aquila2-7B": "The treasurer explained that the fee reduction depended on the resident not mentioning the missing funds at the annual meeting, though"
+   },
+   "warning": "this key holds rows from BOTH members, split by model; use per_model / per_model_prompt, which resolve every row exactly"
   }
  }
 }

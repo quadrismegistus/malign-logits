@@ -15,6 +15,11 @@ stripping the known pair prefix and REFUSES a row whose prefix is absent rather
 than falling back to the id -- it behaved correctly on the input it was given.
 `beam_fc` stores prompts to 148 characters, so nothing structural forced this.
 
+MATCH plen WITH add_special_tokens=TRUE. The generator supplied a BOS and plen
+counts it; matching without it left 6 of 18 models unmatched on r2bpw_049 and
+manufactured a spurious 11/7 split that I posted at [5876]. Corrected, there are
+zero unmatched and zero ties, and every (key, model) resolves.
+
 THE CONSEQUENCE IS NOT ONLY A BROKEN JOIN. Nine stems have their MARKED and
 UNMARKED members diverge AFTER character 60, so both members truncate to one
 string. `gen_sequences` is a ReplacingMergeTree ordered on
@@ -76,7 +81,7 @@ def main():
     #: which member actually survived a collision: the stored plen must equal
     #: the candidate's token count under that model's tokenizer. plen is the
     #: only trace of the prompt left in the row.
-    resolved_collisions, n_votes = {}, {}
+    resolved_collisions, n_votes, per_model = {}, {}, {}
     if collide:
         import warnings
         warnings.filterwarnings("ignore")
@@ -100,10 +105,17 @@ def main():
                 tk = tks[m]
                 if tk is None:
                     continue
-                for f in cands:
-                    n = len(tk(f, add_special_tokens=False)["input_ids"])
-                    if n == r["plen"]:
-                        votes[f] += 1
+                #: add_special_tokens=TRUE. plen counts the BOS the generator
+                #: supplied; matching without it left 6 of 18 models unmatched
+                #: on r2bpw_049 and produced a spurious 11/7 split. With the
+                #: flag corrected there are ZERO unmatched and ZERO ties across
+                #: all 9 keys, so each (key, model) resolves exactly.
+                hits = [f for f in cands
+                        if len(tk(f, add_special_tokens=True)["input_ids"])
+                        == r["plen"]]
+                if len(hits) == 1:
+                    votes[hits[0]] += 1
+                    per_model.setdefault(p, {})[m] = hits[0]
             #: A COLLIDED KEY IS A PER-MODEL MIXTURE, NOT A SURVIVOR. The
             #: collision was resolved independently for each model -- whichever
             #: source record that model's rows were written from won -- so
@@ -147,9 +159,12 @@ def main():
                          "candidates": {byprompt[f]["member"]: f
                                         for f in collide[p]},
                          "models_matching": n_votes.get(p),
+                         "per_model": {m: byprompt[f]["member"]
+                                       for m, f in (per_model.get(p) or {}).items()},
+                         "per_model_prompt": per_model.get(p) or {},
                          "warning": "this key holds rows from BOTH members, "
-                                    "split by model; resolve per (key, model) "
-                                    "via plen before using"}
+                                    "split by model; use per_model / per_model_prompt, "
+                                    "which resolve every row exactly"}
     outp = os.path.join(ROOT, OUT)
     json.dump(res, open(outp, "w"), indent=1, ensure_ascii=False)
 
@@ -191,8 +206,8 @@ def main():
           "  ".join("%s=%d" % (k, n) for k, n in sorted(v.items())) or "no match"))
     w("")
     w("  drmatch prompts never generated at all: %d" % len(orphan))
-    w("  NOTE: plen is matched with add_special_tokens=False; models matching")
-    w("  NEITHER candidate are most likely a BOS offset, NOT chased here.")
+    w("  plen matched with add_special_tokens=TRUE: zero unmatched, zero ties,")
+    w("  so per_model in the map resolves every row exactly.")
     w("")
     w("WROTE %s  (%d entries)" % (OUT, len(res["map"])))
     body = "\n".join(L)
