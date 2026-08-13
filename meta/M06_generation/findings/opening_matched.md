@@ -114,6 +114,71 @@ compensates LEAST in both roles at p 0.081 and 0.073, the same direction
 twice, uncorrected -- not evidence, and not evidence for the withdrawn
 reading either.
 
+## WHERE THE COMPENSATION LIVES, and the mechanism I predicted is REFUTED
+
+RH asked how the model could know about an imposition it cannot detect. It
+cannot, so the difference must be in the WORD occupying position 1. The
+hypothesis written into `m06_opening_profile.py` before the run: matching on
+CONDITIONAL logprob does not match on MARGINAL frequency, forced words are
+curated content words while tail-sampled openings are rare tokens, so
+**compensation should GROW as the opening gets less probable**.
+
+**It does the exact opposite.** Aligned, per 1-nat bin of opening logprob:
+
+    x bin     faller              matched             riser_matched
+    -1.0    -0.0880  9/30 p.001  -0.1059  6/33 p<.001 -0.0988  8/31 p<.001
+    -2.0    -0.0733  6/34 p<.001 -0.0901  3/37 p<.001 -0.0772  3/37 p<.001
+    -3.0    -0.0533  6/34 p<.001 -0.0624  5/35 p<.001 -0.0626  7/33 p<.001
+    -4.0    -0.0203 15/25 p.154  -0.0428 12/28 p.017  -0.0496  7/33 p<.001
+    -5.0    -0.0028 20/20 p1.00  -0.0319 17/22 p.522  -0.0431 12/27 p.024
+    -6.0    -0.0016 19/21 p.875  -0.0178 18/21 p.749  -0.0036 19/19 p1.00
+    -7.0 and below: null or positive, no consistent sign
+
+Base has the same shape (strongest at -2 to -4, gone by -7).
+**Compensation vs opening logprob: Spearman -0.683 (p 0.0002) over 25 bins,
+and -0.966 restricted to x >= -7 where the effect lives.** The effect is
+concentrated where the imposition is MILDEST and vanishes where the imposed
+word is most improbable.
+
+**That kills the reading of compensation as repair-after-disruption.** If
+forcing damaged the chain and the model repaired it, the effect would grow
+with how improbable the imposed word is. It shrinks.
+
+And the frequency measurement inverts too. Mean Zipf of the opening word:
+
+    x bin   undisturbed   forced (matched)   gap
+    -1.0       5.515          4.573         -0.941
+    -3.0       5.448          4.736         -0.711
+    -5.0       5.072          4.764         -0.308
+    -7.0       4.635          4.806         +0.171
+    -10.0      4.089          4.808         +0.719
+    -14.0      3.463          4.842         +1.379
+
+**At high opening probability the UNDISTURBED opening is the commoner word
+by nearly a full Zipf point; only deep in the tail do forced words become
+commoner.** So my hypothesis had the frequency relation backwards in exactly
+the region where the effect exists, and the two profiles are strongly
+coupled in the direction opposite to it: **compensation vs the Zipf gap,
+Spearman +0.678 overall and +0.974 for x >= -7** -- the compensation is
+largest where the forced opening is LESS common than what the model would
+have said.
+
+**REVISED CANDIDATE MECHANISM, stated as a candidate:** at a high-probability
+slot the model's own near-modal choice is often a very common word (Zipf
+5.5, function-word territory) that defers specification, while the arms
+table supplies a content verb (Zipf 4.6) that names the predicate and
+CONSTRAINS what can follow. The forced continuation is more predictable
+because it was given a more specific word, not because anything was repaired.
+Compensation would then be a fact about lexical specificity, not about
+imposition at all -- which is consistent with its absence in the tail, where
+both arms' openings are specific.
+
+**NEXT TEST, named rather than assumed:** the part of speech and syntactic
+role of the opening word by arm and bin. If the mechanism is specificity,
+the undisturbed openings at x >= -3 should be disproportionately function
+words and the effect should vanish when the comparison is restricted to
+content-word openings on both sides. Not run.
+
 ## Q2: not alignment-specific
 
 DiDs at the primary estimator: faller p 0.20, matched p 0.034,
