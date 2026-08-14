@@ -271,7 +271,7 @@ def main():
                                 "phase")
                              + ",\nnever smoothed across base/SFT/DPO/"
                              "RLVR; segments too short for a fit drawn "
-                             "raw. Grey: probe absent rate ([5436]). "
+                             "raw.\nGrey: probe absent rate ([5436]). "
                              "Raw curves: fig14-16.",
                     x=xlab, y="share of own late-base value")
              + TH)

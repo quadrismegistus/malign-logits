@@ -170,9 +170,9 @@ def main():
               for r in labpos.itertuples()]
            + scale_x_continuous(expand=(0.02, 0, 0.24, 0))
            + labs(title="Pretraining builds the field structure; alignment barely moves it",
-                  subtitle="Median field-mass over the 105 pairs (meta lexicon). Every field is built 0->its level in "
-                           "PRETRAINING; the shaded alignment region only trims (largest shift 0.04 vs physical_action\u2019s "
-                           "+0.26 build). Fields overlap, masses do not sum to 1.",
+                  subtitle="Median field-mass over the 105 pairs (meta lexicon). Every field is built\n"
+                           "0->its level in PRETRAINING; the shaded alignment region only trims (largest\n"
+                           "shift 0.04 vs physical_action\u2019s +0.26 build). Fields overlap, masses do not sum to 1.",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="continuation mass in field")
            + TH)
@@ -190,8 +190,8 @@ def main():
            + facet_wrap("~panel", ncol=2, scales="free_y")
            + scale_color_manual({"MARKED": "#eb6834", "UNMARKED": "#2a78d6"})
            + labs(title="The field that falls and the field that rises: transgressive vs neutral",
-                  subtitle="Orange = transgressive member, blue = neutral twin. Does the field flow differ by "
-                           "whether the prompt is transgressive?",
+                  subtitle="Orange = transgressive member, blue = neutral twin.\n"
+                           "Does the field flow differ by whether the prompt is transgressive?",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="continuation mass in field")
            + TH + theme(figure_size=(11, 4.5)))

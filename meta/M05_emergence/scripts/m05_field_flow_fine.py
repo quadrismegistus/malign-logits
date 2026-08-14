@@ -87,6 +87,14 @@ def load_prompts():
 
 
 def main():
+    # --figs re-renders from the cached table instead of re-reading ClickHouse.
+    # Added 2026-08-14: fixing a truncated subtitle should not cost a full
+    # recompute, because the fix nobody can afford is the fix nobody makes.
+    if "--figs" in sys.argv:
+        df = pd.read_parquet(OUT)
+        print(f"read {OUT}: {len(df)} rows, {df.field.nunique()} fine fields")
+        return figures(df)
+
     from malign_logits import fields
     from malign_logits.movement import word_probs
 
@@ -134,7 +142,10 @@ def main():
     df = pd.DataFrame(rows)
     df.to_parquet(OUT)
     print(f"wrote {OUT}: {len(df)} rows, {df.field.nunique()} fine fields")
+    return figures(df)
 
+
+def figures(df):
     order = df[["ckpt_idx", "role"]].drop_duplicates()
     sft0 = order[order.role == "sft_step"].ckpt_idx.min()
     end = order.ckpt_idx.max()
@@ -182,8 +193,9 @@ def main():
            + coord_flip()
            + scale_fill_manual({"falls": "#eb6834", "rises": "#2a78d6"})
            + labs(title="The 10 fine fields alignment moves most (USAS + RID + WordNet)",
-                  subtitle="Change in field-mass base-endpoint -> RLVR, median over 105 pairs. Finest labelled "
-                           "categories across three lexicons; a word can land in several, so these are not a partition.",
+                  subtitle="Change in field-mass base-endpoint -> RLVR, median over 105 pairs.\n"
+                           "Finest labelled categories across three lexicons; a word can land in\n"
+                           "several, so these are not a partition.",
                   x="", y="alignment change in field-mass (base-endpoint -> RLVR)")
            + TH + theme(figure_size=(10, 5)))
     p9a.save(f"{FIGDIR}/fig9a_fine_field_movers.png", dpi=300, verbose=False)
@@ -198,8 +210,8 @@ def main():
            + geom_line(size=0.8, color="#2a78d6")
            + facet_wrap("~field", ncol=2, scales="free_y")
            + labs(title="Trajectories of the 10 fields alignment moves most",
-                  subtitle="Median field-mass across the ladder. Shaded = post-training. Each panel free-scaled; "
-                           "watch the shaded region, not the pretraining build.",
+                  subtitle="Median field-mass across the ladder. Shaded = post-training.\n"
+                           "Each panel free-scaled; watch the shaded region, not the pretraining build.",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="field-mass")
            + TH + theme(figure_size=(10, 11)))

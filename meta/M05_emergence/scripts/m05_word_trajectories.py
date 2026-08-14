@@ -141,8 +141,9 @@ def main():
                  + scale_color_manual(cmap)
                  + scale_x_continuous(expand=(0.03, 0, 0.03, 0))
                  + labs(title=f"'{prompt}'",
-                        subtitle=f"{domain} / {sub}. Step(base->DPO) top-3 risers (cool) and fallers (warm), delta-labelled "
-                                 f"at each curve\u2019s peak; window-5 rolling mean over 95 checkpoints. Shaded = post-training.",
+                        subtitle=f"{domain} / {sub}. Step(base->DPO) top-3 risers (cool) and fallers (warm),\n"
+                                 f"delta-labelled at each curve\u2019s peak; window-5 rolling mean over 95 checkpoints.\n"
+                                 f"Shaded = post-training.",
                         x="training position (base | SFT | DPO | RLVR)",
                         y="p(word | prompt)")
                  + theme_minimal(base_size=11)

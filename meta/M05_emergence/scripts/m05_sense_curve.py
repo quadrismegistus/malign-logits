@@ -125,9 +125,9 @@ def main():
              + labs(title=f"When completions start making sense — "
                           f"{'Pythia-6.9b' if ladder == 'pythia' else 'OLMo-3 stage1 (base arm)'}",
                     subtitle="Median over prompts of per-cell band shares "
-                             "over CLASSIFIED mass (format band excluded "
+                             "over CLASSIFIED mass (format band excluded\n"
                              "both sides; unclassified tail censored and "
-                             "drawn separately). Coverage drawn with the "
+                             "drawn separately). Coverage drawn with the\n"
                              "curve per [5434]. Coder: deepseek-v4-flash, "
                              "118,129 pairs, canaries 10/10.",
                     x="checkpoint (ordinal)", y="share"))

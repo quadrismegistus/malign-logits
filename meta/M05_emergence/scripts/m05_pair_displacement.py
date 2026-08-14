@@ -192,9 +192,9 @@ def main():
                       y=med[med.member == "UNMARKED"].faller_mass.iloc[-1],
                       label="  neutral (UNMARKED)", color=BLUE, size=9, ha="left")
            + labs(title="Displacement lands on the transgressive half of the pair",
-                  subtitle="Median demoted mass (CANONICAL faller-mass vs deployed base) over 105 minimal pairs. "
-                           "Displacement = probability stripped from the base\u2019s continuations, NOT total "
-                           "movement. Shaded = post-training.",
+                  subtitle="Median demoted mass (CANONICAL faller-mass vs deployed base) over 105\n"
+                           "minimal pairs. Displacement = probability stripped from the base\u2019s\n"
+                           "continuations, NOT total movement. Shaded = post-training.",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="demoted mass (faller-mass) from base")
            + TH)
@@ -219,9 +219,9 @@ def main():
            + annotate("text", x=8, y=0.028, label="total-movement gap (JS)",
                       color="#9a9992", size=8, ha="left")
            + labs(title="Site-specific displacement: transgressive minus neutral",
-                  subtitle="Orange = median demoted-mass gap (marked - neutral); grey = the JS gap. In the shaded "
-                           "ALIGNMENT region the gap is ~0 pooled \u2014 both halves lose similar mass. "
-                           "(Base region is reference-confounded.)",
+                  subtitle="Orange = median demoted-mass gap (marked - neutral); grey = the JS gap.\n"
+                           "In the shaded ALIGNMENT region the gap is ~0 pooled \u2014 both halves lose\n"
+                           "similar mass. (Base region is reference-confounded.)",
                   x="training position (base | SFT | DPO | RLVR)",
                   y="excess at the transgressive member")
            + TH)
@@ -235,8 +235,8 @@ def main():
            + facet_wrap("~domain", ncol=4, scales="free_y")
            + scale_color_manual({"MARKED": ORANGE, "UNMARKED": BLUE})
            + labs(title="Displacement by domain: transgressive (orange) vs neutral (blue)",
-                  subtitle="Median demoted mass from base per domain. Where orange sits above blue the operation "
-                           "is site-specific; where they track, it is not.",
+                  subtitle="Median demoted mass from base per domain. Where orange sits above blue\n"
+                           "the operation is site-specific; where they track, it is not.",
                   x="training position", y="demoted mass from base")
            + TH + theme(figure_size=(11, 5)))
     p7c.save(f"{FIGDIR}/fig7c_pair_by_domain.png", dpi=300, verbose=False)
