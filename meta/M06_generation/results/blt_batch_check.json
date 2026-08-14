@@ -1,0 +1,136 @@
+{
+ "ref": "itazap/blt-1b-hf",
+ "verdict": "BATCHING AGREES",
+ "batch": 16,
+ "n": 24,
+ "worst_token_diff": 0.00010585784912109375,
+ "worst_bits_per_byte_diff": 5.163404070651526e-07,
+ "tolerance": 0.001,
+ "seq_bytes_per_s": 605.0952094426062,
+ "batched_bytes_per_s": 478.07432272351207,
+ "speedup": 0.7900811562595221,
+ "pad_token_id": 3,
+ "padding": "right",
+ "rows": [
+  {
+   "bytes": 947,
+   "max_abs_token_diff": 5.245208740234375e-05,
+   "bits_per_byte_diff": 4.396404588023247e-07
+  },
+  {
+   "bytes": 942,
+   "max_abs_token_diff": 8.106231689453125e-06,
+   "bits_per_byte_diff": 5.521442414928969e-08
+  },
+  {
+   "bytes": 479,
+   "max_abs_token_diff": 2.0503997802734375e-05,
+   "bits_per_byte_diff": 2.446910570397526e-07
+  },
+  {
+   "bytes": 707,
+   "max_abs_token_diff": 2.86102294921875e-05,
+   "bits_per_byte_diff": 2.1420126921885367e-07
+  },
+  {
+   "bytes": 566,
+   "max_abs_token_diff": 2.1696090698242188e-05,
+   "bits_per_byte_diff": 9.317883193468762e-08
+  },
+  {
+   "bytes": 1018,
+   "max_abs_token_diff": 1.239776611328125e-05,
+   "bits_per_byte_diff": 1.2447934641424175e-07
+  },
+  {
+   "bytes": 1262,
+   "max_abs_token_diff": 0.00010585784912109375,
+   "bits_per_byte_diff": 3.196820921152148e-07
+  },
+  {
+   "bytes": 490,
+   "max_abs_token_diff": 2.110004425048828e-05,
+   "bits_per_byte_diff": 6.507344194755649e-08
+  },
+  {
+   "bytes": 881,
+   "max_abs_token_diff": 3.4928321838378906e-05,
+   "bits_per_byte_diff": 1.7172814954272908e-07
+  },
+  {
+   "bytes": 1035,
+   "max_abs_token_diff": 2.1696090698242188e-05,
+   "bits_per_byte_diff": 3.79100900987244e-08
+  },
+  {
+   "bytes": 1185,
+   "max_abs_token_diff": 7.05718994140625e-05,
+   "bits_per_byte_diff": 5.163404070651526e-07
+  },
+  {
+   "bytes": 894,
+   "max_abs_token_diff": 7.295608520507812e-05,
+   "bits_per_byte_diff": 5.049683614893511e-07
+  },
+  {
+   "bytes": 1144,
+   "max_abs_token_diff": 1.1086463928222656e-05,
+   "bits_per_byte_diff": 8.197641104753446e-08
+  },
+  {
+   "bytes": 1292,
+   "max_abs_token_diff": 1.3113021850585938e-05,
+   "bits_per_byte_diff": 1.4573407124158184e-07
+  },
+  {
+   "bytes": 1128,
+   "max_abs_token_diff": 1.7881393432617188e-05,
+   "bits_per_byte_diff": 5.520968990671529e-10
+  },
+  {
+   "bytes": 959,
+   "max_abs_token_diff": 1.4424324035644531e-05,
+   "bits_per_byte_diff": 2.0632923332369758e-07
+  },
+  {
+   "bytes": 1267,
+   "max_abs_token_diff": 1.481175422668457e-05,
+   "bits_per_byte_diff": 2.9756367709872836e-08
+  },
+  {
+   "bytes": 1049,
+   "max_abs_token_diff": 1.7404556274414062e-05,
+   "bits_per_byte_diff": 1.0595853783831213e-07
+  },
+  {
+   "bytes": 1130,
+   "max_abs_token_diff": 8.344650268554688e-06,
+   "bits_per_byte_diff": 3.535430136497042e-08
+  },
+  {
+   "bytes": 947,
+   "max_abs_token_diff": 1.811981201171875e-05,
+   "bits_per_byte_diff": 2.528158761191024e-07
+  },
+  {
+   "bytes": 791,
+   "max_abs_token_diff": 1.0251998901367188e-05,
+   "bits_per_byte_diff": 1.6707531562317274e-07
+  },
+  {
+   "bytes": 1154,
+   "max_abs_token_diff": 1.9073486328125e-05,
+   "bits_per_byte_diff": 6.292051042079886e-08
+  },
+  {
+   "bytes": 981,
+   "max_abs_token_diff": 1.7642974853515625e-05,
+   "bits_per_byte_diff": 1.7765397764638549e-07
+  },
+  {
+   "bytes": 1346,
+   "max_abs_token_diff": 1.9073486328125e-05,
+   "bits_per_byte_diff": 4.899491750020231e-08
+  }
+ ]
+}
