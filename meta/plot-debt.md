@@ -119,6 +119,24 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    wording): the panel must not imply a matched-prompt comparison
    exists at all — naming an absent leg still puts it in the reader's
    head. Item 6 was taken meanwhile.
+   **SHIPPED 2026-08-14 under route 3 (dario, f3c47a4a)**:
+   m06_crosslingual_figs.py -> crosslingual_invariance, four panels
+   over the persisted contrasts, both runs. DIAGONAL SCATTER, not
+   paired bars: the surviving claim is an INVARIANCE, and a null is
+   not shown by two bars that happen to look similar — English on x,
+   Chinese on y, and the y=x line drawn as the place where "the same
+   in both languages" lives, so the reader assesses the scatter
+   instead of taking it. Both arms negative on all eight contrasts
+   puts the cloud in the lower-left quadrant: two claims, one
+   geometry. Asserts cover eight DiDs and sixteen arm medians PLUS
+   TWO CLAIM-SHAPE GUARDS (every DiD still null, every arm median
+   still negative) — the producer refuses rather than drawing a claim
+   the finding no longer makes. No matched-prompt leg named anywhere
+   on the panel; the account lives in the docstring, where an editor
+   meets it and a reader does not. Axis noun is SPREAD, not drift
+   (total_drift = 1 - min pairwise similarity, order-invariant; the
+   finding corrected itself on this and an axis label is the easiest
+   place for a retired noun to survive).
 6. SHIPPED 2026-08-14 (dario, 932ca0c3) — PROPAGATION SLOPE:
    m06_propagation_figs.py -> propagation_slope. TWO SCALES of the
    same points, because the finding asserts both that the slope is
