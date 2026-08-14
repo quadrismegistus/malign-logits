@@ -363,3 +363,12 @@ meta/M03_proceduralization/results/e_field_flow_arms.parquet
 meta/M06_generation/results/mediation_words.parquet
 meta/M06_generation/results/mediation_words_byprompt.parquet
 meta/M06_generation/results/mediation_words_joined.parquet
+
+# registrar seat, 2026-08-14, per RH's commit-or-ignore instruction ([6034] arc).
+# Superseded intermediates whose PRODUCER and SUCCESSOR are both committed, so
+# the sidecar-committed / payload-ignored split applies: pair_cascade.py and
+# pair_cascade_replicated.parquet are tracked and regenerate this in one pass.
+meta/M01_displacement/results/pair_cascade_pilot.parquet
+# Stray Finder duplicates of a committed figure; the originals are tracked.
+meta/M01_displacement/figures/x1_garment_layers copy.svg
+meta/M01_displacement/figures/x1_garment_layers copy.png
