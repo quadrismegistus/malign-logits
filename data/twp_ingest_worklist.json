@@ -1,0 +1,863 @@
+{
+ "_about": "Files holding twp cells that are NOT in malign_logits.twp_words, as of the timestamp below. Derived from data/twp_jsonl_manifest.parquet (scripts/twp_jsonl_manifest.py). THE LIST IS DRAWN FROM A DEDUPLICATED COVER: 988 of 1,438 files that between them hold every distinct cell on disk, chosen newest-first. So ingesting these 207 files reaches every un-ingested cell exactly once and no file here duplicates another's work. n_gap_cells SUMS TO MORE THAN n_gap_cells_distinct because a cell present in two kept files is counted under both -- the distinct figure is the one to plan against.",
+ "measured_at": "2026-08-14T12:14:27Z",
+ "n_gap_cells_distinct": 10540,
+ "n_files": 207,
+ "n_kept_files_in_cover": 988,
+ "n_files_on_disk": 1438,
+ "disk_cells": 975219,
+ "ch_cells": 964679,
+ "ch_cells_with_no_file": 0,
+ "gap_by_model_top": {
+  "allenai/Olmo-3-1025-7B@stage1-step0": 1073,
+  "croissantllm/CroissantLLMChat-v0.1": 413,
+  "croissantllm/CroissantLLMBase": 413,
+  "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf": 364,
+  "Aleph-Alpha/Pharia-1-LLM-7B-control-hf": 362,
+  "openGPT-X/Teuken-7B-base-v0.6": 343,
+  "openGPT-X/Teuken-7B-instruct-commercial-v0.4": 343,
+  "OpenLLM-France/Lucie-7B-Instruct-v1.1": 314,
+  "openGPT-X/Teuken-7B-instruct-v0.6": 312,
+  "weblab-GENIAC/Tanuki-8B-dpo-v1.0": 312,
+  "OpenLLM-France/Lucie-7B": 185,
+  "BSC-LT/salamandra-7b-instruct": 156,
+  "LLM360/AmberChat": 128,
+  "allenai/Llama-3.1-Tulu-3-8B-DPO": 127,
+  "allenai/Llama-3.1-Tulu-3.1-8B": 127,
+  "allenai/Olmo-3-7B-Instruct-SFT": 126,
+  "m-a-p/neo_7b_sft_v0.1": 126,
+  "allenai/OLMo-2-0425-1B-SFT": 126,
+  "HuggingFaceH4/mistral-7b-sft-beta": 126,
+  "allenai/OLMo-2-0425-1B-Instruct": 126
+ },
+ "files": [
+  {
+   "path": "data/raw/verse_fleet/47628645/allenai__Olmo-3-1025-7B@stage1-step0.jsonl",
+   "n_gap_cells": 862
+  },
+  {
+   "path": "data/raw/twp_fill/twpssm/croissantllm__CroissantLLMBase.jsonl",
+   "n_gap_cells": 380
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill1/croissantllm__CroissantLLMChat-v0.1.jsonl",
+   "n_gap_cells": 380
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill0/Aleph-Alpha__Pharia-1-LLM-7B-control-aligned-hf.jsonl",
+   "n_gap_cells": 364
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill1/Aleph-Alpha__Pharia-1-LLM-7B-control-hf.jsonl",
+   "n_gap_cells": 362
+  },
+  {
+   "path": "data/raw/twp_twp_01/openGPT-X__Teuken-7B-instruct-commercial-v0.4.jsonl",
+   "n_gap_cells": 314
+  },
+  {
+   "path": "data/raw/twp_twp_01/openGPT-X__Teuken-7B-base-v0.6.jsonl",
+   "n_gap_cells": 314
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill3/weblab-GENIAC__Tanuki-8B-dpo-v1.0.jsonl",
+   "n_gap_cells": 312
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill2/openGPT-X__Teuken-7B-instruct-v0.6.jsonl",
+   "n_gap_cells": 312
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill2/openGPT-X__Teuken-7B-base-v0.6.jsonl",
+   "n_gap_cells": 312
+  },
+  {
+   "path": "data/raw/twp_w2_gpu2/OpenLLM-France__Lucie-7B-Instruct-v1.1.jsonl",
+   "n_gap_cells": 291
+  },
+  {
+   "path": "data/raw/m05/m05_0/allenai__Olmo-3-1025-7B@stage1-step0.jsonl",
+   "n_gap_cells": 257
+  },
+  {
+   "path": "data/raw/twp_twp_00/OpenLLM-France__Lucie-7B.jsonl",
+   "n_gap_cells": 179
+  },
+  {
+   "path": "data/raw/twp_twp_01/BSC-LT__salamandra-7b-instruct.jsonl",
+   "n_gap_cells": 155
+  },
+  {
+   "path": "data/twp_cloud/LLM360__AmberChat.jsonl",
+   "n_gap_cells": 124
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__neo_7b_sft_v0.1.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__CT-LLM-SFT.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3-7B-Instruct.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3-7B-Instruct-SFT.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__OLMo-2-0425-1B-SFT.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__OLMo-2-0425-1B-Instruct.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__Llama-3.1-Tulu-3.1-8B.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__Llama-3.1-Tulu-3-8B-SFT-no-safety-data.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/allenai__Llama-3.1-Tulu-3-8B-DPO.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/PKU-Alignment__alpaca-7b-reproduced.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/HuggingFaceH4__mistral-7b-sft-beta.jsonl",
+   "n_gap_cells": 123
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__CT-LLM-SFT-DPO.jsonl",
+   "n_gap_cells": 122
+  },
+  {
+   "path": "data/twp_cloud/mistralai__Mistral-7B-v0.1.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__neo_7b_instruct_v0.1.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__neo_7b.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/m-a-p__CT-LLM-Base.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/huggyllama__llama-7b.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3-7B-Instruct-DPO.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/allenai__OLMo-2-0425-1B.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/allenai__OLMo-2-0425-1B-DPO.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen3-8B.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen3-8B-Base.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen2.5-7B.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen2.5-7B-Instruct.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen2.5-0.5B.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/Qwen__Qwen2.5-0.5B-Instruct.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/PKU-Alignment__beaver-7b-v1.0.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/LLM360__AmberSafe.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/LLM360__Amber.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/HuggingFaceTB__SmolLM2-360M.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/HuggingFaceTB__SmolLM2-360M-Instruct.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/HuggingFaceH4__zephyr-7b-beta.jsonl",
+   "n_gap_cells": 121
+  },
+  {
+   "path": "data/twp_cloud/deepseek-ai__deepseek-llm-7b-base.jsonl",
+   "n_gap_cells": 120
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3-1025-7B.jsonl",
+   "n_gap_cells": 115
+  },
+  {
+   "path": "data/twp_cloud/EleutherAI__pythia-6.9b.jsonl",
+   "n_gap_cells": 115
+  },
+  {
+   "path": "data/twp_cloud/meta-llama__Llama-3.1-8B.jsonl",
+   "n_gap_cells": 110
+  },
+  {
+   "path": "data/raw/twp_twp_01/BSC-LT__salamandra-7b.jsonl",
+   "n_gap_cells": 103
+  },
+  {
+   "path": "data/twp_cloud/meta-llama__Llama-3.1-8B-Instruct.jsonl",
+   "n_gap_cells": 100
+  },
+  {
+   "path": "data/twp_cloud/deepseek-ai__deepseek-llm-7b-chat.jsonl",
+   "n_gap_cells": 95
+  },
+  {
+   "path": "data/f11_twp_delta/internlm__internlm2-chat-7b.jsonl",
+   "n_gap_cells": 68
+  },
+  {
+   "path": "data/f11_twp/croissantllm__CroissantLLMChat-v0.1.jsonl",
+   "n_gap_cells": 55
+  },
+  {
+   "path": "data/f11_twp/croissantllm__CroissantLLMBase.jsonl",
+   "n_gap_cells": 55
+  },
+  {
+   "path": "data/f11_twp/openGPT-X__Teuken-7B-instruct-commercial-v0.4.jsonl",
+   "n_gap_cells": 53
+  },
+  {
+   "path": "data/f11_twp/openGPT-X__Teuken-7B-base-v0.6.jsonl",
+   "n_gap_cells": 53
+  },
+  {
+   "path": "data/f11_twp_bf/OpenLLM-France__Lucie-7B-Instruct-v1.1.jsonl",
+   "n_gap_cells": 47
+  },
+  {
+   "path": "data/f11_twp_delta/croissantllm__CroissantLLMChat-v0.1.jsonl",
+   "n_gap_cells": 41
+  },
+  {
+   "path": "data/f11_twp_delta/croissantllm__CroissantLLMBase.jsonl",
+   "n_gap_cells": 41
+  },
+  {
+   "path": "data/f11_twp_delta/openGPT-X__Teuken-7B-instruct-commercial-v0.4.jsonl",
+   "n_gap_cells": 39
+  },
+  {
+   "path": "data/f11_twp_delta/openGPT-X__Teuken-7B-base-v0.6.jsonl",
+   "n_gap_cells": 39
+  },
+  {
+   "path": "data/f11_twp_delta/OpenLLM-France__Lucie-7B-Instruct-v1.1.jsonl",
+   "n_gap_cells": 30
+  },
+  {
+   "path": "data/twp_grid_v3/togethercomputer__RedPajama-INCITE-7B-Chat.jsonl",
+   "n_gap_cells": 21
+  },
+  {
+   "path": "data/f11_twp_bf/OpenLLM-France__Lucie-7B.jsonl",
+   "n_gap_cells": 19
+  },
+  {
+   "path": "data/twp_grid_v3/LLM360__AmberChat.jsonl",
+   "n_gap_cells": 18
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-7B-Instruct.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__CT-LLM-SFT-DPO.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3.1-8B.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-DPO.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_grid_v3/LLM360__AmberSafe.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_grid_v3/LLM360__Amber.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/raw/verse_fleet/47628645/EleutherAI__pythia-6.9b@step8.jsonl",
+   "n_gap_cells": 17
+  },
+  {
+   "path": "data/twp_phase32b/allenai__Olmo-3.1-32B-Instruct-DPO.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/zai-org__glm-4-9b-hf.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/zai-org__glm-4-9b-chat-hf.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/togethercomputer__RedPajama-INCITE-Base-7B-v0.1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/togethercomputer__RedPajama-INCITE-7B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-7B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-3B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-3B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-1B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-1B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-10B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon3-10B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/stabilityai__stablelm-2-zephyr-1_6b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/stabilityai__stablelm-2-1_6b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/stabilityai__stablelm-2-1_6b-chat.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/openbmb__MiniCPM5-1B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/openbmb__MiniCPM5-1B-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/openbmb__MiniCPM5-1B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/mistralai__Mistral-7B-v0.1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/microsoft__phi-4.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/microsoft__phi-4-reasoning.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/meta-llama__Llama-3.1-8B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/meta-llama__Llama-3.1-8B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__neo_7b_sft_v0.1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__neo_7b_instruct_v0.1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__neo_7b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__CT-LLM-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/m-a-p__CT-LLM-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/lomahony__eleuther-pythia6.9b-hh-sft.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/lomahony__eleuther-pythia6.9b-hh-dpo.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/huggyllama__llama-7b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/deepseek-ai__deepseek-llm-7b-chat.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/deepseek-ai__deepseek-llm-7b-base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/bigscience__bloomz-7b1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/bigscience__bloom-7b1.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-Hybrid-Instruct-SFT-7B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-Hybrid-Instruct-DPO-7B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-Hybrid-7B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3.1-32B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-7B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-7B-Instruct-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-7B-Instruct-DPO.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-1125-32B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMoE-1B-7B-0125.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMoE-1B-7B-0125-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMoE-1B-7B-0125-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMoE-1B-7B-0125-DPO.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMo-2-0425-1B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMo-2-0425-1B-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMo-2-0425-1B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__OLMo-2-0425-1B-DPO.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-SFT.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-SFT-no-safety-data.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-SFT-no-persona-data.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Llama-3.1-Tulu-3-8B-SFT-no-math-data.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/TinyLlama__TinyLlama-1.1B-intermediate-step-1431k-3T.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/TinyLlama__TinyLlama-1.1B-Chat-v1.0.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/RWKV__rwkv-raven-7b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/RWKV__rwkv-4-7b-pile.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen3-8B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen3-8B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen2.5-7B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen2.5-7B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen2.5-0.5B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/Qwen__Qwen2.5-0.5B-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/PKU-Alignment__beaver-7b-v1.0.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/PKU-Alignment__alpaca-7b-reproduced.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceTB__SmolLM3-3B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceTB__SmolLM3-3B-Base.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceTB__SmolLM2-360M.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceTB__SmolLM2-360M-Instruct.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceH4__zephyr-7b-beta.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/HuggingFaceH4__mistral-7b-sft-beta.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/EleutherAI__pythia-2.8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/ContextualAI__archangel_sft_pythia2-8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/ContextualAI__archangel_sft-slic_pythia2-8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/ContextualAI__archangel_sft-ppo_pythia2-8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/ContextualAI__archangel_sft-kto_pythia2-8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/ContextualAI__archangel_sft-dpo_pythia2-8b.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/01-ai__Yi-1.5-9B.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/01-ai__Yi-1.5-9B-Chat.jsonl",
+   "n_gap_cells": 16
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-7B-Think-SFT.jsonl",
+   "n_gap_cells": 15
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-7B-Think-DPO.jsonl",
+   "n_gap_cells": 15
+  },
+  {
+   "path": "data/twp_grid_v3/allenai__Olmo-3-1025-7B.jsonl",
+   "n_gap_cells": 15
+  },
+  {
+   "path": "data/twp_grid_v3/EleutherAI__pythia-6.9b.jsonl",
+   "n_gap_cells": 15
+  },
+  {
+   "path": "data/f11_twp_delta/OpenLLM-France__Lucie-7B.jsonl",
+   "n_gap_cells": 9
+  },
+  {
+   "path": "data/twp_cloud/HuggingFaceTB__SmolLM3-3B.jsonl",
+   "n_gap_cells": 7
+  },
+  {
+   "path": "data/raw/verse_fleet/47628645/EleutherAI__pythia-6.9b@step2.jsonl",
+   "n_gap_cells": 7
+  },
+  {
+   "path": "data/twp_grid_v3/tiiuae__Falcon-H1-1.5B-Base.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/verse_fleet/47630611/EleutherAI__pythia-6.9b@step4.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/verse_fleet/47628544/EleutherAI__pythia-6.9b@step1.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/verse_fleet/47628506/EleutherAI__pythia-6.9b@step0.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/twp_fill/twpssm/tiiuae__falcon-mamba-7b-instruct.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/twp_fill/twpssm/tiiuae__Falcon3-Mamba-7B-Instruct.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/tiiuae__falcon-mamba-7b-instruct.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/tiiuae__Falcon3-Mamba-7B-Instruct.jsonl",
+   "n_gap_cells": 6
+  },
+  {
+   "path": "data/raw/twp_w2_jais/inceptionai__jais-family-6p7b.jsonl",
+   "n_gap_cells": 5
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/togethercomputer__RedPajama-INCITE-7B-Chat.jsonl",
+   "n_gap_cells": 5
+  },
+  {
+   "path": "data/f11_twp_bf/BSC-LT__salamandra-7b-instruct.jsonl",
+   "n_gap_cells": 5
+  },
+  {
+   "path": "data/twp_phasefalcon/tiiuae__Falcon-H1-1.5B-Base.jsonl",
+   "n_gap_cells": 4
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3.1-32B-Instruct.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3.1-32B-Instruct-SFT.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3.1-32B-Instruct-DPO.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/twp_cloud/allenai__Olmo-3-1125-32B.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill0/NousResearch__Hermes-3-Llama-3.1-8B.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/raw/pythia/py_4/EleutherAI__pythia-6.9b@step8.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/LLM360__AmberChat.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/f11_twp_delta/BSC-LT__salamandra-7b-instruct.jsonl",
+   "n_gap_cells": 2
+  },
+  {
+   "path": "data/twp_phase32b/allenai__Olmo-3.1-32B-Instruct-SFT.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__falcon-mamba-7b.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__falcon-mamba-7b-instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__Falcon3-Mamba-7B-Instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__Falcon3-Mamba-7B-Base.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__Falcon-H1-7B-Instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__Falcon-H1-7B-Base.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/twp_cloud/tiiuae__Falcon-H1-1.5B-Instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill3/tiiuae__falcon-7b.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill3/tiiuae__falcon-7b-instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill3/BAAI__AquilaChat2-7B.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill3/BAAI__Aquila2-7B.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill1/deepseek-ai__DeepSeek-R1-Distill-Qwen-7B.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill1/baichuan-inc__Baichuan2-7B-Chat.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/twp_fill/twpfill0/deepseek-ai__DeepSeek-R1-Distill-Llama-8B.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/tiiuae__Falcon3-7B-Instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/tiiuae__Falcon-H1-1.5B-Instruct.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/m-a-p__CT-LLM-SFT-DPO.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/allenai__Llama-3.1-Tulu-3.1-8B.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/allenai__Llama-3.1-Tulu-3-8B-DPO.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/LLM360__AmberSafe.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/raw/cloud_run_20260801/LLM360__Amber.jsonl",
+   "n_gap_cells": 1
+  },
+  {
+   "path": "data/f11_twp_bf/BSC-LT__salamandra-7b.jsonl",
+   "n_gap_cells": 1
+  }
+ ]
+}
