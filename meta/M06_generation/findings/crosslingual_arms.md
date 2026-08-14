@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [drift, cross-lingual, chinese, arms]
-description: "The cross-lingual arm contrast: ALIGNMENT NARROWS THE SEMANTIC SPREAD OF A PASSAGE IN CHINESE AS IT DOES IN ENGLISH (the metric is ORDER-INVARIANT and is NOT a trajectory claim -- corrected below), on the same 25 pairs, the same corpus and the same rung, with language the only manipulation. **THE MATCHED-PROMPT LEGS ARE WITHDRAWN AS UNREPRODUCED (2026-08-14, [5932]): no artifact, no producer, and 32 declared recipes over the frozen per-passage cells return at most 2 of 6 booked values -- prompt content is NOT held constant in any surviving construction.** zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
+description: "The cross-lingual arm contrast: ALIGNMENT NARROWS THE SEMANTIC SPREAD OF A PASSAGE IN CHINESE AS IT DOES IN ENGLISH (the metric is ORDER-INVARIANT and is NOT a trajectory claim -- corrected below), on the same 25 pairs, the same corpus and the same rung, with language the only manipulation. **THE MATCHED-PROMPT LEGS ARE WITHDRAWN AS UNREPRODUCED (2026-08-14, [5932]): no artifact, no producer, and 32 declared recipes over the frozen per-passage cells return at most 2 of 6 booked values -- prompt content is NOT held constant in any surviving construction.** zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on all four PERSISTED contrasts, p 0.23 to 1.0, and holds no sign. The invariance rests on those alone -- both arms negative 8/8, DiD p>=0.23 8/8 across both inputs. First arm effect this campaign has measured on Chinese GENERATED TEXT."
 ---
 # The cross-lingual arm contrast: the same operation in both languages
 
@@ -193,6 +193,19 @@ reduction is not an artefact of English alignment data.
 
   Remaining, and unchanged by any of this: at 25 pairs a null still bounds
   nothing. **The null is undetected, not zero.**
+
+  **AND THAT LIMIT IS NOW VISIBLE RATHER THAN STIPULATED, 2026-08-14.**
+  @dario's item 5 panel (`figures/crosslingual_invariance.png`, [5938]) puts
+  English on x and Chinese on y with y = x drawn as the place "the same in
+  both languages" lives. In both `mean_drift` panels the cloud sits
+  consistently BELOW the diagonal -- Chinese narrows a little more --
+  which is the DiD of +0.0133 and +0.0120, 16/9, p 0.23. Null, and not
+  nothing. **This is not a new result and not in tension with the finding:
+  it is exactly what this fence says cannot be excluded, drawn.** A reader
+  of "the DiD is null" does not picture a cloud sitting a consistent
+  distance off the diagonal in two of four panels, and now does not have to.
+  The truncated run leans this way on both metrics; the untruncated run does
+  not. Nothing is claimed from it and no test was run for it.
 - ONE EMBEDDER. `f15_on_passages` had two and they agreed; this has bge-m3
   alone.
 - 25 pairs, 24 of them dpo, so this is a DPO result with one ppo rider.
