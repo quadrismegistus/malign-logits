@@ -353,6 +353,65 @@ def _path_expr(node, consts, selfpath):
     return None
 
 
+def path_literals(path):
+    """Every existing repo file this module NAMES anywhere, however used.
+
+    Deliberately over-inclusive, and only applied to closure MEMBERS. The
+    precise `reads_of` cannot see `malign_logits/prompts.py`'s catalogue: it
+    does `json.load(open(_path()))` where `_path()` is a FUNCTION returning
+    the join, which needs interprocedural resolution this does not have.
+
+    Over-inclusion is the correct direction here. @malign's ordering: a false
+    positive is noise and somebody checks it; a false negative is silence and
+    nobody does. A library that names a data file is a library that probably
+    reads it, and being wrong costs a flag.
+    """
+    try:
+        tree = ast.parse(open(path, encoding="utf-8", errors="replace").read())
+    except Exception:
+        return []
+    selfpath = os.path.realpath(path)
+    consts = _consts(tree, selfpath)
+    out = []
+    for n in ast.walk(tree):
+        if isinstance(n, ast.Call) and isinstance(n.func, ast.Attribute) \
+                and n.func.attr == "join":
+            p = _path_expr(n, consts, selfpath)
+            if p and os.path.isfile(p):
+                out.append(p)
+        elif isinstance(n, ast.Constant) and isinstance(n.value, str) \
+                and "/" not in n.value and n.value.count(".") == 1 \
+                and n.value.rsplit(".", 1)[-1] in DATA_EXT:
+            #: A BARE FILENAME, RESOLVED BY UNIQUE BASENAME. The shape is
+            #: `os.path.join(PATH_DATA, "prompt_categorisation.json")` where
+            #: PATH_DATA arrives via `from . import PATH_DATA` inside a
+            #: function body -- a constant in ANOTHER module, which needs
+            #: cross-module resolution to follow. Matching the basename
+            #: against the repo costs nothing and is exact when the name is
+            #: unique; ambiguous names are skipped rather than guessed.
+            hit = _basename_index().get(n.value)
+            if hit and len(hit) == 1:
+                out.append(hit[0])
+    return sorted(set(out))
+
+
+DATA_EXT = ("json", "csv", "parquet", "jsonl", "gz", "txt", "yml", "yaml")
+
+
+def _basename_index(_cache={}):
+    """basename -> [absolute paths], for files under data/ and meta/."""
+    if _cache:
+        return _cache
+    for base in ("data", "meta"):
+        for dirpath, dirnames, files in os.walk(os.path.join(ROOT, base)):
+            dirnames[:] = [d for d in dirnames
+                           if not d.startswith(SKIP_DIRS) and d != "raw"]
+            for f in files:
+                if f.rsplit(".", 1)[-1] in DATA_EXT:
+                    _cache.setdefault(f, []).append(os.path.join(dirpath, f))
+    return _cache
+
+
 def reads_of(path):
     """Every existing file this producer READS, resolved statically.
 
@@ -480,20 +539,49 @@ def audit(paths):
         #: are per-ARTIFACT: `stale` used to be the timestamp list and the
         #: verdict the content one, so the per-artifact "<- STALE" marker
         #: printed a different answer from the verdict two lines below it.
+        #: EVERY moved input is reported, not the newest one. Reporting only
+        #: `newest_dep` named `movement.py` for @dario's confirmed instance
+        #: when the driver was the prompt catalogue: the flag was right and
+        #: the diagnosis sent the reader to a file that had nothing to do
+        #: with it. A single summary is an undeclared choice, made in the
+        #: field most likely to be read as the answer.
+        #: AND THE READS OF EVERY MODULE IN THE CLOSURE, not only the
+        #: producer's own. `t_fans.py` imports `malign_logits.prompts`, which
+        #: is "a readable view onto data/prompt_categorisation.json" and
+        #: json.loads it at run time. The module had not moved since 07-30;
+        #: the catalogue moved 08-10, after the 08-06 artifact. **That is the
+        #: mechanism behind the campaign's only confirmed Class 4 instance**,
+        #: and the import closure and the artifact edge are both blind to it:
+        #: the file is read by a DEPENDENCY, not by the producer.
+        inputs = list(cl) + [r for r, _w in dataedge]
+        inputs += reads_of(p)
+        for m in cl:
+            inputs += path_literals(m)
+        inputs = sorted(set(inputs))
         moved = None
-        stale, dismissed = [], []
+        stale, dismissed, movers = [], [], []
         for a in arts:
-            if not (newest_t and produced_time(a) < newest_t):
-                continue
-            if same_commit(a, newest):
-                dismissed.append((a, "same-commit"))
-                continue
-            m = content_moved(newest, produced_time(a))
-            if m is False:
-                dismissed.append((a, "identical-bytes"))
-                continue
-            stale.append(a)
-            moved = m if moved is None or m is True else moved
+            at = produced_time(a)
+            hits, why = [], set()
+            for dep in inputs:
+                if change_time(dep) <= at:
+                    continue
+                if same_commit(a, dep):
+                    why.add("same-commit")
+                    continue
+                m = content_moved(dep, at)
+                if m is False:
+                    why.add("identical-bytes")
+                    continue
+                hits.append((os.path.relpath(dep, ROOT), m))
+                moved = True if m is True else (moved if moved is not None else m)
+            if hits:
+                stale.append(a)
+                movers.append([a if not a.startswith(ROOT)
+                               else os.path.relpath(a, ROOT),
+                               [h for h, _m in hits]])
+            elif why:
+                dismissed.append((a, "/".join(sorted(why))))
         if not arts:
             verdict = "no-artifact"
         elif stale and moved is True:
@@ -515,6 +603,7 @@ def audit(paths):
                      "store_via": [os.path.relpath(c, ROOT) for c in store],
                      "content_moved": moved,
                      "dismissed": [[a, why] for a, why in dismissed],
+                     "movers": movers,
                      "n_dataedge": len(dataedge),
                      "dataedge": [[os.path.relpath(r, ROOT), w]
                                   for r, w in dataedge],
