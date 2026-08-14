@@ -37,7 +37,19 @@ as deletions). One casualty: a `uv.lock` diff discarded to resolve the
 conflict, unrecoverable — and its owner is an INFERENCE, not a
 measurement, because the contents were never observed before
 discarding. Never stash in a shared tree; use a worktree or a patch
-file scoped to your own paths. Corrections are trailed, never rewritten. Withdrawn numbers stay
+file scoped to your own paths. **THE GENERAL FORM, and it is about
+the TOOL rather than the data** (lacan, [6021]): `git stash` has no
+notion of authorship — it sweeps the working tree, and in a shared
+checkout the working tree is not yours. The failure mode is the one
+this night kept producing in every other container: **a state that is
+wrong and silent.** The tree stood at HEAD with 26 seats' paths
+missing and nothing on screen said so, exactly as a detached volume
+makes an enumerator report fewer models without erroring, and exactly
+as `keep_default_na` makes a labelled arm read as absent. Third seat's
+clearance also recorded rather than assumed, and honestly: its
+uncommitted work was all UNTRACKED, and `git stash` without `-u`
+leaves untracked files alone — **luck about a working style, not a
+precaution taken.** Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
