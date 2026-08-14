@@ -362,3 +362,58 @@ stratification launders a fence the prose spent paragraphs erecting.
   cell sample, per TODO.md — the corpus is 228,520 passages in ClickHouse).
   Exit-marker figures stay internal until the coded pass.
 - M05: `fig12` stays retired; the B rank figure is blocked on its null.
+
+## M06 mediation candidates (added 2026-08-14 by lacan)
+
+From `findings/composition_not_level.md` (bab9d228 .. b7b50fea). M06's shape row
+says "verdict-grade findings entirely unplotted"; this finding is one of them.
+Ranked by what each figure is *for*, not by how nice it looks. All artifacts
+exist; nothing here needs a new run.
+
+1. OPEN — **COMPOSITION/LEVEL BAR**, the headline. Delta -1.285 nats/word
+   splitting into composition -1.310 and level +0.025, with BOTH decomposition
+   orders drawn beside the symmetric mean (order 1 -1.775/+0.490, order 2
+   -0.845/-0.440) so the entanglement is visible rather than hidden by the
+   average. Per-relation panels (base_to_superego -1.583 n=14, dpo -1.005 n=20,
+   ppo -1.997 n=2). `results/mediation_pairs.parquet`. This is the picture the
+   "selection not combination" claim rests on, and the two-orders requirement is
+   not decoration: a single order would be an undeclared choice.
+
+2. OPEN — **OFF-POLICY SHIFT BY CLASS**, the figure that PROTECTS the claim.
+   Mean cross-scorer level per movement class with bar width as token share:
+   unmeasured +0.614 at 71.7% of tokens, still +0.257 at 17.3%, fall +0.381 at
+   7.6%, rise +0.144 at 3.5%. It shows at a glance that fallers sit BELOW the
+   corpus average, so "displaced words cost more in context" cannot be read as
+   the finding. That misreading cost three docket corrections on 08-13/14
+   ([5881] -> [5884]); this figure is the cheapest guard against a reader
+   repeating it. `mediation_words_byprompt.parquet` joined to `movement`.
+
+3. OPEN — **THE DISSOCIATION, TWO PANELS.** net_fall vs composition change
+   (rho -0.285, 36/36 pairs negative) beside pct_moved vs composition (+0.008,
+   18/36 = exact chance). The NULL panel is the content: a flat cloud next to a
+   sloped one, with `the` labelled in the flat one (30.5% of its 1,575 Llama
+   cells non-still, direction -3.3%). Direction predicts, volatility does not.
+   `results/mediation_corr_words.parquet`.
+
+4. OPEN — **MATCHED-PROBABILITY DUMBBELL.** Per-pair median(level|fall) against
+   median(level|rise) inside the common-support band (log p_aligned
+   -2.464..-1.465): +0.347 base-generated 34/35 pairs, +0.444 aligned-generated
+   35/35. The surviving claim in its strongest form. Same artifact, band
+   restricted.
+
+Backlog rather than queue:
+
+- **Common-support diagnostic** — fall/rise counts by log p_aligned bin, showing
+  45,901 fall cells in bins holding ZERO risers. A METHOD figure: it is why the
+  partial correlations were demoted in favour of the banded contrast. Belongs in
+  the finding, probably not paper-facing.
+- **Consistency asymmetry** — fall-dominant 0.526 vs rise-dominant 0.613 median
+  consistency, per-pair -0.036, 152 pairs. A real result attached to a REFUTED
+  mechanism (demotion does not generalise more than promotion; it generalises
+  less). It needs a home before it needs a picture, and its population is all
+  152 movement pairs rather than the mediation's 36.
+
+Fences that must travel onto any of these: single pass, one seat, ungraded;
+CANONICAL's fallers are NOT null-tested; and the level axis is a CROSS-SCORER
+difference on fixed text, not syntagmatic damage, since the chain is held
+constant by construction.
