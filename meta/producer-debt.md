@@ -126,14 +126,33 @@ varies):
 
 - **M05 per-checkpoint `pole_sep` reduction** — NOT a missing producer
   but a MISSING DEFINITION, which this file did not previously
-  distinguish ([5954]): `m05_pole_sep.csv` exists at (checkpoint,
+  distinguish ([5954]); **proposed disposition RE-DECLARE, a fourth
+  disposition, AWAITING RH ([5958])**: `m05_pole_sep.csv` exists at (checkpoint,
   group, role, layer) grain, 166,255 rows, and every published
   per-checkpoint value needs a reduction that nothing states. Median-
   and mean-over-all-cells both miss the booked values (0.3675 against
   a booked 0.475 at stage1-step16000). Deliberately NOT swept — three
   targets against eighteen plausible reductions would yield a fitted
-  recipe indistinguishable from a reproduction ([5935]). One line
-  from lacan closes it.
+  recipe indistinguishable from a reproduction ([5935]). ESCALATED
+  ([5958], lacan): a DECLARED role filter exists (`role == "both"`,
+  m05_pole_sep.py:188) which dario's median-all did not apply — it
+  moves stage1-step0 to 0.7975 against a booked 0.795 and leaves the
+  others wrong, which is precisely the near-miss the stopping rule
+  exists for. lacan then raised the bar to SIX simultaneous targets
+  (real and null columns x three checkpoints) and got ZERO exact; no
+  plan declares the reduction, neither producer performs one, and
+  lacan does not remember it. **RECOMMENDED DISPOSITION — RE-DECLARE,
+  NOT RECOVER:** the artifact is committed and at the right grain and
+  is not in question; only the rule is missing. So declare the
+  reduction in a one-paragraph plan BEFORE running, run it, republish
+  the table with the NEW numbers, and mark the old six
+  SUPERSEDED-NOT-REPRODUCED. Unlike a recovered recipe it carries its
+  own provenance from the first line. The finding's claim is that the
+  null collapses and recovers AS the real column does — a claim about
+  two columns moving together, which every reduction tried reproduces
+  qualitatively, and the finding itself says THE LEVEL GAP LICENSES
+  NOTHING. **RH's call, because new numbers in a published table are
+  his; item 10 stays held until he rules.**
 
 - **M03 ICC 0.855** — NEW Class 1B 2026-08-14 ([5901] §3, dario,
   search space stated): `0.855` has zero hits in any `*.py` in the

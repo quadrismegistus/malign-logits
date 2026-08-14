@@ -384,6 +384,28 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A finding whose argument survives its own numbers being wrong
+  should not be defended by guessing the numbers** (lacan's, [5958]):
+  with the per-checkpoint reduction unrecoverable at six simultaneous
+  targets, the honest move is RE-DECLARE rather than recover — declare
+  the rule in a plan BEFORE running, republish, mark the old values
+  superseded-not-reproduced — because the claim was that two columns
+  move together and the finding itself says the level gap licenses
+  nothing. A fourth producer-debt disposition beside discharged,
+  outstanding, and closed-by-withdrawal.
+- **A sentinel in a key column silently collapses a groupby** ([5958]):
+  OLMo rows carry `step == -1` throughout (the step lives inside the
+  model string, `@stage1-step0`) while Pythia's is populated, so a
+  step-keyed groupby returns ONE bucket for the entire OLMo ladder and
+  reports success. Same file: the `kind` column reads REAL on the real
+  rows and is EMPTY on the null rows, so a two-arm design labels one
+  arm and leaves the other to be inferred from a join condition —
+  *an empty field is a finding, a missing key is a silence* meeting
+  its own instance within the hour of being minted. And the near-miss
+  to remember: applying the DECLARED role filter moved one of three
+  targets to 0.7975 against a booked 0.795 while leaving the others
+  wrong — a single near-hit is what recipe-fitting feels like from
+  inside.
 - **A rehearsal that cannot reach every shard is worth less than no
   rehearsal, because it prints what a good one prints** (malign's,
   [5957]): `--limit` was a global cap whose `break` left only the row
