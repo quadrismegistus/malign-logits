@@ -58,22 +58,48 @@ def build(ladder):
     b = d[d.family.isin(LABEL) & (d.measure == "mean_p_target")]
     for r in b.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx, fam=LABEL[r.family],
-                         value=r.value, role=r.role))
+                         value=r.value, role=r.role, stage=r.stage))
     v = d[d.family.isin(["verse_rhymed_pre-1900", "verse_rhymed_1900+"])
           & (d.measure == "called_pull")]
     for ck, g in v.groupby("ckpt_idx"):
         rows.append(dict(ckpt_idx=ck, fam="verse rhyme (pull)",
-                         value=g.value.mean(), role=g.role.iloc[0]))
+                         value=g.value.mean(), role=g.role.iloc[0],
+                         stage=g.stage.iloc[0]))
     s = d[(d.family == "sense") & (d.measure == "natural_share")]
     for r in s.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx, fam="sense (natural share)",
-                         value=r.value, role=r.role))
+                         value=r.value, role=r.role, stage=r.stage))
     x = d[(d.family == "syntax") & (d.measure == "strict_licit_share")]
     for r in x.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx,
                          fam="syntax (strict licit share)",
-                         value=r.value, role=r.role))
+                         value=r.value, role=r.role, stage=r.stage))
     return pd.DataFrame(rows).sort_values("ckpt_idx"), d
+
+
+def segment(role, stage):
+    """Smoothing segment: no window may cross a pretraining-stage or
+    post-training boundary. base_endpoint rides with stage3 (it is the
+    end of that run); each post-training phase is its own segment."""
+    r, s = str(role), str(stage)
+    if r == "base_step":
+        return s
+    if r == "base_endpoint":
+        return "stage3"
+    for ph in ("sft", "dpo", "rlvr"):
+        if r.startswith(ph):
+            return ph
+    return "other"
+
+
+def smooth(long, window):
+    long = long.copy()
+    long["seg"] = [segment(r, s) for r, s in zip(long.role, long.stage)]
+    long["smooth"] = (long.sort_values("ckpt_idx")
+                      .groupby(["fam", "seg"])["value"]
+                      .transform(lambda v: v.rolling(window, center=True,
+                                                     min_periods=1).mean()))
+    return long
 
 
 def sections(d):
@@ -91,13 +117,15 @@ def sections(d):
 
 def draw(ladder, out):
     long, d = build(ladder)
+    long = smooth(long, window=9 if ladder == "pythia" else 5)
     bounds = sections(d)
     from plotnine import (aes, annotate, element_blank, element_line,
                           element_text, geom_line, ggplot, labs,
                           scale_color_manual, theme, theme_minimal, ylim)
     fams = [f for f in COLORS if f in set(long.fam)]
-    p = (ggplot(long, aes("ckpt_idx", "value", color="fam", group="fam"))
-         + geom_line(size=1.0))
+    long["seg_group"] = long.fam + "|" + long.seg
+    p = (ggplot(long, aes("ckpt_idx", color="fam"))
+         + geom_line(aes(y="value", group="fam"), size=0.45, alpha=0.28))
     # data-driven top: a fixed 0.78 cap silently CLIPPED the sense curve
     # (saturates ~0.92) out of fig27's first render — plotnine ylim drops
     # out-of-range points rather than cropping the view.
@@ -108,7 +136,8 @@ def draw(ladder, out):
             lo, hi = bounds[sec]
             p = p + annotate("rect", xmin=lo - 0.5, xmax=hi + 0.5,
                              ymin=-0.02, ymax=top, fill=fill, alpha=0.6)
-    p = (p + geom_line(size=1.0)
+    w = 9 if ladder == "pythia" else 5
+    p = (p + geom_line(aes(y="smooth", group="seg_group"), size=1.1)
          + scale_color_manual([COLORS[f] for f in fams], limits=fams)
          + ylim(-0.02, top)
          + labs(x="training position (ordinal ladder)",
@@ -118,10 +147,13 @@ def draw(ladder, out):
                 subtitle=("One measure per family (legend); all in [0,1] "
                           "but NOT one instrument — compare shapes "
                           "(onsets, plateaus, post-training effects), "
-                          "not levels across families.\nSource: "
-                          "capacities_by_rung.parquet; verse = called "
-                          "pull, eras averaged; unrhymed control ~0 "
-                          "omitted."),
+                          "not levels across families.\nBold: centered "
+                          f"moving average (window {w}) computed WITHIN "
+                          "phase segments only (stage1/2/3, SFT, DPO, "
+                          "RLVR) — no window crosses a boundary; faint: "
+                          "raw rungs.\nSource: capacities_by_rung."
+                          "parquet; verse = called pull, eras averaged; "
+                          "unrhymed control ~0 omitted."),
                 color="")
          + theme_minimal(base_size=11)
          + theme(panel_grid_minor=element_blank(),
