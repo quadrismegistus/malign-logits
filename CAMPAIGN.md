@@ -873,6 +873,26 @@ seat forgets at its peril:
   each solved it, and neither could reach a third. A producer docstring
   is the right home for *why this panel is shaped this way* and the wrong
   home for anything a second seat needs.
+- **AN ARTIFACT NAME HAS TWO REQUIREMENTS AND THEY ARE INDEPENDENT**
+  ([6174], malign, on a defect it introduced and fixed within the hour).
+  A filename must record **WHICH TREATMENT produced it** and it must be
+  **UNOWNED**. Its first version wrote `concreteness_en.json`
+  unconditionally, so `--register` would have written register
+  quantities under the concreteness name — requirement one. The fix put
+  the mode in the name, `register_en.json`, **which was already
+  `k_register.py`'s own artifact and clobbered it**, losing an
+  `index_table` emitted an hour earlier — requirement two. **Nothing
+  errored, the file still parsed, and only a key check found it.**
+  Satisfying one requirement in the same edit that violates the other is
+  the shape, and the resolution is a name that is both:
+  `register_decomp_en.json`. Sibling of *a protective copy goes to a name
+  no other seat could choose* ([6045]) — same rule, arriving on a
+  producer's output instead of on a backup.
+  **AND THE RESTORE POINT WAS A COMMIT MADE FOR AN UNRELATED REASON, FOR
+  THE FOURTH TIME TODAY** — dario's, registrar's three, malign's at
+  17:00, and this. *A committed file is a restore point against your own
+  automation* is now observed five times in one day by three seats, none
+  of whom held the reason before another stated it.
 - **A SEARCH WHOSE RESULT IS FORCED BY A FACT YOU ALREADY HOLD IS NOT
   EVIDENCE** ([6169], dario, on the P §7 false alarm). malign searched at
   full precision for `0.09209674697588033`, found exactly one hit, and

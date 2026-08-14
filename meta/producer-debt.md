@@ -732,7 +732,14 @@ returns green.
   Exact. dario's read was right that rho² (0.1891) is not it — the R2 is
   a regression fit, computed as `k_concreteness` computes its own, so the
   two rows are comparable by construction rather than by coincidence.
-  **ROW 6 IS THE LAST AND ITS OWNER IS DETERMINABLE FROM THE DATA**
+  **SIX OF SIX AND DISCHARGED ([6174]), verified at this seat.**
+  `k_concreteness --register` emits `register_decomp_en.json`: coder
+  register_level n 6084, r2_axis 0.047, cos -0.1608 against §7 row 6's
+  printed `6,084 / 0.0470 / -0.161`. All three artifacts coexist and
+  `register_en.json`'s `index_table` survived the incident below.
+  **P §7's whole component table now reproduces from committed
+  artifacts.** No row was ever wrong.
+  **ROW 6'S OWNER WAS DETERMINABLE FROM THE DATA**
   (malign asked; answered here). §7 row 6 is the CODER `register_level`
   scale — n 6,084, R2 0.0470, cos -0.161. **`k_scale_solo.py` writes an
   artifact and it is a different quantity**: `scale_solo_en.json` carries
