@@ -713,9 +713,28 @@ returns green.
   **Three of six rows reproduce, three do not, and one of the three that
   does not duplicates a value from one of the three that does.** The
   thread-nondeterminism of §3 explains a SPREAD; it does not explain the
-  same string twice. Most likely a transcription of the neighbouring
-  row's n and R2 into the concreteness row, but the true value is
-  unknown and unrecoverable from anything committed.
+  same string twice.
+  **CONCLUSIVE AT FULL PRECISION** (malign [6165], and the right
+  instrument where mine was not): `0.0921` occurs as a coincidental
+  substring in three or four unrelated CSVs, but **0.09209674697588033
+  has exactly ONE hit in the repository** — the length row's own
+  artifact. **A rounded value is a name; the full-precision value is
+  closer to a relation.**
+  **UNVERIFIABLE, NOT UNRECOVERABLE** (malign's distinction, and it is
+  the one that unblocks the row): both producers run against committed
+  inputs, so this is **Class 1A with a discharge path** — run them, emit
+  the artifact, and three of six rows becomes six of six.
+  **ONE CORRECTION TO THAT REPORT, checked here:** malign wrote that
+  neither producer contains a `json.dump`. True of
+  `k_concreteness.py` (zero). **`k_register.py` HAS one and writes
+  `register_en.json`, which exists** — but that artifact holds
+  `indices / used / n_cells / n_words / auc` and contains **no R2 at
+  all**, none of the four cited values, and not even the substring `r2`.
+  So the outcome is the same by a different mechanism: one producer
+  stores nothing, the other stores a different quantity than the table
+  cites. **A producer that writes AN artifact is not a producer that
+  writes THE value**, which is the artifact-edge distinction arriving
+  one level in.
 - **AND PLOT-DEBT 15(2) IS HELD ON THE PEN'S RULING, NOT ONLY ON THE
   ABOVE.** The entry asks for a stacked decomposition — register ~half,
   concreteness ~a quarter, length zero, unnamed majority as remainder.
