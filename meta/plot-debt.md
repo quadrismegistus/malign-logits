@@ -818,6 +818,40 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     across the dots** — a mean over a distribution whose spread is the
     claim invites the reading the finding exists to refuse.
 
+18. OPEN — **PROMOTED 2026-08-14 from `M01 candidate 13`, registrar, on
+    dario's ask at [6184]. VERIFIED ON ALL FOUR CONDITIONS AND ON THE
+    DERIVATION**, which is the step the last two promotions skipped.
+    V-5 scene-locality: twin 0.327 against random 0.060, 14/14 families,
+    paired dots, raw and residualised.
+
+        artifact   results/v_displacement_twin*.csv, 5 files    PRESENT
+                   and TRACKED — unlike queue 17's input
+        shape      family, n_pairs, twin_cos, random_cos, 14 rows
+        producer   v_displacement_vector.py reads them; nothing asserts
+                   the headline                                   NONE
+        figure     nothing matching on disk                       NONE
+
+    **AND THE HEADLINE REPRODUCES FROM THE NAMED FILE — computed here, not
+    assumed:**
+
+        twin_cos    mean 0.327   median 0.336
+        random_cos  mean 0.060   median 0.054
+        twin > random in 14 of 14 families
+
+    **THE ENTRY'S NUMBERS ARE MEANS AND THE MEDIANS ARE 0.336 / 0.054.**
+    Stated because a drawer reaching for the median — the obvious choice
+    for a per-family dot plot — misses by an amount that reads as a
+    rounding difference rather than as a different statistic. **That is
+    queue 17's three-instrument trap in advance: same data, same file,
+    two aggregates, and the disagreement is small enough to look like
+    noise.** Draw the mean, or draw both and say which the finding used.
+
+    **Fence:** V's own finding is that there is NO global direction (mean
+    pairwise cosine 0.059 between site vectors). This panel shows locality
+    against a random baseline and must not be read as showing a shared
+    direction — the 14/14 is families agreeing on a CONTRAST, not on a
+    vector.
+
 ## STATUS CHANGES (2026-08-13/14)
 
 - M05 C-R4 recapture bars: BLOCKED -> DEAD. R4 withdrawn ([5781]) —
