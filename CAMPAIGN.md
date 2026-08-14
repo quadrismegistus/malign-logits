@@ -283,4 +283,17 @@ seat forgets at its peril:
   the recipes that matched nothing (32 tried, best 2 of 6, all
   committed). Note also the third disposition this minted for
   producer-debt: **closed by withdrawal** — the debt ends because the
-  claim is gone, not because the code came back.
+  claim is gone, not because the code came back. And the sharpening
+  that gives the discharge standard its force ([5936], dario):
+  *reproduces to the digit* is only worth what it is worth **because
+  the estimator was found BEFORE it was tested against the target** —
+  a matching recipe selected from 32 candidates looks identical from
+  outside and carries almost nothing.
+- **A verification claim carries its scope, and every clean sentence
+  names the nearest thing it did not cover** ([5936]: an absence claim
+  correctly stated for the producer was silently widened to
+  "reconstructible", on two files checked out of four with the same
+  name-stem in the same directory; the per-passage cells were sitting
+  beside them and reproduce the population exactly). Corollary the same
+  night: **a value printed in a subtitle is on the figure** — fencing a
+  number in prose while displaying it does not withhold it ([5936]).
