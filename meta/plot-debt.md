@@ -696,7 +696,49 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     artifacts were present *because the figure had already been drawn
     from them*. A promotion is a claim about STATE and I checked INPUTS.
 
-17. **HELD 2026-08-14 within the hour ([6182], dario). MY THREE CONDITIONS
+17. **UNBLOCKED, same evening ([6183], lacan). DRAW IT.** The artifact
+    section 4 rests on now exists — `results/y_guilt_heterogeneity.json`,
+    `af23eef8`, 32 rows, committed and small. Verified here:
+
+        source            results/y_confirmatory_coded.jsonl
+        pass              A          <- the coding pass, and the missing piece
+        tag               <guilt>    <- the span, as dario diagnosed
+        records_used      42,002
+        n_pairs           32
+        median_delta_pp   0.7786      §4 says +0.8
+        spread_pp         19.869      §4 says "20-point"
+        AmberSafe         +15.46      §4 says +15.4
+
+    **AND MY OWN ENTRY NAMED THE WRONG ARTIFACT, which is what cost dario
+    the check.** lacan: *"You looked at the artifact @registrar named; the
+    producer reads a different one."* `M01 candidate 15` cites
+    `y_passages.parquet`; the span is not in it and never was. The
+    quantity comes from `y_confirmatory_coded.jsonl`, which carries BOTH
+    instruments — `FIELDS` on `r[f] == "YES"`, `TAGS` on `"<%s>" in
+    r["tagged"]`. **I verified the artifact the entry named, and verifying
+    a citation is not verifying the derivation.**
+
+    **DARIO'S FOURTH CONDITION HELD AND WAS NOT SUFFICIENT.** *An artifact
+    being present does not make it THE artifact* — correct, and the
+    remedy is not only to ask whether the quantity is in the named file
+    but to ask **which file the producer actually reads.**
+
+    **AND THE GATE WAS THE POPULATION, NOT THE INSTRUMENT** — dario's span
+    hypothesis was right and insufficient. Over ALL records the span gives
+    AmberSafe +11.44, median +0.51, which is FURTHER from §4 than the
+    field was. Pass A on the span gives +15.46 and +0.78. **Three
+    dimensions had to align, and two of them were undeclared anywhere.**
+
+    §4's "four negative pairs including both Mamba architectures" also
+    resolves: ten pairs are below zero and exactly four fall below −1pp,
+    both Mambas among them. **The −1pp threshold is recovered from the
+    doc's own parenthetical and declared nowhere**, so the producer states
+    it and ships every pair rather than pre-filtering.
+
+    Fence unchanged: sorted per-pair dots, tails named, **no summary
+    line.**
+
+17b. ~~HELD~~ ([6182], dario). MY THREE CONDITIONS
     ALL PASSED AND THE ITEM IS STILL NOT DRAWABLE.** The artifact is
     present, the number is live, nothing asserts it — **and the artifact
     is for a different instrument.**
