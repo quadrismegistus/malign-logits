@@ -2,6 +2,7 @@
 # Move the .hidden.f32 residual-stream sidecars to /Volumes/diderot, mirrored,
 # leaving absolute symlinks behind so every reader keeps working.
 #
+#   MIGRATE_SET=logits scripts/migrate_hidden_states.sh list    # the .f16 tier
 #   scripts/migrate_hidden_states.sh list      what would move, and how big
 #   scripts/migrate_hidden_states.sh copy      rsync to diderot, with progress
 #   scripts/migrate_hidden_states.sh verify    OPTIONAL batch checksum
@@ -44,6 +45,18 @@
 # interpreter (3.11.15), not the system one, because that behaviour is
 # version-dependent and the repo's Python is what runs.
 #
+# WHAT DEPENDS ON THE `logits` SET, measured 2026-08-14 and worth having here
+# because it is the opposite of what a reader expects from 165 GiB:
+#   ZERO live readers for data/raw/verse_fleet/*.f16. `contradiction_null.py
+#   --logits` is a real read of the .f16/.f32 STASH, but that resolves through
+#   data/logit_dir_resolution.json, whose dirs are cloud_run_20260801 and
+#   f11_twp -- the index contains no verse_fleet entry, so no code path
+#   existing today reaches those 58.9 GiB. One BOOKED reader: the closure
+#   rider (plan_verse_fleet.md:45), unwritten. Whoever writes it must extend
+#   the dirmap or read the directory directly.
+#   So nothing breaks on the day this moves, and there is NO SMOKE TEST for
+#   it either -- only the file count and the bytes.
+#
 # WHAT DEPENDS ON THESE FILES, so nobody has to rediscover it:
 #   lens_ratio_by_layer.py   RESUMABLE and 90 of 370 models scored; the other
 #                            280 need these sidecars. Detaching the volume
@@ -58,15 +71,40 @@
 # being moved here. Back those up separately.
 set -euo pipefail
 
+# THE SET TO MOVE. `hidden` is the original and stays the default so every
+# invocation in the record still means what it did. `logits` was added once
+# diderot had room; the script's NAME is now narrower than the tool, which is
+# left alone deliberately -- renaming it would break every docket citation
+# that points at it, and a stale name is cheaper than a dangling reference.
+#
+#   hidden   *.hidden.f32   475 files, 81 GiB   (migrated 2026-08-14)
+#   logits   *.f16        1,074 files, 165 GiB
+#
+# THE `logits` SET EXCLUDES */computed/*, AND THAT EXCLUSION IS LOAD-BEARING.
+# `malign_logits/cache.py:461` declares `LOGIT_WRITE_DIR = "computed"` with
+# the note that every other directory is read-only history. So `computed/` is
+# where the cache APPENDS -- 70 files under cloud_run_20260801 -- and an
+# append through a symlink to an unmounted volume fails where a read merely
+# returns less. Everything else in the set is history by the cache's own
+# declaration, which is the whole reason this is safe.
+SET="${MIGRATE_SET:-hidden}"
+
 SRC="/Users/rj416/github/malign-logits"
 DST="/Volumes/diderot/malign-logits"
 VOL="/Volumes/diderot"
-WORK="${SRC}/.migrate_hidden"
+WORK="${SRC}/.migrate_${SET}"
 LIST="${WORK}/files.txt"
 STAMP="${WORK}/verified.ok"
 
+case "$SET" in
+  hidden) PAT='*.hidden.f32' ;;
+  logits) PAT='*.f16' ;;
+  *) echo "REFUSING: unknown set '$SET'" >&2; exit 1 ;;
+esac
+
 mkdir -p "$WORK"
 cd "$SRC"
+[ "${MIGRATE_QUIET:-}" ] || echo "SET=$SET  pattern=$PAT  work=$(basename "$WORK")"
 
 need_volume() {
   if [ ! -d "$VOL" ]; then
@@ -89,7 +127,16 @@ build_list() {
   # path exercised on real local files rather than on symlinks. Found by
   # testing: the smallest file in the set is 0 bytes, and an earlier version
   # of `verify` required non-empty and would have failed on all 25.
-  find data -name '*.hidden.f32' -type f -size +0c | sort > "$LIST"
+  case "$SET" in
+    hidden)
+      find data -name '*.hidden.f32' -type f -size +0c | sort > "$LIST" ;;
+    logits)
+      # -path exclusion for the cache's write target, per the header.
+      find data -name '*.f16' -type f -size +0c \
+           -not -path '*/computed/*' | sort > "$LIST" ;;
+    *)
+      echo "REFUSING: unknown set '$SET' (want: hidden | logits)" >&2; exit 1 ;;
+  esac
 }
 
 case "${1:-}" in
@@ -97,7 +144,7 @@ case "${1:-}" in
 list)
   build_list
   n=$(wc -l < "$LIST" | tr -d ' ')
-  echo "$n real .hidden.f32 files to move"
+  echo "$n real $PAT files to move"
   if [ "$n" -gt 0 ]; then
     # du -c with find -exec + prints a fresh total per batch when the argument
     # list splits, and reading the last one undercounts. xargs one call at a
@@ -107,7 +154,7 @@ list)
     awk -F/ '{d=$1"/"$2; if ($1=="data" && $2=="raw") d=$1"/"$2"/"$3; print d}' "$LIST" \
       | sort | uniq -c | sort -rn | sed 's/^/  /'
   fi
-  already=$(find data -name '*.hidden.f32' -type l | wc -l | tr -d ' ')
+  already=$(find data -name "$PAT" -type l | wc -l | tr -d ' ')
   echo "already symlinked: $already"
   ;;
 
@@ -218,14 +265,14 @@ link)
   ;;
 
 status)
-  real=$(find data -name '*.hidden.f32' -type f | wc -l | tr -d ' ')
-  link=$(find data -name '*.hidden.f32' -type l | wc -l | tr -d ' ')
+  real=$(find data -name "$PAT" -type f | wc -l | tr -d ' ')
+  link=$(find data -name "$PAT" -type l | wc -l | tr -d ' ')
   echo "local real files : $real"
   echo "symlinks         : $link"
   if [ -d "$VOL" ]; then
     dead=0
     while IFS= read -r l; do [ -e "$l" ] || dead=$((dead+1)); done \
-      < <(find data -name '*.hidden.f32' -type l)
+      < <(find data -name "$PAT" -type l)
     echo "broken symlinks  : $dead"
     [ "$dead" -eq 0 ] || echo "  (a broken link with the volume MOUNTED means the file is gone from diderot)" >&2
   else
@@ -246,7 +293,7 @@ restore)
     cp -p "$d" "$l"
     cmp -s "$l" "$d" || { echo "RESTORE MISMATCH: $l" >&2; exit 1; }
     n=$((n+1))
-  done < <(find data -name '*.hidden.f32' -type l | sort)
+  done < <(find data -name "$PAT" -type l | sort)
   echo "restored $n files locally. The copies on diderot are left in place;"
   echo "delete them by hand once you are satisfied."
   ;;
