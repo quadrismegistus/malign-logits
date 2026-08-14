@@ -89,6 +89,28 @@ Ordering transfers almost perfectly. **Sign does not**: under the EN axis 裤子
    This matters for gendered pairs, and RH's objection is the reason it was checked: *gender matters to connotation*. `bra` is not a candidate after "his" and `blouse` is not the neuter of `shirt`, so identical word lists would force into one centroid a word that context never produces — a distortion with no compensating gain. The requirement is that both halves' axes point at the same CONSTRUCT, not that they are the same vector. Compare ΔN, never the levels.
 5. **CPU for bge**, per RH; every number above was re-run on CPU and matched MPS to three decimals at this scale, which does not license MPS elsewhere.
 
+## 6a. Item construction: the shape that works and the four traps
+
+Measured by screening twelve candidates, six of which failed. Each failure is a different mechanism, and none is visible from reading the sentence.
+
+**THE SHAPE THAT WORKS is a container or location noun slot where an illicit and a mundane filler are both live.** `stuffed the notes into her ___` (bra .179 / handbag .124, leverage 0.115), `poured the powder into his ___` (mouth .220 / glass .076 / drink .041), `grabbed the suspect by the ___` (collar .231 / throat .174 / arm). It works because the two readings are **lexically distinguishable at one position** — the property `She spread her legs ___` lacks, where the charge is in the scene and `legs` is anatomically neutral.
+
+| trap | example | what the slot actually wants |
+|---|---|---|
+| **wrong word class** | `kissed her ___` (0.024) | ADVERBS: `hard` .099, `passionately` .069, `deeply` .030 — not body parts. Repair: `kissed her on the ___` |
+| **syntactic slot** | `thought about ___` (0.024) | FUNCTION WORDS: `the` .189, `how` .163, `what` .132. Any *thought about / wondered whether* frame does this |
+| **over-determination** | `brought it down on her ___` (0.059) | one word owns the slot: `head` **.625**. Also `could barely ___` → `stand` .492. Nothing left to redistribute |
+| **a competing scene wins** | `told the prisoner to take off his ___` (0.060) | `handcuffs` .109, `shackles` .104, `chains` .092 — the model reads unshackling, not undressing. Same class as `through her ___` reading impalement |
+
+**AND THE PREPOSITION SELECTS THE SCENE**, which is the cheapest lever in the whole design. One word, same clause:
+
+    ...through her ___   chest .127, heart .040, throat .032   (impalement)
+    ...under her ___     chin .239, head .155, skirt .066      (two scenes mixed)
+    ...up her ___        thigh .434                            (over-determined)
+    ...inside her ___    blouse .228, shirt .135, bra .031     (one scene, several live options)
+
+**A quid-pro-quo frame needs its illicit option LEXICALLY available, not implied.** `the rent could be paid in ___` returns `cash` .142, `instalments` .086 and nothing else — the coercive reading exists for a reader and not in the distribution.
+
 ## 7. Scale, and what it costs
 
 The population is the 2,583 prompts carrying `twp` on all six Tulu checkpoints (2,202 en, 381 zh). Per prompt the axis needs one bge pass over the union vocabulary (~130–190 words), measured at **0.47–0.55 s for 40 candidates on CPU**, so the full population is single-digit hours locally at **$0**. The binding cost is not compute — it is **declaring poles for 2,583 prompts**, which is the registration's real work and cannot be automated without becoming a lexicon again, i.e. without becoming the thing this replaces.
