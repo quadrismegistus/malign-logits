@@ -616,6 +616,26 @@ seat forgets at its peril:
   is a hypothesis* — including a colleague's status line, including
   one written by the file's maintainer, including a summary whose
   author had every reason to be right.
+- **`git status` IS THE WRONG INSTRUMENT FOR A SURVEY AND IT IS THE ONE
+  EVERYBODY REACHES FOR** ([6034]): `--porcelain` COLLAPSES a fully
+  untracked directory into ONE entry, so a survey built on it counted
+  281 directories as files, and the script that then walked them
+  measured everything inside INCLUDING already-ignored bytes — 281
+  entries at 9.48 GB against the true **1,190 files at 602 MB**. The
+  authoritative command expands and respects the ignore rules:
+  `git ls-files --others --exclude-standard`. Same family as
+  stash-list versus stash-object: **the convenient view of a
+  repository is a summary, and a summary is not the population.** And
+  the near-miss beside it: the bulk binary classes were ALREADY
+  ignored before the survey began (`.gitignore` carrying `*.f16`,
+  `*.hidden.f32`, the twp jsonl, with a comment recording zero
+  tracked) — **one command from proposing rules that already
+  existed**, the third time in one night a seat nearly legislated over
+  a guard already in place. DISPOSAL SHAPE, offered not ruled:
+  **commit the sidecar, ignore the payload** — a reader can then ask
+  how something was produced without the repo carrying the bytes,
+  which is the `_about` principle applied to the tracking decision
+  instead of to the artifact.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
