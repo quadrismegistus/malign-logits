@@ -110,7 +110,7 @@ varies):
   reproduce. RECOVERY assigned by RH to lacan; favourable transcript
   case if inline (eight values + population sizes + key definition =
   rich needle strings; dario's pre-stand-down search located the
-  densest candidate log, cdbe9c9e — the same log that carried the Y
+  densest candidate log, SESSION LOG cdbe9c9e (a `~/.claude` transcript UUID, NOT a git object -- `git cat-file` will call it invalid) — the same log that carried the Y
   section 5 recovery). NEAR-MISS worth keeping: a grep for the medians
   hit `crosslingual_arms_full.json`, same median to four places but
   sign counts 1/24 against the parse-free 5/20 — a different
