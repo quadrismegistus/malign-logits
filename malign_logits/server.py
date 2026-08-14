@@ -323,17 +323,64 @@ class ModelHandler(BaseHTTPRequestHandler):
                 if not prompt.strip():
                     self._respond(400, {"error": "prompt required"})
                     return
-                mid = params.get("model", "meta-llama/Llama-3.1-8B")
-                tok, model, bmask, cjk, pol, dev = _get_slot_model(mid)
+                #: POOLED BY DEFAULT: base + the SFT the ablation battery
+                #: actually measures. NOT Llama-3.1-8B-Instruct, which is a
+                #: different lineage and would seed the author's poles from a
+                #: model not in the experiment.
+                #:
+                #: WHY POOL AT ALL, and it is coverage rather than blinding.
+                #: Words the aligned model reaches for often DO NOT EXIST in the
+                #: base distribution -- `erect` appears only in the aligned
+                #: English arms, 生殖器 only in the aligned Chinese ones. Those
+                #: are the ARRIVAL side of the displacement, so an author who
+                #: only ever sees the base cannot tag them and `substitution` is
+                #: systematically under-measured by whatever alignment invented.
+                #:
+                #: THE SOURCE IS NEVER RETURNED. Blinding is the second reason:
+                #: knowing which model offered a word would let prompts be
+                #: chosen by how large the effect looks. It does NOT make the
+                #: poles independent of the outcome, and anything built this way
+                #: must say so -- "poles declared on the pooled base union SFT
+                #: vocabulary, blind to source" is defensible; "declared on the
+                #: base" would not be true.
+                mids = [s.strip() for s in params.get(
+                    "model", "meta-llama/Llama-3.1-8B,"
+                             "allenai/Llama-3.1-Tulu-3-8B-SFT").split(",") if s.strip()]
+                pooled, res, calls, skipped = {}, None, 0, None
+                for mid in mids:
+                    tok, model, bmask, cjk, pol, dev = _get_slot_model(mid)
+                    try:
+                        w1, r1, c1 = twp.expand(model, tok, prompt, dev, bmask,
+                                                cjk=cjk, bos_policy=pol)
+                    except twp.SkipPrompt as sk:
+                        skipped = str(sk)
+                        break
+                    calls += c1
+                    #: SUM THEN RENORMALISE, per RH. Each arm's scored mass is
+                    #: 1 - residual, so a plain sum would let the arm with the
+                    #: smaller residual dominate by an amount that has nothing
+                    #: to do with the words. Residual is averaged for the same
+                    #: reason it is reported at all.
+                    for (sf, t1), mm in w1.items():
+                        pooled[sf] = pooled.get(sf, 0.0) + mm
+                    res = r1 if res is None else {
+                        k: (res.get(k) or 0) + (r1.get(k) or 0) for k in r1}
+                if skipped is None and len(mids) > 1 and pooled:
+                    tot = sum(pooled.values()) + (res["total"] if res else 0.0)
+                    if tot > 0:
+                        pooled = {k: v / tot for k, v in pooled.items()}
+                        res = {k: ((v / tot) if v is not None else None)
+                               for k, v in res.items()}
+                w = {(sf, 0): p for sf, p in pooled.items()}
                 try:
-                    w, res, calls = twp.expand(model, tok, prompt, dev, bmask,
-                                               cjk=cjk, bos_policy=pol)
+                    if skipped:
+                        raise twp.SkipPrompt(skipped)
                 except twp.SkipPrompt as sk:
                     #: RECORDED, not swallowed. A prompt the instrument refuses is a
                     #: real answer for an authoring tool -- it means this string
                     #: cannot be measured at all, which the author needs to know now
                     #: rather than after the battery is written.
-                    self._respond(200, {"model": mid, "prompt": prompt,
+                    self._respond(200, {"model": ",".join(mids), "prompt": prompt,
                                         "skipped": str(sk), "words": [],
                                         "residual": None, "n_words": 0})
                     return
@@ -346,7 +393,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                 k = int(params.get("k", 60))
                 top = sorted(per.items(), key=lambda x: -x[1])[:k]
                 self._respond(200, {
-                    "model": mid, "prompt": prompt,
+                    "model": ",".join(mids), "n_models": len(mids), "prompt": prompt,
                     "words": [{"word": a, "p": float(b)} for a, b in top],
                     #: A residual channel can be None -- `mojibake` is only
                     #: populated where the mojibake detector ran. Coercing it

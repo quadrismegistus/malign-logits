@@ -161,6 +161,41 @@
 		debounce = setTimeout(() => { lastKey = k; runAxis(); }, 450);
 	});
 
+	//: ── LEVERAGE IS THE GATE, AND SHARE IS NOT. Measured, not chosen:
+	//:     known MOVER (dN -0.031)  leverage 0.1046   share 0.946
+	//:     known DEAD  (churchyard) leverage 0.0670   share 0.525
+	//: The dead item is BETTER BALANCED than the mover, so share cannot gate an
+	//: item and was wrong to lead this screen.
+	//:
+	//: dN = sum_w dP(w) s(w), so an item can only register movement if mass sits
+	//: at DIFFERENT POSITIONS on the axis. If every word the model offers has the
+	//: same s, no redistribution among them changes N -- whatever the branch
+	//: totals say.
+	//:
+	//: TAGGED is NOT the measurement population: dN uses every word, tagged or
+	//: not. It says whether the poles were estimated from much of the mass --
+	//: 0.124 on an item whose top word (chest, 0.116) went untagged.
+	//: MEASURED AT THE DEFAULT k=40, because the stats are computed over the
+	//: RETURNED words and that is a truncation of the distribution. The first
+	//: version took these from a k=80 run and would have compared the app's
+	//: number against a threshold from a different population.
+	//:
+	//: LEVERAGE IS ROBUST TO THE TRUNCATION and `tagged` is not:
+	//:     leverage  mover .1027 (k40) / .1046 (k80)   dead .0694 / .0670
+	//:     tagged    .608 (k40) / .537 (k80) on one item -- 13%
+	//: So the leverage gate travels across k and the tagged figure should be read
+	//: at a fixed k or read loosely. Separation holds either way: ~.10 against
+	//: ~.07.
+	const LEV_MOVER = 0.1027, LEV_DEAD = 0.0694, TAGGED_OK = 0.4;
+	let stats = $derived.by(() => {
+		if (!axis || !words.length) return null;
+		const tot = words.reduce((a, w) => a + w.p, 0);
+		if (!tot) return null;
+		const N = words.reduce((a, w) => a + w.p * (axis![w.word] ?? 0), 0) / tot;
+		const v = words.reduce((a, w) => a + w.p * Math.pow((axis![w.word] ?? 0) - N, 2), 0) / tot;
+		return { N, lev: Math.sqrt(v), tagged: (naughtyMass + niceMass) / tot };
+	});
+
 	let shown = $derived.by(() => {
 		if (!sortByAxis || !axis) return words;
 		return [...words].sort((a, b) => (axis![b.word] ?? -9) - (axis![a.word] ?? -9));
@@ -317,9 +352,26 @@
 				<span class="val">{niceMass.toFixed(4)}</span>
 				<span class="cnt">{nice.size} words</span>
 			</div>
-			<div class="branch">
+			{#if stats}
+				<div class="branch">
+					<span class="lbl">leverage</span>
+					<span class="val" class:good={stats.lev >= LEV_MOVER}
+						  class:bad={stats.lev < LEV_DEAD}>{stats.lev.toFixed(4)}</span>
+					<span class="cnt">mover {LEV_MOVER} · dead {LEV_DEAD} @k40</span>
+				</div>
+				<div class="branch">
+					<span class="lbl">tagged</span>
+					<span class="val" class:bad={stats.tagged < TAGGED_OK}>{stats.tagged.toFixed(3)}</span>
+				</div>
+				<div class="branch">
+					<span class="lbl">N</span>
+					<span class="val">{stats.N >= 0 ? '+' : ''}{stats.N.toFixed(4)}</span>
+				</div>
+			{/if}
+			<div class="branch dim">
 				<span class="lbl">share</span>
 				<span class="val">{isNaN(share) ? '—' : share.toFixed(4)}</span>
+				<span class="cnt">descriptive — does NOT gate</span>
 			</div>
 			{#if verdict}
 				<div class="verdict" class:bad={verdict !== 'ok'}>{verdict}</div>
@@ -477,6 +529,9 @@
 	.ax.pos { color: #e15759; }
 	.sortlbl { display: flex; gap: 4px; align-items: center; cursor: pointer; }
 	.viewtog { margin-left: 10px; }
+	.val.good { color: #59a14f; }
+	.val.bad { color: #e15759; }
+	.branch.dim .val, .branch.dim .lbl { color: #666; }
 	.savemsg { font-family: 'SF Mono', monospace; font-size: 11px; color: #6f9dc9;
 	           margin: 0 0 6px 2px; }
 	.words.hidden { display: none; }
