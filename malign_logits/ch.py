@@ -213,6 +213,31 @@ def insert(table, rows, **kw):
     return len(rows)
 
 
+def approx(col, value, tol=1e-9):
+    """A float-column equality predicate that actually matches.
+
+        ch.query("SELECT ... WHERE " + ch.approx("theta", 0.001))
+
+    **NEVER WRITE `theta = 0.001` AGAINST A Float32 COLUMN.** 0.001 stored as
+    Float32 round-trips as 0.0010000000474974513, so the literal comparison
+    matches NOTHING -- measured 2026-08-14 across the whole store:
+
+        twp_words        theta = 0.001 -> 0 rows      abs(...) < 1e-9 -> 95,180,535
+        movement         theta = 0.001 -> 0 rows      abs(...) < 1e-9 -> 77,625,652
+        movement_cells   theta = 0.001 -> 0 rows      abs(...) < 1e-9 ->    568,977
+
+    **The failure is an EMPTY RESULT, not an error.** A prefetch returns zero
+    prompts for a model plainly in the table and the caller reads that as "not
+    scored" rather than as a broken predicate.
+
+    This was independently discovered and written down at least twice -- in
+    `ch_read.prefetch` and in `M02/contradiction_null.py` -- each time as a
+    comment beside the one query its author was fixing. Encoded here so the
+    next person gets it without having to have been told.
+    """
+    return "abs(%s - %r) < %g" % (col, value, tol)
+
+
 def exists(table):
     """Whether a table exists, by name, with or without a database prefix."""
     tbl = table if "." in table else "%s.%s" % (DB, table)
