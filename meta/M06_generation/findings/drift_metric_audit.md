@@ -134,3 +134,49 @@ cohort-relative, and uses the continuous values.
   point where no cross-corpus comparison at differing n is interpretable.
 - Exploratory throughout. These were computed answering questions in
   session, with no directions declared in advance.
+
+## Addendum (2026-08-14): can directedness be normalised? No, and the reason is structural
+
+RH asked whether directedness is merely too collinear with sentence count and
+could be rescued by normalising. It can be made n-free OR shape-relevant, not
+both, because `directedness = diameter / path_length` mixes an EXTENT measure
+with a PATH measure and every normalisation either keeps the diameter or
+cancels it.
+
+Two identities, verified on the untruncated cross-lingual cells:
+
+    path_length == (n_sents - 1) * mean_drift          corr 1.000000
+    mean_pairwise / mean_drift == 1 - ordering/mean_drift   max diff 4.4e-16
+
+**Route 1, divide out n.** `directedness * n_sents` does decorrelate:
+rho(n_sents, .) goes -0.961 to -0.071. But it is then approximately
+`total_drift / mean_drift`, so the diameter is still in the numerator with its
+92% passage-level noise -- and in the arms contrast it FIRES HARD, +0.0775 zh
+and +0.0742 en, 24 of 25 pairs each, p 1.6e-6. That is not a shape result.
+Both extents fall under alignment and `mean_drift` falls about 2.4x faster:
+
+    zh  total_drift -3.7%   mean_drift -9.9%   ratio +6.9%
+    en  total_drift -4.3%   mean_drift -9.5%   ratio +5.7%
+
+The ratio rises because of the differential decline of two quantities already
+measured separately. **A reader given only the 24/25 and the p-value would
+report that alignment makes passages more directed.** It does not; it makes them
+smaller faster than it makes them narrower.
+
+**Route 2, normalise against the reshuffle null.** The diameter is
+order-invariant, so under a random reordering of a passage's own sentences it is
+unchanged while expected path length becomes `(n-1) * mean_pairwise`. Then
+
+    directedness_observed / directedness_reshuffled = mean_pairwise / mean_drift
+
+and `total_drift` cancels exactly. This is the ORDERING measure in ratio form,
+identical to the difference form to 4.4e-16, and it is NULL in the arms contrast
+(see `crosslingual_arms.md`: four nulls, two languages by two truncation
+regimes, each beside a positive control).
+
+**Raw directedness is null anyway** in the same contrast: zh +0.0099, en
++0.0047, 15 up / 10 down, p 0.424 both. Retiring it costs nothing.
+
+The general form, worth keeping: a ratio of two quantities that both move is not
+a shape measure just because the units cancel. Check whether the normalisation
+removes the nuisance or removes the construct.
