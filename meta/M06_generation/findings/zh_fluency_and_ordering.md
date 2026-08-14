@@ -18,6 +18,23 @@ Results: `results/zh_fluency_verdicts*.json`, `zh_fluency_arms.json`,
 generations already in the store and from `mean_pairwise`, which
 `m06_crosslingual_drift.py` persisted for exactly this test.
 
+## Which population these 25 pairs are, stated because there are four
+
+registrar mapped four model-pair rosters at `docs/model-populations.md` (two
+live in ClickHouse, two frozen on disk), and the two live ones disagree by
+eight members. **Every seat forgets which one it is using**, so:
+
+    data/base_aligned_pairs.json          54   FROZEN, the source here
+      minus `ambiguous`                   ->   the arms producer's filter
+      minus models absent in either lang  ->   25, this population
+
+Checked against registrar's heterogeneity flag rather than assumed: the 25 are
+**24 dpo + 1 ppo**, no `warn_sft_as_aligned`, none ambiguous, all present in
+the frozen file, and `BAAI/Aquila2-7B > AquilaChat2-7B` -- the base->EGO
+(SFT-only) member that makes the frozen 46 heterogeneous elsewhere -- **is not
+in this population.** So all 25 contrast base against a preference-tuned arm
+and the contrast is of one kind throughout.
+
 ## Why this exists: `cjk_tier` measures a vocabulary, not a model
 
 `data/model_registry.json` carries `cjk_tier`, derived from `cjk_chars` -- the
