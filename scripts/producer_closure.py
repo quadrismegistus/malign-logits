@@ -131,6 +131,34 @@ def change_time(path, _cache={}):
     return _cache[path]
 
 
+def last_commit(path, _cache={}):
+    """The commit that last touched `path`, or "" if none."""
+    if path in _cache:
+        return _cache[path]
+    try:
+        r = subprocess.run(["git", "rev-list", "-1", "HEAD", "--", path],
+                           cwd=ROOT, capture_output=True, text=True, timeout=20)
+        _cache[path] = r.stdout.strip()
+    except Exception:
+        _cache[path] = ""
+    return _cache[path]
+
+
+def same_commit(a, b):
+    """Were these two files last touched by the SAME commit?
+
+    If so, no staleness is expressible between them: **within one commit the
+    file mtimes are arbitrary**, so a producer that writes two files in one
+    run can flag either against the other depending on which got written a
+    second sooner. @registrar found three of five M05 flags were exactly
+    this, and it is worse than a coincidence -- it is a GUARANTEED false
+    positive, because `content_moved` then compares the dependency against
+    the commit BEFORE the shared one, where its content really was different.
+    """
+    ca, cb = last_commit(a), last_commit(b)
+    return bool(ca) and ca == cb
+
+
 def content_moved(dep, at_t):
     """Did `dep`'s CONTENT change after time `at_t`? -> True/False/None.
 
@@ -447,24 +475,35 @@ def audit(paths):
             t = change_time(r)
             if t > newest_t:
                 newest, newest_t = r, t
-        stale = [a for a in arts if newest_t and produced_time(a) < newest_t]
-        #: A TIME ORDERING IS PROMOTED TO A CHANGE ONLY BY CONTENT.
-        #: Without this the tool reports every commit, touch and identical
-        #: re-run as a moved dependency -- and manufactures at scale the
-        #: exact error withdrawn at [6113].
+        #: A TIME ORDERING IS PROMOTED TO A CHANGE ONLY BY CONTENT, and
+        #: same-commit pairs are excluded before that even runs. Both gates
+        #: are per-ARTIFACT: `stale` used to be the timestamp list and the
+        #: verdict the content one, so the per-artifact "<- STALE" marker
+        #: printed a different answer from the verdict two lines below it.
         moved = None
-        if stale and newest:
-            moved = content_moved(newest, min(produced_time(a) for a in stale))
+        stale, dismissed = [], []
+        for a in arts:
+            if not (newest_t and produced_time(a) < newest_t):
+                continue
+            if same_commit(a, newest):
+                dismissed.append((a, "same-commit"))
+                continue
+            m = content_moved(newest, produced_time(a))
+            if m is False:
+                dismissed.append((a, "identical-bytes"))
+                continue
+            stale.append(a)
+            moved = m if moved is None or m is True else moved
         if not arts:
             verdict = "no-artifact"
-        elif not stale:
-            verdict = "ok"
-        elif moved is True:
+        elif stale and moved is True:
             verdict = "STALE"
-        elif moved is False:
-            verdict = "ordering"      # newer timestamp, identical bytes
-        else:
+        elif stale:
             verdict = "unverified"    # no history to settle it
+        elif dismissed:
+            verdict = "ordering"      # flagged on time, dismissed on content
+        else:
+            verdict = "ok"
         rows.append({"producer": os.path.relpath(p, ROOT),
                      "n_deps": len(cl),
                      "deps": [os.path.relpath(c, ROOT) for c in cl],
@@ -475,6 +514,7 @@ def audit(paths):
                      "store": bool(store),
                      "store_via": [os.path.relpath(c, ROOT) for c in store],
                      "content_moved": moved,
+                     "dismissed": [[a, why] for a, why in dismissed],
                      "n_dataedge": len(dataedge),
                      "dataedge": [[os.path.relpath(r, ROOT), w]
                                   for r, w in dataedge],
