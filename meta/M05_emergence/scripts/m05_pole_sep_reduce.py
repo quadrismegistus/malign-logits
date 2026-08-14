@@ -247,12 +247,32 @@ def main():
                 % (col, bad))
     path = os.path.join(OUTD, "m05_pole_sep_reduced.csv")
     df.to_csv(path, index=False)
+    #: THE ROUND TRIP IS CHECKED ON VALUES, NOT ONLY ROWS AND NaN.
+    #: The first version asserted row count and NaN count -- precisely the
+    #: defect it had been written for, and nothing else. @malign at [5975]
+    #: fixed an NA collision on a resume read, watched the metric he predicted
+    #: move exactly as predicted, and then found a defect three orders of
+    #: magnitude larger on the same line by running the one comparison with no
+    #: stake in his hypothesis. **A verification that can only report on the
+    #: defect you already named is not much of a verification.**
+    #: NOT byte-identity, deliberately: repr round-trips differ in the last
+    #: digit (2 of 28 lines here) and that is harmless BECAUSE this file is a
+    #: terminal output written once from computed values. malign's case is a
+    #: read-modify-write resume loop where the same loss compounds every run.
+    #: Same observation, opposite verdict, and the difference is the pipeline.
     back = pd.read_csv(path)
     if len(back) != len(df) or back.isna().any().any():
         raise SystemExit("round trip lost data: %d rows out, %d back, %d NaN"
                          % (len(df), len(back), int(back.isna().sum().sum())))
-    print("GUARD    no emitted label collides with pandas NA tokens; "
-          "round trip %d rows, 0 NaN" % len(back))
+    for col in df.columns:
+        if pd.api.types.is_numeric_dtype(df[col]):
+            worst = float((back[col] - df[col]).abs().max())
+            if worst > 1e-12:
+                raise SystemExit("round trip changed %r by %.3e" % (col, worst))
+        elif not back[col].astype(str).equals(df[col].astype(str)):
+            raise SystemExit("round trip changed the values of %r" % col)
+    print("GUARD    no emitted label collides with pandas NA tokens; round trip "
+          "%d rows, 0 NaN, every value preserved to 1e-12" % len(back))
 
     #: EVERYTHING ABOVE IS COMPUTED. Only now are the superseded values read.
     print("\nAGAINST THE SUPERSEDED VALUES (comparison only; not used above)")
