@@ -130,6 +130,28 @@ TWP_SOURCES = [
      "_unsharded_box0, which is itself a subset of the shards. Doubly "
      "subsumed. `source` is in the twp key, so ingesting it would sit a third "
      "copy beside the others rather than overwrite [5299]."),
+    #: **THE VERSE FLEET, ONE LABEL FOR THE MERGED TREE.** 250 rungs, 455,000
+    #: rows, 13-14 Aug 2026, eight boxes. ONE label rather than M05's one-per-box:
+    #: that pattern exists so two LIVE writers cannot touch one filename, and
+    #: these instances are destroyed. Per-box provenance is preserved in the
+    #: unmerged `data/raw/verse_fleet/<instance_id>/` directories.
+    #:
+    #: **The merged tree is hard links SELECTED ON ROW COUNT (== 1,820), and that
+    #: selection is the point rather than a tidying step.** Three partial files
+    #: sit in the unmerged tree -- a 959-row `pythia-6.9b@step8000` from the box
+    #: whose four-hour rental window expired mid-write (runbook 2.27), and two
+    #: more from a window when a duplicate assignment briefly had two boxes on
+    #: the same models. A walk taking the first file it found would ingest a
+    #: partial over a complete rung, which is the shape that cost
+    #: `opening_matched` its construction ([5874]). Rebuild with
+    #: `scripts/verse_fleet_merge.py`; it REFUSES if any declared rung lacks a
+    #: complete file.
+    #:
+    #: Prompt fidelity verified before declaring: all 456,130 records, all 1,786
+    #: distinct prompts verbatim against the specs, max length 297 -- this runner
+    #: writes `prompt` as its own field rather than inside an id.
+    ("data/raw/verse_fleet_merged", "verse_fleet", "ACTIVE",
+     "Verse fleet: 250 rungs merged from 8 boxes, complete files only (1,820 rows)"),
 ]
 
 
