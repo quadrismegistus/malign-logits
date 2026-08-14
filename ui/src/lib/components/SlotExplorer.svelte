@@ -211,7 +211,7 @@
 	//: So the leverage gate travels across k and the tagged figure should be read
 	//: at a fixed k or read loosely. Separation holds either way: ~.10 against
 	//: ~.07.
-	const LEV_MOVER = 0.1027, LEV_DEAD = 0.0694, TAGGED_OK = 0.4;
+	const LEV_MOVER = 0.1027, LEV_DEAD = 0.0694;
 	let stats = $derived.by(() => {
 		if (!axis || !words.length) return null;
 		const tot = words.reduce((a, w) => a + w.p, 0);
@@ -386,7 +386,13 @@
 				</div>
 				<div class="branch">
 					<span class="lbl">tagged</span>
-					<span class="val" class:bad={stats.tagged < TAGGED_OK}>{stats.tagged.toFixed(3)}</span>
+					<span class="val">{stats.tagged.toFixed(3)}</span>
+					<span class="cnt">descriptive — raising it by tagging middling words SHORTENS the axis</span>
+				</div>
+				<div class="branch">
+					<span class="lbl">poles</span>
+					<span class="val">{naughty.size}/{nice.size}</span>
+					<span class="cnt">more clearly-belonging words = truer axis</span>
 				</div>
 				<div class="branch">
 					<span class="lbl">N</span>
