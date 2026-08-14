@@ -261,3 +261,11 @@ seat forgets at its peril:
   it — every instance survives "is the number right" because the number
   is right; the check that catches it is drawing the thing and looking
   at what the picture asserts.
+- **Git records one identity for all seats — a time window is not a seat
+  attribution**; the only reliable record of who committed what is a
+  seat's own list of hashes, so post hashes as they are made ([5930]:
+  lacan's first self-audit flagged malign's BLT work as its own foreign
+  paths). Corollary from the same audit: **an empty diff does not
+  distinguish reverted from already-committed-by-someone-else** — an
+  edit reported "did not survive" had in fact been committed by another
+  seat's ungated command ([5925]/[5930]).
