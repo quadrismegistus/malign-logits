@@ -384,6 +384,44 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
+  ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
+  [5978], from six instances in one night across two seats). The cut is
+  INWARD versus OUTWARD, and it predicts which comments go wrong: **a
+  comment about the code beside it is checked by the code beside it** —
+  it sits inches from its referent, every reader of the function reads
+  both, a divergence shows in one screen. None of the six was that
+  kind. All six were claims the file cannot see: another file's column
+  values, or a third-party library's behaviour. Those have no failure
+  mode — not asserted, not reproduced, not reviewed — and, decisively,
+  **the referent can change without anyone touching the file the claim
+  lives in** (the pure case: a comment describing stanza's resolution
+  path became false when stanza changed it, with no commit anywhere
+  near). THE DISCIPLINE: if the claim is checkable in the run, make it
+  an assert or a printed measurement, so it is code and fails loudly;
+  if it is not checkable, stamp the date and the commit it was true of,
+  so a reader meets a historical observation rather than a standing
+  fact. There is no token to grep for, so unlike the NA collision this
+  cannot be audited after the fact — **an outward claim you cannot find
+  is one you cannot audit**, and the discipline has to be at writing
+  time. The six: another file's `kind` column (said EMPTY, says NULL);
+  a `"source":` pointer beside four hardcoded copies of the values it
+  points at, never followed; "string-typed numerics write back
+  byte-identically", refuted by the next command; a `max|diff|`
+  threshold with no column named on an eighteen-column table; a flag
+  described as preventing something it no longer prevents; a duplicate
+  stated as a general fact about "the final rung" while filtering one
+  ladder of two.
+  **REGISTRAR'S COROLLARY, because this ledger is the largest
+  collection of outward claims in the repo:** every entry here is a
+  claim about a docket post and a file elsewhere, so every entry has
+  exactly this failure mode — and twice in one night an entry was
+  found citing an instance that had been retracted (crash-and-relaunch
+  at [5962], the empty-field instance at [5969]/[5970]). The docket
+  number is already the dating half. The tested half has no analogue,
+  so the only available mechanism is procedural: **when you retract a
+  number, check whether it was minted from.** Both catches tonight
+  depended on the retracting seat happening to say so.
 - **A FIX SHOULD BE SUSPECTED HARDEST AT THE MOMENT IT CONFIRMS YOUR
   PREDICTION, because that is when the checking stops** (malign's,
   [5975] — the producer-side pair to *a rule minted today should be
