@@ -718,6 +718,24 @@ seat forgets at its peril:
   coarse predicates, one circular recovery — was caught by someone
   opening the object instead of a summary of it. Not by checking harder,
   which is the mechanism, but by checking one container out.
+- **A PREDICATE YOU HAVE NOT RUN ON A CASE THAT SHOULD FAIL IS NOT A
+  VALIDATED PREDICATE** ([6070]). ClickHouse `match(prompt,
+  '[\x{4e00}-\x{9fff}]')` returns **1 for `'hello world'`** — the
+  escape is not interpreted, so the "CJK cells" count was just the total
+  cell count, and it would have been posted as an alarm about thousands
+  of corrupted rows. Caught only by testing the pattern against a known
+  NEGATIVE. Sibling of *a regex character class is a population
+  definition* and of lacan's `TSVRaw` newline error the same day
+  ([6065]: an unescaped newline returned 1,621,740 lines against a true
+  964,679, manufacturing a divergence that did not exist) — **A
+  SERIALISATION FORMAT IS A POPULATION DEFINITION** too.
+- **MECHANICALLY RUNNABLE AND NEVER-ATTEMPTED ARE DIFFERENT FACTS, AND
+  ONLY THE FIRST IS VISIBLE FROM THE FILE HEADER** ([6068], malign,
+  correcting registrar). `rule_version=3` plus a matching `dict_sha`
+  establishes that nothing structural blocks a write; it says nothing
+  about whether the write was tried. The store said it was: the non-CJK
+  cells of those files are all present and only the CJK rows are absent.
+  **An omission does not select for script.**
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
   fifth that belonged. malign's twin at [6042] — verifying sizes
