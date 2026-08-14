@@ -205,3 +205,95 @@ def test_stored_distribution_matches_a_live_expansion():
             "%r: store %.5f, live %.5f -- beyond fp16 nondeterminism, so the "
             "UI and the findings are computing different quantities"
             % (word, p, live[word]))
+
+
+# ── ENDPOINT CONTRACT ────────────────────────────────────────────────────────
+# Added after the SECOND regression of the same class in one day:
+#   morning  /api/slot grew a pooled default; the client always sent `model=`,
+#            so the app ran base-only. Verified with a curl that omitted it.
+#   evening  a refactor moved `pole_gap` inside a block that only runs when the
+#            caller sends NO word list. The UI always sends one, so the field
+#            vanished and `poleGap.toFixed(3)` threw. Verified with a curl that
+#            omitted `words`.
+# Both times the check took a branch the app never takes. So these tests derive
+# the required fields FROM THE CLIENT SOURCE rather than from a list I maintain
+# — a list would drift the same way my memory did.
+SERVER = os.environ.get("MALIGN_SERVER", "http://127.0.0.1:8421")
+UI = "ui/src/lib/components/SlotExplorer.svelte"
+
+
+def _live():
+    import urllib.request
+    try:
+        urllib.request.urlopen(SERVER + "/health", timeout=3).read()
+    except Exception:
+        pytest.skip("no server at %s" % SERVER)
+
+
+def _get(path, **kw):
+    import urllib.parse, urllib.request
+    u = SERVER + path + "?" + urllib.parse.urlencode(kw)
+    return json.loads(urllib.request.urlopen(u, timeout=900).read())
+
+
+def _fields_the_client_reads(func):
+    """Field names the Svelte source pulls off a response INSIDE one function.
+
+    Read from the source so this cannot drift: if someone adds `j.foo` to the
+    client, this test starts requiring `foo` without anyone remembering to.
+
+    SCOPED TO ONE FUNCTION, and the first version was not. `j` is the response
+    variable in BOTH `runAxis()` and `save()`, so a file-wide regex demanded
+    `saved`, `item_id`, `n_items` and `note` from the AXIS endpoint. A VARIABLE
+    NAME IS NOT A TYPE -- the third detector of mine to produce a false positive
+    today, and the same shape each time: the pattern matched a name where the
+    question was about a relation.
+
+    `error` is excluded: it is present only on failure, by design.
+    """
+    import re
+    src = open(os.path.join(ROOT, UI)).read()
+    i = src.index("async function %s(" % func)
+    depth, j = 0, src.index("{", i)
+    for k in range(j, len(src)):
+        if src[k] == "{": depth += 1
+        elif src[k] == "}":
+            depth -= 1
+            if depth == 0:
+                body = src[j:k]; break
+    return set(re.findall(r"\bj\.([a-z_]+)\b", body)) - {"error"}
+
+
+def test_slot_axis_returns_what_the_client_reads_WITH_a_word_list():
+    """The UI's own call shape. This is the one that broke."""
+    _live()
+    need = _fields_the_client_reads("runAxis")
+    assert need, "found no j.<field> reads in the client — has it been renamed?"
+    d = _get("/api/slot_axis", prompt="She slowly took off her",
+             naughty="bra,panties", nice="shoes,coat",
+             words="bra,panties,shoes,coat,clothes")
+    missing = [f for f in need if d.get(f) is None]
+    assert not missing, (
+        "the client reads %s and the server omitted %s for the WORD-LIST call "
+        "shape — the shape the app actually uses" % (sorted(need), missing))
+
+
+def test_slot_axis_returns_the_gate_WITHOUT_a_word_list():
+    """The agent's call shape: no words, so the endpoint expands and gates."""
+    _live()
+    d = _get("/api/slot_axis", prompt="She slowly took off her",
+             naughty="bra,panties", nice="shoes,coat")
+    for f in ("leverage", "verdict", "pole_gap", "n_poles", "lev_mover", "lev_dead"):
+        assert d.get(f) is not None, "no-words call omitted %r" % f
+    assert d["verdict"] in ("ok", "NO-LEVERAGE", "POLE-OF-ONE",
+                            "NO-LEVERAGE POLE-OF-ONE")
+
+
+def test_slot_pools_by_default_not_base_only():
+    """The morning regression: a pooled default the client overrode."""
+    _live()
+    d = _get("/api/slot", prompt="She slowly took off her", k=5)
+    assert d.get("n_models", 1) >= 2, (
+        "/api/slot answered with %d model(s); the default is meant to pool "
+        "base + SFT, and a silent fall back to one is what made the app run "
+        "base-only for an afternoon" % d.get("n_models", 1))
