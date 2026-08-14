@@ -7,7 +7,7 @@ digraph basin {
   edge [fontsize=8, color="#777777", fontcolor="#555555"];
   labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
   fontcolor="#555555";
-  label="EPISTEMIC basin. Sinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'epistemic' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\l";
+  label="EPISTEMIC basin — population: all displacement-coupled pairs.\lSinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'epistemic' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
   "understand" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
   "believe" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
   "realize" [fillcolor="#e8dff5", penwidth=2, fontsize=14];

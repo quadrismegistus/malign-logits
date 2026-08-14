@@ -7,7 +7,7 @@ digraph basin {
   edge [fontsize=8, color="#777777", fontcolor="#555555"];
   labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
   fontcolor="#555555";
-  label="EXPRESSION basin. Sinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'expression' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\l";
+  label="EXPRESSION basin — population: all displacement-coupled pairs.\lSinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'expression' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
   "shout" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
   "scream" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
   "gasped" [fillcolor="#fde2cf", penwidth=2, fontsize=14];

@@ -1,0 +1,45 @@
+// procedure basin watershed — sinks (computed: purity>=0.9,
+// in>=5) + top-6 feeders each + top-2 second-hop feeders.
+// All edges displacement-coupled and split-half certified.
+digraph basin {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=12];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="PROCEDURE basin — population: VERBS ONLY (795 coupled pairs, 419 words).\lSinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'procedure' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
+  "reach" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "prepare" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "continue" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "approach" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "examined" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "followed" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "replaced" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
+  "ask" -> "reach" [label="4x"];
+  "find" -> "reach" [label="4x"];
+  "mention" -> "reach" [label="3x"];
+  "send" -> "reach" [label="3x"];
+  "know" -> "prepare" [label="3x"];
+  "find" -> "prepare" [label="3x"];
+  "let" -> "prepare" [label="3x"];
+  "add" -> "prepare" [label="2x"];
+  "go" -> "followed" [label="2x"];
+  "take" -> "followed" [label="2x"];
+  "make" -> "followed" [label="2x"];
+  "kill" -> "followed" [label="2x"];
+  "brought" -> "examined" [label="2x"];
+  "like" -> "continue" [label="2x"];
+  "went" -> "examined" [label="2x"];
+  "walked" -> "examined" [label="2x"];
+  "note" -> "continue" [label="2x"];
+  "stuck" -> "examined" [label="2x"];
+  "add" -> "approach" [label="2x"];
+  "had" -> "replaced" [label="2x"];
+  "receive" -> "continue" [label="2x"];
+  "has" -> "replaced" [label="2x"];
+  "decide" -> "continue" [label="2x"];
+  "refuse" -> "approach" [label="2x"];
+  "required" -> "had" [label="4x"];
+  "kill" -> "went" [label="3x"];
+  "leave" -> "went" [label="3x"];
+}

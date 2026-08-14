@@ -1,0 +1,74 @@
+// Displacement network core — top-2 receivers per faller,
+// lift >= 3, displacement-coupled edges only (all split-half
+// certified; plan_pair_cascade.md). Edge label = shrunken
+// full-data presence lift. Basin clusters are curated over
+// computed sinks — a reading, not a property.
+digraph displacement {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=11];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="DISPLACEMENT NETWORK core map — population: VERBS ONLY (795 coupled pairs, 419 words).\lTop-2 receivers per faller at lift >= 3, fragments filtered.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lBasin colours are a READING, an editorial layer, not a computed property; the sink lists behind them are computed (purity >= 0.9, in-degree >= 5).\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
+  subgraph cluster_procedure { label="procedure"; style=filled; color="#d0e6f5";
+    "reach";
+    "prepare";
+  }
+  subgraph cluster_epistemic { label="epistemic"; style=filled; color="#e8dff5";
+    "believe";
+    "realize";
+    "question";
+  }
+  subgraph cluster_expression { label="expression"; style=filled; color="#fde2cf";
+    "shout";
+    "frowned";
+  }
+  subgraph cluster_stasis { label="stasis"; style=filled; color="#e2e2e2";
+    "remain";
+  }
+  "go" -> "proceeded" [label="6x"];
+  "leave" -> "proceeded" [label="5x"];
+  "take" -> "proceeded" [label="5x"];
+  "make" -> "proceeded" [label="5x"];
+  "turn" -> "proceeded" [label="5x"];
+  "required" -> "had" [label="4x"];
+  "marry" -> "spend" [label="4x"];
+  "bring" -> "proceeded" [label="4x"];
+  "ask" -> "reach" [label="4x"];
+  "return" -> "proceeded" [label="4x"];
+  "have" -> "try" [label="4x"];
+  "had" -> "believe" [label="4x"];
+  "had" -> "sign" [label="4x"];
+  "run" -> "proceeded" [label="4x"];
+  "murder" -> "throw" [label="4x"];
+  "start" -> "shout" [label="4x"];
+  "have" -> "proceeded" [label="4x"];
+  "please" -> "spend" [label="4x"];
+  "find" -> "reach" [label="4x"];
+  "mention" -> "reach" [label="3x"];
+  "send" -> "reach" [label="3x"];
+  "cry" -> "question" [label="3x"];
+  "sell" -> "proceeded" [label="3x"];
+  "throw" -> "did" [label="3x"];
+  "asked" -> "believe" [label="3x"];
+  "die" -> "see" [label="3x"];
+  "cry" -> "lose" [label="3x"];
+  "wait" -> "reach" [label="3x"];
+  "know" -> "prepare" [label="3x"];
+  "weep" -> "lose" [label="3x"];
+  "add" -> "reach" [label="3x"];
+  "stop" -> "look" [label="3x"];
+  "kill" -> "did" [label="3x"];
+  "play" -> "realize" [label="3x"];
+  "found" -> "frowned" [label="3x"];
+  "said" -> "sign" [label="3x"];
+  "murder" -> "tear" [label="3x"];
+  "speak" -> "realize" [label="3x"];
+  "run" -> "question" [label="3x"];
+  "leave" -> "did" [label="3x"];
+  "follow" -> "remain" [label="3x"];
+  "weep" -> "question" [label="3x"];
+  "wrote" -> "believe" [label="3x"];
+  "work" -> "kiss" [label="3x"];
+  "state" -> "allow" [label="3x"];
+}

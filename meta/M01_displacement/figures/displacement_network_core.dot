@@ -7,6 +7,9 @@ digraph displacement {
   rankdir=LR; node [shape=box, style="rounded,filled",
     fillcolor=white, fontname="Helvetica", fontsize=11];
   edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="DISPLACEMENT NETWORK core map — population: all displacement-coupled pairs.\lTop-2 receivers per faller at lift >= 3, fragments filtered.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lBasin colours are a READING, an editorial layer, not a computed property; the sink lists behind them are computed (purity >= 0.9, in-degree >= 5).\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
   subgraph cluster_procedure { label="procedure"; style=filled; color="#d0e6f5";
     "reach";
     "adjust";

@@ -52,10 +52,40 @@ BASIN_COLOR = {"procedure": "#d0e6f5", "epistemic": "#e8dff5",
                "expression": "#fde2cf", "stasis": "#e2e2e2"}
 
 
+#: plot-debt 13c(c). The verb-restricted population is a DIFFERENT
+#: population, not a cleaner view of the same one: lifts compress to
+#: roughly half, so a lift read off a verb figure and one read off a full
+#: figure are not comparable. Both sets of outputs live in figures/, so
+#: the source is stamped into every graph label and into every filename.
+#: Booked and asserted: the verb source carries 795 coupled pairs over 419
+#: words once fragments are filtered.
+SOURCES = {
+    "full": (PARQUET, "", "all displacement-coupled pairs"),
+    "verbs": (os.path.join(os.path.dirname(PARQUET),
+                           "pair_cascade_replicated_verbs.parquet"),
+              "_verbs", "VERBS ONLY (795 coupled pairs, 419 words)"),
+}
+SOURCE = "full"
+
+
 def load():
-    d = pd.read_parquet(PARQUET)
+    path, _, _ = SOURCES[SOURCE]
+    d = pd.read_parquet(path)
     d = d[~d.F.isin(FRAG) & ~d.R.isin(FRAG)]
-    return d[d.taxonomy == "displacement-coupled"].copy()
+    d = d[d.taxonomy == "displacement-coupled"].copy()
+    if SOURCE == "verbs":
+        n_w = len(set(d.F) | set(d.R))
+        assert (len(d), n_w) == (795, 419), \
+            f"verb population drifted: {len(d)} pairs / {n_w} words vs booked 795/419"
+    return d
+
+
+def _suffix():
+    return SOURCES[SOURCE][1]
+
+
+def _pop_line():
+    return SOURCES[SOURCE][2]
 
 
 def render(dot_path):
@@ -92,11 +122,15 @@ def core():
         #: reader meets the figure.
         '  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;',
         '  fontcolor="#555555";',
-        f'  label="{basin.upper()} basin. Sinks (bordered) are COMPUTED:'
-        f' purity >= 0.9, in-degree >= 5.\\lTheir grouping into a'
-        f' \'{basin}\' basin is a READING, an editorial layer, not a'
-        ' computed property.\\lEdges are displacement-coupled and'
-        ' split-half certified; labels are shrunken full-data lift.\\l";',
+        f'  label="DISPLACEMENT NETWORK core map — population: {_pop_line()}.'
+        '\\lTop-2 receivers per faller at lift >= 3, fragments filtered.'
+        '\\lEdges are displacement-coupled and split-half certified;'
+        ' labels are shrunken full-data lift.'
+        '\\lBasin colours are a READING, an editorial layer, not a computed'
+        ' property; the sink lists behind them are computed'
+        ' (purity >= 0.9, in-degree >= 5).'
+        '\\lLifts are NOT comparable across populations: the verb'
+        ' restriction compresses them to roughly half.\\l";',
     ]
     for b, ws in BASINS.items():
         present = [w for w in ws
@@ -113,7 +147,7 @@ def core():
                      f'[label="{t.lift_full:.0f}x"];')
     lines.append("}")
     os.makedirs(FIGURES, exist_ok=True)
-    path = os.path.join(FIGURES, "displacement_network_core.dot")
+    path = os.path.join(FIGURES, f"displacement_network_core{_suffix()}.dot")
     open(path, "w").write("\n".join(lines) + "\n")
     print(f"wrote {path}: {len(top2)} edges, "
           f"{len(set(top2.F) | set(top2.R))} words")
@@ -149,11 +183,14 @@ def basin_panel(basin):
         #: reader meets the figure.
         '  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;',
         '  fontcolor="#555555";',
-        f'  label="{basin.upper()} basin. Sinks (bordered) are COMPUTED:'
-        f' purity >= 0.9, in-degree >= 5.\\lTheir grouping into a'
-        f' \'{basin}\' basin is a READING, an editorial layer, not a'
-        ' computed property.\\lEdges are displacement-coupled and'
-        ' split-half certified; labels are shrunken full-data lift.\\l";',
+        f'  label="{basin.upper()} basin — population: {_pop_line()}.'
+        f'\\lSinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.'
+        f'\\lTheir grouping into a \'{basin}\' basin is a READING, an'
+        ' editorial layer, not a computed property.'
+        '\\lEdges are displacement-coupled and split-half certified;'
+        ' labels are shrunken full-data lift.'
+        '\\lLifts are NOT comparable across populations: the verb'
+        ' restriction compresses them to roughly half.\\l";',
     ]
     for w in sinks:
         if w in set(E.R):
@@ -163,7 +200,7 @@ def basin_panel(basin):
         lines.append(f'  "{t.F}" -> "{t.R}" '
                      f'[label="{t.lift_full:.0f}x"];')
     lines.append("}")
-    path = os.path.join(FIGURES, f"displacement_basin_{basin}.dot")
+    path = os.path.join(FIGURES, f"displacement_basin_{basin}{_suffix()}.dot")
     open(path, "w").write("\n".join(lines) + "\n")
     print(f"wrote {path}: {len(E)} edges")
     render(path)
@@ -171,6 +208,12 @@ def basin_panel(basin):
 
 if __name__ == "__main__":
     args = sys.argv[1:] or ["core", "procedure"]
+    #: --verbs switches the SOURCE POPULATION, not a display option, so it
+    #: renames every output rather than overwriting the full-population
+    #: figures beside it.
+    if "--verbs" in args:
+        SOURCE = "verbs"
+        args = [a for a in args if a != "--verbs"]
     for a in args:
         if a == "core":
             core()

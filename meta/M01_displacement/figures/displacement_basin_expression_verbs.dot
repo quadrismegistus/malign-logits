@@ -1,0 +1,43 @@
+// expression basin watershed — sinks (computed: purity>=0.9,
+// in>=5) + top-6 feeders each + top-2 second-hop feeders.
+// All edges displacement-coupled and split-half certified.
+digraph basin {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=12];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="EXPRESSION basin — population: VERBS ONLY (795 coupled pairs, 419 words).\lSinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'expression' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\lLifts are NOT comparable across populations: the verb restriction compresses them to roughly half.\l";
+  "shout" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "scream" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "gasped" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "laughed" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "shook" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "frowned" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "start" -> "shout" [label="4x"];
+  "found" -> "frowned" [label="3x"];
+  "noticed" -> "frowned" [label="3x"];
+  "leave" -> "shout" [label="3x"];
+  "realized" -> "frowned" [label="3x"];
+  "see" -> "scream" [label="3x"];
+  "decided" -> "frowned" [label="3x"];
+  "discovered" -> "gasped" [label="2x"];
+  "leave" -> "scream" [label="2x"];
+  "kill" -> "shout" [label="2x"];
+  "start" -> "scream" [label="2x"];
+  "kill" -> "scream" [label="2x"];
+  "yanked" -> "shook" [label="2x"];
+  "beat" -> "shook" [label="2x"];
+  "punched" -> "shook" [label="2x"];
+  "murder" -> "shout" [label="2x"];
+  "slapped" -> "shook" [label="2x"];
+  "had" -> "gasped" [label="2x"];
+  "broke" -> "laughed" [label="2x"];
+  "smashed" -> "laughed" [label="2x"];
+  "killed" -> "laughed" [label="2x"];
+  "got" -> "laughed" [label="2x"];
+  "wrote" -> "gasped" [label="1x"];
+  "required" -> "had" [label="4x"];
+  "die" -> "see" [label="3x"];
+  "scream" -> "see" [label="3x"];
+}
