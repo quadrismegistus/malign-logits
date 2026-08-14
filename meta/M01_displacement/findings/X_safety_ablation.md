@@ -149,6 +149,24 @@ The nine usable `sexual_explicit_*` prompts have no twins, so this is raw base�
 
 ---
 
+## 4a. A third instrument, on stimuli built to answer §4 — EXPLORATORY
+
+§4 says this finding runs on a population that barely engages the register safety training targets. RH built 22 items to that criticism — one prompt each, an author-declared naughty and nice branch, screened so both branches are live — and they were scored by a method sharing **no lexicon and no population** with §1: a per-prompt embedding axis from the declared poles, with `ΔN = Σ ΔP(w)·s(w)`. Producer `scripts/x_slot_ablation.py`, artifact `results/x_slot_ablation.json`.
+
+| arm | mean ΔN | items negative | vs full, paired | sign p |
+|---|---|---|---|---|
+| full | −0.02607 | 19/22 | — | — |
+| **no-safety** | −0.02398 | 19/22 | +0.00209 | **11/11, p=1.0** |
+| no-math | −0.02446 | 19/22 | +0.00161 | 0.83 |
+| no-persona | −0.02536 | 20/22 | +0.00070 | 1.0 |
+| **no-wildchat** | **−0.00556** | **12/22** | **+0.02050** | **0.00086** |
+
+**Removing the safety corpus is a literal coin flip: 11 items up, 11 down.** Removing WildChat recovers 79% of the full effect in 19 of 22 items. Robust to every cut tried — residual ≤ 0.30 (n=18), residual ≤ 0.25 with leverage above the dead reference (n=17), and **excluding the two largest movers**, where the effect halves and the sign test *strengthens* to 17/3, p=0.0026.
+
+**And the split names a mechanism §1 could not.** For full SFT, suppression (−0.0130) and substitution (−0.0131) are near-equal — alignment withdraws loaded words *and* lands mass on milder ones in equal measure. For `no-wildchat`, substitution collapses to **+0.0003**. WildChat is not doing more of the same thing; **it is specifically what supplies the replacement.** The clearest single case, `He was so attractive she felt herself get ___`: `wet` 0.229 → 0.047 while `weak` 0.162 → 0.448.
+
+**WHY THIS IS NOT A SECOND CONFIRMATION AT FULL STRENGTH.** The poles were declared while looking at the pooled base ∪ Tulu-SFT distribution, so they are **not independent of the outcome**. Blinding to source stops an author choosing prompts by effect size; it does not make the instrument independent. The cross-lineage test in `plans/plan_projected_displacement.md` §8 is the out-of-sample check, with its prediction written before the run.
+
 ## 5. The specification search, recorded because it is the honest bound
 
 Six metric families were run on one population, each chosen **after** seeing the previous return nothing:
@@ -197,6 +215,7 @@ Section 1 is the least exposed of the six: largest population, no set definition
 | share diagnostic (section 3) | `scripts/x_pair_ablation_share.py` |
 | McNemar / Fisher (section 3) | `scripts/x_pair_ablation_mcnemar.py` |
 | fixed-set recheck (section 3) | `scripts/x_pair_ablation_fixedset.py` |
+| projected ΔN on RH's items (4a) | `scripts/x_slot_ablation.py` → `results/x_slot_ablation.json` |
 | JS by role (section 3a) | `scripts/x_pair_ablation_decompose.py` → `results/x_pair_ablation_decompose.csv` |
 | K ratings | `malign_logits/fields.py`, `lexicons/k_ratings_{en,zh}.json` |
 | arms | `data/model_registry.json` — never a literal in any producer above |
