@@ -3,9 +3,10 @@
 **Status: the strongest positive result in M02, on two instruments, REPLICATED
 on disjoint passages.** Read by sixteen blind Opus readers over 1,600 passages
 in two independent rounds, aligned models produce a second-order predicate over
-the contradiction **3.37x [1.88, 6.30]** as often as their base arm (3.4% ->
-10.6%, p = 9.6e-06), while the same-side conjunction control sits at **exactly
-1.00** (5/300 against 5/300). Significant separately in each round (4.62,
+the contradiction at **3.37x [1.88, 6.30] the ODDS** of their base arm (3.4% ->
+10.6%, p = 9.6e-06; as a rate ratio, "as often", that is **3.12x**), while the
+same-side conjunction control sits at **exactly 1.00** (5/300 against 5/300)
+-- **but that 1.00 is not evidence of specificity; see the power caveat below.** Significant separately in each round (4.62,
 p = 0.00055; 2.70, p = 0.0073). Counted independently by regex over 52,559
 exit-free passages, **2.18x** against a pole control of **0.93x** — 20 of 22
 lineages, p = 0.00012. The two instruments share only 28% of their hits.
@@ -128,6 +129,29 @@ prompt -- so the same-side arm is a real question rather than a definitional NO.
     2            same-side        1.0%      4.0%    4.12      0.37
     POOLED       contradiction    3.4%     10.6%    3.37   9.6e-06   CI [1.88, 6.30]
     POOLED       same-side        1.7%      1.7%    1.00         1   CI [0.23, 4.39]
+
+**THE SAME-SIDE CONTROL IS UNDERPOWERED AND DOES NOT ESTABLISH SPECIFICITY**
+(lacan second-seat on dario's discharge, 2026-08-14). The OR is exactly 1.00
+because the cells are literally identical, 5 and 5, and the interval runs to
+**4.39, which CONTAINS the contradiction arm's point estimate of 3.37**. So the
+control cannot distinguish "no effect on same-side items" from "the same effect
+on same-side items": at 5/300 per arm it has almost no power against an effect
+of the size actually found. An OR of exactly 1.00 reads as clean specificity and
+is uninformative about it. **The title's "and only the contradiction" should be
+read as NOT YET SHOWN by this instrument.** The regex half's pole control
+(0.93x over 52,559 passages) is the specificity evidence that carries weight,
+and it is a different instrument on a different population -- which is a
+strength, but means the reader-based arm is not self-sufficient on the "only"
+claim. Note also the per-round same-side ORs are 0.25 and 4.12: unity is what
+those average to, not a value either round observed.
+
+**ESTIMATOR, recorded because a missing producer destroyed these choices once**
+(dario, [5906]; producer `scripts/opus_second_order_results.py`). The point
+estimate is an ODDS RATIO; the rate ratio is 3.12. The interval is the
+conditional-MLE interval from `scipy.stats.contingency.odds_ratio`, chosen so it
+matches the Fisher exact test rather than approximating it -- Woolf gives
+[1.92, 5.90] and misses the booked [1.88, 6.30]. Pooling is over BOTH rounds, so
+the published 3.37 is neither round 1's 4.62 nor round 2's 2.70.
 
 **Round 2 is a genuine replication**: 800 fresh passages drawn with a new seed
 and filtered against round 1's text, independently significant, with the pooled
