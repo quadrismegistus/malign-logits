@@ -605,8 +605,153 @@ def arm_auc():
     return out
 
 
+#: P section 7's ledger. R2 is the share of the AXIS's word-level variance a
+#: component explains (`k_length.py:13`), so these are not slices of one pie.
+BOOKED_7 = {"register": 0.1994, "brysbaert": 0.1183, "coder_conc": 0.0921,
+            "length_bge": 0.1386, "length_glove": 0.0921, "coder_reg": 0.0470}
+#: measured in confound_en.json; the reason the bars are not stacked
+BOOKED_RHO_REG_CONC = 0.493
+#: §7 row 6 has no producer emitting it yet (malign, [6171]: it is a solo-scale
+#: computation belonging to whichever producer owns those, not to k_register).
+UNEMITTED = {"coder_reg"}
+
+
+def ledger():
+    """P 15(2): what the direction is made of, and none of it is most of it."""
+    import csv
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_segment, geom_text, ggplot, labs,
+                          scale_color_identity, scale_x_continuous,
+                          scale_y_continuous, theme, theme_minimal)
+
+    reg = json.load(open(os.path.join(K, "register_en.json")))["index_table"]
+    con = json.load(open(os.path.join(K, "concreteness_en.json")))["measures"]
+    lbg = json.load(open(os.path.join(K, "length_en_bge.json")))
+    lgl = json.load(open(os.path.join(K, "length_en_glove.json")))
+    cnf = json.load(open(os.path.join(K, "confound_en.json")))
+
+    #: every row §7 prints, against the artifact that now holds it
+    checks = [
+        ("register", reg["SUBTLEX_over_coca_acad"]["r2_axis"]),
+        ("brysbaert", con["Brysbaert Conc.M"]["r2_axis"]),
+        ("coder_conc", con["coder concreteness"]["r2_axis"]),
+        ("length_bge", lbg["r2_length"]),
+        ("length_glove", lgl["r2_length"]),
+    ]
+    for name, got in checks:
+        assert abs(got - BOOKED_7[name]) < 5e-5, \
+            f"{name}: artifact {got:.6f} vs §7's {BOOKED_7[name]}"
+    #: THE COINCIDENCE THAT COST TWO SEATS AN HOUR, PINNED SO IT CANNOT
+    #: SILENTLY BECOME A DUPLICATION. coder concreteness and length/glove both
+    #: print 0.0921 and are 3.9e-05 apart; I read that as one row carrying the
+    #: other's value and was wrong ([6169]). If they ever become equal, that
+    #: IS the defect I claimed and this refuses to draw.
+    gap = abs(con["coder concreteness"]["r2_axis"] - lgl["r2_length"])
+    assert 1e-6 < gap < 1e-4, \
+        (f"coder-concreteness and length/glove R2 are {gap:.2e} apart; §7 "
+         "prints both as 0.0921 and they are distinct quantities that happen "
+         "to round together")
+
+    rho = cnf["bundle_rho"]["register index"]["concreteness"]
+    assert abs(rho - BOOKED_RHO_REG_CONC) < 0.001, \
+        f"register-concreteness rho drifted: {rho:.4f}"
+
+    #: each component with EVERY independent measure of it, because the
+    #: agreement between measures is the evidence the component is real
+    comps = [
+        ("register\n(4 genre indices)",
+         [v["r2_axis"] for v in reg.values()], "#1a7a6a", False),
+        ("concreteness\n(2 measures)",
+         [con["Brysbaert Conc.M"]["r2_axis"], con["coder concreteness"]["r2_axis"]],
+         "#1a7a6a", False),
+        ("word length\n(2 encoders)",
+         [lbg["r2_length"], lgl["r2_length"]], "#9a9a9a", False),
+        ("coder register_level\n(1 scale, printed only)",
+         [BOOKED_7["coder_reg"]], "#c0c0c0", True),
+    ]
+    rows, pts = [], []
+    for i, (lab, vals, col, unemitted) in enumerate(comps):
+        #: ANCHOR PAST THE FURTHEST DOT, NOT PAST THE BAR. Identical to the
+        #: field-poles fix and to the rule in this seat's own notes, which I
+        #: wrote down and then did not apply here: the per-measure dots sit
+        #: outside the mean, so a bar-anchored label lands on top of them.
+        rows.append({"y": len(comps) - 1 - i, "lab": lab,
+                     "m": sum(vals) / len(vals), "col": col, "lx": max(vals),
+                     "n": len(vals), "unemitted": unemitted})
+        for v in vals:
+            pts.append({"y": len(comps) - 1 - i, "r2": v})
+    df, pd_pts = pd.DataFrame(rows), pd.DataFrame(pts)
+
+    p = (
+        ggplot()
+        + geom_segment(df, aes(0, "y", xend="m", yend="y", color="col"), size=11)
+        + geom_point(pd_pts, aes("r2", "y"), size=2.0, color="#2b2b2b", alpha=0.8)
+        + geom_text(df, aes("lx", "y", label="lab"), size=7.2, ha="left",
+                    nudge_x=0.009, color="#222222", lineheight=1.15)
+        + scale_color_identity()
+        + scale_x_continuous(limits=(0, 0.34),
+                             breaks=[0, 0.05, 0.10, 0.15, 0.20],
+                             labels=["0%", "5%", "10%", "15%", "20%"])
+        + scale_y_continuous(breaks=[], limits=(-0.7, len(comps) - 0.3))
+        + labs(
+            title="No named component explains most of the direction, and they cannot be added up",
+            subtitle=(
+                "Each bar is the share of the AXIS's word-level variance that one named component\n"
+                "explains, with every independent measure of that component drawn as a dot. The\n"
+                "largest is register at 19.9%.\n"
+                "THESE ARE NOT SLICES AND THERE IS NO REMAINDER REGION ON THIS PANEL. Register and\n"
+                f"concreteness correlate at rho {BOOKED_RHO_REG_CONC}, and section 7b states that\n"
+                "interiority and abstraction are colinear BY CONSTRUCTION -- mental events score low\n"
+                "on concreteness by instruction. So 'removing register costs half the prediction' and\n"
+                "'removing concreteness costs a quarter' are two COUNTERFACTUALS, not two shares:\n"
+                "they overlap, they can sum past one, and an empty wedge labelled UNNAMED would be a\n"
+                "partition claim this finding explicitly denies.\n"
+                "WHAT THE MULTIPLE DOTS ARE FOR. Four genre indices for register spanning 16.8-19.9%,\n"
+                "two concreteness measures at 9.2% and 11.8%, two encoders for length. Components\n"
+                "whose independent measures agree are real; the agreement is the evidence, not the\n"
+                "single number, and it is the same argument the headroom ladder makes for GloVe\n"
+                "against bge.\n"
+                "LENGTH IS RULED OUT DESPITE ITS SIZE. Projecting it out rotates the axis by under 13\n"
+                "degrees and costs nothing predictively, which is why it is grey: a component can\n"
+                "explain variance in the axis and carry none of its prediction."),
+            x="share of the axis's word-level variance explained (R2)", y="",
+            caption=(
+                "Producer: meta/M01_displacement/scripts/plot_p_figs.py from results/k/{register_en,\n"
+                "concreteness_en, length_en_bge, length_en_glove, confound_en}.json.\n"
+                "Asserted before drawing: five of section 7's six rows against the artifacts that hold\n"
+                "them, each within 5e-05, and the register-concreteness rho.\n"
+                "THE SIXTH ROW IS PRINTED AND NOT REPRODUCED. coder register_level (n 6,084, R2 0.0470)\n"
+                "has no producer emitting it; it is a solo-scale computation and belongs to whichever\n"
+                "producer owns those. Drawn in pale grey and labelled as printed-only.\n"
+                "The register and concreteness artifacts were emitted on 2026-08-14 in response to this\n"
+                "figure: before that, three of these six rows existed only as terminal output typed into\n"
+                "the finding.\n"
+                "One assert here guards a coincidence rather than a value: coder concreteness and\n"
+                "length/glove both print 0.0921 and are 3.9e-05 apart. I reported that as one row\n"
+                "carrying the other's value and was wrong; the guard now refuses to draw if they ever\n"
+                "become equal, which is the defect I claimed."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(12.4, 5.8),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "p_named_components.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    for r in rows:
+        tag = "  PRINTED ONLY" if r["unemitted"] else ""
+        print(f"    {r['lab'].splitlines()[0]:<22} R2 {r['m']:.4f} over {r['n']} measure(s){tag}")
+    print(f"    register x concreteness rho {rho:.3f} -- not stacked, no remainder region")
+    return out
+
+
 REGISTRY = {"headroom": headroom, "field_poles": field_poles,
-            "arm_auc": arm_auc}
+            "arm_auc": arm_auc, "ledger": ledger}
 
 
 def main():
