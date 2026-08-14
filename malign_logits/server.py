@@ -57,6 +57,25 @@ def _get_slot_model(model_id):
     verbatim: a reader reaching the instrument by a different call path than the
     producer measures a different thing however correct the import.
     """
+    #: THE LOCK COVERS THE LOAD, NOT THE EXPANSION, and that is deliberate but
+    #: not free. This is a ThreadingHTTPServer, so two requests can run
+    #: `twp.expand` on the SAME resident model concurrently, and `twp.py`
+    #: declares `_BATCH` a known defect: module-level mutable state that
+    #: `next_dist` reads and writes for OOM backoff, "correct for a
+    #: single-process runner, wrong for a library two callers might drive at
+    #: once".
+    #:
+    #: TOLERABLE HERE, AND THE REASON IS MEASURED RATHER THAN ASSUMED: batch
+    #: size is a throughput knob, and batch COMPOSITION is verified not to move
+    #: a probability -- the same prefix alone and left-padded behind 39 pads
+    #: agree to 1.4e-06. So a race makes one request slower, never wrong.
+    #:
+    #: What it does NOT protect against is two concurrent expansions each
+    #: allocating activations on a card already holding two 8B checkpoints. If
+    #: an automated caller ever runs this in parallel and sees OOM, serialise
+    #: the expansion rather than widening the lock -- holding the lock across
+    #: expansion would serialise the LOAD too and make a cold second model wait
+    #: on a warm first one's queries.
     with _slot_lock:
         if model_id in _slot:
             return _slot[model_id]
