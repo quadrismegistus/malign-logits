@@ -1,0 +1,15 @@
+{
+ "_note": "instance ids recorded AT ACQUISITION, not at first failure \u2014 a blocklist key that dies with the box cannot be cited later",
+ "boxes": [
+  {
+   "id": 47625423,
+   "profile": "dense",
+   "gpu": "Q RTX 8000 48GB",
+   "usd_per_hr": 0.24064814814814817,
+   "ssh": "136.175.252.85:37313",
+   "acquired": "2026-08-13",
+   "shard": 0,
+   "of": 8
+  }
+ ]
+}

@@ -1,0 +1,424 @@
+{
+ "_fingerprint": {
+  "script": "meta/M04_syntagmatic/scripts/a_matched_control.py",
+  "commit": "UNCOMMITTED",
+  "file_sha256_16": "1fc02366ef3ad2dd",
+  "params": {
+   "retention": 0.85,
+   "comparison": "faller-matched",
+   "corpus": "passage"
+  }
+ },
+ "_reading": "truncated and full-length answer DIFFERENT questions; see the module docstring's declared table",
+ "diagnostic_interaction": {
+  "interaction_mean_len": [
+   0.8296256324142064,
+   -0.7848534315087363,
+   1.367849722991707,
+   -0.39764492753621994,
+   0.09329979274161815,
+   0.07013611388612162,
+   1.1618945152395952,
+   0.5488016231005588,
+   5.206116261312758,
+   -0.9266208455381957,
+   1.114175414799064,
+   2.138488774883797,
+   -4.502049253200568,
+   -2.836539323827452,
+   1.6779496262818157,
+   -4.126033152198751,
+   0.03070080668393871,
+   2.7096018915536604,
+   -0.49281038851350445,
+   30.28370812568241,
+   1.6237088983329215,
+   -0.9318958439656626,
+   -0.25807726903434514,
+   2.1653936565141976,
+   -0.433751134301275,
+   0.3734085324994396,
+   0.016615597473332855,
+   -0.2554064764492523,
+   0.04365705396938324,
+   -0.8822693850267456,
+   -0.8487840644126834,
+   0.07441700960222875,
+   -0.792127721815234,
+   3.61743197278912,
+   -1.2018879087779908,
+   1.762387546929233,
+   -0.37242161716170585,
+   -0.10963018003374714,
+   1.0378095882558114,
+   5.258672236233707,
+   0.02953036376527507,
+   -0.2489600265594447
+  ],
+  "interaction_p10_len": [
+   2.0,
+   -1.0,
+   15.899999999999977,
+   -15.199999999999989,
+   4.300000000000011,
+   -0.8999999999999773,
+   -10.699999999999989,
+   0.0999999999999659,
+   -7.0,
+   1.0,
+   -3.1000000000000227,
+   5.100000000000023,
+   -9.899999999999977,
+   5.400000000000034,
+   -1.0,
+   -7.300000000000011,
+   14.200000000000045,
+   7.0,
+   -2.0,
+   1.0,
+   11.399999999999977,
+   -7.7999999999999545,
+   4.0,
+   0.0,
+   1.0,
+   9.900000000000034,
+   -0.8999999999999773,
+   -6.0,
+   0.0,
+   2.0,
+   -7.899999999999977,
+   -3.0,
+   1.0,
+   11.0,
+   5.699999999999989,
+   18.900000000000034,
+   3.0,
+   -4.0,
+   21.0,
+   26.5,
+   0.0,
+   0.6999999999999886
+  ]
+ },
+ "k": 8,
+ "retention_rule_fired": false,
+ "survival_worst_cell": {
+  "8": 0.5825208913649025,
+  "16": 0.3077123955431755,
+  "32": 0.11847144846796658,
+  "64": 0.02437325905292479,
+  "128": 0.003046657381615599,
+  "200": 0.0006830601092896175,
+  "256": 0.00034153005464480874
+ },
+ "per_pair": {
+  "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": {
+   "n_sites": 113,
+   "delta_trunc_median": -0.11193576506298086,
+   "delta_full_median": -0.0359083170903185,
+   "sites_trunc_neg": 61,
+   "sites_full_neg": 62
+  },
+  "BAAI/Aquila2-7B>BAAI/AquilaChat2-7B": {
+   "n_sites": 103,
+   "delta_trunc_median": -0.0598596182622817,
+   "delta_full_median": 0.04154985720628446,
+   "sites_trunc_neg": 57,
+   "sites_full_neg": 47
+  },
+  "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": {
+   "n_sites": 106,
+   "delta_trunc_median": -0.09930782103367619,
+   "delta_full_median": -0.05379403755064782,
+   "sites_trunc_neg": 61,
+   "sites_full_neg": 61
+  },
+  "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": {
+   "n_sites": 9,
+   "delta_trunc_median": -0.2721745367779249,
+   "delta_full_median": -0.0022746071088231012,
+   "sites_trunc_neg": 8,
+   "sites_full_neg": 5
+  },
+  "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": {
+   "n_sites": 109,
+   "delta_trunc_median": -0.1035957159733698,
+   "delta_full_median": 0.008858209409116302,
+   "sites_trunc_neg": 63,
+   "sites_full_neg": 53
+  },
+  "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": {
+   "n_sites": 111,
+   "delta_trunc_median": 0.07533310700910079,
+   "delta_full_median": -0.022367118331663605,
+   "sites_trunc_neg": 52,
+   "sites_full_neg": 60
+  },
+  "LLM360/Amber>LLM360/AmberSafe": {
+   "n_sites": 103,
+   "delta_trunc_median": 0.13182371678058757,
+   "delta_full_median": 0.015886870779910467,
+   "sites_trunc_neg": 46,
+   "sites_full_neg": 49
+  },
+  "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": {
+   "n_sites": 110,
+   "delta_trunc_median": 0.00598948939540378,
+   "delta_full_median": -0.03472593196265206,
+   "sites_trunc_neg": 55,
+   "sites_full_neg": 58
+  },
+  "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": {
+   "n_sites": 97,
+   "delta_trunc_median": -0.07971201584399523,
+   "delta_full_median": 0.036805096128024184,
+   "sites_trunc_neg": 53,
+   "sites_full_neg": 46
+  },
+  "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": {
+   "n_sites": 102,
+   "delta_trunc_median": -0.081693795804199,
+   "delta_full_median": 0.01494484307316446,
+   "sites_trunc_neg": 60,
+   "sites_full_neg": 48
+  },
+  "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": {
+   "n_sites": 94,
+   "delta_trunc_median": -0.020499146514538324,
+   "delta_full_median": -0.024425639639425567,
+   "sites_trunc_neg": 49,
+   "sites_full_neg": 52
+  },
+  "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": {
+   "n_sites": 107,
+   "delta_trunc_median": -0.1707570410206074,
+   "delta_full_median": -0.07063018892883433,
+   "sites_trunc_neg": 65,
+   "sites_full_neg": 63
+  },
+  "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": {
+   "n_sites": 111,
+   "delta_trunc_median": -0.0694430251240874,
+   "delta_full_median": -0.034819522692352445,
+   "sites_trunc_neg": 59,
+   "sites_full_neg": 60
+  },
+  "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO": {
+   "n_sites": 103,
+   "delta_trunc_median": -0.05384556790181705,
+   "delta_full_median": -0.029667394188843677,
+   "sites_trunc_neg": 54,
+   "sites_full_neg": 54
+  },
+  "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat": {
+   "n_sites": 110,
+   "delta_trunc_median": -0.03178859170648707,
+   "delta_full_median": 0.057024328390538725,
+   "sites_trunc_neg": 57,
+   "sites_full_neg": 45
+  },
+  "bigscience/bloom-7b1>bigscience/bloomz-7b1": {
+   "n_sites": 109,
+   "delta_trunc_median": -0.07180738520939967,
+   "delta_full_median": -0.08482652008687719,
+   "sites_trunc_neg": 63,
+   "sites_full_neg": 60
+  },
+  "croissantllm/CroissantLLMBase>croissantllm/CroissantLLMChat-v0.1": {
+   "n_sites": 106,
+   "delta_trunc_median": -0.07307857855940947,
+   "delta_full_median": -0.02498854350725499,
+   "sites_trunc_neg": 56,
+   "sites_full_neg": 54
+  },
+  "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat": {
+   "n_sites": 94,
+   "delta_trunc_median": -0.1618592787565225,
+   "delta_full_median": 0.024006359084278506,
+   "sites_trunc_neg": 57,
+   "sites_full_neg": 47
+  },
+  "google/gemma-2-9b>google/gemma-2-9b-it": {
+   "n_sites": 111,
+   "delta_trunc_median": -0.10340601296593377,
+   "delta_full_median": -0.013729836042474686,
+   "sites_trunc_neg": 62,
+   "sites_full_neg": 62
+  },
+  "google/recurrentgemma-9b>google/recurrentgemma-9b-it": {
+   "n_sites": 111,
+   "delta_trunc_median": -0.2601686676741055,
+   "delta_full_median": -0.3412401857133416,
+   "sites_trunc_neg": 61,
+   "sites_full_neg": 61
+  },
+  "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": {
+   "n_sites": 106,
+   "delta_trunc_median": -0.09801101605683016,
+   "delta_full_median": -0.014806370543930525,
+   "sites_trunc_neg": 64,
+   "sites_full_neg": 56
+  },
+  "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": {
+   "n_sites": 112,
+   "delta_trunc_median": -0.009139208065576554,
+   "delta_full_median": 0.006598291487552865,
+   "sites_trunc_neg": 57,
+   "sites_full_neg": 55
+  },
+  "inceptionai/jais-family-6p7b>inceptionai/jais-family-6p7b-chat": {
+   "n_sites": 102,
+   "delta_trunc_median": -0.1345253625401739,
+   "delta_full_median": 0.09410078113176756,
+   "sites_trunc_neg": 61,
+   "sites_full_neg": 40
+  },
+  "internlm/internlm2-base-7b>internlm/internlm2-chat-7b": {
+   "n_sites": 99,
+   "delta_trunc_median": 0.04289898012575577,
+   "delta_full_median": 0.046335657142848596,
+   "sites_trunc_neg": 48,
+   "sites_full_neg": 44
+  },
+  "kakaocorp/kanana-1.5-8b-base>kakaocorp/kanana-1.5-8b-instruct-2505": {
+   "n_sites": 7,
+   "delta_trunc_median": 0.017608418270185666,
+   "delta_full_median": 0.05829561898182467,
+   "sites_trunc_neg": 3,
+   "sites_full_neg": 3
+  },
+  "kakaocorp/kanana-2-3b-base>kakaocorp/kanana-2-3b-instruct": {
+   "n_sites": 113,
+   "delta_trunc_median": -0.1808982655602449,
+   "delta_full_median": -0.002463921728378171,
+   "sites_trunc_neg": 68,
+   "sites_full_neg": 57
+  },
+  "llm-jp/llm-jp-3-7.2b>llm-jp/llm-jp-3-7.2b-instruct3": {
+   "n_sites": 104,
+   "delta_trunc_median": -0.10155082108681301,
+   "delta_full_median": -0.05327109085259296,
+   "sites_trunc_neg": 57,
+   "sites_full_neg": 61
+  },
+  "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": {
+   "n_sites": 111,
+   "delta_trunc_median": -0.06512344227516564,
+   "delta_full_median": 0.036505660211999524,
+   "sites_trunc_neg": 63,
+   "sites_full_neg": 51
+  },
+  "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": {
+   "n_sites": 109,
+   "delta_trunc_median": 0.029804526920997887,
+   "delta_full_median": 0.041449878071265545,
+   "sites_trunc_neg": 51,
+   "sites_full_neg": 49
+  },
+  "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct": {
+   "n_sites": 113,
+   "delta_trunc_median": 0.0682616527465143,
+   "delta_full_median": 0.08615021576731374,
+   "sites_trunc_neg": 51,
+   "sites_full_neg": 52
+  },
+  "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": {
+   "n_sites": 110,
+   "delta_trunc_median": -0.0865912051587685,
+   "delta_full_median": -0.02772396971794633,
+   "sites_trunc_neg": 63,
+   "sites_full_neg": 63
+  },
+  "openGPT-X/Teuken-7B-base-v0.6>openGPT-X/Teuken-7B-instruct-v0.6": {
+   "n_sites": 112,
+   "delta_trunc_median": -0.04664012118932703,
+   "delta_full_median": 0.009652628591065415,
+   "sites_trunc_neg": 58,
+   "sites_full_neg": 54
+  },
+  "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": {
+   "n_sites": 105,
+   "delta_trunc_median": 0.006598088123739743,
+   "delta_full_median": -0.1267054032799213,
+   "sites_trunc_neg": 52,
+   "sites_full_neg": 64
+  },
+  "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b": {
+   "n_sites": 110,
+   "delta_trunc_median": 0.0017241364517417423,
+   "delta_full_median": 0.04415671455035142,
+   "sites_trunc_neg": 55,
+   "sites_full_neg": 50
+  },
+  "team-hatakeyama-phase2/Tanuki-8B-base-v1.0>weblab-GENIAC/Tanuki-8B-dpo-v1.0": {
+   "n_sites": 49,
+   "delta_trunc_median": -0.043580330502663855,
+   "delta_full_median": -0.0018389495552457724,
+   "sites_trunc_neg": 29,
+   "sites_full_neg": 25
+  },
+  "tiiuae/Falcon-H1-7B-Base>tiiuae/Falcon-H1-7B-Instruct": {
+   "n_sites": 115,
+   "delta_trunc_median": -0.0714508578489017,
+   "delta_full_median": -0.04334614250783764,
+   "sites_trunc_neg": 62,
+   "sites_full_neg": 67
+  },
+  "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": {
+   "n_sites": 87,
+   "delta_trunc_median": 0.02903272773471599,
+   "delta_full_median": -0.03996378709788351,
+   "sites_trunc_neg": 39,
+   "sites_full_neg": 50
+  },
+  "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": {
+   "n_sites": 101,
+   "delta_trunc_median": -0.004500507846159962,
+   "delta_full_median": 0.007878839855921083,
+   "sites_trunc_neg": 51,
+   "sites_full_neg": 50
+  },
+  "tiiuae/Falcon3-Mamba-7B-Base>tiiuae/Falcon3-Mamba-7B-Instruct": {
+   "n_sites": 109,
+   "delta_trunc_median": -0.2133388993987353,
+   "delta_full_median": -0.0394841392916323,
+   "sites_trunc_neg": 70,
+   "sites_full_neg": 59
+  },
+  "tiiuae/falcon-mamba-7b>tiiuae/falcon-mamba-7b-instruct": {
+   "n_sites": 90,
+   "delta_trunc_median": -0.04601110702672684,
+   "delta_full_median": -0.09839693220113688,
+   "sites_trunc_neg": 49,
+   "sites_full_neg": 52
+  },
+  "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": {
+   "n_sites": 63,
+   "delta_trunc_median": -0.13733983970882946,
+   "delta_full_median": 0.00846538596924784,
+   "sites_trunc_neg": 39,
+   "sites_full_neg": 31
+  },
+  "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": {
+   "n_sites": 112,
+   "delta_trunc_median": -0.06219876603525165,
+   "delta_full_median": -0.03512839113576072,
+   "sites_trunc_neg": 58,
+   "sites_full_neg": 59
+  }
+ },
+ "sign_trunc": {
+  "n": 42,
+  "neg": 32,
+  "pos": 10,
+  "ties": 0,
+  "p": 0.0009406740282429382
+ },
+ "sign_full": {
+  "n": 42,
+  "neg": 24,
+  "pos": 18,
+  "ties": 0,
+  "p": 0.44079906734259566
+ }
+}

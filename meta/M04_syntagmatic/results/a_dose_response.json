@@ -1,0 +1,244 @@
+{
+ "k": 8,
+ "n_sites": 4158,
+ "_fingerprint": {
+  "script": "meta/M04_syntagmatic/scripts/a_matched_control.py",
+  "commit": "UNCOMMITTED",
+  "file_sha256_16": "350b007652a08fa4",
+  "params": {
+   "k": 8,
+   "arms": "data/forced_arms_46reps_drmatch.json"
+  }
+ },
+ "k_meta": {
+  "instrument_sha256": "5b59a44ca94fd84d7db4eb18c4191603adcb4babc2a91f3f9c834219f245ab18",
+  "model": "deepseek/deepseek-v4-flash",
+  "n_words": 27242,
+  "built": "2026-08-12"
+ },
+ "demotion": {
+  "D_aligned": {
+   "n_pairs": 41,
+   "median_rho": -0.0026688046391073234,
+   "neg": 22,
+   "pos": 19,
+   "p": 0.755228657504631
+  },
+  "D_base": {
+   "n_pairs": 40,
+   "median_rho": 0.006771867099521097,
+   "neg": 19,
+   "pos": 21,
+   "p": 0.8746293123804207
+  },
+  "TRIPLE": {
+   "n_pairs": 41,
+   "median_rho": -0.0014917514917514917,
+   "neg": 21,
+   "pos": 20,
+   "p": 1.0
+  },
+  "t_B|A": {
+   "n_pairs": 41,
+   "median_rho": -0.027368975969775514,
+   "neg": 26,
+   "pos": 15,
+   "p": 0.11727520595741225
+  },
+  "t_A|A": {
+   "n_pairs": 41,
+   "median_rho": -0.0054865541104073216,
+   "neg": 21,
+   "pos": 20,
+   "p": 1.0
+  }
+ },
+ "basegap": {
+  "t_B|A": {
+   "n_pairs": 41,
+   "median_rho": 0.01527752775277528,
+   "neg": 12,
+   "pos": 29,
+   "p": 0.011507789735333063
+  },
+  "t_B|B": {
+   "n_pairs": 40,
+   "median_rho": 0.023490648231274586,
+   "neg": 17,
+   "pos": 23,
+   "p": 0.42959050784338615
+  },
+  "t_A|A": {
+   "n_pairs": 41,
+   "median_rho": 0.00964740032442585,
+   "neg": 20,
+   "pos": 21,
+   "p": 1.0
+  },
+  "D_aligned": {
+   "n_pairs": 41,
+   "median_rho": -0.004096525574704432,
+   "neg": 23,
+   "pos": 18,
+   "p": 0.5327092552361137
+  }
+ },
+ "domain": {
+  "animal": {
+   "n_pairs": 41,
+   "median": -0.056212138195064654,
+   "neg": 31,
+   "pos": 10,
+   "p": 0.0014504910141113214
+  },
+  "betrayal": {
+   "n_pairs": 40,
+   "median": -0.0862002975073608,
+   "neg": 27,
+   "pos": 13,
+   "p": 0.03847730828420026
+  },
+  "property": {
+   "n_pairs": 40,
+   "median": -0.03206515163955714,
+   "neg": 24,
+   "pos": 16,
+   "p": 0.26818725105476915
+  },
+  "sexual": {
+   "n_pairs": 41,
+   "median": -0.043580330502663855,
+   "neg": 26,
+   "pos": 15,
+   "p": 0.11727520595741225
+  },
+  "taboo": {
+   "n_pairs": 40,
+   "median": -0.03631182836917901,
+   "neg": 25,
+   "pos": 15,
+   "p": 0.1538599441628321
+  },
+  "violence": {
+   "n_pairs": 41,
+   "median": -0.043582043086715316,
+   "neg": 28,
+   "pos": 13,
+   "p": 0.027533155829587486
+  },
+  "transgressive": {
+   "n_pairs": 42,
+   "median": -0.05047973976209619,
+   "neg": 29,
+   "pos": 13,
+   "p": 0.019520472782460274
+  },
+  "non-transgressive": {
+   "n_pairs": 41,
+   "median": -0.0567652225041968,
+   "neg": 32,
+   "pos": 9,
+   "p": 0.000430857042374555
+  }
+ },
+ "k_norms": {
+  "charge/faller": {
+   "n_pairs": 41,
+   "median_rho": 0.017829591035489856,
+   "neg": 17,
+   "pos": 24,
+   "p": 0.34888887944907765
+  },
+  "charge/f-m": {
+   "n_pairs": 41,
+   "median_rho": 0.06739583297331839,
+   "neg": 15,
+   "pos": 26,
+   "p": 0.11727520595741225
+  },
+  "concreteness/faller": {
+   "n_pairs": 41,
+   "median_rho": 0.025714672985599124,
+   "neg": 15,
+   "pos": 26,
+   "p": 0.11727520595741225
+  },
+  "concreteness/f-m": {
+   "n_pairs": 41,
+   "median_rho": 0.020033911089115897,
+   "neg": 18,
+   "pos": 23,
+   "p": 0.5327092552361137
+  },
+  "transgressiveness/faller": {
+   "n_pairs": 41,
+   "median_rho": 0.023332129582105725,
+   "neg": 16,
+   "pos": 25,
+   "p": 0.21102359760880063
+  },
+  "transgressiveness/f-m": {
+   "n_pairs": 41,
+   "median_rho": 0.04344278417219768,
+   "neg": 13,
+   "pos": 28,
+   "p": 0.027533155829587486
+  },
+  "bodily_harm/faller": {
+   "n_pairs": 41,
+   "median_rho": 0.043446745577868984,
+   "neg": 16,
+   "pos": 25,
+   "p": 0.21102359760880063
+  },
+  "bodily_harm/f-m": {
+   "n_pairs": 41,
+   "median_rho": 0.03846191441556129,
+   "neg": 13,
+   "pos": 28,
+   "p": 0.027533155829587486
+  },
+  "valence/faller": {
+   "n_pairs": 41,
+   "median_rho": -0.010172412153784324,
+   "neg": 23,
+   "pos": 18,
+   "p": 0.5327092552361137
+  },
+  "valence/f-m": {
+   "n_pairs": 41,
+   "median_rho": -0.008626401266583338,
+   "neg": 21,
+   "pos": 20,
+   "p": 1.0
+  },
+  "register_level/faller": {
+   "n_pairs": 40,
+   "median_rho": -0.01744721335969232,
+   "neg": 24,
+   "pos": 16,
+   "p": 0.26818725105476915
+  },
+  "register_level/f-m": {
+   "n_pairs": 41,
+   "median_rho": -0.0007841145986568545,
+   "neg": 21,
+   "pos": 20,
+   "p": 1.0
+  },
+  "vulgarity/faller": {
+   "n_pairs": 18,
+   "median_rho": 0.01686465138218652,
+   "neg": 8,
+   "pos": 10,
+   "p": 0.8145294189453125
+  },
+  "vulgarity/f-m": {
+   "n_pairs": 29,
+   "median_rho": -0.007030100150895228,
+   "neg": 15,
+   "pos": 14,
+   "p": 1.0
+  }
+ }
+}

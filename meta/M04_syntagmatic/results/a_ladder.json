@@ -1,0 +1,65 @@
+{
+ "faller  \u2212 nonmover   (DOWN vs 0)": {
+  "median": -0.06728323369962652,
+  "neg": 32,
+  "pos": 10,
+  "n_pairs": 42,
+  "p_sign": 0.0009406740282429382,
+  "p_perm": 0.0004997501249375312,
+  "n_sites": 4158
+ },
+ "riser-m \u2212 nonmover   (UP vs 0)": {
+  "median": 0.03446999844537402,
+  "neg": 14,
+  "pos": 28,
+  "n_pairs": 42,
+  "p_sign": 0.04355852192384191,
+  "p_perm": 0.9895052473763118,
+  "n_sites": 4030
+ },
+ "faller  \u2212 riser-m    (DOWN vs UP)": {
+  "median": -0.08058619015705903,
+  "neg": 35,
+  "pos": 7,
+  "n_pairs": 42,
+  "p_sign": 1.5097200957825407e-05,
+  "p_perm": 0.0004997501249375312,
+  "n_sites": 4031
+ },
+ "A|A only: faller \u2212 nonmover": {
+  "median": -0.02622513393556858,
+  "neg": 25,
+  "pos": 17,
+  "n_pairs": 42,
+  "p_sign": 0.27995623852893914,
+  "p_perm": 0.14592703648175911,
+  "n_sites": 4158
+ },
+ "A|A only: riser-m \u2212 nonmover": {
+  "median": 0.0301776908184479,
+  "neg": 13,
+  "pos": 29,
+  "n_pairs": 42,
+  "p_sign": 0.019520472782460274,
+  "p_perm": 0.9975012493753124,
+  "n_sites": 4030
+ },
+ "B|A only: faller \u2212 nonmover": {
+  "median": 0.04401594137198117,
+  "neg": 12,
+  "pos": 30,
+  "n_pairs": 42,
+  "p_sign": 0.007915897334896727,
+  "p_perm": 0.9975012493753124,
+  "n_sites": 4158
+ },
+ "B|A only: riser-m \u2212 nonmover": {
+  "median": 0.01633474736952234,
+  "neg": 16,
+  "pos": 26,
+  "n_pairs": 42,
+  "p_sign": 0.16414940178310644,
+  "p_perm": 0.9700149925037481,
+  "n_sites": 4030
+ }
+}

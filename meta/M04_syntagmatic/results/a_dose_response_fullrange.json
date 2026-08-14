@@ -1,0 +1,43 @@
+{
+ "k": 8,
+ "n_arm_sites": 15489,
+ "rho": {
+  "D_aligned": {
+   "n_pairs": 42,
+   "median_rho": 0.07688535083533435,
+   "neg": 3,
+   "pos": 39,
+   "p": 5.631591193377972e-09
+  },
+  "D_base": {
+   "n_pairs": 41,
+   "median_rho": 0.0578587951040839,
+   "neg": 3,
+   "pos": 38,
+   "p": 1.0479197953827679e-08
+  },
+  "B|A": {
+   "n_pairs": 42,
+   "median_rho": -0.02415009071518672,
+   "neg": 26,
+   "pos": 16,
+   "p": 0.16414940178310644
+  },
+  "A|A": {
+   "n_pairs": 42,
+   "median_rho": 0.0692375698217157,
+   "neg": 7,
+   "pos": 35,
+   "p": 1.5097200957825407e-05
+  }
+ },
+ "_fingerprint": {
+  "script": "meta/M04_syntagmatic/scripts/a_matched_control.py",
+  "commit": "UNCOMMITTED",
+  "file_sha256_16": "350b007652a08fa4",
+  "params": {
+   "k": 8,
+   "arms": "data/forced_arms_46reps_drmatch.json"
+  }
+ }
+}
