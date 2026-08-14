@@ -148,10 +148,20 @@ def main():
            "ladders": {}, "superseded": {}}
     rows = []
 
+    #: ARM LABELS ARE `REAL` / `CROSSGROUP`, NOT `real` / `null`.
+    #: The first version labelled the second arm `null`, which is in pandas'
+    #: DEFAULT missing-value set -- so `pd.read_csv` turned the label of the
+    #: null arm into NaN for every reader, and `df[df.column == "null"]`
+    #: returned ZERO rows against 13 present on disk. @dario found it within
+    #: minutes of opening the file ([5966]). Renaming beats telling readers to
+    #: pass `keep_default_na=False`, which is a fix each one has to remember.
+    #: Note what it reproduced: the SOURCE file labels its real arm and leaves
+    #: the null arm empty, and this file fixed that and then had the reader put
+    #: it back. Same two-arm-one-label defect, opposite end of the pipe.
     for name, sub, ckcol, val, src in (
-            ("real", realf, "__ck", "sep",
+            ("REAL", realf, "__ck", "sep",
              "m05_pole_sep_crossgroup_null.csv (group_x == group_y)"),
-            ("null", cross, "__ck", "sep",
+            ("CROSSGROUP", cross, "__ck", "sep",
              "m05_pole_sep_crossgroup_null.csv (group_x != group_y)")):
         #: RULE 3, per ladder: a group must be present at EVERY checkpoint of
         #: that ladder, else a curve moves when composition moves.
@@ -180,15 +190,39 @@ def main():
                              "value": float(v), "n_groups": len(common)})
 
     df = pd.DataFrame(rows)
-    df.to_csv(os.path.join(OUTD, "m05_pole_sep_reduced.csv"), index=False)
+
+    #: THE GENERAL GUARD, worth more than the rename above. A categorical whose
+    #: VALUE collides with a reserved missing-value token is unreadable by
+    #: default, and the collision is invisible in the file -- it happens in the
+    #: reader. Refuse to write any object column holding one, rather than fix
+    #: the one instance that was found. Round-trip asserted on top, since the
+    #: guard is a claim about pandas and the round trip is a measurement.
+    from pandas._libs.parsers import STR_NA_VALUES
+    for col in df.columns:
+        if df[col].dtype != object:
+            continue
+        bad = sorted(set(df[col].astype(str)) & set(STR_NA_VALUES))
+        if bad:
+            raise SystemExit(
+                "column %r holds value(s) %r that pandas reads as NaN by "
+                "default; rename them (see the arm-label comment above)."
+                % (col, bad))
+    path = os.path.join(OUTD, "m05_pole_sep_reduced.csv")
+    df.to_csv(path, index=False)
+    back = pd.read_csv(path)
+    if len(back) != len(df) or back.isna().any().any():
+        raise SystemExit("round trip lost data: %d rows out, %d back, %d NaN"
+                         % (len(df), len(back), int(back.isna().sum().sum())))
+    print("GUARD    no emitted label collides with pandas NA tokens; "
+          "round trip %d rows, 0 NaN" % len(back))
 
     #: EVERYTHING ABOVE IS COMPUTED. Only now are the superseded values read.
     print("\nAGAINST THE SUPERSEDED VALUES (comparison only; not used above)")
     print("  %-42s %-14s %-14s" % ("checkpoint", "real  was->now", "null  was->now"))
     look = {(r["checkpoint"], r["column"]): r["value"] for _, r in df.iterrows()}
     for ck, (was_r, was_n) in SUPERSEDED.items():
-        now_r = look.get((ck, "real"))
-        now_n = look.get((ck, "null"))
+        now_r = look.get((ck, "REAL"))
+        now_n = look.get((ck, "CROSSGROUP"))
         out["superseded"][ck] = {"real_was": was_r, "real_now": now_r,
                                  "null_was": was_n, "null_now": now_n}
         f = lambda w, n: "%.3f->%s" % (w, "%.4f" % n if n is not None else "ABSENT")
@@ -197,8 +231,8 @@ def main():
 
     #: THE PREDICTION THE PLAN RECORDED: co-movement, not levels.
     for lad in ("olmo", "pythia"):
-        r = out["ladders"].get("%s|real" % lad, {}).get("values", {})
-        n = out["ladders"].get("%s|null" % lad, {}).get("values", {})
+        r = out["ladders"].get("%s|REAL" % lad, {}).get("values", {})
+        n = out["ladders"].get("%s|CROSSGROUP" % lad, {}).get("values", {})
         both = sorted(set(r) & set(n), key=ck_order)
         if len(both) > 2:
             from scipy import stats

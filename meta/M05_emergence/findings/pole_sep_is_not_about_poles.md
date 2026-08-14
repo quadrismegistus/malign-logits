@@ -55,6 +55,9 @@ common group set; median throughout.
 
     OLMo   21 of 21 common groups, 7 checkpoints
     Pythia 21 of 21 common groups, 6 checkpoints
+    arms are labelled REAL / CROSSGROUP in the CSV, NOT real / null:
+    `null` is in pandas' default missing-value set, so the first version
+    of this file had its null arm silently read as NaN ([5966])
     OLMo real cross-checks against m05_pole_sep.csv: 4,851 cells, max
     relative 2.02e-05 (the null file stores ~6 significant figures)
 

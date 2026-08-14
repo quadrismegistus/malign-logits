@@ -8,7 +8,7 @@
   "4_statistic": "median throughout"
  },
  "ladders": {
-  "olmo|real": {
+  "olmo|REAL": {
    "n_checkpoints": 7,
    "n_groups_common": 21,
    "n_groups_any": 21,
@@ -24,7 +24,7 @@
     "allenai/Olmo-3-1025-7B@stage3-step10000": 0.468938
    }
   },
-  "pythia|real": {
+  "pythia|REAL": {
    "n_checkpoints": 6,
    "n_groups_common": 21,
    "n_groups_any": 21,
@@ -39,7 +39,7 @@
     "EleutherAI/pythia-6.9b@step143000": 0.185874
    }
   },
-  "olmo|null": {
+  "olmo|CROSSGROUP": {
    "n_checkpoints": 7,
    "n_groups_common": 210,
    "n_groups_any": 210,
@@ -55,7 +55,7 @@
     "allenai/Olmo-3-1025-7B@stage3-step10000": 1.0078205
    }
   },
-  "pythia|null": {
+  "pythia|CROSSGROUP": {
    "n_checkpoints": 6,
    "n_groups_common": 210,
    "n_groups_any": 210,
