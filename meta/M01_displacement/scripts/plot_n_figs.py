@@ -280,15 +280,29 @@ def n_z_ceiling():
         + scale_x_continuous(limits=(4.0, 9.0))
         + labs(
             title="Do not plot the per-cluster z: 33 of 34 values are one float",
+            #: WRAPPED SHORT, AND SHORTER THAN THE FIGURE WIDTH SUGGESTS.
+            #: This subtitle was CUT when shipped, losing the second half of
+            #: the provenance line: the restoration commit 8beecd00 vanished,
+            #: leaving a figure that says the correction was dropped from the
+            #: doc and not that it was put back.
+            #: THE REASON IT WAS CUT AT ONLY ~99% OF THE FIGURE WIDTH is that
+            #: plotnine anchors the title and subtitle to the PANEL, not the
+            #: canvas, and this figure's y-axis holds full checkpoint names.
+            #: They push the panel right by roughly a quarter of the canvas,
+            #: so the text has ~7.8in of a 10.5in figure. A width budget read
+            #: off `figure_size` is therefore too generous whenever the axis
+            #: labels are long, which is exactly when a figure needs prose.
             subtitle=(
-                f"Every cluster z at {ceiling} is the saturation point of "
+                f"Every cluster z at {ceiling} is the saturation point of\n"
                 "n_primary.py::_ppf, which inverts the normal CDF by bisection on math.erf.\n"
-                "Below about p = 1e-16 that CDF evaluates to exactly 0.0 in double precision, so "
-                "p = 1e-17 and p = 1e-300 return the identical z.\n"
-                "The apparent agreement across clusters is float64, not evidence. The Stouffer Z of "
-                f"{BOOKED['stouffer_Z']:.2f} is a floor for this reason as well as for the conservative-clustering reason.\n"
-                "Booked as correction [4134] on 2026-08-04; dropped from N_mass_migration.md in the 2026-08-12 rewrite; "
-                "rediscovered from the artifact while drawing this figure and restored to the doc at 8beecd00.\n"
+                "Below about p = 1e-16 that CDF evaluates to exactly 0.0 in double\n"
+                "precision, so p = 1e-17 and p = 1e-300 return the identical z.\n"
+                "The apparent agreement across clusters is float64, not evidence.\n"
+                f"The Stouffer Z of {BOOKED['stouffer_Z']:.2f} is a floor for this reason as well as\n"
+                "for the conservative-clustering reason.\n"
+                "Booked as correction [4134] on 2026-08-04; dropped from\n"
+                "N_mass_migration.md in the 2026-08-12 rewrite; rediscovered from the\n"
+                "artifact while drawing this figure and RESTORED to the doc at 8beecd00.\n"
                 "The underlying p-values are exact and the verdict is untouched.\n"
                 "METHOD FIGURE, INTERNAL: a property of the instrument, not of the models."),
             x="cluster z as stored in result_n_primary.json",

@@ -193,19 +193,26 @@ def slope():
         + facet_grid("variant ~ scale", scales="free_x")
         + labs(
             title="Forcing an improbable word does damage the chain, and about 99% of it is absorbed",
+            #: WRAPPED FOR THE RENDERER, WHICH CUT THE ROLE-DIFFERENCE LINE
+            #: WHEN SHIPPED. It ran past the canvas and broke mid-word at
+            #: "single-to|ken", losing the two variants disagreeing across 0.05
+            #: and the effect's size in nats-per-bit. What survived was the
+            #: claim that the difference is not an alignment effect, with the
+            #: evidence for it gone: a caveat truncated into an assertion.
+            #: Found by meta/figure_text_audit.py, confirmed on the PNG.
             subtitle=(
-                "One point per model pair (40 pairs, 601,324 rows, 9,423 fitted cells). Position is the "
-                "share of the opening's improbability that reaches the continuation: the fitted slope in "
-                "nats-per-bit, divided by ln 2.\n"
-                "SAME POINTS AT BOTH SCALES. Left, against the imposition itself, where the entire result "
-                "sits on the axis. Right, zoomed, where the per-pair spread and the sign counts are legible. "
-                "Neither panel alone is honest.\n"
-                "THE ROLE DIFFERENCE IS NOT AN ALIGNMENT EFFECT and is not drawn as one: aligned minus base "
-                "is +0.0039 (p 0.081) pooled and +0.0029 (p 0.039) single-token, the two variants disagree "
-                "across 0.05, and the difference is worth 0.003 nats-per-bit, a third of a percent of "
-                "propagation.\n"
-                "SCOPE: this panel measures propagation under an IMPOSED word only. It makes no comparison "
-                "to undisturbed generation and none should be read into it.\n"
+                "One point per model pair (40 pairs, 601,324 rows, 9,423 fitted cells). Position is\n"
+                "the share of the opening's improbability that reaches the continuation: the fitted\n"
+                "slope in nats-per-bit, divided by ln 2.\n"
+                "SAME POINTS AT BOTH SCALES. Left, against the imposition itself, where the entire\n"
+                "result sits on the axis. Right, zoomed, where the per-pair spread and the sign\n"
+                "counts are legible. Neither panel alone is honest.\n"
+                "THE ROLE DIFFERENCE IS NOT AN ALIGNMENT EFFECT and is not drawn as one: aligned\n"
+                "minus base is +0.0039 (p 0.081) pooled and +0.0029 (p 0.039) single-token, the two\n"
+                "variants disagree across 0.05, and the difference is worth 0.003 nats-per-bit,\n"
+                "a third of a percent of propagation.\n"
+                "SCOPE: this panel measures propagation under an IMPOSED word only. It makes no\n"
+                "comparison to undisturbed generation and none should be read into it.\n"
                 "Single pass, ungraded, [5503] applies."),
             x="share of the opening's improbability reaching the continuation",
             y="",
@@ -217,7 +224,7 @@ def slope():
                      "the claim is roughly 99% absorbed either way."),
         )
         + theme_minimal()
-        + theme(figure_size=(13.0, 6.6),
+        + theme(figure_size=(13.0, 7.8),
                 plot_title=element_text(size=12.5, weight="bold", ha="left"),
                 plot_subtitle=element_text(size=7.2, color="#444444", ha="left"),
                 plot_caption=element_text(size=6.3, color="#666666", ha="left"),
