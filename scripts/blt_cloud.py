@@ -97,7 +97,22 @@ def main():
             if (prompt, sha) in done:
                 continue
             ids = tk(text, add_special_tokens=False)["input_ids"]
+            #: RECORDED, NOT SILENT. This branch used to `continue` with no file,
+            #: no count and no cause -- the only disposition in either fleet
+            #: without a receipt. 53 passages took it on the 2026-08-14 run (42
+            #: zero-length, 11 whitespace-only), and NOBODY COULD SEE THEM: they
+            #: entered no term of `seen == scored + refused`, so the identity
+            #: balanced by being blind to them on both sides.
+            #:
+            #: They were found only because lacan subtracted an export count
+            #: from an ingest count across a seat boundary and got 127 that
+            #: belonged to nobody ([6123]). An accounting identity constrains
+            #: only the populations it counts; a row outside all of them cannot
+            #: disturb it. The receipt is what puts this branch inside the books.
             if len(ids) < 2:
+                skipped.append({"prompt": prompt, "text_sha": sha,
+                                "n_bytes": len(text.encode()), "n_ids": len(ids),
+                                "why": "under-2-bytes (not scorable)"})
                 continue
             #: **A PASSAGE CONTAINING A LITERAL SPECIAL-TOKEN STRING KILLS THE
             #: SHARD.** BLT's byte vocabulary is 4..259, but the tokenizer maps a
