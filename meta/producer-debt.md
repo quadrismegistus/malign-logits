@@ -666,12 +666,21 @@ returns green.
   one before the ruling landed; it overwrote the cited artifact exactly
   as the docstring warns, and was restored. It came in at **+0.0213 =
   17.65%**, under the recorded minimum of 0.0216, so the observed range
-  widens from **17.9–21.2% to 17.7–21.2%** while `P_unnamed_axis.md` §3
-  states it as **"18-21%"** — a floor its own evidence now sits
-  marginally below. Not a defect and not silently absorbable: **the range
-  was reported over five draws and there are six.** A one-clause rider is
-  owed by whoever owns that finding; seat ownership is not establishable
-  from git, every commit being under the shared identity.
+  widens from **17.9–21.2% to 17.7–21.2%**.
+  **NO RIDER IS OWED — registrar over-called this and dario corrected it
+  ([6145]).** `P_unnamed_axis.md` §3 states an INTEGER range, "18-21%",
+  and **17.65% rounds to 18%**, so the stated range still contains the
+  draw. I compared a four-significant-figure measurement against a bound
+  written to the unit and booked a defect that does not exist. **Same
+  move as comparing a commit author against a diff author: both
+  quantities real, not the same quantity** — and it is the day's own
+  class with a number rather than a name in it.
+  **WHAT IS ACTUALLY WORTH KNOWING, and it is smaller and live:** the
+  range now rests on SIX draws and **its floor sits on the rounding
+  boundary.** One further draw below 17.5% would break the stated range.
+  Cheap for a future seat to know; requires touching no finding, which is
+  as well since seat ownership is not establishable from git, every
+  commit being under the shared identity.
   **The new figure's asserts check each draw within 0.003 rather than to
   the digit**, because an equality assert there would assert that a
   nondeterministic producer is deterministic and would fail on every
