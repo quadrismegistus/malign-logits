@@ -100,7 +100,80 @@
 			+ `  naughty: ${l(naughty)}\n  nice: ${l(nice)}\n`;
 	});
 
-	function copyYaml() { if (yaml) navigator.clipboard?.writeText(yaml); }
+	//: ── bge AXIS. The poles are the TAGS, so the author defines the axis by
+	//: tagging rather than by naming a lexicon. Each candidate is scored as
+	//: `prompt + word`, which is what makes it work at all: a global bare-word
+	//: axis put `dick` at +0.013 (the NAME) and `erection` at -0.037
+	//: (buildings), both below `forehead`. In context they rank 2nd and 4th.
+	//:
+	//: A FLAT AXIS IS A RESULT, NOT A FAILURE. Where the charge is
+	//: compositional rather than lexical -- "She spread her ___", whose naughty
+	//: word `legs` is anatomically neutral -- no pole pair separates the
+	//: candidates and `feet`/`knees` rank beside `thighs`. That says the prompt
+	//: cannot be measured word-wise, which is worth knowing before writing it.
+	let axis = $state<Record<string, number> | null>(null);
+	let poleGap = $state(0);
+	let axisLoading = $state(false);
+	let sortByAxis = $state(false);
+
+	async function runAxis() {
+		if (!naughty.size || !nice.size || !resp) return;
+		axisLoading = true; error = '';
+		try {
+			const qs = new URLSearchParams({
+				prompt,
+				naughty: [...naughty].join(','),
+				nice: [...nice].join(','),
+				words: words.map(w => w.word).join(',')
+			});
+			const r = await fetch(`${BASE}/api/slot_axis?${qs}`);
+			const j = await r.json();
+			if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
+			axis = Object.fromEntries(j.scores.map((x: {word: string; s: number}) => [x.word, x.s]));
+			poleGap = j.pole_gap;
+			sortByAxis = true;
+		} catch (e) {
+			error = e instanceof Error ? e.message : String(e);
+			axis = null;
+		} finally { axisLoading = false; }
+	}
+
+	let shown = $derived.by(() => {
+		if (!sortByAxis || !axis) return words;
+		return [...words].sort((a, b) => (axis![b.word] ?? -9) - (axis![a.word] ?? -9));
+	});
+
+	let copied = $state(false);
+
+	//: `navigator.clipboard` IS UNDEFINED OVER PLAIN HTTP to a non-localhost
+	//: host. This is served on 0.0.0.0 and reached over Tailscale, so the
+	//: secure-context requirement is not met and `?.writeText` silently no-ops
+	//: -- the button appeared to work and did nothing. The textarea +
+	//: execCommand path has no such requirement. Deprecated, and the only thing
+	//: that works here.
+	function copyYaml() {
+		if (!yaml) return;
+		let ok = false;
+		try {
+			const ta = document.createElement('textarea');
+			ta.value = yaml;
+			ta.style.position = 'fixed';
+			ta.style.opacity = '0';
+			document.body.appendChild(ta);
+			ta.select();
+			ok = document.execCommand('copy');
+			document.body.removeChild(ta);
+		} catch { ok = false; }
+		if (!ok && navigator.clipboard) {
+			navigator.clipboard.writeText(yaml).then(() => { copied = true; });
+			return;
+		}
+		//: REPORTED EITHER WAY. A copy button whose failure is invisible is how
+		//: this one went unnoticed in the first place.
+		copied = ok;
+		if (!ok) error = 'copy blocked by the browser — select the yaml below manually';
+		setTimeout(() => (copied = false), 1600);
+	}
 	function clearTags() { naughty = new Set(); nice = new Set(); }
 </script>
 
@@ -158,15 +231,24 @@
 				<div class="verdict" class:bad={verdict !== 'ok'}>{verdict}</div>
 			{/if}
 			{#if naughty.size || nice.size}
+				<button class="ghost" onclick={runAxis} disabled={axisLoading || !naughty.size || !nice.size}>
+					{axisLoading ? 'embedding…' : 'bge axis'}
+				</button>
+				{#if axis}
+					<span class="cnt">pole gap {poleGap.toFixed(3)}</span>
+					<label class="cnt sortlbl">
+						<input type="checkbox" bind:checked={sortByAxis} /> sort by axis
+					</label>
+				{/if}
 				<button class="ghost" onclick={clearTags}>clear</button>
-				<button class="ghost" onclick={copyYaml}>copy yaml</button>
+				<button class="ghost" onclick={copyYaml}>{copied ? 'copied ✓' : 'copy yaml'}</button>
 			{/if}
 		</div>
 
 		<p class="hint">left-click = nice · right-click = naughty</p>
 
 		<ul class="words">
-			{#each words as w (w.word)}
+			{#each shown as w (w.word)}
 				<li
 					class:tagged-naughty={naughty.has(w.word)}
 					class:tagged-nice={nice.has(w.word)}
@@ -179,6 +261,11 @@
 						<span class="w">{w.word}</span>
 						<span class="bar" style="width: {Math.max(1, (w.p / maxP) * 100)}%"></span>
 						<span class="p">{w.p.toFixed(4)}</span>
+					{#if axis}
+						<span class="ax" class:pos={(axis[w.word] ?? 0) > 0}>
+							{(axis[w.word] ?? 0) >= 0 ? '+' : ''}{(axis[w.word] ?? 0).toFixed(3)}
+						</span>
+					{/if}
 					</button>
 				</li>
 			{/each}
@@ -193,59 +280,75 @@
 </div>
 
 <style>
-	.slot { padding: 16px 4px; }
+	/* DARK PALETTE, matching the app: bg #141428, border #2a2a44, text #ccc,
+	   accents #4e79a7 / #e15759. The first version hardcoded a light scheme
+	   copied from a component whose colours I read without reading its
+	   BACKGROUND, so untagged rows rendered dark-on-dark and only the tagged
+	   ones -- which set their own light background -- were legible. */
+	.slot { padding: 16px 4px; color: #ccc; }
 	header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
-	h3 { font-size: 14px; margin: 0; font-weight: 600; }
+	h3 { font-size: 14px; margin: 0; font-weight: 600; color: #ccc; }
 	.sub { font-size: 11px; color: #888; }
 	.controls { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
-	.controls.small { font-size: 11px; color: #888; gap: 14px; margin-bottom: 14px; }
-	.prompt { flex: 1; padding: 7px 10px; font-size: 13px; border: 1px solid #ddd;
-	          border-radius: 4px; font-family: inherit; }
+	.controls.small { font-size: 11px; color: #888; gap: 14px; margin-bottom: 14px;
+	                  flex-wrap: wrap; }
+	.controls.small label { display: flex; gap: 5px; align-items: center; }
+	.prompt { flex: 1; padding: 7px 10px; font-size: 13px; background: #141428;
+	          border: 1px solid #2a2a44; border-radius: 4px; color: #ccc;
+	          font-family: inherit; }
+	.prompt:focus { outline: none; border-color: #4e79a7; }
 	.model { width: 220px; }
 	.k { width: 56px; }
-	.controls.small input { padding: 3px 5px; font-size: 11px; border: 1px solid #e3e3e3;
-	                        border-radius: 3px; }
-	.go { padding: 7px 14px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px;
-	      background: #fafafa; cursor: pointer; }
-	.go:disabled { opacity: 0.5; cursor: default; }
-	.meta { font-family: 'SF Mono', monospace; font-size: 10px; }
+	.controls.small input { padding: 3px 5px; font-size: 11px; background: #141428;
+	                        border: 1px solid #2a2a44; border-radius: 3px; color: #aaa; }
+	.go { padding: 7px 14px; font-size: 12px; border: 1px solid #2a2a44;
+	      border-radius: 4px; background: #1a1a2e; color: #ccc; cursor: pointer; }
+	.go:hover:not(:disabled) { border-color: #4e79a7; }
+	.go:disabled { opacity: 0.45; cursor: default; }
+	.meta { font-family: 'SF Mono', monospace; font-size: 10px; color: #666; }
 
 	.branches { display: flex; gap: 18px; align-items: center; padding: 9px 12px;
-	            background: #fafafa; border: 1px solid #eee; border-radius: 4px;
-	            margin-bottom: 8px; flex-wrap: wrap; }
+	            background: rgba(255, 255, 255, 0.03); border: 1px solid #2a2a44;
+	            border-radius: 4px; margin-bottom: 8px; flex-wrap: wrap; }
 	.branch { display: flex; gap: 6px; align-items: baseline; }
 	.lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; }
-	.val { font-family: 'SF Mono', monospace; font-size: 13px; font-weight: 600; }
-	.cnt { font-size: 10px; color: #aaa; }
-	.naughty-b .val { color: #c0504d; }
+	.val { font-family: 'SF Mono', monospace; font-size: 13px; font-weight: 600; color: #ccc; }
+	.cnt { font-size: 10px; color: #666; }
+	.naughty-b .val { color: #e15759; }
 	.nice-b .val { color: #4e79a7; }
 	.verdict { font-family: 'SF Mono', monospace; font-size: 11px; padding: 2px 8px;
-	           border-radius: 3px; background: #e8f4e8; color: #2d6a2d; }
-	.verdict.bad { background: #fdecea; color: #c0392b; }
-	.ghost { font-size: 10px; padding: 2px 8px; border: 1px solid #ddd; background: #fff;
-	         border-radius: 3px; cursor: pointer; color: #666; }
+	           border-radius: 3px; background: rgba(78, 121, 167, 0.18); color: #7fa8d0; }
+	.verdict.bad { background: rgba(225, 87, 89, 0.18); color: #e88b8c; }
+	.ghost { font-size: 10px; padding: 2px 8px; border: 1px solid #2a2a44;
+	         background: #141428; border-radius: 3px; cursor: pointer; color: #999; }
+	.ghost:hover { border-color: #4e79a7; color: #ccc; }
 
-	.hint { font-size: 10px; color: #aaa; margin: 0 0 8px 2px; }
+	.hint { font-size: 10px; color: #666; margin: 0 0 8px 2px; }
 	.words { list-style: none; padding: 0; margin: 0; }
-	.words li { border-bottom: 1px solid #f2f2f2; }
-	.wordbtn { display: grid; grid-template-columns: 130px 1fr 60px; gap: 10px;
-	           align-items: center; width: 100%; padding: 3px 6px; border: 0;
+	.words li { border-bottom: 1px solid #1a1a2e; }
+	.wordbtn { display: grid; grid-template-columns: 140px 1fr 62px auto; gap: 10px;
+	           align-items: center; width: 100%; padding: 4px 6px; border: 0;
 	           background: none; cursor: pointer; text-align: left; font: inherit; }
-	.wordbtn:hover { background: #f7f7f7; }
-	.w { font-family: 'SF Mono', monospace; font-size: 12px; overflow: hidden;
-	     text-overflow: ellipsis; white-space: nowrap; }
-	.bar { height: 7px; background: #d8d8d8; border-radius: 2px; }
-	.p { font-family: 'SF Mono', monospace; font-size: 10px; color: #888; text-align: right; }
-	.tagged-naughty { background: #fdf2f1; }
-	.tagged-naughty .bar { background: #c0504d; }
-	.tagged-naughty .w { color: #c0504d; font-weight: 600; }
-	.tagged-nice { background: #f2f6fa; }
+	.wordbtn:hover { background: rgba(255, 255, 255, 0.04); }
+	.w { font-family: 'SF Mono', monospace; font-size: 12px; color: #ccc;
+	     overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+	.bar { height: 7px; background: #33334d; border-radius: 2px; }
+	.p { font-family: 'SF Mono', monospace; font-size: 10px; color: #777; text-align: right; }
+	.tagged-naughty { background: rgba(225, 87, 89, 0.10); }
+	.tagged-naughty .bar { background: #e15759; }
+	.tagged-naughty .w { color: #e15759; font-weight: 600; }
+	.tagged-nice { background: rgba(78, 121, 167, 0.12); }
 	.tagged-nice .bar { background: #4e79a7; }
-	.tagged-nice .w { color: #4e79a7; font-weight: 600; }
+	.tagged-nice .w { color: #6f9dc9; font-weight: 600; }
 
-	.yaml { margin-top: 14px; padding: 10px; background: #fafafa; border: 1px solid #eee;
-	        border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 11px;
-	        white-space: pre-wrap; }
+	.yaml { margin-top: 14px; padding: 10px; background: #141428;
+	        border: 1px solid #2a2a44; border-radius: 4px; color: #aaa;
+	        font-family: 'SF Mono', monospace; font-size: 11px; white-space: pre-wrap;
+	        user-select: all; }
+	.ax { font-family: 'SF Mono', monospace; font-size: 10px; color: #6f9dc9;
+	      min-width: 52px; text-align: right; }
+	.ax.pos { color: #e15759; }
+	.sortlbl { display: flex; gap: 4px; align-items: center; cursor: pointer; }
 	.loading { color: #888; font-size: 13px; padding: 24px 4px; }
 	.error { color: #e15759; font-size: 12px; }
 </style>

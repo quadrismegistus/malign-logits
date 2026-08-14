@@ -38,6 +38,7 @@ _family = None  # set by serve()
 #: checkpoints of nothing. This holds one model, keyed by id, so switching
 #: models is possible without evicting the psyche.
 _slot = {}                       # {model_id: (tokenizer, model, bmask, cjk, pol, device)}
+_bge = None                      # bge-m3, loaded on first /api/slot_axis call
 _slot_lock = threading.Lock()
 
 
@@ -278,6 +279,62 @@ class ModelHandler(BaseHTTPRequestHandler):
                                  for kk, vv in res.items()},
                     "n_words": len(per), "shown": len(top),
                     "rule_version": twp.RULE_VERSION, "batches": calls,
+                })
+
+            elif endpoint == "/api/slot_axis":
+                #: THE AXIS IS PER PROMPT AND ITS POLES ARE THE AUTHOR'S TAGS.
+                #: A global word-level axis was tried and failed on polysemy:
+                #: bare `dick` embeds as the NAME (+0.013) and bare `erection`
+                #: as the building sense (-0.037), both ranking below
+                #: `forehead`. Scoring each candidate as `prompt + word` fixes
+                #: it by construction -- in context they land 2nd and 4th --
+                #: because the prompt disambiguates the sense before the
+                #: embedder ever sees the word.
+                #:
+                #: KNOWN LIMIT, worth more than the feature: where the
+                #: transgression is COMPOSITIONAL rather than lexical, no pole
+                #: pair separates the candidates. "She spread her ___" ranks
+                #: feet/knees/toes beside thighs under every pole pair tried,
+                #: because `legs` is anatomically neutral and the charge is in
+                #: the scene. That is a true fact about the PROMPT, and a
+                #: flat axis here is a screening signal rather than a failure.
+                import numpy as np
+                prompt = params.get("prompt", "")
+                naughty = [w for w in params.get("naughty", "").split(",") if w.strip()]
+                nice = [w for w in params.get("nice", "").split(",") if w.strip()]
+                words = [w for w in params.get("words", "").split(",") if w.strip()]
+                if not prompt.strip() or not naughty or not nice:
+                    self._respond(400, {"error": "prompt, naughty and nice all required"})
+                    return
+                from sentence_transformers import SentenceTransformer
+                global _bge
+                with _slot_lock:
+                    if _bge is None:
+                        _set_progress("loading_models", "Loading bge-m3...")
+                        _bge = SentenceTransformer("BAAI/bge-m3", device="mps")
+                        _set_progress("idle")
+                enc = lambda ts: np.asarray(
+                    _bge.encode([f"{prompt} {t}".strip() for t in ts],
+                                normalize_embeddings=True, show_progress_bar=False),
+                    dtype=np.float32)
+                vg, vn = enc(naughty).mean(0), enc(nice).mean(0)
+                axis = vg - vn
+                norm = float(np.linalg.norm(axis))
+                if norm < 1e-8:
+                    self._respond(200, {"axis_norm": norm, "scores": [],
+                                        "note": "poles are identical in embedding space"})
+                    return
+                axis = axis / norm
+                origin = (vg + vn) / 2.0
+                allw = sorted(set(words) | set(naughty) | set(nice))
+                s = (enc(allw) - origin) @ axis
+                #: SEPARATION IS REPORTED so a flat axis is visible as flat. The
+                #: pole gap is the scale everything else should be read against.
+                gap = float((vg - origin) @ axis) - float((vn - origin) @ axis)
+                self._respond(200, {
+                    "prompt": prompt, "axis_norm": norm, "pole_gap": gap,
+                    "scores": [{"word": w, "s": float(v)} for w, v in
+                               sorted(zip(allw, s), key=lambda x: -x[1])],
                 })
 
             elif endpoint == "/api/trajectory":
