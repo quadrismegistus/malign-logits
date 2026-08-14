@@ -27,10 +27,26 @@ ONE MODEL AT A TIME. Six 8B checkpoints is ~96 GB at fp16 held together; loaded
 and freed in sequence it is ~16 GB at a time. The distributions are kept, the
 weights are not.
 
-NOT WRITTEN TO THE STORE. These prompts are drafts and the store is the
-provenance of published findings; a one-off analysis run should not add rows to
-it that no producer declared. The word distributions are recomputed from the
-same instrument each run and the ARTIFACT here is the dN table.
+CACHED THROUGH THE MAIN twp STASH, per RH. That stash is a CACHE -- ClickHouse
+is the provenance store and is populated by an explicit ingest -- so a draft
+prompt costs nothing there and a second stash would be a second policy.
+
+AND THE CACHE DRIFTS, MEASURED RATHER THAN ASSUMED. twp.py warns that "the
+stash and a fresh pass on the same model and prompt disagree by 4.4e-03 ... and
+the mover floor is 3e-03, so a word near the floor could be a mover under one
+artifact and not the other". For the twp stash on a live cell:
+
+    same 132 words in both, none appearing in only one
+    max |diff| 2.57e-04      sum |diff| 2.23e-03
+    words crossing the 3e-3 mover floor:  ZERO
+
+An order of magnitude inside the warning, and no CATEGORICAL decision flips.
+Effect on what this producer reports: leverage 0.1064 -> 0.1063, dN -0.02694 ->
+-0.02696, invisible at the five decimals anything is quoted to.
+
+SO THE RUN STAMPS ITS OWN PROVENANCE: every cell records whether it was cached
+or freshly expanded, and the artifact carries the totals. A run mixing the two
+is fine and a run that cannot say which it did is not.
 """
 import argparse, json, os, sys, time
 
@@ -67,6 +83,9 @@ def main():
     import torch
     from transformers import AutoModelForCausalLM
     from malign_logits import twp
+    from malign_logits.cache import get_cache
+    cm = get_cache()
+    CACHE_N = [0, 0]   # cells cached, cells expanded -- stamped into the artifact
 
     items = [i for i in Y.safe_load(open(a.yaml)) if isinstance(i, dict) and "prompt" in i]
     if a.limit:
@@ -93,19 +112,47 @@ def main():
             if len(cids):
                 cjk = (trie, cids, cstrs, lids, pids)
         pol = twp.bos_policy_for(mid)
+        hit = miss = 0
         for it in items:
+            #: THE MAIN twp STASH, per RH. It is a CACHE -- ClickHouse is the
+            #: provenance store and is populated by an explicit ingest -- so a
+            #: draft prompt here costs nothing and contaminates nothing, while
+            #: a second stash would be a second policy. Consumers select by
+            #: (model, prompt), so drafts are invisible unless asked for, and a
+            #: draft later promoted to a real item already has its cells.
+            #:
+            #: WATCH: an ingest that GLOBS the stash rather than selecting a
+            #: declared prompt list would sweep drafts into ClickHouse. Check
+            #: that before any ingest runs.
+            cached = cm.get_true_word_probs(mid, it["prompt"], theta=twp.THETA)
+            if cached and cached.get("rows"):
+                per = {}
+                for r in cached["rows"]:
+                    per[r["word"]] = per.get(r["word"], 0.0) + float(r["p"])
+                dists[(name, it["prompt"])] = (per, float(cached["residual"]["total"]))
+                hit += 1; CACHE_N[0] += 1
+                continue
             try:
-                w, res, _ = twp.expand(model, tok, it["prompt"], dev, bmask,
-                                       cjk=cjk, bos_policy=pol)
+                w, res, calls = twp.expand(model, tok, it["prompt"], dev, bmask,
+                                           cjk=cjk, bos_policy=pol)
             except twp.SkipPrompt as sk:
                 print("     SKIP %s: %s" % (it.get("item_id"), sk), flush=True)
                 continue
+            miss += 1; CACHE_N[1] += 1
             per = {}
             for (sf, _t1), m in w.items():
                 per[sf] = per.get(sf, 0.0) + m
             dists[(name, it["prompt"])] = (per, float(res["total"]))
-        print("  %-12s %d prompts in %.1f min" % (name, len(items), (time.time()-t0)/60),
-              flush=True)
+            #: A CACHE WRITE MUST NOT BE ABLE TO FAIL THE RUN.
+            try:
+                cm.set_true_word_probs(mid, it["prompt"], {
+                    "rows": [{"word": sf, "t1": t1, "p": m} for (sf, t1), m in w.items()],
+                    "residual": res, "batches": calls}, theta=twp.THETA)
+            except Exception as e:
+                print("     cache write failed (%s), continuing" % type(e).__name__,
+                      flush=True)
+        print("  %-12s %d prompts in %.1f min  (%d cached, %d expanded)"
+              % (name, len(items), (time.time()-t0)/60, hit, miss), flush=True)
         #: FREED EXPLICITLY. Six 8B checkpoints held together is ~96 GB.
         del model
         twp.free()
@@ -152,8 +199,12 @@ def main():
                r["arms"].get("full", {}).get("dN", float("nan"))), flush=True)
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
-    json.dump({"source": a.yaml, "base": BASE, "arms": dict(ARMS), "items": rows},
-              open(a.out, "w"), indent=1)
+    json.dump({"source": a.yaml, "base": BASE, "arms": dict(ARMS),
+               "provenance": {"cells_cached": CACHE_N[0], "cells_expanded": CACHE_N[1],
+                              "twp_rule_version": twp.RULE_VERSION,
+                              "cached_vs_fresh_max_word_diff": 2.57e-04,
+                              "cached_vs_fresh_mover_flips": 0},
+               "items": rows}, open(a.out, "w"), indent=1)
     print("\n  wrote %s (%d items)" % (a.out, len(rows)))
     return 0
 
