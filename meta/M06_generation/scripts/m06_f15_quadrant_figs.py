@@ -33,19 +33,16 @@ migration nobody measured.
 THE TWO AXES DO NOT CARRY EQUAL INFORMATION, AND THAT GOES ON THE PANEL
 -----------------------------------------------------------------------
 A two-axis diagram invites the reader to assume parity. The Q1 share
-change tracks the surprisal axis at Spearman -0.714 and the drift axis
-at +0.211, so the surprisal axis carries roughly three times the
-association. plot-debt records -0.694 and +0.167 for the same pair of
-quantities; this script computes them from the committed cells with the
-producer's own per-cell aggregation (mean over passages within pair x
-role, contrasted aligned - base) and gets the values above. The
-qualitative claim is identical and robust; the exact coefficients are
-NOT reconciled, and the panel quotes what this script computes rather
-than what the queue records. Reported to the docket on shipping; no
-message id is cited here because this file was written before that post
-existed, and citing an id one has not read off the tool is exactly how
-a fabricated identifier enters a record ([5604], and lacan's own
-instance at [5921] the same night).
+change tracks the surprisal axis at Spearman -0.694 and the drift axis
+at +0.167, so the surprisal axis carries about four times the
+association. Computed here rather than quoted, and asserted.
+
+The first version of this file computed -0.714 / +0.211 and reported
+the difference from plot-debt as unreconciled. lacan reconciled it at
+[5924]: the only difference is MEDIAN versus MEAN aggregation over
+passages within pair x role, both reproduce exactly, and the median is
+correct. See `_axis_rho` for why, including the part where this seat
+established that convention at [5915] and then did not carry it here.
 
 THE mean_drift RIDER IS DISCHARGED HERE
 ---------------------------------------
@@ -114,6 +111,36 @@ def _stat(s):
     return float(np.median(s)), int((s > 0).sum()), int((s < 0).sum())
 
 
+def _axis_rho(d, q1_delta):
+    """Spearman rho of the Q1 share change against each arm contrast.
+
+    THE AGGREGATION IS THE MEDIAN over passages within pair x role, not
+    the mean. Two reasons, and the second is the one that generalises.
+
+    Substantive: `total_drift` is 1 - min(pairwise cosine), an EXTREME
+    statistic, so its passage distribution is skewed and a mean is the
+    wrong summary for it specifically (lacan, [5924]).
+
+    Precedent: the pair grain is the median over the within-pair unit,
+    which is the convention recovered from `m06_self_surprisal.py` and
+    reported at [5915] -- by this seat, two hours before it then computed
+    this figure with the mean. The rule existed, was written down, and
+    still did not cross folders, because nothing in the cells parquet
+    says which aggregation its pair grain takes. Hence this docstring.
+    """
+    from scipy import stats
+
+    cell = (d.groupby(["pair", "role"])
+            .agg(surp=("mean_surprisal", "median"),
+                 drift=("total_drift", "median")).reset_index())
+    piv = cell.pivot(index="pair", columns="role")
+    P1 = (piv[("surp", "aligned")] - piv[("surp", "base")]).dropna()
+    P2 = (piv[("drift", "aligned")] - piv[("drift", "base")]).dropna()
+    j = pd.concat({"q1": q1_delta, "P1": P1, "P2": P2}, axis=1).dropna()
+    return (float(stats.spearmanr(j.q1, j.P1).statistic),
+            float(stats.spearmanr(j.q1, j.P2).statistic), len(j))
+
+
 def quadrants():
     """The quadrant plane: alignment moves passages down the surprisal axis.
 
@@ -147,6 +174,13 @@ def quadrants():
         gm, gup, gdn = stats[("total_drift", quad)]
         assert round(gm, 4) == m and (gup, gdn) == (up, dn), \
             f"{quad} drifted: {round(gm, 4)} {gup}/{gdn} vs booked {m} {up}/{dn}"
+
+    q1 = (frames[0][frames[0].quadrant == "Q1"]
+          .set_index("pair").delta)
+    rho_s, rho_d, n_rho = _axis_rho(d, q1)
+    assert (round(rho_s, 3), round(rho_d, 3)) == (-0.694, 0.167), \
+        (f"axis rho drifted: {round(rho_s, 3)}/{round(rho_d, 3)} vs "
+         f"booked -0.694/+0.167 (plot-debt item 4, reconciled at [5924])")
 
     df = pd.concat(frames, ignore_index=True)
     df["dl"] = df.quadrant.map(lambda q: PLANE[q][0])
@@ -193,8 +227,10 @@ def quadrants():
                 "One point per pair: the change in that quadrant's SHARE of the pair's passages, "
                 "aligned minus base. The two high-surprisal quadrants drain and the two low-surprisal "
                 "quadrants fill.\n"
-                "THE AXES ARE NOT EQUAL. The Q1 share change tracks the surprisal axis at Spearman "
-                "-0.714 and the drift axis at +0.211: about three times the association on surprisal. "
+                f"THE AXES ARE NOT EQUAL. The Q1 share change tracks the surprisal axis at Spearman "
+                f"{rho_s:.3f} and the drift axis at {rho_d:+.3f} (n={n_rho} pairs, arm contrasts "
+                f"aggregated as the MEDIAN over passages within pair x role): about four times the "
+                "association on surprisal.\n"
                 "Read the vertical split as load-bearing and the horizontal split as minor.\n"
                 "BOTH DRIFT METRICS SHOWN. total_drift rises with sentence count and saturates near "
                 "n=10, and untruncated passages sit past that knee, so mean_drift is the robustness "
