@@ -665,6 +665,32 @@ seat forgets at its peril:
   of non-tied prompts, not medians, and shares do not add across
   transitions either. Changing WHICH aggregator does not change THAT
   there is one.
+- **A TRUE FINDING OF THE WRONG KIND IS MORE DANGEROUS THAN AN
+  UNSUPPORTED ONE, BECAUSE NOTHING ABOUT THE MARK LOOKS WRONG**
+  ([6014]): `fired->aimed->pointed` has both links replicated and
+  split-half certified, a lift of 3.40 on the second, and everything
+  about it resembles the rows above — but its taxonomy is FRAME, so
+  the two links co-rise because they share a frame rather than one
+  displacing into the other. **Drawing it as a displacement chain
+  would dress one certified result in another certified result's
+  clothing**, and the only thing separating it from a real chain is a
+  column called `taxonomy`. Distinct from the other traps in this
+  ledger, which were a number that could not carry its magnitude or a
+  population that did not match: here the underlying edge is genuinely
+  real. Companion, from the same figure: **when the two examples a
+  reader arrives with are the two that fail, the exhibit is the
+  failures beside the survivors, not a strip of survivors** — and the
+  two fail for DIFFERENT reasons (one on taxonomy, one on population:
+  `kill->shout->hum` holds at its first link and its second does not
+  exist once the corpus is restricted to verbs), which is what makes
+  drawing them together informative rather than merely negative.
+  SELECTION DECLARED ON THE SAME TERMS AS THE BASIN GROUPING: 1,433
+  two-hop chains survive both links under the restriction and six are
+  drawn — **which six is a reading; that 1,433 exist is a
+  measurement** — with the auxiliary exclusion stated because the
+  highest weakest-link chain in the whole set exhibits `had` rather
+  than a displacement, and the fragment list imported rather than
+  restated so two figures cannot disagree about what counts as a word.
 - **PUT THE PRIOR ON THE AXIS** ([5990]): where a result is
   interesting for landing on the WRONG SIDE of a prediction rather
   than for its size, a panel showing only the distribution renders the

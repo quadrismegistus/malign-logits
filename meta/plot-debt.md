@@ -527,9 +527,22 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     only the computed half, omitting that the GROUPING into named
     basins is a reading, which is the half that matters because the
     names are the interpretive claim. Now a graph LABEL carrying both
-    halves and surviving into the image. STILL OWED: (b) chain strip
-    (fired->aimed->pointed is FRAME, and kill->shout->hum dies at
-    shout->hum under the verb restriction), (c) verb-network redraws
+    halves and surviving into the image. **(b) SHIPPED (dario, 94c8a74c)**: both cautions
+    VERIFIED before drawing and both hold, for DIFFERENT reasons —
+    fired->aimed (frame, 2.05) and aimed->pointed (frame, 3.40) fail
+    on TAXONOMY, both links certified and replicated, co-rising in a
+    shared frame; kill->shout survives the verb restriction
+    (6.30 -> 2.42) while shout->hum, coupled at 4.58 in the full set,
+    is ABSENT under verbs — a POPULATION failure. So the exhibit is
+    the two failures beside the survivors rather than a strip of
+    survivors, because **the two chains a reader arrives with are the
+    two that do not qualify.** Selection declared on the basin
+    grouping's terms: 1,433 two-hop chains survive both links, six
+    drawn, which six is a reading and that 1,433 exist is a
+    measurement; auxiliary exclusion stated (the highest weakest-link
+    chain in the set exhibits `had`); FRAG imported from
+    `plot_displacement_network` so the two figures cannot disagree
+    about what counts as a word. STILL OWED: (c) verb-network redraws
     wanting a `--verbs` source flag, (d) mutual-best couples table,
     (e) graph-structure pass — in that order.
     Original entry: PARKED 2026-08-14 (RH: store and move on) — NETWORK
