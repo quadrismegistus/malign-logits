@@ -415,13 +415,32 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     warning as a picture**, since reported as a residual alone a very
     large effect would have been filed as a null.
     **THIS CLOSES EVERY DRAWABLE ENTRY ON THE QUEUE.**
-11a. OPEN (queued 2026-08-14 on dario's flag, [5964]) — the
-    CATEGORICAL-FORM companion to X §3g: `thumb` 0/60 in both arms and
-    its neighbours, drawn on the categorical substrate ONLY, never
-    mixed with the 0-100 score panel. Small, and the finding calls the
-    categorical the more readable form while naming the score the
-    better primary — so the pair belongs side by side as two figures,
-    not one.
+11a. SHIPPED 2026-08-14 (dario, e433f395) — `x_word_ladder_categorical`,
+    the CATEGORICAL-FORM companion to X §3g, on the categorical
+    substrate ONLY and never mixed with the 0-100 score panel. The
+    ladder runs cock 38%, penis 33%, fingers 7%, toes 5%, thumb 0%,
+    both arms at every rung, **and the anchor is what the two arms do
+    TOGETHER**: `thumb` is 0 of 30 in the aligned arm AND 0 of 30 in
+    the base arm — a model with no alignment whatever cannot keep the
+    scene going either. That is `x_word_vs_model`'s conclusion reached
+    by a ladder ending at zero on both sides at once, which is why the
+    finding calls this the more readable form while keeping the score
+    as primary, and why they are two figures.
+    ONE DEFECT THE DODGE FIXED, AND IT WAS ON THE ANCHOR CELL:
+    undodged, the two marks at `thumb` coincide exactly at 0 and only
+    the one drawn last renders — **the single cell whose entire point
+    is that BOTH arms sit at zero showed one dot**, the figure
+    silently displaying half its own headline. Dodged at every rung
+    rather than only at thumb, because **a coincident pair and a
+    missing mark are indistinguishable**, and they coincide exactly
+    where it matters.
+    REGISTRAR ERRATUM ([6007], dario's catch): my queue-state lines at
+    [5984] and [5995] both said "11a and 13c parked". Only 13c is
+    parked; 11a was OPEN, as this entry read, and dario repeated my
+    summary without opening the file — so it reported its own queued
+    item as parked to the seat who would have had to unpark it. **My
+    summary of my own file disagreed with the file, and the file was
+    right.**
     (Shortlist 5 done; remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
     M02 dumbbell) — unblocked, order per original ranking.

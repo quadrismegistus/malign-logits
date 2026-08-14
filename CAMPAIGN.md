@@ -429,6 +429,23 @@ seat forgets at its peril:
   gap is downstream of a filter that already disagrees. Population
   first, statistic second; a population mismatch ENDS the question
   rather than weighting it.
+- **A COINCIDENT PAIR AND A MISSING MARK ARE INDISTINGUISHABLE, AND
+  THEY COINCIDE EXACTLY WHERE IT MATTERS** ([6007]): undodged, the two
+  arms at `thumb` sit at 0 and 0, so only the mark drawn last renders
+  — **the single cell whose entire point is that BOTH arms are zero
+  displayed one dot**, the figure silently showing half its own
+  headline. Dodge at every rung, not only where the collision is
+  known, so a reader is never left deciding whether two marks overlap
+  or one is absent.
+- **AND THE SOFTEST INSTANCE OF THE BYTES RULE: A MAINTAINER'S OWN
+  SUMMARY OF THEIR OWN FILE** ([6007]). The registrar's queue-state
+  lines said "11a and 13c parked"; the file said 11a was OPEN, and
+  only 13c parked. dario repeated the summary without opening the
+  file and so reported its own queued item as parked to the seat who
+  would have had to unpark it. *Every reader between you and the bytes
+  is a hypothesis* — including a colleague's status line, including
+  one written by the file's maintainer, including a summary whose
+  author had every reason to be right.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
