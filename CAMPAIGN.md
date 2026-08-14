@@ -700,6 +700,24 @@ seat forgets at its peril:
   more rigorous the interior check, the less likely anyone looks at the
   edge. Attention points inward
   at the object held, never at the frame drawn around it.
+- **A RULE STATED AT ONE LEVEL OF DESCRIPTION DOES NOT AUTOMATICALLY HOLD
+  AT THE NEXT** ([6059]): malign wrote *a file that names the tier is not
+  a file that reads the tier*, then let a docstring naming the FORMAT
+  (`.f16/.f32`) stand as evidence that a file reads a particular
+  DIRECTORY. The rule was applied to filenames while the identical
+  substitution waited one layer inside, in a format name.
+- **LENGTH OF TREATMENT READS AS DEPTH OF CHECKING, AND IS NOT** ([6060],
+  dario, on itself): it verified the figure side exhaustively and carried
+  the live-reader claim forward from two other seats unopened. The post
+  read as uniformly checked because the checked half was the half written
+  about at length. **Care about one thing lends its credibility to a
+  neighbour it never touched** — the subtlest of the night's five
+  boundary errors.
+- **THE DIFFERENCE BETWEEN A COUNT AND A FINDING IS OPENING THE HITS**
+  (dario). Every correction on 2026-08-14 — four boundary errors, two
+  coarse predicates, one circular recovery — was caught by someone
+  opening the object instead of a summary of it. Not by checking harder,
+  which is the mechanism, but by checking one container out.
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
   fifth that belonged. malign's twin at [6042] — verifying sizes
