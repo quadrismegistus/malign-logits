@@ -1,0 +1,241 @@
+{
+ "_about": {
+  "what": "Passages whose ref_surprisal STASH KEY collides. The stash keys on (ref, prompt, normalize_text(text)) and normalize_text is text.rstrip(); the BLT fleet keyed on sha256 of RAW text. Two passages differing only in trailing whitespace are therefore two distinct scored rows that land on ONE stash key, and the later write wins.",
+  "consequence": "For each key below, a lookup returns the surprisal of whichever member was ingested last. The other member's array is not retrievable and the substitution is SILENT -- the returned array has a plausible length and no error is raised.",
+  "scale": "12 keys of 483,073 distinct keys, over 483,085 passages (0.0025%). 4.4% of texts have trailing whitespace; only these 12 pairs are otherwise identical.",
+  "producer": "measured directly from data/raw/blt_passages.jsonl.gz",
+  "recommendation": "Exclude these text_sha values from any per-passage analysis that reads ref_surprisal, or re-key the stash on raw text. NOT fixed in place: the pilot entries already in the stash use the normalized key.",
+  "keys": 12,
+  "character": "ALL 24 are degenerate micro-passages, 4-13 bytes (median 9). Trailing whitespace is a large fraction of their content, which is why they are the ones that collide. No substantive passage is affected, so the practical impact is smaller than the 0.0025% count suggests -- but the substitution is silent, so it is recorded rather than waved off."
+ },
+ "rows": [
+  {
+   "norm_key": "06e7a43491a67b69",
+   "members": [
+    {
+     "corpus_index": 39184,
+     "text_sha": "ce2308ac67628ecc",
+     "n_bytes": 8,
+     "script": "en",
+     "shard": 0
+    },
+    {
+     "corpus_index": 249049,
+     "text_sha": "ff7a0f65f61d0e42",
+     "n_bytes": 5,
+     "script": "en",
+     "shard": 1
+    }
+   ]
+  },
+  {
+   "norm_key": "0bca3d9324e5b2fc",
+   "members": [
+    {
+     "corpus_index": 307000,
+     "text_sha": "2a113b805989dcc9",
+     "n_bytes": 12,
+     "script": "en",
+     "shard": 0
+    },
+    {
+     "corpus_index": 309317,
+     "text_sha": "0d8c9647ad85dff1",
+     "n_bytes": 10,
+     "script": "en",
+     "shard": 1
+    }
+   ]
+  },
+  {
+   "norm_key": "1cddc52ebe4e119d",
+   "members": [
+    {
+     "corpus_index": 241707,
+     "text_sha": "3065e5f0a6128470",
+     "n_bytes": 8,
+     "script": "en",
+     "shard": 3
+    },
+    {
+     "corpus_index": 482401,
+     "text_sha": "1a00f1a47d166d47",
+     "n_bytes": 7,
+     "script": "en",
+     "shard": 1
+    }
+   ]
+  },
+  {
+   "norm_key": "2e9a2e4ab51a33f4",
+   "members": [
+    {
+     "corpus_index": 265485,
+     "text_sha": "dfae0263681e0f52",
+     "n_bytes": 9,
+     "script": "en",
+     "shard": 1
+    },
+    {
+     "corpus_index": 463524,
+     "text_sha": "006ef43949f6670a",
+     "n_bytes": 10,
+     "script": "en",
+     "shard": 0
+    }
+   ]
+  },
+  {
+   "norm_key": "35ba2ca05e259420",
+   "members": [
+    {
+     "corpus_index": 85419,
+     "text_sha": "541e86626ff11909",
+     "n_bytes": 5,
+     "script": "en",
+     "shard": 3
+    },
+    {
+     "corpus_index": 481493,
+     "text_sha": "d2719afbaea9c7ce",
+     "n_bytes": 4,
+     "script": "en",
+     "shard": 1
+    }
+   ]
+  },
+  {
+   "norm_key": "5254bfc4713571df",
+   "members": [
+    {
+     "corpus_index": 124533,
+     "text_sha": "bf045bf827f77a03",
+     "n_bytes": 6,
+     "script": "en",
+     "shard": 1
+    },
+    {
+     "corpus_index": 409454,
+     "text_sha": "61b8f62284ca420d",
+     "n_bytes": 7,
+     "script": "en",
+     "shard": 2
+    }
+   ]
+  },
+  {
+   "norm_key": "6a99ea2425eed7d5",
+   "members": [
+    {
+     "corpus_index": 120441,
+     "text_sha": "1f50f3789c186525",
+     "n_bytes": 11,
+     "script": "en",
+     "shard": 1
+    },
+    {
+     "corpus_index": 480496,
+     "text_sha": "21cc6fbde6715da6",
+     "n_bytes": 9,
+     "script": "en",
+     "shard": 0
+    }
+   ]
+  },
+  {
+   "norm_key": "71054c1c264c776e",
+   "members": [
+    {
+     "corpus_index": 7256,
+     "text_sha": "4e0cd56cdc8cc19d",
+     "n_bytes": 11,
+     "script": "en",
+     "shard": 0
+    },
+    {
+     "corpus_index": 458884,
+     "text_sha": "a68683adecd479de",
+     "n_bytes": 12,
+     "script": "en",
+     "shard": 0
+    }
+   ]
+  },
+  {
+   "norm_key": "85417df1686f63d6",
+   "members": [
+    {
+     "corpus_index": 151205,
+     "text_sha": "518c06b7c4d3d099",
+     "n_bytes": 10,
+     "script": "en",
+     "shard": 1
+    },
+    {
+     "corpus_index": 215742,
+     "text_sha": "e3e3ec62bcd868b9",
+     "n_bytes": 9,
+     "script": "en",
+     "shard": 2
+    }
+   ]
+  },
+  {
+   "norm_key": "a66d1acb857917fe",
+   "members": [
+    {
+     "corpus_index": 105281,
+     "text_sha": "7b0088b8032e2756",
+     "n_bytes": 13,
+     "script": "en",
+     "shard": 1
+    },
+    {
+     "corpus_index": 242386,
+     "text_sha": "1f430ed2f052c4fa",
+     "n_bytes": 12,
+     "script": "en",
+     "shard": 2
+    }
+   ]
+  },
+  {
+   "norm_key": "d325912636b817cc",
+   "members": [
+    {
+     "corpus_index": 160478,
+     "text_sha": "2e444fec1a9b085f",
+     "n_bytes": 8,
+     "script": "en",
+     "shard": 2
+    },
+    {
+     "corpus_index": 259707,
+     "text_sha": "86b684a4326b2b7b",
+     "n_bytes": 7,
+     "script": "en",
+     "shard": 3
+    }
+   ]
+  },
+  {
+   "norm_key": "e6b06662d98ae967",
+   "members": [
+    {
+     "corpus_index": 317710,
+     "text_sha": "c0326834338126dc",
+     "n_bytes": 10,
+     "script": "en",
+     "shard": 2
+    },
+    {
+     "corpus_index": 450374,
+     "text_sha": "cccacfce626c504a",
+     "n_bytes": 9,
+     "script": "en",
+     "shard": 2
+    }
+   ]
+  }
+ ]
+}
