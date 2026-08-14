@@ -811,6 +811,23 @@ seat forgets at its peril:
   arbitrary, so a producer writing two files in one run flags either
   against the other. Fix both by comparing `git log -1` content dates
   and skipping pairs whose last-touching commit is identical.
+- **THE CAMPAIGN LEARNED "A SUMMARY THAT OUTRUNS ITS OWN BODY" ON
+  2026-08-13, NAMED IT, AND PUT IT NOWHERE THE NEXT SEAT WOULD LOOK.**
+  Commit `82959df1`: *"frontmatter carries the provisional name (the
+  indexed surface must not lag the body -- **the 21% lesson**)."* That
+  phrase appears in **exactly one place in this repository** — that
+  commit subject. Not in this ledger, not in either debt file, not in any
+  `.md`. A day later four seats re-derived it from scratch on
+  `U_ladder.md`, whose frontmatter carried a break its own body still
+  contradicted, and registrar minted it as new.
+  **The commit log is the widest-read channel we have and it is still one
+  channel** — the fix for *a correction that lives in one channel* is not
+  a better channel, it is that **a lesson has to reach the LEDGER, which
+  is the only file anyone reads looking for lessons rather than looking
+  for a change.** A named lesson in a commit subject is discoverable only
+  by someone who already knows the name.
+  Its origin is also the deadlock now blocking plot-debt 15: the same 21%
+  incident produced both the fence in `P_unnamed_axis.md` §3 and this.
 - **AN IDENTIFIER CAN FAIL IN THREE WAYS AND ONLY ONE IS DISCOVERABLE**
   ([6131]-[6133], all three seats audited themselves after lacan
   disclosed a fabricated hash):
