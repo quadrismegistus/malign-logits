@@ -38,6 +38,7 @@ exactly 6 round-1 and 14 round-2 first ratings -- balanced BY CONSTRUCTION,
 since the draw is per model. Had the rounds been drawn any other way the offset
 would have been a per-model bias wearing the shape of a result.
 """
+import argparse
 import collections
 import glob
 import json
@@ -55,13 +56,34 @@ ROUNDS = (("", "r1"), ("_r2", "r2"))
 
 def main():
     from scipy import stats
+    global OUTD, OUT
+    ap = argparse.ArgumentParser()
+    #: --outd exists so the MUTATION HARNESS can point these checks at a
+    #: deliberately corrupted copy and watch each one go red. A check that has
+    #: only ever been observed passing is not a check: it has a detector, the
+    #: detector runs, it runs green, and the green is why nobody looks.
+    ap.add_argument("--outd", default=OUTD)
+    ap.add_argument("--quiet", action="store_true")
+    a = ap.parse_args()
+    OUTD = a.outd
+    OUT = os.path.join(OUTD, "zh_fluency_audit.json")
     res, ok = {}, True
 
-    def say(name, passed, detail):
+    def say(name, passed, detail, rnd=""):
+        """Record under ROUND:CHECK, never under CHECK alone.
+
+        The first version keyed on the check name, so round 2 overwrote
+        round 1 and a round-1 failure vanished from the artifact while the
+        console still printed it. Found by the mutation harness: a leak
+        injected into round 1 came back `"field-leak": {"pass": true}`.
+        **The summary field lost exactly what the detail had shown.**
+        """
         nonlocal ok
-        ok = ok and passed
-        print("  %-14s %-4s %s" % (name, "PASS" if passed else "FAIL", detail))
-        res[name] = {"pass": bool(passed), "detail": detail}
+        ok = bool(ok and passed)
+        if not a.quiet:
+            print("  %-14s %-4s %s" % (name, "PASS" if passed else "FAIL", detail))
+        res["%s%s" % (rnd + ":" if rnd else "", name)] = {
+            "pass": bool(passed), "detail": detail}
 
     for sfx, label in ROUNDS:
         sp = os.path.join(OUTD, "zh_fluency_sample%s.json" % sfx)
@@ -72,7 +94,8 @@ def main():
         vd = json.load(open(vp))
         vd = vd["verdicts"] if isinstance(vd, dict) else vd
         sc = {r["key"]: SCORE[r["verdict"]] for r in vd}
-        print("\nROUND %s  (%d sampled, %d judged)" % (label, len(truth), len(sc)))
+        if not a.quiet:
+            print("\nROUND %s  (%d sampled, %d judged)" % (label, len(truth), len(sc)))
 
         #: 1 FIELD LEAK
         extra, n = set(), 0
@@ -90,14 +113,14 @@ def main():
                     pos_y.append(sc[it["key"]])
         say("field-leak", not extra,
             "%d items, fields beyond the three: %s"
-            % (n, sorted(extra) or "none"))
+            % (n, sorted(extra) or "none"), label)
 
         #: 2 BATCH CLUSTER
         spread = [len(v) for v in bym.values()]
         nb = len({b for v in bym.values() for b in v})
         say("batch-cluster", min(spread) >= 3,
             "%d models over %d batches; min %d batches/model"
-            % (len(bym), nb, min(spread)))
+            % (len(bym), nb, min(spread)), label)
 
         #: 3 KEY ORDER
         ks = sorted(truth)
@@ -105,12 +128,12 @@ def main():
         rho, pv = stats.spearmanr(list(range(len(ks))),
                                   [mr[truth[k]["model"]] for k in ks])
         say("key-order", abs(rho) < 0.2,
-            "spearman(key index, model index) %+.4f p=%.3f" % (rho, pv))
+            "spearman(key index, model index) %+.4f p=%.3f" % (rho, pv), label)
 
         #: 4 RATING ORDER
         rho2, pv2 = stats.spearmanr(pos_x, pos_y)
         say("rating-order", pv2 > 0.05,
-            "spearman(position in batch, score) %+.4f p=%.3f" % (rho2, pv2))
+            "spearman(position in batch, score) %+.4f p=%.3f" % (rho2, pv2), label)
 
     #: 5 ROUND DRIFT -- needs both rounds
     t2 = json.load(open(os.path.join(OUTD, "zh_fluency_sample_r2.json")))["truth"]
@@ -129,9 +152,10 @@ def main():
             per[(v["model"], "r2")] += 1
     models = sorted({m for m, _ in per})
     share = [per[(m, "r1")] / max(1, per[(m, "r1")] + per[(m, "r2")]) for m in models]
-    print("\nBOTH ROUNDS")
-    print("  %-14s %-4s round2-minus-round1 %+.3f on %d re-rates"
-          % ("round-drift", "----", sum(d) / len(d), len(d)))
+    if not a.quiet:
+        print("\nBOTH ROUNDS")
+        print("  %-14s %-4s round2-minus-round1 %+.3f on %d re-rates"
+              % ("round-drift", "----", sum(d) / len(d), len(d)))
     say("drift-cancels", (max(share) - min(share)) < 1e-9,
         "round-1 share per model: min %.3f max %.3f spread %.2g -- a constant "
         "offset cancels in any within-model contrast"
@@ -142,8 +166,9 @@ def main():
                          "failure would leave every output well-formed.",
                "all_pass": ok, "checks": res},
               open(OUT, "w"), indent=1)
-    print("\n%s -> %s" % ("ALL CHECKS PASS" if ok else "**A CHECK FAILED**",
-                          os.path.relpath(OUT, ROOT)))
+    if not a.quiet:
+        print("\n%s -> %s" % ("ALL CHECKS PASS" if ok else "**A CHECK FAILED**",
+                              os.path.relpath(OUT, ROOT)))
     return 0 if ok else 1
 
 
