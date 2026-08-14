@@ -772,6 +772,32 @@ seat forgets at its peril:
   raises AT THE WRITE, after every passage is embedded, means all the
   work is done, nothing is recorded, and the sweep calls it a crashed
   shard.
+- **A MONITOR CAN MANUFACTURE THE APPEARANCE OF HEALTH, NOT MERELY FAIL
+  TO CATCH ITS ABSENCE** ([6001]): with both shards crashed, the sweep
+  printed `proc=0 rows=0 rate=3.11/s` — a bare `[0-9.]+/s` regex over
+  the log had matched `python3.11/s`ite-packages **inside the crash
+  traceback**. The runbook's §2.13 covers a failure that LOOKS like
+  fast progress; this is the monitor inventing the look. **The two
+  correct fields sat beside the fabricated one, and the fabricated one
+  was the only field consistent with a healthy run** — which is the
+  argument for quoting three fields rather than one, and for anchoring
+  a scraper to the producer's own progress line rather than to a
+  pattern that could occur anywhere in its output.
+- **A TRUE PREMISE CAN ANSWER THE WRONG QUESTION, AND A LAZY IMPORT
+  TURNS A SPECIFIC ERROR INTO A GENERIC ONE** ([6001], a three-round
+  dependency cascade): pip warned that `torchvision` required the old
+  torch, and the warning was dismissed on the true premise that *bge
+  does not use torchvision* — but the importer was never bge, it was
+  transformers. Then `Could not import PreTrainedModel`, which is
+  transformers' lazy wrapper, MASKED `operator torchvision::nms does
+  not exist`, so two rounds of version guessing chased the wrong
+  package; the real message appeared only on importing
+  `transformers.modeling_utils` directly. **Every version tried was a
+  guess against a masked cause.** Import the inner module to unmask
+  before choosing a fix. (And the first fight was the torch `.bin`
+  floor already in this repo's own runbook, which had previously cost
+  the grid 13 models — a documented hazard met again by the seat that
+  documented it.)
 - **A GUARD THAT ONLY EVER REFUSES IS INDISTINGUISHABLE FROM A WORKING
   ONE — TEST BOTH BRANCHES** ([5992]): the bge launcher refuses while
   BLT is live on a box and proceeds when it is not, and both were
