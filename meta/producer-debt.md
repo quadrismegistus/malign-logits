@@ -41,7 +41,9 @@ Sub-type B: no code at all (fix = write the producer; recoverability
 varies):
 
 - ~~**M02 opus_second_order artifacts**~~ **DISCHARGED 2026-08-14,
-  `503da52d` ([5906]), pending lacan's second-seat on the logic
+  `503da52d` ([5906] — DARIO'S work; the post is mis-signed as malign
+  per [5907]'s seat-inheritance incident), pending lacan's second-seat
+  on the logic
   ([5900] split). NO TRANSCRIPT NEEDED** — the four artifacts ARE the
   reader's raw per-passage verdicts; only the aggregation was missing
   (RH's produce-raw-rows rule [5562] proving its value from the
