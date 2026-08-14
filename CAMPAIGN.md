@@ -772,6 +772,26 @@ seat forgets at its peril:
   companion was the verse/prose split I designed. **The interior audit
   produces the confidence either way; it does not care which direction
   the confidence points.**
+- **A PATTERN RECRUITS ATTENTION AND A MAGNITUDE DOES NOT** ([6077],
+  lacan). Four seats worked the multilingual cluster for an evening
+  because it had a shape; the case that settled it was the LARGEST
+  entry in the gap and had nothing interesting about it except its
+  size. **A bias in what gets investigated, not in how carefully** —
+  the complement of everything else booked today.
+- **RECORD MORE THAN THE QUESTION NEEDS** ([6077]). The column that
+  closed the investigation was `n_words`, put in the manifest with no
+  purpose because RH had asked for a manifest. **Fourth time on
+  2026-08-14 that a question was resolved by an artifact nobody created
+  as evidence**: the dropped stash object, malign's session-start git
+  snapshot (the only trace of the M03 README transition),
+  `model_load_environments.json`, and this.
+- **EXCLUDED IS NOT OUTSTANDING** ([6077], RH's ruling booked): a store
+  missing cells it has been ruled not to hold is COMPLETE, not
+  incomplete. 964,679 of 970,376 non-empty cells = 99.41%, with the
+  remainder formally excluded. Keep the retired work list rather than
+  deleting it — **a list that vanishes teaches the next seat to
+  re-derive it**, and the receipt is only worth having if it names the
+  true cause (*empty payload at theta=0.001*, not *corrupted prompt*).
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
   fifth that belonged. malign's twin at [6042] — verifying sizes
