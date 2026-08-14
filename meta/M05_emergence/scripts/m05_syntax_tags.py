@@ -34,6 +34,8 @@ is kept as spaCy emitted it.
 import json
 import os
 import subprocess
+
+from malign_logits import ch
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -88,24 +90,20 @@ def battery_texts():
 def unique_pairs(texts):
     esc = lambda s: s.replace("\\", "\\\\").replace("'", "\\'")
     inlist = ",".join(f"'{esc(t)}'" for t in texts)
-    q = (f"SELECT DISTINCT prompt, word FROM {DB}.twp_words "
-         f"WHERE {MODELS} AND abs(theta - 0.001) < 1e-9 "
-         f"AND prompt IN ({inlist}) FORMAT TSV")
-    r = subprocess.run([CH, "client", "--query", q],
-                       capture_output=True, text=True, check=True)
-    pairs = []
-    for line in r.stdout.splitlines():
-        p, _, w = line.partition("\t")
-        # TSV escapes from clickhouse
-        #: ClickHouse TSV escapes apostrophes too (`Arendt\'s`) -- missing
-        #: that unescape poisoned 46 prompts in the first build (8% of all
-        #: mass read UNTAGGED, flat across rungs). ch_read's own docstring
-        #: warns about exactly this string (`didn\'t`).
-        for esc_seq, ch in (("\\t", "\t"), ("\\n", "\n"), ("\\'", "'"),
-                            ("\\\\", "\\")):
-            p = p.replace(esc_seq, ch)
-            w = w.replace(esc_seq, ch)
-        pairs.append((p, w))
+    #: MIGRATED 2026-08-14 to `malign_logits.ch`. WAS a `FORMAT TSV` read
+    #: split with `line.partition("\t")` plus four hand-written unescapes --
+    #: written because omitting them poisoned 46 prompts in the first build,
+    #: 8% of all mass read UNTAGGED. That is the THIRD independent
+    #: rediscovery of TSV escaping in this repo (ch_read._unesc and gens's
+    #: `unescape_cols` are the others), which is the argument for one reader
+    #: rather than three careful ones. JSONEachRow has nothing to unescape and
+    #: no delimiter to partition on, so a prompt containing a tab or a newline
+    #: -- and 3 of the 8 in the smoke sample do -- survives intact.
+    rows = ch.query(
+        f"SELECT DISTINCT prompt, word FROM {{db}}.twp_words "
+        f"WHERE {MODELS} AND abs(theta - 0.001) < 1e-9 "
+        f"AND prompt IN ({inlist})")
+    pairs = [(r["prompt"], r["word"]) for r in rows]
     return pairs
 
 
