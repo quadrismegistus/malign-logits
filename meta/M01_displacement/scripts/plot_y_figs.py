@@ -15,6 +15,7 @@ content. Axes in percentage points for reading; r computed on the raw
 fractions upstream, identical under linear scaling.
 """
 import argparse
+import json
 import os
 import sys
 
@@ -222,8 +223,142 @@ def y3_filter_predicts_the_flat_ones():
     return out
 
 
+#: Y_superego §4's named values, on the population the finding prints:
+#: <guilt> SPAN, coding PASS A. Neither the field nor the span-over-all-passes
+#: reproduces these -- span/all gives AmberSafe +11.44 and a median of +0.51.
+#: keyed by a fragment of the MODEL ID, not by section 4's prose name for it.
+#: The doc writes "pythia-6.9b-hh-dpo"; the id is
+#: `lomahony/eleuther-pythia6.9b-hh-dpo`, with no hyphen after "pythia", so a
+#: prose-name match finds nothing. The assert caught it rather than the panel
+#: labelling the wrong pair.
+BOOKED_Y4 = {"AmberSafe": 15.4, "gemma-2-9b-it": 7.0, "llm-jp-3": 6.4,
+             "hh-dpo": 6.2, "median": 0.8, "n_pairs": 32}
+#: §4 says "four negative pairs including both Mamba architectures". Ten pairs
+#: are below zero; exactly four are below -1pp and both Mambas are among those
+#: four. The threshold is recovered from the doc's parenthetical and is
+#: declared nowhere in it, so the panel states it rather than implying it.
+BOOKED_Y4_THRESHOLD = -1.0
+BOOKED_Y4_BELOW = 4
+
+
+def y4_heterogeneity():
+    """queue 17: the superego shift is heterogeneous, and that is the object."""
+    from plotnine import (aes, element_blank, element_text, geom_hline,
+                          geom_point, geom_segment, geom_text, geom_vline,
+                          ggplot, labs, scale_color_identity,
+                          scale_x_continuous, scale_y_continuous, theme,
+                          theme_minimal)
+
+    src = "meta/M01_displacement/results/y_guilt_heterogeneity.json"
+    d = json.load(open(src))
+    rows = sorted(d["pairs"], key=lambda r: r["delta_pp"])
+
+    assert d["n_pairs"] == BOOKED_Y4["n_pairs"] == len(rows), \
+        f"pairs drifted: {d['n_pairs']} vs booked {BOOKED_Y4['n_pairs']}"
+    assert d["pass"] == "A", f"population is pass {d['pass']!r}, not A"
+    by = {r["aligned_model"].split("/")[-1]: r["delta_pp"] for r in rows}
+    for name, booked in BOOKED_Y4.items():
+        if name in ("median", "n_pairs"):
+            continue
+        hit = [v for k, v in by.items() if name.lower() in k.lower()]
+        assert len(hit) == 1, f"{name}: {len(hit)} matches among the aligned models"
+        assert abs(hit[0] - booked) < 0.1, \
+            f"{name}: {hit[0]:+.2f}pp against section 4's {booked:+.1f}pp"
+    assert abs(d["median_delta_pp"] - BOOKED_Y4["median"]) < 0.05, \
+        f"median drifted: {d['median_delta_pp']:.3f} vs {BOOKED_Y4['median']}"
+    #: THE SENTENCE THE PANEL HAS TO NOT BREAK. "Four negative pairs including
+    #: both Mamba architectures" is true at a -1pp threshold and false at zero,
+    #: where ten pairs are negative. Both halves asserted.
+    below = [r for r in rows if r["delta_pp"] < BOOKED_Y4_THRESHOLD]
+    assert len(below) == BOOKED_Y4_BELOW, \
+        f"{len(below)} pairs below {BOOKED_Y4_THRESHOLD}pp, not {BOOKED_Y4_BELOW}"
+    mambas = [r for r in below if "mamba" in r["aligned_model"].lower()]
+    assert len(mambas) == 2, \
+        (f"{len(mambas)} Mamba architectures below the threshold, not 2; the "
+         "panel says both are among the four")
+
+    df = pd.DataFrame(rows)
+    df["y"] = range(len(df))
+    df["short"] = [r["aligned_model"].split("/")[-1] for r in rows]
+    df["col"] = ["#b03030" if v < BOOKED_Y4_THRESHOLD else
+                 "#c9c9c9" if v < 1.0 else "#1f4e79" for v in df.delta_pp]
+    #: name only the tails: the four below the threshold and the four §4 names
+    named = set(df.nlargest(4, "delta_pp").short) | set(
+        r["aligned_model"].split("/")[-1] for r in below)
+    lab = df[df.short.isin(named)].copy()
+    lab["lx"] = lab.delta_pp + [0.45 if v > 0 else -0.45 for v in lab.delta_pp]
+    lab["ha"] = ["left" if v > 0 else "right" for v in lab.delta_pp]
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#333333", size=0.5)
+        + geom_vline(xintercept=BOOKED_Y4_THRESHOLD, linetype="dashed",
+                     color="#b03030", size=0.4)
+        + geom_segment(df, aes(0, "y", xend="delta_pp", yend="y", color="col"),
+                       size=0.55, alpha=0.55)
+        + geom_point(df, aes("delta_pp", "y", color="col"), size=2.6)
+        + geom_text(lab, aes("lx", "y", label="short", ha="ha"), size=6.4,
+                    color="#333333")
+        + scale_color_identity()
+        + scale_x_continuous(limits=(-9.5, 21),
+                             breaks=[-4, -2, -1, 0, 2, 4, 6, 8, 10, 12, 14, 16])
+        + scale_y_continuous(breaks=[], limits=(-0.8, len(df) - 0.2))
+        + labs(
+            title="The superego shift is heterogeneous, and the heterogeneity is the finding",
+            subtitle=(
+                "Change in the rate at which a passage carries a `<guilt>` span, aligned minus base,\n"
+                "one dot per model pair over 32 pairs. Coding pass A, which is the population section 4\n"
+                "prints; the span over all passes gives AmberSafe +11.4 and a median of +0.5, and the\n"
+                "broader `guilt_or_shame` FIELD gives +12.3 -- neither is this figure.\n"
+                "NO SUMMARY LINE IS DRAWN ACROSS THESE DOTS, and that is deliberate. The finding's own\n"
+                "sentence is that heterogeneity is the object, so a mean over a distribution whose\n"
+                "SPREAD is the claim would invite exactly the reading it exists to refuse. The median\n"
+                "is +0.8pp and it is stated here rather than drawn.\n"
+                "A 20-POINT SPREAD ON A SUB-POINT MEDIAN. AmberSafe moves +15.5pp; the middle of the\n"
+                "roster moves by less than a point in either direction.\n"
+                "THE DASHED LINE AT -1pp IS RECOVERED, NOT DECLARED. Section 4 says four negative pairs\n"
+                "including both Mamba architectures. TEN pairs are below zero; exactly four are below\n"
+                "-1pp, and both Mambas are among those four. The sentence is true at that threshold and\n"
+                "false at zero, so the threshold is drawn and every pair is shown with its own value\n"
+                "rather than the four being filtered out and presented as the negatives."),
+            x="change in `<guilt>` span rate, aligned minus base (percentage points)",
+            y="",
+            caption=(
+                "Producer: meta/M01_displacement/scripts/plot_y_figs.py from\n"
+                "results/y_guilt_heterogeneity.json (producer y_guilt_heterogeneity.py, lacan,\n"
+                "af23eef8), which exists because its own source is 143 MB and gitignored: a figure\n"
+                "drawn from that directly would inherit an input no other seat can fetch.\n"
+                "Asserted before drawing: 32 pairs; the population is pass A; each of section 4's four\n"
+                "named pairs within 0.1pp; the median within 0.05pp; exactly four pairs below -1pp; and\n"
+                "that both Mamba architectures are among those four.\n"
+                "THE POPULATION IS THE WHOLE DIFFICULTY AND IT WAS NOWHERE STATED. Field, span-over-all\n"
+                "and span-on-pass-A give three different answers with the same median to a decimal --\n"
+                "+12.3, +11.4 and +15.5 for AmberSafe -- so a reader reproducing section 4 from the\n"
+                "obvious artifact lands on a number that is wrong in the tails and right in the middle."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(12.4, 7.4),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "y4_superego_heterogeneity.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print(f"    {len(rows)} pairs, pass {d['pass']}, median {d['median_delta_pp']:+.2f}pp, "
+          f"spread {d['spread_pp']:.1f}")
+    print(f"    {d['n_negative']} below zero, {len(below)} below {BOOKED_Y4_THRESHOLD}pp, "
+          f"{len(mambas)} of them Mamba")
+    print(f"    no summary line drawn; median stated in the subtitle")
+    return out
+
+
 REGISTRY = {
-    "y3_filter": y3_filter_predicts_the_flat_ones,"y_dissoc": y_dissoc}
+    "y3_filter": y3_filter_predicts_the_flat_ones,"y_dissoc": y_dissoc,
+    "y4_heterogeneity": y4_heterogeneity}
 
 
 def main():
