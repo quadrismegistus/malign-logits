@@ -334,14 +334,145 @@ def t14_words():
     print(f"wrote {out}")
 
 
+def t18_units():
+    """T-18 beside M05-C: the gap is real, its sign is not robust.
+
+    ADDED BY THE dario SEAT, 2026-08-14, into the slot this registry
+    already reserved ("t18 (affect DiD beside M05-C)"). Purely additive:
+    no existing function or registry entry is touched.
+
+    A DUMBBELL IN ONE PANEL, NOT THE TWO PANELS THE QUEUE ENTRY PHRASES.
+    plot-debt's shortlist item 2 says "one-lineage DiD left, edge-unit
+    DiD right". Two panels put the two estimates in two coordinate
+    systems, and the reader has to carry a sign across the gutter and
+    remember it. The claim being rendered is that the SIGN DISAGREES
+    between units, and on one axis that is a segment crossing zero --
+    the disagreement becomes a shape rather than a comparison the reader
+    performs. Six of sixteen fields do it.
+
+    THE TWO SIDES ARE NOT THE SAME MEASUREMENT AND THE PANEL SAYS SO.
+    T-18 is 50 base-to-aligned EDGES; M05-C is 105 pairs on ONE LINEAGE
+    (OLMo), and its own artifact describes itself as "SHAPE/timing, not
+    generalisation". So this is not a replication failure: it is one
+    quantity estimated at two units that do not have to agree, drawn so
+    that where they do not is visible.
+
+    Significance is drawn at BOTH units because they disagree about that
+    too, and more widely than they disagree about sign: 13 of 16 fields
+    clear q 0.05 at the edge unit against 6 of 16 on the lineage. A
+    figure showing only the point estimates would understate how far
+    apart the two readings are.
+    """
+    import json
+
+    import numpy as np
+    from plotnine import (aes, element_text, geom_point, geom_segment,
+                          geom_text, geom_vline, ggplot, labs,
+                          scale_color_manual, scale_fill_manual, theme,
+                          theme_minimal)
+
+    ROOT = os.path.dirname(os.path.dirname(M01))
+    t = pd.read_csv(os.path.join(RESULTS, "t_affect_did.csv"))
+    j = json.load(open(os.path.join(ROOT, "data", "m05_widening_null.json")))
+    m = pd.DataFrame(j["results"]).rename(
+        columns={"did": "m05_did", "p": "m05_p", "q_bh": "m05_q"})
+    d = t.merge(m[["field", "m05_did", "m05_q"]], on="field", how="left")
+
+    assert len(d) == 16, f"T-18 field count drifted: {len(d)} vs 16"
+    assert d.m05_did.notna().all(), \
+        f"unjoined fields: {d[d.m05_did.isna()].field.tolist()}"
+    assert (d.n_edges == 50).all(), "T-18 edge count is no longer 50 throughout"
+    assert j["n_pairs"] == 105 and j["n_fields"] == 269, \
+        f"M05-C population drifted: {j['n_pairs']} pairs, {j['n_fields']} fields"
+
+    d["agree"] = (d.mean_DiD > 0) == (d.m05_did > 0)
+    anchor = d[d.field == "RID: aggression"].iloc[0]
+    assert not anchor.agree, "RID: aggression no longer disagrees; it is the anchor"
+    n_dis = int((~d.agree).sum())
+    assert n_dis == 6, f"sign disagreements drifted: {n_dis} vs 6"
+
+    d = d.sort_values("mean_DiD").reset_index(drop=True)
+    d["field"] = pd.Categorical(d.field, categories=d.field.tolist(), ordered=True)
+    d["state"] = np.where(d.agree, "signs agree", "SIGNS DISAGREE")
+
+    long = pd.concat([
+        d.assign(unit="edge unit (T-18, 50 edges)", v=d.mean_DiD,
+                 sig=d.q_bh < 0.05),
+        d.assign(unit="one lineage (M05-C, 105 pairs)", v=d.m05_did,
+                 sig=d.m05_q < 0.05),
+    ])
+    long["marker"] = np.where(long.sig, "q < 0.05", "not significant")
+
+    lab = d[~d.agree].copy()
+    lab["x"] = lab[["mean_DiD", "m05_did"]].max(axis=1) + 0.0007
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#b03030", size=0.5)
+        + geom_segment(d, aes("mean_DiD", "field", xend="m05_did", yend="field",
+                              color="state"), size=1.0, alpha=0.85)
+        #: fill is mapped, not shape, so "filled clears q 0.05" is literally
+        #: what the mark does. An earlier version mapped shape and the legend
+        #: rendered the two states ambiguously against the subtitle's claim.
+        + geom_point(long, aes("v", "field", fill="marker"), size=2.8,
+                     shape="o", color="#1f4e79", stroke=0.7)
+        + geom_text(lab, aes("x", "field"), label="sign flips", size=5.6,
+                    ha="left", color="#b03030")
+        + scale_color_manual(values={"signs agree": "#b8b8b8",
+                                     "SIGNS DISAGREE": "#b03030"}, name="")
+        + scale_fill_manual(values={"q < 0.05": "#1f4e79",
+                                    "not significant": "#ffffff"}, name="")
+        + labs(
+            title="The affect gap is real. Its sign is not robust to the unit you estimate it at.",
+            subtitle=(
+                "Sixteen declared fields. Each segment joins the SAME field's "
+                "difference-in-differences at two units: 50 base-to-aligned edges (T-18) and 105 "
+                "pairs on one lineage (M05-C).\n"
+                "A SEGMENT CROSSING ZERO IS A SIGN DISAGREEMENT. Six of sixteen do, including "
+                "RID: aggression, where the edge unit sees nothing (+0.0002, q 0.43) and the lineage "
+                "sees a significant fall (-0.0054, q 0.007).\n"
+                "THE TWO UNITS ALSO DISAGREE ABOUT SIGNIFICANCE, and more widely: 13 of 16 fields "
+                "clear q 0.05 at the edge unit, 6 of 16 on the lineage. Filled marks clear it, "
+                "hollow do not.\n"
+                "NOT A REPLICATION FAILURE. These are different units over different populations, and "
+                "M05-C's artifact calls itself SHAPE/timing, NOT GENERALISATION -- one lineage, OLMo. "
+                "Neither estimate is the other's check.\n"
+                "Both sides carry Benjamini-Hochberg q. T-18 p is Wilcoxon; M05-C is a 20,000-draw "
+                "sign-flip null."),
+            x="difference-in-differences (marked minus neutral field gap, aligned minus base)",
+            y="",
+            caption=("Producer: meta/M01_displacement/scripts/plot_t_figs.py from "
+                     "results/t_affect_did.csv + data/m05_widening_null.json.\n"
+                     "Asserted before drawing: 16 fields, all joined, 50 edges throughout, "
+                     "105 pairs / 269 fields on the lineage side, and six sign disagreements with "
+                     "RID: aggression among them."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(11.8, 6.0),
+                plot_title=element_text(size=12.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.1, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_text(size=7.4),
+                legend_position="right")
+    )
+    out = os.path.join(FIGURES, "t18_unit_disagreement.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print(f"    {n_dis} of 16 fields disagree in sign; "
+          f"edge unit {int((d.q_bh < 0.05).sum())}/16 significant, "
+          f"lineage {int((d.m05_q < 0.05).sum())}/16")
+    return out
+
+
 REGISTRY = {
     "t14": t14,
     "t14_dumbbell": t14_dumbbell,
     "t14_words": t14_words,
+    "t18_units": t18_units,
     # future: t5 (sink structure), t7 (concreteness densities),
     # t8 (bodily_violence->speech_act diverging bar), t11 (stratified
-    # heatmap; NEVER pooled), t12 (USAS lollipop), t18 (affect DiD
-    # beside M05-C) — see meta/plot-debt.md RUNNING TODO.
+    # heatmap; NEVER pooled), t12 (USAS lollipop) — see
+    # meta/plot-debt.md RUNNING TODO. t18 landed 2026-08-14.
 }
 
 
