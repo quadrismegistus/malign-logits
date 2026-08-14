@@ -66,7 +66,13 @@
 				prompts = res.prompts;
 			} else if (health.data_only) {
 				serverInfo = await api.info();
-				activeTab = 'beams';
+				//: NO FORCED TAB. This used to switch to 'beams' in data-only
+				//: mode, on the reasoning that the analysis tabs cannot work
+				//: without models -- true then, and it silently overrode the
+				//: default on every load once 'slot' became the default, since
+				//: this runs on mount AFTER the initial value. `slot` is itself
+				//: data-only-safe (it loads its own model on demand), so the
+				//: switch has nothing left to protect against.
 			}
 		} catch {
 			connected = false;
