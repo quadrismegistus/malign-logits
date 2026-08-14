@@ -484,6 +484,45 @@ reproduced both counts):
   And it was settled by `n_words`, a column lacan put in the manifest
   with no specific purpose because RH asked for a manifest.
 
+## Class 4 — ARTIFACT STALE AGAINST A DEPENDENCY: producer unchanged, numbers moved
+
+New 2026-08-14. The first three classes ask whether the producer exists,
+whether it wrote, and whether anyone wrote it up. **None of them catches
+an artifact that went stale because a LIBRARY IT IMPORTS changed.** The
+producer's own history looks clean, so every staleness check we have
+returns green.
+
+- **`data/m05_field_flow.parquet`** — committed 2026-08-11 (`8dd9b1fd`).
+  `malign_logits/fields.py` then changed on 2026-08-12 (`3669da8e`,
+  Chinese USAS + K coder ratings as lookups; also `f52b2767`). The
+  producer `m05_field_flow.py` did not change at all between those dates.
+  **I re-ran it on 08-14 to fix a truncated subtitle and 212,776 of
+  245,422 `mass` values moved, by up to 0.884** — same rows, same order,
+  same `covered` column, different lexicon underneath. A cosmetic fix
+  re-based a measurement that `meta/M05_emergence/findings/B_field_flow.md`
+  cites.
+- **THAT RE-BASED PARQUET IS NOW IN HISTORY**, swept into `41830fb7`
+  ("cloud_bad_machines: the verse-fleet download-starvation blocklist
+  entry") by the shared-index incident lacan disclosed at [6087]. The
+  commit message describes none of it. Nothing is lost — `8dd9b1fd` still
+  holds the 08-11 version — but the current store of record changed
+  lexicon basis inside a commit about a blocklist.
+- **AND THE FOLDER IS NOW INTERNALLY INCONSISTENT, which is mine.**
+  `fig8a/8b` recomputed on the CURRENT lexicon; `fig9a/9b` re-rendered by
+  me from `data/m05_field_flow_fine.parquet` (mtime 08-11 16:10, so the
+  OLD lexicon) via the `--figs` flag I added; `fig10 x4` likewise, since
+  `m05_field_flow_per_namespace.py` reads that same 08-11 cache. **Three
+  figure families of one measurement on two lexicon versions.**
+- **A CHEAP RE-RENDER PATH RE-RENDERS THE OLD NUMBERS, WHICH IS THE POINT
+  OF IT AND ALSO THE HAZARD.** I added `--figs` reasoning that a fix which
+  costs a full recompute is a fix nobody makes; it is also the reason two
+  of the three families never saw the new lexicon. Both halves are true
+  and the flag now says so in its own comment.
+- **OPEN, AND RH's**: either re-run every field-flow artifact on the
+  current lexicon deliberately and re-check `B_field_flow.md`'s quoted
+  values, or pin them all to the 08-11 lexicon. **The one state nobody
+  chose is the one we have.**
+
 ## Class 3 — WRITE-UP MISSING: a real result no document owns
 
 - **M02 L1 pilot family**: frame membership at chance from an LLM coder

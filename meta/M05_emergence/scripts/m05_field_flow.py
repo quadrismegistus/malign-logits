@@ -81,6 +81,18 @@ def load_pairs():
 
 
 def main():
+    #: --figs re-renders from the cached table. Added 2026-08-14 for the
+    #: SECOND reason, which matters more than the first: recomputing does
+    #: not just cost a ClickHouse pass, it silently re-bases the numbers on
+    #: whatever `malign_logits.fields` says TODAY. That lexicon changed on
+    #: 2026-08-12 (3669da8e) after this parquet was written on 08-11, and a
+    #: recompute run to fix a SUBTITLE moved 212,776 of 245,422 mass values
+    #: by up to 0.88. A cosmetic fix must not re-base a cited measurement.
+    if "--figs" in sys.argv:
+        df = pd.read_parquet(OUT)
+        print(f"read {OUT}: {len(df)} rows, {df.field.nunique()} fields")
+        return figures(df, population())
+
     from malign_logits import fields
     from malign_logits.movement import word_probs
 
@@ -124,7 +136,10 @@ def main():
     df = pd.DataFrame(rows)
     df.to_parquet(OUT)
     print(f"wrote {OUT}: {len(df)} rows, {df.field.nunique()} fields")
+    return figures(df, pop)
 
+
+def figures(df, pop):
     order = pd.DataFrame([(i, r) for i, _, r in pop],
                          columns=["ckpt_idx", "role"]).drop_duplicates()
     sft0 = order[order.role == "sft_step"].ckpt_idx.min()
