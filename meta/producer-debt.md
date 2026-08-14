@@ -409,6 +409,34 @@ reproduced both counts):
       sha256 6b25cfa60dc9b3b3e3ca0930dbb2f9d741bd0fc21f8a11e2fc10f62be071cec8
       62,681 lines both sides — matches the manifest item count exactly
 
+- **A CITATION IS A CLAIM THAT SOMETHING IS IMPORTANT; A READER IS A
+  CLAIM THAT SOMETHING IS LOAD-BEARING** ([6063], malign; reader counts
+  verified at this seat by opening the hits, not by grep). **This file
+  had been recording the cheap one.** The two numbers do not
+  substitute for each other and they diverge in both directions:
+
+      y_confirmatory_coded.jsonl     6 citing docs   12 READERS + 1 rewriter
+      m05_norm_mass.parquet          4 citing docs    1 reader
+      verse_fleet/*.f16              prose only       0 readers, 2 booked
+
+  **`y_confirmatory_coded.jsonl` is therefore the worst case of the four
+  and it is not close.** Eleven analyses plus its own producer read it
+  back, and **one of the twelve is `y_exit_typology.py` in M02** —
+  verified here, an `IN =` reaching across the module boundary into
+  M01's results — **so a module whose owner may not know it has an M01
+  dependency loses an analysis the day this file goes.**
+
+  Three properties make it the worst case and no two would: 137.2 MiB,
+  over GitHub's hard block, so committing was never available; a paid,
+  sampled API annotation over 62,681 items **then rewritten in place**
+  by `y_repair_rt.py`, so lacan's precondition bites exactly here (*the
+  pointer only works when the thing pointed at is derivable; where it
+  is a record the pointer is a copy path or it is nothing*); and twelve
+  dependents, which the citation count did not show.
+
+  **The copies made on 2026-08-14 are currently the entire protection
+  for those twelve dependents.**
+
   `lens_group_layer.jsonl` was already on diderot at identical size;
   `m05_norm_mass.parquet` is absent there but regenerable from a
   tracked deterministic producer, so its absence is a cost and not an
