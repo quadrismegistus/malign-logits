@@ -27,12 +27,30 @@ THE RULE, in the plan's words:
     3. the group set is the COMMON set across the ladder, count published.
     4. median, not mean, throughout (M05's ranks-not-levels riders).
 
-The null column reads `m05_pole_sep_crossgroup_null.csv`, which holds BOTH arms
-distinguished only by `group_x == group_y` -- the `kind` field says REAL on the
-9,009 real rows and is EMPTY on the 90,090 null ones. Two traps in that file,
-both hit here before they were noticed: OLMo's `step` column is -1 on every
-OLMo row (the step lives in the model string), and an unsorted `.unique()[:4]`
-shows only Pythia though OLMo is 53,361 of the rows.
+Both arms read from `m05_pole_sep_crossgroup_null.csv`, separated here by
+`group_x == group_y`.
+
+**CORRECTED 2026-08-14 ([5969], [5970]).** This docstring, and my [5958], said
+that file's `kind` column "says REAL on the real rows and is EMPTY on the null
+ones", and I called it an instance of *an empty field is a finding*. **IT IS
+NOT EMPTY. It says `NULL` on all 90,090 rows and pandas erased it before I saw
+it** -- the same `STR_NA_VALUES` collision that later ate this file's own
+lowercase `null`. Measured:
+
+    csv module, raw bytes  {'REAL': 9009, 'NULL': 90090}
+    pd.read_csv default    {'REAL': 9009,  NaN  : 90090}
+    keep_default_na=False  {'REAL': 9009, 'NULL': 90090}
+
+So it is NOT two defects from opposite ends of the pipe, which is how I wrote
+it at [5968]. **It is one defect twice, and the source producer never had the
+fault I attributed to it.** I diagnosed a producer from a reader's output, then
+"fixed" it here, and the fix failed the same way. That is worth more than the
+bug: the erasure is indistinguishable from an unlabelled column at the point of
+reading, so nothing short of the raw bytes could have separated them.
+
+Two further traps in that file, both hit here before they were noticed: OLMo's
+`step` column is -1 on every OLMo row (the step lives in the model string), and
+an unsorted `.unique()[:4]` shows only Pythia though OLMo is 53,361 of the rows.
 """
 import json
 import os
@@ -76,8 +94,28 @@ def reduce_two_stage(df, ckcol, val, groups):
 def main():
     import pandas as pd
 
+    #: READ SIDE, per @registrar's [5969]: the write-side guard below cannot
+    #: help with files that already exist, and this producer was itself reading
+    #: `kind = NULL` as NaN and then reporting the column as unlabelled. Read
+    #: with the NA defaults OFF and assert the arms, so an erased label is a
+    #: refusal here rather than a claim about someone else's producer.
     real = pd.read_csv(os.path.join(OUTD, "m05_pole_sep.csv"))
-    nullf = pd.read_csv(os.path.join(OUTD, "m05_pole_sep_crossgroup_null.csv"))
+    nullf = pd.read_csv(os.path.join(OUTD, "m05_pole_sep_crossgroup_null.csv"),
+                        keep_default_na=False, na_values=[])
+    kinds = nullf["kind"].value_counts().to_dict()
+    if set(kinds) != {"REAL", "NULL"}:
+        raise SystemExit("expected kind in {REAL, NULL}, got %r -- if a label "
+                         "reads as empty here, check the raw bytes before "
+                         "concluding the producer omitted it." % kinds)
+    #: and the label must AGREE with the join condition the arms are split on
+    lab = nullf.assign(same=nullf.group_x == nullf.group_y).groupby("kind")["same"].nunique()
+    if set(lab.values) != {1}:
+        raise SystemExit("`kind` disagrees with group_x == group_y; the two "
+                         "ways of naming the arms do not partition alike")
+    print("READ     kind = %s, and it agrees with group_x == group_y"
+          % ", ".join("%s %s" % (k, format(v, ",")) for k, v in sorted(kinds.items())))
+    nullf["sep"] = pd.to_numeric(nullf["sep"])
+    nullf["layer"] = pd.to_numeric(nullf["layer"])
 
     #: RULE 1. Assert the identity the dedup rests on, rather than trusting the
     #: finding's prose for it -- if role ever stops being bit-identical, this
@@ -107,8 +145,8 @@ def main():
     realf = nullf[nullf.group_x == nullf.group_y].copy()
     print("RULE 0  null file: %s rows | %s cross-group (null) | %s same-group (real)"
           % (format(len(nullf), ","), format(len(cross), ","), format(len(realf), ",")))
-    print("        `kind` says REAL on the real rows and is EMPTY on the null "
-          "rows, so the arms are separated by the join condition, not the label")
+    print("        both arms are LABELLED in `kind` and are split here on "
+          "group_x == group_y; the two agree (asserted above)")
 
     #: CROSS-CHECK, since OLMo real exists in BOTH files and so is checkable.
     #: TOLERANCE IS NOT ARBITRARY: the null file stores ~6 significant figures,
