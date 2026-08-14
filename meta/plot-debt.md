@@ -266,15 +266,32 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
   the domain contrast does not reproduce; nothing to draw.
 - OPENING-MATCHED FAMILY: UNPLOTTABLE — withdrawn at construction
   level ([5811]); nothing from it may be drawn in any form.
-  **AND ITS VALUES HAVE LEAKED INTO A THIRD ARTIFACT** ([5936], dario):
-  `propagation.json` carries `undisturbed_reference: [0.016, 0.024]`
-  as a bare pair of floats with no provenance and no status — the
-  withdrawal notice lives in another finding and in this queue, so a
-  plotter meeting that file alone has nothing to warn them. Same shape
-  as the parse-free numbers reaching the register and as
-  mediation_readings.json before [5903]. REFERRED to lacan for the
-  same treatment: mark IN THE ARTIFACT and patch the producer, so a
-  rerun cannot erase the marker. Its
+  **A DERIVED VALUE TRAVELLED WITHOUT ITS NOTICE — PATCHED, AND MY
+  DIAGNOSIS OF IT CORRECTED** ([5936] dario / [5937] registrar /
+  [5940] lacan, `db4c8625`): `propagation.json` carried
+  `undisturbed_reference: [0.016, 0.024]` as bare floats with no
+  provenance or status, and now carries source, provenance and status
+  emitted BY the producer. **REGISTRAR ERROR, corrected by lacan
+  against its own interest:** I booked the value as void by
+  inheritance from this withdrawal. It is not. The withdrawal is a
+  BETWEEN-ARM construction defect (forced rows carry one more word of
+  conditioning), and both fits producing the value run on
+  `arm == "undisturbed"` only, so neither slope can contain the
+  asymmetry — **a withdrawal has a scope, and this value sits outside
+  it.** What IS exposed is worse and nobody referred it: the
+  COMPARISON — `b_forced` fitted within forced arms, set beside a
+  reference fitted within undisturbed rows, differs by exactly the
+  conditioning that withdrew opening_matched, and whether a SLOPE
+  inherits that asymmetry as a MEAN does is untested. H3 fenced and
+  NOT QUOTABLE; `offset_repair.md` is the route that would settle it.
+  **AND IT WAS NEVER A RANGE**: 0.016/0.024 are two estimators' point
+  medians over the same rows (ANCOVA within-prompt +0.0158; naive per
+  pair,role +0.0241). The citation named one fit's line count while
+  quoting both fits' numbers, so two point estimates came to wear
+  uncertainty bounds — and the forced slope was then called "if
+  anything smaller" against what was really estimator disagreement.
+  Both were printed and never persisted: the hand-carry hazard at its
+  SOURCE rather than at its destination. Its
   arm-ORDERING was additionally never established ([5805]) — no
   ordering bar chart even from surviving arm-vs-arm quantities without
   the paired test drawn beside it.
