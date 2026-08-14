@@ -1,5 +1,5 @@
 {
- "_about": "**DO NOT RUN THIS LIST AS A SWEEP.** Superseded in part by [6067]/[6068] within the hour it was written, and the reason is in the artifact rather than only on the docket. Files holding twp cells that are NOT in malign_logits.twp_words, as of the timestamp below. Derived from data/twp_jsonl_manifest.parquet (scripts/twp_jsonl_manifest.py). THE LIST IS DRAWN FROM A DEDUPLICATED COVER: 988 of 1,438 files that between them hold every distinct cell on disk, chosen newest-first. So ingesting these 207 files reaches every un-ingested cell exactly once and no file here duplicates another's work. n_gap_cells SUMS TO MORE THAN n_gap_cells_distinct because a cell present in two kept files is counted under both -- the distinct figure is the one to plan against. || WHAT CHANGED: 4,267 of the 11,770 (36%) are CJK-prompt cells on models `data/model_load_environments.json` documents as CORRUPTING CJK PROMPTS IN THE TOKENIZER -- CroissantLLM deletes CJK characters outright. Those cells were scored on a string the model never received and would be filed under the canonical prompt, so ingesting them creates MIS-ATTRIBUTED rows, which is worse than the gap because a gap is visible. || AND THEY WERE NOT 'never offered': the store shows 2,233 of CroissantLLMBase's 2,511 disk prompts already ingested and exactly ONE of its 378 CJK prompts present. Something excluded them selectively and the mechanism is UNFOUND. CJK survival tracks documented tokenizer severity (Olmo no defect 412/4,413; Teuken mild 69/2,304; Pharia 17/2,217; Croissant worst 1/2,234). || SO `mechanically runnable` and `never attempted` are different facts and only the first is visible from a file header. This list establishes the first. Find the exclusion mechanism before ingesting anything in the CJK block.",
+ "_about": "**CLOSED BY RH's DECISION 2026-08-14: DO NOT INGEST. Nothing on this list is to be run.** The list is kept as a record of what was measured and why it was refused, not as work. || THE GAP IS 10,540 CELLS AND ALL OF IT IS ACCOUNTED FOR: 4,843 have an EMPTY PAYLOAD -- twp_words stores one row per word above theta=0.001, so a record with no words writes no rows. That is arithmetic, not a filter, and those cells are CORRECTLY absent. Verified: of 4,843 empty cells, 0 are in the store, and no empty cell is present anywhere. The remaining 5,697 carry real payloads and 5,696 of them are JULY -- twp_cloud (29-30 Jul, the first cloud run, pre-versioning, no rule_version), twp_grid_v3 (30-31 Jul), twp_phase32b (31 Jul). RH has decided these are not to be ingested. || SO THE STORE IS COMPLETE FOR EVERYTHING IT SHOULD HOLD: 964,679 of 970,376 non-empty cells are in twp_words = 99.41%, and the 0.59% shortfall is the July directories now formally excluded. || WHAT IS NOT A CJK STORY, since three seats spent an hour on one: CJK is 4,087 of 10,540 (38.8%), not 100%. The largest single entry, allenai/Olmo-3-1025-7B@stage1-step0, is 1,073 cells with ZERO CJK and every one empty -- the first pretraining checkpoint puts no word above theta. Tokenizer damage is a CORRELATE of emptiness (a mangled prompt flattens the distribution) and not a cause of exclusion. Corroborated across tables: gen_sequences is UNDEPLETED in zh (15.8%, tracks disk) while twp_words is depleted (6.0%), and the only difference between those tables is the threshold.",
  "measured_at": "2026-08-14T12:14:27Z",
  "n_gap_cells_distinct": 10540,
  "n_files": 207,
@@ -864,5 +864,11 @@
   "[6067]",
   "[6068]"
  ],
- "do_not_run_without": "the exclusion mechanism for the CJK cells, unfound as of 2026-08-14; 4,267 cells affected"
+ "do_not_run_without": "N/A -- CLOSED, do not run at all",
+ "decision": {
+  "by": "RH",
+  "date": "2026-08-14",
+  "ruling": "do not ingest the July cells",
+  "effect": "the entire work list is retired; 5,696 of 5,697 non-empty gap cells are July"
+ }
 }
