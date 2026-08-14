@@ -13,8 +13,16 @@ commit 538e6b1a). What this is and is not:
        within poem, collision-aware ([5753] §2: where near duplicates
        mid4 the pool is ONE slot); companion called-vs-end3 beside it.
   NOT  the closure decomposition (line_closure x rhyme_given_closure):
-       the closure rider's numbers ride the .f16 tier, which is NOT
-       ingested (RH's call, [5886]); this read is word-mass only.
+       the closure rider NEVER RAN in the fleet (corrected [6062]:
+       zero close_given_class / p_close_actual fields in any fleet
+       jsonl; the earlier "rides the .f16 tier" wording in this
+       docstring was mine and was never checked against the output).
+       What the tier DOES hold is the full next-token distribution at
+       each slot, from which line_closure = P(newline | context) is
+       computable offline at zero cost and from nothing else -- twp
+       stores ~107 words against a 0.673 residual, with newline
+       unbroken-out inside `drop`. The rhyme_given_closure half needs
+       fresh forwards regardless. This read is word-mass only.
        ROUTE WARNING FOR WHOEVER WRITES THAT RIDER ([6059], malign;
        verified here): the tier is not reachable through the cache
        layer. `data/logit_dir_resolution.json` maps cloud_run_20260801
