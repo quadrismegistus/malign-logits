@@ -110,12 +110,21 @@ def main():
         tot += n; ref += rf
         if (d.get("proc") or "0") != "0":
             live += 1
-        if d.get("rate"):
+        #: A DEAD PROCESS HAS NO RATE, and must not be shown one (dario,
+        #: [6002]). The crashed launch printed `proc=0 rows=0 rate=3.11/s` --
+        #: the fabricated field displayed BESIDE its own refutation, since a
+        #: process with no rows cannot have throughput. Anchoring the regex
+        #: fixed the derivation; this fixes which field a reader trusts, and
+        #: that ordering is why the defect survived four launches. Even a
+        #: correctly-parsed rate is HISTORICAL once proc is 0.
+        live_here = (d.get("proc") or "0") != "0"
+        if d.get("rate") and live_here:
             try: rates.append(float(d["rate"].rstrip("/s")))
             except ValueError: pass
+        shown = d.get("rate", "?") if live_here else "(stopped)"
         print("  %-6s %-10s %-6s %-9s %-8s %-7s %-6s %s"
               % (b["shard"], b["id"], d.get("proc"), f"{n:,}", f"{rf:,}",
-                 d.get("mb"), d.get("free"), d.get("rate", "?")))
+                 d.get("mb"), d.get("free"), shown))
     burn = sum(b.get("dph", 0) for b in boxes)
     print("\n  EMBEDDED %s / %s  (%.1f%%)   refused %s   producing %d/%d   burn $%.2f/hr"
           % (f"{tot:,}", f"{TOTAL:,}", 100 * tot / TOTAL, f"{ref:,}", live, len(res), burn))
