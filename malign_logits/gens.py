@@ -59,6 +59,8 @@ import subprocess
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
 
+from . import ch  # noqa: E402  (after DB, which it also reads from env)
+
 
 def _unesc(x):
     return (x.replace("\\'", "'").replace("\\t", "\t")
@@ -70,25 +72,20 @@ def _esc(x):
 
 
 def _q(sql, unescape_cols=()):
-    r = subprocess.run([CH, "client", "--query", sql + " FORMAT TSVWithNames"],
-                       capture_output=True, text=True)
-    if r.returncode:
-        raise RuntimeError("clickhouse: %s" % r.stderr.strip()[:300])
-    lines = r.stdout.splitlines()
-    if not lines:
-        return []
-    head = lines[0].split("\t")
-    out = []
-    for l in lines[1:]:
-        f = l.split("\t")
-        if len(f) != len(head):
-            continue
-        row = dict(zip(head, f))
-        for c in unescape_cols:
-            if c in row:
-                row[c] = _unesc(row[c])
-        out.append(row)
-    return out
+    """Rows as dicts. Now a thin shim over `ch.query`, kept for its callers.
+
+    WAS a hand-rolled `TSVWithNames` reader that split on tabs, and it carried
+    two defects the shared reader does not have. It dropped any row whose field
+    count did not match the header -- `if len(f) != len(head): continue`, with
+    no count and no cause, which is a disposition with no receipt ([6127]). And
+    `unescape_cols` made the escaping guard OPT-IN, so a string column nobody
+    named kept its `\n` and `\'` intact.
+
+    JSONEachRow has no delimiter to collide with and no escaping to reverse, so
+    `unescape_cols` is now a no-op accepted for compatibility and ignored. It
+    can go once the three call sites below drop it.
+    """
+    return ch.query(sql)
 
 
 def _where(corpus=None, model=None, prompt=None, forced=None, scorer=None,

@@ -32,6 +32,8 @@ import os
 import subprocess
 from collections import defaultdict
 
+from . import ch
+
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
 #: latest run first
@@ -145,7 +147,7 @@ def prefetch(model, theta=0.001, mode="raw"):
                                              if s != prefer]
     order = " ".join("WHEN source='%s' THEN %d" % (s, i)
                      for i, s in enumerate(ranked))
-    rows = _q(
+    rows = ch.query(
         "SELECT prompt, word, argMin(p, CASE %s ELSE 99 END) AS p, "
         "       argMin(t1, CASE %s ELSE 99 END) AS t1 "
         #: **NEVER COMPARE A Float32 COLUMN TO A LITERAL WITH `=`.** theta is
@@ -156,26 +158,38 @@ def prefetch(model, theta=0.001, mode="raw"):
         #: model plainly in the table, and a caller would read that as "not
         #: scored" rather than as a broken predicate.
         "FROM %s.twp_words WHERE model='%s' AND abs(theta - %r) < 1e-9 "
-        "GROUP BY prompt, word FORMAT TSV" % (order, order, DB, esc, theta))
+        #: ORDER BY IS NOT COSMETIC. Without it ClickHouse returns grouped rows
+        #: in arbitrary order, and two consecutive prefetches of the same model
+        #: differed on 4,051 of 4,413 cells -- word order inside every cell,
+        #: never the values. Harmless to `word_probs`, which folds rows into a
+        #: dict keyed by surface, and fatal to the cheapest check there is:
+        #: an artifact built from this read cannot be compared by hash to one
+        #: built a minute earlier. Same lesson as m05_field_flow the same day,
+        #: and the campaign's own: a fixed seed does not make a run
+        #: reproducible when the data order is not fixed.
+        "GROUP BY prompt, word ORDER BY prompt, word" % (order, order, DB, esc, theta))
+    #: WAS a TSV split with `if len(f) == 4:` -- which discarded any row that
+    #: did not split into four fields, with no count and no cause. A prompt
+    #: containing a tab or a newline splits into more, and the reader lost it
+    #: silently ([6127]'s receiptless disposition, in the campaign's most-used
+    #: read path). `ch.query` uses JSONEachRow: no delimiter to collide with,
+    #: no escaping to reverse, and an unparseable row raises.
     by = defaultdict(list)
-    for line in rows.splitlines():
-        f = line.split("\t")
-        if len(f) == 4:
-            by[_unesc(f[0])].append({"word": _unesc(f[1]), "p": float(f[2]),
-                                     "t1": int(f[3])})
-    res = _q("SELECT prompt, argMin(tail,i), argMin(drop_,i), argMin(open_,i), "
+    for r in rows:
+        by[r["prompt"]].append({"word": r["word"], "p": float(r["p"]),
+                                "t1": int(r["t1"])})
+    res = ch.query("SELECT prompt, argMin(tail,i), argMin(drop_,i), argMin(open_,i), "
              "argMin(mojibake,i), argMin(total,i), argMin(rule_version,i) FROM "
              "(SELECT prompt, tail, drop_, open_, mojibake, total, rule_version, "
              " CASE %s ELSE 99 END AS i FROM %s.twp_residual "
-             " WHERE model='%s') GROUP BY prompt FORMAT TSV"
+             " WHERE model='%s') GROUP BY prompt ORDER BY prompt"
              % (order, DB, esc))
     resid = {}
-    for line in res.splitlines():
-        f = line.split("\t")
-        if len(f) == 7:
-            resid[_unesc(f[0])] = {"tail": float(f[1]), "drop": float(f[2]),
-                                   "open": float(f[3]), "mojibake": float(f[4]),
-                                   "total": float(f[5]), "rule_version": int(f[6])}
+    for r in res:
+        v = list(r.values())
+        resid[r["prompt"]] = {"tail": float(v[1]), "drop": float(v[2]),
+                              "open": float(v[3]), "mojibake": float(v[4]),
+                              "total": float(v[5]), "rule_version": int(v[6])}
     #: ITERATE THE UNION, NOT THE WORD ROWS. `by` is keyed by prompts that have
     #: at least one word above theta, so a cell that was SCORED and resolved
     #: NOTHING never entered `out` and reached `word_probs` as None -- i.e. as
