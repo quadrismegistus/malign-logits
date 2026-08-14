@@ -81,10 +81,38 @@ class Splitters:
     def zh(self, text):
         if self._stanza is None:
             import stanza
+            #: No `download_method=None`. It reads as "do not download" and does
+            #: not prevent anything: stanza >=1.6 resolves models through the
+            #: HuggingFace hub (stanfordnlp/stanza-zh-hans), not the legacy
+            #: ~/stanza_resources tree, so the flag described a path this
+            #: version no longer uses.
             self._stanza = stanza.Pipeline(
-                lang="zh", processors="tokenize", download_method=None,
-                verbose=False)
+                lang="zh", processors="tokenize", verbose=False)
         return [s.text for s in self._stanza(text).sentences if s.text.strip()]
+
+    def warm(self):
+        """Build BOTH splitters before the loop, and prove each one splits.
+
+        THE FAILURE THIS PREVENTS LOOKS LIKE FULL THROUGHPUT. Built lazily, a
+        stanza failure on the first zh passage leaves `self._stanza` None, the
+        caller's except turns that passage into a refusal, and every subsequent
+        zh passage repeats it -- 78,879 passages, 16.3% of the corpus, quietly
+        becoming refusals while the shard reports its normal rate and exits 0.
+        A missing model must kill the run in the first second instead.
+        """
+        #: PROBES MUST BE UNAMBIGUOUS FOR THE TOOL, not merely for me. The first
+        #: zh probe here was `我今天很好。你呢？`, which stanza returns as ONE
+        #: sentence -- correctly, since `你呢？` is an interrogative fragment
+        #: continuing the statement -- and the assert then failed on a splitter
+        #: that was working, having encoded my segmentation intuition rather
+        #: than tested the instrument. A probe whose FAIL is ambiguous cannot
+        #: gate a run. Three full independent sentences leave no such room.
+        n_en = len(self.en("A sentence. And a second one. Then a third one."))
+        n_zh = len(self.zh("他既是美丽的又是丑陋的。她想要更多。这是第三句。"))
+        assert n_en >= 3, "nltk-en split a three-sentence probe into %d" % n_en
+        assert n_zh >= 3, "stanza-zh split a three-sentence probe into %d" % n_zh
+        print("  splitters warm: nltk-en -> %d, stanza-zh -> %d on the probes"
+              % (n_en, n_zh), flush=True)
 
 
 def main():
@@ -111,6 +139,9 @@ def main():
 
     model = SentenceTransformer(BGE, device=dev)
     sp = Splitters()
+    #: BEFORE the loop, always -- both splitters are used under every
+    #: policy, including `refuse`, which drops only the mixed stratum.
+    sp.warm()
 
     os.makedirs(a.out, exist_ok=True)
     jl = os.path.join(a.out, "bge_shard%02d.jsonl" % a.shard)
@@ -208,13 +239,19 @@ def main():
         "ref": "%s|<splitter>, per row; nltk-en and stanza-zh both appear" % BGE,
         "commission": "lacan [5896]; mixed-policy decided at [5955]",
         "mixed_policy": a.mixed_policy,
+        #: `.format`, not `%` -- these sentences carry literal percent signs
+        #: (6.6%, 25%) and %-formatting reads them as conversion specifiers.
+        #: It raised at the MANIFEST WRITE, i.e. after every passage had been
+        #: embedded: the run would have done all its work, exited non-zero, and
+        #: left no manifest, which the fleet sweep reads as a crashed shard.
         "mixed_stratum": (
             "The corpus is en 372,103 / zh 78,879 / mixed 32,103 (6.6%, median "
-            "CJK share of letter characters 0.25). Under policy '%s' the mixed "
-            "stratum is %s." % (a.mixed_policy,
-                                "REFUSED and absent from this table"
-                                if a.mixed_policy == "refuse"
-                                else "segmented, see per-row mixed_policy")),
+            "CJK share of letter characters 0.25). Under policy '{}' the mixed "
+            "stratum is {}.".format(
+                a.mixed_policy,
+                "REFUSED and absent from this table"
+                if a.mixed_policy == "refuse"
+                else "segmented, see per-row mixed_policy")),
         "why_refused": (
             "No monolingual splitter is defensible on text that is median 25% "
             "CJK, and the mis-segmentation scales with CJK share -- a confound "
