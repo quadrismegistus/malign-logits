@@ -1,0 +1,296 @@
+[
+ {
+  "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+  "verdict": "OK",
+  "detail": "len=0 retok=197 err=0 nan=0",
+  "n_texts": 5787,
+  "retention": 0.9670788770053476
+ },
+ {
+  "pair": "BAAI/Aquila2-7B>BAAI/AquilaChat2-7B",
+  "verdict": "DROP-RETOK",
+  "detail": "len=592 retok=2945 err=0 nan=0",
+  "n_texts": 2319,
+  "retention": 0.39600409836065575
+ },
+ {
+  "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=634 err=0 nan=0",
+  "n_texts": 5446,
+  "retention": 0.8957236842105263
+ },
+ {
+  "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+  "verdict": "OK",
+  "detail": "len=0 retok=2 err=0 nan=0",
+  "n_texts": 382,
+  "retention": 0.9947916666666666
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=291 err=0 nan=0",
+  "n_texts": 5725,
+  "retention": 0.9516289893617021
+ },
+ {
+  "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+  "verdict": "OK",
+  "detail": "len=0 retok=171 err=0 nan=0",
+  "n_texts": 5653,
+  "retention": 0.9706387362637363
+ },
+ {
+  "pair": "LLM360/Amber>LLM360/AmberSafe",
+  "verdict": "OK",
+  "detail": "len=0 retok=283 err=0 nan=0",
+  "n_texts": 5765,
+  "retention": 0.953207671957672
+ },
+ {
+  "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+  "verdict": "DROP-RETOK",
+  "detail": "len=0 retok=1799 err=0 nan=0",
+  "n_texts": 4121,
+  "retention": 0.6961148648648648
+ },
+ {
+  "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=910 err=0 nan=0",
+  "n_texts": 4402,
+  "retention": 0.8286897590361446
+ },
+ {
+  "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+  "verdict": "OK",
+  "detail": "len=0 retok=815 err=0 nan=0",
+  "n_texts": 5297,
+  "retention": 0.8666557591623036
+ },
+ {
+  "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "verdict": "OK",
+  "detail": "len=0 retok=107 err=0 nan=0",
+  "n_texts": 5077,
+  "retention": 0.9793595679012346
+ },
+ {
+  "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+  "verdict": "OK",
+  "detail": "len=0 retok=168 err=0 nan=0",
+  "n_texts": 5880,
+  "retention": 0.9722222222222222
+ },
+ {
+  "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+  "verdict": "OK",
+  "detail": "len=0 retok=139 err=0 nan=0",
+  "n_texts": 5941,
+  "retention": 0.9771381578947368
+ },
+ {
+  "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+  "verdict": "DROP-RETOK",
+  "detail": "len=0 retok=1562 err=0 nan=0",
+  "n_texts": 4486,
+  "retention": 0.7417328042328042
+ },
+ {
+  "pair": "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat",
+  "verdict": "OK",
+  "detail": "len=0 retok=2 err=0 nan=0",
+  "n_texts": 6046,
+  "retention": 0.9996693121693122
+ },
+ {
+  "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+  "verdict": "OK",
+  "detail": "len=0 retok=83 err=0 nan=0",
+  "n_texts": 5773,
+  "retention": 0.9858265027322405
+ },
+ {
+  "pair": "croissantllm/CroissantLLMBase>croissantllm/CroissantLLMChat-v0.1",
+  "verdict": "OK",
+  "detail": "len=4 retok=526 err=0 nan=0",
+  "n_texts": 5166,
+  "retention": 0.9069522471910112
+ },
+ {
+  "pair": "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
+  "verdict": "DROP-RETOK",
+  "detail": "len=37 retok=4758 err=0 nan=0",
+  "n_texts": 261,
+  "retention": 0.05162183544303797
+ },
+ {
+  "pair": "google/gemma-2-9b>google/gemma-2-9b-it",
+  "verdict": "OK",
+  "detail": "len=0 retok=0 err=0 nan=0",
+  "n_texts": 6144,
+  "retention": 1.0
+ },
+ {
+  "pair": "google/recurrentgemma-9b>google/recurrentgemma-9b-it",
+  "verdict": "OK",
+  "detail": "len=0 retok=0 err=0 nan=0",
+  "n_texts": 6112,
+  "retention": 1.0
+ },
+ {
+  "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+  "verdict": "OK",
+  "detail": "len=0 retok=89 err=0 nan=0",
+  "n_texts": 6023,
+  "retention": 0.9854384816753927
+ },
+ {
+  "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=215 err=33 nan=0",
+  "n_texts": 5736,
+  "retention": 0.9585561497326203
+ },
+ {
+  "pair": "inceptionai/jais-family-6p7b>inceptionai/jais-family-6p7b-chat",
+  "verdict": "OK",
+  "detail": "len=0 retok=84 err=0 nan=0",
+  "n_texts": 6060,
+  "retention": 0.986328125
+ },
+ {
+  "pair": "internlm/internlm2-base-7b>internlm/internlm2-chat-7b",
+  "verdict": "OK",
+  "detail": "len=0 retok=133 err=0 nan=0",
+  "n_texts": 5243,
+  "retention": 0.9752604166666666
+ },
+ {
+  "pair": "kakaocorp/kanana-1.5-8b-base>kakaocorp/kanana-1.5-8b-instruct-2505",
+  "verdict": "OK",
+  "detail": "len=0 retok=241 err=0 nan=0",
+  "n_texts": 5839,
+  "retention": 0.9603618421052632
+ },
+ {
+  "pair": "kakaocorp/kanana-2-3b-base>kakaocorp/kanana-2-3b-instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=277 err=0 nan=0",
+  "n_texts": 5643,
+  "retention": 0.9532094594594595
+ },
+ {
+  "pair": "llm-jp/llm-jp-3-7.2b>llm-jp/llm-jp-3-7.2b-instruct3",
+  "verdict": "OK",
+  "detail": "len=0 retok=273 err=0 nan=0",
+  "n_texts": 5871,
+  "retention": 0.95556640625
+ },
+ {
+  "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+  "verdict": "OK",
+  "detail": "len=0 retok=37 err=0 nan=0",
+  "n_texts": 5915,
+  "retention": 0.9937836021505376
+ },
+ {
+  "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+  "verdict": "OK",
+  "detail": "len=0 retok=72 err=0 nan=0",
+  "n_texts": 5880,
+  "retention": 0.9879032258064516
+ },
+ {
+  "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=166 err=0 nan=0",
+  "n_texts": 5818,
+  "retention": 0.9722593582887701
+ },
+ {
+  "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+  "verdict": "OK",
+  "detail": "len=0 retok=94 err=0 nan=0",
+  "n_texts": 5922,
+  "retention": 0.984375
+ },
+ {
+  "pair": "openGPT-X/Teuken-7B-base-v0.6>openGPT-X/Teuken-7B-instruct-v0.6",
+  "verdict": "DROP-RETOK",
+  "detail": "len=519 retok=736 err=0 nan=0",
+  "n_texts": 4793,
+  "retention": 0.7924933862433863
+ },
+ {
+  "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+  "verdict": "OK",
+  "detail": "len=0 retok=537 err=0 nan=0",
+  "n_texts": 5511,
+  "retention": 0.9112103174603174
+ },
+ {
+  "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+  "verdict": "OK",
+  "detail": "len=0 retok=68 err=0 nan=0",
+  "n_texts": 5980,
+  "retention": 0.9887566137566137
+ },
+ {
+  "pair": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0>weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+  "verdict": "DROP-RETOK",
+  "detail": "len=0 retok=572 err=0 nan=0",
+  "n_texts": 2116,
+  "retention": 0.7872023809523809
+ },
+ {
+  "pair": "tiiuae/Falcon-H1-7B-Base>tiiuae/Falcon-H1-7B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=484 err=0 nan=0",
+  "n_texts": 5596,
+  "retention": 0.9203947368421053
+ },
+ {
+  "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=130 err=0 nan=0",
+  "n_texts": 4862,
+  "retention": 0.9739583333333334
+ },
+ {
+  "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=150 err=0 nan=0",
+  "n_texts": 5706,
+  "retention": 0.9743852459016393
+ },
+ {
+  "pair": "tiiuae/Falcon3-Mamba-7B-Base>tiiuae/Falcon3-Mamba-7B-Instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=532 err=0 nan=0",
+  "n_texts": 5484,
+  "retention": 0.9115691489361702
+ },
+ {
+  "pair": "tiiuae/falcon-mamba-7b>tiiuae/falcon-mamba-7b-instruct",
+  "verdict": "OK",
+  "detail": "len=0 retok=134 err=0 nan=0",
+  "n_texts": 4858,
+  "retention": 0.9731570512820513
+ },
+ {
+  "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+  "verdict": "OK",
+  "detail": "len=0 retok=180 err=0 nan=0",
+  "n_texts": 5964,
+  "retention": 0.970703125
+ },
+ {
+  "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+  "verdict": "OK",
+  "detail": "len=0 retok=891 err=0 nan=0",
+  "n_texts": 5125,
+  "retention": 0.8518949468085106
+ }
+]

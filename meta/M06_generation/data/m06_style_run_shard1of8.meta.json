@@ -1,0 +1,8 @@
+{
+  "mode": "run_shard1of8",
+  "arms": "undisturbed",
+  "n_rows": 18237,
+  "parser": "stanza-1.14.0:tokenize,mwt,pos,lemma,depparse",
+  "osp_commit": "56f2562",
+  "_invocation": "meta/M06_generation/scripts/m06_style.py run --shard 1/8"
+}

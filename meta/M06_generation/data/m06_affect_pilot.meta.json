@@ -1,0 +1,8 @@
+{
+  "mode": "pilot",
+  "n_rows": 14665,
+  "parser": "stanza-1.14.0:tokenize,mwt,pos,lemma,depparse",
+  "osp_commit": "56f2562",
+  "norms": "warriner+brysbaert",
+  "_invocation": "meta/M06_generation/scripts/m06_affect.py pilot"
+}

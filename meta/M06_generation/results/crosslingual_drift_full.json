@@ -1,0 +1,45 @@
+{
+ "plan": "plans/plan_crosslingual_drift.md",
+ "embedder": "BAAI/bge-m3",
+ "cap": 3,
+ "device": "cpu",
+ "mps_diagnostic": {
+  "n": 60,
+  "min_cos": 0.9999998807907104,
+  "median_cos": 1.0,
+  "n_below_0999": 0,
+  "shortest_len": 1,
+  "longest_len": 5
+ },
+ "zh_sensitivity": {
+  "zh_words_50": 13609,
+  "zh_words_75": 12803,
+  "zh_words_100": 11970
+ },
+ "languages": {
+  "zh": {
+   "n_passages": 13862,
+   "n_models": 57,
+   "n_prompts": 97,
+   "total_drift_median": 0.63525,
+   "total_drift_iqr": [
+    0.5835250000000001,
+    0.6808
+   ],
+   "mean_drift_median": 0.4796,
+   "n_sents_median": 6.0
+  },
+  "en": {
+   "n_passages": 16002,
+   "n_models": 58,
+   "n_prompts": 100,
+   "total_drift_median": 0.668,
+   "total_drift_iqr": [
+    0.6229,
+    0.7093
+   ],
+   "mean_drift_median": 0.4729,
+   "n_sents_median": 10.0
+  }
+ }
+}
