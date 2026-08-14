@@ -48,6 +48,7 @@ interchangeable" is too strong and the figure should not launder it. The
 differences are under 2% of the full-mix effect against panel A's 20%.
 """
 import argparse
+import csv
 import json
 import os
 import sys
@@ -67,6 +68,13 @@ BOOKED_JS = {"full": 0.0651458275316188,
              "no-safety": 0.05831617631514225,
              "no-wildchat": 0.05843756496427438}
 BOOKED_JACCARD_FULL_NOSAFETY = 0.53385598620959
+#: Faller Jaccard over the whole data fan, results/t_fans_jaccard.csv. The
+#: SECOND axis, and the one this figure does not draw: panel B measures HOW
+#: MUCH probability moves, this measures WHICH WORDS move, and the two break
+#: "interchangeable" by different arms. Every pair involving no-wildchat sits
+#: below every pair that does not, with no overlap.
+JACC_WITH_WILDCHAT = (0.2940085059082473, 0.3402192716421085)
+JACC_WITHOUT_WILDCHAT = (0.4855350182418757, 0.562845938083337)
 
 #: display order: full first, then the ablation whose two readings disagree
 ORDER = [("full", "Full mix"), ("no-safety", "−Safety"),
@@ -102,6 +110,16 @@ def two_instruments():
         f"behavioral arms changed: {sorted(beh['scores'])}"
     assert beh["scores"]["full"] == 93.1 and beh["scores"]["no-safety"] == 74.7, \
         f"behavioral scores drifted: {beh['scores']}"
+    jr = [r for r in csv.DictReader(open(os.path.join(RESULTS, "t_fans_jaccard.csv")))
+          if r["fan"] == "data"]
+    wc = [float(r["faller_jaccard"]) for r in jr if "no-wildchat" in (r["a"], r["b"])]
+    ow = [float(r["faller_jaccard"]) for r in jr if "no-wildchat" not in (r["a"], r["b"])]
+    assert (round(min(wc), 6), round(max(wc), 6)) == \
+        (round(JACC_WITH_WILDCHAT[0], 6), round(JACC_WITH_WILDCHAT[1], 6)), \
+        f"wildchat Jaccard range drifted: {min(wc)}-{max(wc)}"
+    assert max(wc) < min(ow), \
+        (f"the two Jaccard groups now OVERLAP ({max(wc)} vs {min(ow)}); the caption "
+         "claims no overlap and would be wrong")
     n_sig = sum(1 for v in ci["paired"].values() if v["significant"])
     assert n_sig == 2, \
         (f"{n_sig} significant pairwise differences, not 2; the subtitle names "
@@ -189,11 +207,18 @@ def two_instruments():
                 "two pairwise comparisons are significant.\n"
                 "NOT movement_cells.js_total, which is the movement decomposition's total, a different\n"
                 "quantity returning 2,199 cells and means ~18% lower.\n"
-                f"AND THE MOVED WORDS STAY THE SAME: faller Jaccard between the full mix and −Safety is "
-                f"{BOOKED_JACCARD_FULL_NOSAFETY:.3f},\namong the highest in the fan, against 0.02 to 0.04 "
-                "between rungs of the training ladder. Change the corpus and\nyou get the same operation "
-                "on the same words; change the rung and you do not. A different kind of\nquantity from "
-                "either panel, so it is stated here rather than drawn as a third one."),
+                f"THE MOVED WORDS MOSTLY STAY THE SAME: faller Jaccard between the full mix and −Safety "
+                f"is {BOOKED_JACCARD_FULL_NOSAFETY:.3f},\nagainst 0.02 to 0.04 between rungs of the "
+                "training ladder. Change the corpus and you get the same operation\non the same words; "
+                "change the rung and you do not.\n"
+                "BUT 'INTERCHANGEABLE' FAILS TWICE, BY DIFFERENT ARMS, ON DIFFERENT QUESTIONS, and this "
+                "panel shows only one\nof them. HOW MUCH probability moves is what is drawn: flat to "
+                f"~{mde:.1f}%, and only −Persona separates. WHICH WORDS move is\nnot drawn, and there "
+                f"−WildChat alone is categorical: every pair involving it sits at "
+                f"{JACC_WITH_WILDCHAT[0]:.3f}–{JACC_WITH_WILDCHAT[1]:.3f}\nand every pair without it at "
+                f"{JACC_WITHOUT_WILDCHAT[0]:.3f}–{JACC_WITHOUT_WILDCHAT[1]:.3f}, with no overlap. "
+                "A reader meeting only this panel would\nconclude −WildChat is unremarkable, and on the "
+                "other axis it is the one arm that is not."),
         )
         + theme_minimal()
         + theme(figure_size=(13.6, 7.6),
