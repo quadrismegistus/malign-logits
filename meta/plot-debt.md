@@ -53,10 +53,18 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    their 0.1 separation IS the finding); labels on opposite sides of
    the strip; zh tail cut at shared limit with count+max printed on
    panel. PROVISIONAL status on the panel.
-3. OPEN — NEW (2026-08-13): S4 DIAGONAL — each model soothed by its own
-   promoted vocabulary; 2x2 role x word-class with one significant cell
-   per arm ([5795]/[5825]; self_surprisal_cells.parquet). The surviving
-   alignment-specific result of the forced-word program.
+3. SHIPPED 2026-08-14 (dario, e61776d3) — S4 DIAGONAL, and M06's
+   FIRST figure producer (m06_self_surprisal_figs.py ->
+   self_surprisal_diagonal). The 2x2's symmetric layout risk resisted
+   ON the panel: S4 arm-specific at both grains (DiD pair p .0166),
+   S3 NULL at the pair grain (DiD p .636, sig only at cell grain) —
+   the mirror is one established effect beside one unestablished
+   half, and the panel says so where a rerun cannot erase it.
+   Reconstruction notes booked: pair grain = MEDIAN over prompts
+   (mean inverts sign counts); sign test keeps zeros in median,
+   excludes from counts — caught only because ALL SIX cells were
+   asserted while four matched. Method rule ([5915]): artifacts-first
+   for RECOVERY, read-the-producer-first for RE-DERIVATION.
 4. OPEN — NEW (2026-08-13); UPDATED 2026-08-14 (lacan) — F15-ON-PASSAGES
    QUADRANT FLOW — Q2 breakdown drains to metonymic/unmarked, 34/38 pairs
    (f15_on_passages_cells.parquet with per-passage quadrant labels).
