@@ -134,7 +134,112 @@ def vc_olmo():
     print(f"wrote {out}")
 
 
-REGISTRY = {"vc_olmo": vc_olmo}
+def vc_olmo_scheme():
+    """Same ladder, colored by SCHEME (AABB / ABAB / unrhymed) — the
+    unrhymed arm drawn as a first-class curve: its called-slot pull is
+    the COMPULSION measure (does the model impose rhyme where nothing
+    calls it), so this panel shows capacity and compulsion on one page.
+    Eras pooled. Computed at scheme grain from the cells parquet (the
+    rung summary only carries the rhymed/unrhymed cut)."""
+    import numpy as np
+    d = pd.read_parquet(
+        "meta/M05_emergence/results/verse_capacity_cells.parquet")
+    pos = d.model.map(olmo_position)
+    d = d[[p[0] is not None and "Olmo" in m
+           for p, m in zip(pos, d.model)]].copy()
+    pos = d.model.map(olmo_position)
+    d["section"] = [p[0] for p in pos]
+    d["order"] = [(p[1],) + p[2] for p in pos]
+    d["pull"] = d.tclass - d.p_target_word
+
+    rows = []
+    for (model, scheme), g in d.groupby(["model", "scheme"]):
+        by = {s: h.set_index("id_human") for s, h in g.groupby("slot")}
+        if "called" not in by:
+            continue
+        called = by["called"].pull
+        nulls = []
+        for pm in called.index:
+            m4 = by["mid4"].pull.get(pm, np.nan) if "mid4" in by else np.nan
+            nr = by["near"].pull.get(pm, np.nan) if "near" in by else np.nan
+            coll = (by["near"].collides.get(pm, "None")
+                    if "near" in by else "None")
+            nulls.append(m4 if coll not in ("None", "nan", "")
+                         else np.nanmean([m4, nr]))
+        rows.append(dict(model=model, scheme=scheme,
+                         called=float(called.mean()),
+                         null=float(np.nanmean(nulls))))
+    s = pd.DataFrame(rows)
+    pos = s.model.map(olmo_position)
+    s["section"] = [p[0] for p in pos]
+    s["order"] = [(p[1],) + p[2] for p in pos]
+    ladder = (s[["model", "order", "section"]].drop_duplicates("model")
+              .sort_values("order").reset_index(drop=True))
+    ladder["x"] = ladder.index
+    s = s.merge(ladder[["model", "x"]], on="model").sort_values("x")
+
+    long = pd.concat([
+        s.assign(y=s.called, kind="called slot (pull)"),
+        s.assign(y=s.null, kind="depth-matched null"),
+    ])
+    SCH_COL = {"AABB": "#1baf7a", "ABAB": "#2a78d6",
+               "unrhymed": "#8a8880"}
+    bounds = {sec: (g.x.min(), g.x.max())
+              for sec, g in ladder.groupby("section")}
+
+    from plotnine import (aes, annotate, element_blank, element_line,
+                          element_text, geom_line, ggplot, labs,
+                          scale_color_manual, scale_linetype_manual,
+                          theme, theme_minimal, ylim)
+    p = (ggplot(long, aes("x", "y", color="scheme", linetype="kind",
+                          group="scheme + kind"))
+         + annotate("rect", xmin=bounds["SFT"][0] - 0.5,
+                    xmax=bounds["SFT"][1] + 0.5, ymin=-0.02, ymax=0.62,
+                    fill="#efece4", alpha=0.6)
+         + annotate("rect", xmin=bounds["DPO"][0] - 0.5,
+                    xmax=bounds["DPO"][1] + 0.5, ymin=-0.02, ymax=0.62,
+                    fill="#e7e2d5", alpha=0.6)
+         + annotate("rect", xmin=bounds["RLVR"][0] - 0.5,
+                    xmax=bounds["RLVR"][1] + 0.5, ymin=-0.02, ymax=0.62,
+                    fill="#efece4", alpha=0.6)
+         + geom_line(size=1.1)
+         + scale_color_manual([SCH_COL[k] for k in
+                               ("AABB", "ABAB", "unrhymed")],
+                              limits=["AABB", "ABAB", "unrhymed"])
+         + scale_linetype_manual(["solid", "dashed"],
+                                 limits=["called slot (pull)",
+                                         "depth-matched null"])
+         + ylim(-0.02, 0.62)
+         + labs(x="training position (base | SFT | DPO | RLVR), ordinal",
+                y="rime-class mass at slot (copy excluded)",
+                title="Rhyme capacity vs compulsion across the OLMo-3 "
+                      "ladder, by scheme",
+                subtitle=("Solid: called-slot class pull (partner word "
+                          "excluded); for UNRHYMED poems nothing calls "
+                          "the slot, so its solid curve is the "
+                          "COMPULSION measure.\nDashed: depth-matched "
+                          "null {mid4, near} ([5751]/[5753]). Eras "
+                          "pooled; 60 poems per scheme. AABB partner is "
+                          "the adjacent line, ABAB two lines back."),
+                color="", linetype="")
+         + theme_minimal(base_size=11)
+         + theme(panel_grid_minor=element_blank(),
+                 panel_grid_major=element_line(color="#e8e7e3", size=0.4),
+                 text=element_text(color=INK),
+                 plot_title=element_text(size=13, weight="bold"),
+                 plot_subtitle=element_text(size=8, color=INK2),
+                 legend_position="bottom",
+                 figure_size=(11, 6.2)))
+    for sec in ("BASE", "SFT", "DPO", "RLVR"):
+        lo, hi = bounds[sec]
+        p = p + annotate("text", x=(lo + hi) / 2, y=0.605, label=sec,
+                         color=INK2, size=9)
+    out = os.path.join(FIGDIR, "fig25_verse_capacity_olmo_scheme.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"wrote {out}")
+
+
+REGISTRY = {"vc_olmo": vc_olmo, "vc_olmo_scheme": vc_olmo_scheme}
 
 if __name__ == "__main__":
     for k in (sys.argv[1:] or list(REGISTRY)):
