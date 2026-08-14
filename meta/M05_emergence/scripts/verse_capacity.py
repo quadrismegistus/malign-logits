@@ -15,6 +15,16 @@ commit 538e6b1a). What this is and is not:
   NOT  the closure decomposition (line_closure x rhyme_given_closure):
        the closure rider's numbers ride the .f16 tier, which is NOT
        ingested (RH's call, [5886]); this read is word-mass only.
+       ROUTE WARNING FOR WHOEVER WRITES THAT RIDER ([6059], malign;
+       verified here): the tier is not reachable through the cache
+       layer. `data/logit_dir_resolution.json` maps cloud_run_20260801
+       and f11_twp only, and `data/logit_index_provenance.json`
+       resolves basenames under MALIGN_LOGIT_ROOT, defaulting to
+       cloud_run. NEITHER CONTAINS A VERSE_FLEET ENTRY, so
+       `cache.get_logits` cannot see these 58.9 GiB. The rider must
+       either extend the dirmap or read the merged directory directly
+       -- and if RH migrates the tier, whichever route it takes has to
+       point at wherever it went.
   NOT  any across-depth gradient read as locality ([5751]/[5752]).
 
 Read discipline: the store's analysis key is (model, prompt, word) and
