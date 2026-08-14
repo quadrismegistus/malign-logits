@@ -237,7 +237,34 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     that declares itself unreadable is on disk; the number that would
     make it readable cannot be derived from the committed artifact by
     any stated rule. Item 11 taken meanwhile.
-11. OPEN — M03 E survivor scatter (shortlist 5) + remaining shortlist
+11. SHIPPED 2026-08-14 (dario, d1d1697a) — M03 E survivor scatter,
+    M03's first figure outside `f_figures.py`. **The geometry IS the
+    argument**: individual arm on x, institutional on y, so
+    "degree, not kind" becomes a LOCATION — both-positive and
+    both-negative quadrants are degree, the off-diagonals are kind,
+    and distance from y=x is how much harder the operation bit on one
+    speaker; 59 of 65 survivors sit same-direction, so the headline is
+    checkable by looking. THREE departures/fences: (a) the shortlist
+    CONFLATES TWO POPULATIONS — the 65 survivors come from 702 words
+    tested (only 58 verbs), while the 324 is the both-arms verb
+    population behind Pearson 0.909, and `b_word_delta_by_word.csv`
+    has no POS column, so the 324-verb population is NOT DERIVABLE
+    from the named artifact; drawn as 702, stated on the panel.
+    (b) The four reversals (`estimate`, `fail`, `objected`, `rule`)
+    are coloured and explicitly NOT CLAIMED — Bonferroni survival is
+    on the between-arm DIFFERENCE, not the sign flip, and section 3
+    records zero significant reversals. (c) Axes bounded at ±0.004
+    with an ASSERT enforcing the reason: a few extreme non-survivors
+    (|max| 0.01729) otherwise crush all 65 into a seventh of the
+    panel; every survivor is inside, exactly 8 of 702 outside and all
+    grey, count on the panel, **and the producer refuses if a survivor
+    ever lands outside — so the bound cannot silently become a
+    filter.** NEAR-MISS AVOIDED ONLY BECAUSE THIS QUEUE NAMES IT:
+    `c_word_delta_by_word.csv` is fenced as form-confounded and
+    `b_word_delta_by_word.csv` is not — same directory, filenames
+    differing by ONE CHARACTER, fence applying to one. Recorded in the
+    producer docstring for the next seat in that folder.
+    (Shortlist 5 done; remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
     M02 dumbbell) — unblocked, order per original ranking.
 12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
