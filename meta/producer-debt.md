@@ -726,8 +726,24 @@ returns green.
       coder concreteness  n 6084  r2_axis 0.092058  cos 0.267139   §7: 0.0921 +0.267
       Brysbaert Conc.M    n 2916  r2_axis 0.118305  cos 0.240610   §7: 0.1183 +0.241
 
-  **The two REGISTER rows still do not, and they are the rows the entry
-  leads with** (*register ~half*). `register_en.json` gained an
+  **FIVE OF SIX AS OF [6171]**, verified here: `register_en.json` now
+  carries `r2_axis 0.199434` and `cos_axis_dir 0.373069` for
+  `SUBTLEX_over_coca_acad`, against §7 row 1's printed `0.1994 / +0.373`.
+  Exact. dario's read was right that rho² (0.1891) is not it — the R2 is
+  a regression fit, computed as `k_concreteness` computes its own, so the
+  two rows are comparable by construction rather than by coincidence.
+  **ROW 6 IS THE LAST AND ITS OWNER IS DETERMINABLE FROM THE DATA**
+  (malign asked; answered here). §7 row 6 is the CODER `register_level`
+  scale — n 6,084, R2 0.0470, cos -0.161. **`k_scale_solo.py` writes an
+  artifact and it is a different quantity**: `scale_solo_en.json` carries
+  `register_level` as pairs like `[0.0005, -0.0004]`, nowhere near
+  0.0470/-0.161. **`k_concreteness.py` is the natural owner** — it reads
+  `rate[w]["concreteness"]` from `ratings_en.json`, and every word record
+  in that file carries `register_level` as a SIBLING KEY of
+  `concreteness` (seven scales per record). Same producer, same dict,
+  same (n, r2_axis, cos_axis_dir) shape, **one dictionary key apart.**
+  ~~The two REGISTER rows still do not, and they are the rows the entry
+  leads with~~ (*register ~half*). `register_en.json` gained an
   `index_table` carrying `n_words` and two rhos; it holds **no R2 and no
   cosine** — checked, the strings are absent. And they are not derivable
   from what is there: rho² = 0.1891 against the printed 0.1994, so the
