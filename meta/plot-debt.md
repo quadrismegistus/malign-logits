@@ -696,6 +696,31 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     artifacts were present *because the figure had already been drawn
     from them*. A promotion is a claim about STATE and I checked INPUTS.
 
+17. OPEN — **PROMOTED 2026-08-14 from `M01 candidate 15`, registrar, on
+    dario's ask at [6180]. VERIFIED OPEN BEFORE OFFERING, which the last
+    promotion was not.** Y_superego §4 heterogeneity: AmberSafe +15.4pp
+    against a median of +0.8pp, sorted per-pair dots, tails named.
+
+        artifact   results/y_passages.parquet   52.5 MB, 62,681 rows,
+                                                64 models        PRESENT
+        number     Y_superego.md:86 "AmberSafe +15.4pp,
+                   gemma-2-9b-it +7.0pp"                          LIVE
+        producer   nothing asserts 15.4                           NONE
+        figure     nothing matching on disk                       NONE
+
+    **The state check, not the input check.** `queue 16` was withdrawn
+    because I verified two artifacts existed and they existed *because the
+    figure had already been drawn from them*. Here the artifact is present
+    AND no producer carries the number AND no figure exists — three
+    conditions rather than one.
+
+    **What it is for:** the finding's own sentence is *heterogeneity is the
+    object*, and a single pooled number is exactly what cannot show that.
+    Sorted per-pair dots with the tails named puts the dispersion on the
+    page instead of behind a mean. **Fence: do not draw a summary line
+    across the dots** — a mean over a distribution whose spread is the
+    claim invites the reading the finding exists to refuse.
+
 ## STATUS CHANGES (2026-08-13/14)
 
 - M05 C-R4 recapture bars: BLOCKED -> DEAD. R4 withdrawn ([5781]) —
