@@ -769,7 +769,7 @@ now owns figures only.
 >                               or may not be it
 >     shortlist 7  unconfirmed  artifact present; no diegetic figure found
 >
-> **SEVEN of ten were discharged and ONE said so** — and the registrar's own
+> **ALL TEN ARE SHIPPED OR BLOCKED AND SIX DID NOT SAY SO** (dario's full mapping, [6180]; the registrar's two passes said three and then seven). **The pool is EXHAUSTED** — and the registrar's own
 > first pass at this reconciliation said THREE, because it matched figure
 > names against item numbers instead of item CONTENT. The count went from
 > three to seven by reading what each entry asks for and checking whether a
@@ -802,30 +802,30 @@ the per-folder lists below. Judgment, not doctrine.
    `results/t_affect_did.csv` + `data/m05_widening_null.json`. Renders "the
    gap is real, its sign is not robust" as one image instead of a retraction
    paragraph.
-3. **M05 A-R4** — the joined ratio/pole-separation two-panel across the
+3. **[SHIPPED queue 10, `ee7d5b40`]** **M05 A-R4** — the joined ratio/pole-separation two-panel across the
    95-rung ladder, stage boundaries marked. `data/m05_ratio.parquet` +
    `results/m05_pole_sep.csv`. Discharges the plan's "together or not at all".
-4. **M02 the calibration number line** — perfect superposition 0.000,
+4. **[SHIPPED queue 2, `a17788c8`]** **M02 the calibration number line** — perfect superposition 0.000,
    observed 0.907, NEUTRALIZATION 1.006, RESOLUTION 4.031, per-cell strip
    behind, log-spaced; zh as a twin panel. `results/contradiction_null_en.csv`
    / `_zh.csv`. "1.0 is not a boundary, it is a place" is spatial; show it.
-5. **M03 E §3/§4** — 324 verbs on indiv-vs-inst axes with the y=x diagonal,
+5. **[SHIPPED queue 11a, `e433f395`]** **M03 E §3/§4** — 324 verbs on indiv-vs-inst axes with the y=x diagonal,
    65 Bonferroni survivors labelled, four reversals coloured.
    `results/b_word_delta_by_word.csv`. "Degree, not kind" read off geometry.
 6. **[SHIPPED 2026-08-14, `d9c48a34`.]** **M01 X §3g** — the word moves the scene (+14.3 points, 12/12 cells), the
    model does not (−0.8, p .918), two panels, same axes.
    `results/x_beam_frame.csv`.
-7. **M01 Y_diegetic §3** — the conditional four-panel: CLEAN_SCENE −6.12pp,
+7. **[SHIPPED queue 11b, `f605d56b`]** **M01 Y_diegetic §3** — the conditional four-panel: CLEAN_SCENE −6.12pp,
    SUPEREGO_IN_SCENE +4.30pp, EXIT and sexual_scene flat.
    `results/y_passages.parquet` via `scripts/y_diegetic.py`. The filter
    account predicting exactly the two panels that do not move.
-8. **M03 B_C §1** — the JS arm effect, one row per lineage, 41/46 above zero,
+8. **[SHIPPED queue 11c, `502332ef`]** **M03 B_C §1** — the JS arm effect, one row per lineage, 41/46 above zero,
    five dissenters labelled. `results/b_arm_by_lineage.csv`.
 9. **[BLOCKED — see `queue 12`.]** **M04 attention §5** — attention-back decay above, Finding A's surprisal
    sweep below, both in both aggregations (disjoint bins beside cumulative).
    `results/attn_delta_smollm2_e1_cross_w200.json`. The figure IS the
    two-phenomena argument. (Finding A's half needs the produce-first step.)
-10. **M02 dumbbell** — D_CONTRA sitting on top of D_CONTROL, one row per
+10. **[SHIPPED queue 11d, `f599dcef`]** **M02 dumbbell** — D_CONTRA sitting on top of D_CONTROL, one row per
     field, 39/79 general survivors emphasised, 0/79 specific.
     `results/l2_fields_{meta,norms,usas_fine}.json`. The doc's own warning
     (a residual-only report would have filed a positive as a null) as a
