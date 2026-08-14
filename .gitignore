@@ -352,3 +352,4 @@ meta/M03_proceduralization/results/c_word_delta_cells.csv.gz
 #   uv run python meta/M03_proceduralization/scripts/d_ladder_fields.py --run
 meta/M03_proceduralization/results/d_ladder_fields.csv
 meta/M03_proceduralization/results/e_field_flow_arms.parquet
+.migrate_hidden/
