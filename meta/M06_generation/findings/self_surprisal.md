@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [self-surprisal, forced-arms, alignment-specific]
-description: "Self-surprisal by arm (A|A), RH's question: the answer runs OPPOSITE to the hypothesis it contained. Within the forced arms the ALIGNED model is soothed most by RISEN words, not fallen ones -- rose-vs-flat at held aligned probability lowers aligned self-surprisal (pair grain -0.0077, p 0.039) and does NOTHING to base (+0.0012, p 0.75), DiD -0.0150, p 0.0166 at pair grain and 0.0013 at cell grain. THE FIRST NON-NULL DiD IN THE FORCED SERIES after four nulls; flagged for second-seat reconstruction because it is this seat's first positive after a long run of nulls."
+description: "Self-surprisal by arm (A|A), RH's question: the answer runs OPPOSITE to the hypothesis it contained. Within the forced arms the ALIGNED model is soothed most by RISEN words, not fallen ones -- rose-vs-flat at held aligned probability lowers aligned self-surprisal (pair grain -0.0077, p 0.039) and does NOTHING to base (+0.0012, p 0.75), DiD -0.0150, p 0.0166 at pair grain and 0.0013 at cell grain. THE FIRST NON-NULL DiD IN THE FORCED SERIES after four nulls. **THE MIRROR IS HALF-ESTABLISHED**: S4 (ROSE) is arm-specific at both grains, but S3 (FELL) has DiD +0.0133 p 0.636 at the PAIR grain -- null at the unit this document calls conservative -- so the base being soothed by fallen words is solid while the claim that the aligned model is NOT also soothed by them is not established (dario, [5915]). Definitional choices that a reader must have: the pair grain is the MEDIAN over prompts within pair (the mean inverts the sign counts), and the sign test KEEPS zeros in the median while excluding them from the counts (dropping them shifts S3 base to -0.0208 against the booked -0.0199). Flagged for second-seat reconstruction because it is this seat's first positive after a long run of nulls."
 ---
 # Self-surprisal by arm: each model is soothed by its own promoted vocabulary
 
@@ -59,11 +59,31 @@ after this seat read the arms wrong from their names ([5789], withdrawn
         base      pair +0.0012  21/18  p 0.749     cell +0.0000  p 0.918
         DiD       pair -0.0150  12/28  p 0.0166    cell -0.0161  p 0.0013
 
-**EACH ARM IS SOOTHED BY THE VOCABULARY IT PROMOTED.** Forcing a fallen word
-lowers self-surprisal in the BASE (p 0.0003) and only marginally in the
-aligned (p 0.154). Forcing a risen word lowers it in the ALIGNED (p 0.039)
-and not at all in the base (p 0.75). The two effects are mirror images, and
-S4's DiD is non-null at BOTH grains.
+**EACH ARM IS SOOTHED BY THE VOCABULARY IT PROMOTED** -- but only ONE HALF of
+that mirror is established as arm-specific, and the sentence overstates it.
+Forcing a fallen word lowers self-surprisal in the BASE (p 0.0003) and only
+marginally in the aligned (p 0.154). Forcing a risen word lowers it in the
+ALIGNED (p 0.039) and not at all in the base (p 0.75).
+
+**THE WITHIN-ARM EFFECTS ARE BOTH REAL; THE ARM-SPECIFICITY IS NOT.** A mirror
+claim is a claim about DiDs, because "soothed by ITS OWN vocabulary" asserts the
+other arm is not soothed the same way. Only S4 carries that:
+
+    S4  ROSE vs FLAT   DiD pair -0.0150  p 0.0166    cell -0.0161  p 0.0013
+    S3  FELL vs FLAT   DiD pair +0.0133  p 0.636     cell +0.0115  p 0.018
+
+**S3's DiD is NULL at the pair grain**, which this document calls the
+conservative unit, and reaches significance only at the cell grain. So the base
+being soothed by fallen words is solid, and the claim that the ALIGNED model is
+not also soothed by them is NOT ESTABLISHED where we say to look. One arm-
+specific effect beside one half whose arm-specificity is open.
+
+Found by @dario drawing it (docket [5915]): a 2x2 with two significant cells on
+the diagonal reads as one symmetric finding, and nothing in the panel is false.
+Same shape as the SAMESIDE column at [5914] -- the LAYOUT does rhetorical work
+the contents cannot support. `m06_self_surprisal_figs.py` states it on the panel
+rather than in a caption, where a rerun cannot erase it and a travelling figure
+cannot shed it.
 
 **THIS IS THE FIRST NON-NULL DiD IN THE FORCED SERIES**, after composition
 (I5), level (ascent), trajectory and third-party predictability (F3) all
