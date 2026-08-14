@@ -1045,6 +1045,21 @@ stopping while addition continues; `results/t_ladder_steps.csv`).
 > reading is the right prior: assume it is worse, not better. **Before
 > taking anything from here, verify that one entry rather than trusting the
 > list.**
+>
+> **AND THE AUTOMATED DERIVATION CHECK HAS PURCHASE ON ONLY A THIRD**
+> (`scripts/plot_debt_state.py`, run 2026-08-14). Of the 31 undrawn entries
+> naming an artifact:
+>
+>     18   name NO DECIMAL      nothing for the check to reproduce against
+>      2   named file ABSENT    blocked rather than open
+>     11   file present, headline does NOT fall out as a simple aggregate
+>
+> **The 11 are the queue-17 class** and each needs the same three questions:
+> right instrument, right population, right aggregate. `queue 17` needed all
+> three and two were declared nowhere; `queue 18` needed only the aggregate,
+> and its entry named a MEAN while a per-family dot plot reaches for the
+> median. **A headline that will not reproduce is not evidence that the
+> entry is wrong — it is evidence that a dimension is undeclared.**
 
 Condensed from the readers' reports: doc / result / data / suggested form.
 Ordering within each folder is the reader's ranking.
@@ -1072,7 +1087,7 @@ Ordering within each folder is the reader's ranking.
     `s_everything_direction_edgeunit.csv`, diverging bar.
 12. U-4 + X §3e two-panel fan (JS uniform; faller Jaccard splits no-wildchat
     0.340 vs 0.52–0.53) — `t_fans.csv`, `t_fans_jaccard.csv`.
-13. V-5 scene-locality, twin 0.327 vs random 0.060, 14/14 families —
+13. **[SHIPPED as `queue 18`, `08ae1bee`]** V-5 scene-locality, twin 0.327 vs random 0.060, 14/14 families —
     `v_displacement_twin*.csv`, paired dots, raw and residualised.
 14. X §3f violence discriminant control, per-prompt rho spread, pooled
     −0.100 — `x_violence_pooled.csv`. The anti-tautology figure.
