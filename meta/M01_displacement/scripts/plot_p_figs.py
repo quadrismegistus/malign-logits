@@ -61,8 +61,10 @@ It is why the ceiling sits where it does, so it is stated as the reason the
 axis ends where it ends.
 """
 import argparse
+import collections
 import json
 import os
+import statistics as st
 import sys
 
 import pandas as pd
@@ -272,7 +274,196 @@ def headroom():
     return out
 
 
-REGISTRY = {"headroom": headroom}
+#: P section 7b's table, mean z over the four instruments. Verified to be a
+#: MEAN rather than any single instrument: motion's four average to +2.8275
+#: against a booked +2.83, and every row below agrees within 0.08.
+BOOKED_7B = {
+    "wordnet:contact": 8.77,
+    "usas:matter_objects_and_handling": 4.69,
+    "wordnet:consumption": 3.73,
+    "wordnet:motion": 2.83,
+    "usas:body_health_and_consumption": 2.70,
+    "wordnet:communication": -5.02,
+    "usas:inquiry_discovery_and_education": -4.90,
+    "wordnet:cognition": -4.40,
+    "usas:cognition_mental": -4.37,
+    "wordnet:perception": -3.58,
+    "usas:evaluation_modality": -3.44,
+}
+SHORT = {
+    "wordnet:contact": "contact",
+    "usas:matter_objects_and_handling": "matter, objects, handling",
+    "wordnet:consumption": "consumption",
+    "wordnet:motion": "motion",
+    "usas:body_health_and_consumption": "body, health",
+    "wordnet:communication": "communication",
+    "usas:inquiry_discovery_and_education": "inquiry, education",
+    "wordnet:cognition": "cognition",
+    "usas:cognition_mental": "cognition (2nd source)",
+    "wordnet:perception": "PERCEPTION",
+    "usas:evaluation_modality": "evaluation, modality",
+}
+#: P states 112 fields / 448 tests / 109 surviving. The committed artifact is a
+#: WIDER run and does not reproduce those counts; the z-structure does.
+BOOKED_COUNTS = {"doc_fields": 112, "doc_tests": 448, "doc_q05": 109}
+
+#: Red and blue are this campaign's faller/riser grammar, and here the two
+#: poles ARE fall and rise, so reusing them is the convention rather than a
+#: collision. The wedge gets a third colour because it is the one row whose
+#: argument is that it sits on the wrong side of a story.
+FALL_C, RISE_C, WEDGE_C = "#b03030", "#1f4e79", "#e07b39"
+
+
+def field_poles():
+    """P 15(3): which semantic fields fall and which rise, and the wedge."""
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_segment, geom_text, geom_vline, ggplot,
+                          labs, scale_color_identity, scale_x_continuous,
+                          scale_y_continuous, theme, theme_minimal)
+
+    d = json.load(open(os.path.join(K, "field_poles_en.json")))
+    by = collections.defaultdict(list)
+    for x in d["tests"]:
+        by[x["field"]].append(x)
+
+    assert d["instruments"] == ["armAUC", "axisGloVe", "axisBGE", "delta"], \
+        f"instrument set changed: {d['instruments']}"
+    #: THE COUNTS DO NOT REPRODUCE AND THAT IS DECLARED, NOT ASSERTED AWAY.
+    #: P section 7b reports 112 fields over 448 tests with 109 surviving; this
+    #: artifact is a wider run at 175/700/152. BH runs over the whole test set,
+    #: so a 448-test correction gives different q than a 700-test one and the
+    #: doc's counts cannot be recovered by filtering this file. The Z-STRUCTURE
+    #: does reproduce, within 0.08 on every row, and that is what is drawn.
+    assert (d["n_fields"], d["n_tests"]) != (BOOKED_COUNTS["doc_fields"],
+                                             BOOKED_COUNTS["doc_tests"]), \
+        ("this artifact now matches the doc's field count -- the caption says "
+         "it does not and would be wrong")
+
+    rows, drift = [], []
+    for f, booked in BOOKED_7B.items():
+        xs = by.get(f, [])
+        assert len(xs) == 4, f"{f}: {len(xs)} instrument rows, expected 4"
+        m = st.mean(x["z"] for x in xs)
+        assert abs(m - booked) <= 0.10, \
+            (f"{f}: mean z {m:+.3f} against booked {booked:+.2f}, beyond the "
+             "0.10 that a resampled size-matched null explains")
+        assert len({x["z"] > 0 for x in xs}) == 1, \
+            f"{f}: the four instruments no longer agree in sign"
+        drift.append(abs(m - booked))
+        wedge = f == "wordnet:perception"
+        rows.append({"field": f, "lab": SHORT[f], "z": m, "n": xs[0]["n"],
+                     "nsig": sum(1 for x in xs if x["q"] < 0.05), "wedge": wedge,
+                     "fill": WEDGE_C if wedge else (FALL_C if m > 0 else RISE_C)})
+
+    #: the wedge carries the argument and its support is the weakest drawn
+    w = next(r for r in rows if r["wedge"])
+    assert w["nsig"] == 3, \
+        (f"perception now survives FDR on {w['nsig']} of 4 instruments, not 3; "
+         "the panel says three and names which one fails")
+    arm = next(x for x in by["wordnet:perception"] if x["instrument"] == "armAUC")
+    assert arm["q"] > 0.05, "armAUC now survives on perception; the caption is wrong"
+
+    df = pd.DataFrame(rows).sort_values("z").reset_index(drop=True)
+    df["y"] = range(len(df))
+    df["nlab"] = [f"{r.nsig}/4" for r in df.itertuples()]
+    #: LABEL BEYOND THE FURTHEST DOT, NOT BEYOND THE BAR. The per-instrument
+    #: points routinely sit outside the mean -- contact's bar ends at 8.8 and
+    #: its instruments reach 10.4 -- so anchoring on the bar end puts the text
+    #: on top of them. The first version anchored on the bar AND inverted the
+    #: alignment, which printed every label inside its own bar.
+    ext = {f: [x["z"] for x in by[f]] for f in BOOKED_7B}
+    df["ha"] = ["right" if v < 0 else "left" for v in df.z]
+    df["nx"] = [(min(ext[f]) - 0.35) if v < 0 else (max(ext[f]) + 0.35)
+                for f, v in zip(df.field, df.z)]
+    #: the FDR count sits just inside the bar, on the bar's own side of zero
+    df["cx"] = [(v + 0.55) if v < 0 else (v - 0.55) for v in df.z]
+    pts = pd.DataFrame([{"z": x["z"], "y": int(df.index[df.field == f][0])}
+                        for f in BOOKED_7B for x in by[f]])
+
+    smallest = min(abs(v) for v in BOOKED_7B.values())
+    n_omitted = sum(1 for f, xs in by.items()
+                    if len(xs) == 4 and f not in BOOKED_7B
+                    and abs(st.mean(x["z"] for x in xs)) >= smallest)
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#333333", size=0.5)
+        #: HORIZONTAL BARS AS SEGMENTS. This plotnine has no `orientation`
+        #: parameter on geom_col, and coord_flip would rotate the text
+        #: anchors with the panel. A thick segment from zero is the same
+        #: mark with none of that.
+        + geom_segment(df, aes(0, "y", xend="z", yend="y", color="fill"),
+                       size=9.5)
+        + geom_point(pts, aes("z", "y"), size=1.4, color="#2b2b2b", alpha=0.7)
+        + geom_text(df, aes("nx", "y", label="lab", ha="ha"), size=7.4,
+                    color="#222222")
+        + geom_text(df, aes("cx", "y", label="nlab"), size=5.8,
+                    color="#ffffff")
+        + scale_color_identity()
+        + scale_x_continuous(limits=(-12.0, 14.0),
+                             breaks=[-8, -6, -4, -2, 0, 2, 4, 6, 8, 10])
+        + scale_y_continuous(breaks=[], limits=(-0.8, len(df) - 0.2))
+        + labs(
+            title="Perception rises with cognition, and a concrete-to-abstract axis cannot produce that row",
+            subtitle=(
+                "Semantic fields ranked by how their words move under alignment. Each bar is the mean z\n"
+                "over FOUR INSTRUMENTS -- arm AUC, the GloVe axis, the bge axis, and the site delta --\n"
+                "against size-matched nulls, and the four dots on each bar are those instruments, drawn\n"
+                "beside the mean rather than behind it.\n"
+                "RIGHT, RED: fields whose words FALL. Contact, handling, consumption, motion, the body:\n"
+                "the vocabulary of immediate physical doing.\n"
+                "LEFT, BLUE: fields whose words RISE. Communication, inquiry, cognition from two\n"
+                "independent sources, evaluation: mental and institutional predicates.\n"
+                "THE WEDGE IS PERCEPTION, IN ORANGE. Perception verbs are concrete -- they are done with\n"
+                "the body -- and they rise with cognition. A pure concrete-to-abstract reading has no way\n"
+                "to put that row on the left, which is why the working name for the rise pole is\n"
+                "INTERIORITY and the description surviving elimination is ENACTED -> REPRESENTED.\n"
+                "THE FIGURE IS NOT KIND TO ITS OWN WEDGE. The number inside each bar is how many of the\n"
+                "four instruments survive FDR, and perception is 3 of 4: arm AUC gives it z = -1.33 at\n"
+                "q = 0.36 while the other three sit at q = 0.0049. All four agree in SIGN, which is what\n"
+                "the finding claims, and they do not all agree in significance, which it does not."),
+            x="mean z against a size-matched null   (negative = rises under alignment)",
+            y="",
+            caption=(
+                "Producer: meta/M01_displacement/scripts/plot_p_figs.py from results/k/field_poles_en.json.\n"
+                "Asserted before drawing: the four named instruments, sign agreement across all four on\n"
+                "every field drawn, each mean z within 0.10 of P section 7b's booked value, and that\n"
+                "perception survives on exactly 3 of 4 with arm AUC the failure.\n"
+                "THE COUNTS DO NOT REPRODUCE AND THE Z-STRUCTURE DOES. P section 7b reports 112 fields\n"
+                "over 448 tests with 109 surviving q<0.05 against about 22 expected. This committed\n"
+                "artifact is a wider run: 175 fields, 700 tests, 152 surviving. Benjamini-Hochberg runs\n"
+                "over the whole test set, so a 448-test correction gives different q values than a\n"
+                "700-test one and the doc's counts cannot be recovered by filtering this file. The\n"
+                "109/448 quoted in the finding belongs to a run no committed artifact holds.\n"
+                "Every mean z agrees within 0.08, which is what a resampled size-matched null would give.\n"
+                f"THE ELEVEN FIELDS ARE THE ONES SECTION 7b NAMES, AND THAT IS A SELECTION: {n_omitted}\n"
+                "other fields have a larger mean |z| than the smallest drawn here and are not shown,\n"
+                "almost all of them bare USAS codes rather than interpretable names. Which eleven is a\n"
+                "reading; that the four instruments agree in sign on all of them is a measurement."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(12.8, 7.6),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "p_field_poles.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print(f"    11 fields, max |mean z - booked| = {max(drift):.3f}")
+    print(f"    artifact {d['n_fields']} fields / {d['n_tests']} tests / "
+          f"{d['n_q05']} q<0.05; doc books {BOOKED_COUNTS['doc_fields']}/"
+          f"{BOOKED_COUNTS['doc_tests']}/{BOOKED_COUNTS['doc_q05']}")
+    print(f"    perception (the wedge): {w['nsig']}/4 survive FDR, "
+          f"armAUC q={arm['q']:.4f}")
+    print(f"    {n_omitted} unnamed fields outrank the smallest drawn, declared")
+    return out
+
+
+REGISTRY = {"headroom": headroom, "field_poles": field_poles}
 
 
 def main():
