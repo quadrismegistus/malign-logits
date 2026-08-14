@@ -405,6 +405,40 @@ seat forgets at its peril:
   the next reader could see what lay outside it. A stated search space
   is not a hedge on an absence claim; it is the interface that lets
   someone else extend it.
+- **COMPUTE THE QUANTITY THE DECISION TURNS ON, NOT THE ONE THE
+  SENTENCE QUOTES** ([6009]/[6010]): the M03 ICC was re-declared and
+  came back 0.647 and 0.589 against a booked 0.855 and 0.846 — **and
+  the ICC was never the decision-relevant quantity.** What licenses
+  collapsing 52 rungs is the DESIGN EFFECT `1 + (k-1)*ICC`, which at
+  k=50 is 32.4 and 25.2: a scenario's fifty rungs are worth about 1.5
+  observations, so the rung-unit p-values of 2.4e-14 and 1.0e-11 sat
+  on an n roughly thirty times larger than the data supports. **The
+  decision was right by a margin a 0.2 error in the ICC does not
+  touch** — a number under a rule can be wrong without the rule being
+  wrong, and the way to know which is to compute what the decision
+  actually rests on. Drawing form, if it is ever wanted, is
+  `claimed n -> real n` (594 -> 18.3, 756 -> 30.0): **that is the
+  fact, and the ICC is only its input** — a panel of ICCs would have
+  been the wrong number rendered correctly. THREE RIDERS. The
+  correction ran the OTHER WAY: effective n is 18.3 and 30.0 against
+  the 12 and 18 the scenario unit uses, so the analysis UNDER-used its
+  data, against a 25% prior recorded in advance on over-collapse —
+  **a pre-registered prior that fails in DIRECTION rather than in size
+  is worth more than one merely off, because nothing in the run could
+  have produced that by accommodation.** Headroom recorded, not
+  claimed: 7/18 is at chance and does not become significant at n=30.
+  And declare the statistic with its bias — ICC(1) charges a
+  systematic trend across ordered rungs to within-group variance and
+  therefore UNDERSTATES, which is conservative toward reviving the
+  rung unit, and the collapse survives it anyway.
+- **WHEN A NUMBER MOVES, CHECK WHAT WAS DRAWN FROM IT** ([6010], the
+  mirror of *when you retract a number, check whether it was minted
+  from*): fourteen producers and seventeen figures grepped for the
+  superseded value and its rule in two minutes, zero hits, clearance
+  REPORTED rather than assumed. Both M03 figures sit on the word and
+  lineage units, which the re-declaration does not touch. It is the
+  only way a figure silently resting on a superseded value is found
+  before a reader finds it.
 - **AN OUTWARD CLAIM IN A PRINT STATEMENT IS UNTESTED *AND EMITTED*,
   WHICH IS STRICTLY WORSE THAN ONE IN A COMMENT** ([5998]/[5999]):
   `d_ladder_fields.py:157` prints "ICC of the paired difference across
@@ -416,7 +450,11 @@ seat forgets at its peril:
   them, because nothing computes any of them. And this is the number
   underwriting a campaign-wide rule. **A third category beside
   missing-producer and missing-definition: A PRODUCER THAT ASSERTS ITS
-  OWN OUTPUT.**
+  OWN OUTPUT.** FIXED AT THE MECHANISM RATHER THAN THE VALUE ([6009]):
+  the line now loads the artifact and prints what was computed, **or
+  says the value is unavailable and refuses to state one** — a
+  corrected literal would have been the same defect with a better
+  number in it.
   Two method points from the same work, both worth more than the
   instance. **Naming the space you are declining beats declining it**
   — malign stopped at one candidate against two targets *having
