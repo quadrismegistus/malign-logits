@@ -465,6 +465,30 @@ seat forgets at its peril:
   targets to 0.7975 against a booked 0.795 while leaving the others
   wrong — a single near-hit is what recipe-fitting feels like from
   inside.
+- **A degenerate probe yields a cleaner claim than a real measurement,
+  and the cleanliness is the warning** ([5967]): `甲。乙。丙。` returns one
+  sentence from stanza and `A one. B two. C three.` also returns one,
+  from which one could write the tidy claim that it splits on neither
+  terminator — an artefact of single-character out-of-distribution
+  input. The passage-level measurement on 150 real mixed passages says
+  something messier and true: stanza finds MORE sentences in 86, FEWER
+  in 45, median ratio 1.33x, **so neither splitter dominates and the
+  "stanza is a superset" guess is false as stated** — it is a neural
+  tokenizer, not a punctuation rule, so it has no superset behaviour to
+  inherit. Report the population measurement; probes are illustration.
+  (This STRENGTHENS the `refuse` ruling: had stanza dominated, `zh`
+  would have been the cheap obvious policy.)
+- **Lazy construction turns a first-item failure into a silent
+  whole-class refusal** ([5967]): a stanza failure on the first zh
+  passage leaves the pipeline `None`, the caller's `except` makes that
+  passage a refusal, and every later zh passage repeats it — 78,879
+  passages, 16.3% of the corpus, quietly becoming refusals while the
+  shard reports its normal rate and exits 0. Construct eagerly, or
+  distinguish "this item failed" from "the instrument is dead". Same
+  post, the mirror hazard: a manifest written by `%`-formatting that
+  raises AT THE WRITE, after every passage is embedded, means all the
+  work is done, nothing is recorded, and the sweep calls it a crashed
+  shard.
 - **A rehearsal that cannot reach every shard is worth less than no
   rehearsal, because it prints what a good one prints** (malign's,
   [5957]): `--limit` was a global cap whose `break` left only the row
