@@ -180,3 +180,47 @@ regimes, each beside a positive control).
 The general form, worth keeping: a ratio of two quantities that both move is not
 a shape measure just because the units cancel. Check whether the normalisation
 removes the nuisance or removes the construct.
+
+## Addendum (2026-08-14): defect 2 was SCOPED TOO WIDELY -- "92% noise" is the instrument, not the metric
+
+Defect 2 above reports `total_drift` ICC 0.082 and `mean_drift` 0.141, and reads
+as a property of the metrics. It is not. Both were measured on ONE corpus with
+ONE embedder (`paraphrase-multilingual-MiniLM-L12-v2`, the F15 passage
+population). The same variance decomposition on the cross-lingual cells, three
+samples per (model, prompt), `BAAI/bge-m3` on f11_l2:
+
+    lang regime  metric        totSD   withSD  betwSD    ICC
+    zh   trunc   total_drift   0.0768  0.0570  0.0515   0.449
+    zh   trunc   mean_drift    0.0743  0.0488  0.0559   0.567
+    zh   full    total_drift   0.0787  0.0583  0.0529   0.451
+    zh   full    mean_drift    0.0752  0.0503  0.0559   0.553
+    en   trunc   total_drift   0.0845  0.0624  0.0570   0.454
+    en   trunc   mean_drift    0.0748  0.0536  0.0522   0.486
+    en   full    total_drift   0.0741  0.0554  0.0492   0.441
+    en   full    mean_drift    0.0668  0.0463  0.0482   0.521
+
+**Four to six times the reliability**, and the reason is within-cell noise:
+0.046-0.062 here against the original 0.134. Drift metrics are not inherently
+92% noise; THAT population measured with THAT embedder was. The corrected claim
+is that reliability is a property of the (corpus, embedder, truncation) triple
+and must be measured per instrument, never inherited.
+
+What DOES survive unchanged, and is the part that travels:
+
+- **`mean_drift` beats `total_drift` on ICC in all four cells** (0.49-0.57
+  against 0.44-0.45), independently confirming the original recommendation on a
+  different corpus with a different embedder.
+- **Removing truncation improves reliability exactly where it adds sentences.**
+  English gained sentences (5 to 10 median): within-cell SD fell 11% and
+  `mean_drift` ICC rose 0.486 to 0.521. Chinese gained none (7 to 6) and is
+  flat. The mechanism is visible in the direction of the effect.
+
+**Consequence for the quadrant reading.** Defect 2 is what licensed calling the
+drift axis near-random, and a median split on a 0.44-ICC axis is a very
+different object from one on a 0.08-ICC axis. The quadrant framework was
+condemned partly on a number that does not generalise, so it is owed a rerun on
+the passage corpus with bge-m3 AND no truncation, the combination never tried
+there. A 4-pair smoke flips Q1 and Q3 relative to both truncated runs, with the
+gainers becoming the LOW-DRIFT quadrants rather than the low-surprisal ones;
+underpowered (p 0.125-0.625) and on the smoke families, so it is a reason to run
+the full population, not a result.

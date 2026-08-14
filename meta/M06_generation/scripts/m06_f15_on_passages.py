@@ -90,7 +90,17 @@ def main():
     ap.add_argument("--smoke", action="store_true")
     ap.add_argument("--cap", type=int, default=3,
                     help="max samples per (pair, role, prompt)")
+    #: The quadrant framework was condemned on a drift axis measured with
+    #: MiniLM at a 75-word floor (ICC 0.082, "92% noise"). The same metrics on
+    #: bge-m3 come back at ICC 0.44-0.55, and removing the floor cut
+    #: within-cell noise 11% cross-lingually. Neither has been tried on THIS
+    #: corpus, and never both. Outputs are suffixed so nothing is overwritten.
+    ap.add_argument("--embedder", default=EMBEDDER,
+                    help="sentence embedder (default: the committed MiniLM)")
+    ap.add_argument("--no-truncate", action="store_true",
+                    help="score the whole generation, not the first 75 words")
     args = ap.parse_args()
+    emb_name = args.embedder   # the STRING; `embedder` below is the object
 
     import pandas as pd
     from malign_logits.embedding import (drift_metrics_from_embeddings,
@@ -137,8 +147,11 @@ def main():
     #: truncation, the F15 rule
     kept, n_short, n_fewsents = [], 0, 0
     for pair, role, pid, sidx, prm, text in rows:
-        tr = truncate_to_min_sentences(text, min_words=MIN_WORDS)
-        t2 = tr[0] if isinstance(tr, tuple) else tr
+        if args.no_truncate:
+            t2 = text
+        else:
+            tr = truncate_to_min_sentences(text, min_words=MIN_WORDS)
+            t2 = tr[0] if isinstance(tr, tuple) else tr
         if t2 is None:
             n_short += 1
             continue
@@ -159,7 +172,7 @@ def main():
                                     for k2, v in per_role.items()})
 
     #: drift -- committed encoding recipe (prefix on first sentence, normalise)
-    embedder = _get_embedder(EMBEDDER)
+    embedder = _get_embedder(emb_name)
     sent_lists = []
     for pair, role, pid, sidx, prm, t2, sents in kept:
         ss = list(sents)
@@ -190,6 +203,10 @@ def main():
 
     df = pd.DataFrame(out_rows)
     suf = "_smoke" if args.smoke else ""
+    if args.no_truncate:
+        suf += "_full"
+    if emb_name != EMBEDDER:
+        suf += "_" + emb_name.split("/")[-1].replace(".", "").lower()
 
     #: quadrants -- pooled medians over both arms, computed once, reported;
     #: assigned BEFORE the persist so the flow is checkable from the cells
@@ -215,7 +232,7 @@ def main():
               .reset_index())
 
     out = {"plan": "plans/plan_f15_on_passages.md", "ref": REF,
-           "embedder": EMBEDDER, "min_words": MIN_WORDS,
+           "embedder": emb_name, "min_words": MIN_WORDS,
            "median_drift": med_d, "median_surprisal": med_s,
            "n_passages": len(df),
            "truncation": {"kept": len(kept), "short": n_short,
