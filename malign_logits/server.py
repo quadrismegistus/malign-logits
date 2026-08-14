@@ -427,24 +427,21 @@ class ModelHandler(BaseHTTPRequestHandler):
                 })
 
             elif endpoint == "/api/slot_axis":
-                #: THE AXIS IS PER PROMPT AND ITS POLES ARE THE AUTHOR'S TAGS.
-                #: A global word-level axis was tried and failed on polysemy:
-                #: bare `dick` embeds as the NAME (+0.013) and bare `erection`
-                #: as the building sense (-0.037), both ranking below
-                #: `forehead`. Scoring each candidate as `prompt + word` fixes
-                #: it by construction -- in context they land 2nd and 4th --
-                #: because the prompt disambiguates the sense before the
-                #: embedder ever sees the word.
+                #: ONE IMPLEMENTATION, in `malign_logits.slot_axis`. This
+                #: endpoint, `x_slot_ablation.py` and `x_slot_screen.py` each
+                #: carried their own copy of the axis maths and had already
+                #: drifted -- only one handled the CJK separator, and the gate
+                #: constants were retyped in two places. Same argument as the
+                #: `twp.py` extraction: a second copy of a rule is a second
+                #: policy.
                 #:
-                #: KNOWN LIMIT, worth more than the feature: where the
-                #: transgression is COMPOSITIONAL rather than lexical, no pole
-                #: pair separates the candidates. "She spread her ___" ranks
-                #: feet/knees/toes beside thighs under every pole pair tried,
-                #: because `legs` is anatomically neutral and the charge is in
-                #: the scene. That is a true fact about the PROMPT, and a
-                #: flat axis here is a screening signal rather than a failure.
-                import numpy as np
+                #: AND THE EMBEDDINGS ARE CACHED, per RH. Every call used to
+                #: re-embed `prompt + word` over the whole union vocabulary --
+                #: 40,000 vectors and ~11 minutes of CPU for a 100-item
+                #: battery, paid again on every run and every arm. Now paid
+                #: once, keyed on the string bge actually saw.
                 from . import twp as twp0
+                from .slot_axis import Axis
                 prompt = params.get("prompt", "")
                 naughty = [w for w in params.get("naughty", "").split(",") if w.strip()]
                 nice = [w for w in params.get("nice", "").split(",") if w.strip()]
@@ -452,39 +449,6 @@ class ModelHandler(BaseHTTPRequestHandler):
                 if not prompt.strip() or not naughty or not nice:
                     self._respond(400, {"error": "prompt, naughty and nice all required"})
                     return
-                from sentence_transformers import SentenceTransformer
-                global _bge
-                with _slot_lock:
-                    if _bge is None:
-                        _set_progress("loading_models", "Loading bge-m3...")
-                        #: CPU, NOT MPS. RH: bge on MPS is bogus. Every axis number I produced
-                        #: today used device="mps" and is therefore suspect;
-                        #: the endpoint is pinned to cpu so the UI cannot
-                        #: reproduce that.
-                        _bge = SentenceTransformer("BAAI/bge-m3", device="cpu")
-                        _set_progress("idle")
-                #: CJK HAS NO SPACES. `f"{prompt} {t}"` inserts one, which for a
-                #: Chinese prompt puts a space mid-sentence and embeds a string
-                #: the model would never see.
-                _sep = "" if __import__("re").search(r"[一-鿿]", prompt) else " "
-                enc = lambda ts: np.asarray(
-                    _bge.encode(["%s%s%s" % (prompt, _sep, t) for t in ts],
-                                normalize_embeddings=True, show_progress_bar=False),
-                    dtype=np.float32)
-                vg, vn = enc(naughty).mean(0), enc(nice).mean(0)
-                axis = vg - vn
-                norm = float(np.linalg.norm(axis))
-                if norm < 1e-8:
-                    self._respond(200, {"axis_norm": norm, "scores": [],
-                                        "note": "poles are identical in embedding space"})
-                    return
-                axis = axis / norm
-                origin = (vg + vn) / 2.0
-                #: IF NO WORD LIST IS GIVEN, EXPAND THE SLOT HERE. An automated
-                #: caller should not have to make two calls and reimplement the
-                #: leverage formula to find out whether an item is usable --
-                #: that is how a second copy of a rule gets written. With the
-                #: model resident this costs one expansion.
                 probs = {}
                 if not words:
                     tok, model, bmask, cjk, pol, dev = _get_slot_model(
@@ -499,39 +463,22 @@ class ModelHandler(BaseHTTPRequestHandler):
                                             "scores": [], "leverage": None})
                         return
                     words = list(probs)
-                allw = sorted(set(words) | set(naughty) | set(nice))
-                s = (enc(allw) - origin) @ axis
-                #: SEPARATION IS REPORTED so a flat axis is visible as flat. The
-                #: pole gap is the scale everything else should be read against.
-                gap = float((vg - origin) @ axis) - float((vn - origin) @ axis)
-                #: LEVERAGE IS THE GATE and it is returned, not left to the
-                #: caller. LEV = sqrt(sum P(w)(s(w)-N)^2 / sum P) over the base
-                #: distribution. Measured references: a known MOVER reads 0.1027
-                #: and a known DEAD item 0.0694, both at k=40, and leverage is
-                #: robust to that truncation where `tagged` is not.
-                S = dict(zip(allw, (float(x) for x in s)))
-                lev = N = None
-                if probs:
-                    tot = sum(probs.values()) or 1.0
-                    N = sum(q * S.get(w, 0.0) for w, q in probs.items()) / tot
-                    lev = (sum(q * (S.get(w, 0.0) - N) ** 2
-                               for w, q in probs.items()) / tot) ** 0.5
-                self._respond(200, {
-                    "prompt": prompt, "axis_norm": norm, "pole_gap": gap,
-                    "leverage": lev, "N": N,
-                    "n_poles": [len(naughty), len(nice)],
-                    "lev_mover": 0.1027, "lev_dead": 0.0694,
-                    "verdict": (None if lev is None else
-                                ("NO-LEVERAGE" if lev < 0.0694 else
-                                 "POLE-OF-ONE" if min(len(naughty), len(nice)) < 2
-                                 else "ok")),
+                ax = Axis(prompt, naughty, nice)
+                if not ax.ok:
+                    self._respond(200, {"axis_norm": ax.norm, "scores": [],
+                                        "note": "poles are identical in embedding space"})
+                    return
+                S = ax.score(sorted(set(words) | set(naughty) | set(nice)))
+                st = ax.stats(probs, S) if probs else {}
+                self._respond(200, dict({
+                    "prompt": prompt, "axis_norm": ax.norm,
                     "naughty_mass": (sum(probs.get(w, 0.0) for w in naughty)
                                      if probs else None),
                     "nice_mass": (sum(probs.get(w, 0.0) for w in nice)
                                   if probs else None),
-                    "scores": [{"word": w, "s": float(v)} for w, v in
-                               sorted(zip(allw, s), key=lambda x: -x[1])],
-                })
+                    "scores": [{"word": w, "s": v} for w, v in
+                               sorted(S.items(), key=lambda x: -x[1])],
+                }, **st))
 
             elif endpoint == "/api/trajectory":
                 from .probe import Probe, _resolve_prompt
