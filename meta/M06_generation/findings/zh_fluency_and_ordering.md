@@ -78,6 +78,31 @@ it.
 At 6 passages per model this was 14/7/4 at p=0.19, i.e. nothing. **The result
 is a property of the sample size, and the n=6 version should not be cited.**
 
+### The result is robust to the ordinal coding, and NULL on one of them
+
+The score above is a mean over an ordinal scale treated as interval
+(3/2/1/0). **Nothing stated a reason for that and nothing tested it**, so it
+was tested. Four codings agree and the fifth is informative:
+
+    interval 3/2/1/0 (used)      20/5   p=0.0041
+    binary fluent|flawed         20/4   p=0.0015
+    strict fluent only           15/0   p=6.1e-05     unanimous
+    compressed 3/2/0/0           23/2   p=1.9e-05
+    IS-CHINESE-AT-ALL            12/7   p=0.36        NULL
+
+**Alignment does NOT make a model more likely to stay in Chinese.** The
+`not_chinese` rate -- English, other scripts, markup, empty -- does not differ
+by arm. What differs is the quality of the Chinese that does get produced, and
+the effect concentrates at the TOP of the scale: coding for `fluent` alone is
+unanimous at 15/0.
+
+**So the claim is narrower than "aligned models write Chinese and base models
+write word salad."** It is: conditional on writing Chinese, aligned models
+write it better. This matters for the confound below -- the contamination runs
+through the broken/coherent distinction and not through language choice, which
+is consistent with `order_ratio` being independent of it, since a coherence
+difference is what an ordering measure is sensitive to.
+
 ## 2. That gap predicts the Chinese arm effect on `total_drift`
 
 Across the 25 pairs, the fluency gap predicts the drift gap:

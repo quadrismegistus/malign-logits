@@ -12,12 +12,20 @@ base/aligned pairs. Round 1 of the fluency judging (6 passages per model) found
 that aligned models appeared to write BETTER Chinese than their base models --
 14 pairs up, 7 down, 4 tied, mean +0.40 -- at p=0.19, which establishes nothing.
 
-**If that gap is real it is a confound rather than a detail.** In the twelve
-NOMINAL-tier pairs the base model frequently produces word salad while the
-aligned model produces recognisable Chinese, and a bge-m3 embedding of word
-salad is not a measurement of the same kind as an embedding of prose. A
-difference in sentence-embedding drift between arms could then be a difference
-in whether the text is Chinese at all.
+**If that gap is real it is a confound rather than a detail.** A bge-m3
+embedding of word salad is not a measurement of the same kind as an embedding
+of prose, so a difference in sentence-embedding drift between arms could be a
+difference in the COHERENCE of the text rather than in its geometry.
+
+**AND THE ORIGINAL FORM OF THAT SENTENCE WAS WRONG, corrected 2026-08-14.** It
+read *"could then be a difference in whether the text is Chinese at all"*, and
+it is not: coding the verdicts as IS-CHINESE-AT-ALL (fluent|flawed|broken
+against not_chinese) gives **12/7, p=0.36 -- null.** Alignment does not make a
+model likelier to stay in Chinese. It improves the Chinese it does write, and
+the effect concentrates at the top of the scale (`fluent` alone: 15/0). The
+confound therefore runs through broken-versus-coherent, not through language
+choice -- which is consistent with `order_ratio` being independent of it,
+since coherence is what an ordering measure is sensitive to.
 
 THE THREE THINGS THIS REPORTS, in increasing order of what they can settle:
 
@@ -31,8 +39,8 @@ THE THREE THINGS THIS REPORTS, in increasing order of what they can settle:
 
   3. THE CONFOUND TEST, which is the point. Across pairs, does the fluency gap
      PREDICT the drift gap? If the correlation is strong, the arm effect on
-     `total_drift` is not separable from the arm effect on whether the model
-     writes Chinese. If it is flat, the drift result survives the objection.
+     `total_drift` is not separable from the arm effect on how COHERENT the
+     Chinese is. If it is flat, the drift result survives the objection.
 
 A NULL ON 3 IS THE USEFUL OUTCOME and it is what the finding needs; a positive
 is a reason to restrict the population to pairs where both members write
@@ -50,7 +58,20 @@ OUTD = os.path.join(ROOT, "meta/M06_generation/results")
 PAIRS_PQ = os.path.join(OUTD, "crosslingual_arms_pairs.parquet")
 OUT = os.path.join(OUTD, "zh_fluency_arms.json")
 
+#: The interval coding of an ORDINAL scale, and the finding tests whether it
+#: matters rather than assuming: four codings agree (20/5, 20/4, 15/0, 23/2)
+#: and IS-CHINESE-AT-ALL is NULL (12/7, p=0.36). Alignment does not make a
+#: model likelier to stay in Chinese; it improves the Chinese it does write,
+#: and the effect concentrates at the top of the scale. `--coding` re-runs
+#: the contrast under any of them.
 SCORE = {"fluent": 3, "flawed": 2, "broken": 1, "not_chinese": 0}
+CODINGS = {
+    "interval": {"fluent": 3, "flawed": 2, "broken": 1, "not_chinese": 0},
+    "binary_ok": {"fluent": 1, "flawed": 1, "broken": 0, "not_chinese": 0},
+    "strict": {"fluent": 1, "flawed": 0, "broken": 0, "not_chinese": 0},
+    "is_chinese": {"fluent": 1, "flawed": 1, "broken": 1, "not_chinese": 0},
+    "compressed": {"fluent": 3, "flawed": 2, "broken": 0, "not_chinese": 0},
+}
 ORDER = ["fluent", "flawed", "broken", "not_chinese"]
 BOOT = 10000
 SEED = 20260814
