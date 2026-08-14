@@ -754,12 +754,27 @@ now owns figures only.
 > seat it was promoted to ([6179]) — and after `shortlist 1`, offered as the
 > replacement, turned out to be shipped too:
 >
->     shortlist 1  SHIPPED   queue 8   T-14 family, three figures on disk
->     shortlist 2  SHIPPED   queue 9   0db7cbcd, ratified [5946]
->     shortlist 6  SHIPPED   queue-embedded, d9c48a34
+>     shortlist 1  SHIPPED   queue 8, T-14 family, three figures on disk
+>     shortlist 2  SHIPPED   queue 9, 0db7cbcd, ratified [5946]
+>     shortlist 3  SHIPPED   fig32_ratio_polesep_joined.png
+>     shortlist 4  SHIPPED   contradiction_null_numberline.png -- producer
+>                            carries all four declared values
+>     shortlist 6  SHIPPED   d9c48a34
+>     shortlist 8  SHIPPED   b_c_arm_by_lineage.png
 >     shortlist 9  BLOCKED   queue 12
+>     shortlist 10 SHIPPED   l2_field_signature.png -- l2_fields_figs.py
+>                            asserts 79 fields / 39 general / 0 specific,
+>                            which is this entry's own specification
+>     shortlist 5  unconfirmed  artifact present; e_survivor_scatter.png may
+>                               or may not be it
+>     shortlist 7  unconfirmed  artifact present; no diegetic figure found
 >
-> **Three of ten were discharged and one said so.** The discharges were
+> **SEVEN of ten were discharged and ONE said so** — and the registrar's own
+> first pass at this reconciliation said THREE, because it matched figure
+> names against item numbers instead of item CONTENT. The count went from
+> three to seven by reading what each entry asks for and checking whether a
+> producer asserts those numbers. **A figure filename is a name; the
+> specification is the relation.** The discharges were
 > written in the QUEUE entries — *"discharged the shortlist's two"* — so the
 > link existed, was correct, and ran ONE WAY: a reader arriving from the
 > shortlist found open items. **Same class as the numbering namespaces fixed
