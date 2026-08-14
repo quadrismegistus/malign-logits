@@ -40,24 +40,23 @@ afternoon each):
 Sub-type B: no code at all (fix = write the producer; recoverability
 varies):
 
-- **M02 opus_second_order artifacts** — BOOKED Class 1B by registrar
-  2026-08-14 on dario's referral ([5897]): four artifacts in
-  `meta/M02_frame_exit/results/opus_second_order/` (judgements,
-  round2_all, moral_clinical, ablation_no_example) with ZERO producing
-  or reading code in the repo (search space: full-tree grep for the
-  dirname over *.py/*.ipynb/*.js — zero; unrestricted — two hits, both
-  prose findings). M02's self-declared strongest result, and the
-  SECOND 1B instance in `second_order_naming.md` (first:
-  graded-stimulus, discharged from transcript at 3ac2c124). RECOVERY
-  FAVOURABLE: the finding quotes the numbers, so the needle strings
-  are known; the transcript route has two digit-exact precedents.
-  Recovery SETTLED [5900]: dario recovers and
-  reproduces; lacan second-seats the LOGIC once a script reproduces
-  the booked numbers. Rider from lacan: m06_p_on_passages_ascent.py
-  imports the SO/DE regexes from z_second_order — if the recovered
-  producer's marker definitions disagree with what that import
-  resolves to today, the disagreement is a FINDING, not a merge
-  conflict, and surfaces before either version is canonical.
+- ~~**M02 opus_second_order artifacts**~~ **DISCHARGED 2026-08-14,
+  `503da52d` ([5906]), pending lacan's second-seat on the logic
+  ([5900] split). NO TRANSCRIPT NEEDED** — the four artifacts ARE the
+  reader's raw per-passage verdicts; only the aggregation was missing
+  (RH's produce-raw-rows rule [5562] proving its value from the
+  recovery side). `opus_second_order_results.py` refuses to write on
+  any booked-value failure; every English-arm number reproduces (OR
+  3.37 [1.88, 6.30], Fisher 9.61e-06, ablation McNemar 5/8 exact).
+  WHAT WAS ACTUALLY LOST = THE ESTIMATOR DEFINITIONS ([5884] shape):
+  the point estimate is an ODDS ratio though the finding's phrasing
+  reads as a rate ratio (rate ratio = 3.12); the CI is the
+  conditional-MLE interval (Woolf misses the booked values); the
+  pooling is over both rounds (4.62 / 2.70 alone). All three now in
+  code with booked values asserted. lacan's z_second_order gate
+  INAPPLICABLE, not satisfied: no regexes are involved in aggregating
+  stored verdicts. NOT audited: zh arm, marker-based half, soundness
+  of the verdicts themselves.
 
 - ~~**M05 C Result 4**~~ STALE, corrected 2026-08-14 ([5901] §2):
   `m05_pair_displacement.py --recapture` now writes
