@@ -4,18 +4,25 @@
 #
 #   scripts/migrate_hidden_states.sh list      what would move, and how big
 #   scripts/migrate_hidden_states.sh copy      rsync to diderot, with progress
-#   scripts/migrate_hidden_states.sh verify    checksum every file, both sides
-#   scripts/migrate_hidden_states.sh link      replace originals with symlinks
+#   scripts/migrate_hidden_states.sh verify    OPTIONAL batch checksum
+#   scripts/migrate_hidden_states.sh link      cmp each file, then symlink it
 #   scripts/migrate_hidden_states.sh status    how far along, any inconsistency
 #   scripts/migrate_hidden_states.sh restore   bring them all back, undo links
 #
-# RUN THEM IN THAT ORDER. `link` REFUSES unless `verify` has passed in this
-# same tree, because the whole point is not to delete anything on a copy
-# tool's word -- rsync reported `ok` on a pull tonight that was missing 461 MB
-# and an entire refusal record, because it ran while the source was still
-# being written ([6005]). It was right about what existed when it ran and
-# wrong about what existed when it was read. So: copy, then checksum, then
-# and only then remove.
+# COPY THEN LINK. `verify` IS OPTIONAL AND SKIPPING IT COSTS NOTHING, which
+# corrects what this header said for its first four hours. The original design
+# required a `verify` stamp before `link` -- and `link` ALSO cmp's every file
+# immediately before deleting it, so the set was read twice for one guarantee
+# and the WEAKER pass was the gate. A batch stamp says the set was good at
+# some earlier moment; a per-file cmp says THIS file is good at the instant it
+# is removed, which is the distinction that cost 461 MB at [6005], where rsync
+# was right about what existed when it ran and wrong about what existed when
+# it was read.
+#
+# So nothing is ever deleted on a copy tool's word -- the guarantee is
+# unchanged -- and 87 GB is read once instead of twice. Space comes back
+# progressively as `link` walks the list. Run `verify` only if you want a
+# whole-set answer BEFORE committing to any deletion.
 #
 # WHY SYMLINKS AND NOT A MOVED DIRECTORY. `lens_ratio_by_layer.scan_hidden()`
 # globs `data/**/*.jsonl` recursively and claims any file with a sibling
@@ -143,11 +150,19 @@ verify)
 
 link)
   need_volume
-  if [ ! -f "$STAMP" ]; then
-    echo "REFUSING: no verification stamp at $STAMP." >&2
-    echo "  Run '$0 verify' first. This script does not delete a local file" >&2
-    echo "  on the strength of a copy having exited zero." >&2
-    exit 1
+  # NO STAMP REQUIRED, and removing that requirement makes this SAFER rather
+  # than laxer. `verify` re-reads all 87 GB to produce a batch stamp; the loop
+  # below then re-reads all 87 GB again to `cmp` each file immediately before
+  # deleting it. Two full passes for one guarantee, and the WEAKER of the two
+  # was the gate: a stamp says the set was good at some earlier moment, which
+  # is exactly the distinction that cost 461 MB at [6005]. The per-file cmp
+  # says this file is good at the instant it is removed. So the cmp is the
+  # gate, `verify` is an optional dry run, and space comes back as we go.
+  if [ -f "$STAMP" ]; then
+    echo "(batch verification present from $(cat "$STAMP"))"
+  else
+    echo "(no batch stamp; each file is cmp'd against its copy before removal,"
+    echo " which is the stronger check and the one that actually gates deletion)"
   fi
   build_list
   n=0
