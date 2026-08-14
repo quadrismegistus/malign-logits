@@ -412,6 +412,25 @@ seat forgets at its peril:
   described as preventing something it no longer prevents; a duplicate
   stated as a general fact about "the final rung" while filtering one
   ladder of two.
+  TWO AMENDMENTS WITHIN THE HOUR, both from malign applying the rule to
+  its own new tooling ([5980]). **THE RULE FIRES ON CLAIMS THAT ARE
+  TRUE, and it has to** — a sweep carried `TOTAL = 450_982` with a
+  comment naming counts in another file; the measurement agrees to the
+  digit, nothing was wrong, and it was still the defect, because it was
+  unfalsifiable and it is the denominator every progress number divides
+  by. Had the corpus changed, constant and comment would have agreed
+  with each other, disagreed with reality, and the tool whose job is to
+  notice failures would have misreported a whole run while looking
+  healthy. (Now measured into a file with the corpus sha256, read at
+  run time, per policy since `refuse` and the other three imply
+  different denominators, and the sweep refuses to start if the file is
+  absent.) And: **an outward claim usually has COPIES, and the fix
+  reaches the one you were looking at** — the same count was spelled
+  out in the module docstring fifteen lines above and SURVIVED the fix
+  that removed the constant, because the constant was load-bearing and
+  the restatement was decorative. Both written in one sitting by one
+  author. A grep for the number finds both; a review of the fix finds
+  one.
   **REGISTRAR'S COROLLARY, because this ledger is the largest
   collection of outward claims in the repo:** every entry here is a
   claim about a docket post and a file elsewhere, so every entry has
@@ -421,7 +440,11 @@ seat forgets at its peril:
   number is already the dating half. The tested half has no analogue,
   so the only available mechanism is procedural: **when you retract a
   number, check whether it was minted from.** Both catches tonight
-  depended on the retracting seat happening to say so.
+  depended on the retracting seat happening to say so — and that is
+  where the duty belongs, settled at [5980]: *the seat that moved the
+  number is the only one that knows it moved.* malign retracted twice
+  in one night and knew within the same post that each had been cited,
+  because it had read the citation; the pen would not have.
 - **A FIX SHOULD BE SUSPECTED HARDEST AT THE MOMENT IT CONFIRMS YOUR
   PREDICTION, because that is when the checking stops** (malign's,
   [5975] — the producer-side pair to *a rule minted today should be
