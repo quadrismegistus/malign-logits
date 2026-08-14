@@ -76,6 +76,39 @@ def test_approx_is_not_equality_because_float32_round_trips_wrong():
 # --------------------------------------------------------------------------
 
 @needs_store
+def test_the_query_that_actually_broke_it_parses_end_to_end():
+    """THE STATE, not the guard. dario [6162]'s distinction applied to my own suite.
+
+    The four predicate tests above inspect `_HAS_FORMAT` directly and never
+    send a query, so they verify that the guard is right and NOT that the
+    failure it exists to prevent is prevented. This is the query that broke
+    the module on its first real use -- `formatReadableSize` making
+    `"FORMAT" in sql.upper()` true -- driven all the way through `ch.query`.
+
+    Watched to fail: with the old substring predicate this raises
+    ClickHouseError("unparseable JSONEachRow at line 1"), because the format
+    clause is never appended and TSV comes back.
+    """
+    rows = ch.query("SELECT name, formatReadableSize(total_bytes) AS size "
+                    "FROM system.tables WHERE database='{db}' ORDER BY name LIMIT 3")
+    assert rows and all(set(r) == {"name", "size"} for r in rows)
+    assert all(isinstance(r["size"], str) and " " in r["size"] for r in rows)
+
+
+@needs_store
+def test_approx_matches_where_equality_matches_nothing():
+    """THE STATE for `approx`, again end to end rather than on the string.
+
+    Equality against a Float32 column returns zero rows from 95 million; the
+    tolerance predicate returns all of them. Neither is an error.
+    """
+    eq = ch.scalar("SELECT count() FROM {db}.twp_words WHERE theta = 0.001")
+    ap = ch.scalar("SELECT count() FROM {db}.twp_words WHERE " + ch.approx("theta", 0.001))
+    assert eq == 0
+    assert ap > 90_000_000
+
+
+@needs_store
 def test_types_survive_rather_than_arriving_as_strings():
     r = ch.query("SELECT 1 AS i, 1.5 AS f, 'x' AS s")[0]
     assert r == {"i": 1, "f": 1.5, "s": "x"}
