@@ -336,3 +336,50 @@ this instrument cannot separate them. Truncation selects on length per
 arm (rates above). Quadrant thresholds are this corpus's own pooled
 medians (drift 0.9393, surprisal 3.7278 nats -- from the JSON), not
 F15's.
+
+## The quadrants on bge-m3 with NO truncation (2026-08-14)
+
+The audit condemned the drift axis as near-random (ICC 0.082) and showed Q1's
+share change tracking surprisal at rho -0.80 and drift at +0.01. Today's
+cross-lingual work showed that ICC is instrument-specific (bge-m3 gives
+0.44-0.55), so the passage corpus was rerun with the combination never tried on
+it: `BAAI/bge-m3` AND no 75-word floor. 38,577 passages kept against the
+truncated run's 35,230; outputs suffixed `_full_bge-m3`, nothing overwritten.
+
+    P3 share change   MiniLM trunc   bge trunc    bge FULL (38 pairs)
+      Q1                 +0.1417      +0.1000     +0.1140  31up/ 7dn  p 1.2e-4
+      Q2                 -0.2071      -0.2500     -0.3350   2up/36dn  p 5.4e-9
+      Q3                 -0.1500      -0.1000     -0.1233   6up/32dn  p 2.4e-5
+      Q4                 +0.2583      +0.2500     +0.2989  35up/ 3dn  p 6.7e-8
+    P1 surprisal -0.6173 (5up/33dn)   P2 drift -0.0304 (4up/34dn)
+
+**The flows replicate on all four quadrants**, with slightly larger magnitudes
+on Q2 and Q4. Gainers remain Q1 and Q4, both LOW SURPRISAL.
+
+**The axis diagnostic, which is the point:**
+
+    rho(dQ1, d_surprisal)   rho(dQ1, d_drift)
+      MiniLM truncated        -0.804               +0.011
+      bge untruncated         -0.694               +0.167
+
+**The drift axis goes from contributing nothing to contributing a little, and
+surprisal still dominates about four to one.** So the audit's reading survives:
+the quadrant is close to one-dimensional. What is corrected is the reason. It
+was not ONLY that the drift axis is noise; a better embedder and the whole
+generation move it from +0.011 to +0.167. It is a real but minor axis, not an
+absent one.
+
+**A 4-pair smoke flipped Q1 and Q3** (Q1 -0.042, Q3 +0.047) and suggested the
+flow had become drift-driven. It did not replicate at 38 pairs. The smoke ran on
+the four SMOKE FAMILIES, not a random sample, at p 0.125-0.625. Recorded because
+that flip is what justified spending the full run, and a reader who sees only
+the smoke numbers would draw the opposite conclusion.
+
+**For the plot-debt queue**: the F15 quadrant flow figure is still a two-axis
+diagram whose axes carry unequal information, roughly 4:1. Drawable, but the
+asymmetry belongs on the figure rather than in a caption.
+
+Owed and not done: the quadrant splits on `total_drift`, the metric the audit
+found weakest and which rises +0.10 with sentence count, saturating near n=10 --
+and untruncated passages sit further along that curve. A `mean_drift` quadrant
+is the obvious next variant and is cheap now that the embeddings are cached.
