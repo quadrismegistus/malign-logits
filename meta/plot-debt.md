@@ -359,6 +359,32 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     MEDIAN of per-pair deltas — the guessed version had ALL FOUR
     measures wrong (-8.86pp against a booked -6.12pp, two sign counts
     moved). All twelve booked values assert.
+11c. SHIPPED 2026-08-14 (dario, 502332ef) — SHORTLIST 8, F21 arm
+    effect. **THE PRIOR GOES ON THE AXIS.** The section is titled "the
+    arm effect, and it runs the other way" and F21's stated direction
+    is NEGATIVE; the result is positive at 41 of 46 lineages, so the
+    quantity is not interesting for its size but **for being on the
+    wrong side of a prediction** — a panel showing only the
+    distribution would render the number and drop the finding. F21's
+    predicted half is therefore a SHADED REGION of the axis, so a
+    reader who knows nothing about F21 can see that 41 of 46 land
+    outside where the prior said they would. TWO CHANNELS, because
+    the file carries two things: position = `median_d_js` (the
+    lineage's effect), colour = `share_cells_positive` (how many of
+    its own 126 cells agree), diverging at 0.5 so a bare majority
+    reads pale however large the median — **a lineage at +0.02 with
+    71% agreeing is a different object from one at +0.02 with 52%**,
+    and it pays off immediately: pythia-6.9b has one of the smaller
+    medians and one of the darkest colours, several large-median
+    lineages are pale, so **the ranking by effect and the ranking by
+    agreement are not the same ranking**, which a medians-only dot
+    plot would have asserted they were. AND ONE OF THE FIVE
+    DISSENTERS IS NOT ONE: `Mistral-7B-v0.1` sits at -0.000138 with
+    `share_cells_positive` exactly 0.5000 — 63 of 126 each way, a TIE
+    — so labelling it in the same red as RedPajama (-0.0184) would
+    make a coin flip look like evidence against the finding. Drawn as
+    the tie it is; the finding's count of five is untouched and
+    correct as stated (five sit below zero).
 11a. OPEN (queued 2026-08-14 on dario's flag, [5964]) — the
     CATEGORICAL-FORM companion to X §3g: `thumb` 0/60 in both arms and
     its neighbours, drawn on the categorical substrate ONLY, never
