@@ -234,6 +234,20 @@ def summarise(d):
                                    if len(comp) else np.nan),
             copy_called_mean=float(by["called"].p_target_word.mean()),
             censored_called_mean=float(by["called"].censored.mean()),
+            #: CELL COVERAGE, added 2026-08-14 ([6073] lacan's mechanism).
+            #: A cell whose expand() payload is EMPTY writes no rows to
+            #: twp_words -- the table stores one row per word -- so it is
+            #: ABSENT here rather than zero, and every mean above is taken
+            #: over PRESENT cells only. That silently overstates capacity
+            #: wherever emptiness is common, which is the early ladder: a
+            #: barely-trained checkpoint puts no word above theta=0.001.
+            #: Olmo @stage1-step0 carries 877 empty cells of 1,820 and its
+            #: called_mean is ~1.96x what it would be with empties zeroed
+            #: (on 3.6e-05, so immaterial there -- but the direction is
+            #: systematic and the next sparse ladder may not be immaterial).
+            #: Normal coverage is 1,620/1,820 BY DESIGN: the other 200 are
+            #: prose baselines this read correctly excludes.
+            n_cells_present=int(len(g)),
         ))
     return pd.DataFrame(rows)
 
