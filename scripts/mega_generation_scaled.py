@@ -106,7 +106,33 @@ if __name__ == "__main__":
     # Resume support
     done_keys = set()
     if args.resume and pd.io.common.file_exists(args.output):
-        existing = pd.read_csv(args.output)
+        #: NON-ERASING READ. This is a read-modify-WRITE loop: every existing
+        #: row is carried in `all_rows` and written back out. With pandas'
+        #: defaults, a `chosen_token` or `top1` holding the literal token
+        #: `None` (or `NA`, `NULL`, `nan` -- all in STR_NA_VALUES) returns as
+        #: NaN and is REWRITTEN BLANK, so each resume permanently launders a
+        #: real generated token into an empty cell. mega_generation_llama.csv
+        #: carries 14 such tokens, mega_gen_olmo_4layer.csv 11.
+        #:
+        #: Unlike an arm label, a token cannot be renamed out of the collision:
+        #: `None` is a string the model actually emits.
+        #:
+        #: `dtype=str` IS LOAD-BEARING AND FIXES A SECOND, LARGER DEFECT that
+        #: the NA fix alone does not touch. Parsing floats and re-emitting them
+        #: loses precision on write: 0.0016985333058983088 comes back as
+        #: 0.0016985333058983, on 36,573 of 48,767 lines in
+        #: mega_generation_llama.csv. So every resume was quietly degrading
+        #: every float column, three orders of magnitude more rows than the 14
+        #: tokens I came here to rescue.
+        #:
+        #: Reading as TEXT is correct precisely because this frame is a pure
+        #: round-trip -- rows are only appended to and written (below), never
+        #: computed on -- so old rows pass through verbatim while newly
+        #: appended rows are still real floats. Verified: with dtype=str the
+        #: read-write cycle is BYTE-IDENTICAL on the real file; with the NA fix
+        #: alone it is not, which is how the float loss surfaced at all.
+        existing = pd.read_csv(args.output, keep_default_na=False,
+                               na_values=[], dtype=str)
         done_keys = set(existing.groupby(["family", "layer", "prompt_key"]).size().index)
         all_rows = existing.to_dict("records")
         print(f"Resuming: {len(done_keys)} combos done, {len(all_rows)} rows", flush=True)
