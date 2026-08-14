@@ -1,0 +1,1751 @@
+{
+ "_about": "BLIND fluency sample of f11_l2 Chinese continuations. truth maps key -> model and MUST NOT be shown to a judge. Written by m06_zh_fluency_sample.py; this copy records the sample the committed verdicts were judged on.",
+ "per_model": 6,
+ "clip_chars": 260,
+ "seed": 20260814,
+ "n_batches": 12,
+ "n_passages": 348,
+ "n_models": 58,
+ "truth": {
+  "p256": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "他既是丑陋的又是难看的，她想要",
+   "sample_idx": 16
+  },
+  "p031": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "她是有罪的，她开始",
+   "sample_idx": 7
+  },
+  "p179": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 13
+  },
+  "p249": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "他既是美丽的又是丑陋的，她想要",
+   "sample_idx": 16
+  },
+  "p152": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "她是女人，她想要",
+   "sample_idx": 17
+  },
+  "p228": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "她深深地爱着他，想要",
+   "sample_idx": 10
+  },
+  "p134": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "在那个污秽的地方，她开始",
+   "sample_idx": 16
+  },
+  "p064": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "他是自由的，选择了",
+   "sample_idx": 17
+  },
+  "p287": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 6
+  },
+  "p014": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 2
+  },
+  "p327": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 4
+  },
+  "p337": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "在污秽的小巷里，她开始",
+   "sample_idx": 11
+  },
+  "p289": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "他深深地爱着她又深深地恨着她，想要",
+   "sample_idx": 12
+  },
+  "p136": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "我既是男人又是女人，我想要",
+   "sample_idx": 10
+  },
+  "p341": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 4
+  },
+  "p279": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 10
+  },
+  "p126": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "他既是自由的又是无拘无束的，选择了",
+   "sample_idx": 5
+  },
+  "p077": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "在那个神圣的地方，她开始",
+   "sample_idx": 11
+  },
+  "p201": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "她想要同时毁灭和破坏，她决定",
+   "sample_idx": 16
+  },
+  "p088": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "我是女人，我想要",
+   "sample_idx": 4
+  },
+  "p081": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 12
+  },
+  "p281": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "他深深地恨着她，想要",
+   "sample_idx": 16
+  },
+  "p109": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 18
+  },
+  "p055": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "我既是母亲又是父亲，我想要",
+   "sample_idx": 2
+  },
+  "p187": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "他恨着她又厌恶着她，想要",
+   "sample_idx": 1
+  },
+  "p193": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "他深深地爱着她，想要",
+   "sample_idx": 1
+  },
+  "p015": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "他既是自由的又是被囚禁的，选择了",
+   "sample_idx": 2
+  },
+  "p196": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 6
+  },
+  "p140": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "他是富有的，他决定",
+   "sample_idx": 18
+  },
+  "p253": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "那个被囚禁的人选择了",
+   "sample_idx": 5
+  },
+  "p078": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "他是完全理性的，选择了",
+   "sample_idx": 7
+  },
+  "p047": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "她爱着他又恨着他，想要",
+   "sample_idx": 11
+  },
+  "p082": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "她恨着他又厌恶着他，想要",
+   "sample_idx": 0
+  },
+  "p166": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 13
+  },
+  "p310": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "他既是自由的又是被囚禁的，选择了",
+   "sample_idx": 19
+  },
+  "p130": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "他是富有的，他决定",
+   "sample_idx": 17
+  },
+  "p169": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "她感到欲望和渴望，开始",
+   "sample_idx": 9
+  },
+  "p168": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "她对他既忠诚又不忠，她开始",
+   "sample_idx": 4
+  },
+  "p346": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "在污秽的小巷里，她开始",
+   "sample_idx": 18
+  },
+  "p282": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "我既是男人又是女人，我想要",
+   "sample_idx": 0
+  },
+  "p306": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 14
+  },
+  "p075": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "他是贫穷的，他决定",
+   "sample_idx": 9
+  },
+  "p245": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 4
+  },
+  "p145": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 8
+  },
+  "p112": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 2
+  },
+  "p315": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "她想要同时创造和毁灭，她决定",
+   "sample_idx": 15
+  },
+  "p124": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "他既是男人又是女人，他想要",
+   "sample_idx": 7
+  },
+  "p121": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 14
+  },
+  "p072": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 11
+  },
+  "p037": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 8
+  },
+  "p002": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "她感到欲望和渴望，开始",
+   "sample_idx": 3
+  },
+  "p170": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "她深深地恨着他，想要",
+   "sample_idx": 4
+  },
+  "p273": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "他既是丑陋的又是难看的，她想要",
+   "sample_idx": 13
+  },
+  "p209": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 5
+  },
+  "p276": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "sample_idx": 9
+  },
+  "p101": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "他是完全非理性的，选择了",
+   "sample_idx": 6
+  },
+  "p250": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "士兵是叛逆的，选择了",
+   "sample_idx": 17
+  },
+  "p074": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "她对他既忠诚又专一，她开始",
+   "sample_idx": 13
+  },
+  "p246": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "她既是有罪的又是有过错的，她开始",
+   "sample_idx": 9
+  },
+  "p100": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "她想要创造一些东西，她决定",
+   "sample_idx": 8
+  },
+  "p251": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "他恨着她又厌恶着她，想要",
+   "sample_idx": 7
+  },
+  "p239": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "那个自由的人选择了",
+   "sample_idx": 5
+  },
+  "p018": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 11
+  },
+  "p021": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 11
+  },
+  "p096": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 15
+  },
+  "p258": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "他既是美丽的又是耀眼的，她想要",
+   "sample_idx": 16
+  },
+  "p073": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 0
+  },
+  "p094": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "她是女人，她想要",
+   "sample_idx": 0
+  },
+  "p013": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "她感到厌恶，开始",
+   "sample_idx": 0
+  },
+  "p165": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "他是完全非理性的，选择了",
+   "sample_idx": 17
+  },
+  "p070": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "她爱着他又恨着他，想要",
+   "sample_idx": 9
+  },
+  "p347": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "他是富有的，他决定",
+   "sample_idx": 10
+  },
+  "p178": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "他既是美丽的又是恶心的，她想要",
+   "sample_idx": 8
+  },
+  "p097": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "他是自由的，选择了",
+   "sample_idx": 8
+  },
+  "p322": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "他是完全非理性的，选择了",
+   "sample_idx": 12
+  },
+  "p212": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 0
+  },
+  "p340": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 9
+  },
+  "p294": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "他既是美丽的又是丑陋的，她想要",
+   "sample_idx": 4
+  },
+  "p229": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 0
+  },
+  "p292": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "他是丑陋的，她想要",
+   "sample_idx": 3
+  },
+  "p277": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 11
+  },
+  "p223": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "他深深地恨着她，想要",
+   "sample_idx": 19
+  },
+  "p127": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "他深深地爱着她又深深地恨着她，想要",
+   "sample_idx": 14
+  },
+  "p016": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "他是被囚禁的，选择了",
+   "sample_idx": 0
+  },
+  "p331": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "她恨着他又厌恶着他，想要",
+   "sample_idx": 12
+  },
+  "p324": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "她既是无罪的又是清白的，她开始",
+   "sample_idx": 19
+  },
+  "p183": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "那个自由的人选择了",
+   "sample_idx": 14
+  },
+  "p000": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 18
+  },
+  "p262": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "他是女人，他想要",
+   "sample_idx": 11
+  },
+  "p103": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 16
+  },
+  "p125": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "她想要同时创造和建设，她决定",
+   "sample_idx": 18
+  },
+  "p095": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "她十分信任他，决定",
+   "sample_idx": 13
+  },
+  "p202": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "她感到厌恶，开始",
+   "sample_idx": 10
+  },
+  "p052": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "在神圣的神庙里，她开始",
+   "sample_idx": 7
+  },
+  "p194": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 1
+  },
+  "p342": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "她想要同时创造和建设，她决定",
+   "sample_idx": 13
+  },
+  "p244": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "她想要创造一些东西，她决定",
+   "sample_idx": 13
+  },
+  "p214": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 9
+  },
+  "p083": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "那个被囚禁的人选择了",
+   "sample_idx": 19
+  },
+  "p261": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "她既是有罪的又是有过错的，她开始",
+   "sample_idx": 13
+  },
+  "p161": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "他是自由的，选择了",
+   "sample_idx": 5
+  },
+  "p057": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "她对他忠诚，她开始",
+   "sample_idx": 13
+  },
+  "p076": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "士兵是忠诚的，选择了",
+   "sample_idx": 9
+  },
+  "p295": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "我是男人，我想要",
+   "sample_idx": 10
+  },
+  "p163": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 4
+  },
+  "p084": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 2
+  },
+  "p061": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "在那个污秽的地方，她开始",
+   "sample_idx": 7
+  },
+  "p344": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "士兵既是叛逆的又是不驯的，选择了",
+   "sample_idx": 17
+  },
+  "p042": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "他深深地爱着她，想要",
+   "sample_idx": 19
+  },
+  "p062": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "她既是无罪的又是清白的，她开始",
+   "sample_idx": 6
+  },
+  "p087": {
+   "model": "bigscience/bloom-7b1",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 4
+  },
+  "p010": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "我既是母亲又是父亲，我想要",
+   "sample_idx": 3
+  },
+  "p305": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "她想要同时创造和毁灭，她决定",
+   "sample_idx": 7
+  },
+  "p005": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 16
+  },
+  "p131": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "我既是母亲又是父亲，我想要",
+   "sample_idx": 9
+  },
+  "p167": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "她十分信任他，决定",
+   "sample_idx": 13
+  },
+  "p114": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 18
+  },
+  "p343": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "她感到欲望和渴望，开始",
+   "sample_idx": 16
+  },
+  "p092": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "那个自由的人选择了",
+   "sample_idx": 18
+  },
+  "p148": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "她既是无罪的又是清白的，她开始",
+   "sample_idx": 6
+  },
+  "p118": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 12
+  },
+  "p040": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "她想要创造一些东西，她决定",
+   "sample_idx": 12
+  },
+  "p303": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "他既是美丽的又是耀眼的，她想要",
+   "sample_idx": 17
+  },
+  "p086": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "他既是完全非理性的又是完全不合逻辑的，选择了",
+   "sample_idx": 15
+  },
+  "p199": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 4
+  },
+  "p123": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 19
+  },
+  "p283": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "他既是自由的又是被囚禁的，选择了",
+   "sample_idx": 18
+  },
+  "p071": {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "prompt": "他深深地恨着她，想要",
+   "sample_idx": 18
+  },
+  "p215": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "她感到欲望和渴望，开始",
+   "sample_idx": 18
+  },
+  "p135": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "士兵既是忠诚的又是尽职的，选择了",
+   "sample_idx": 9
+  },
+  "p054": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "那种感觉是纯粹的快感，她开始",
+   "sample_idx": 8
+  },
+  "p173": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 11
+  },
+  "p120": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 19
+  },
+  "p043": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 10
+  },
+  "p265": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "他既是自由的又是无拘无束的，选择了",
+   "sample_idx": 16
+  },
+  "p210": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "她深深地爱着他又深深地恨着他，想要",
+   "sample_idx": 0
+  },
+  "p333": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "她想要同时毁灭和破坏，她决定",
+   "sample_idx": 15
+  },
+  "p307": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "他是完全理性的，选择了",
+   "sample_idx": 12
+  },
+  "p171": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "在一个既神圣又庄严的地方，她开始",
+   "sample_idx": 17
+  },
+  "p240": {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 10
+  },
+  "p205": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 16
+  },
+  "p119": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "她对他忠诚，她开始",
+   "sample_idx": 7
+  },
+  "p050": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "我是男人，我想要",
+   "sample_idx": 6
+  },
+  "p041": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "他是丑陋的，她想要",
+   "sample_idx": 17
+  },
+  "p182": {
+   "model": "EleutherAI/pythia-2.8b",
+   "prompt": "他是男人，他想要",
+   "sample_idx": 6
+  },
+  "p001": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "那个自由的人选择了",
+   "sample_idx": 13
+  },
+  "p266": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "她感到欲望和厌恶，开始",
+   "sample_idx": 6
+  },
+  "p195": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "在那个污秽的地方，她开始",
+   "sample_idx": 14
+  },
+  "p290": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "在那个神圣的地方，她开始",
+   "sample_idx": 10
+  },
+  "p155": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "在神圣的神庙里，她开始",
+   "sample_idx": 9
+  },
+  "p159": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "他深深地爱着她，想要",
+   "sample_idx": 15
+  },
+  "p190": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "她既是男人又是女人，她想要",
+   "sample_idx": 3
+  },
+  "p319": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "他既是富有的又是阔绰的，他决定",
+   "sample_idx": 5
+  },
+  "p099": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "她既是有罪的又是有过错的，她开始",
+   "sample_idx": 14
+  },
+  "p325": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "他是完全理性的，选择了",
+   "sample_idx": 18
+  },
+  "p206": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 1
+  },
+  "p271": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "她想要创造一些东西又毁灭一些东西，她决定",
+   "sample_idx": 17
+  },
+  "p222": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "她十分害怕他，决定",
+   "sample_idx": 7
+  },
+  "p029": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 7
+  },
+  "p146": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 5
+  },
+  "p026": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "我是母亲，我想要",
+   "sample_idx": 11
+  },
+  "p157": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "那种感觉既是快感又是愉悦，她开始",
+   "sample_idx": 11
+  },
+  "p231": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 1
+  },
+  "p186": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "士兵既是忠诚的又是叛逆的，选择了",
+   "sample_idx": 16
+  },
+  "p080": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "他既是恶心的又是肮脏的，她想要",
+   "sample_idx": 2
+  },
+  "p345": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "她想要同时创造和毁灭，她决定",
+   "sample_idx": 4
+  },
+  "p056": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "他既是富有的又是阔绰的，他决定",
+   "sample_idx": 1
+  },
+  "p133": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "他恨着她又厌恶着她，想要",
+   "sample_idx": 10
+  },
+  "p269": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "他是贫穷的，他决定",
+   "sample_idx": 2
+  },
+  "p172": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "她对他既忠诚又不忠，她开始",
+   "sample_idx": 18
+  },
+  "p129": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 1
+  },
+  "p090": {
+   "model": "bigscience/bloomz-7b1",
+   "prompt": "他既是被囚禁的又是被束缚的，选择了",
+   "sample_idx": 16
+  },
+  "p059": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "他既是富有的又是阔绰的，他决定",
+   "sample_idx": 10
+  },
+  "p326": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 13
+  },
+  "p218": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "那个既自由又被囚禁的人选择了",
+   "sample_idx": 19
+  },
+  "p301": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "他是恶心的，她想要",
+   "sample_idx": 2
+  },
+  "p335": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "他既是美丽的又是丑陋的，她想要",
+   "sample_idx": 5
+  },
+  "p138": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "他是完全理性的，选择了",
+   "sample_idx": 14
+  },
+  "p066": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "他恨着她又厌恶着她，想要",
+   "sample_idx": 0
+  },
+  "p297": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "那个既自由又无拘无束的人选择了",
+   "sample_idx": 6
+  },
+  "p111": {
+   "model": "EleutherAI/pythia-6.9b",
+   "prompt": "他既是富有的又是阔绰的，他决定",
+   "sample_idx": 3
+  },
+  "p270": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "我是母亲，我想要",
+   "sample_idx": 13
+  },
+  "p321": {
+   "model": "m-a-p/neo_7b",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 10
+  },
+  "p198": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 9
+  },
+  "p045": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "他既是贫穷的又是潦倒的，他决定",
+   "sample_idx": 15
+  },
+  "p330": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 17
+  },
+  "p247": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 5
+  },
+  "p003": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "那种感觉是纯粹的痛苦，她开始",
+   "sample_idx": 14
+  },
+  "p284": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 11
+  },
+  "p192": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "她对他忠诚，她开始",
+   "sample_idx": 5
+  },
+  "p143": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "他是女人，他想要",
+   "sample_idx": 9
+  },
+  "p314": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "他既是恶心的又是肮脏的，她想要",
+   "sample_idx": 17
+  },
+  "p332": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 4
+  },
+  "p255": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "那个既自由又被囚禁的人选择了",
+   "sample_idx": 6
+  },
+  "p067": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 9
+  },
+  "p200": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "她对他既忠诚又专一，她开始",
+   "sample_idx": 7
+  },
+  "p268": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "他是被囚禁的，选择了",
+   "sample_idx": 9
+  },
+  "p304": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 5
+  },
+  "p176": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "sample_idx": 13
+  },
+  "p141": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "她既是男人又是女人，她想要",
+   "sample_idx": 4
+  },
+  "p234": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "他爱着她又恨着她，想要",
+   "sample_idx": 19
+  },
+  "p004": {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "prompt": "他既是自由的又是被囚禁的，选择了",
+   "sample_idx": 12
+  },
+  "p248": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "他既是恶心的又是肮脏的，她想要",
+   "sample_idx": 2
+  },
+  "p291": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 16
+  },
+  "p227": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "他是贫穷的，他决定",
+   "sample_idx": 12
+  },
+  "p108": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 8
+  },
+  "p203": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 15
+  },
+  "p137": {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "prompt": "他既是贫穷的又是潦倒的，他决定",
+   "sample_idx": 14
+  },
+  "p151": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "我既是母亲又是父亲，我想要",
+   "sample_idx": 10
+  },
+  "p027": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 16
+  },
+  "p019": {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 7
+  },
+  "p217": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "他是贫穷的，他决定",
+   "sample_idx": 4
+  },
+  "p104": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "她既是有罪的又是有过错的，她开始",
+   "sample_idx": 9
+  },
+  "p153": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "她感到厌恶，开始",
+   "sample_idx": 2
+  },
+  "p122": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "那个既自由又无拘无束的人选择了",
+   "sample_idx": 4
+  },
+  "p318": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "他既是完全理性的又是完全非理性的，选择了",
+   "sample_idx": 11
+  },
+  "p285": {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "prompt": "士兵既是忠诚的又是尽职的，选择了",
+   "sample_idx": 6
+  },
+  "p033": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "她是无罪的，她开始",
+   "sample_idx": 12
+  },
+  "p048": {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "prompt": "他是自由的，选择了",
+   "sample_idx": 11
+  },
+  "p093": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "她是男人，她想要",
+   "sample_idx": 12
+  },
+  "p230": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 6
+  },
+  "p105": {
+   "model": "Qwen/Qwen3-8B",
+   "prompt": "他既是贫穷的又是潦倒的，他决定",
+   "sample_idx": 7
+  },
+  "p236": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "她深深地恨着他，想要",
+   "sample_idx": 15
+  },
+  "p024": {
+   "model": "LLM360/Amber",
+   "prompt": "他既是贫穷的又是潦倒的，他决定",
+   "sample_idx": 2
+  },
+  "p065": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "她是男人，她想要",
+   "sample_idx": 9
+  },
+  "p323": {
+   "model": "huggyllama/llama-7b",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 11
+  },
+  "p312": {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "prompt": "她感到厌恶和反感，开始",
+   "sample_idx": 9
+  },
+  "p158": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "她深深地恨着他，想要",
+   "sample_idx": 3
+  },
+  "p339": {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "prompt": "在那个污秽的地方，她开始",
+   "sample_idx": 9
+  },
+  "p316": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "她感到厌恶和反感，开始",
+   "sample_idx": 12
+  },
+  "p320": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "在一个既神圣又污秽的地方，她开始",
+   "sample_idx": 7
+  },
+  "p242": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 18
+  },
+  "p275": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 13
+  },
+  "p241": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "他是完全非理性的，选择了",
+   "sample_idx": 6
+  },
+  "p162": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "她想要同时创造和建设，她决定",
+   "sample_idx": 4
+  },
+  "p006": {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "prompt": "她深深地恨着他，想要",
+   "sample_idx": 15
+  },
+  "p069": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 5
+  },
+  "p156": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "在一个既神圣又污秽的地方，她开始",
+   "sample_idx": 2
+  },
+  "p216": {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "prompt": "他深深地爱着她又深深地恨着她，想要",
+   "sample_idx": 15
+  },
+  "p226": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 12
+  },
+  "p189": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 3
+  },
+  "p032": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 0
+  },
+  "p208": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "我既是男人又是女人，我想要",
+   "sample_idx": 18
+  },
+  "p175": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "那种感觉是纯粹的快感，她开始",
+   "sample_idx": 6
+  },
+  "p213": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "那种感觉既是快感又是愉悦，她开始",
+   "sample_idx": 11
+  },
+  "p098": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "他既是恶心的又是肮脏的，她想要",
+   "sample_idx": 14
+  },
+  "p243": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 19
+  },
+  "p338": {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "prompt": "他既是富有的又是阔绰的，他决定",
+   "sample_idx": 19
+  },
+  "p336": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "她感到厌恶和反感，开始",
+   "sample_idx": 12
+  },
+  "p144": {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 7
+  },
+  "p149": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "我是男人，我想要",
+   "sample_idx": 18
+  },
+  "p280": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "她既是男人又是女人，她想要",
+   "sample_idx": 5
+  },
+  "p278": {
+   "model": "LLM360/Amber",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 11
+  },
+  "p051": {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "prompt": "他是被囚禁的，选择了",
+   "sample_idx": 13
+  },
+  "p232": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "他是美丽的，她想要",
+   "sample_idx": 1
+  },
+  "p211": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "我是女人，我想要",
+   "sample_idx": 6
+  },
+  "p106": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "他爱着她又恨着她，想要",
+   "sample_idx": 3
+  },
+  "p317": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "那个既自由又无拘无束的人选择了",
+   "sample_idx": 4
+  },
+  "p288": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "她深深地爱着他又深深地恨着他，想要",
+   "sample_idx": 9
+  },
+  "p022": {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 4
+  },
+  "p150": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "她对他不忠，她开始",
+   "sample_idx": 18
+  },
+  "p107": {
+   "model": "LLM360/AmberSafe",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 5
+  },
+  "p180": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "我是母亲，我想要",
+   "sample_idx": 10
+  },
+  "p116": {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "prompt": "他爱着她又恨着她，想要",
+   "sample_idx": 18
+  },
+  "p233": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "她感到欲望和厌恶，开始",
+   "sample_idx": 14
+  },
+  "p038": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 18
+  },
+  "p272": {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "prompt": "那种感觉既是快感又是痛苦，她开始",
+   "sample_idx": 6
+  },
+  "p254": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "他是富有的，他决定",
+   "sample_idx": 3
+  },
+  "p085": {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "prompt": "他是自由的，选择了",
+   "sample_idx": 9
+  },
+  "p225": {
+   "model": "Qwen/Qwen2.5-7B",
+   "prompt": "她深深地爱着他又深深地恨着他，想要",
+   "sample_idx": 3
+  },
+  "p184": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 3
+  },
+  "p177": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "她对他既忠诚又不忠，她开始",
+   "sample_idx": 5
+  },
+  "p115": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "她想要毁灭一些东西，她决定",
+   "sample_idx": 4
+  },
+  "p142": {
+   "model": "BSC-LT/salamandra-7b",
+   "prompt": "他是女人，他想要",
+   "sample_idx": 9
+  },
+  "p300": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "在一个既污秽又破败的地方，她开始",
+   "sample_idx": 14
+  },
+  "p296": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "士兵既是忠诚的又是叛逆的，选择了",
+   "sample_idx": 2
+  },
+  "p207": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "那个既自由又被囚禁的人选择了",
+   "sample_idx": 0
+  },
+  "p091": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 4
+  },
+  "p154": {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "prompt": "她对他不忠，她开始",
+   "sample_idx": 2
+  },
+  "p309": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "她既是无罪的又是清白的，她开始",
+   "sample_idx": 16
+  },
+  "p252": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "在神圣的神庙里，她开始",
+   "sample_idx": 19
+  },
+  "p274": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "在那个神圣的地方，她开始",
+   "sample_idx": 18
+  },
+  "p219": {
+   "model": "Qwen/Qwen3-8B-Base",
+   "prompt": "他既是被囚禁的又是被束缚的，选择了",
+   "sample_idx": 17
+  },
+  "p237": {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "prompt": "他是男人，他想要",
+   "sample_idx": 14
+  },
+  "p298": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "他既是自由的又是被囚禁的，选择了",
+   "sample_idx": 12
+  },
+  "p012": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "那个既被囚禁又被束缚的人选择了",
+   "sample_idx": 7
+  },
+  "p044": {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "prompt": "她爱着他又恨着他，想要",
+   "sample_idx": 15
+  },
+  "p034": {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 5
+  },
+  "p039": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "她想要同时毁灭和破坏，她决定",
+   "sample_idx": 5
+  },
+  "p113": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "那种感觉既是痛苦又是煎熬，她开始",
+   "sample_idx": 14
+  },
+  "p238": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "她恨着他又厌恶着他，想要",
+   "sample_idx": 15
+  },
+  "p036": {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "prompt": "他是女人，他想要",
+   "sample_idx": 16
+  },
+  "p007": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 5
+  },
+  "p128": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "他是贫穷的，他决定",
+   "sample_idx": 0
+  },
+  "p164": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 7
+  },
+  "p147": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "士兵是叛逆的，选择了",
+   "sample_idx": 19
+  },
+  "p160": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "士兵既是叛逆的又是不驯的，选择了",
+   "sample_idx": 9
+  },
+  "p224": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "他既是丑陋的又是难看的，她想要",
+   "sample_idx": 14
+  },
+  "p204": {
+   "model": "LLM360/Amber",
+   "prompt": "她想要创造一些东西又毁灭一些东西，她决定",
+   "sample_idx": 5
+  },
+  "p009": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 14
+  },
+  "p011": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "我是父亲，我想要",
+   "sample_idx": 0
+  },
+  "p334": {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "prompt": "他既是美丽的又是丑陋的，她想要",
+   "sample_idx": 8
+  },
+  "p049": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "他既是自由的又是无拘无束的，选择了",
+   "sample_idx": 4
+  },
+  "p286": {
+   "model": "01-ai/Yi-1.5-9B",
+   "prompt": "我是男人，我想要",
+   "sample_idx": 8
+  },
+  "p058": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "他既是自由的又是无拘无束的，选择了",
+   "sample_idx": 5
+  },
+  "p063": {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 15
+  },
+  "p023": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "她爱着他又恨着他，想要",
+   "sample_idx": 7
+  },
+  "p028": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "他既是美丽的又是耀眼的，她想要",
+   "sample_idx": 3
+  },
+  "p191": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "在一个既神圣又污秽的地方，她开始",
+   "sample_idx": 3
+  },
+  "p046": {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "prompt": "她既害怕他又畏惧他，决定",
+   "sample_idx": 9
+  },
+  "p220": {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "prompt": "她爱着他又恨着他，想要",
+   "sample_idx": 2
+  },
+  "p181": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "她深深地爱着他，想要",
+   "sample_idx": 14
+  },
+  "p035": {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "prompt": "我是女人，我想要",
+   "sample_idx": 4
+  },
+  "p329": {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "prompt": "他爱着她又恋着她，想要",
+   "sample_idx": 14
+  },
+  "p302": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "她是男人，她想要",
+   "sample_idx": 6
+  },
+  "p139": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "他深深地恨着她，想要",
+   "sample_idx": 9
+  },
+  "p188": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "他既是完全理性的又是完全非理性的，选择了",
+   "sample_idx": 17
+  },
+  "p260": {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "prompt": "那个既被囚禁又被束缚的人选择了",
+   "sample_idx": 17
+  },
+  "p025": {
+   "model": "m-a-p/CT-LLM-Base",
+   "prompt": "她感到厌恶和反感，开始",
+   "sample_idx": 0
+  },
+  "p313": {
+   "model": "meta-llama/Llama-3.1-8B",
+   "prompt": "在那个污秽的地方，她开始",
+   "sample_idx": 10
+  },
+  "p263": {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 11
+  },
+  "p311": {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "prompt": "她对他既忠诚又不忠，她开始",
+   "sample_idx": 18
+  },
+  "p197": {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "prompt": "她爱着他又恋着他，想要",
+   "sample_idx": 8
+  },
+  "p235": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "她既是无罪的又是清白的，她开始",
+   "sample_idx": 12
+  },
+  "p110": {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "prompt": "那种感觉既是纯粹的快感又是纯粹的痛苦，她开始",
+   "sample_idx": 1
+  },
+  "p257": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "他既是完全理性的又是完全合乎逻辑的，选择了",
+   "sample_idx": 2
+  },
+  "p089": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "她既是无罪的又是有罪的，她开始",
+   "sample_idx": 14
+  },
+  "p117": {
+   "model": "openbmb/MiniCPM5-1B",
+   "prompt": "她想要创造一些东西，她决定",
+   "sample_idx": 16
+  },
+  "p008": {
+   "model": "LLM360/Amber",
+   "prompt": "在神圣的神庙里，她开始",
+   "sample_idx": 1
+  },
+  "p068": {
+   "model": "LLM360/Amber",
+   "prompt": "她感到欲望，开始",
+   "sample_idx": 3
+  },
+  "p102": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "她对他既忠诚又专一，她开始",
+   "sample_idx": 2
+  },
+  "p020": {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "prompt": "她十分害怕他，决定",
+   "sample_idx": 5
+  },
+  "p132": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "她深深地爱着他，想要",
+   "sample_idx": 13
+  },
+  "p079": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 9
+  },
+  "p053": {
+   "model": "allenai/OLMo-2-0425-1B",
+   "prompt": "她想要创造一些东西，她决定",
+   "sample_idx": 13
+  },
+  "p060": {
+   "model": "allenai/Olmo-3-1025-7B",
+   "prompt": "士兵是忠诚的，选择了",
+   "sample_idx": 14
+  },
+  "p264": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "她想要毁灭一些东西，她决定",
+   "sample_idx": 6
+  },
+  "p221": {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "prompt": "她深深地爱着他又深深地恨着他，想要",
+   "sample_idx": 7
+  },
+  "p299": {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "prompt": "她既是男人又是女人，她想要",
+   "sample_idx": 9
+  },
+  "p030": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "他是男人，他想要",
+   "sample_idx": 2
+  },
+  "p293": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "她感到欲望和渴望，开始",
+   "sample_idx": 13
+  },
+  "p328": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "她深深地爱着他，想要",
+   "sample_idx": 11
+  },
+  "p259": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "士兵是叛逆的，选择了",
+   "sample_idx": 8
+  },
+  "p185": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "我既是母亲又是父亲，我想要",
+   "sample_idx": 3
+  },
+  "p017": {
+   "model": "zai-org/glm-4-9b-hf",
+   "prompt": "在污秽的小巷里，她开始",
+   "sample_idx": 1
+  },
+  "p267": {
+   "model": "OpenLLM-France/Lucie-7B",
+   "prompt": "在一个既神圣又庄严的地方，她开始",
+   "sample_idx": 0
+  },
+  "p308": {
+   "model": "LLM360/Amber",
+   "prompt": "她对他既不忠又负心，她开始",
+   "sample_idx": 17
+  },
+  "p174": {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "prompt": "她既信任他又依靠他，决定",
+   "sample_idx": 12
+  }
+ }
+}
