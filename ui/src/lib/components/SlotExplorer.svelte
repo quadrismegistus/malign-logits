@@ -24,12 +24,17 @@
 	interface SlotResp {
 		model: string; prompt: string; words: SlotWord[];
 		residual: Record<string, number | null> | null;
-		n_words: number; shown: number; rule_version: number;
+		n_words: number; shown: number; rule_version: number; n_models?: number;
 		batches: number; skipped?: string;
 	}
 
 	let prompt = $state('She slowly took off her');
-	let model = $state('meta-llama/Llama-3.1-8B');
+	//: POOLED, and the CLIENT default is the one that matters. The server has a
+	//: pooled default too, and it was dead code: this field is always sent, so it
+	//: overrode the server every time and the app ran base-only while the server
+	//: test -- a curl with no `model` -- exercised a path the app never takes.
+	//: RH caught it by reading the display, which named one model.
+	let model = $state('meta-llama/Llama-3.1-8B,allenai/Llama-3.1-Tulu-3-8B-SFT');
 	let topK = $state(40);
 	let resp: SlotResp | null = $state(null);
 	let loading = $state(false);
@@ -328,7 +333,7 @@
 		<label>top-k <input class="k" type="number" bind:value={topK} min="5" max="200" /></label>
 		{#if resp}
 			<span class="meta">
-				rule {resp.rule_version} · {resp.n_words} words · {resp.batches} batches · {elapsed}ms
+				rule {resp.rule_version} · {resp.n_models ?? 1} model{(resp.n_models ?? 1) > 1 ? 's' : ''} · {resp.n_words} words · {resp.batches} batches · {elapsed}ms
 				{#if resp.residual?.total != null}
 					· residual {resp.residual.total.toFixed(3)}
 				{/if}
@@ -371,7 +376,7 @@
 			<div class="branch dim">
 				<span class="lbl">share</span>
 				<span class="val">{isNaN(share) ? '—' : share.toFixed(4)}</span>
-				<span class="cnt">descriptive — does NOT gate</span>
+				<span class="cnt">balance of your two branches — not a target</span>
 			</div>
 			{#if verdict}
 				<div class="verdict" class:bad={verdict !== 'ok'}>{verdict}</div>
