@@ -76,12 +76,24 @@ def main():
                     and not getattr(p, "is_logical", False)})
     print(f"prompt pool: {len(texts)}")
 
+    #: EVERY PROMPT IS ACCOUNTED FOR, BECAUSE AN IDENTITY THAT DOES NOT COUNT
+    #: A DISPOSITION CANNOT BE DISTURBED BY IT (registrar, [6128]).
+    #: `t_fans.measure()` drops absent cells with a bare `if not c.is_present:
+    #: continue` -- no file, no count, no cause -- the same shape as the
+    #: `len(ids) < 2` skip that hid 53 passages in the BLT fleet. This
+    #: producer's own artifact recorded n_cells and nothing else, so a reader
+    #: met 2,174 with no way to learn that 99 prompts were handed in and
+    #: dropped. Reconciled here rather than in t_fans.py, which is the record
+    #: and another seat's file: count what came back against what went in.
     spec = FANS["data"]
-    per = {}
+    per, absent = {}, {}
     for name, ck in spec["arms"].items():
         D = measure(spec["pre"], ck, texts)
         per[name] = D.set_index("prompt")["js"]
-        print(f"  {name:<12} {len(D):>6} cells  mean {D['js'].mean():.10f}")
+        absent[name] = len(texts) - len(D)
+        assert len(D) + absent[name] == len(texts), "arm accounting does not close"
+        print(f"  {name:<12} {len(D):>6} cells  {absent[name]:>4} absent  "
+              f"mean {D['js'].mean():.10f}")
 
     #: the fan is only comparable on prompts present in EVERY arm
     common = None
@@ -89,7 +101,16 @@ def main():
         common = s.index if common is None else common.intersection(s.index)
     common = sorted(common)
     J = pd.DataFrame({k: v.reindex(common) for k, v in per.items()})
+    union = set()
+    for v in per.values():
+        union |= set(v.index)
+    n_never = len(texts) - len(union)
+    n_partial = len(union) - len(J)
     print(f"\ncells present in all five arms: {len(J)}")
+    print(f"  pool handed in {len(texts)}  =  {len(J)} in all arms"
+          f"  +  {n_partial} in some arms only  +  {n_never} in none")
+    assert len(J) + n_partial + n_never == len(texts), \
+        "the prompt accounting does not close; a disposition is uncounted"
 
     #: THE BOOKED ABSOLUTES NO LONGER REPRODUCE AND THAT IS RECORDED, NOT FIXED.
     #: t_fans.csv was written 2026-08-06 17:14 on 2,182 cells, and the fan now
@@ -144,6 +165,17 @@ def main():
         "(2,199 cells, means ~18% lower). Producer: "
         "meta/M01_displacement/scripts/u_fan_ci.py"),
         "n_cells": len(J), "n_cells_booked": BOOKED_CELLS,
+        "prompt_accounting": {
+            "pool_handed_in": len(texts),
+            "present_in_all_arms": len(J),
+            "present_in_some_arms_only": n_partial,
+            "present_in_no_arm": n_never,
+            "absent_per_arm": absent,
+            "why": ("dropped by t_fans.measure()'s `if not c.is_present: "
+                    "continue` -- the checkpoint has no stored distribution "
+                    "for that prompt. Recorded here because that branch "
+                    "writes no receipt of its own, and an identity that does "
+                    "not count a disposition cannot be disturbed by it.")},
         "booked_means_2026_08_06": BOOKED,
         "absolute_drift_vs_booked": drift,
         "n_boot": N_BOOT, "seed": SEED,
