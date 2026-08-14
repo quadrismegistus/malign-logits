@@ -207,6 +207,50 @@ def representative(lineage, members=None, cells=None, target_b=None):
         -(cells or {}).get(m, 0), str(m)))[0]
 
 
+def representative_pairs(source="registry", with_data=True):
+    """The representative base->aligned model pairs. **SAY WHICH SOURCE.**
+
+        lineage.representative_pairs()                  52 -> 51 measurable
+        lineage.representative_pairs("frozen")          46, the battery's
+
+    Exists because ten consumers hand-roll
+    `os.path.join(ROOT, "data", "lineage_representative_pairs.txt")` and parse
+    `base>aligned` themselves, and because **the two available answers disagree
+    by eight members**. Full account in `docs/model-populations.md`.
+
+    `source="registry"` reads CH `movement_edges WHERE is_model_pair AND
+    is_representative` — position-defined per RH 2026-08-12, live, and correct
+    to exclude `BAAI/Aquila2-7B>AquilaChat2-7B`, which is base->EGO and which
+    the frozen file contains. `with_data=True` additionally drops pairs with
+    zero rows on either side; as of 2026-08-14 that is exactly
+    `gpt-sw3-6.7b-v2`, which is gated.
+
+    `source="frozen"` reads the txt file, which is what
+    `data/forced_arms_105_v3.json` happens to span — the BATTERY's membership,
+    not the campaign's. Use it to reproduce a number computed off that battery
+    and for nothing else.
+
+    **A cross-lineage test wants lineages, not pairs**: 52 pairs sit on 47
+    bases because some bases carry several aligned arms (pythia-2.8b has four).
+    """
+    if source == "frozen":
+        f = os.path.join(ROOT, "data", "lineage_representative_pairs.txt")
+        return [tuple(l.strip().split(">")) for l in open(f)
+                if l.strip() and not l.startswith("#") and ">" in l]
+    if source != "registry":
+        raise ValueError("source must be 'registry' or 'frozen', got %r" % source)
+    from . import ch
+    rows = ch.query("SELECT base, aligned FROM {db}.movement_edges "
+                    "WHERE is_model_pair AND is_representative "
+                    "ORDER BY base, aligned")
+    pairs = [(r["base"], r["aligned"]) for r in rows]
+    if not with_data:
+        return pairs
+    have = {r["model"] for r in ch.query(
+        "SELECT DISTINCT model FROM {db}.twp_words")}
+    return [(b, a) for b, a in pairs if b in have and a in have]
+
+
 def groups(models, strict=True):
     """{lineage_id: [models]} for the given models."""
     from collections import defaultdict
