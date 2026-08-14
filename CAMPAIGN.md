@@ -524,18 +524,32 @@ seat forgets at its peril:
   ever have tested it, and the next command refuted it. Both halves
   are recognition substituting for measurement — one on the reading
   side, one on the writing side.
-- **AN AGGREGATION DOES NOT COMMUTE WITH A SUBTRACTION, AND A
-  DUMBBELL ASSERTS THAT IT DOES** ([5993]): a median of per-pair
-  DIFFERENCES is not the difference of two per-pair MEDIANS —
-  `effect == d_both - d_ctrl` in 0 of 79 fields, median discrepancy
-  0.000911, *the same order as the effects themselves*. So the form
-  that invites the eye to subtract would have been wrong in every row
-  of the panel by an amount comparable to the quantity it displays.
-  Draw the residual as its own panel, say the gap is not the residual,
-  and assert it so the separation cannot quietly stop being necessary.
-  Third face of the grain problem that decided four reconstructions in
-  one day: not which aggregation, but whether it commutes with the
-  operation the figure invites.
+- **THE MEAN IS LINEAR AND COMMUTES WITH ANY LINEAR COMBINATION OF ITS
+  INPUTS. THE MEDIAN IS NOT AND COMMUTES WITH NONE OF THEM. SO A
+  MEDIAN-AGGREGATED TABLE ADMITS EXACTLY ONE SAFE OPERATION: READING A
+  ROW** (malign's generalisation, [5994], of dario's [5993]). Every
+  derived combination — a sum, a difference, a ratio, a
+  difference-in-difference, a weighted total — computed on medians is
+  a DIFFERENT QUANTITY from the same combination computed per unit and
+  then medianed; each must go back to the base grain. Two instances
+  with nothing in common but the aggregator: under ADDITION,
+  `H_norm_acquisition`'s pre-agreed rider that summed stage medians do
+  not equal the median NET and any reading that adds rows 1-3 to
+  predict row 4 is wrong by construction ([5730]/[5732]); under
+  SUBTRACTION, `effect == d_both - d_ctrl` in **0 of 79 fields**,
+  median discrepancy 0.000911, *the same order as the effects
+  themselves* ([5993]). **AND A FIGURE FORM CAN ASSERT THE IDENTITY
+  ALL BY ITSELF** — a dumbbell invites the eye to subtract, so it
+  would have been wrong in every row by an amount comparable to what
+  it displayed; draw the residual as its own panel, say the gap is not
+  the residual, and assert the separation so it cannot quietly stop
+  being necessary. The general form predicts where the next instance
+  comes from (nets, ratios, DiDs) as a subtraction-specific rule would
+  not. **And it upgrades the median-vs-mean frequency booking
+  ([5943]):** the choice is not merely undeclared but consequential in
+  a way the mean's would not be — had those tables been
+  mean-aggregated, the dumbbell would have been arithmetically correct
+  and this whole class would not exist.
 - **PUT THE PRIOR ON THE AXIS** ([5990]): where a result is
   interesting for landing on the WRONG SIDE of a prediction rather
   than for its size, a panel showing only the distribution renders the
