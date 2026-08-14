@@ -1,0 +1,28 @@
+{
+  "_about": "The GloVe k=50 tree-increment draws for P section 3, persisted because they are a RECORD and not a derivation. `k_predict_embed.py` is not reproducible to the fourth decimal and the seed does not fix it: HistGradientBoosting parallelises through OpenMP and its histogram construction is thread-order dependent, so every invocation returns a different draw. Re-running therefore cannot reproduce the booked mean of +0.0229 -- five fresh invocations give a different five and a different mean -- which is why this file TRANSCRIBES the recorded draws rather than recomputing them (registrar, [6141]). THE FIVE TRANSCRIBED DRAWS ARE NOT MEASURED HERE: they existed only as prose, in findings/P_unnamed_axis.md section 3 and in k_predict_embed.py lines 73-74, and this file is the first artifact to hold them. The sixth entry IS measured here and is kept separate from them for that reason. NOTE ON THE CITED ARTIFACT: results/k/predict_embed_en_glove.json is draw 1 of the five, the largest, and the one P explicitly forbids quoting; taking the sixth draw overwrote it, as that producer's own docstring warns any run will, and it was restored from HEAD and verified back at +0.0256. Consumed by meta/M01_displacement/scripts/plot_p_figs.py.",
+  "quantity": "increment in pooled AUC over the arm's own shuffle, GloVe 300d, HistGradientBoosting trees, k=50 PCA components, English verbs",
+  "headroom_denominator": 0.12067757557406178,
+  "headroom_source": "results/k/ceiling_en_verbs.json, oracle_auc - p_base_auc, 2,760 words",
+  "transcribed": {
+    "source": "findings/P_unnamed_axis.md section 3 and scripts/k_predict_embed.py:73-74",
+    "measured_by_this_seat": false,
+    "draws": [0.0256, 0.0223, 0.0216, 0.0218, 0.0231],
+    "booked_mean": 0.0229,
+    "booked_range_pct_of_headroom": [18, 21],
+    "fence": "P section 3: 'Do not quote 21%; it was one draw and happened to be the largest of five.'"
+  },
+  "measured_2026_08_14": {
+    "source": "one invocation of k_predict_embed.py en glove by seat dario",
+    "measured_by_this_seat": true,
+    "k50_trees": 0.0213,
+    "max_over_sweep": 0.0218,
+    "note": "FALLS BELOW THE RECORDED MINIMUM of 0.0216, so the true spread is wider than the five draws on record. This is corroboration of the range fence and not a correction to the booked mean, which no single draw can be."
+  },
+  "combined_six_draws": {
+    "min": 0.0213,
+    "max": 0.0256,
+    "min_pct_of_headroom": 17.65,
+    "max_pct_of_headroom": 21.21,
+    "why_a_range_and_not_a_point": "A bar drawn across the observed spread cannot be misquoted at its top, which is the fence made structural rather than left in a caption."
+  }
+}
