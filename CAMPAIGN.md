@@ -772,6 +772,27 @@ seat forgets at its peril:
   raises AT THE WRITE, after every passage is embedded, means all the
   work is done, nothing is recorded, and the sweep calls it a crashed
   shard.
+- **A TRANSFER TOOL IS CORRECT ABOUT WHAT EXISTED WHEN IT RAN AND
+  SILENT ABOUT WHAT EXISTS WHEN YOU READ IT** ([6005]): rsync reported
+  `ok` for both shards; byte-level verification found 461 MB of
+  vectors missing and the entire refusal record absent, because the
+  pull had run while the shard was still writing and the refusal file
+  is created only at exit. **Nothing was wrong with the pull — it was
+  answering an earlier question.** So the standing gate holds in its
+  narrowest form: *destroy on byte-level verification of every tier,
+  not on the completion message, and not on the transfer's exit code
+  either.* Had the box been destroyed on the pull's own word, both
+  would have been unrecoverable. Same family as file-mtime-versus-
+  process-start ([5962]) — a true report about the wrong moment.
+- **EMBEDDED + REFUSED == SEEN, EXACTLY, IS THE ACCOUNTING A RUN OWES**
+  ([6005]): the bge pass closed with every passage dispositioned on
+  both shards and refusals at 6.59% against the 6.6% mixed fraction
+  measured from the corpus, so a declared policy was shown to have
+  done precisely what it declared. The contrast is its own predecessor:
+  the BLT pass left 6 and 15 passages seen-but-unrecorded, silently
+  skipped as under-two-tokens **with no disposition written** — which
+  is invisible unless the totals are made to balance. A run that
+  cannot show the identity cannot distinguish a policy from a leak.
 - **A MONITOR CAN MANUFACTURE THE APPEARANCE OF HEALTH, NOT MERELY FAIL
   TO CATCH ITS ABSENCE** ([6001]): with both shards crashed, the sweep
   printed `proc=0 rows=0 rate=3.11/s` — a bare `[0-9.]+/s` regex over
