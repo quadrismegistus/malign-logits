@@ -611,9 +611,13 @@ BOOKED_7 = {"register": 0.1994, "brysbaert": 0.1183, "coder_conc": 0.0921,
             "length_bge": 0.1386, "length_glove": 0.0921, "coder_reg": 0.0470}
 #: measured in confound_en.json; the reason the bars are not stacked
 BOOKED_RHO_REG_CONC = 0.493
-#: §7 row 6 has no producer emitting it yet (malign, [6171]: it is a solo-scale
-#: computation belonging to whichever producer owns those, not to k_register).
-UNEMITTED = {"coder_reg"}
+#: THE [5606] WELD. §7: register-after-frequency leads concreteness by 0.046 on
+#: this axis and by 0.013 on the refitted verb-eliciting one, so "the largest
+#: single named component" is a much weaker claim on the population where the
+#: question is best posed and "should not be quoted without this row". The
+#: entry requires it welded on, so the register bar carries it as a second mark
+#: rather than a footnote.
+BOOKED_RESID = 0.1641
 
 
 def ledger():
@@ -626,6 +630,7 @@ def ledger():
 
     reg = json.load(open(os.path.join(K, "register_en.json")))["index_table"]
     con = json.load(open(os.path.join(K, "concreteness_en.json")))["measures"]
+    dec = json.load(open(os.path.join(K, "register_decomp_en.json")))["measures"]
     lbg = json.load(open(os.path.join(K, "length_en_bge.json")))
     lgl = json.load(open(os.path.join(K, "length_en_glove.json")))
     cnf = json.load(open(os.path.join(K, "confound_en.json")))
@@ -637,10 +642,11 @@ def ledger():
         ("coder_conc", con["coder concreteness"]["r2_axis"]),
         ("length_bge", lbg["r2_length"]),
         ("length_glove", lgl["r2_length"]),
+        ("coder_reg", dec["coder register_level"]["r2_axis"]),
     ]
     for name, got in checks:
         assert abs(got - BOOKED_7[name]) < 5e-5, \
-            f"{name}: artifact {got:.6f} vs §7's {BOOKED_7[name]}"
+            f"{name}: artifact {got:.6f} vs section 7's {BOOKED_7[name]}"
     #: THE COINCIDENCE THAT COST TWO SEATS AN HOUR, PINNED SO IT CANNOT
     #: SILENTLY BECOME A DUPLICATION. coder concreteness and length/glove both
     #: print 0.0921 and are 3.9e-05 apart; I read that as one row carrying the
@@ -651,6 +657,16 @@ def ledger():
         (f"coder-concreteness and length/glove R2 are {gap:.2e} apart; §7 "
          "prints both as 0.0921 and they are distinct quantities that happen "
          "to round together")
+
+    resid = dec["SUBTLEX resid on freq"]["r2_axis"]
+    assert abs(resid - BOOKED_RESID) < 5e-5, \
+        f"frequency-residualised register drifted: {resid:.6f} vs {BOOKED_RESID}"
+    #: the weld's whole point: the lead over concreteness narrows once
+    #: frequency comes out, and the panel must not show only the raw row
+    lead_raw = BOOKED_7["register"] - BOOKED_7["brysbaert"]
+    lead_res = resid - BOOKED_7["brysbaert"]
+    assert lead_res < lead_raw, \
+        "residualising frequency no longer narrows register's lead; the panel says it does"
 
     rho = cnf["bundle_rho"]["register index"]["concreteness"]
     assert abs(rho - BOOKED_RHO_REG_CONC) < 0.001, \
@@ -666,8 +682,8 @@ def ledger():
          "#1a7a6a", False),
         ("word length\n(2 encoders)",
          [lbg["r2_length"], lgl["r2_length"]], "#9a9a9a", False),
-        ("coder register_level\n(1 scale, printed only)",
-         [BOOKED_7["coder_reg"]], "#c0c0c0", True),
+        ("coder register_level\n(1 scale)",
+         [dec["coder register_level"]["r2_axis"]], "#9a9a9a", False),
     ]
     rows, pts = [], []
     for i, (lab, vals, col, unemitted) in enumerate(comps):
@@ -686,6 +702,14 @@ def ledger():
         ggplot()
         + geom_segment(df, aes(0, "y", xend="m", yend="y", color="col"), size=11)
         + geom_point(pd_pts, aes("r2", "y"), size=2.0, color="#2b2b2b", alpha=0.8)
+        #: THE WELD, ON THE BAR IT QUALIFIES
+        + geom_point(pd.DataFrame([{"r2": resid, "y": len(comps) - 1}]),
+                     aes("r2", "y"), size=4.2, color="#b03030", shape="D")
+        + geom_text(pd.DataFrame([{"r2": resid, "y": len(comps) - 1}]),
+                    aes("r2", "y", label=f'"after frequency: {resid:.3f}"'),
+                    #: -0.30 left the label inside the bar it annotates; the segment
+                    #: is 11pt so it needs clearing properly.
+                    size=6.4, color="#b03030", va="top", nudge_y=-0.46)
         + geom_text(df, aes("lx", "y", label="lab"), size=7.2, ha="left",
                     nudge_x=0.009, color="#222222", lineheight=1.15)
         + scale_color_identity()
@@ -713,19 +737,24 @@ def ledger():
                 "against bge.\n"
                 "LENGTH IS RULED OUT DESPITE ITS SIZE. Projecting it out rotates the axis by under 13\n"
                 "degrees and costs nothing predictively, which is why it is grey: a component can\n"
-                "explain variance in the axis and carry none of its prediction."),
+                "explain variance in the axis and carry none of its prediction.\n"
+                "AND REGISTER'S LEAD IS MOSTLY FREQUENCY, WHICH IS WHY THE RED MARKER IS ON ITS BAR.\n"
+                f"Residualised on word frequency it falls to {resid:.3f}, and its lead over concreteness\n"
+                f"narrows from {lead_raw:.3f} to {lead_res:.3f} -- to 0.013 on the refitted verb-eliciting\n"
+                "axis, where section 7 says the question is best posed. 'The largest single named\n"
+                "component' is a much weaker claim than the raw bar alone would suggest, and section 7\n"
+                "says it should not be quoted without this row."),
             x="share of the axis's word-level variance explained (R2)", y="",
             caption=(
                 "Producer: meta/M01_displacement/scripts/plot_p_figs.py from results/k/{register_en,\n"
                 "concreteness_en, length_en_bge, length_en_glove, confound_en}.json.\n"
-                "Asserted before drawing: five of section 7's six rows against the artifacts that hold\n"
-                "them, each within 5e-05, and the register-concreteness rho.\n"
-                "THE SIXTH ROW IS PRINTED AND NOT REPRODUCED. coder register_level (n 6,084, R2 0.0470)\n"
-                "has no producer emitting it; it is a solo-scale computation and belongs to whichever\n"
-                "producer owns those. Drawn in pale grey and labelled as printed-only.\n"
-                "The register and concreteness artifacts were emitted on 2026-08-14 in response to this\n"
-                "figure: before that, three of these six rows existed only as terminal output typed into\n"
-                "the finding.\n"
+                "Asserted before drawing: ALL SIX of section 7's rows against the artifacts that hold\n"
+                "them, each within 5e-05; the frequency-residualised row and that it narrows register's\n"
+                "lead; and the register-concreteness rho.\n"
+                "ALL SIX ROWS OF SECTION 7 NOW REPRODUCE. Three of them did not this morning: two\n"
+                "producers wrote nothing at all and a third wrote an artifact not holding the cited\n"
+                "quantity. They were emitted on 2026-08-14 in response to this figure.\n"
+
                 "One assert here guards a coincidence rather than a value: coder concreteness and\n"
                 "length/glove both print 0.0921 and are 3.9e-05 apart. I reported that as one row\n"
                 "carrying the other's value and was wrong; the guard now refuses to draw if they ever\n"
