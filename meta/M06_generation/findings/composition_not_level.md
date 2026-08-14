@@ -320,4 +320,13 @@ mediation — it characterises `movement`'s structure, not this population.
     meta/M06_generation/scripts/m06_mediation_read.py   decomposition
     meta/M06_generation/scripts/m06_mediation_corr.py   continuous correlation
     meta/M06_generation/scripts/m06_mediation_ctx.py    per-context control
+    meta/M06_generation/scripts/m06_mediation_contrast.py
+        PRODUCER DEBT, DISCHARGED 2026-08-14. The level-by-class table, the
+        common-support diagnostic, the contrast on common support (this
+        finding's surviving claim) and the consistency asymmetry were all
+        computed inline with `uv run python -c` and existed in no script. Per
+        RH's ruling relayed at [5890], a missing producer makes a number
+        UNAUDITABLE, which outranks the work that surfaced it. Written the same
+        night and verified to reproduce every published figure to the digit
+        rather than merely to resemble it.
     plans/plan_mediation.md   committed d79b6c0f, BEFORE any producer existed
