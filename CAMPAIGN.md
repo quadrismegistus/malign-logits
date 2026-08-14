@@ -781,6 +781,35 @@ seat forgets at its peril:
   treatment, and nothing about the shape of the two rung-curves says
   which applies.** *Treat absent as zero* is as wrong in the general
   case as *drop it* was in the specific one.
+- **A DRAWING SCRIPT THAT CAN WRITE ANYTHING EXCEPT PIXELS IS A
+  PRODUCER, AND REPAIRING ITS TEXT IS A RECOMPUTATION** ([6093]-[6099];
+  dario's rule, malign's converse, registrar's case 3). A caption fix
+  requires a re-run and a re-run is a recomputation, so if anything
+  underneath moved since the artifact was written, a TEXT repair
+  re-bases the NUMBERS — and the producer's own git history looks clean
+  because what moved was a library it imports. Three cases:
+
+      1 reads a committed artifact, writes only pixels
+          -> a re-run is a RE-RENDER. Safe by construction.
+      2 computes and writes its artifact, then draws
+          -> a re-run RECOMPUTES. AUDITABLE: the artifact is the witness.
+      3 goes STORE -> FIGURE, writing no artifact
+          -> recomputes with NO witness. The only output is the PNG and
+             the PNG changed anyway for the caption. Close it on the
+             INPUTS: library commit history + store-insertion time for
+             the cells it reads.
+
+  **A cheap re-render path is safe because it does not recompute; the
+  cheapness is a consequence.** malign's converse is the default for any
+  text-only repair: **a fence can be added WITHOUT re-running, and then
+  the artifact is provably unchanged rather than presumed unchanged.**
+  Detection is two greps, the same in every folder:
+  `json.dump|to_parquet|to_csv|open(...,'w')` for case 2, and
+  `ch_read|clickhouse|word_probs` with no artifact write for case 3.
+  M05 as of 2026-08-14: **7 case 1, 7 case 2, 3 case 3.** Each of three
+  seats wrote a case-2 producer today for a good reason and none saw it
+  until another seat's grep — **the right instinct produces the risky
+  shape, which is why the test has to be mechanical.**
 - **A PATTERN RECRUITS ATTENTION AND A MAGNITUDE DOES NOT** ([6077],
   lacan). Four seats worked the multilingual cluster for an evening
   because it had a shape; the case that settled it was the LARGEST
