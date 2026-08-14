@@ -297,6 +297,25 @@ seat forgets at its peril:
   beside them and reproduce the population exactly). Corollary the same
   night: **a value printed in a subtitle is on the figure** — fencing a
   number in prose while displaying it does not withhold it ([5936]).
+  **AND THE MIRROR, minted by its own violation ([6012]): A FENCE
+  WRITTEN IN A COMMENT IS NOT ON THE FIGURE.** The registrar's basin
+  producer put its fence in a `//` DOT comment; `dot` strips comments
+  at render, so it lived in the `.dot` and in neither the `.svg` nor
+  the `.png` — **every rendered basin figure had travelled with no
+  fence at all**, including the one shipped before the design seat
+  arrived. Same boundary, both directions, and the producer had drawn
+  the line on the wrong side of it *while its own docstring stated the
+  rule correctly*. Worse, the comment carried only half the fence: it
+  said the sinks were COMPUTED and not that their grouping into named
+  basins is a READING — **the half that matters, since the basin names
+  are the interpretive claim and nothing in the data says five sinks
+  constitute "stasis".** A reader meeting a named basin surrounded by
+  computed-looking machinery cannot tell which part was measured.
+  THE REFINEMENT THAT MAKES THIS THE LEAST EXCUSABLE KIND ([6012],
+  dario): a docstring stating a requirement about the file's own
+  OUTPUT is an outward claim in the [5978] sense — except that being
+  about its own output, **it was checkable all along and nothing
+  checked it.**
   And the reason both corollaries kept biting the same seat ([5938]):
   **transparency about an absence and reproduction of it are hard to
   tell apart while you are writing the caption** — the instinct to

@@ -515,7 +515,24 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     remaining basins (epistemic/expression/stasis) are one command
     each; chain-exhibit strip (fired->aimed->pointed, kill->shout->hum)
     still owed.
-13c. PARKED 2026-08-14 (RH: store and move on) — NETWORK
+13c. UNPARKED by RH 2026-08-14; **(a) SHIPPED (dario, 4f24f25c)** —
+    the three remaining basin panels (epistemic 25 edges, expression
+    26, stasis 16), one command each, with `procedure` regenerated.
+    **AND DRAWING THEM FOUND THAT THIS PRODUCER'S OWN REQUIRED FENCE
+    HAD NEVER REACHED A RENDERED FIGURE** (registrar's producer,
+    registrar's defect): the fence was a `//` DOT comment, which
+    `dot` strips at render, so it existed in the `.dot` and in
+    neither the `.svg` nor the `.png` — every basin figure shipped
+    fence-less, including the one booked at item 13. And it carried
+    only the computed half, omitting that the GROUPING into named
+    basins is a reading, which is the half that matters because the
+    names are the interpretive claim. Now a graph LABEL carrying both
+    halves and surviving into the image. STILL OWED: (b) chain strip
+    (fired->aimed->pointed is FRAME, and kill->shout->hum dies at
+    shout->hum under the verb restriction), (c) verb-network redraws
+    wanting a `--verbs` source flag, (d) mutual-best couples table,
+    (e) graph-structure pass — in that order.
+    Original entry: PARKED 2026-08-14 (RH: store and move on) — NETWORK
     VISUALISATIONS ON DISPLACEMENT PAIRS, the consolidated queue:
     (a) three remaining basin panels (epistemic/expression/stasis),
     one `plot_displacement_network.py <basin>` command each;
