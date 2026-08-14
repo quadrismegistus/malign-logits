@@ -718,8 +718,33 @@ returns green.
   which is not the same as one source.**
   Kept as the inverse of the `.f16`-in-a-NOT-clause false positive:
   there a NOT-clause read as a presence, here an absence read as a
-  derivation. **The real debt was always Class 1A and it is now
-  discharged** — `concreteness_en.json` exists, and §7's rows are
+  derivation.
+  **LEDGER STATE 2026-08-14, verified at this seat: FOUR OF SIX ROWS
+  REPRODUCE.** Both length rows did all along; both concreteness rows now
+  do, exactly on all four values —
+
+      coder concreteness  n 6084  r2_axis 0.092058  cos 0.267139   §7: 0.0921 +0.267
+      Brysbaert Conc.M    n 2916  r2_axis 0.118305  cos 0.240610   §7: 0.1183 +0.241
+
+  **The two REGISTER rows still do not, and they are the rows the entry
+  leads with** (*register ~half*). `register_en.json` gained an
+  `index_table` carrying `n_words` and two rhos; it holds **no R2 and no
+  cosine** — checked, the strings are absent. And they are not derivable
+  from what is there: rho² = 0.1891 against the printed 0.1994, so the
+  R2 is not the squared Spearman. **The row that most needs to travel
+  with a caveat is the row that cannot be checked**, and the
+  frequency-residualised weld ([5606]) is a register quantity too.
+  Outstanding as Class 1A: `k_register` emitting `r2_axis` and
+  `cos_axis_dir` alongside the rhos closes it. Not a hold — dario's
+  design ground was always the blocker and is settled.
+  **AND THE EMISSION IMPROVED THE FINDING RATHER THAN ONLY CHECKING IT**
+  (dario [6170]): two independent concreteness instruments land at R2
+  0.0921 and 0.1183 with cosines +0.267 and +0.241 — **agreeing on
+  direction, differing by a quarter on magnitude.** Same shape as GloVe
+  against bge on the headroom ladder, and it is the evidence that
+  concreteness is a real minority component rather than one measure's
+  artifact. **A number nobody could check became, on being written down,
+  a replication.** — `concreteness_en.json` exists, and §7's rows are
   checkable rather than transcribed.
 - ~~**SUPERSEDED DETAIL, kept because the correction chain is the
   record**~~ — new 2026-08-14 ([6164], dario; verified at this seat against
