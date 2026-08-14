@@ -23,9 +23,23 @@ finds open items.
     1. its named artifact EXISTS          (else it is blocked, not open)
     2. NO producer asserts its numbers    (the one that catches a drawn figure)
     3. NO figure matches it on disk
+    4. the artifact is THE artifact       (right study is not right instrument)
 
 Condition 2 is the one that would have caught the bad promotion, and it is the
 one nobody runs, because condition 1 feels like the check.
+
+**CONDITION 4 CAME FROM THE NEXT FAILURE, AND ALL THREE OTHERS PASSED** ([6182],
+dario). `queue 17` was promoted on 1-3 and is not drawable: its numbers are on
+the SPAN `<guilt>` and its artifact carries the FIELD `guilt_or_shame` plus
+span COUNTS with no per-span labels. dario computed the field version and the
+MEDIAN matched (+0.752 against +0.8) while every tail compressed -- **a
+population change moves the centre and this did not; a broader instrument
+catching borderline cases pulls extremes inward.** The artifact is the right
+study, the right passages, the wrong instrument. *A producer that writes AN
+artifact is not a producer that writes THE value*, one step earlier in the
+chain. **This condition is NOT MECHANISED and is flagged for the reader**: the
+tool prints the artifact's columns for any entry it calls plausibly open, so a
+human can ask whether the quantity is even in there.
 
 **WHAT THIS TOOL IS NOT.** It does not prove an entry is open. Absence of a
 number match is not absence of a figure — most entries name too few
@@ -113,8 +127,30 @@ def state(folder, n, txt, sources=None, figs=None):
 
     #: 3. an explicit discharge already written in the entry
     marked = bool(re.search(r"SHIPPED|DISCHARGED|BLOCKED", txt))
+
+    #: 4. WHAT IS ACTUALLY IN THE ARTIFACT. Not a verdict -- a prompt for the
+    #: human. queue 17 passed 1-3 and failed here: right study, wrong
+    #: instrument, and no column in the file could have produced its numbers.
+    cols = []
+    for h in have:
+        if h.endswith(".parquet"):
+            try:
+                import pandas as pd
+                cols = list(pd.read_parquet(h).columns)
+            except Exception:
+                cols = ["<unreadable>"]
+            break
     return {"artifact": bool(have) if named else None, "named": named,
-            "numbers": nums, "drawn_by": drawn_by, "marked": marked}
+            "numbers": nums, "drawn_by": drawn_by, "marked": marked,
+            "tracked": all(_tracked(h) for h in have) if have else None,
+            "columns": cols}
+
+
+def _tracked(path):
+    import subprocess
+    r = subprocess.run(["git", "ls-files", "--error-unmatch", path],
+                       cwd=ROOT, capture_output=True)
+    return r.returncode == 0
 
 
 def main():

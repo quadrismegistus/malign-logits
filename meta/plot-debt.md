@@ -696,7 +696,44 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     artifacts were present *because the figure had already been drawn
     from them*. A promotion is a claim about STATE and I checked INPUTS.
 
-17. OPEN — **PROMOTED 2026-08-14 from `M01 candidate 15`, registrar, on
+17. **HELD 2026-08-14 within the hour ([6182], dario). MY THREE CONDITIONS
+    ALL PASSED AND THE ITEM IS STILL NOT DRAWABLE.** The artifact is
+    present, the number is live, nothing asserts it — **and the artifact
+    is for a different instrument.**
+
+    §4's heterogeneity numbers are on the SPAN (`<guilt>`); dario computed
+    the same quantity off the FIELD (`guilt_or_shame`) and got a table
+    whose MEDIAN matches (+0.752pp vs +0.8pp) while every tail is
+    compressed — AmberSafe +12.33 against +15.4, four negative pairs
+    against thirteen. **A population change moves the centre; this does
+    not. A broader instrument catching borderline cases pulls extremes
+    toward the middle**, which is the shape exactly. And §4 names both
+    instruments in the sentence above the claim: *the field is broader
+    than the span … the span is the sharper instrument.*
+
+    **`y_passages.parquet` carries `spans_total` and `spans_located` as
+    COUNTS and no per-span labels** — verified here — so `<guilt>` is not
+    derivable from it and no span-level table is in `results/`.
+
+    **THE FOURTH CONDITION, dario's, and it is my own [6167] line one step
+    earlier: AN ARTIFACT BEING PRESENT DOES NOT MAKE IT *THE* ARTIFACT.**
+    *A producer that writes AN artifact is not a producer that writes THE
+    value* — here the artifact is the right study, the right passages and
+    the wrong instrument.
+
+    **TWO BLOCKERS, both prior to any drawing.** The span table must be
+    located or rebuilt: **that is producer debt on the NUMBER, not on the
+    figure**, and it belongs to whoever owns Y_superego. And
+    `y_passages.parquet` is **UNTRACKED** — verified — so a panel drawn
+    from it inherits the [6036] class: a shipped figure whose input no one
+    can fetch.
+
+    Design, if it unblocks: sorted per-pair dots, tails named, **no
+    summary line** — a mean over a distribution whose spread is the claim
+    invites the reading the finding refuses.
+
+17b. ~~OPEN — PROMOTED 2026-08-14 from `M01 candidate 15`~~ superseded by
+    the hold above. Original reasoning:
     dario's ask at [6180]. VERIFIED OPEN BEFORE OFFERING, which the last
     promotion was not.** Y_superego §4 heterogeneity: AmberSafe +15.4pp
     against a median of +0.8pp, sorted per-pair dots, tails named.
