@@ -28,7 +28,34 @@ import argparse, json, os, subprocess, sys
 BOXES_IN = "data/blt_fleet/instances.json"
 BOXES_OUT = "data/bge_fleet/instances.json"
 POLICY = "refuse"          # lacan [5955]
-DEPS = "sentence-transformers nltk stanza"
+#: THE FULL KNOWN-GOOD CHAIN, learned by getting it wrong four times on the
+#: first conversion. Each step exists because the previous one broke something:
+#:
+#:   torch==2.6.0        bge-m3's cached snapshot is a .bin with no safetensors,
+#:                       and transformers refuses torch.load below 2.6
+#:                       (CVE-2025-32434). This is the repo's own documented
+#:                       .bin floor. NOT `-U torch`: that installs 2.13, which
+#:                       transformers 5.4.0 cannot import.
+#:   uninstall           the image ships torch/torchvision/torchaudio as a
+#:   torchvision,        MATCHED SET compiled against 2.5.1. Upgrading torch
+#:   torchaudio          breaks both siblings, and transformers imports
+#:                       torchvision -- surfacing as a MASKED
+#:                       "Could not import PreTrainedModel" whose real cause is
+#:                       "operator torchvision::nms does not exist". Neither is
+#:                       needed here; this is text-only.
+#:   -U transformers     sentence-transformers 5.5.1 needs newer than 5.4.0.
+#:                       Safe ONLY because BLT is complete on this box -- the
+#:                       5.4.0 pin is a BLT constraint, which is why this script
+#:                       refuses to run while blt_cloud.py is alive.
+DEPS_CHAIN = ("pip install -q 'torch==2.6.0' 2>&1|tail -1; "
+              "pip uninstall -y -q torchvision torchaudio 2>&1|tail -1; "
+              "pip install -q -U transformers sentence-transformers nltk stanza 2>&1|tail -1; "
+              #: PROVE THE MODEL LOADS AND ENCODES before tmux swallows the
+              #: failure. Four launches reported "3" from pgrep while the
+              #: process was already dead.
+              "python3 -c \"from sentence_transformers import SentenceTransformer as S; import numpy as np; "
+              "m=S('BAAI/bge-m3',device='cuda'); v=m.encode(['a b.','c d.'],convert_to_numpy=True,"
+              "normalize_embeddings=True); print('PREFLIGHT_OK',v.shape)\" 2>&1 | tail -1")
 
 
 def ssh(b, cmd, timeout=1800):
@@ -78,13 +105,13 @@ def launch(b, of, dry):
     #: missing stanza model or an unresolvable dep fails HERE, visibly, rather
     #: than 200 passages into a run that reports its normal rate. bge_cloud's
     #: own warm() asserts on probe output; this just makes it happen at launch.
-    cmd = ("cd /workspace && pip install -q %s 2>&1 | tail -3 && "
+    cmd = ("cd /workspace && " + DEPS_CHAIN + " && "
            "tmux kill-session -t bge 2>/dev/null; "
            "tmux new-session -d -s bge "
            "'python3 /workspace/bge_cloud.py --input /workspace/blt_passages.jsonl.gz "
            "--out /workspace/bge --shard %s --of %s --mixed-policy %s "
            "> /workspace/bge.log 2>&1'; sleep 2; pgrep -fc 'bge_clou[d]'"
-           % (DEPS, b["shard"], of, POLICY))
+           % (b["shard"], of, POLICY))
     r = ssh(b, cmd)
     print("     %s" % (r.stdout.strip()[-200:] or r.stderr.strip()[-200:]))
     rec = dict(b)

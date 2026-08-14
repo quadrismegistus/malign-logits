@@ -1,0 +1,53 @@
+[
+ {
+  "id": 47685883,
+  "shard": 1,
+  "of": 4,
+  "host": "185.55.208.55",
+  "port": 40084,
+  "dph": 0.4011524444444444,
+  "window_h": 343,
+  "acquired": "2026-08-14T07:08:57",
+  "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
+  "route_note": "proxy refused publickey; DIRECT route only (runbook 2.26)",
+  "mixed_policy": "refuse",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
+ },
+ {
+  "id": 47685889,
+  "shard": 3,
+  "of": 4,
+  "host": "ssh1.vast.ai",
+  "port": 15888,
+  "dph": 0.4677777777777778,
+  "window_h": 1535,
+  "acquired": "2026-08-14T07:08:57",
+  "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
+  "mixed_policy": "refuse",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
+ },
+ {
+  "id": 47685647,
+  "shard": 0,
+  "of": 4,
+  "host": "ssh3.vast.ai",
+  "port": 15646,
+  "dph": 0.38911111111111113,
+  "window_h": 684,
+  "acquired": "2026-08-14T07:08:57",
+  "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
+  "mixed_policy": "refuse"
+ },
+ {
+  "id": 47685885,
+  "shard": 2,
+  "of": 4,
+  "host": "ssh7.vast.ai",
+  "port": 15884,
+  "dph": 0.41577777777777775,
+  "window_h": 1140,
+  "acquired": "2026-08-14T07:08:57",
+  "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
+  "mixed_policy": "refuse"
+ }
+]

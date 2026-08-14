@@ -27,7 +27,7 @@ written to `.refused.jsonl` and never embedded. It is counted and displayed
 separately: folding it into `rows` would report the run complete before it is,
 and treating it as an error would report a policy as a fault.
 """
-import json, subprocess, sys, concurrent.futures as cf
+import json, os, subprocess, sys, concurrent.futures as cf
 
 #: READ, NOT ASSERTED. This was `TOTAL = 450_982` with a comment explaining
 #: where it came from -- a claim about a DIFFERENT file that nothing here could
@@ -90,15 +90,33 @@ def probe(b):
 def main():
     TOTAL = _total()
     try:
-        boxes = json.load(open(BOXES))
+        _all = json.load(open(BOXES))
     except FileNotFoundError:
         print("  no %s yet -- bge fleet not launched" % BOXES)
         return 0
+    #: SAME FIX AS blt_fleet_sweep, which I made an hour ago and did not carry
+    #: here. A destroyed box cannot be probed, so filtering it from the roster
+    #: made EMBEDDED FALL from 197,090 to 70,581 -- counting what the probe
+    #: reaches instead of what exists. Retired shards are counted FROM DISK:
+    #: their output is pulled and sha256-verified against the box before
+    #: teardown, so it cannot change, and the total stays monotone.
+    boxes = [b for b in _all if not b.get("destroyed")]
+    retired = 0
+    for b in _all:
+        if not b.get("destroyed"):
+            continue
+        d = os.path.join("data/raw/bge_fleet", str(b["id"]))
+        if not os.path.isdir(d):
+            continue
+        for f in sorted(os.listdir(d)):
+            if f.endswith(".jsonl") and not f.endswith(".refused.jsonl"):
+                with open(os.path.join(d, f)) as fh:
+                    retired += sum(1 for _ in fh)
     with cf.ThreadPoolExecutor(max(len(boxes), 1)) as ex:
         res = list(ex.map(probe, boxes))
     print("  %-6s %-10s %-6s %-9s %-8s %-7s %-6s %s"
           % ("shard", "id", "proc", "rows", "refused", "MB", "free", "rate"))
-    tot = ref = live = 0
+    tot = retired; ref = live = 0
     rates = []
     for b, d in res:
         if d is None:

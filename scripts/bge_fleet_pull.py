@@ -82,7 +82,9 @@ def main():
     if not os.path.exists(BOXES):
         print("  no %s yet -- bge fleet not launched" % BOXES)
         return 0
-    boxes = json.load(open(BOXES))
+    #: Destroyed boxes stay in the record for provenance but are not pulled
+    #: from -- rsync to a dead host returns rc=12 every cycle.
+    boxes = [b for b in json.load(open(BOXES)) if not b.get("destroyed")]
     with cf.ThreadPoolExecutor(max(len(boxes), 1)) as ex:
         res = sorted(ex.map(pull, boxes))
     tot_rows = tot_sent = 0
