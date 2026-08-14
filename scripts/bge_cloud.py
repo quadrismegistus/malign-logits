@@ -41,10 +41,21 @@ BGE = "BAAI/bge-m3"
 DIM = 1024
 
 
-def done_keys(path):
-    """(prompt, text_sha) already embedded in this shard's own output."""
+def done_keys(*paths):
+    """(prompt, text_sha) already HANDLED in this shard's own output.
+
+    HANDLED, not embedded -- the refused file counts too. A refused passage is
+    a settled outcome, not pending work: re-reading it on resume re-appends an
+    identical refusal row, so a shard restarted N times accumulates N copies of
+    every refusal. The embeddings stay correct throughout, which is what makes
+    it easy to miss; what drifts is the COUNT. `bge_fleet_sweep` reports
+    refusals as `wc -l` over this file, and the manifest carries the total, so
+    both would inflate with restarts while the data underneath was fine.
+    """
     got = set()
-    if os.path.exists(path):
+    for path in paths:
+        if not os.path.exists(path):
+            continue
         with open(path) as fh:
             for line in fh:
                 try:
@@ -146,7 +157,8 @@ def main():
     os.makedirs(a.out, exist_ok=True)
     jl = os.path.join(a.out, "bge_shard%02d.jsonl" % a.shard)
     fb = os.path.join(a.out, "bge_shard%02d.f32" % a.shard)
-    done = done_keys(jl)
+    rp = os.path.join(a.out, "bge_shard%02d.refused.jsonl" % a.shard)
+    done = done_keys(jl, rp)
     #: ROW COUNTER FROM THE FILE'S OWN SIZE, never a remembered count -- the
     #: defect twp_cloud.py fixed for its .f16, and blt_cloud.py for its .f32.
     row = os.path.getsize(fb) // 4 if os.path.exists(fb) else 0
@@ -154,8 +166,10 @@ def main():
         "sidecar holds %d floats, not a multiple of dim %d -- a previous run was "
         "killed mid-write and the file is torn; truncate to %d before resuming"
         % (row, DIM, (row // DIM) * DIM))
-    print("resuming: %d already embedded, %d vectors in the sidecar"
-          % (len(done), row // DIM), flush=True)
+    #: "handled", not "embedded" -- `done` now includes refusals, so the word
+    #: has to match the quantity or the next reader subtracts the wrong number.
+    print("resuming: %d already handled (embedded + refused), %d vectors in "
+          "the sidecar" % (len(done), row // DIM), flush=True)
 
     n_seen = n_new = n_sent = 0
     refused = []
@@ -266,7 +280,6 @@ def main():
     print("  manifest -> %s" % os.path.basename(mf), flush=True)
 
     if refused:
-        rp = os.path.join(a.out, "bge_shard%02d.refused.jsonl" % a.shard)
         with open(rp, "a") as fh:
             for r in refused:
                 fh.write(json.dumps(r) + "\n")
