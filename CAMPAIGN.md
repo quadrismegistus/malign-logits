@@ -238,3 +238,14 @@ seat forgets at its peril:
   night: a load that fails quietly is indistinguishable from a file with
   nothing in it — a bare except around a read is a success reporter for
   failures.
+- **The numbers were right and what they were taken to mean was not — and
+  not one instance was caught by recomputation** (lacan's naming, [5917];
+  five instances in one night: a quantity's definition vs its computation
+  [5884], a Stouffer Z capped by its own arithmetic [5897]/[4134],
+  sign-test p-values that are facts about n [5898], a SAMESIDE column
+  doing rhetorical work its contents could not support [5914], a 2x2
+  whose symmetric layout asserted a DiD only one cell carried
+  [5915]/[5917]). The audits that catch this class: draw it, assert every
+  booked value not most, put the caveat in the column/title/producer
+  where a rewrite or rerun cannot shed it, and quote counts and
+  definitions rather than statistics bounded by their own arithmetic.
