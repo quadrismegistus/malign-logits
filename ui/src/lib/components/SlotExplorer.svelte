@@ -143,6 +143,42 @@
 		return [...words].sort((a, b) => (axis![b.word] ?? -9) - (axis![a.word] ?? -9));
 	});
 
+	//: ── SCATTER VIEW (RH). y = probability, x = the naughty-nice projection.
+	//: The list shows one dimension at a time; this shows both, so a high-MASS
+	//: word sitting on the wrong side of the axis is visible at a glance --
+	//: which is the check the axis most needs and the one a sorted list cannot
+	//: give you.
+	//:
+	//: BEFORE POLES ARE SET the x position is DETERMINISTIC pseudo-random, seeded
+	//: from the word itself. Genuinely random would reshuffle on every re-render
+	//: and be unreadable; an even spread would imply an order that does not
+	//: exist. Seeded noise says "no axis yet" and holds still.
+	let view = $state<'list' | 'scatter'>('list');
+
+	function seeded(w: string): number {
+		let h = 2166136261;
+		for (let i = 0; i < w.length; i++) { h ^= w.charCodeAt(i); h = Math.imul(h, 16777619); }
+		return ((h >>> 0) % 1000) / 1000;
+	}
+
+	//: y is log10(p): mass spans 0.17 to 0.001 and a linear axis puts everything
+	//: below the top two words on the floor.
+	let pts = $derived.by(() => {
+		if (!words.length) return [];
+		const ax = axis;
+		const xs = words.map(w => ax ? (ax[w.word] ?? 0) : seeded(w.word));
+		const xlo = Math.min(...xs), xhi = Math.max(...xs);
+		const span = xhi - xlo || 1;
+		const ly = words.map(w => Math.log10(Math.max(w.p, 1e-5)));
+		const ylo = Math.min(...ly), yhi = Math.max(...ly);
+		const yspan = yhi - ylo || 1;
+		return words.map((w, i) => ({
+			word: w.word, p: w.p, s: ax ? (ax[w.word] ?? 0) : null,
+			cx: 6 + ((xs[i] - xlo) / span) * 88,
+			cy: 92 - ((ly[i] - ylo) / yspan) * 84
+		}));
+	});
+
 	let copied = $state(false);
 
 	//: `navigator.clipboard` IS UNDEFINED OVER PLAIN HTTP to a non-localhost
@@ -245,9 +281,35 @@
 			{/if}
 		</div>
 
-		<p class="hint">left-click = nice · right-click = naughty</p>
+		<p class="hint">
+			left-click = nice · right-click = naughty
+			<button class="ghost viewtog" onclick={() => (view = view === 'list' ? 'scatter' : 'list')}>
+				{view === 'list' ? 'scatter view' : 'list view'}
+			</button>
+		</p>
 
-		<ul class="words">
+		{#if view === 'scatter'}
+			<div class="scatterwrap">
+				<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="scatter">
+					<line x1="50" y1="4" x2="50" y2="96" class="mid" />
+					{#each pts as pt (pt.word)}
+						<text
+							x={pt.cx} y={pt.cy}
+							class:tn={naughty.has(pt.word)} class:tc={nice.has(pt.word)}
+							onclick={() => tag(pt.word, 'nice')}
+							oncontextmenu={(e) => tag(pt.word, 'naughty', e)}
+						>{pt.word}</text>
+					{/each}
+				</svg>
+				<div class="axlabels">
+					<span>{axis ? '← nice' : 'no axis yet — tag one word each side, then bge axis'}</span>
+					<span class="ylab">y = log probability</span>
+					<span>{axis ? 'naughty →' : ''}</span>
+				</div>
+			</div>
+		{/if}
+
+		<ul class="words" class:hidden={view === 'scatter'}>
 			{#each shown as w (w.word)}
 				<li
 					class:tagged-naughty={naughty.has(w.word)}
@@ -349,6 +411,20 @@
 	      min-width: 52px; text-align: right; }
 	.ax.pos { color: #e15759; }
 	.sortlbl { display: flex; gap: 4px; align-items: center; cursor: pointer; }
+	.viewtog { margin-left: 10px; }
+	.words.hidden { display: none; }
+	.scatterwrap { border: 1px solid #2a2a44; border-radius: 4px; background: #141428;
+	               padding: 6px; margin-bottom: 10px; }
+	.scatter { width: 100%; height: 420px; display: block; overflow: visible; }
+	.scatter text { font-family: 'SF Mono', monospace; font-size: 2.4px; fill: #999;
+	                cursor: pointer; text-anchor: middle; }
+	.scatter text:hover { fill: #fff; }
+	.scatter text.tn { fill: #e15759; font-weight: 700; }
+	.scatter text.tc { fill: #6f9dc9; font-weight: 700; }
+	.scatter .mid { stroke: #2a2a44; stroke-width: 0.25; stroke-dasharray: 1 1; }
+	.axlabels { display: flex; justify-content: space-between; font-size: 10px;
+	            color: #666; padding: 2px 4px 0; }
+	.ylab { color: #555; }
 	.loading { color: #888; font-size: 13px; padding: 24px 4px; }
 	.error { color: #e15759; font-size: 12px; }
 </style>
