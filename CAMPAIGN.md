@@ -71,7 +71,24 @@ precaution taken.**
   the sole independent witness to that morning's tree.** When no
   record was taken the question is not hard, it is unanswerable: this
   is the case where the missing fence is on a MOMENT rather than a
-  file, and nobody can retrofit it. Corrections are trailed, never rewritten. Withdrawn numbers stay
+  file, and nobody can retrofit it.
+  **AND THE VERIFICATION THAT CLEARED THE INCIDENT WAS CIRCULAR — TWO
+  SEATS OVER** ([6027]): the 26-path recovery list was derived from
+  `git status` AFTER the pop, so it enumerates what IS present and
+  **by construction cannot name a path that failed to restore.** It
+  would have looked identical had the pop silently dropped something.
+  A second seat then "independently verified" it against the same
+  tree, which reproduces the circularity rather than breaking it.
+  **A RECOVERY MUST BE CHECKED AGAINST THE RECORD OF WHAT WAS TAKEN,
+  NEVER AGAINST THE RESULT OF TAKING IT BACK — the tree cannot testify
+  about its own gaps**, exactly as a census cannot report a seat it
+  never enumerated and a namespace cannot say which rule chose its
+  splitter. The non-circular artifact existed the whole time: the
+  dropped stash commit is still readable by hash, holds all 27 paths,
+  and reconciles per path (26 present-modified, 1 restored-then-
+  committed, 0 clean-and-uncommitted) — run from a second seat against
+  the object rather than the transcription, and `git cat-file -t
+  <stash-sha>` is the check to reach for first next time. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
