@@ -393,7 +393,26 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     quantity shortlist 9 wants exists only at n=1 and the n=28 artifact
     does not contain it. Substituting one for the other would be the
     substrate conflation with extra steps. **This is a measurement
-    debt with a different owner, not a plotting task.** CAUTION
+    debt with a different owner, not a plotting task — BUT IT IS HELD,
+    NOT ASSIGNED** ([5987], lacan): two artifacts outside the stated
+    search space carry decay against token distance at n_pairs = 42
+    with per-pair sign counts and monotone decline —
+    `a_decay_disjoint.json` (6 bins, +0.1165 down to +0.0512) and
+    `a_decay_and_topic.json` (11-bin fine grid plus a `pref_vs_topic`
+    block) — which is the SHAPE shortlist 9 wants at a real
+    population. **What is decaying is unidentified**: the
+    `pref_vs_topic` keys are `logq`/`logp`, which read as probability
+    rather than attention, and if this is surprisal-decay the booking
+    stands untouched. The artifacts are ORPHANS — grep over the whole
+    tree returns no producer, no citing finding, no queue entry, no
+    `_about`, no `_provenance`, no underscore key at all; added in a
+    bulk commit naming neither. **Class 1B from the other direction:
+    not a number with no artifact but an artifact with no claim.**
+    Held because the cost is asymmetric — assigning a measurement that
+    already exists spends a fleet; holding it for one identification
+    spends minutes — and the identification wants whoever owns the M04
+    attention line, reading the raw bytes rather than inferring from
+    key names. CAUTION
     RETAINED ([5901]): the `A_position_*` figures are the PASSAGE
     substrate (A_RESULTS.md, EXPLORATORY, nothing quotable) and do not
     cover the FC debt. FLAGGED NOT WORKED THROUGH ([5985]): the

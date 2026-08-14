@@ -116,6 +116,22 @@ varies):
   sign counts 1/24 against the parse-free 5/20 — a different
   population wearing the same digits.
 
+- **M04 `a_decay_disjoint.json` + `a_decay_and_topic.json`** — NEW
+  2026-08-14 ([5987], lacan), and a shape this file has not carried:
+  **CLASS 1B FROM THE OTHER DIRECTION — an artifact with no claim.**
+  Both hold decay against token distance at n_pairs = 42 with
+  monotone decline and per-pair sign counts, i.e. a real population
+  and a usable shape; and grep over the whole tree returns NO
+  producer, NO citing finding, NO queue entry, no `_about`, no
+  `_provenance`, and no underscore key of any kind. Added in a bulk
+  commit naming neither. **What they measure is unknown** — the
+  `pref_vs_topic` keys are `logq`/`logp`, which read as probability
+  rather than attention, so this may be surprisal-decay and not the
+  attention-decay shortlist 9 wants. Identification wants the M04
+  attention owner and the raw bytes, not inference from key names.
+  Until then plot-debt item 12's measurement debt is HELD, not
+  assigned.
+
 - **M05 A_acquisition R4 statistics** — NEW Class 1B 2026-08-14
   ([5954], dario, search space stated with a working control):
   Spearman +0.61 p 1.3e-05 (SFT-arm level co-movement), co-drift rho
