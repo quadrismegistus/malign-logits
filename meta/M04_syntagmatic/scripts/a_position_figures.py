@@ -132,7 +132,21 @@ def collect():
             out.append({"pair": pair, "arm": arm, "term": term,
                         "pos": int(pos), "mean_lp": float(m), "n": int(cnt)})
         print("  %2d/%d %-44s %6d rows" % (n, len(pairs), pair[:44], len(rows)))
-    json.dump(out, open(CACHE, "w"))
+    #: WRAPPED, not a bare array — registrar's ruling [5948].3. The fence has
+    #: to be INSIDE the artifact: a reader who opens the data instead of the
+    #: picture was previously getting 215k rows with none of the scope, while
+    #: the 12 figures drawn FROM these rows all carried STAMP.
+    #: `substrate` is STAMP ITSELF, not a copy of its wording — one string, so
+    #: the fence on the data and the fence on the rendering cannot drift apart.
+    json.dump({"_about": {
+        "substrate": STAMP,
+        "status": "EXPLORATORY - see A_RESULTS.md; nothing here is quotable",
+        "producer": "meta/M04_syntagmatic/scripts/a_position_figures.py",
+        "unit": "one row per (pair, arm, term, pos); mean_lp is the mean over "
+                "n sites at that position, so rows are NOT equally weighted",
+        "positions": "MINPOS=%d..MAXPOS=%d; position 1 is dropped at source" % (MINPOS, MAXPOS),
+        "rows": len(out),
+    }, "rows": out}, open(CACHE, "w"))
     print("  cached %d rows -> %s" % (len(out), CACHE))
     return out
 
@@ -312,8 +326,12 @@ def figures_by_term(df, order, roll=None, suffix=''):
 
 if __name__ == "__main__":
     if "--figures-only" in sys.argv and os.path.exists(CACHE):
-        rows = json.load(open(CACHE))
-        print("  reusing %d cached rows" % len(rows))
+        blob = json.load(open(CACHE))
+        #: Wrapped form only, no bare-list fallback. A fallback would let a
+        #: pre-ruling unfenced file keep working silently, which is how the
+        #: unfenced state survived in the first place.
+        rows = blob["rows"]
+        print("  reusing %d cached rows | %s" % (len(rows), blob["_about"]["substrate"]))
     else:
         rows = collect()
     figures(rows)
