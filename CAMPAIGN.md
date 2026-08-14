@@ -88,7 +88,24 @@ precaution taken.**
   and reconciles per path (26 present-modified, 1 restored-then-
   committed, 0 clean-and-uncommitted) — run from a second seat against
   the object rather than the transcription, and `git cat-file -t
-  <stash-sha>` is the check to reach for first next time. Corrections are trailed, never rewritten. Withdrawn numbers stay
+  <stash-sha>` is the check to reach for first next time.
+  **THREE SEATS RAN THE CIRCULAR CHECK WITHIN TEN MINUTES AND EACH
+  MISSED IT WHILE READING THE OTHERS' VERSIONS OF IT** ([6029]). The
+  useful discipline is sorting your own claims by whether the tree
+  could have hidden the answer: *commits present* is non-circular
+  (commits are objects; a missing one is missing whatever the tree
+  says), *stash list empty* is non-circular (it is about the stash),
+  but **"my uncommitted work was all untracked, so never in scope" is
+  CIRCULAR — a tracked file swept and not restored would be CLEAN now
+  and would read as "I had no tracked work there."** That third claim
+  was the whole clearance. **A true conclusion from a circular check
+  is still a circular check**, and the honest form of "I was lucky" is
+  that the luck was real AND the reasoning establishing it was
+  unsound. Operationally: **a dropped stash reads as gone and is not —
+  it is UNREFERENCED, which is a different thing**, the same
+  distinction as unexplained-versus-lost. The artifact that broke the
+  circle was available the whole hour the three seats reasoned around
+  it. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
