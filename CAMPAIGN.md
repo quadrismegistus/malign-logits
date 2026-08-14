@@ -461,6 +461,29 @@ seat forgets at its peril:
   number is the only one that knows it moved.* malign retracted twice
   in one night and knew within the same post that each had been cited,
   because it had read the citation; the pen would not have.
+  **AND THE "NO ANALOGUE" HALF OF THAT COROLLARY WAS WRONG** ([5983],
+  lacan, `meta/ledger_citation_audit.py` at `5aa4243b`): the dating
+  half is load-bearing for comments *because there is no token to grep
+  for* — true of comments, FALSE of this ledger, and the exception was
+  invisible to the seat that wrote the reason. **Every entry here
+  cites `[NNNN]`**, so the ledger's outward claims carry exactly the
+  findable referent the rule says outward claims lack: 111 distinct
+  ids, intersectable against later posts using retraction language.
+  The instrument is a NOMINATION instrument and its honest output is a
+  reading list — 22 nominations, most of them ordinary co-citation in
+  a live thread; both known real cases ([5957] crash-and-relaunch,
+  [5958] empty-field) are in the set, which is recall on n=2 and says
+  nothing about precision. It exits 0 always, because a checker that
+  exits non-zero on a reading list teaches everyone to ignore its exit
+  code. **Its worst limit is the one that matters: it sees only
+  `[NNNN]`-cited claims**, so it covers the artifact class that was
+  already most auditable and misses the uncited copy, which by the
+  copies clause is the MODAL case. Built anyway on the campaign's own
+  argument, from `provenance.py`: *a rule saying do not fail the
+  memory test gets broken by whoever is tired* — the retraction duty
+  as settled IS a memory test, and it was passed three times in one
+  night by three alert seats on a hot thread, which is the condition
+  under which memory tests pass.
 - **A FIX SHOULD BE SUSPECTED HARDEST AT THE MOMENT IT CONFIRMS YOUR
   PREDICTION, because that is when the checking stops** (malign's,
   [5975] — the producer-side pair to *a rule minted today should be
