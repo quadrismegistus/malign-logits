@@ -145,36 +145,22 @@ _BGE = []
 def leverage(per, prompt, naughty, nice):
     """Spread of the base mass along the author's axis, or None if unbuildable.
 
-    CPU, NOT MPS -- RH's ruling on bge. Loaded once and kept, because a screen
-    over a draft file scores every item against its own axis.
+    DELEGATES to `malign_logits.slot_axis`, which holds the one implementation
+    and the cross-process embedding cache. This file had its own copy, and the
+    three copies had already drifted -- only one handled the CJK separator, and
+    the gate constants were retyped here and in the UI, which is how the two
+    came to disagree about the same item.
     """
-    try:
-        import numpy as np
-        from sentence_transformers import SentenceTransformer
-    except ImportError:
-        return None
     if not naughty or not nice or not per:
         return None
-    if not _BGE:
-        _BGE.append(SentenceTransformer("BAAI/bge-m3", device="cpu"))
-    m = _BGE[0]
-    sep = "" if CJK.search(prompt) else " "
-    enc = lambda ts: np.asarray(m.encode(ts, normalize_embeddings=True,
-                                show_progress_bar=False, batch_size=64),
-                                dtype=np.float32)
-    vg = enc(["%s%s%s" % (prompt, sep, w) for w in naughty]).mean(0)
-    vn = enc(["%s%s%s" % (prompt, sep, w) for w in nice]).mean(0)
-    ax = vg - vn
-    n = float(np.linalg.norm(ax))
-    if n < 1e-8:
+    try:
+        from malign_logits.slot_axis import Axis
+    except ImportError:
         return None
-    ax /= n
-    words = list(per)
-    S = dict(zip(words, (enc(["%s%s%s" % (prompt, sep, w) for w in words])
-                         - (vg + vn) / 2) @ ax))
-    tot = sum(per.values()) or 1.0
-    N = sum(p * S[w] for w, p in per.items()) / tot
-    return (sum(p * (S[w] - N) ** 2 for w, p in per.items()) / tot) ** 0.5
+    ax = Axis(prompt, naughty, nice)
+    if not ax.ok:
+        return None
+    return ax.stats(per)["leverage"]
 
 
 def read_items(paths):

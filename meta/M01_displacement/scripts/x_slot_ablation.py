@@ -110,12 +110,12 @@ def main():
         del model
         twp.free()
 
-    #: ── PROJECTION. bge on CPU, per RH.
-    from sentence_transformers import SentenceTransformer
-    bge = SentenceTransformer("BAAI/bge-m3", device="cpu")
-    enc = lambda ts: np.asarray(bge.encode(ts, normalize_embeddings=True,
-                                show_progress_bar=False, batch_size=64), dtype=np.float32)
-    CJK = __import__("re").compile(r"[一-鿿]")
+    #: ── PROJECTION. `malign_logits.slot_axis` holds the ONE implementation
+    #: and the cache. This file carried its own copy until the cache landed;
+    #: three copies had already drifted on the CJK separator and the gate
+    #: constants, which is how the CLI and the UI came to disagree about one
+    #: item earlier the same day.
+    from malign_logits.slot_axis import Axis
 
     rows = []
     for it in items:
@@ -123,50 +123,33 @@ def main():
         if ("base", p) not in dists:
             continue
         base, base_res = dists[("base", p)]
-        sep = "" if CJK.search(p) else " "
         vocab = sorted(set(base).union(
             *[set(dists[(n, p)][0]) for n, _ in ARMS if (n, p) in dists]))
-        vg = enc(["%s%s%s" % (p, sep, w) for w in it["naughty"]]).mean(0)
-        vn = enc(["%s%s%s" % (p, sep, w) for w in it["nice"]]).mean(0)
-        ax = vg - vn
-        nrm = float(np.linalg.norm(ax))
-        if nrm < 1e-8:
+        ax = Axis(p, it["naughty"], it["nice"])
+        if not ax.ok:
             print("     %s: poles identical, skipped" % it.get("item_id")); continue
-        ax /= nrm
-        #: CAST AT THE BOUNDARY. The matmul yields numpy float32, which json
-        #: refuses -- and it refuses at WRITE time, after every model has been
-        #: loaded and freed, so the whole run is lost to a type error in the
-        #: last statement. Cast where the numbers enter Python rather than
-        #: where they leave it.
-        S = dict(zip(vocab, (float(x) for x in
-                             (enc(["%s%s%s" % (p, sep, w) for w in vocab])
-                              - (vg + vn) / 2) @ ax)))
-        tot = sum(base.values()) or 1.0
-        Nb = float(sum(q * S[w] for w, q in base.items()))
-        lev = (sum(q * (S[w] - Nb / tot) ** 2 for w, q in base.items()) / tot) ** 0.5
+        S = ax.score(vocab)
+        st = ax.stats(base, S)
         r = {"item_id": it.get("item_id") or it.get("pair_id"), "prompt": p,
              "n_naughty": len(it["naughty"]), "n_nice": len(it["nice"]),
-             "leverage": float(lev), "N_base": Nb, "resid_base": float(base_res),
-             "pole_gap": float(np.dot(vg - (vg + vn) / 2, ax)
-                                - np.dot(vn - (vg + vn) / 2, ax)),
-             "arms": {}}
+             "leverage": float(st["leverage"]),
+             "N_base": float(sum(q * S[w] for w, q in base.items())),
+             "resid_base": float(base_res), "pole_gap": float(ax.pole_gap),
+             "verdict": st["verdict"], "arms": {}}
         for name, _ in ARMS:
             if (name, p) not in dists:
                 continue
             post = dists[(name, p)][0]
-            dP = {w: post.get(w, 0.0) - base.get(w, 0.0) for w in vocab}
-            contrib = {w: dP[w] * S[w] for w in vocab}
-            supp = sum(v for w, v in contrib.items() if dP[w] < 0)
-            subs = sum(v for w, v in contrib.items() if dP[w] > 0)
-            big = sorted(contrib.items(), key=lambda x: -abs(x[1]))[:5]
-            r["arms"][name] = {"N": float(sum(post.get(w, 0.0) * S[w] for w in vocab)),
-                               "dN": float(supp + subs), "suppression": float(supp),
-                               "substitution": float(subs),
-                               "movers": [[w, float(v)] for w, v in big]}
+            sp = ax.split(base, post, S)
+            r["arms"][name] = {
+                "N": float(sum(post.get(w, 0.0) * S.get(w, 0.0) for w in vocab)),
+                "dN": float(sp["dN"]), "suppression": float(sp["suppression"]),
+                "substitution": float(sp["substitution"]),
+                "movers": [[w, float(v)] for w, v in sp["movers"]]}
         rows.append(r)
         print("  %-32s lev %.4f  dN(full) %+.5f" %
-              ((r["item_id"] or "?")[:32], lev, r["arms"].get("full", {}).get("dN", float("nan"))),
-              flush=True)
+              ((r["item_id"] or "?")[:32], st["leverage"],
+               r["arms"].get("full", {}).get("dN", float("nan"))), flush=True)
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     json.dump({"source": a.yaml, "base": BASE, "arms": dict(ARMS), "items": rows},
