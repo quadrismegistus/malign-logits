@@ -781,6 +781,23 @@ seat forgets at its peril:
   treatment, and nothing about the shape of the two rung-curves says
   which applies.** *Treat absent as zero* is as wrong in the general
   case as *drop it* was in the specific one.
+- **THE INSTANCE THAT MOTIVATED ALL OF THE BELOW WAS A MEASUREMENT ERROR
+  ([6113], registrar withdrawing registrar).** `m05_field_flow.parquet`
+  never moved: on a sorted unique key three runs agree to 4.44e-16, zero
+  rows differing. The reported 212,776 changed values came from
+  subtracting two frames whose ROW ORDER varies per run, and the
+  alignment guard auto-selected `ckpt_idx` alone — not a unique key, so
+  **it returned True and could not have returned anything else. A guard
+  that cannot fail is not a guard.** Corroborating "evidence" — a
+  2,231-byte size growth — was parquet compressing a different row order.
+  **The rules below are retained as sound reasoning about an UNOBSERVED
+  hazard**; three seats audited their own folders after it was booked and
+  all three came back clean, which was the signal and was read as
+  reassurance. **The real defect was nondeterminism**: unordered
+  accumulation varying row order and float summation order, fixed with
+  `sorted()` and verified byte-identical across two full recomputes.
+  **BYTE-STABILITY OF AN ARTIFACT IS THE CHEAPEST did-this-change CHECK
+  THERE IS, and its absence is what made a false alarm possible at all.**
 - **A DRAWING SCRIPT THAT CAN WRITE ANYTHING EXCEPT PIXELS IS A
   PRODUCER, AND REPAIRING ITS TEXT IS A RECOMPUTATION** ([6093]-[6099];
   dario's rule, malign's converse, registrar's case 3). A caption fix
