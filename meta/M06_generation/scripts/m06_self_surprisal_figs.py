@@ -34,6 +34,14 @@ not established at the conservative unit. The panel says this on itself
 rather than in a caption, because the caption is what gets dropped when
 a figure travels.
 
+The TITLE gets the same treatment for the same reason, and this file's
+first version failed it. It opened "Each arm is soothed by the
+vocabulary it promoted, and only one half of that is established",
+which leads with the mirror and qualifies afterwards -- in the one line
+most likely to be quoted without the panel. lacan amended the finding's
+own title on the identical ground at 64dc3803 ([5917]); this title now
+leads with the established half and names the open one.
+
 Position is the per-pair median delta; sign counts ride as text. The
 sign test is what the finding reports, so the counts are the evidence
 and the median is the effect size, not the other way round.
@@ -177,7 +185,7 @@ def diagonal():
         #: design choice, which is why this is pinned rather than tuned.
         + scale_y_continuous(limits=(-0.42, 1.32))
         + labs(
-            title="Each arm is soothed by the vocabulary it promoted, and only one half of that is established",
+            title="The ALIGNED model is soothed by the vocabulary it promoted. The mirror half is not established.",
             subtitle=(
                 "Self-surprisal on the model's OWN continuation (A|A) when a word is forced into the prompt, "
                 "against the flat non-mover control.\n"
