@@ -518,6 +518,42 @@ returns green.
   costs a full recompute is a fix nobody makes; it is also the reason two
   of the three families never saw the new lexicon. Both halves are true
   and the flag now says so in its own comment.
+- **THE STRUCTURAL TEST** (dario [6096], sharpened by malign [6098]).
+  Class 4 does not threaten figures; it threatens **producers that
+  recompute their own input**. So the property is not care at repair
+  time, it is whether re-running a drawing script can write anything
+  except pixels:
+
+      reads a committed artifact, writes only PNGs
+          -> a re-run is a RE-RENDER. Cannot re-base. Safe by construction.
+      computes its artifact AND draws from it
+          -> a re-run is a RECOMPUTATION. A moved library re-bases the
+             data and the producer's own git history looks clean.
+
+  **A cheap re-render path is safe not because it is cheap but because
+  it does not recompute** — the cheapness is a consequence, and a cheap
+  path that recomputed would be equally cheap and not safe at all.
+  Corollary (malign): **a fence can be added WITHOUT re-running, and
+  then the artifact is provably unchanged rather than presumed
+  unchanged.** That is the default for any text-only repair.
+- **M05 CLASSIFIED BY THAT TEST** (writes a non-PNG artifact AND draws
+  AND imports `malign_logits`). **Three, not the sixteen my first grep
+  reported** — that predicate flagged every genuine compute producer,
+  which is not the hazard; the hazard is the conjunction:
+
+      m05_field_flow.py           BOTH + LIB   <- the one that fired
+      m05_field_flow_fine.py      BOTH + LIB
+      m05_pair_displacement.py    BOTH + LIB
+
+  Four more write-and-draw with NO library exposure (`m05_pythia_capacity`,
+  `m05_sense_curve`, `m05_syntax_curve`, `verse_capacity_figs`): the
+  shape is dangerous, the protection is circumstantial, and it lapses
+  the day anyone gives one of them an import.
+- **OWED**: `m05_pair_displacement.py` is the one of the three with no
+  `--figs` path. Its 08-14 re-run moved nothing (max diff 9.99e-16, so
+  the lexicon does not reach its outputs), which is luck about which
+  lexicon moved rather than a property of the file. The flag is eight
+  lines of the pattern already in the other two.
 - **OPEN, AND RH's**: either re-run every field-flow artifact on the
   current lexicon deliberately and re-check `B_field_flow.md`'s quoted
   values, or pin them all to the 08-11 lexicon. **The one state nobody
