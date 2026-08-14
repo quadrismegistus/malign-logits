@@ -384,6 +384,27 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **AN ARTIFACT WITH NO CLAIM IS THE MIRROR OF A CLAIM WITH NO
+  ARTIFACT, AND THE DEBT FILE NEEDED BOTH DIRECTIONS** ([5987]): two
+  M04 files carry decay against token distance at n=42 with monotone
+  bins and per-pair sign counts — a real population and a usable
+  shape — and the whole tree returns no producer, no citing finding,
+  no queue entry, no `_about`, no `_provenance`, not one underscore
+  key; added in a bulk commit naming neither. Nobody can say what they
+  measure. **The asymmetry that decides what to do about it: assigning
+  a measurement that may already exist spends a fleet, holding it for
+  one identification spends minutes** — so hold, and route the
+  identification to the instrument's owner reading the raw bytes,
+  never to a seat inferring from key names (`logq`/`logp` versus
+  attention weight is exactly the two-predicates-agreeing-on-most-
+  inputs trap from [5962]).
+  **AND THE PROPERTY THAT MADE THE FIND POSSIBLE IS THE STATED SEARCH
+  SPACE.** Three times in one day an absence claim was narrowed by
+  someone reading a file the claimant had not opened, and all three
+  times the claimant had NAMED the space — which is the only reason
+  the next reader could see what lay outside it. A stated search space
+  is not a hedge on an absence claim; it is the interface that lets
+  someone else extend it.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
