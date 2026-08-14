@@ -18,6 +18,7 @@
 	import ResistanceTrajectories from '$lib/components/ResistanceTrajectories.svelte';
 	import DisplacementSankey from '$lib/components/DisplacementSankey.svelte';
 	import DataExplorer from '$lib/components/DataExplorer.svelte';
+	import SlotExplorer from '$lib/components/SlotExplorer.svelte';
 
 	let connected = $state(false);
 	let dataOnly = $state(false);
@@ -174,6 +175,7 @@
 	let family = $derived(familyName(serverInfo));
 
 	const DATA_TABS = [
+		{ id: 'slot', label: 'Slot Explorer' },
 		{ id: 'explorer', label: 'Data Explorer' },
 		{ id: 'beams', label: 'Beams' },
 		{ id: 'census', label: 'Census' },
@@ -314,14 +316,16 @@
 				{/each}
 			</nav>
 
-			{#if !analysis && !['explorer', 'passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance', 'sankey'].includes(activeTab)}
+			{#if !analysis && !['slot', 'explorer', 'passages', 'beams', 'census', 'shifts', 'survival', 'correlation', 'resistance', 'sankey'].includes(activeTab)}
 				<div class="empty">
 					<p>Enter a prompt and click <strong>Analyze</strong> to trace probability displacement across alignment layers.</p>
 					<p class="hint">Cmd+Enter to submit</p>
 				</div>
 			{:else}
 				<div class="tab-content">
-					{#if activeTab === 'explorer'}
+					{#if activeTab === 'slot'}
+						<SlotExplorer />
+					{:else if activeTab === 'explorer'}
 						<DataExplorer />
 					{:else if activeTab === 'beams'}
 						<BeamExplorer />

@@ -32,6 +32,56 @@ _progress = {"stage": "idle", "detail": "", "step": 0, "total": 0}
 _progress_lock = threading.Lock()
 _family = None  # set by serve()
 
+#: SLOT EXPLORER STATE, deliberately separate from `_psyche`.
+#: `_get_psyche()` loads a whole FAMILY -- base + SFT + DPO + RLVR. The slot
+#: question is "what does the BASE want to say here", so a family load is three
+#: checkpoints of nothing. This holds one model, keyed by id, so switching
+#: models is possible without evicting the psyche.
+_slot = {}                       # {model_id: (tokenizer, model, bmask, cjk, pol, device)}
+_slot_lock = threading.Lock()
+
+
+def _get_slot_model(model_id):
+    """One resident base model for the slot explorer, wired as the PRODUCER wires it.
+
+    THE INSTRUMENT IS `malign_logits.twp`, NOT `scripts/true_word_probs.py`.
+    They are not the same rule: twp.py is RULE_VERSION 3 with the CJK prefix
+    trie, the mojibake channel and a 32-line boundary_mask; the scripts copy has
+    none of those and an 18-line one. Every row in `twp_words` is rule_version
+    3, so the scripts copy would put the UI on a different instrument than the
+    store. On English the two agree to four decimals, which is exactly how that
+    goes unnoticed -- the trie is what CJK needs.
+
+    The trie/cjk 5-tuple and `bos_policy` are copied from `scripts/twp_cloud.py`
+    verbatim: a reader reaching the instrument by a different call path than the
+    producer measures a different thing however correct the import.
+    """
+    with _slot_lock:
+        if model_id in _slot:
+            return _slot[model_id]
+        import torch
+        from transformers import AutoModelForCausalLM
+        from . import twp
+        _set_progress("loading_models", f"Loading {model_id} for slot explorer...")
+        t0 = time.time()
+        tok, _loader = twp.load_tokenizer(model_id)
+        dev = twp.pick_device()
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id, torch_dtype=torch.float16, trust_remote_code=True).to(dev).eval()
+        bmask = twp.boundary_mask(tok, model.config.vocab_size)
+        trie = twp.load_prefix_trie()
+        cjk = None
+        if trie is not None:
+            cids, cstrs, lids, pids_intra = twp.cjk_vocab(tok, model.config.vocab_size)
+            if len(cids):
+                cjk = (trie, cids, cstrs, lids, pids_intra)
+        pol = twp.bos_policy_for(model_id)
+        print(f"Slot model {model_id} loaded in {time.time() - t0:.1f}s "
+              f"(rule {twp.RULE_VERSION}, cjk {len(cjk[1]) if cjk else 0}, bos {pol})")
+        _set_progress("idle")
+        _slot[model_id] = (tok, model, bmask, cjk, pol, dev)
+        return _slot[model_id]
+
 
 def _sanitize(obj):
     """Replace NaN/Inf with None recursively so JSON is valid."""
@@ -181,6 +231,54 @@ class ModelHandler(BaseHTTPRequestHandler):
                            "token_id": int(i)}
                           for i in top_idx]
                 self._respond(200, {"tokens": result, "model": params["model"]})
+
+            elif endpoint == "/api/slot":
+                #: WORD probabilities at the slot, not TOKEN ones. `/api/distribution`
+                #: above is the pre-twp path: it softmaxes logits and decodes token
+                #: ids, so `pen` carries the summed mass of pen/penis/pencil and a
+                #: multi-token word is invisible. That is the whole reason `twp`
+                #: exists, and why this endpoint is not a parameter on that one.
+                from . import twp
+                prompt = params.get("prompt", "")
+                if not prompt.strip():
+                    self._respond(400, {"error": "prompt required"})
+                    return
+                mid = params.get("model", "meta-llama/Llama-3.1-8B")
+                tok, model, bmask, cjk, pol, dev = _get_slot_model(mid)
+                try:
+                    w, res, calls = twp.expand(model, tok, prompt, dev, bmask,
+                                               cjk=cjk, bos_policy=pol)
+                except twp.SkipPrompt as sk:
+                    #: RECORDED, not swallowed. A prompt the instrument refuses is a
+                    #: real answer for an authoring tool -- it means this string
+                    #: cannot be measured at all, which the author needs to know now
+                    #: rather than after the battery is written.
+                    self._respond(200, {"model": mid, "prompt": prompt,
+                                        "skipped": str(sk), "words": [],
+                                        "residual": None, "n_words": 0})
+                    return
+                #: FOLD (word, t1) -> word. `{r["word"]: r["p"]}` is the documented
+                #: defect that drops mass on 20% of payloads: a surface reachable by
+                #: two first tokens has two rows and the dict keeps one.
+                per = {}
+                for (sf, t1), m in w.items():
+                    per[sf] = per.get(sf, 0.0) + m
+                k = int(params.get("k", 60))
+                top = sorted(per.items(), key=lambda x: -x[1])[:k]
+                self._respond(200, {
+                    "model": mid, "prompt": prompt,
+                    "words": [{"word": a, "p": float(b)} for a, b in top],
+                    #: A residual channel can be None -- `mojibake` is only
+                    #: populated where the mojibake detector ran. Coercing it
+                    #: raised, so the absent channel is passed through AS null
+                    #: rather than flattened to 0.0: "no mojibake mass" and "the
+                    #: channel did not run" are different facts and a zero would
+                    #: make them one.
+                    "residual": {kk: (float(vv) if vv is not None else None)
+                                 for kk, vv in res.items()},
+                    "n_words": len(per), "shown": len(top),
+                    "rule_version": twp.RULE_VERSION, "batches": calls,
+                })
 
             elif endpoint == "/api/trajectory":
                 from .probe import Probe, _resolve_prompt
