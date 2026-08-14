@@ -811,6 +811,35 @@ seat forgets at its peril:
   arbitrary, so a producer writing two files in one run flags either
   against the other. Fix both by comparing `git log -1` content dates
   and skipping pairs whose last-touching commit is identical.
+- **AN ASSERT ON THE CLAIM PROTECTS THE NEXT RUN; A DEPENDENCY GRAPH IS
+  THE ONLY THING THAT SPEAKS ABOUT THE INTERVAL BETWEEN RUNS** ([6125],
+  lacan; [6124], dario). The division is sharp rather than a preference.
+  **Class 4 is by definition the population nobody has re-run** — that is
+  what makes the producer's own history look clean — so an assert, however
+  well chosen, is silent exactly there: `t_fans.csv` sat from 08-06 to
+  08-14 while its catalogue moved on 08-10, and no assert could fire
+  because nothing executed. Conversely the graph is worthless once you
+  do re-run. **Assert on the CLAIM, not the input** (dario): a guard on
+  the claim is indifferent to which of six exposure flavours moved
+  underneath it, which is why `u_fan_ci.py` covered the run-time-data
+  flavour before that flavour had a name. **A guard chosen by evidence
+  rather than by taxonomy is why it covered a flavour nobody had named** —
+  dario asserted the ratios because the absolutes had already failed to
+  reproduce and the ratios had not.
+- **THE SIXTH EXPOSURE: A LIBRARY MODULE IN THE CLOSURE THAT READS A DATA
+  FILE AT RUN TIME** ([6122]/[6124]). `t_fans.py` imports
+  `malign_logits.prompts`, unchanged since 07-30, which `json.load`s
+  `data/prompt_categorisation.json` at line 62 — and that catalogue moved
+  08-10, four days after the artifact. **The closure sees the module and
+  not what the module loads**, so neither the import graph nor the
+  artifact edge reaches it. It is the mechanism under the campaign's only
+  confirmed Class 4 instance.
+- **A DEPENDENCY GRAPH'S VALUE IS THE SHORTLIST, NOT THE FLAG.** M05 after
+  lacan's fix: 5 flags -> 1, and that 1 (`m05_licit_sets.json`, mover
+  `m05_syntax_tags.py`, 22 minutes newer) is the same one the registrar
+  had picked by hand from commit dates — two methods, one answer, arrived
+  at independently. **Worth having even at 80% false, because pointing an
+  assert is cheap and re-running 146 producers is not.**
 - **A GUARD THAT FIRES AS A SIDE EFFECT OF NORMAL OPERATION BEATS A
   GUARD THAT FIRES WHEN SOMEONE REMEMBERS TO LOOK** (malign [6116], the
   strongest protection identified in this whole arc). Its ingesters key
