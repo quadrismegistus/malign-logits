@@ -28,17 +28,53 @@ The null pairs `pole_a` of group X with `pole_a` of group Y: same arithmetic,
 same model, same layer, two prompts that are merely different rather than
 opposed.
 
-    checkpoint                     real    cross-group null
-    OLMo stage1-step0             0.795          1.396
-    OLMo stage1-step1000          0.227          0.526
-    OLMo stage1-step16000         0.475          0.805
-    Pythia step0                  0.347          0.748
-    Pythia step128                0.115          0.270
-    Pythia step16000              0.384          0.701
+**RE-DECLARED AND REPUBLISHED 2026-08-14.** @dario found at [5954] that the six
+values first published here have **no stated rule**: the artifact is 166,254
+rows at (checkpoint, group, role, layer) grain and nothing anywhere said how it
+became one number per checkpoint. Six independent targets under a principled
+candidate matched zero ([5958]), and the nearest miss -- 0.7975 against a booked
+0.795 with the producer's own declared `role == "both"` filter, while the other
+two stayed wrong -- is precisely what recipe-fitting feels like from inside. So
+the reduction was **declared prospectively** in `plans/plan_pole_sep_reduction.md`
+(committed alone at 570afad4, before the producer existed) and rerun. Producer
+`scripts/m05_pole_sep_reduce.py`, artifact `results/m05_pole_sep_reduced.json`,
+which carries the rule in its own `_about`.
 
-**The null collapses and recovers exactly as the real column does**, on both
-lineages. Whatever the arc is, it is what training does to the distance between
-any two distinct prompts.
+The rule: role deduplicated (`pole_sep` is bit-identical across role, asserted
+at run -- pooling it is a median weighted by which controls happened to run);
+median over the 33 layers within (checkpoint, group), then median over the
+common group set; median throughout.
+
+    checkpoint                  real    null    | superseded (not reproduced)
+    OLMo stage1-step0          0.8022  1.3936   |   0.795    1.396
+    OLMo stage1-step1000       0.2779  0.6960   |   0.227    0.526
+    OLMo stage1-step16000      0.3931  1.0458   |   0.475    0.805
+    Pythia step0               0.3420  0.7213   |   0.347    0.748
+    Pythia step128             0.1987  0.4405   |   0.115    0.270
+    Pythia step16000           0.2486  0.6376   |   0.384    0.701
+
+    OLMo   21 of 21 common groups, 7 checkpoints
+    Pythia 21 of 21 common groups, 6 checkpoints
+    OLMo real cross-checks against m05_pole_sep.csv: 4,851 cells, max
+    relative 2.02e-05 (the null file stores ~6 significant figures)
+
+**THE OLD SIX ARE SUPERSEDED, NOT REPRODUCED.** They are kept visible rather
+than replaced silently. Note the direction of the change: under the declared
+rule the RECOVERY at step16000 is weaker than published on both lineages
+(0.3931 against 0.475; 0.2486 against 0.384), consistently.
+
+**THE CO-MOVEMENT CLAIM, CORRECTED.** This read "the null collapses and recovers
+**exactly** as the real column does". Over the full ladders the rank correlation
+between the columns is **+0.536 (p 0.215, n=7) on OLMo and +0.771 (p 0.072,
+n=6) on Pythia**. Positive on both lineages, significant on neither, and "exactly"
+is not supported by anything computed. **At 6 and 7 checkpoints this cannot
+establish co-movement, only fail to contradict it** -- which is the honest form
+of the claim and is enough for what the section uses it for. The qualitative
+pattern does hold at the tabulated points: both columns fall from step0 and
+partially recover, on both lineages.
+
+Whatever the arc is, it is what training does to the distance between any two
+distinct prompts.
 
 **THE LEVEL GAP LICENSES NOTHING.** The real column sits below the null
 throughout (0.34–0.64x) and that is expected from surface overlap alone:

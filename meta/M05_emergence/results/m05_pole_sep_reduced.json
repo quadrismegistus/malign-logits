@@ -1,0 +1,124 @@
+{
+ "_about": "pole_sep reduced to ONE NUMBER PER CHECKPOINT under the rule declared at plans/plan_pole_sep_reduction.md, committed at 570afad4 BEFORE this producer existed. These SUPERSEDE the six values in findings/pole_sep_is_not_about_poles.md, which have no stated rule and do not reproduce (32-recipe and six-target checks, [5954]/[5958]). The superseded values are reproduced in `superseded` for comparison only and were not available to the reduction. The finding's CLAIM is co-movement of the real and null columns, not their levels -- the finding's own text says THE LEVEL GAP LICENSES NOTHING.",
+ "plan": "plans/plan_pole_sep_reduction.md",
+ "rule": {
+  "1_role": "deduplicated; bit-identical, asserted at run",
+  "2_stages": "median over layers within group, then over groups",
+  "3_groups": "common set across the ladder, published below",
+  "4_statistic": "median throughout"
+ },
+ "ladders": {
+  "olmo|real": {
+   "n_checkpoints": 7,
+   "n_groups_common": 21,
+   "n_groups_any": 21,
+   "groups_excluded": [],
+   "source": "m05_pole_sep_crossgroup_null.csv (group_x == group_y)",
+   "values": {
+    "allenai/Olmo-3-1025-7B@stage1-step0": 0.802159,
+    "allenai/Olmo-3-1025-7B@stage1-step1000": 0.277879,
+    "allenai/Olmo-3-1025-7B@stage1-step16000": 0.393138,
+    "allenai/Olmo-3-1025-7B@stage2-step1000": 0.46089,
+    "allenai/Olmo-3-1025-7B@stage2-step16000": 0.469839,
+    "allenai/Olmo-3-1025-7B@stage3-step1000": 0.474468,
+    "allenai/Olmo-3-1025-7B@stage3-step10000": 0.468938
+   }
+  },
+  "pythia|real": {
+   "n_checkpoints": 6,
+   "n_groups_common": 21,
+   "n_groups_any": 21,
+   "groups_excluded": [],
+   "source": "m05_pole_sep_crossgroup_null.csv (group_x == group_y)",
+   "values": {
+    "EleutherAI/pythia-6.9b@step0": 0.342017,
+    "EleutherAI/pythia-6.9b@step8": 0.333859,
+    "EleutherAI/pythia-6.9b@step128": 0.198656,
+    "EleutherAI/pythia-6.9b@step1000": 0.168045,
+    "EleutherAI/pythia-6.9b@step16000": 0.248634,
+    "EleutherAI/pythia-6.9b@step143000": 0.185874
+   }
+  },
+  "olmo|null": {
+   "n_checkpoints": 7,
+   "n_groups_common": 210,
+   "n_groups_any": 210,
+   "groups_excluded": [],
+   "source": "m05_pole_sep_crossgroup_null.csv (group_x != group_y)",
+   "values": {
+    "allenai/Olmo-3-1025-7B@stage1-step0": 1.3936225000000002,
+    "allenai/Olmo-3-1025-7B@stage1-step1000": 0.6959885,
+    "allenai/Olmo-3-1025-7B@stage1-step16000": 1.0457515,
+    "allenai/Olmo-3-1025-7B@stage2-step1000": 0.989252,
+    "allenai/Olmo-3-1025-7B@stage2-step16000": 0.9906895,
+    "allenai/Olmo-3-1025-7B@stage3-step1000": 0.99888,
+    "allenai/Olmo-3-1025-7B@stage3-step10000": 1.0078205
+   }
+  },
+  "pythia|null": {
+   "n_checkpoints": 6,
+   "n_groups_common": 210,
+   "n_groups_any": 210,
+   "groups_excluded": [],
+   "source": "m05_pole_sep_crossgroup_null.csv (group_x != group_y)",
+   "values": {
+    "EleutherAI/pythia-6.9b@step0": 0.7213240000000001,
+    "EleutherAI/pythia-6.9b@step8": 0.696539,
+    "EleutherAI/pythia-6.9b@step128": 0.44051399999999996,
+    "EleutherAI/pythia-6.9b@step1000": 0.5317240000000001,
+    "EleutherAI/pythia-6.9b@step16000": 0.637594,
+    "EleutherAI/pythia-6.9b@step143000": 0.44605150000000005
+   }
+  },
+  "olmo|comovement_spearman": {
+   "rho": 0.5357142857142858,
+   "p": 0.21521745567801284,
+   "n": 7,
+   "fence": "n is 6-7 checkpoints; this cannot establish co-movement, only fail to contradict it"
+  },
+  "pythia|comovement_spearman": {
+   "rho": 0.7714285714285715,
+   "p": 0.07239650145772594,
+   "n": 6,
+   "fence": "n is 6-7 checkpoints; this cannot establish co-movement, only fail to contradict it"
+  }
+ },
+ "superseded": {
+  "allenai/Olmo-3-1025-7B@stage1-step0": {
+   "real_was": 0.795,
+   "real_now": 0.802159,
+   "null_was": 1.396,
+   "null_now": 1.3936225000000002
+  },
+  "allenai/Olmo-3-1025-7B@stage1-step1000": {
+   "real_was": 0.227,
+   "real_now": 0.277879,
+   "null_was": 0.526,
+   "null_now": 0.6959885
+  },
+  "allenai/Olmo-3-1025-7B@stage1-step16000": {
+   "real_was": 0.475,
+   "real_now": 0.393138,
+   "null_was": 0.805,
+   "null_now": 1.0457515
+  },
+  "EleutherAI/pythia-6.9b@step0": {
+   "real_was": 0.347,
+   "real_now": 0.342017,
+   "null_was": 0.748,
+   "null_now": 0.7213240000000001
+  },
+  "EleutherAI/pythia-6.9b@step128": {
+   "real_was": 0.115,
+   "real_now": 0.198656,
+   "null_was": 0.27,
+   "null_now": 0.44051399999999996
+  },
+  "EleutherAI/pythia-6.9b@step16000": {
+   "real_was": 0.384,
+   "real_now": 0.248634,
+   "null_was": 0.701,
+   "null_now": 0.637594
+  }
+ }
+}
