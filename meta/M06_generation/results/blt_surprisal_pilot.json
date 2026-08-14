@@ -1,0 +1,50 @@
+{
+ "ref": "itazap/blt-1b-hf",
+ "corpus": "f11_l2",
+ "n_per_lang": 100,
+ "unit": "bits_per_byte",
+ "ctx": 4096,
+ "languages": {
+  "zh": {
+   "n": 100,
+   "n_cached": 0,
+   "bits_per_byte_median": 1.6035495982082901,
+   "bits_per_char_median": 2.7496789172681235,
+   "bytes_per_char": 1.8324495776876857,
+   "by_role": {
+    "base": {
+     "n": 50,
+     "median": 1.8553479667727653,
+     "mean": 1.910736202112108
+    },
+    "aligned": {
+     "n": 50,
+     "median": 1.5037527221808225,
+     "mean": 1.6255459002827393
+    }
+   },
+   "arm_delta_bits_per_byte": -0.3515952445919428
+  },
+  "en": {
+   "n": 100,
+   "n_cached": 0,
+   "bits_per_byte_median": 1.2436305815953672,
+   "bits_per_char_median": 1.2436305815953672,
+   "bytes_per_char": 1.0,
+   "by_role": {
+    "base": {
+     "n": 50,
+     "median": 1.4162988019048526,
+     "mean": 1.4406482876921216
+    },
+    "aligned": {
+     "n": 50,
+     "median": 1.1222364780016558,
+     "mean": 1.0957112307023662
+    }
+   },
+   "arm_delta_bits_per_byte": -0.29406232390319675
+  }
+ },
+ "elapsed_min": 5.393172713120778
+}

@@ -1,0 +1,83 @@
+{
+ "ref": "itazap/blt-1b-hf",
+ "verdict": "MPS DIVERGES",
+ "worst_bits_per_byte_diff": 0.9080569659458451,
+ "tolerance": 0.001,
+ "cpu_bytes_per_s": 565.2843591706409,
+ "mps_bytes_per_s": 1549.5942668612827,
+ "speedup": 2.741265067257081,
+ "probes": [
+  {
+   "probe": "zh short",
+   "bytes": 45,
+   "max_abs_token_diff": 0.8921704292297363,
+   "bits_per_byte_cpu": 1.6460171513329662,
+   "bits_per_byte_mps": 1.663781756788383,
+   "bits_per_byte_diff": -0.017764605455416804
+  },
+  {
+   "probe": "zh v.short",
+   "bytes": 21,
+   "max_abs_token_diff": 0.3735086917877197,
+   "bits_per_byte_cpu": 1.1650597914742298,
+   "bits_per_byte_mps": 1.2733746983926528,
+   "bits_per_byte_diff": -0.10831490691842305
+  },
+  {
+   "probe": "en short",
+   "bytes": 54,
+   "max_abs_token_diff": 0.5409080982208252,
+   "bits_per_byte_cpu": 1.3227867021337745,
+   "bits_per_byte_mps": 1.3226555092440389,
+   "bits_per_byte_diff": 0.0001311928897356207
+  },
+  {
+   "probe": "zh long",
+   "bytes": 1017,
+   "max_abs_token_diff": 3.9590630531311035,
+   "bits_per_byte_cpu": 1.6520429356017534,
+   "bits_per_byte_mps": 1.7103963385290013,
+   "bits_per_byte_diff": -0.05835340292724789
+  },
+  {
+   "probe": "zh long",
+   "bytes": 1169,
+   "max_abs_token_diff": NaN,
+   "bits_per_byte_cpu": 1.8114888544047818,
+   "bits_per_byte_mps": NaN,
+   "bits_per_byte_diff": NaN
+  },
+  {
+   "probe": "zh long",
+   "bytes": 1264,
+   "max_abs_token_diff": 4.988101005554199,
+   "bits_per_byte_cpu": 1.5707855001915356,
+   "bits_per_byte_mps": 1.765340566345257,
+   "bits_per_byte_diff": -0.19455506615372142
+  },
+  {
+   "probe": "en long",
+   "bytes": 1257,
+   "max_abs_token_diff": 3.290386140346527,
+   "bits_per_byte_cpu": 0.8928525379724642,
+   "bits_per_byte_mps": 1.0694106779396186,
+   "bits_per_byte_diff": -0.17655813996715441
+  },
+  {
+   "probe": "en long",
+   "bytes": 1125,
+   "max_abs_token_diff": NaN,
+   "bits_per_byte_cpu": 1.3395900492081947,
+   "bits_per_byte_mps": NaN,
+   "bits_per_byte_diff": NaN
+  },
+  {
+   "probe": "en long",
+   "bytes": 995,
+   "max_abs_token_diff": 7.352736923843622,
+   "bits_per_byte_cpu": 1.995491542567679,
+   "bits_per_byte_mps": 2.903548508513524,
+   "bits_per_byte_diff": -0.9080569659458451
+  }
+ ]
+}
