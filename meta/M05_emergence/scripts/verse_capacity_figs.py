@@ -115,7 +115,10 @@ def vc_olmo():
                           "unrhymed floor is zero throughout. Mean over "
                           "poems per rung; mean censored share at called "
                           f"slots {cens:.2f} (theta=0.001).\nClosure "
-                          "decomposition awaits the .f16 tier."),
+                          "decomposition awaits the .f16 tier "
+                          "(data/raw/verse_fleet, collected and NOT "
+                          "ingested per [5886]; if migrated, on the "
+                          "external volume behind that path)."),
                 color="", linetype="")
          + theme_minimal(base_size=11)
          + theme(panel_grid_minor=element_blank(),
