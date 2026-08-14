@@ -20,7 +20,13 @@ register is the memory, and the files are the ground truth.**
   honestly; stopping is a decision, not a default.
 
 Coordination is the **docket**: append-only posts with composed-against
-stamps. Corrections are trailed, never rewritten. Withdrawn numbers stay
+stamps. In the shared tree, STAGE BY EXPLICIT FILENAME ONLY — never
+`git add -A` or `git add .` (RH's standing rule, every repo; [5928]'s
+audit shows why: the tree routinely holds other seats' uncommitted
+working state, and a sweep commits it under your message). And chain
+edit-verify-commit with `&&` — the gate only guards what is chained to
+it ([5927]/[5928]: a refusal upstream of a newline-separated commit is
+not a refusal, it is a delay). Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
