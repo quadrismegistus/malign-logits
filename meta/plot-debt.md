@@ -687,28 +687,14 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     grain alone (0/219 FDR); en/zh geometry across encoders. Held:
     four-instrument pole exhibit (drawable but caption-treacherous).
 
-16. OPEN — **PROMOTED FROM `shortlist 2` 2026-08-14, registrar, on dario's
-    ask at [6177]. TAKE THIS ONE.** M01 T-18 beside M05-C: the affect DiD at
-    BOTH units — one row per declared field, one-lineage DiD left, edge-unit
-    DiD right, **sign disagreements highlighted** (RID:aggression the anchor).
-
-        meta/M01_displacement/results/t_affect_did.csv    1,920 B   present
-        data/m05_widening_null.json                      64,901 B   present
-
-    **Chosen over `shortlist 1` for a reason worth stating, since it is a
-    judgment and not a queue order.** T-14 is a clean dumbbell and would ship
-    faster. This one does something today's work argues is worth more: **the
-    claim it carries — the affect gap is real and its SIGN is not robust —
-    currently lives as a retraction paragraph in prose.** Drawn at both units
-    with the disagreements marked, it becomes geometry. *A fence in the
-    geometry beats a fence in the prose* has now been demonstrated four times
-    in this campaign (the basin figure, the truncation sweep, P §3's spread,
-    the no-remainder ledger), and this is the entry where it applies hardest.
-
-    **The fence, and the panel refuses without it:** the two units are not two
-    estimates of one quantity, so the panel must not invite a reader to average
-    them or to read the disagreement as noise. Assert the sign disagreement
-    count; if it ever silently becomes zero, stop rather than draw agreement.
+16. ~~PROMOTED FROM `shortlist 2`~~ **WITHDRAWN WITHIN THE HOUR
+    2026-08-14, registrar. IT WAS ALREADY SHIPPED, by `queue 9`, this
+    morning, by the seat I promoted it to** ([6179], `0db7cbcd`,
+    `t18_unit_disagreement.png`, 428,784 B, ratified [5946]).
+    **I verified the two ARTIFACTS existed and did not check whether the
+    ITEM was done.** Inputs present is not work outstanding — the
+    artifacts were present *because the figure had already been drawn
+    from them*. A promotion is a claim about STATE and I checked INPUTS.
 
 ## STATUS CHANGES (2026-08-13/14)
 
@@ -761,17 +747,41 @@ now owns figures only.
 
 > **NUMBERING NAMESPACE: `shortlist N`.** Cited as such elsewhere in this
 > file; do not renumber.
+>
+> **AND THIS LIST IS A CANDIDATE POOL, NOT A STATE RECORD. THE QUEUE IS THE
+> STATE.** Reconciled 2026-08-14 after the registrar promoted `shortlist 2`
+> to `queue 16` and it turned out to have been shipped that morning by the
+> seat it was promoted to ([6179]) — and after `shortlist 1`, offered as the
+> replacement, turned out to be shipped too:
+>
+>     shortlist 1  SHIPPED   queue 8   T-14 family, three figures on disk
+>     shortlist 2  SHIPPED   queue 9   0db7cbcd, ratified [5946]
+>     shortlist 6  SHIPPED   queue-embedded, d9c48a34
+>     shortlist 9  BLOCKED   queue 12
+>
+> **Three of ten were discharged and one said so.** The discharges were
+> written in the QUEUE entries — *"discharged the shortlist's two"* — so the
+> link existed, was correct, and ran ONE WAY: a reader arriving from the
+> shortlist found open items. **Same class as the numbering namespaces fixed
+> an hour earlier, one level over.**
+>
+> **Before promoting from here, check the queue.** A promotion is a claim
+> about STATE; the registrar checked that the two ARTIFACTS existed, which
+> is a claim about INPUTS — and they existed *because the figure had already
+> been drawn from them.*
 
 The candidates most likely to carry weight in the paper or book, drawn from
 the per-folder lists below. Judgment, not doctrine.
 
-1. **M01 T-14** — few large fallers against many small risers, on the
+1. **[SHIPPED by `queue 8` (T-14 family, three figures).]** **M01 T-14** — few large fallers against many small risers, on the
    BONFERRONI-SURVIVOR slice (declared: ALL/non-TOKEN): 206/36 at 3.79x,
    consistency-filtered so NOT identity-forced (the morning's retirement
    was corrected same day — RH's challenge; survivor sums do not zero).
    Dumbbell per lexicon as originally proposed, with the slice in the
    caption and the count panel beside it. `s_everything_marginal.csv`.
-2. **M01 T-18 beside M05-C** — the affect DiD at both units: one row per
+2. ~~**M01 T-18 beside M05-C**~~ **DISCHARGED by `queue 9` at `0db7cbcd`, one panel not two, ratified [5946].** The link existed and ran ONE WAY: queue 9 records that it discharged *the shortlist's two*, and nothing here said so, so a reader arriving from the shortlist found an open item ([6179]). Original text follows.
+
+   **M01 T-18 beside M05-C** — the affect DiD at both units: one row per
    declared field, one-lineage DiD left, edge-unit DiD right, sign
    disagreements highlighted (RID:aggression the anchor).
    `results/t_affect_did.csv` + `data/m05_widening_null.json`. Renders "the
@@ -787,7 +797,7 @@ the per-folder lists below. Judgment, not doctrine.
 5. **M03 E §3/§4** — 324 verbs on indiv-vs-inst axes with the y=x diagonal,
    65 Bonferroni survivors labelled, four reversals coloured.
    `results/b_word_delta_by_word.csv`. "Degree, not kind" read off geometry.
-6. **M01 X §3g** — the word moves the scene (+14.3 points, 12/12 cells), the
+6. **[SHIPPED 2026-08-14, `d9c48a34`.]** **M01 X §3g** — the word moves the scene (+14.3 points, 12/12 cells), the
    model does not (−0.8, p .918), two panels, same axes.
    `results/x_beam_frame.csv`.
 7. **M01 Y_diegetic §3** — the conditional four-panel: CLEAN_SCENE −6.12pp,
@@ -796,7 +806,7 @@ the per-folder lists below. Judgment, not doctrine.
    account predicting exactly the two panels that do not move.
 8. **M03 B_C §1** — the JS arm effect, one row per lineage, 41/46 above zero,
    five dissenters labelled. `results/b_arm_by_lineage.csv`.
-9. **M04 attention §5** — attention-back decay above, Finding A's surprisal
+9. **[BLOCKED — see `queue 12`.]** **M04 attention §5** — attention-back decay above, Finding A's surprisal
    sweep below, both in both aggregations (disjoint bins beside cumulative).
    `results/attn_delta_smollm2_e1_cross_w200.json`. The figure IS the
    two-phenomena argument. (Finding A's half needs the produce-first step.)
