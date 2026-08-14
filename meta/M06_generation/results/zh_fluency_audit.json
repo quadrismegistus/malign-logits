@@ -1,0 +1,26 @@
+{
+ "_about": "Structural checks on the blind fluency protocol. Nothing else in this campaign tests them, and a failure would leave every output well-formed.",
+ "all_pass": true,
+ "checks": {
+  "field-leak": {
+   "pass": true,
+   "detail": "972 items, fields beyond the three: none"
+  },
+  "batch-cluster": {
+   "pass": true,
+   "detail": "58 models over 16 batches; min 7 batches/model"
+  },
+  "key-order": {
+   "pass": true,
+   "detail": "spearman(key index, model index) +0.0204 p=0.526"
+  },
+  "rating-order": {
+   "pass": true,
+   "detail": "spearman(position in batch, score) +0.0045 p=0.889"
+  },
+  "drift-cancels": {
+   "pass": true,
+   "detail": "round-1 share per model: min 0.300 max 0.300 spread 0 -- a constant offset cancels in any within-model contrast"
+  }
+ }
+}
