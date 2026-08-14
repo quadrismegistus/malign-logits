@@ -1,5 +1,5 @@
 {
- "_about": "Files holding twp cells that are NOT in malign_logits.twp_words, as of the timestamp below. Derived from data/twp_jsonl_manifest.parquet (scripts/twp_jsonl_manifest.py). THE LIST IS DRAWN FROM A DEDUPLICATED COVER: 988 of 1,438 files that between them hold every distinct cell on disk, chosen newest-first. So ingesting these 207 files reaches every un-ingested cell exactly once and no file here duplicates another's work. n_gap_cells SUMS TO MORE THAN n_gap_cells_distinct because a cell present in two kept files is counted under both -- the distinct figure is the one to plan against.",
+ "_about": "**DO NOT RUN THIS LIST AS A SWEEP.** Superseded in part by [6067]/[6068] within the hour it was written, and the reason is in the artifact rather than only on the docket. Files holding twp cells that are NOT in malign_logits.twp_words, as of the timestamp below. Derived from data/twp_jsonl_manifest.parquet (scripts/twp_jsonl_manifest.py). THE LIST IS DRAWN FROM A DEDUPLICATED COVER: 988 of 1,438 files that between them hold every distinct cell on disk, chosen newest-first. So ingesting these 207 files reaches every un-ingested cell exactly once and no file here duplicates another's work. n_gap_cells SUMS TO MORE THAN n_gap_cells_distinct because a cell present in two kept files is counted under both -- the distinct figure is the one to plan against. || WHAT CHANGED: 4,267 of the 11,770 (36%) are CJK-prompt cells on models `data/model_load_environments.json` documents as CORRUPTING CJK PROMPTS IN THE TOKENIZER -- CroissantLLM deletes CJK characters outright. Those cells were scored on a string the model never received and would be filed under the canonical prompt, so ingesting them creates MIS-ATTRIBUTED rows, which is worse than the gap because a gap is visible. || AND THEY WERE NOT 'never offered': the store shows 2,233 of CroissantLLMBase's 2,511 disk prompts already ingested and exactly ONE of its 378 CJK prompts present. Something excluded them selectively and the mechanism is UNFOUND. CJK survival tracks documented tokenizer severity (Olmo no defect 412/4,413; Teuken mild 69/2,304; Pharia 17/2,217; Croissant worst 1/2,234). || SO `mechanically runnable` and `never attempted` are different facts and only the first is visible from a file header. This list establishes the first. Find the exclusion mechanism before ingesting anything in the CJK block.",
  "measured_at": "2026-08-14T12:14:27Z",
  "n_gap_cells_distinct": 10540,
  "n_files": 207,
@@ -859,5 +859,10 @@
    "path": "data/f11_twp_bf/BSC-LT__salamandra-7b.jsonl",
    "n_gap_cells": 1
   }
- ]
+ ],
+ "superseded_in_part_by": [
+  "[6067]",
+  "[6068]"
+ ],
+ "do_not_run_without": "the exclusion mechanism for the CJK cells, unfound as of 2026-08-14; 4,267 cells affected"
 }
