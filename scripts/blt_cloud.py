@@ -82,6 +82,7 @@ def main():
           flush=True)
 
     n_seen = n_new = 0
+    skipped = []
     t0 = time.time()
     with gzip.open(a.input, "rt") as src, open(jl, "a") as out, open(fb, "ab") as sb:
         for i, line in enumerate(src):
@@ -97,6 +98,24 @@ def main():
                 continue
             ids = tk(text, add_special_tokens=False)["input_ids"]
             if len(ids) < 2:
+                continue
+            #: **A PASSAGE CONTAINING A LITERAL SPECIAL-TOKEN STRING KILLS THE
+            #: SHARD.** BLT's byte vocabulary is 4..259, but the tokenizer maps a
+            #: literal "<unk>" in the TEXT to special id 260, which the embedding
+            #: cannot index: "index out of range in self" on CPU, and on CUDA a
+            #: device-side assert that POISONS THE CONTEXT, so every later forward
+            #: fails and try/except cannot recover in-process. Shard 2 died twice
+            #: at the identical row on this.
+            #:
+            #: Cheap pre-check, no model needed: a genuine byte-level tokenization
+            #: is exactly [b + 4 for b in text.encode()]. Anything else contains a
+            #: special-token literal and is REFUSED, recorded, and skipped. These
+            #: are degenerate generations (an <unk> marker emitted as text), not
+            #: passages we lose science by dropping.
+            if ids != [b + 4 for b in text.encode()]:
+                skipped.append({"prompt": prompt, "text_sha": sha,
+                                "n_bytes": len(text.encode()), "n_ids": len(ids),
+                                "max_id": max(ids), "why": "not byte+4 (special-token literal)"})
                 continue
             with torch.no_grad():
                 lg = model(torch.tensor([ids], device=dev)).logits[0]
@@ -118,8 +137,15 @@ def main():
                 el = (time.time() - t0) / 60
                 print("  %d scored  %.1f min  %.1f/s" % (n_new, el, n_new / max(el * 60, 1)),
                       flush=True)
-    print("shard %d done: %d seen, %d newly scored, %.1f min"
-          % (a.shard, n_seen, n_new, (time.time() - t0) / 60), flush=True)
+    if skipped:
+        sp = os.path.join(a.out, "blt_shard%02d.skipped.jsonl" % a.shard)
+        with open(sp, "a") as fh:
+            for r in skipped:
+                fh.write(json.dumps(r) + "\n")
+        print("  REFUSED %d passage(s) as non-byte-level; recorded in %s"
+              % (len(skipped), os.path.basename(sp)), flush=True)
+    print("shard %d done: %d seen, %d newly scored, %d refused, %.1f min"
+          % (a.shard, n_seen, n_new, len(skipped), (time.time() - t0) / 60), flush=True)
     return 0
 
 
