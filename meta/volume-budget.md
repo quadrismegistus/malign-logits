@@ -22,7 +22,22 @@ Every row is a measurement with a moment attached, per [6044]: *a verification i
 - **registrar's one protective copy on diderot, 143.9 MB**: `y_confirmatory_coded.jsonl`, sha256 `6b25cfa60dc9b3b3e3ca0930dbb2f9d741bd0fc21f8a11e2fc10f62be071cec8`.
 - **`/Volumes/diderot/malign-logits` totals ~105 GB** at the measurement above.
 
-## `data/raw/verse_fleet` — 58.9 GiB, the one directory in the raw set that is NOT history
+## `data/raw/verse_fleet` — MIGRATED 2026-08-14, and the decision below is now closed
+
+**RH migrated the `.f16` tier to diderot as SYMLINKS, verified 253/253** (malign [6138]). Confirmed at this seat:
+
+    .f16 in data/raw/verse_fleet   253, ALL symlinks -> /Volumes/diderot/malign-logits/...
+    .jsonl                         343, real files, still local
+    diderot holds                  253 .f16, 59 GB
+    diderot free after             387 GiB
+
+**So the path still resolves and every pointer written before the move is still correct.** That is the payoff of writing them conditionally: `verse_capacity_figs.py`'s caption says the tier is at `data/raw/verse_fleet` and *"if migrated, on the external volume behind that path"*, and `verse_capacity.py`'s route warning says any route the closure rider takes must point at wherever it went. **Both are true now without being edited, and neither would have been had they named diderot in advance** — malign's atomic rule at [6056], which turned out not to need firing.
+
+**THE EXPOSURE IS NOW THE UNMOUNT CASE**, identical to the hidden states: the closure rider and `contradiction_null.py --logits` both fail with a missing file rather than a wrong number if the volume is absent. That is the failure everyone preferred, and it is loud.
+
+## The state before the migration, kept for the record
+
+`data/raw/verse_fleet` — 58.9 GiB, the one directory in the raw set that was NOT history
 
 Four seats reached MOVE-DO-NOT-DELETE independently by five routes ([6053]-[6060]). **Corrected count, after malign [6059] and dario [6060] and verified at this seat: the tier has ZERO live readers and ONE BOOKED reader.**
 
