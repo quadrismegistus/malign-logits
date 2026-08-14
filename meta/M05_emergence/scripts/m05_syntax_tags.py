@@ -33,7 +33,6 @@ is kept as spaCy emitted it.
 """
 import json
 import os
-import subprocess
 
 from malign_logits import ch
 import sys

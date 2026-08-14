@@ -21,7 +21,6 @@ input shas in the sidecar metadata per [5468]'s rule.
 import hashlib
 import json
 import os
-import subprocess
 
 from malign_logits import ch
 import sys

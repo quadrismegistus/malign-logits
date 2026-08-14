@@ -61,7 +61,6 @@ import io
 import json
 import os
 import re
-import subprocess
 
 from malign_logits import ch as chdb
 import sys
