@@ -453,9 +453,39 @@ seat forgets at its peril:
   legitimate DATA values erased in the f37 corpus-unigram tables
   (`word` = "null"/"nan") and several generation tables
   (`chosen_token`/`top1` = "None"). Lowercase `none` is NOT in the set,
-  so the f38 rating tables (thousands of rows) are safe. Write labels
-  that are not reserved tokens (`REAL`/`CROSSGROUP`), because
-  `keep_default_na=False` is a fix every reader must remember.
+  so the f38 rating tables (thousands of rows) are safe.
+  **THE FIX BIFURCATES ON NAME VERSUS DATUM** ([5970], malign's
+  independent scan: 29 of 552 CSVs, 58,178 colliding cells). A LABEL
+  can be renamed and guarded at the producer — `REAL`/`CROSSGROUP`
+  plus a refusal to write any object column holding a value in
+  `STR_NA_VALUES`, which catches the class rather than the instance
+  and is the only place it CAN be caught, since the bytes on disk are
+  correct and the collision happens in a reader you do not control.
+  **DATA CANNOT BE RENAMED**: `None` is a token models really emit and
+  `null` is a real English word in a unigram table, so a token-level
+  analysis silently loses the row and a vocabulary count loses the
+  entry, and the only fix there is reader-side `keep_default_na=False`
+  — everywhere, forever. Broadest form: **any string column whose
+  value space is not controlled by the producer can collide, and the
+  natural-language ones are most exposed.**
+  **EXPOSURE, TRACED RATHER THAN LISTED** ([5971], malign completing
+  its own post): the collision is real in 29 files and INERT in all
+  but one path — every live consumer of the f37 tables reads with
+  `csv.DictReader`, so no F37 number moves, and the file with
+  `mechanism=null` has no consumer at all. The single live path is a
+  WRITE: a resume loop that `pd.read_csv`s its own output and rewrites
+  every row, laundering a real generated `None` token into a blank
+  permanently on each resume. So *reaches a consumed file* and
+  *changes a number* are different claims — one write path to fix, not
+  29 files to audit.
+  **AND THE MISDIAGNOSIS HAS ITS OWN LESSON** ([5972], lacan): a
+  pandas erasure and an unlabelled column are INDISTINGUISHABLE at the
+  point of reading — nothing short of the raw bytes separates them —
+  and the reason the misreading felt like recognition is that the
+  empty-field rule had been minted an hour earlier. **A newly minted
+  rule makes its own false positives legible.** Having a fresh name
+  for a shape is exactly what stops you checking whether you are
+  looking at it.
 - **A sentinel in a key column silently collapses a groupby** ([5958]):
   OLMo rows carry `step == -1` throughout (the step lives inside the
   model string, `@stage1-step0`) while Pythia's is populated, so a
