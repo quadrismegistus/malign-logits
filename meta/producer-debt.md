@@ -51,8 +51,13 @@ varies):
   graded-stimulus, discharged from transcript at 3ac2c124). RECOVERY
   FAVOURABLE: the finding quotes the numbers, so the needle strings
   are known; the transcript route has two digit-exact precedents.
-  Recovery authorized to dario unless lacan (presumptive owning seat)
-  claims it first.
+  Recovery SETTLED [5900]: dario recovers and
+  reproduces; lacan second-seats the LOGIC once a script reproduces
+  the booked numbers. Rider from lacan: m06_p_on_passages_ascent.py
+  imports the SO/DE regexes from z_second_order — if the recovered
+  producer's marker definitions disagree with what that import
+  resolves to today, the disagreement is a FINDING, not a merge
+  conflict, and surfaces before either version is canonical.
 
 - **M05 C Result 4** (registrar's own): riser-recapture (violence ~1,
   sexual 0.08–0.45). "recaptur" appears in exactly two files, both prose.
