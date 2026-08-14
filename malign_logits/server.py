@@ -425,6 +425,7 @@ class ModelHandler(BaseHTTPRequestHandler):
                 #: the scene. That is a true fact about the PROMPT, and a
                 #: flat axis here is a screening signal rather than a failure.
                 import numpy as np
+                from . import twp as twp0
                 prompt = params.get("prompt", "")
                 naughty = [w for w in params.get("naughty", "").split(",") if w.strip()]
                 nice = [w for w in params.get("nice", "").split(",") if w.strip()]
@@ -443,8 +444,12 @@ class ModelHandler(BaseHTTPRequestHandler):
                         #: reproduce that.
                         _bge = SentenceTransformer("BAAI/bge-m3", device="cpu")
                         _set_progress("idle")
+                #: CJK HAS NO SPACES. `f"{prompt} {t}"` inserts one, which for a
+                #: Chinese prompt puts a space mid-sentence and embeds a string
+                #: the model would never see.
+                _sep = "" if __import__("re").search(r"[一-鿿]", prompt) else " "
                 enc = lambda ts: np.asarray(
-                    _bge.encode([f"{prompt} {t}".strip() for t in ts],
+                    _bge.encode(["%s%s%s" % (prompt, _sep, t) for t in ts],
                                 normalize_embeddings=True, show_progress_bar=False),
                     dtype=np.float32)
                 vg, vn = enc(naughty).mean(0), enc(nice).mean(0)
@@ -456,13 +461,55 @@ class ModelHandler(BaseHTTPRequestHandler):
                     return
                 axis = axis / norm
                 origin = (vg + vn) / 2.0
+                #: IF NO WORD LIST IS GIVEN, EXPAND THE SLOT HERE. An automated
+                #: caller should not have to make two calls and reimplement the
+                #: leverage formula to find out whether an item is usable --
+                #: that is how a second copy of a rule gets written. With the
+                #: model resident this costs one expansion.
+                probs = {}
+                if not words:
+                    tok, model, bmask, cjk, pol, dev = _get_slot_model(
+                        params.get("model", "meta-llama/Llama-3.1-8B"))
+                    try:
+                        w0, _r0, _c0 = twp0.expand(model, tok, prompt, dev, bmask,
+                                                   cjk=cjk, bos_policy=pol)
+                        for (sf, _t1), m in w0.items():
+                            probs[sf] = probs.get(sf, 0.0) + m
+                    except twp0.SkipPrompt as sk:
+                        self._respond(200, {"prompt": prompt, "skipped": str(sk),
+                                            "scores": [], "leverage": None})
+                        return
+                    words = list(probs)
                 allw = sorted(set(words) | set(naughty) | set(nice))
                 s = (enc(allw) - origin) @ axis
                 #: SEPARATION IS REPORTED so a flat axis is visible as flat. The
                 #: pole gap is the scale everything else should be read against.
                 gap = float((vg - origin) @ axis) - float((vn - origin) @ axis)
+                #: LEVERAGE IS THE GATE and it is returned, not left to the
+                #: caller. LEV = sqrt(sum P(w)(s(w)-N)^2 / sum P) over the base
+                #: distribution. Measured references: a known MOVER reads 0.1027
+                #: and a known DEAD item 0.0694, both at k=40, and leverage is
+                #: robust to that truncation where `tagged` is not.
+                S = dict(zip(allw, (float(x) for x in s)))
+                lev = N = None
+                if probs:
+                    tot = sum(probs.values()) or 1.0
+                    N = sum(q * S.get(w, 0.0) for w, q in probs.items()) / tot
+                    lev = (sum(q * (S.get(w, 0.0) - N) ** 2
+                               for w, q in probs.items()) / tot) ** 0.5
                 self._respond(200, {
                     "prompt": prompt, "axis_norm": norm, "pole_gap": gap,
+                    "leverage": lev, "N": N,
+                    "n_poles": [len(naughty), len(nice)],
+                    "lev_mover": 0.1027, "lev_dead": 0.0694,
+                    "verdict": (None if lev is None else
+                                ("NO-LEVERAGE" if lev < 0.0694 else
+                                 "POLE-OF-ONE" if min(len(naughty), len(nice)) < 2
+                                 else "ok")),
+                    "naughty_mass": (sum(probs.get(w, 0.0) for w in naughty)
+                                     if probs else None),
+                    "nice_mass": (sum(probs.get(w, 0.0) for w in nice)
+                                  if probs else None),
                     "scores": [{"word": w, "s": float(v)} for w, v in
                                sorted(zip(allw, s), key=lambda x: -x[1])],
                 })
