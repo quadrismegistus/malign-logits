@@ -384,6 +384,26 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A rehearsal that cannot reach every shard is worth less than no
+  rehearsal, because it prints what a good one prints** (malign's,
+  [5957]): `--limit` was a global cap whose `break` left only the row
+  loop, so after the first shard every later one processed exactly ONE
+  row and reported clean — `new 3,000 / 3,001 / 3,002 / 3,003` read as
+  four validated shards and was one shard of 3,000 plus three single
+  rows. The clean output IS the failure mode, and "all four shards
+  verified" would have been carried into the real ingest. **The tell
+  was arithmetic with no stake in the claim**: counts rising by exactly
+  one across shards is not something four independent shards do.
+  Companion from the same rehearsal: **a per-shard line that prints
+  global running totals defeats the only reason to print per shard** —
+  a shard contributing every bad row would have been unattributable.
+- **A fix deployed by crash-and-relaunch reaches only the boxes that
+  crashed** ([5957]): the byte+4 guard is live on shard 2, which hit
+  the assert and was relaunched with it, and absent from shards 0, 1
+  and 3, which never crashed and are still running the pre-guard
+  build. Every row those three have written is unguarded, and the
+  ingest is the only thing refusing them. Fleet-wide correctness is a
+  property of the DEPLOYED build per box, not of the repository.
 - **A producer resolves every ambiguity by existing; a producer facing
   a methodological choice must refuse to start until it is named**
   (malign's, [5952]): the bge commission declared two splitters and the
