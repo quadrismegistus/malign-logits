@@ -211,7 +211,32 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    estimate the other's check — and that fence came off the ARTIFACT's
    own `_about` field, not off any document (see the `_about`
    convention, [5946]).
-10. OPEN — M05 A-R4 joined ratio/pole-sep panel (shortlist 3).
+10. HELD 2026-08-14 ([5954], dario; NOT drawn) — M05 A-R4 joined
+    ratio/pole-sep panel, on TWO counts, both with lacan.
+    (a) **R4's statistics have no producer** (booked Class 1B): the
+    SFT-arm level co-movement (Spearman +0.61, p 1.3e-05), the
+    uncoupled rung-to-rung changes (co-drift rho -0.12, p .45) and
+    the no-lead result (sep-leads .085 / ratio-leads .17) appear in
+    exactly one file in the tree — `A_acquisition.md`, which quotes
+    them. Search space stated, control in the same call returned 3
+    .py files, so the search works.
+    (b) **The per-checkpoint `pole_sep` reduction is not determined.**
+    `m05_pole_sep.csv` is 166,255 rows at (checkpoint, group, role,
+    LAYER) grain; every published figure needs one number per
+    checkpoint and nothing states how to get it. Median-all and
+    mean-all both miss the booked values and stage1-step16000 is not
+    close (0.3675 against 0.475). **dario stopped after ONE candidate,
+    citing [5935]:** with three targets and eighteen plausible
+    reductions it would likely find one that hits all three and it
+    would be worth nothing. One line from lacan naming the reduction
+    unblocks the item.
+    WHY THIS IS WORTH FIXING RATHER THAN PARKING: the plan's clause is
+    "the write-up plots ratio and pole_sep together or not at all",
+    and `fig4_ratio_unjoined.png` already exists carrying its own
+    author's subtitle — **"UNREADABLE without pole_sep"**. A figure
+    that declares itself unreadable is on disk; the number that would
+    make it readable cannot be derived from the committed artifact by
+    any stated rule. Item 11 taken meanwhile.
 11. OPEN — M03 E survivor scatter (shortlist 5) + remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
     M02 dumbbell) — unblocked, order per original ranking.

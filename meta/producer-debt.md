@@ -116,6 +116,25 @@ varies):
   sign counts 1/24 against the parse-free 5/20 — a different
   population wearing the same digits.
 
+- **M05 A_acquisition R4 statistics** — NEW Class 1B 2026-08-14
+  ([5954], dario, search space stated with a working control):
+  Spearman +0.61 p 1.3e-05 (SFT-arm level co-movement), co-drift rho
+  -0.12 p .45, sep-leads .085 / ratio-leads .17. Zero hits for every
+  term across `*.py`; unrestricted, exactly one file — the finding
+  that quotes them. Same shape as the cross-lingual parse-free leg.
+  With lacan (instrument owner).
+
+- **M05 per-checkpoint `pole_sep` reduction** — NOT a missing producer
+  but a MISSING DEFINITION, which this file did not previously
+  distinguish ([5954]): `m05_pole_sep.csv` exists at (checkpoint,
+  group, role, layer) grain, 166,255 rows, and every published
+  per-checkpoint value needs a reduction that nothing states. Median-
+  and mean-over-all-cells both miss the booked values (0.3675 against
+  a booked 0.475 at stage1-step16000). Deliberately NOT swept — three
+  targets against eighteen plausible reductions would yield a fitted
+  recipe indistinguishable from a reproduction ([5935]). One line
+  from lacan closes it.
+
 - **M03 ICC 0.855** — NEW Class 1B 2026-08-14 ([5901] §3, dario,
   search space stated): `0.855` has zero hits in any `*.py` in the
   tree; quoted in `M03/findings/D_ladder_selection.md:265` and
