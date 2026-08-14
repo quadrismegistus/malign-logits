@@ -138,6 +138,29 @@
 		} finally { axisLoading = false; }
 	}
 
+	//: AUTO-REPOLE. The axis is a function of the tags, so it should not need a
+	//: button press to stay true to them -- a stale axis drawn beside fresh tags
+	//: is a plot that says something the data no longer says. Debounced because
+	//: tagging is a burst (three right-clicks in a second) and each run embeds
+	//: every candidate on CPU.
+	//:
+	//: KEYED ON THE POLE SETS AND THE WORD LIST, not on `resp`: re-running the
+	//: prompt with the same tags should re-project, and changing a tag should
+	//: re-project, but neither should fire while only the view toggles.
+	let poleKey = $derived(
+		[...naughty].sort().join(',') + '|' + [...nice].sort().join(',')
+		+ '|' + words.map(w => w.word).join(','));
+	let lastKey = '';
+	let debounce: ReturnType<typeof setTimeout> | null = null;
+
+	$effect(() => {
+		const k = poleKey;
+		if (!naughty.size || !nice.size || !words.length) { axis = null; return; }
+		if (k === lastKey) return;
+		if (debounce) clearTimeout(debounce);
+		debounce = setTimeout(() => { lastKey = k; runAxis(); }, 450);
+	});
+
 	let shown = $derived.by(() => {
 		if (!sortByAxis || !axis) return words;
 		return [...words].sort((a, b) => (axis![b.word] ?? -9) - (axis![a.word] ?? -9));
@@ -153,7 +176,7 @@
 	//: from the word itself. Genuinely random would reshuffle on every re-render
 	//: and be unreadable; an even spread would imply an order that does not
 	//: exist. Seeded noise says "no axis yet" and holds still.
-	let view = $state<'list' | 'scatter'>('list');
+	let view = $state<'list' | 'scatter'>('scatter');
 
 	function seeded(w: string): number {
 		let h = 2166136261;
@@ -270,6 +293,9 @@
 				<button class="ghost" onclick={runAxis} disabled={axisLoading || !naughty.size || !nice.size}>
 					{axisLoading ? 'embedding…' : 'bge axis'}
 				</button>
+				{#if !naughty.size || !nice.size}
+					<span class="cnt">tag one word each side to build the axis</span>
+				{/if}
 				{#if axis}
 					<span class="cnt">pole gap {poleGap.toFixed(3)}</span>
 					<label class="cnt sortlbl">
