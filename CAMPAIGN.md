@@ -798,6 +798,28 @@ seat forgets at its peril:
              the PNG changed anyway for the caption. Close it on the
              INPUTS: library commit history + store-insertion time for
              the cells it reads.
+      4 goes STORE -> ARTIFACT (lacan [6101])
+          -> the STRONGEST position, not a new risk: the artifact is a
+             witness AND the input moves, so BOTH checks apply and can
+             disagree. Every producer at that seat is this shape.
+
+  **The disambiguator between 2/4 and 3 is the WRITE, not the read**
+  (malign [6100]): a producer that touches the store and writes an
+  artifact still has a witness. The two greps do not partition and the
+  ordering does the work. **And the case is a property of the
+  INVOCATION, not only of the script**: a file with a `--figs` mode is
+  case 2 by default and case 1 with the flag, so **a cheap re-render
+  path does not make a producer safe, it gives a dangerous producer a
+  safe mode — and the danger returns the moment somebody omits the flag
+  to be thorough.**
+  **CASE 4's MOVING PART IS THE STORE, NOT A LIBRARY**, so Class 4 as
+  first written misses it: lacan's eight producers import `malign_logits`
+  zero times and are not thereby immune. Its four apparent import hits
+  were `FROM malign_logits.twp_words` — SQL SCHEMA NAMES IN QUERY
+  STRINGS. **A file that names the schema is not a file that imports the
+  library.** (Registrar's own classifier escaped this by case-sensitivity
+  — SQL uppercases `FROM` — which is luck, not anchoring; the sound
+  predicate is `^\s*(from|import)\s+malign_logits`.)
 
   **A cheap re-render path is safe because it does not recompute; the
   cheapness is a consequence.** malign's converse is the default for any
