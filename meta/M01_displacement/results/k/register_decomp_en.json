@@ -1,0 +1,27 @@
+{
+ "mode": "register_decomp",
+ "measures": {
+  "coder register_level": {
+   "n": 6084,
+   "r2_axis": 0.047008830684515335,
+   "rho_with_axis": -0.20936316521614656,
+   "cos_axis_dir": -0.16080944610771034,
+   "cos_axis_free": 0.9869854720524165
+  },
+  "SUBTLEX/acad index": {
+   "n": 5735,
+   "r2_axis": 0.1994337582332577,
+   "rho_with_axis": 0.43493640883361706,
+   "cos_axis_dir": 0.37306886359191993,
+   "cos_axis_free": 0.9278036554240525
+  },
+  "SUBTLEX resid on freq": {
+   "n": 5734,
+   "r2_axis": 0.16410576603368,
+   "rho_with_axis": 0.3968882073870076,
+   "cos_axis_dir": 0.37238102347925267,
+   "cos_axis_free": 0.9280799390960588
+  }
+ },
+ "axis": "axis_en.json"
+}

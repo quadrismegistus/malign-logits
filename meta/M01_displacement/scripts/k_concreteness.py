@@ -207,8 +207,27 @@ def main():
     #: matches three unrelated CSVs in `data/` as a coincidental substring, and
     #: `0.09209674697588033` matches exactly one file. Only the second can
     #: establish where a number came from.
-    _p = os.path.join(K, "concreteness_en.json")
-    json.dump({"measures": TABLE, "axis": af}, open(_p, "w"), indent=1)
+    #: THE FILENAME CARRIES THE MODE, and the first version did not. This
+    #: producer runs TWO decompositions off one file -- `--register` swaps
+    #: `MEAS` to the register triple -- and an unconditional
+    #: `concreteness_en.json` would have overwritten the concreteness artifact
+    #: with register quantities under the concreteness name the first time
+    #: anyone passed the flag. Nothing would have errored and the file would
+    #: still have parsed. Same class as the `|full` suffix in `sent_embeddings`:
+    #: a namespace has to record WHICH TREATMENT produced it, not only which
+    #: model, and the axis variant goes in for the same reason.
+    #: AND IT MUST NOT COLLIDE WITH ANOTHER PRODUCER'S ARTIFACT, which the
+    #: first fix did not check. `k_register.py` already owns
+    #: `register_en.json` -- a different quantity (indices/auc/index_table) --
+    #: and naming this mode `register` OVERWROTE it, losing the index_table
+    #: emitted for @dario an hour earlier. Nothing errored; the file still
+    #: parsed; only a key check found it. TWO REQUIREMENTS ON A NAME: it must
+    #: record which treatment produced it, AND it must be unowned. I checked
+    #: the first and introduced a violation of the second in the same edit.
+    _mode = "register_decomp" if "--register" in sys.argv else "concreteness"
+    _suf = "_pairsaxis" if "--pairs-axis" in sys.argv else ""
+    _p = os.path.join(K, "%s_en%s.json" % (_mode, _suf))
+    json.dump({"mode": _mode, "measures": TABLE, "axis": af}, open(_p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(_p, ROOT))
 
     #: 3. PREDICTION on the verb-eliciting sites
