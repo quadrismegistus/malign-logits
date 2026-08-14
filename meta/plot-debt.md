@@ -44,10 +44,26 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    promoted vocabulary; 2x2 role x word-class with one significant cell
    per arm ([5795]/[5825]; self_surprisal_cells.parquet). The surviving
    alignment-specific result of the forced-word program.
-4. OPEN — NEW (2026-08-13): F15-ON-PASSAGES QUADRANT FLOW — Q2
-   breakdown drains to metonymic/unmarked, 34/38 pairs
+4. OPEN — NEW (2026-08-13); UPDATED 2026-08-14 (lacan) — F15-ON-PASSAGES
+   QUADRANT FLOW — Q2 breakdown drains to metonymic/unmarked, 34/38 pairs
    (f15_on_passages_cells.parquet with per-passage quadrant labels).
    Natural flow/alluvial diagram.
+   **STILL DRAWABLE, WITH ONE THING THAT MUST GO ON THE FIGURE.** Reran on
+   bge-m3 with NO 75-word truncation (`_full_bge-m3`, 38,577 passages): all
+   four flows replicate and strengthen — Q1 +0.114 (31/7), Q2 -0.335 (2/36),
+   Q3 -0.123 (6/32), Q4 +0.299 (35/3). So the flow is robust to embedder and
+   to truncation, which the earlier MiniLM-only version could not establish.
+   **But the two axes do not carry equal information.** The Q1 share change
+   tracks the surprisal axis at rho -0.694 and the drift axis at +0.167
+   (MiniLM truncated: -0.804 and +0.011). The drift axis went from inert to
+   minor, not to load-bearing. A two-axis diagram invites the reader to
+   assume parity, so the ~4:1 asymmetry belongs ON the panel, not in a
+   caption. Prefer the newer `_full_bge-m3` cells as the basis.
+   **Owed before it is final**: the quadrant splits on `total_drift`, the
+   metric the audit found weakest and which rises +0.10 with sentence count,
+   saturating near n=10 — and untruncated passages sit past that knee. A
+   `mean_drift` quadrant is the obvious variant and is cheap now the
+   embeddings are cached.
 5. OPEN — NEW (2026-08-13): CROSS-LINGUAL INVARIANCE — paired zh/en
    drift reductions + null DiD on matched prompts
    (crosslingual_arms_pairs.parquet, parse-free key version).
