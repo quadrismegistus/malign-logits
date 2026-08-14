@@ -231,3 +231,71 @@ prompts within (pair, n_sents), and the producer now REFUSES with a named
 reason rather than reporting an empty contrast. **An empty comparison that
 prints a p-value is the most dangerous shape in this campaign's ledger**, and
 it appeared in the control that the plan had designated as decisive.
+
+## Untruncated: the effect survives, and the 75-word floor was suppressing English (2026-08-14)
+
+`m06_crosslingual_arms.py --full` on the no-truncation cells. MEAN_DRIFT,
+aligned minus base, 25 pairs usable in both languages:
+
+                    truncated            full
+    zh pooled    -0.0467  1/24      -0.0462  1/24
+    en pooled    -0.0363  0/25      -0.0453  0/25
+    DiD          +0.0133  p 0.23    +0.0051  p 1
+    zh n-matched -0.0504  1/24      -0.0479  1/24
+    en n-matched -0.0407  0/25      -0.0458  0/25
+    DiD          +0.0120  p 0.23    -0.0003  p 1
+
+**Chinese unchanged, English GROWS, the residual DiD vanishes.** The sentence
+counts predict it: truncation cut English from 10 sentences to 5 while Chinese
+went 7 to 6, so the floor was suppressing the English effect specifically. The
+hint of a language asymmetry in the truncated data was AN ARTIFACT OF THE FLOOR,
+not a property of the languages, and the invariance claim is strengthened.
+
+**Why matching is not optional here.** `total_drift` tracks sentence count at
+rho +0.33 to +0.42 across all four datasets, and `directedness` is 1/n at
+-0.945 to -0.973 -- the audit's English finding replicating cross-lingually and
+getting STRONGER untruncated. Consequence: the raw language ordering on
+`total_drift` REVERSES between regimes (zh 0.638 > en 0.604 truncated; en 0.668
+> zh 0.635 full) on sentence count alone, with no drift fact behind it. Language
+medians on `total_drift` are not interpretable across regimes. `mean_drift` is
+near-independent (-0.06 to -0.15) and gives the larger, cleaner effect.
+
+Also: the n_sents-matched variant now returns units (249 zh / 375 en full) where
+it once returned zero and printed `p 1`, which this seat had misread as a null
+rather than an empty comparison.
+
+## Path shape is UNCHANGED while extent shrinks (2026-08-14)
+
+`m06_crosslingual_ordering.py`. The audit retired `directedness` and specified
+`ordering = mean(successive distances) - mean(all pairwise distances)`: under a
+random reshuffle of a passage's OWN sentences the expected successive distance
+IS the mean pairwise, so composition and sentence count are fixed by
+construction and only order varies.
+
+                     ORDERING                  MEAN_DRIFT (same pairs, prompts)
+    zh trunc   -0.00334   9/16  p 0.23     -0.04500  1/24  p 1.6e-6
+    en trunc   -0.00030  12/13  p 1        -0.03460  0/25  p 6.0e-8
+    zh full    -0.00373   9/16  p 0.23     -0.04245  1/24  p 1.6e-6
+    en full    -0.00204  11/14  p 0.69     -0.04485  0/25  p 6.0e-8
+
+**FOUR independent nulls -- two languages by two truncation regimes -- each
+beside a positive control from the same pairs, the same matched prompts and the
+same estimator.** That pairing is what separates a null from an instrument that
+cannot fire, and this series has been caught by that distinction before.
+
+**Aligned passages cover LESS SEMANTIC GROUND without changing how the text
+moves through it.** Both languages are locally coherent descriptively (zh
+-0.0266, en -0.0339 untruncated): adjacent sentences sit closer than a reshuffle
+would place them, which is what any real text should do.
+
+Third instrument, different unit, same conclusion as the composition/level split
+at word grain and the propagation slope: alignment acts on what is selected, not
+on how the chain is put together.
+
+**FENCE, and it matters.** `ordering` is ONE sequence property, the degree to
+which adjacency beats a reshuffle at SENTENCE grain. Sentence length and clause
+packing are combination facts it cannot see, and `AB_surface_and_clauses.md`
+shows those DO move (more dependent clauses per 1,000 words, shorter, with
+per-sentence ratios flat). "Alignment leaves combination alone" is too strong;
+what is measured is that these three instruments, at their own grains, find no
+change in how the chain coheres.
