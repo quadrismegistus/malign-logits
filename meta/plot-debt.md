@@ -64,7 +64,13 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    (mean inverts sign counts); sign test keeps zeros in median,
    excludes from counts — caught only because ALL SIX cells were
    asserted while four matched. Method rule ([5915]): artifacts-first
-   for RECOVERY, read-the-producer-first for RE-DERIVATION.
+   for RECOVERY, read-the-producer-first for RE-DERIVATION. Finding
+   amended in THREE places incl. the TITLE ([5917], 64dc3803): "each
+   model soothed by its own promoted vocabulary" asserted both DiDs
+   in the line most quoted without the table; now names the
+   established half (S4) and the open one (S3). Definitional choices
+   (median grain, zeros convention) now in the doc beside the
+   numbers.
 4. OPEN — NEW (2026-08-13); UPDATED 2026-08-14 (lacan) — F15-ON-PASSAGES
    QUADRANT FLOW — Q2 breakdown drains to metonymic/unmarked, 34/38 pairs
    (f15_on_passages_cells.parquet with per-passage quadrant labels).
