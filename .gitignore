@@ -422,3 +422,15 @@ meta/M01_displacement/results/y_confirmatory_coded.jsonl
 # the lens run that is 90 of 370 models scored. Its sibling lens_group_layer
 # (51.6 MiB, cited by 2 docs) IS committed -- under the block, in the warn band.
 meta/M02_frame_exit/results/lens_prompt_layer.jsonl
+
+# data/f11_l2 is a SYMLINK to /Volumes/chambers/malign-l2 (created 9 Aug), not
+# an empty directory. `du` reports 0 B because that is the size of the link
+# itself, and git lists it because a symlink-to-directory has no other
+# representation -- both readings make it look disposable and it is not.
+#
+# It is the cross-lingual corpus: 116 .jsonl under gen/ layers/ score/, and the
+# substrate behind 228,520 rows in gen_sequences, 97 zh and 100 en prompts, the
+# f11_l2 drift work and the bge commission. Ignored so `git status` is clean;
+# NOT to be removed. If it ever needs to move, the target is a mount and the
+# link is the only thing pointing at it.
+data/f11_l2
