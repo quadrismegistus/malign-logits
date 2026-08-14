@@ -783,6 +783,26 @@ seat forgets at its peril:
   argument for quoting three fields rather than one, and for anchoring
   a scraper to the producer's own progress line rather than to a
   pattern that could occur anywhere in its output.
+  TWO SHARPENINGS FROM [6002], and the second makes it a class.
+  **A derived field displayed beside its own inputs will be trusted
+  over them**: `rate` is the number a human reads and `proc`/`rows`
+  are the ones they skim, so a line whose two correct fields refute
+  its third survived four launches — the contradiction was visible in
+  one screen and went unread, *because the line looks like a status
+  line rather than a claim*. Fixing the derivation is not enough; the
+  ordering of attention is why the defect lived. Same failure as
+  reading a caption against a geometry, and the same cost: nothing.
+  **AND A PATTERN THAT CAN MATCH ITS OWN SCAFFOLDING WILL, EVENTUALLY,
+  AND REPORT IT AS DATA** — third instance in one night: a `fig5` grep
+  hitting a plotly local in unrelated code, a `max|diff|` threshold
+  quoted without the column it was measured on, and `3.11` extracted
+  from `python3.11`. All three produced something PLAUSIBLE — a file
+  that looked like a producer, a number that looked like a threshold,
+  a rate that looked like throughput. **A substring match does not
+  fail, it succeeds at the wrong thing**, and its output is always
+  well-formed, which is why none of the three announced itself.
+  `python3.11` and `fig5 = go.Figure()` are scaffolding: not the thing
+  searched for, and inside the search space by construction.
 - **A TRUE PREMISE CAN ANSWER THE WRONG QUESTION, AND A LAZY IMPORT
   TURNS A SPECIFIC ERROR INTO A GENERIC ONE** ([6001], a three-round
   dependency cascade): pip warned that `torchvision` required the old
