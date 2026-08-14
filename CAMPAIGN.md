@@ -369,11 +369,16 @@ seat forgets at its peril:
   one ladder of two, true where it fires and false one ladder over.
   TWO AMENDMENTS FROM [5947], both of which bind any future use: **a
   threshold in a comment is an artifact and must name its
-  aggregation** — malign's 6.5e-3 / 4.1e-1 and dario's 0.04475 / 3.894
-  are the same verdict (87x against 62x, same two orders) computed
-  over different grains, and a seat reading the comment, recomputing
-  its own way and getting 0.045 against a stated 6.5e-3 concludes the
-  OPPOSITE. And **the cheap first filter needs no threshold at all**:
+  aggregation — AND ITS COLUMN.** RECONCILED at [5950], and the column
+  is the general lesson: malign's 6.5e-3 / 4.1e-1 and dario's 0.04475 /
+  3.894 were computed at the IDENTICAL grain (max over 584 prompts of
+  endpoint minus final rung) over DIFFERENT COLUMNS — `resolved_mass`
+  against the seven `dist_mean_k_*` scales — and one script reproduces
+  all four to the digit. "max|diff|" named a quantity that does not
+  exist on a table with eighteen numeric columns. **A threshold quoted
+  without its column is not underspecified, it is wrong**; here it was
+  wrong by 8x rather than by two orders, which is the only reason both
+  verdicts survived. And **the cheap first filter needs no threshold at all**:
   Pythia's endpoint records the final rung's own step (143000) while
   OLMo's records step 0 against a final rung at 1413814, so the two
   cases differ in a STORED FIELD before any value comparison — not a
@@ -407,10 +412,13 @@ seat forgets at its peril:
   rendering and not on the numbers).
   **PARQUET IS A SEPARATE AND MUCH CHEAPER RULING ([5949] dario,
   ruled [5950]), because nothing breaks and the mechanism already
-  exists.** Measured: 177 parquet artifacts, 16 carrying non-pandas
-  schema metadata, ALL 16 in `data/` and NONE in any `meta/*/results/`
-  — including zero of the five behind four of that night's seven
-  figures. `df.attrs` round-trips through plain pandas, needs no
+  exists.** Measured ([5949] dario, reproduced and sharpened by malign
+  [5950] on a recursive glob): **0 of 75 parquets in `meta/*/results/`
+  carry a fence** — not "none of the five I opened", none of
+  seventy-five — while 18 of the `data/` tables carry full
+  `provenance.py` payloads. Every findings-level table in the repo is
+  unfenced, and the convention stopped on the side where the claims
+  are. `df.attrs` round-trips through plain pandas, needs no
   wrapper on a 215k-row table, and cannot be separated from what it
   describes, so it is the non-breaking half of the JSON proposal
   without the sibling-file weakness. RULED: every new
@@ -431,3 +439,13 @@ seat forgets at its peril:
   dario's words: **a figure is a rendering that carries its fence; the
   artifact behind it is the same numbers with the fence stripped — and
   the artifact is what the next producer joins against.**
+  Two implementation rules from the first migration ([5950],
+  `a_position_curves.json`, 215,010 rows asserted row-identical with
+  producer and consumer amended in ONE commit): **the fence must be the
+  STAMP OBJECT ITSELF, not a copy of its wording** — one string feeds
+  the twelve figure subtitles and the artifact, because a retyped fence
+  drifts and a data fence disagreeing with its own figure is worse than
+  none; and **no bare-list fallback on read** — a fallback lets a
+  pre-ruling unfenced file keep working silently, which is exactly how
+  the unfenced state survived unnoticed. The migration must be loud
+  where it has not happened.
