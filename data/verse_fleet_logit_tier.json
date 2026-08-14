@@ -8,6 +8,13 @@
   "if_migrated": "A symlink serves an unwritten analysis exactly as it serves a live one; the failure mode is an unmounted volume, silent. If the path changes, the caption at verse_capacity_figs.py:118 changes in the SAME commit.",
   "files": 253,
   "bytes": 63251300096,
-  "measured": "2026-08-14"
+  "measured": "2026-08-14",
+  "migrated": {
+   "when": "2026-08-14, RH: copied, verified, then replaced with symlinks",
+   "state": "all 253 .f16 are SYMLINKS into /Volumes/diderot; 0 bytes local",
+   "verified_after": "253 files, 0 broken, 63251300096 bytes resolvable \u2014 identical to the pre-migration declaration above",
+   "the_check_that_matters": "253 is now an ASSERTION, not a description. An unmounted diderot makes any glob over *.f16 report FEWER files WITHOUT ERRORING \u2014 the silent-absence failure this campaign hit in four containers on 2026-08-14. A reader asserting 253 against this file gets a loud failure instead of a plausible smaller number.",
+   "path_unchanged": "data/raw/verse_fleet is still the path; only its contents are links. So verse_capacity_figs.py:118's conditional caption ('if migrated, on the external volume behind that path') remains true and needs no edit."
+  }
  }
 }
