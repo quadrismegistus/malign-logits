@@ -384,6 +384,25 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A FIX SHOULD BE SUSPECTED HARDEST AT THE MOMENT IT CONFIRMS YOUR
+  PREDICTION, because that is when the checking stops** (malign's,
+  [5975] — the producer-side pair to *a rule minted today should be
+  suspected hardest tomorrow*). Fixing the NA-collision on a resume
+  read moved surviving `None` tokens 0 -> 14: the number predicted, on
+  the column predicted, for the reason predicted. The byte-comparison
+  run afterwards had no stake in that hypothesis and found the real
+  damage — **36,573 of 48,767 lines differed, because parsing floats
+  and re-emitting them loses precision**, so every resume had been
+  silently degrading every float column on three quarters of its rows,
+  against fourteen tokens for the defect being fixed. `dtype=str`
+  fixes both and is correct only because the frame is a pure round
+  trip. **A verification that can only report on the defect you named
+  is not much of a verification.** Same post, the smaller sting: the
+  wrong claim ("string-typed numerics write back byte-identically")
+  had already been written into a CODE COMMENT, where nothing would
+  ever have tested it, and the next command refuted it. Both halves
+  are recognition substituting for measurement — one on the reading
+  side, one on the writing side.
 - **A coincidence of range is not a relationship** ([5974]): two
   quantities put on one unlabelled y axis because their values happen
   to overlap assert that they are commensurable. The mildest member of
