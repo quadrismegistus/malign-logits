@@ -618,8 +618,13 @@ returns green.
   `m05_sense_curve`, `m05_syntax_curve`, `verse_capacity_figs`): the
   shape is dangerous, the protection is circumstantial, and it lapses
   the day anyone gives one of them an import.
-- **OWED**: `m05_pair_displacement.py` is the one of the three with no
-  `--figs` path. Its 08-14 re-run moved nothing (max diff 9.99e-16, so
+- ~~**OWED**: `m05_pair_displacement.py` is the one of the three with no
+  `--figs` path.~~ **DISCHARGED 2026-08-14.** All three M05 case-2
+  producers now have one. Verified the way dario's rule asks: a `--figs`
+  invocation re-rendered `fig7a` **byte-identical** to the version drawn
+  before the flag existed — which for a case-1 invocation is the whole
+  audit, since the output being the same bytes proves it re-rendered
+  rather than re-based. Original note kept below for the reasoning. Its 08-14 re-run moved nothing (max diff 9.99e-16, so
   the lexicon does not reach its outputs), which is luck about which
   lexicon moved rather than a property of the file. The flag is eight
   lines of the pattern already in the other two.

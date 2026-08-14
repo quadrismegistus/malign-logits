@@ -133,6 +133,17 @@ def recapture():
 
 
 def main():
+    #: --figs re-renders from the cached table. The THIRD of M05's three
+    #: case-2 producers to get one (`m05_field_flow`, `_fine`, this), and the
+    #: reason is not cheapness: a re-run RECOMPUTES, so repairing a caption
+    #: re-bases the numbers if anything underneath has moved. This producer
+    #: imports `malign_logits.movement`, so it has that exposure by shape even
+    #: though its 08-14 re-run moved nothing (max diff 9.99e-16).
+    if "--figs" in sys.argv:
+        df = pd.read_parquet(OUT)
+        print(f"read {OUT}: {len(df)} rows")
+        return figures(df, population())
+
     from malign_logits.movement import CANONICAL, RESIDUAL_KEY
     from malign_logits.step import Step
 
@@ -157,7 +168,10 @@ def main():
     df = pd.DataFrame(rows)
     df.to_parquet(OUT)
     print(f"wrote {OUT}: {len(df)} rows")
+    return figures(df, pop)
 
+
+def figures(df, pop):
     order = pd.DataFrame([(i, r) for i, _, r in pop],
                          columns=["ckpt_idx", "role"]).drop_duplicates()
     sft0 = order[order.role == "sft_step"].ckpt_idx.min()
