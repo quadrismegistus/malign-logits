@@ -542,9 +542,34 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     measurement; auxiliary exclusion stated (the highest weakest-link
     chain in the set exhibits `had`); FRAG imported from
     `plot_displacement_network` so the two figures cannot disagree
-    about what counts as a word. STILL OWED: (c) verb-network redraws
-    wanting a `--verbs` source flag, (d) mutual-best couples table,
-    (e) graph-structure pass — in that order.
+    about what counts as a word. **13c CLOSED 2026-08-14**: (c) verb redraws
+    `4fdbf486`, (d) mutual-best couples table `d5bd9bec`, (e) graph
+    structure `ba12879a`. **(e) TURNED UP A RESULT THAT READS AS
+    IMPOSSIBLE: removing more than half the edges makes the network
+    DEEPER — 1,818 edges to 795, longest condensation path 10 -> 14.**
+    Mechanism: the full graph holds exactly ONE non-trivial strongly
+    connected component of **141 words, 21% of the vocabulary**, every
+    member reachable from every other, which condensation collapses to
+    a single node — **so a path crossing it pays one step for a fifth
+    of the network.** 42 of those 141 are words the verb restriction
+    removes (`not`, `just`, `instead`, `if`, `in`, `on`, `no`, `all`,
+    `he`, `is`, `could`, `how`, `later`, `long`, `before`, `after`),
+    and taking them out does not shrink the blob, **it shatters it** —
+    the 99 survivors sit in components of 16, 7, 2, 2, 2. The graph is
+    deeper because it became LEGIBLE. **So the two depths are NOT
+    COMPARABLE and the panel says so in its geometry rather than its
+    caption**: each level's bar is split by whether a word sits in a
+    multi-word component, putting the 141-word block at level 6 AS the
+    thing that invalidates the subtraction a reader would perform.
+    STABLE ACROSS BOTH POPULATIONS, with the producer refusing to draw
+    if it moves: both longest paths end `cry -> understand -> need`,
+    and under the restriction the run into it is
+    `scream, see -> cry -> understand -> need` — **the deep end is
+    identical in both; it is the MIDDLE the function words fuse.**
+    Also 183 pure sinks / 225 pure sources full against 133 / 167
+    verbs, written to `results/network_structure.json` with an
+    `_about` naming the incomparability, so a reader can query the
+    measurements rather than read them off pixels.
     Original entry: PARKED 2026-08-14 (RH: store and move on) — NETWORK
     VISUALISATIONS ON DISPLACEMENT PAIRS, the consolidated queue:
     (a) three remaining basin panels (epistemic/expression/stasis),

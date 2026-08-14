@@ -130,7 +130,16 @@ precaution taken.**
   so and two lines were truncated on a first render. Any figure in
   this campaign carrying a long subtitle should be LOOKED AT rather
   than trusted, which is the caption-against-geometry check with the
-  caption as the casualty instead of the witness. Corrections are trailed, never rewritten. Withdrawn numbers stay
+  caption as the casualty instead of the witness. **AND IT IS EVERY
+  PROSE ELEMENT, NOT THE SUBTITLE** ([6033]): shortening a subtitle to
+  avoid the trap moved it to the CAPTION, which was then cut mid-word
+  at the right edge — **and the caption held the assert list, so
+  losing its tail deletes the part naming what was checked and the
+  figure appears to claim LESS verification than it performed.** Title,
+  subtitle, caption, and any `geom_text` running to the panel edge.
+  The instruction is LOOK AT THE IMAGE: nothing in the code, the
+  producer's output, or the asserts registers it, and both instances
+  were found by reading the PNG and by nothing else. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
