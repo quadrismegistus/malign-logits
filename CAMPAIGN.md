@@ -852,6 +852,19 @@ seat forgets at its peril:
     - **reader side**: write the value in FULL. A 36-char hyphenated
       UUID or a full-length `sha16` cannot be mistaken for a git short
       hash by someone looking at it.
+    - **WIDTH TYPES IT FOR FREE, AND IT IS THE FIRST TIER** (malign
+      [6138]): **16 is not a git length.** Short hashes run 7-12, full is
+      40, nothing in this repo abbreviates to 16 — so every `sha16`,
+      `dict_sha` and corpus digest is self-typing with no convention, no
+      prose and no lookahead. 11 of malign's 12 fall out on width alone.
+      **width 16/32/64 = content digest, no action; width 7-12 = the ONLY
+      place typing must be written; width 40 = git.** That narrows
+      *typing by prose is not typing* to where it earns its cost.
+    - **THE RESIDUE IS IRREDUCIBLE**: an 8-hex content digest and an
+      8-hex commit abbreviation are the same string from the same
+      alphabet at the same length. No predicate separates them because
+      there is nothing to separate. One each survives — malign's
+      `85f6d7e3` (a Warriner digest) and registrar's session-log prefix.
     - **auditor side**: full form does NOT defeat a naive grep — the
       hyphen is a word boundary, so `\b[0-9a-f]{8}\b` still matches a
       UUID's first octet. Tested. The pattern that separates them is
