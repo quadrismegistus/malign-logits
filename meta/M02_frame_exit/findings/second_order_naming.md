@@ -273,6 +273,25 @@ Both were run twice, on the same two rounds of passages, and POOLED over 1,600:
     moral                15.2%          17.2%    1.16 [0.82,1.65]     1.38
     clinical              3.2%           4.6%    1.46 [0.73,2.99]     1.24
 
+**NONE OF THE THREE SAME-SIDE ORs IS EVIDENCE OF SPECIFICITY** (lacan
+second-seat, extended by dario, 2026-08-14). Printed with their intervals, not
+one control can exclude its own treatment effect:
+
+    second-order  3.37 [1.88, 6.30]   SAMESIDE 1.00 [0.23, 4.39]   contains 3.37
+    moral         1.16 [0.82, 1.65]   SAMESIDE 1.38 [0.89, 2.16]   contains 1.16
+    clinical      1.46 [0.73, 2.99]   SAMESIDE 1.24 [0.55, 2.87]   contains 1.46
+
+The three rows are not equally damning: moral and clinical have small,
+non-significant treatment estimates, and a wide control interval containing a
+small effect is unremarkable. **The second-order row is the sharp case** -- a
+real, significant effect of 3.37 sitting inside its own control's interval. But
+the bare SAMESIDE column above invites reading three numbers near unity as three
+pieces of specificity evidence, and none of them is one: at 5-60 events per arm
+these controls have almost no power against the effects they are meant to
+exclude. `scripts/opus_second_order_results.py` now prints each interval, the
+event counts and a contains-treatment flag, so the column cannot be read bare
+again.
+
 **Round 1's moral 1.57x did not survive**: round 2 gave 0.93x, and the pooled
 estimate is 1.16, p = 0.44. That was pre-registered as the likeliest way a
 p = 0.116 result dies, and it died that way. Round 2's SAME-SIDE moral cell
