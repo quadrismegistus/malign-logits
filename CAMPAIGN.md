@@ -692,7 +692,13 @@ seat forgets at its peril:
   the [6020] recovery list was built from the restored tree, so it
   enumerated what was present and could not name what was missing.
   None was careless INSIDE the boundary; all four were careful about
-  the wrong thing.** Attention points inward
+  the wrong thing.** lacan's mechanism ([6046]) is why the class is
+  hard to catch rather than merely common: **THE INTERIOR AUDIT IS WHAT
+  PRODUCES THE CONFIDENCE.** Checking regenerability carefully is
+  exactly what stopped it asking whether anything cited the file — the
+  care spent inside the frame is felt as care about the claim, so the
+  more rigorous the interior check, the less likely anyone looks at the
+  edge. Attention points inward
   at the object held, never at the frame drawn around it.
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
