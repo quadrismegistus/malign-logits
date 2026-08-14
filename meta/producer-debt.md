@@ -654,8 +654,28 @@ returns green.
   recompute them**, and it must be add-beside: the producer overwrites
   its results file on every run (its own docstring says so), so a re-run
   replaces a cited artifact with a sixth draw and loses the record that
-  raised the question. **Owner's call, not the pen's; blocked item 15
-  until then.**
+  raised the question. **RESOLVED 2026-08-14 ([6143], dario, on RH's word, by
+  exactly this disposition):** `predict_embed_en_glove_draws.json`
+  transcribes the five draws from both recording sites, marked
+  `measured_by_this_seat: false` with the fence quoted in the file, and
+  **`predict_embed_en_glove.json` is untouched — verified byte-identical
+  to HEAD at this seat**, its k=50 row recomputing to +0.0256 = 21.2% of
+  the 0.120678 headroom, which is the forbidden figure and confirms the
+  diagnosis.
+  **AND A SIXTH DRAW NOW EXISTS, BELOW THE RECORDED FLOOR.** dario took
+  one before the ruling landed; it overwrote the cited artifact exactly
+  as the docstring warns, and was restored. It came in at **+0.0213 =
+  17.65%**, under the recorded minimum of 0.0216, so the observed range
+  widens from **17.9–21.2% to 17.7–21.2%** while `P_unnamed_axis.md` §3
+  states it as **"18-21%"** — a floor its own evidence now sits
+  marginally below. Not a defect and not silently absorbable: **the range
+  was reported over five draws and there are six.** A one-clause rider is
+  owed by whoever owns that finding; seat ownership is not establishable
+  from git, every commit being under the shared identity.
+  **The new figure's asserts check each draw within 0.003 rather than to
+  the digit**, because an equality assert there would assert that a
+  nondeterministic producer is deterministic and would fail on every
+  honest re-run — the claim is the ladder's shape, not any draw.
   **Second-order note worth keeping either way** ([6140] §1): the share
   figures are the max of ten sweep rows and `k_predict_embed.py:207` says
   so — *"THE BEST ROW IS SELECTED AFTER SEEING THE SCORES, so this
