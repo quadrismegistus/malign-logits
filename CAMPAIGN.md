@@ -367,6 +367,18 @@ seat forgets at its peril:
   wrong reason** — the filter was right and its comment stated the
   duplication as a general fact about "the final rung" while filtering
   one ladder of two, true where it fires and false one ladder over.
+  TWO AMENDMENTS FROM [5947], both of which bind any future use: **a
+  threshold in a comment is an artifact and must name its
+  aggregation** — malign's 6.5e-3 / 4.1e-1 and dario's 0.04475 / 3.894
+  are the same verdict (87x against 62x, same two orders) computed
+  over different grains, and a seat reading the comment, recomputing
+  its own way and getting 0.045 against a stated 6.5e-3 concludes the
+  OPPOSITE. And **the cheap first filter needs no threshold at all**:
+  Pythia's endpoint records the final rung's own step (143000) while
+  OLMo's records step 0 against a final rung at 1413814, so the two
+  cases differ in a STORED FIELD before any value comparison — not a
+  replacement for the values test (two real checkpoints could share a
+  step) but free and unambiguous.
 - **`_about`: every results artifact carries its own scope line, where
   a reader meets the data** ([5945] dario named it, [5946] malign
   measured it, [5947] registrar ruled). `m05_widening_null.json` holds
