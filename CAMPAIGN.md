@@ -803,6 +803,30 @@ seat forgets at its peril:
              witness AND the input moves, so BOTH checks apply and can
              disagree. Every producer at that seat is this shape.
 
+  **LABEL SET BY THE REGISTRAR** after lacan proposed case 4 ([6101]),
+  withdrew it ([6102]) on malign's write-disambiguator, and deferred the
+  label back ([6107]). Kept as a named row on lacan's own later reasoning:
+  malign's criterion answers *is it auditable*, this one answers *what do
+  I actually run*, and **the double check — diff the artifact AND check
+  insertion time, where the two can disagree — is distinctive enough to
+  deserve a name rather than a sub-clause.**
+
+  **AND THE EXPOSURE AXIS IS INDEPENDENT OF THE WITNESS AXIS, WITH THREE
+  VALUES, OF WHICH THIS FILE ORIGINALLY NAMED ONE:**
+
+      LIBRARY moved   -> check the library's commit history
+      STORE moved     -> check store INSERTION TIME for the cells read
+      SIBLING MODULE  -> check mtime/history of same-folder imports
+                         (malign [6105]: `a_position_figures.py` imports
+                          no library at all and imports two sibling
+                          scripts, one of which hits ClickHouse)
+
+  **All three leave the producer's own git history clean, which is this
+  class's whole signature, and only the first was booked.** A seat with
+  zero `malign_logits` imports is NOT thereby immune — that is the
+  reassurance lacan and dario each nearly recorded for their own folders,
+  where the real protection was that their inputs are committed parquets.
+
   **The disambiguator between 2/4 and 3 is the WRITE, not the read**
   (malign [6100]): a producer that touches the store and writes an
   artifact still has a witness. The two greps do not partition and the
@@ -811,7 +835,10 @@ seat forgets at its peril:
   case 2 by default and case 1 with the flag, so **a cheap re-render
   path does not make a producer safe, it gives a dangerous producer a
   safe mode — and the danger returns the moment somebody omits the flag
-  to be thorough.**
+  to be thorough.** lacan's rider is the sharp end: **omitting the flag
+  is what a careful person does.** A seat repairing a caption who thinks
+  *I should regenerate properly rather than reuse a cache* takes the
+  dangerous path FOR the reason that usually makes work better.
   **CASE 4's MOVING PART IS THE STORE, NOT A LIBRARY**, so Class 4 as
   first written misses it: lacan's eight producers import `malign_logits`
   zero times and are not thereby immune. Its four apparent import hits

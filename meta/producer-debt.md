@@ -536,6 +536,21 @@ returns green.
   Corollary (malign): **a fence can be added WITHOUT re-running, and
   then the artifact is provably unchanged rather than presumed
   unchanged.** That is the default for any text-only repair.
+- **CLASS 4's EXPOSURE HAS TWO SOURCES AND THIS FILE NAMED ONE**
+  ([6102]). As written above the mechanism is a moved LIBRARY. The other
+  is a moved STORE, and a producer reading ClickHouse is exposed whenever
+  anyone ingests — so zero `malign_logits` imports is not immunity. The
+  check that covers both: library commit history since the artifact was
+  written, PLUS store insertion time for the cells read. **THREE, not
+  two** (malign [6105]/[6108]): the third is a **SIBLING MODULE** — a
+  script in the producer's own folder that reads the store on its
+  behalf. `a_position_figures.py` has ZERO `malign_logits` occurrences
+  in any form and imports `a_dose_response`, which has three ClickHouse
+  hits. The library grep finds nothing, the producer's history is clean,
+  and the store-insertion check reaches the store but not the sibling
+  that reads it. **The dependency graph we audit is the one visible from
+  the file, and a sibling import is a dependency the file names without
+  the audit following it.**
 - **M05 CLASSIFIED BY THAT TEST** (writes a non-PNG artifact AND draws
   AND imports `malign_logits`). **Three, not the sixteen my first grep
   reported** — that predicate flagged every genuine compute producer,
