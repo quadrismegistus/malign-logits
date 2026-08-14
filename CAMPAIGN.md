@@ -326,3 +326,25 @@ seat forgets at its peril:
   rows, quoted with one fit's line count, and the spread a later
   sentence reasoned against was estimator disagreement wearing
   uncertainty bounds.
+- **The median is the summary that does not survive ties; the count is
+  the one that does** ([5942]): `vulgarity` carries 252–339 tied
+  prompts of 581, so its median is exactly 0.0000 in four of five
+  transitions while its sign test reaches p 1.3e-25 — a median-coloured
+  matrix renders the strongest tie-dominated result as "no change".
+  Encode the sign split on position and the non-tied count as area, so
+  ties shrink the mark instead of hiding inside it; quote-the-counts
+  ([5899]) applied to a matrix. Companion: **draw the fenced region,
+  greyed** — an instrument limit is argued for by the shape of the data
+  it excludes (pre-fence concreteness reads 2.65 above its own 1.08
+  floor at 0.63 coverage; dropping those rungs silently would hide the
+  best demonstration that the fence is not conservatism).
+- **A wrong POPULATION can produce an almost-right number, and only an
+  assert against someone else's digit will catch it** ([5942]): the
+  final Pythia rung carries the same model twice (base_step and
+  base_endpoint, 584 prompts each), so pooling roles averages a curve's
+  last point with a duplicate of itself — 2.8648 against 2.8654, a
+  difference visible only at the precision the finding happens to
+  quote. Relatedly, MEDIAN-VS-MEAN AT THE PAIR OR RUNG GRAIN decided
+  three separate reconstructions in one session ([5915], [5924],
+  [5942]): it is the campaign's most frequent silent decider, so an
+  artifact that does not say which it took is not reproducible.
