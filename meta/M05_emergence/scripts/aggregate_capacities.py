@@ -26,10 +26,16 @@ schema — so a ladder figure is a filter + a groupby, never a re-derivation:
 Sources (this file DERIVES, never re-measures):
   data/pythia_curves.parquet, data/m05_curves.parquet   (M05 battery)
   meta/M05_emergence/results/verse_capacity_rungs.parquet
-  meta/M05_emergence/results/sense_curve.json
-NOT here: syntax_curve.json (onset summaries, not a rung series);
-m05_norm_mass.parquet (norms, not capacities — Findings H plots it
-directly); the verse closure decomposition (.f16 tier not ingested).
+  meta/M05_emergence/results/sense_curve.json           (Pythia only)
+  data/m05_class_mass.parquet + m05_licit_sets*.json    (syntax: the
+    per-rung strict/permissive licit share recomputed with
+    m05_syntax_curve.py's own conventions — format band, equivalences,
+    payload_empty censored, median over prompts. syntax_curve.json
+    stays the ONSET authority; it never persisted the curve itself.)
+NOT here: m05_norm_mass.parquet (norms, not capacities — Findings H
+plots it directly); the verse closure decomposition (.f16 not
+ingested); OLMo sense (its 22 ckpts are the sense study's own roster,
+no model ids in the JSON — unjoinable until its producer emits them).
 
 Output: meta/M05_emergence/results/capacities_by_rung.parquet
 """
@@ -47,7 +53,14 @@ FAM = {"CAPACITY_REFERENCE": "capacity_reference",
        "CAPACITY_REASONING": "capacity_reasoning",
        "CAPACITY_DISCOURSE": "capacity_discourse",
        "CAPACITY_PACKAGES": "capacity_packages",
-       "POETIC": "poetic", "PANEL": "panel"}
+       "POETIC": "poetic"}
+# PANEL dropped: its roles are faller/riser — a movement panel, not a
+# capacity family. Role->measure is PER FAMILY: POETIC's target-like
+# role is the poet's FORMULAIC word ([5379] design), which a bare
+# target/competitor test mislabeled in this file's first version
+# (poetic drew 0 target rows; caught by its absence from fig26).
+ROLE2MEAS = {"target": "mean_p_target", "competitor": "mean_p_competitor",
+             "formulaic": "mean_p_target", "paraphrase": "mean_p_competitor"}
 
 
 def battery(path, ladder):
@@ -57,14 +70,15 @@ def battery(path, ladder):
     rows = []
     for (fam, ck, wr), g in d.groupby(["family", "ckpt_idx", "word_role"]):
         meta = g.iloc[0]
-        meas = ("mean_p_target" if wr == "target"
-                else "mean_p_competitor")
+        meas = ROLE2MEAS.get(wr)
+        if meas is None:
+            continue
         rows.append(dict(ladder=ladder, model=meta.model,
                          ckpt_idx=int(ck), role=meta.role,
                          stage=str(meta.stage), step=str(meta.step),
                          family=fam, measure=meas,
                          value=float(g.p.mean()), n=len(g)))
-        if wr == "target":
+        if meas == "mean_p_target":
             rows.append(dict(ladder=ladder, model=meta.model,
                              ckpt_idx=int(ck), role=meta.role,
                              stage=str(meta.stage), step=str(meta.step),
@@ -108,9 +122,15 @@ def verse(keys):
 
 
 def sense(keys_by_ladder):
+    """Pythia only. The OLMo sense series (22 ckpts) rides the sense
+    study's OWN checkpoint roster with no model ids in the JSON, so it
+    cannot be joined to the ladder's ckpt_idx honestly — joining by
+    index compressed it onto the first 22 rungs in this file's first
+    version (caught as a vertical line in fig26). Excluded until the
+    sense producer emits model ids."""
     sc = json.load(open("meta/M05_emergence/results/sense_curve.json"))
     rows = []
-    for ladder in ("pythia", "olmo"):
+    for ladder in ("pythia",):
         series = sc[ladder]["natural_by_ckpt"]
         keys = keys_by_ladder[ladder].reset_index().set_index("ckpt_idx")
         for ck, v in series.items():
@@ -126,6 +146,59 @@ def sense(keys_by_ladder):
     return pd.DataFrame(rows)
 
 
+FORMAT_BAND = {"PUNCT", "X", "SYM"}
+EQUIV = [{"ADP", "PART"}, {"NUM", "NOUN"}, {"AUX", "VERB"}]
+CODERS = {"deepseek-v4-flash": ("data/m05_licit_sets.json",
+                                "strict_licit_share"),
+          "claude-haiku-4-5": ("data/m05_licit_sets_haiku.json",
+                               "strict_licit_share_haiku")}
+
+
+def _expand(classes):
+    out = set(classes)
+    for g in EQUIV:
+        if out & g:
+            out |= g
+    return out
+
+
+def syntax():
+    cm = pd.read_parquet("data/m05_class_mass.parquet")
+    cm = cm[~cm.payload_empty & (cm.resolved_mass > 0)].copy()
+    # stage/step are NaN on post-training rungs and groupby DROPS NaN
+    # keys silently — the first run of this function lost all 53 OLMo
+    # post-base rungs that way. astype(str) alone did NOT fix it: the
+    # columns are Arrow-backed strings whose NA survives the cast, so
+    # fill explicitly before casting.
+    cm["stage"] = cm.stage.fillna("none").astype(str)
+    cm["step"] = cm.step.fillna(-1).astype(str)
+    rows = []
+    for coder, (path, meas) in CODERS.items():
+        tab = json.load(open(path))["prompts"]
+        mem = [dict(prompt=p, pos_class=c)
+               for p, v in tab.items()
+               for c in _expand({w["pos"] for w in v["licit"]})]
+        mem = pd.DataFrame(mem).assign(licit=True)
+        m = cm.merge(mem, on=["prompt", "pos_class"], how="left")
+        cell = (m.groupby(["ladder", "ckpt_idx", "model", "role",
+                           "stage", "step", "prompt", "resolved_mass"])
+                .apply(lambda g: g[g.licit.notna()].mass.sum(),
+                       include_groups=False)
+                .rename("lic").reset_index())
+        cell["share"] = cell.lic / cell.resolved_mass
+        med = (cell.groupby(["ladder", "ckpt_idx", "model", "role",
+                             "stage", "step"])
+               .agg(value=("share", "median"), n=("share", "size"))
+               .reset_index())
+        for r in med.itertuples():
+            rows.append(dict(ladder=r.ladder, model=r.model,
+                             ckpt_idx=int(r.ckpt_idx), role=r.role,
+                             stage=str(r.stage), step=str(r.step),
+                             family="syntax", measure=meas,
+                             value=float(r.value), n=int(r.n)))
+    return pd.DataFrame(rows)
+
+
 def main():
     py = pd.read_parquet("data/pythia_curves.parquet")
     ol = pd.read_parquet("data/m05_curves.parquet")
@@ -134,7 +207,7 @@ def main():
 
     parts = [battery("data/pythia_curves.parquet", "pythia"),
              battery("data/m05_curves.parquet", "olmo"),
-             verse(allkeys), sense(keys)]
+             verse(allkeys), sense(keys), syntax()]
     out = pd.concat(parts, ignore_index=True)
     out.to_parquet(OUT)
     print(f"wrote {OUT}: {len(out):,} rows")
