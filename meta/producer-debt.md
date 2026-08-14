@@ -57,8 +57,20 @@ varies):
   pooling is over both rounds (4.62 / 2.70 alone). All three now in
   code with booked values asserted. lacan's z_second_order gate
   INAPPLICABLE, not satisfied: no regexes are involved in aggregating
-  stored verdicts. NOT audited: zh arm, marker-based half, soundness
-  of the verdicts themselves.
+  stored verdicts. SECOND-SEAT COMPLETE ([5910], fc0b7cbf): lacan
+  reproduced independently BEFORE reading dario's account; estimator
+  ruled COHERENT (OR + conditional-MLE matches Fisher's conditioning)
+  but the prose claimed a rate ratio — doc now heads ODDS with 3.12
+  beside it. AND THE LOGIC PASS FOUND WHAT NOBODY ASKED: the
+  same-side control (5/300 vs 5/300, OR 1.00, CI [0.23, 4.39])
+  CONTAINS 3.37 — it cannot establish specificity, and its per-round
+  ORs are 0.25 / 4.12 (unity is their average, not an observation).
+  The title's "and only the contradiction", reader-arm half, now
+  reads NOT YET SHOWN by this instrument; the regex pole control
+  (0.93x, 52,559 passages) carries the specificity weight. STILL
+  open: zh arm, marker half, ablation, verdict soundness. Register
+  status: no quotable form for the reader arm exists; enters fenced
+  if it enters.
 
 - ~~**M05 C Result 4**~~ STALE, corrected 2026-08-14 ([5901] §2):
   `m05_pair_displacement.py --recapture` now writes
