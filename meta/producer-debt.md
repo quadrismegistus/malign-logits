@@ -126,8 +126,15 @@ varies):
 
 - **M05 per-checkpoint `pole_sep` reduction** — NOT a missing producer
   but a MISSING DEFINITION, which this file did not previously
-  distinguish ([5954]); **proposed disposition RE-DECLARE, a fourth
-  disposition, AWAITING RH ([5958])**: `m05_pole_sep.csv` exists at (checkpoint,
+  distinguish ([5954]); **DISPOSITION RE-DECLARED — EXECUTED
+  2026-08-14, `19240d87`, RH said go at [5958]. The fourth disposition
+  in this file, and its first instance ([5965]).** Plan committed
+  ALONE before the producer existed (`570afad4`), rule stated in the
+  artifact's `_about`, six old values kept visible as
+  superseded-not-reproduced, republished numbers WEAKER than the old
+  ones at step16000 on both ladders, and the plan's own recorded
+  prediction (co-movement) came out positive-but-not-significant and
+  was REPORTED rather than re-reduced. History: `m05_pole_sep.csv` exists at (checkpoint,
   group, role, layer) grain, 166,255 rows, and every published
   per-checkpoint value needs a reduction that nothing states. Median-
   and mean-over-all-cells both miss the booked values (0.3675 against

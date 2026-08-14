@@ -211,7 +211,35 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    estimate the other's check — and that fence came off the ARTIFACT's
    own `_about` field, not off any document (see the `_about`
    convention, [5946]).
-10. HELD 2026-08-14 ([5954], dario; NOT drawn) — M05 A-R4 joined
+10. UNBLOCKED 2026-08-14 by RE-DECLARATION ([5965], lacan, `19240d87`;
+    RH said go at [5958]). Plan `plan_pole_sep_reduction.md` committed
+    ALONE at `570afad4` BEFORE the producer existed, so the ordering is
+    checkable from git rather than asserted. THE RULE: **role is not a
+    dimension of this measurement** — `pole_sep` is bit-identical
+    across role (max difference exactly 0.0, asserted at run) but only
+    50,193 cells carry all three roles against 15,675 carrying one, so
+    pooling roles is a median WEIGHTED BY HOW MANY CONTROLS HAPPENED TO
+    BE RUN for that cell; that single fact is the whole difference
+    between dario's median-all and lacan's role==both and makes
+    neither defensible. Then: median over 33 layers within (checkpoint,
+    group), median over the common group set, medians throughout;
+    stated in the artifact's own `_about`, six superseded values kept
+    visible as superseded-not-reproduced. **THE REPUBLISHED NUMBERS ARE
+    WEAKER THAN THE OLD ONES AT step16000 ON BOTH LADDERS** (0.3931
+    against 0.475; 0.2486 against 0.384), consistently and in the same
+    direction. And the plan's recorded prediction came out weaker too:
+    co-movement is positive on both lineages and significant on
+    NEITHER (rho +0.536 p 0.215 n=7; +0.771 p 0.072 n=6), so the
+    finding's "the null recovers EXACTLY as the real column does" is
+    corrected in place to what n=6 and n=7 can carry — **this cannot
+    establish co-movement, only fail to contradict it** — which still
+    serves the section's actual argument (the arc is not about poles).
+    Reported, not re-reduced, exactly as the plan said it would be.
+    `results/m05_pole_sep_reduced.csv` is one row per (ladder, column,
+    checkpoint) with n_groups, correctly ordered; the panel is dario's
+    whenever wanted, drawn as two curves and a rank correlation that
+    does not clear significance — never as the word "exactly".
+    ORIGINAL HOLD, for the record: HELD ([5954], dario; NOT drawn) — M05 A-R4 joined
     ratio/pole-sep panel, on TWO counts, both with lacan.
     (a) **R4's statistics have no producer** (booked Class 1B): the
     SFT-arm level co-movement (Spearman +0.61, p 1.3e-05), the
