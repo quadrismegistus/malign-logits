@@ -1,4 +1,14 @@
 {
+ "_about": {
+  "substrate": "passage corpus, 42 pairs - NOT Finding A's fc/33-pair substrate; run record is EXPLORATORY (A_RESULTS.md), not quotable",
+  "status": "EXPLORATORY - nothing in this artifact is quotable",
+  "run_record": "meta/M04_syntagmatic/results/A_RESULTS.md",
+  "committed_by": "88bd6889 (M04 ladder artifacts) - a BULK commit naming no producer",
+  "producer": "UNRECORDED. No script in this tree emits this file under this name. The substrate and status above are inherited from the batch, which is verifiable; the exact producing code is not recoverable and is not guessed.",
+  "n_observed_in_this_file": [
+   42
+  ]
+ },
  "faller-riser|A|A|8": {
   "median": -0.06929892760582845,
   "neg": 31,

@@ -1,218 +1,230 @@
-[
- {
-  "offset": 1,
-  "metric": "raw",
-  "median": -0.0031306613046711423,
-  "neg": 23,
-  "pos": 19,
-  "p": 0.6439689563703723
+{
+ "_about": {
+  "substrate": "passage corpus, 42 pairs - NOT Finding A's fc/33-pair substrate; run record is EXPLORATORY (A_RESULTS.md), not quotable",
+  "status": "EXPLORATORY - nothing in this artifact is quotable",
+  "run_record": "meta/M04_syntagmatic/results/A_RESULTS.md",
+  "committed_by": "88bd6889 (M04 ladder artifacts) - a BULK commit naming no producer",
+  "producer": "UNRECORDED. No script emits this file under this name; substrate and status are inherited from the batch and not guessed beyond that.",
+  "n_observed_in_this_file": "no n_pairs key present - substrate INHERITED from the batch, not verified here",
+  "shape": "WRAPPED from a bare top-level array per registrar [5948].3 - a bare list has nowhere to carry its own fence. No code reader existed (A_RESULTS.md mentions it in prose only), so the migration is atomic.",
+  "rows": 27
  },
- {
-  "offset": 1,
-  "metric": "per_sd",
-  "median": -0.009313932356492527,
-  "neg": 25,
-  "pos": 17,
-  "p": 0.27995623852893914
- },
- {
-  "offset": 1,
-  "metric": "per_sd_over_mean",
-  "median": -0.012683324283826389,
-  "neg": 28,
-  "pos": 14,
-  "p": 0.04355852192384191
- },
- {
-  "offset": 2,
-  "metric": "raw",
-  "median": -0.00019816864237375692,
-  "neg": 21,
-  "pos": 21,
-  "p": 1.0
- },
- {
-  "offset": 2,
-  "metric": "per_sd",
-  "median": -0.01456590159660772,
-  "neg": 23,
-  "pos": 19,
-  "p": 0.6439689563703723
- },
- {
-  "offset": 2,
-  "metric": "per_sd_over_mean",
-  "median": -0.01608849279219278,
-  "neg": 25,
-  "pos": 17,
-  "p": 0.27995623852893914
- },
- {
-  "offset": 4,
-  "metric": "raw",
-  "median": -0.017202177922203674,
-  "neg": 27,
-  "pos": 15,
-  "p": 0.08842954698775429
- },
- {
-  "offset": 4,
-  "metric": "per_sd",
-  "median": -0.031391523301224314,
-  "neg": 27,
-  "pos": 15,
-  "p": 0.08842954698775429
- },
- {
-  "offset": 4,
-  "metric": "per_sd_over_mean",
-  "median": -0.012668505678343354,
-  "neg": 30,
-  "pos": 12,
-  "p": 0.007915897334896727
- },
- {
-  "offset": 8,
-  "metric": "raw",
-  "median": -0.006701200824194077,
-  "neg": 25,
-  "pos": 17,
-  "p": 0.27995623852893914
- },
- {
-  "offset": 8,
-  "metric": "per_sd",
-  "median": -0.018472148044623448,
-  "neg": 26,
-  "pos": 16,
-  "p": 0.16414940178310644
- },
- {
-  "offset": 8,
-  "metric": "per_sd_over_mean",
-  "median": -0.010039514621917926,
-  "neg": 27,
-  "pos": 15,
-  "p": 0.08842954698775429
- },
- {
-  "offset": 16,
-  "metric": "raw",
-  "median": -0.0022385015149888905,
-  "neg": 22,
-  "pos": 20,
-  "p": 0.8776143287523155
- },
- {
-  "offset": 16,
-  "metric": "per_sd",
-  "median": -0.003718905730321055,
-  "neg": 24,
-  "pos": 18,
-  "p": 0.44079906734259566
- },
- {
-  "offset": 16,
-  "metric": "per_sd_over_mean",
-  "median": -0.0036395121485891363,
-  "neg": 28,
-  "pos": 14,
-  "p": 0.04355852192384191
- },
- {
-  "offset": 32,
-  "metric": "raw",
-  "median": -0.002188417065144944,
-  "neg": 23,
-  "pos": 19,
-  "p": 0.6439689563703723
- },
- {
-  "offset": 32,
-  "metric": "per_sd",
-  "median": -0.00909316295077175,
-  "neg": 25,
-  "pos": 17,
-  "p": 0.27995623852893914
- },
- {
-  "offset": 32,
-  "metric": "per_sd_over_mean",
-  "median": -0.010789779959857793,
-  "neg": 27,
-  "pos": 15,
-  "p": 0.08842954698775429
- },
- {
-  "offset": 64,
-  "metric": "raw",
-  "median": 0.004437962024142602,
-  "neg": 20,
-  "pos": 22,
-  "p": 0.8776143287523155
- },
- {
-  "offset": 64,
-  "metric": "per_sd",
-  "median": 0.0036736389859442047,
-  "neg": 20,
-  "pos": 22,
-  "p": 0.8776143287523155
- },
- {
-  "offset": 64,
-  "metric": "per_sd_over_mean",
-  "median": -0.005800928575921768,
-  "neg": 25,
-  "pos": 17,
-  "p": 0.27995623852893914
- },
- {
-  "offset": 128,
-  "metric": "raw",
-  "median": -0.00931435970686693,
-  "neg": 26,
-  "pos": 15,
-  "p": 0.11727520595741225
- },
- {
-  "offset": 128,
-  "metric": "per_sd",
-  "median": -0.020076974454356224,
-  "neg": 26,
-  "pos": 15,
-  "p": 0.11727520595741225
- },
- {
-  "offset": 128,
-  "metric": "per_sd_over_mean",
-  "median": -0.009812801421403205,
-  "neg": 28,
-  "pos": 13,
-  "p": 0.027533155829587486
- },
- {
-  "offset": 256,
-  "metric": "raw",
-  "median": -0.005849813121968922,
-  "neg": 23,
-  "pos": 18,
-  "p": 0.5327092552361137
- },
- {
-  "offset": 256,
-  "metric": "per_sd",
-  "median": -0.011228263597938947,
-  "neg": 24,
-  "pos": 17,
-  "p": 0.34888887944907765
- },
- {
-  "offset": 256,
-  "metric": "per_sd_over_mean",
-  "median": -0.016403439818332696,
-  "neg": 26,
-  "pos": 15,
-  "p": 0.11727520595741225
- }
-]
+ "rows": [
+  {
+   "offset": 1,
+   "metric": "raw",
+   "median": -0.0031306613046711423,
+   "neg": 23,
+   "pos": 19,
+   "p": 0.6439689563703723
+  },
+  {
+   "offset": 1,
+   "metric": "per_sd",
+   "median": -0.009313932356492527,
+   "neg": 25,
+   "pos": 17,
+   "p": 0.27995623852893914
+  },
+  {
+   "offset": 1,
+   "metric": "per_sd_over_mean",
+   "median": -0.012683324283826389,
+   "neg": 28,
+   "pos": 14,
+   "p": 0.04355852192384191
+  },
+  {
+   "offset": 2,
+   "metric": "raw",
+   "median": -0.00019816864237375692,
+   "neg": 21,
+   "pos": 21,
+   "p": 1.0
+  },
+  {
+   "offset": 2,
+   "metric": "per_sd",
+   "median": -0.01456590159660772,
+   "neg": 23,
+   "pos": 19,
+   "p": 0.6439689563703723
+  },
+  {
+   "offset": 2,
+   "metric": "per_sd_over_mean",
+   "median": -0.01608849279219278,
+   "neg": 25,
+   "pos": 17,
+   "p": 0.27995623852893914
+  },
+  {
+   "offset": 4,
+   "metric": "raw",
+   "median": -0.017202177922203674,
+   "neg": 27,
+   "pos": 15,
+   "p": 0.08842954698775429
+  },
+  {
+   "offset": 4,
+   "metric": "per_sd",
+   "median": -0.031391523301224314,
+   "neg": 27,
+   "pos": 15,
+   "p": 0.08842954698775429
+  },
+  {
+   "offset": 4,
+   "metric": "per_sd_over_mean",
+   "median": -0.012668505678343354,
+   "neg": 30,
+   "pos": 12,
+   "p": 0.007915897334896727
+  },
+  {
+   "offset": 8,
+   "metric": "raw",
+   "median": -0.006701200824194077,
+   "neg": 25,
+   "pos": 17,
+   "p": 0.27995623852893914
+  },
+  {
+   "offset": 8,
+   "metric": "per_sd",
+   "median": -0.018472148044623448,
+   "neg": 26,
+   "pos": 16,
+   "p": 0.16414940178310644
+  },
+  {
+   "offset": 8,
+   "metric": "per_sd_over_mean",
+   "median": -0.010039514621917926,
+   "neg": 27,
+   "pos": 15,
+   "p": 0.08842954698775429
+  },
+  {
+   "offset": 16,
+   "metric": "raw",
+   "median": -0.0022385015149888905,
+   "neg": 22,
+   "pos": 20,
+   "p": 0.8776143287523155
+  },
+  {
+   "offset": 16,
+   "metric": "per_sd",
+   "median": -0.003718905730321055,
+   "neg": 24,
+   "pos": 18,
+   "p": 0.44079906734259566
+  },
+  {
+   "offset": 16,
+   "metric": "per_sd_over_mean",
+   "median": -0.0036395121485891363,
+   "neg": 28,
+   "pos": 14,
+   "p": 0.04355852192384191
+  },
+  {
+   "offset": 32,
+   "metric": "raw",
+   "median": -0.002188417065144944,
+   "neg": 23,
+   "pos": 19,
+   "p": 0.6439689563703723
+  },
+  {
+   "offset": 32,
+   "metric": "per_sd",
+   "median": -0.00909316295077175,
+   "neg": 25,
+   "pos": 17,
+   "p": 0.27995623852893914
+  },
+  {
+   "offset": 32,
+   "metric": "per_sd_over_mean",
+   "median": -0.010789779959857793,
+   "neg": 27,
+   "pos": 15,
+   "p": 0.08842954698775429
+  },
+  {
+   "offset": 64,
+   "metric": "raw",
+   "median": 0.004437962024142602,
+   "neg": 20,
+   "pos": 22,
+   "p": 0.8776143287523155
+  },
+  {
+   "offset": 64,
+   "metric": "per_sd",
+   "median": 0.0036736389859442047,
+   "neg": 20,
+   "pos": 22,
+   "p": 0.8776143287523155
+  },
+  {
+   "offset": 64,
+   "metric": "per_sd_over_mean",
+   "median": -0.005800928575921768,
+   "neg": 25,
+   "pos": 17,
+   "p": 0.27995623852893914
+  },
+  {
+   "offset": 128,
+   "metric": "raw",
+   "median": -0.00931435970686693,
+   "neg": 26,
+   "pos": 15,
+   "p": 0.11727520595741225
+  },
+  {
+   "offset": 128,
+   "metric": "per_sd",
+   "median": -0.020076974454356224,
+   "neg": 26,
+   "pos": 15,
+   "p": 0.11727520595741225
+  },
+  {
+   "offset": 128,
+   "metric": "per_sd_over_mean",
+   "median": -0.009812801421403205,
+   "neg": 28,
+   "pos": 13,
+   "p": 0.027533155829587486
+  },
+  {
+   "offset": 256,
+   "metric": "raw",
+   "median": -0.005849813121968922,
+   "neg": 23,
+   "pos": 18,
+   "p": 0.5327092552361137
+  },
+  {
+   "offset": 256,
+   "metric": "per_sd",
+   "median": -0.011228263597938947,
+   "neg": 24,
+   "pos": 17,
+   "p": 0.34888887944907765
+  },
+  {
+   "offset": 256,
+   "metric": "per_sd_over_mean",
+   "median": -0.016403439818332696,
+   "neg": 26,
+   "pos": 15,
+   "p": 0.11727520595741225
+  }
+ ]
+}
