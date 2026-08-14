@@ -320,3 +320,31 @@ information beyond "every pair agreed", a result at the floor cannot get more
 significant with a LARGER EFFECT (only with more pairs), and comparing p across
 these results compares n rather than evidence. Quote the sign counts, which say
 the same thing without implying a precision the test does not have.
+
+## Aggregation, named (2026-08-14)
+
+Prompted by @dario's [5926] generalisation: any per-passage quantity defined as
+a MIN or MAX over an internal set wants a median at the pair grain, because its
+distribution is skewed. `total_drift` is `1 - min(pairwise cosine)` and is one
+of those.
+
+`m06_crosslingual_arms.py` aggregates in TWO stages: the **mean** over the 3
+samples within (pair, prompt, role), then the **median** over prompts within
+pair. The pair grain is the median, per convention. The inner stage is a mean
+over three draws of an extreme statistic, which is the inconsistency dario's
+rule points at.
+
+**Checked, and it does not matter here.** Recomputing with the median at both
+stages:
+
+    total_drift  inner=mean    zh -0.02918 3u/22d   en -0.02715 2u/23d
+    total_drift  inner=median  zh -0.02885 3u/22d   en -0.02587 2u/23d
+    mean_drift   inner=mean    zh -0.04620 1u/24d   en -0.04533 0u/25d
+    mean_drift   inner=median  zh -0.04245 1u/24d   en -0.04485 0u/25d
+
+**Sign counts and p-values are IDENTICAL in all four**; the medians move 1-8%.
+The published values are the inner-mean form and stay as they are, because
+changing a published number for a difference that alters no verdict is worse
+than naming the choice. What was missing was the name, not the choice: a bare
+effect size without its aggregation is not reproducible, which is precisely what
+cost a reconciliation at [5922]/[5924].
