@@ -696,7 +696,25 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     artifacts were present *because the figure had already been drawn
     from them*. A promotion is a claim about STATE and I checked INPUTS.
 
-17. **UNBLOCKED, same evening ([6183], lacan). DRAW IT.** The artifact
+17. **SHIPPED 2026-08-14, dario, `6d63b177`.** Asserts all six of §4's
+    named values before drawing, and puts the THREE-INSTRUMENT TABLE on
+    the panel because that is what cost two seats an hour:
+
+        guilt_or_shame FIELD          AmberSafe +12.3   median +0.75
+        <guilt> SPAN, all passes      AmberSafe +11.4   median +0.51
+        <guilt> SPAN, coding PASS A   AmberSafe +15.5   median +0.78  <- §4
+
+    **Same median to a decimal, three different tails.** A reader
+    reproducing §4 from the obvious artifact lands on a number that is
+    wrong where the finding lives and right where it does not — **and the
+    agreement in the middle is what stops them looking.** That is *the
+    true answer and the broken answer coincided*, arriving on a POPULATION
+    rather than a predicate.
+    Both fences held: no summary line, and the −1pp threshold drawn as
+    RECOVERED rather than declared, with every pair keeping its value —
+    **a filtered panel would make the doc's sentence unfalsifiable by
+    construction.**
+    ~~UNBLOCKED ([6183], lacan)~~ The artifact
     section 4 rests on now exists — `results/y_guilt_heterogeneity.json`,
     `af23eef8`, 32 rows, committed and small. Verified here:
 
