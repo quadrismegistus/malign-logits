@@ -84,6 +84,73 @@ def _get_slot_model(model_id):
         return _slot[model_id]
 
 
+def _slot_item_id(prompt, top_nice, top_naughty):
+    """`nn_reachedforhis_hand-cock` — RH's format.
+
+    Last three words of the prompt, then the HIGHEST-MASS word of each branch,
+    nice first. The mass words are the discriminating part: two prompts can end
+    the same way and contend over completely different vocabulary, and an id
+    made only of the prompt would collide on exactly the pairs a battery most
+    needs to tell apart.
+
+    CJK HAS NO SPACES, so `split()` returns one token for a Chinese prompt and
+    the id would carry the whole sentence. Falls back to the last 8 characters,
+    which is the same intent by the only means available.
+    """
+    import re as _re
+    p = prompt.strip()
+    if _re.search(r"[一-鿿]", p):
+        stem = _re.sub(r"[^\w一-鿿]", "", p)[-8:]
+    else:
+        stem = "".join(_re.sub(r"[^a-z0-9]", "", w.lower()) for w in p.split()[-3:])
+    part = lambda w: _re.sub(r"[^\w一-鿿]", "", (w or "none").lower())
+    return "nn_%s_%s-%s" % (stem or "prompt", part(top_nice), part(top_naughty))
+
+
+def _slot_save(body):
+    """Append one screened item to a pair_drafts yaml. Never overwrites.
+
+    APPEND-ONLY AND ID-CHECKED. The file is a running draft the author adds to
+    across a session, so a write that replaced it would lose the session, and a
+    write that silently duplicated an id would produce two items the ingest
+    cannot tell apart. A repeat id is REPORTED and skipped rather than
+    de-duplicated, because which of the two the author meant is not knowable
+    here.
+    """
+    import re as _re
+    prompt = (body.get("prompt") or "").strip()
+    naughty = [w for w in (body.get("naughty") or []) if w]
+    nice = [w for w in (body.get("nice") or []) if w]
+    if not prompt or not naughty or not nice:
+        return {"error": "prompt, naughty and nice all required"}
+    rel = body.get("path") or "pair_drafts/round3/round3_slots.yaml"
+    #: CONFINED TO pair_drafts/. This endpoint is reachable from a browser on
+    #: the Tailscale interface; a caller-supplied path that could escape the
+    #: drafts directory would be an arbitrary-append primitive.
+    root = Path(__file__).parent.parent
+    dst = (root / rel).resolve()
+    drafts = (root / "pair_drafts").resolve()
+    if not str(dst).startswith(str(drafts)) or dst.suffix not in (".yaml", ".yml"):
+        return {"error": "path must be a .yaml under pair_drafts/"}
+    item_id = body.get("item_id") or _slot_item_id(prompt, nice[0], naughty[0])
+    existing = dst.read_text() if dst.exists() else ""
+    if _re.search(r"^\s*-\s*item_id:\s*%s\s*$" % _re.escape(item_id), existing, _re.M):
+        return {"saved": False, "item_id": item_id, "path": rel,
+                "note": "an item with this id is already in the file"}
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    block = ("\n- item_id: %s\n  prompt: %s\n  naughty: %s\n  nice: %s\n"
+             % (item_id, json.dumps(prompt, ensure_ascii=False),
+                ", ".join(naughty), ", ".join(nice)))
+    for k in ("naughty_mass", "nice_mass", "share"):
+        if body.get(k) is not None:
+            block += "  %s: %.4f\n" % (k, float(body[k]))
+    block += "  writer: \"slot-explorer\"\n"
+    with open(dst, "a") as fh:
+        fh.write(block)
+    n = len(_re.findall(r"^\s*-\s*item_id:", dst.read_text(), _re.M))
+    return {"saved": True, "item_id": item_id, "path": rel, "n_items": n}
+
+
 def _sanitize(obj):
     """Replace NaN/Inf with None recursively so JSON is valid."""
     if isinstance(obj, float):
@@ -136,6 +203,18 @@ class ModelHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         length = int(self.headers.get("Content-Length", 0))
         body = json.loads(self.rfile.read(length)) if length else {}
+
+        #: SAVE IS A POST, unlike every other /api route here, which are GETs.
+        #: A GET that appends to a file on disk is reachable by a link preview,
+        #: a prefetch or a reload, and this one writes into `pair_drafts/`.
+        if self.path == "/api/slot_save":
+            try:
+                self._respond(200, _slot_save(body))
+            except Exception as e:
+                import traceback
+                traceback.print_exc()
+                self._respond(500, {"error": str(e)})
+            return
 
         try:
             result = self._dispatch(body)

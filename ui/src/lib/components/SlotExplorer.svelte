@@ -202,6 +202,41 @@
 		}));
 	});
 
+	//: SAVE. Appends to a running yaml under pair_drafts/ via POST, so the
+	//: session accumulates rather than the author re-pasting each item. The id is
+	//: built server-side from the last three prompt words plus the HIGHEST-MASS
+	//: word of each branch -- `nn_reachedforhis_hand-cock` -- because two prompts
+	//: can end identically and contend over different vocabulary, which is
+	//: exactly the pair a battery must tell apart.
+	let savePath = $state('pair_drafts/round3/round3_slots.yaml');
+	let saveMsg = $state('');
+	let saving = $state(false);
+
+	async function save() {
+		if (!naughty.size || !nice.size || !resp) return;
+		saving = true; saveMsg = '';
+		//: HIGHEST MASS FIRST, not tag order -- the id must be a property of the
+		//: distribution, not of the order the author happened to click.
+		const byMass = (set: Set<string>) => words.filter(w => set.has(w.word))
+			.sort((a, b) => b.p - a.p).map(w => w.word);
+		try {
+			const r = await fetch(`${BASE}/api/slot_save`, {
+				method: 'POST', headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					prompt, path: savePath,
+					naughty: byMass(naughty), nice: byMass(nice),
+					naughty_mass: naughtyMass, nice_mass: niceMass, share
+				})
+			});
+			const j = await r.json();
+			if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
+			saveMsg = j.saved ? `saved ${j.item_id} (${j.n_items} in file)`
+							  : `${j.note}: ${j.item_id}`;
+		} catch (e) {
+			saveMsg = 'save failed: ' + (e instanceof Error ? e.message : String(e));
+		} finally { saving = false; }
+	}
+
 	let copied = $state(false);
 
 	//: `navigator.clipboard` IS UNDEFINED OVER PLAIN HTTP to a non-localhost
@@ -302,11 +337,15 @@
 						<input type="checkbox" bind:checked={sortByAxis} /> sort by axis
 					</label>
 				{/if}
+				<button class="ghost" onclick={save} disabled={saving || !naughty.size || !nice.size}>
+					{saving ? 'saving…' : 'save item'}
+				</button>
 				<button class="ghost" onclick={clearTags}>clear</button>
 				<button class="ghost" onclick={copyYaml}>{copied ? 'copied ✓' : 'copy yaml'}</button>
 			{/if}
 		</div>
 
+		{#if saveMsg}<p class="savemsg">{saveMsg}</p>{/if}
 		<p class="hint">
 			left-click = nice · right-click = naughty
 			<button class="ghost viewtog" onclick={() => (view = view === 'list' ? 'scatter' : 'list')}>
@@ -438,6 +477,8 @@
 	.ax.pos { color: #e15759; }
 	.sortlbl { display: flex; gap: 4px; align-items: center; cursor: pointer; }
 	.viewtog { margin-left: 10px; }
+	.savemsg { font-family: 'SF Mono', monospace; font-size: 11px; color: #6f9dc9;
+	           margin: 0 0 6px 2px; }
 	.words.hidden { display: none; }
 	.scatterwrap { border: 1px solid #2a2a44; border-radius: 4px; background: #141428;
 	               padding: 6px; margin-bottom: 10px; }
