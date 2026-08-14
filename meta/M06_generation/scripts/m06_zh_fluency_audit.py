@@ -21,13 +21,25 @@ FIVE CHECKS, each naming what would have to be true for it to matter:
                     A `model` field would end the study outright.
   2 BATCH CLUSTER   models must not concentrate in batches. If one agent saw
                     mostly one arm, its calibration becomes that arm's score.
-  3 KEY ORDER       key index must not track model. Weak here and harmless --
+  3 KEY ORDER       key index must not track model. The 0.2 threshold is a
+                    CHOICE and the observed value is -0.108, within a factor
+                    of two of it -- so this one is stated loosely and a real
+                    leak just under 0.2 would pass. Weak here and harmless --
                     the judge sees batch order, not key order, and could not
                     decode an alphabetical rank -- but it is checked rather
                     than argued away.
   4 RATING ORDER    position within a batch must not predict the verdict.
                     A fatiguing judge would impose a gradient on whatever
                     happened to be late in each file.
+                    **SENSITIVITY, MEASURED, because this check passes on
+                    p > 0.05 and a test that accepts a null is a test that
+                    passes when it has no power.** Injecting a partial sort
+                    into round 1 (n=348) and averaging 12 draws:
+                        <=15% of items sorted   fires  0/12   BLIND
+                            20%                 fires  4/12
+                            >=30%               fires 12/12
+                    So its green means "no gradient affecting >=30% of items",
+                    NOT "no gradient". Below 15% it could not fire.
   5 ROUND DRIFT     the two rounds may rate differently; what matters is that
                     the offset is CONSTANT across models, or it does not
                     cancel in an aligned-minus-base contrast.
@@ -133,7 +145,8 @@ def main():
         #: 4 RATING ORDER
         rho2, pv2 = stats.spearmanr(pos_x, pos_y)
         say("rating-order", pv2 > 0.05,
-            "spearman(position in batch, score) %+.4f p=%.3f" % (rho2, pv2), label)
+            "spearman(position in batch, score) %+.4f p=%.3f "
+            "[detects a >=30%% gradient; blind below 15%%]" % (rho2, pv2), label)
 
     #: 5 ROUND DRIFT -- needs both rounds
     t2 = json.load(open(os.path.join(OUTD, "zh_fluency_sample_r2.json")))["truth"]

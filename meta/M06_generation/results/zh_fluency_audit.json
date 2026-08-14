@@ -16,7 +16,7 @@
   },
   "r1:rating-order": {
    "pass": true,
-   "detail": "spearman(position in batch, score) -0.0481 p=0.371"
+   "detail": "spearman(position in batch, score) -0.0481 p=0.371 [detects a >=30% gradient; blind below 15%]"
   },
   "r2:field-leak": {
    "pass": true,
@@ -32,7 +32,7 @@
   },
   "r2:rating-order": {
    "pass": true,
-   "detail": "spearman(position in batch, score) +0.0045 p=0.889"
+   "detail": "spearman(position in batch, score) +0.0045 p=0.889 [detects a >=30% gradient; blind below 15%]"
   },
   "drift-cancels": {
    "pass": true,
