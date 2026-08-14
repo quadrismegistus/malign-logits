@@ -1,0 +1,309 @@
+{
+ "_about": "Per-pair <guilt> SPAN rates on coding PASS A, which is the population Y_superego section 4 prints and which no producer asserted. Span over ALL passes gives AmberSafe +11.44 and a median of +0.51; pass A gives +15.46 and +0.78. `pass` is the coding pass ('A'/'B'), not a boolean. Emitted because the source is 143 MB and gitignored, so a figure drawn from it directly would inherit an input no other seat can fetch.",
+ "source": "results/y_confirmatory_coded.jsonl",
+ "pass": "A",
+ "tag": "<guilt>",
+ "records_used": 42002,
+ "n_pairs": 32,
+ "median_delta_pp": 0.7786059629331182,
+ "spread_pp": 19.86917795509371,
+ "n_negative": 10,
+ "n_below_-1pp": 4,
+ "negative_threshold_pp": -1.0,
+ "below_threshold": [
+  "tiiuae/Falcon3-Mamba-7B-Instruct",
+  "allenai/Olmo-3-7B-Instruct-DPO",
+  "tiiuae/falcon-mamba-7b-instruct",
+  "microsoft/phi-4-reasoning"
+ ],
+ "pairs": [
+  {
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "aligned_model": "LLM360/AmberSafe",
+   "base_rate": 1.7350157728706626,
+   "aligned_rate": 17.19242902208202,
+   "delta_pp": 15.457413249211358,
+   "n_base": 634,
+   "n_aligned": 634
+  },
+  {
+   "pair": "google/gemma-2-9b>google/gemma-2-9b-it",
+   "aligned_model": "google/gemma-2-9b-it",
+   "base_rate": 6.110283159463488,
+   "aligned_rate": 13.114754098360656,
+   "delta_pp": 7.004470938897168,
+   "n_base": 671,
+   "n_aligned": 671
+  },
+  {
+   "pair": "llm-jp/llm-jp-3-7.2b>llm-jp/llm-jp-3-7.2b-instruct3",
+   "aligned_model": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "base_rate": 4.705882352941177,
+   "aligned_rate": 11.029411764705882,
+   "delta_pp": 6.323529411764706,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "aligned_model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "base_rate": 4.852941176470588,
+   "aligned_rate": 11.029411764705882,
+   "delta_pp": 6.176470588235294,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "aligned_model": "m-a-p/CT-LLM-SFT-DPO",
+   "base_rate": 1.1764705882352942,
+   "aligned_rate": 6.176470588235294,
+   "delta_pp": 5.0,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+   "aligned_model": "stabilityai/stablelm-2-zephyr-1_6b",
+   "base_rate": 0.7352941176470589,
+   "aligned_rate": 3.9705882352941178,
+   "delta_pp": 3.235294117647059,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "aligned_model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "base_rate": 2.9411764705882355,
+   "aligned_rate": 5.4411764705882355,
+   "delta_pp": 2.5,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "EleutherAI/pythia-2.8b>ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "aligned_model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "base_rate": 3.088235294117647,
+   "aligned_rate": 5.588235294117647,
+   "delta_pp": 2.4999999999999996,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "aligned_model": "tiiuae/Falcon3-7B-Instruct",
+   "base_rate": 2.9411764705882355,
+   "aligned_rate": 4.852941176470588,
+   "delta_pp": 1.9117647058823524,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct",
+   "aligned_model": "tiiuae/Falcon3-3B-Instruct",
+   "base_rate": 1.263823064770932,
+   "aligned_rate": 3.1595576619273302,
+   "delta_pp": 1.8957345971563981,
+   "n_base": 633,
+   "n_aligned": 633
+  },
+  {
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "aligned_model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "base_rate": 1.911764705882353,
+   "aligned_rate": 3.676470588235294,
+   "delta_pp": 1.764705882352941,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "aligned_model": "allenai/OLMo-2-0425-1B-DPO",
+   "base_rate": 2.7941176470588234,
+   "aligned_rate": 4.411764705882353,
+   "delta_pp": 1.6176470588235299,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "aligned_model": "meta-llama/Llama-3.1-8B-Instruct",
+   "base_rate": 2.2222222222222223,
+   "aligned_rate": 3.4074074074074074,
+   "delta_pp": 1.1851851851851851,
+   "n_base": 675,
+   "n_aligned": 675
+  },
+  {
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "aligned_model": "m-a-p/neo_7b_instruct_v0.1",
+   "base_rate": 3.5294117647058822,
+   "aligned_rate": 4.5588235294117645,
+   "delta_pp": 1.0294117647058822,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "aligned_model": "BSC-LT/salamandra-7b-instruct",
+   "base_rate": 0.8823529411764706,
+   "aligned_rate": 1.7647058823529411,
+   "delta_pp": 0.8823529411764706,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "aligned_model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "base_rate": 1.095890410958904,
+   "aligned_rate": 1.917808219178082,
+   "delta_pp": 0.821917808219178,
+   "n_base": 365,
+   "n_aligned": 365
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "aligned_model": "HuggingFaceTB/SmolLM3-3B",
+   "base_rate": 2.9411764705882355,
+   "aligned_rate": 3.676470588235294,
+   "delta_pp": 0.7352941176470584,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "inceptionai/jais-family-6p7b>inceptionai/jais-family-6p7b-chat",
+   "aligned_model": "inceptionai/jais-family-6p7b-chat",
+   "base_rate": 4.025764895330113,
+   "aligned_rate": 4.508856682769726,
+   "delta_pp": 0.483091787439613,
+   "n_base": 621,
+   "n_aligned": 621
+  },
+  {
+   "pair": "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat",
+   "aligned_model": "baichuan-inc/Baichuan2-7B-Chat",
+   "base_rate": 3.0595813204508855,
+   "aligned_rate": 3.2206119162640903,
+   "delta_pp": 0.16103059581320478,
+   "n_base": 621,
+   "n_aligned": 621
+  },
+  {
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "aligned_model": "tiiuae/Falcon3-10B-Instruct",
+   "base_rate": 4.264705882352941,
+   "aligned_rate": 4.411764705882353,
+   "delta_pp": 0.14705882352941213,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct",
+   "aligned_model": "tiiuae/Falcon3-1B-Instruct",
+   "base_rate": 1.132686084142395,
+   "aligned_rate": 1.132686084142395,
+   "delta_pp": 0.0,
+   "n_base": 618,
+   "n_aligned": 618
+  },
+  {
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "aligned_model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "base_rate": 3.088235294117647,
+   "aligned_rate": 3.088235294117647,
+   "delta_pp": 0.0,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "aligned_model": "01-ai/Yi-1.5-9B-Chat",
+   "base_rate": 3.3823529411764706,
+   "aligned_rate": 3.088235294117647,
+   "delta_pp": -0.2941176470588234,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct",
+   "aligned_model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "base_rate": 1.0494752623688155,
+   "aligned_rate": 0.5997001499250375,
+   "delta_pp": -0.449775112443778,
+   "n_base": 667,
+   "n_aligned": 667
+  },
+  {
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "aligned_model": "Qwen/Qwen2.5-7B-Instruct",
+   "base_rate": 0.9724473257698542,
+   "aligned_rate": 0.4862236628849271,
+   "delta_pp": -0.4862236628849271,
+   "n_base": 617,
+   "n_aligned": 617
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "aligned_model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "base_rate": 2.0588235294117645,
+   "aligned_rate": 1.1764705882352942,
+   "delta_pp": -0.8823529411764703,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "aligned_model": "openbmb/MiniCPM5-1B",
+   "base_rate": 1.9637462235649548,
+   "aligned_rate": 1.0574018126888218,
+   "delta_pp": -0.9063444108761329,
+   "n_base": 662,
+   "n_aligned": 662
+  },
+  {
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "aligned_model": "Qwen/Qwen3-8B",
+   "base_rate": 2.329192546583851,
+   "aligned_rate": 1.3975155279503106,
+   "delta_pp": -0.9316770186335404,
+   "n_base": 644,
+   "n_aligned": 644
+  },
+  {
+   "pair": "tiiuae/Falcon3-Mamba-7B-Base>tiiuae/Falcon3-Mamba-7B-Instruct",
+   "aligned_model": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "base_rate": 4.852941176470588,
+   "aligned_rate": 3.823529411764706,
+   "delta_pp": -1.0294117647058818,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "aligned_model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "base_rate": 4.747320061255743,
+   "aligned_rate": 3.5222052067381315,
+   "delta_pp": -1.2251148545176114,
+   "n_base": 653,
+   "n_aligned": 653
+  },
+  {
+   "pair": "tiiuae/falcon-mamba-7b>tiiuae/falcon-mamba-7b-instruct",
+   "aligned_model": "tiiuae/falcon-mamba-7b-instruct",
+   "base_rate": 4.264705882352941,
+   "aligned_rate": 2.9411764705882355,
+   "delta_pp": -1.3235294117647056,
+   "n_base": 680,
+   "n_aligned": 680
+  },
+  {
+   "pair": "microsoft/phi-4>microsoft/phi-4-reasoning",
+   "aligned_model": "microsoft/phi-4-reasoning",
+   "base_rate": 6.176470588235294,
+   "aligned_rate": 1.7647058823529411,
+   "delta_pp": -4.411764705882353,
+   "n_base": 680,
+   "n_aligned": 680
+  }
+ ]
+}
