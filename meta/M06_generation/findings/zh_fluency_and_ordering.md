@@ -148,6 +148,69 @@ of its 25 pairs are pairs whose base member largely does not produce Chinese.
 **Not edited there.** A pointer is added to that document and its text stands;
 this is add-beside, and the disposition is RH's.
 
+## Why English is null: three explanations tested and discarded
+
+Producer `scripts/m06_en_null_probes.py`, results `results/en_null_probes.json`.
+**Recorded because a negative needs its number as much as a positive does**, and
+because the next person to ask will otherwise re-derive all three.
+
+**1. HEADROOM -- discarded.** *English base models are already coherent, so
+alignment has nothing left to tighten.* Predicts the effect scales with how
+badly the base writes. Against JUDGED base fluency, which is an independent
+measurement and not a delta correlated against its own baseline:
+
+    zh order_ratio vs base fluency   rho -0.075   p=0.72    FLAT
+    zh total_drift vs base fluency   rho +0.352   p=0.084   headroom direction
+
+The ordering effect is flat across base competence. **And `total_drift` trends
+the headroom way, which is one more axis on which the two metrics differ**:
+it tracks the fluency gap (-0.497) and it trends with base fluency (+0.352);
+`order_ratio` tracks neither.
+
+**2. LENGTH -- discarded.** *English passages have ~2.5 fewer sentences (5.35
+against 7.79), and `order_ratio` is a ratio of two within-passage averages, so
+it is noisier.* Matching the sentence count does not recover the effect:
+
+    en  n_sents >= 8   13/24   median -0.0118   p=0.84
+    zh  n_sents >= 8   18/24   median -0.0109   p=0.023
+
+Chinese is stable across strata (-0.0090, -0.0085, -0.0109); English is null at
+every one.
+
+**3. SPLITTER -- real, large, and discarded as the explanation.** *Chinese goes
+through stanza and English through NLTK, so the two are not segmented into the
+same kind of unit.* The disagreement is severe -- over 416 English passages put
+through both, only **39.2% get identical splits**, 44.2% agree even on the
+count, mean Jaccard 0.695, and stanza breaks on markup and line structure where
+NLTK does not (one passage: 7 sentences against 17). **But it is ARM-NEUTRAL:**
+
+    stanza-minus-nltk sentences   base +0.990 | aligned +1.149   p=0.84
+
+A disturbance that hits both arms equally cannot create or destroy an
+aligned-minus-base contrast. **What survives is that the English LEVEL is
+splitter-dependent, so the cross-language comparison of levels is not a
+comparison of one quantity** -- but the within-language arm contrast is not
+the thing at risk, and re-splitting English under stanza would not be a test
+of the null.
+
+**So the asymmetry stands unexplained.** Alignment tightens the Chinese chain,
+does nothing measurable to the English one, and none of the three obvious
+mechanisms accounts for it.
+
+## Incidental: aligned models emit more list structure
+
+From probe 3, on English generations:
+
+    markup tokens per passage    base 0.23   aligned 0.34
+    passages carrying any        base 3.4%   aligned 12.0%   p=0.0013
+
+**Three and a half times the prevalence.** This is the register reading in its
+most literal form -- alignment installing enumerated structure -- and it is the
+same object as E-ASSIST-AMBIENT's unbidden assistant frame appearing in
+generation. **CAVEAT: the detector is a crude token list** (`<li>`, `</li>`,
+`<p>`, newline-bullet patterns) **and the base rate is small.** A lead, not a
+measurement, and it wants a specified counter before it carries any weight.
+
 ## Limits, stated
 
 - **25 pairs throughout**, and 6 in the restricted population. The ordering
