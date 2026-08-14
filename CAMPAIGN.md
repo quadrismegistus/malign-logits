@@ -348,3 +348,48 @@ seat forgets at its peril:
   three separate reconstructions in one session ([5915], [5924],
   [5942]): it is the campaign's most frequent silent decider, so an
   artifact that does not say which it took is not reproducible.
+  (Compliance recorded per malign's [5944].4, so the next audit does
+  not re-open it: `H_norm_acquisition` states its aggregation —
+  median over 584 prompts per rung, paired per prompt, with
+  `median_nonzero` beside it for tie-heavy scales — and clears this.)
+- **A duplicate is identified by whether the VALUES agree to
+  nondeterminism, never by whether the LABELS collide** (malign's,
+  [5944]): `pythia-6.9b` under both base_step and base_endpoint IS one
+  set of weights scored twice (max|diff| 6.5e-3), while
+  `Olmo-3-1025-7B` presents the IDENTICAL surface — same model_id, same
+  role collision, same 584 prompts — and is a released base model
+  against a stage1 rung (max|diff| 4.1e-1, sixty-two times wider). A
+  seat generalising the Pythia case by pattern-match would delete a
+  real checkpoint and call it deduplication. The discriminator costs
+  one `max|diff|`, is two orders of magnitude wide, and is invisible
+  until asked. Corollary, and it is why the amendment mattered more
+  than the check: **a correct guard with a wrong reason propagates the
+  wrong reason** — the filter was right and its comment stated the
+  duplication as a general fact about "the final rung" while filtering
+  one ladder of two, true where it fires and false one ladder over.
+- **`_about`: every results artifact carries its own scope line, where
+  a reader meets the data** ([5945] dario named it, [5946] malign
+  measured it, [5947] registrar ruled). `m05_widening_null.json` holds
+  `_about: "ONE LINEAGE (OLMo) — SHAPE/timing, not generalisation"`,
+  and that fence — not any document — is what kept a two-unit
+  disagreement from being drawn as a replication failure. It is what
+  `mediation_readings.json`, the parse-free numbers and
+  `undisturbed_reference` each lacked. Reach, measured rather than
+  assumed: **67 of 443 JSON artifacts, 15%**, `_about` at 88% of those
+  against unsystematic `_population` / `_caveat` / `_note`. THE RULING:
+  (1) one spelling, `_about`; variants migrate when their file is next
+  touched. (2) The fence lives INSIDE the artifact — a sibling
+  `<name>._about.json` is refused, because separability is the exact
+  failure the convention exists to prevent. (3) For the 40 top-level
+  ARRAYS, where the container forbids a self-describing key, the form
+  is `{"_about": ..., "rows": [...]}`; migration is INCREMENTAL, not a
+  sweep — new array artifacts take the wrapped form from now, existing
+  ones convert when their producer is next edited, with their in-repo
+  readers updated in the SAME commit so the break and its fix are
+  always atomic. Any all-at-once migration is RH's call and is not
+  needed. (4) Exception worth doing on its own: the largest exposed
+  arrays, because **exposure runs inverse to importance here — a bare
+  array is exactly the shape a POPULATION takes**
+  (`a_position_curves.json`, 215,010 rows, is the data behind the 12
+  substrate-stamped M04 figures, so the fence currently sits on the
+  rendering and not on the numbers).
