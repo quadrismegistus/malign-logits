@@ -52,7 +52,8 @@ PASSAGES = "data/raw/blt_passages.jsonl.gz"
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--limit", type=int, default=None,
+                    help="PER FILE, not global -- see the loop comment")
     a = ap.parse_args()
 
     from malign_logits.cache import get_cache
@@ -77,30 +78,46 @@ def main():
             if not os.path.exists(fb):
                 print("  %s/%s: NO .f32 SIDECAR -- refusing" % (d, jf)); continue
             arr = np.memmap(fb, dtype=np.float32, mode="r")
+            #: PER-FILE counters. These were previously the global running
+            #: totals printed on a per-file line, so shard 3's line showed the
+            #: grand total and shard 0's showed only its own -- four rising
+            #: numbers that read as four per-shard counts. A shard contributing
+            #: every bad row was unattributable, which is the whole reason to
+            #: print per shard.
+            f_new = f_have = f_bad = f_missing = 0
             with open(os.path.join(dp, jf)) as fh:
                 for line in fh:
                     r = json.loads(line)
                     key = (r["prompt"], r["text_sha"])
                     text = text_by.get(key)
                     if text is None:
-                        n_missing += 1; continue
+                        f_missing += 1; continue
                     ids = [b + 4 for b in text.encode()]
                     if len(ids) != r["n_tokens"]:
-                        n_bad += 1; continue
+                        f_bad += 1; continue
                     if cm.has_ref_surprisal(BLT, r["prompt"], text):
-                        n_have += 1; continue
+                        f_have += 1; continue
                     sur = np.asarray(arr[r["row"]:r["row"] + r["n"]], dtype=np.float32)
                     if sur.size != r["n"]:
-                        n_bad += 1; continue
+                        f_bad += 1; continue
                     if not a.dry_run:
                         cm.set_ref_surprisal(BLT, r["prompt"], text, {
                             "surprisal": sur,
                             "token_ids": np.asarray(ids, dtype=np.uint16)})
-                    n_new += 1
-                    if a.limit and n_new >= a.limit:
+                    f_new += 1
+                    #: PER-FILE limit, deliberately. As a GLOBAL cap this broke
+                    #: only the row loop, so once it was hit every later shard
+                    #: processed exactly ONE row and reported clean -- a
+                    #: rehearsal that looked like four shards of N was one shard
+                    #: of N plus three single rows. A rehearsal that cannot
+                    #: reach every shard is worth less than no rehearsal,
+                    #: because it reports the same thing a good one does.
+                    if a.limit and f_new >= a.limit:
                         break
+            n_new += f_new; n_have += f_have
+            n_bad += f_bad; n_missing += f_missing
             print("  %s/%-22s new %s | already %s | bad %s | text-missing %s"
-                  % (d, jf, f"{n_new:,}", f"{n_have:,}", n_bad, n_missing))
+                  % (d, jf, f"{f_new:,}", f"{f_have:,}", f_bad, f_missing))
     print("\n  %s %s entries | %s already present | %s refused | %s no text"
           % ("WOULD WRITE" if a.dry_run else "WROTE", f"{n_new:,}",
              f"{n_have:,}", n_bad, n_missing))

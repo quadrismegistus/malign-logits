@@ -198,6 +198,36 @@ def main():
                 print("  %d embedded  %d sentences  %.1f min  %.1f/s"
                       % (n_new, n_sent, el, n_new / max(el * 60, 1)), flush=True)
 
+    #: RUN MANIFEST CARRYING `_about`, per registrar's rider [5956]: a refused
+    #: stratum is an ABSENCE in the output, and an absence has to be visible
+    #: where the reader meets the data, not only in the docket. Written every
+    #: run, including partial ones, so a shard killed mid-way still says what it
+    #: was excluding and under which policy.
+    mf = os.path.join(a.out, "bge_shard%02d.manifest.json" % a.shard)
+    json.dump({"_about": {
+        "ref": "%s|<splitter>, per row; nltk-en and stanza-zh both appear" % BGE,
+        "commission": "lacan [5896]; mixed-policy decided at [5955]",
+        "mixed_policy": a.mixed_policy,
+        "mixed_stratum": (
+            "The corpus is en 372,103 / zh 78,879 / mixed 32,103 (6.6%, median "
+            "CJK share of letter characters 0.25). Under policy '%s' the mixed "
+            "stratum is %s." % (a.mixed_policy,
+                                "REFUSED and absent from this table"
+                                if a.mixed_policy == "refuse"
+                                else "segmented, see per-row mixed_policy")),
+        "why_refused": (
+            "No monolingual splitter is defensible on text that is median 25% "
+            "CJK, and the mis-segmentation scales with CJK share -- a confound "
+            "correlated with the stratum-defining variable, which is worse than "
+            "a smaller n because it is unrecoverable from the output."
+            if a.mixed_policy == "refuse" else None),
+        "vectors": "float32, L2-normalized, dim %d, in the .f32 sidecar" % DIM,
+        "join": "(prompt, text_sha) with the BLT pass; text_sha is sha256 of RAW text",
+        "shard": a.shard, "of": a.of,
+        "passages_embedded": n_new, "sentences": n_sent, "refused": len(refused),
+    }}, open(mf, "w"), indent=1)
+    print("  manifest -> %s" % os.path.basename(mf), flush=True)
+
     if refused:
         rp = os.path.join(a.out, "bge_shard%02d.refused.jsonl" % a.shard)
         with open(rp, "a") as fh:
