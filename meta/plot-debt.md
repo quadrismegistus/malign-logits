@@ -33,6 +33,18 @@ the paper-facing figures.
 
 ## RUNNING TODO (live queue; registrar maintains; dated statuses)
 
+> **NUMBERING NAMESPACE: `queue N`.** This document carries FIVE
+> independently numbered lists — this queue, the cross-folder shortlist, and
+> the per-folder candidate lists. **There are four different "item 1".**
+> dario read the queue wrong three times on 2026-08-14 before establishing
+> its state ([6177]), twice by matching a STATUS WORD where the thing wanted
+> was an ENTRY'S STATE: `HELD`, `UNHELD` and `SHIPPED` all occur inside item
+> 5, and its first line says HELD. **A first line is a name for an entry, not
+> a relation to it.** The structure is legible to a reader and invisible to a
+> predicate. Cite as `queue 12`, `shortlist 9`, `M05 candidate 3` — never a
+> bare number. Shortlist numbers are NOT renumbered here because three
+> entries already cite `shortlist 9`.
+
 Priority order, RH-adjustable. "open" = undrawn and unblocked.
 
 1. SHIPPED 2026-08-14 (dario, 709dfdf1) — M01 N cluster dot plot:
@@ -675,6 +687,29 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     grain alone (0/219 FDR); en/zh geometry across encoders. Held:
     four-instrument pole exhibit (drawable but caption-treacherous).
 
+16. OPEN — **PROMOTED FROM `shortlist 2` 2026-08-14, registrar, on dario's
+    ask at [6177]. TAKE THIS ONE.** M01 T-18 beside M05-C: the affect DiD at
+    BOTH units — one row per declared field, one-lineage DiD left, edge-unit
+    DiD right, **sign disagreements highlighted** (RID:aggression the anchor).
+
+        meta/M01_displacement/results/t_affect_did.csv    1,920 B   present
+        data/m05_widening_null.json                      64,901 B   present
+
+    **Chosen over `shortlist 1` for a reason worth stating, since it is a
+    judgment and not a queue order.** T-14 is a clean dumbbell and would ship
+    faster. This one does something today's work argues is worth more: **the
+    claim it carries — the affect gap is real and its SIGN is not robust —
+    currently lives as a retraction paragraph in prose.** Drawn at both units
+    with the disagreements marked, it becomes geometry. *A fence in the
+    geometry beats a fence in the prose* has now been demonstrated four times
+    in this campaign (the basin figure, the truncation sweep, P §3's spread,
+    the no-remainder ledger), and this is the entry where it applies hardest.
+
+    **The fence, and the panel refuses without it:** the two units are not two
+    estimates of one quantity, so the panel must not invite a reader to average
+    them or to read the disagreement as noise. Assert the sign disagreement
+    count; if it ever silently becomes zero, stop rather than draw agreement.
+
 ## STATUS CHANGES (2026-08-13/14)
 
 - M05 C-R4 recapture bars: BLOCKED -> DEAD. R4 withdrawn ([5781]) —
@@ -723,6 +758,9 @@ it was plot debt, and severity runs opposite to this filename). This file
 now owns figures only.
 
 ## Cross-folder shortlist (registrar's synthesis)
+
+> **NUMBERING NAMESPACE: `shortlist N`.** Cited as such elsewhere in this
+> file; do not renumber.
 
 The candidates most likely to carry weight in the paper or book, drawn from
 the per-folder lists below. Judgment, not doctrine.
@@ -774,6 +812,8 @@ Methodological pair worth drawing for the book's methods spine: **M03 D §6**
 stopping while addition continues; `results/t_ladder_steps.csv`).
 
 ## Per-folder candidate lists
+
+> **NUMBERING NAMESPACE: `<folder> candidate N`.** Each folder restarts at 1.
 
 Condensed from the readers' reports: doc / result / data / suggested form.
 Ordering within each folder is the reader's ranking.
