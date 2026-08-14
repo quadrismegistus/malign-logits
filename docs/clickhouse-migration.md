@@ -12,18 +12,56 @@ here touches `lltk` (409 GiB), `abstraction`, `llmtasks` or `tmp`, and
 against `system`. That guard was watched refusing `DROP TABLE lltk.texts` and
 `DROP DATABASE lltk` before anything was written.
 
-| table | rows | distinct cells | what it holds |
-|---|---|---|---|
-| `twp_words` | 32.67M | — | word probabilities, one row per (model, prompt, word, source) |
-| `twp_residual` | 283.4k | 283,443 | the four-way residual per cell, plus conservation |
-| `logit_probs` | 1.52B | — | log-probabilities, truncated at p ≥ 1e-6 |
-| `logit_residual` | 300.2k | 273,599 | threshold, kept, dim, mass_kept per cell |
-| `gen_sequences` | 2.83M | 1,987,320 | passages and beams: token_ids, text, forced_word |
-| `gen_scores` | 6.59M | 3,988,075 | per-sequence logprob ARRAYS, one row per scorer |
-| `prompt_catalogue` | 2,809 | — | the catalogue, ALL statuses, regenerated |
-| `models` | 152 | — | registry nodes JOINED with measured tokenizer properties |
-| `model_edges` | 199 | — | typed relations: dpo_of, sft_of, same_base_as, … |
-| `edge_tokens` | 198 | — | shared-id sets per edge, for cross-scoreability |
+**THIS TABLE IS GENERATED. Do not hand-edit it; regenerate:**
+
+    python -c "from malign_logits import ch; print(ch.inventory_md())"
+
+The version that stood here until 2026-08-14 was transcribed and had drifted
+by up to 2.9x -- it claimed `twp_words` held 32.67M against an actual
+95,180,535, and `twp_residual` 283.4k against 1,019,521. A reader sizing a
+query off those numbers would have been wrong by a factor of three.
+
+| table | engine | rows | size | ORDER BY |
+|---|---|---|---|---|
+| `logit_probs` | ReplacingMT | 1,719,445,302 | 7.13 GiB | `model, prompt, token_id` |
+| `gen_scores` | ReplacingMT | 6,332,971 | 2.52 GiB | `corpus, model, prompt, forced_word, sample_idx, scorer` |
+| `gen_sequences` | ReplacingMT | 3,159,768 | 1.70 GiB | `corpus, model, prompt, forced_word, sample_idx` |
+| `movement` | MT | 77,625,652 | 1.22 GiB | `rule, relation, base, aligned, prompt, word` |
+| `twp_words` | ReplacingMT | 95,180,535 | 1.07 GiB | `model, prompt, word, source` |
+| `twp_residual` | ReplacingMT | 1,019,521 | 40.40 MiB | `model, prompt, source` |
+| `movement_cells` | MT | 568,977 | 29.06 MiB | `rule, relation, base, aligned, prompt` |
+| `logit_residual` | ReplacingMT | 297,129 | 8.48 MiB | `model, prompt` |
+| `verb_context_mask_m01` | MT | 316,516 | 2.11 MiB | `prompt, word` |
+| `prompt_catalogue` | ReplacingMT | 2,888 | 113.11 KiB | `prompt, prompt_id` |
+| `vf_manifest_tmp` | MT | 1,620 | 58.04 KiB | `cell_id` |
+| `vf_rime_tmp` | MT | 4,281 | 30.86 KiB | `key, word` |
+| `models` | ReplacingMT | 159 | 12.47 KiB | `model_id` |
+| `movement_edges` | MT | 226 | 7.92 KiB | `base, aligned, relation` |
+| `edge_tokens` | ReplacingMT | 198 | 7.12 KiB | `parent, child, relation` |
+| `model_edges` | ReplacingMT | 203 | 5.38 KiB | `parent, child, relation` |
+
+**`logit_probs` IS SUPERSEDED AND IS NOT THE LOGIT STORE (RH, 2026-08-14).**
+The decision is that logits live in the `.f16` sidecar files, not in
+ClickHouse. Last written 2026-08-10; nothing has been added since. It remains
+the largest object in the database -- 7.13 GiB and 90% of all rows in it --
+and it is retained rather than dropped, which is RH's call and not a seat's.
+
+Three things follow for anyone reading it:
+
+  - **`ch_read.ch_logit_probs`, `token_probs` and `logit_coverage` still query
+    it**, as does `M02/contradiction_null.py --logits`, whose `fetch_logits`
+    reads this table (its `fetch_stash` path reads the `.f16` set through
+    `cache.get_logits`, which is a DIFFERENT store -- the two are easy to
+    conflate and were conflated on the docket on 2026-08-14).
+  - **A PROVISIONAL finding cites a re-run performed on it** --
+    `contradiction_ratio_has_no_null.md`, "a full `logit_probs` 1e-6 re-run at
+    75 models". That number is not invalidated by the supersession; it was
+    measured on what was there.
+  - **It carries roughly 18% duplicate rows** -- measured on one model,
+    3,148,092 of 17,259,198, with ZERO duplicated keys differing in value, so
+    the duplication is a `ReplacingMergeTree` merge that never finished and not
+    a data defect. `OPTIMIZE TABLE ... FINAL` would collapse it losslessly.
+    Not worth doing on an abandoned table; recorded so nobody re-derives it.
 
 Corpora in `gen_sequences`: `f11_l2` (228,520 contradiction passages, 58
 models), `y` (122,400 sexual-prompt passages, 72 models, 107,300 carrying a

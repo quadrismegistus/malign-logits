@@ -271,6 +271,12 @@ def logit_coverage(model=None):
     return [dict(zip(head, l.split("\t"))) for l in lines[1:] if l.count("\t") == len(head) - 1]
 
 
+#: **THE `logit_probs` TABLE IS SUPERSEDED (RH, 2026-08-14).** Logits live in
+#: the `.f16` sidecar files; the table was last written 2026-08-10 and nothing
+#: has been added since. The three functions below still work and still read
+#: it, and what they return is whatever was there on 08-10 -- for 123 models,
+#: not for anything scored after. Do not build a new analysis on them without
+#: knowing that. `cache.get_logits` is the OTHER store and is the live one.
 def ch_logit_probs(model, prompt, as_prob=True):
     """One cell's truncated distribution.
 

@@ -213,6 +213,36 @@ def insert(table, rows, **kw):
     return len(rows)
 
 
+def inventory():
+    """Every table in the database with its engine, key, rows and size.
+
+        python -c "from malign_logits import ch; print(ch.inventory_md())"
+
+    Exists because `docs/clickhouse-migration.md` carried a hand-written row
+    table that had drifted by up to 2.9x -- it said `twp_words` held 32.67M
+    against an actual 95,180,535, and `twp_residual` 283.4k against 1,019,521.
+    A transcribed count is stale the day after it is written; a generated one
+    is stale only until someone runs the command.
+    """
+    return query("""
+        SELECT name, engine, sorting_key, total_rows AS rows,
+               total_bytes AS bytes, formatReadableSize(total_bytes) AS size
+        FROM system.tables WHERE database='{db}' ORDER BY total_bytes DESC""")
+
+
+def inventory_md():
+    """`inventory()` as a Markdown table, for pasting into a doc."""
+    rows = inventory()
+    out = ["| table | engine | rows | size | ORDER BY |",
+           "|---|---|---|---|---|"]
+    for r in rows:
+        out.append("| `%s` | %s | %s | %s | `%s` |"
+                   % (r["name"], r["engine"].replace("MergeTree", "MT"),
+                      "{:,}".format(r["rows"] or 0), r["size"],
+                      r["sorting_key"] or ""))
+    return "\n".join(out)
+
+
 def approx(col, value, tol=1e-9):
     """A float-column equality predicate that actually matches.
 
