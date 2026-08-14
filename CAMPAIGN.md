@@ -824,13 +824,39 @@ seat forgets at its peril:
                                "not a valid object name" never says what
                                is wrong, and the available conclusion is
                                that the work was never done.
-      referenced, TRUE, UNTYPED   registrar's `cdbe9c9e` — a real
+      referenced, TRUE, UNTYPED   registrar's `cdbe9c9e-a018-45bf-95e9-6bf81e96e908` — a real
                                `~/.claude` session-log UUID in a document
                                where every other 8-hex token is a commit.
                                **A correct citation that reads as
                                fabricated to the obvious check.** Fixed by
                                marking the TYPE, not the value.
 
+  **AND THE LINE RUNS BETWEEN TYPED AND UNTYPED, NOT BETWEEN TRUE AND
+  FALSE** (dario [6135], revising its own two-way version): referenced-
+  true-untyped returns the IDENTICAL error to fabricated, so a reader
+  cannot distinguish them and the correct citation costs exactly as much
+  trust as the invented one.
+  **THIS IS THE MOST COMMON IDENTIFIER CLASS IN THE REPO, NOT A CORNER
+  CASE** (malign [6136]): 12 of its 36 cited identifiers are content
+  hashes — `sha16` population pins, `dict_sha`, corpus digests — every
+  one true, none a git object, all returning *not a valid object name*.
+  **The campaign's own freeze discipline manufactures them**: every
+  registration and population pin puts a never-resolving identifier into
+  a log whose other identifiers all resolve. **Content hashes and object
+  hashes are indistinguishable to the reader and to `cat-file`, and only
+  the writer knows which is which at the moment of writing.**
+  **TYPING BY PROSE IS NOT TYPING** (dario): a type carried by how a
+  sentence happened to be worded — *"session log `cdbe9c9e`"* — is the
+  same class as a guard that held for a reason its holder could not
+  state. Two fixes that are not the same:
+    - **reader side**: write the value in FULL. A 36-char hyphenated
+      UUID or a full-length `sha16` cannot be mistaken for a git short
+      hash by someone looking at it.
+    - **auditor side**: full form does NOT defeat a naive grep — the
+      hyphen is a word boundary, so `\b[0-9a-f]{8}\b` still matches a
+      UUID's first octet. Tested. The pattern that separates them is
+      `\b[0-9a-f]{8}\b(?![-0-9a-f])`, which excludes UUID prefixes and
+      longer content digests alike.
   **THE FIX IS SEQUENCING, NOT CARE** (dario [6132], and lacan accepted it
   over its own): every hash dario cited came from a
   `git commit -F … && git log --oneline -1` chain, so **the value appeared
