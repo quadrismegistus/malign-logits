@@ -137,7 +137,28 @@ def draw(ladder, out):
             p = p + annotate("rect", xmin=lo - 0.5, xmax=hi + 0.5,
                              ymin=-0.02, ymax=top, fill=fill, alpha=0.6)
     w = 9 if ladder == "pythia" else 5
+    # a 1-rung segment (DPO) has a smoothed value (min_periods=1) but
+    # cannot render as a LINE — draw those as points so DPO shows.
+    seg_n = long.groupby("seg_group").seg_group.transform("size")
+    singles = long[seg_n == 1]
+    # right-edge direct labels, one per family, simple vertical repel
+    xmax = int(long.ckpt_idx.max())
+    last = (long.sort_values("ckpt_idx").groupby("fam", as_index=False)
+            .tail(1)[["fam", "smooth"]].sort_values("smooth"))
+    ys, gap = [], top * 0.034
+    for y in last.smooth:
+        ys.append(y if not ys else max(y, ys[-1] + gap))
+    last = last.assign(x=xmax + max(1, int(xmax * 0.015)), ylab=ys)
+    from plotnine import geom_point, geom_text, scale_x_continuous
     p = (p + geom_line(aes(y="smooth", group="seg_group"), size=1.1)
+         + geom_point(data=singles, mapping=aes(y="smooth"), size=1.8,
+                      show_legend=False)
+         + geom_text(data=last,
+                     mapping=aes(x="x", y="ylab", label="fam",
+                                 color="fam"),
+                     ha="left", size=8, fontweight="bold",
+                     show_legend=False)
+         + scale_x_continuous(expand=(0, 0, 0.30, 0))
          + scale_color_manual([COLORS[f] for f in fams], limits=fams)
          + ylim(-0.02, top)
          + labs(x="training position (ordinal ladder)",
@@ -161,7 +182,7 @@ def draw(ladder, out):
                  text=element_text(color=INK),
                  plot_title=element_text(size=13, weight="bold"),
                  plot_subtitle=element_text(size=8, color=INK2),
-                 legend_position="bottom",
+                 legend_position="none",
                  figure_size=(11, 6.4)))
     for sec in bounds:
         lo, hi = bounds[sec]
