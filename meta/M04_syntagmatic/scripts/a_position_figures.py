@@ -35,6 +35,19 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(
 import a_matched_control as A
 import a_dose_response as R
 
+#: **SUBSTRATE STAMP, ON EVERY FIGURE. dario's inventory, [5901].**
+#: These figures are named `A_*` and they are NOT Finding A's substrate.
+#: Finding A proper is the FC corpus -- 33 pairs, 23,746 cells -> 5,112 sites,
+#: registered spec, producer channel3_run.py. These plot the PASSAGE corpus at
+#: 42 pairs, whose run record (../results/A_RESULTS.md) opens with
+#: "STATUS: EXPLORATORY. Nothing here is quotable yet."
+#:
+#: Without the stamp a reader takes an `A_*` filename for the registered finding
+#: and republishes exploratory quantities as it. A figure is a claim that got
+#: harder to retract, so it has to carry its own substrate.
+STAMP = ("passage corpus, 42 pairs - NOT Finding A's fc/33-pair substrate; "
+         "run record is EXPLORATORY (A_RESULTS.md), not quotable")
+
 FIGDIR = "meta/M04_syntagmatic/figures"
 CACHE = "meta/M04_syntagmatic/results/a_position_curves.json"
 MAXPOS = 256
@@ -168,9 +181,9 @@ def figures(rows):
                 y="surprisal  (nats, median over 42 pairs)",
                 colour="text|scorer",
                 title="Surprisal by position, arm and scoring term",
-                subtitle="first letter = who wrote it, second = who scored it; "
+                subtitle=("first letter = who wrote it, second = who scored it; "
                          "positions aligned on the sentence, not the array. "
-                         "Position 1 dropped; %d-position centred rolling mean." % ROLL)
+                         "Position 1 dropped; %d-position centred rolling mean."% ROLL) + "\n" + STAMP)
          + theme_bw()
          + theme(figure_size=(11, 6), plot_title=element_text(size=11, weight="bold"),
                  plot_subtitle=element_text(size=8), strip_text=element_text(size=8)))
@@ -178,7 +191,7 @@ def figures(rows):
 
     # full range, log-ish view of the tail
     p2 = (p + scale_x_continuous(limits=(MINPOS, MAXPOS))
-            + labs(subtitle="full 256-token window"))
+            + labs(subtitle="full 256-token window" + "\n" + STAMP))
     p2.save(os.path.join(FIGDIR, "A_position_surprisal_full.png"), dpi=300, verbose=False)
 
     # CONTRAST: PAIRED — per-pair delta at each position, THEN median over pairs.
@@ -210,10 +223,10 @@ def figures(rows):
                      y="surprisal minus the non-mover arm (nats)",
                      colour="text|scorer",
                      title="Each arm against its matched non-mover, paired by pair",
-                     subtitle="above 0 = MORE surprising than a word alignment left alone. "
+                     subtitle=("above 0 = MORE surprising than a word alignment left alone. "
                               "All three arms sit at the faller's aligned probability; "
                               "only the direction of movement differs. "
-                              "Position 1 dropped; %d-position centred rolling mean." % ROLL)
+                              "Position 1 dropped; %d-position centred rolling mean."% ROLL) + "\n" + STAMP)
               + theme_bw()
               + theme(figure_size=(11, 4.2), plot_title=element_text(size=11, weight="bold"),
                       plot_subtitle=element_text(size=8), strip_text=element_text(size=8)))
@@ -260,7 +273,8 @@ def figures_by_term(df, order, roll=None, suffix=''):
                              "Free y per panel: the between-term level gap is ~1 nat, "
                              "the between-arm differences ~0.05. "
                              + ("Position 1 dropped; NO SMOOTHING." if (roll or ROLL) <= 1 else
-                              "Position 1 dropped; %d-position centred rolling mean." % (roll or ROLL)))
+                                "Position 1 dropped; %d-position centred rolling mean." % (roll or ROLL))
+                             + "\n" + STAMP)
              + theme_bw()
              + theme(figure_size=(11, 6.5), plot_title=element_text(size=11, weight="bold"),
                      plot_subtitle=element_text(size=8), strip_text=element_text(size=9)))
@@ -289,7 +303,7 @@ def figures_by_term(df, order, roll=None, suffix=''):
                     title="Against the matched non-mover: one panel per scoring term",
                     subtitle="above 0 = MORE surprising than a word alignment left alone. "
                              "undisturbed leaves the frame at positions 1-2 (+2.6 nats, the "
-                             "definitional cost of committing to any word) — zoomed, not clipped.")
+                             "definitional cost of committing to any word) — zoomed, not clipped." + "\n" + STAMP)
              + theme_bw()
              + theme(figure_size=(11, 6.5), plot_title=element_text(size=11, weight="bold"),
                      plot_subtitle=element_text(size=8), strip_text=element_text(size=9)))
