@@ -35,7 +35,7 @@
 	//: test -- a curl with no `model` -- exercised a path the app never takes.
 	//: RH caught it by reading the display, which named one model.
 	let model = $state('meta-llama/Llama-3.1-8B,allenai/Llama-3.1-Tulu-3-8B-SFT');
-	let topK = $state(40);
+	let topK = $state(50);
 	let resp: SlotResp | null = $state(null);
 	let loading = $state(false);
 	let error = $state('');
@@ -109,15 +109,6 @@
 	//: 0.010 sits below `She slowly took off her` (0.0286 naughty, demonstrably
 	//: enough -- full SFT moved it -68%) and above `reached for his` nice mass
 	//: (0.0216, which left nothing to choose).
-	const MIN_BRANCH = 0.010;
-	let verdict = $derived.by(() => {
-		if (!resp || (!naughty.size && !nice.size)) return null;
-		const bad: string[] = [];
-		if (naughtyMass < MIN_BRANCH) bad.push('NOTHING-TO-MOVE');
-		if (niceMass < MIN_BRANCH) bad.push('NOTHING-TO-CHOOSE');
-		return bad.length ? bad.join(' ') : 'ok';
-	});
-
 	let yaml = $derived.by(() => {
 		if (!naughty.size && !nice.size) return '';
 		const l = (s: Set<string>) => [...s].join(', ');
@@ -296,6 +287,30 @@
 			saveMsg = 'save failed: ' + (e instanceof Error ? e.message : String(e));
 		} finally { saving = false; }
 	}
+
+	//: ── THE VERDICT IS ON LEVERAGE AND POLE COUNT, NOT ON BRANCH MASS.
+	//: The first version rejected on `naughty_mass < 0.010`, inherited from the
+	//: screen before leverage existed. That rule is DISPROVED: measured across
+	//: four tagging schemes on one prompt, share moved 6.6x (0.056 -> 0.372)
+	//: while leverage moved 24%, and the known-DEAD churchyard item has a BETTER
+	//: balanced share (0.525) than the known MOVER (0.946). A branch-mass reject
+	//: fires red beside a green leverage and the leverage is the one with
+	//: evidence behind it.
+	//:
+	//: WHAT REPLACES IT. Two things that do bear on whether the item can measure:
+	//:   LEV < dead    the mass does not spread along the axis, so no
+	//:                 redistribution among these words can change N
+	//:   POLES < 2     a centroid estimated from ONE embedding. The direction
+	//:                 then rests on a single word's neighbourhood, which is the
+	//:                 `wedding`/`wings` failure: one odd pole word swings the
+	//:                 whole axis and nothing on screen would show it.
+	let verdict = $derived.by(() => {
+		if (!resp || (!naughty.size && !nice.size)) return null;
+		const bad: string[] = [];
+		if (stats && stats.lev < LEV_DEAD) bad.push('NO-LEVERAGE');
+		if (naughty.size < 2 || nice.size < 2) bad.push('POLE-OF-ONE');
+		return bad.length ? bad.join(' ') : 'ok';
+	});
 
 	let copied = $state(false);
 
