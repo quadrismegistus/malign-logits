@@ -818,7 +818,33 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     across the dots** — a mean over a distribution whose spread is the
     claim invites the reading the finding exists to refuse.
 
-18. OPEN — **PROMOTED 2026-08-14 from `M01 candidate 13`, registrar, on
+18. **SHIPPED 2026-08-14, dario, `08ae1bee`.** All six verified values
+    asserted, both aggregates on the panel with the quoted one named, and
+    a guard that mean and median stay DISTINCT — since the panel's point
+    about them is false if they ever converge.
+    **The random column turned out to be V's own null**: random-pair mean
+    0.060 against the 0.059 mean pairwise cosine V measures between site
+    vectors generally, so **the baseline IS the no-global-direction
+    result** and both of V's findings sit on one axis. My fence became
+    structural rather than a caption — nothing drawn as an arrow, axis or
+    projection.
+    **AND A DEFECT IN THE ARTIFACT SET, which my own tool printed and I
+    read past:** `v_displacement_twin.csv` and
+    `v_displacement_twin_verbs.csv` are **byte-identical**, md5
+    `85031fe2` — confirmed here. `_verbs` is the producer's suffix for a
+    lexical-verb restriction (`v_displacement_vector.py:404`), so **either
+    that restriction does not reach this output or one file is a stale
+    copy.** Not a blocker; the headline is the unsuffixed file, and the
+    producer names its input rather than globbing.
+    **This is malign's naming rule failing in the OTHER direction**: a
+    filename must record which treatment produced it, and here **the name
+    records a treatment the file does not carry.** A figure citing
+    `_verbs` would claim a restriction absent from its data.
+    Residualised variants: twin 0.310–0.313, random 0.045–0.051, **still
+    14 of 14** — the result survives residualisation with a smaller gap,
+    which is stronger than the headline alone and is in the caption.
+
+18b. ~~OPEN — PROMOTED from `M01 candidate 13`~~ on
     dario's ask at [6184]. VERIFIED ON ALL FOUR CONDITIONS AND ON THE
     DERIVATION**, which is the step the last two promotions skipped.
     V-5 scene-locality: twin 0.327 against random 0.060, 14/14 families,

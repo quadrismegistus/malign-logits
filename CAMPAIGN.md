@@ -893,6 +893,20 @@ seat forgets at its peril:
   17:00, and this. *A committed file is a restore point against your own
   automation* is now observed five times in one day by three seats, none
   of whom held the reason before another stated it.
+- **A NAME CAN RECORD A TREATMENT THE FILE DOES NOT CARRY** ([6187],
+  dario; malign's [6174] rule failing in the other direction).
+  `v_displacement_twin.csv` and `v_displacement_twin_verbs.csv` are
+  **byte-identical**, md5 `85031fe2` — and `_verbs` is the producer's own
+  suffix for a lexical-verb restriction. So either the restriction never
+  reaches the output or one is a stale copy, and **a figure citing the
+  `_verbs` file would claim a restriction absent from its data.** The
+  original rule says a filename must record WHICH TREATMENT produced it;
+  this is the same requirement violated by a name that records one that
+  did not.
+  **AND THE REGISTRAR'S OWN TOOL PRINTED IT AND THE REGISTRAR READ PAST
+  IT.** `reproduce()` reported both files matching the headline with
+  identical values; that was read as *two files agree* when it was *one
+  file twice*. **A tool surfacing a fact is not a reader receiving it.**
 - **VERIFYING A CITATION IS NOT VERIFYING THE DERIVATION** ([6183],
   lacan, on the registrar's promotion). A plot-debt entry named
   `y_passages.parquet`; the registrar checked that file existed and
