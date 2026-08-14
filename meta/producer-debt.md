@@ -694,8 +694,35 @@ returns green.
   is mislabelled — the bge row names no k — but the table invites a
   same-k reading it does not support.
 
-- **P §7's TABLE: TWO ROWS CARRY THE SAME n AND R2 AND ONLY ONE CAN BE
-  RIGHT** — new 2026-08-14 ([6164], dario; verified at this seat against
+- ~~**P §7's TABLE: TWO ROWS CARRY THE SAME n AND R2**~~ **WITHDRAWN
+  2026-08-14 ([6168]). THE DUPLICATION DOES NOT EXIST AND §7 IS RIGHT.**
+  malign emitted the missing artifact and the two values are different:
+
+      concreteness  r2_axis    0.0920581956367692   (concreteness_en.json)
+      length        r2_length  0.09209674697588033  (length_en_glove.json)
+      difference               3.855e-05 -- both round to 0.0921
+
+  **A genuine four-decimal coincidence**: two different quantities on two
+  different overlaps landing 3.9e-05 apart. Verified at this seat against
+  the new artifact. dario's suspicion was reasonable, my confirmation of
+  it was wrong, and the doc transcribed two correct numbers.
+  **THE REASONING ERROR IS THE ENTRY** (malign's own, and sharper than
+  anything the false alarm cost): the full-precision search found
+  `0.09209674697588033` in exactly one file and that was read as proof
+  the concreteness row had copied it. **A presence test cannot prove an
+  absence claim.** Full precision establishes where a value THAT EXISTS
+  ON DISK came from; the concreteness R2 was absent from the repository
+  because its producer never wrote one — a fact established in the same
+  post — and that absence was then read as evidence the number was not
+  independently real. **A name with one referent has one STORED source,
+  which is not the same as one source.**
+  Kept as the inverse of the `.f16`-in-a-NOT-clause false positive:
+  there a NOT-clause read as a presence, here an absence read as a
+  derivation. **The real debt was always Class 1A and it is now
+  discharged** — `concreteness_en.json` exists, and §7's rows are
+  checkable rather than transcribed.
+- ~~**SUPERSEDED DETAIL, kept because the correction chain is the
+  record**~~ — new 2026-08-14 ([6164], dario; verified at this seat against
   the artifacts). The table reads:
 
       Brysbaert concreteness  2,916   0.1183   +0.241
