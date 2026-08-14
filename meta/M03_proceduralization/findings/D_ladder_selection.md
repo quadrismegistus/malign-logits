@@ -260,10 +260,51 @@ absent.**
     BOTH POOLED        14/30 positive, mean d -0.0060, p = 0.86
 
 An earlier version of this analysis reported the rung-unit numbers. **The 50
-rungs are not 50 observations** -- they are 50 correlated snapshots of the same
-12 or 18 scenarios, and the ICC of the paired difference across rungs is
-**0.855** (F21) and **0.846** (M03): a scenario's value is fixed from the first
-alignment checkpoint to the last.
+rungs are not 50 observations** -- they are correlated snapshots of the same
+12 or 18 scenarios.
+
+**RE-DECLARED 2026-08-14. THE CONCLUSION HOLDS AND THE NUMBERS WERE WRONG.**
+This read "the ICC of the paired difference across rungs is **0.855** (F21)
+and **0.846** (M03): a scenario's value is fixed from the first alignment
+checkpoint to the last." @malign found at [5998] that **nothing computed
+those**: the value in `d_ladder_fields.py:157` was a string literal inside a
+`print` statement, saying 0.85, so three numbers existed and no producer
+emitted any of them. Re-declared prospectively in
+`plans/plan_icc_redeclaration.md` (committed alone at b2b9a0cb, before the
+producer existed) and run: `scripts/m03_icc_redeclare.py` ->
+`results/icc_redeclared.json`.
+
+    stratum      ICC(1) median   IQR             items   booked
+    f21_inst     0.6470          0.5405-0.7353     90    0.855
+    m03_slice    0.5893          0.4793-0.6820    143    0.846
+
+    12 and 18 scenarios reproduced exactly, asserted before the statistic
+
+**The booked values were too high by about 0.2, and it changes nothing,
+because the ICC was never the decision-relevant quantity.** What licenses the
+collapse is the DESIGN EFFECT, `1 + (k-1) x ICC`, and at k = 50 and 42 rungs
+a moderate ICC is still overwhelming:
+
+    stratum    rungs/scen  design effect  effective obs/scen  claimed n -> real n
+    f21_inst      50          32.4            1.53              594 -> 18.3
+    m03_slice     42          25.2            1.67              756 -> 30.0
+
+**So a scenario's 50 rungs are worth about 1.5 observations, not 50, and the
+rung-unit p-values of 2.4e-14 and 1.0e-11 were computed on an n roughly 30x
+larger than the data supports.** The collapse to the scenario unit stands.
+
+**AND IT IS CONSERVATIVE, WHICH IS THE ONE THING THAT CHANGED.** Effective n
+is 18.3 and 30.0 against the 12 and 18 the scenario unit uses, so this
+analysis has slightly UNDER-used its data rather than over-collapsing -- the
+opposite of the risk the re-declaration was run to check. No result moves:
+7/18 is at chance, and a chance-level split does not become significant at
+n=30. The headroom is recorded, not claimed.
+
+The statistic is ICC(1), one-way random effects, declared with its bias:
+rungs are ordered along training and therefore not exchangeable, so a
+systematic trend is charged to within-group variance and ICC(1)
+**understates** correlation. It is conservative toward the reading that
+would revive the rung unit, and the collapse survives it anyway.
 
 At the scenario unit the item sd is **0.116 bits**, against a population
 difference of 0.063. So:

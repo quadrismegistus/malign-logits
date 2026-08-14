@@ -153,8 +153,26 @@ def report(top=14):
     print("=" * 78)
     print("  d = share(inst) - share(indiv), paired within scenario, averaged")
     print("  over alignment rungs, then sign-tested over SCENARIOS. The rung")
-    print("  axis is not an observation axis: ICC of the paired difference")
-    print("  across rungs is 0.85.")
+    print("  axis is not an observation axis.")
+    #: THIS BLOCK USED TO PRINT "ICC ... is 0.85" AS A STRING LITERAL.
+    #: Nothing computed it, the finding booked 0.855/0.846, and so a fourth
+    #: value was emitted at every invocation with nothing able to reconcile
+    #: them ([5998]). Re-declared at plans/plan_icc_redeclaration.md and now
+    #: READ from the artifact rather than asserted here -- an outward claim in
+    #: a print statement is untested AND emitted, which is worse than a
+    #: comment because it appears in logs and reads as output.
+    _icc = os.path.join(os.path.dirname(HERE), "results", "icc_redeclared.json")
+    if os.path.exists(_icc):
+        _d = json.load(open(_icc))["strata"]
+        for _s in sorted(_d):
+            _r = _d[_s]
+            print("  %-10s ICC(1) %.4f over %d items -> design effect %.1f, "
+                  "so %.2f effective observations per scenario"
+                  % (_s, _r["icc_median"], _r["n_items"], _r["design_effect"],
+                     _r["effective_obs_per_scenario"]))
+    else:
+        print("  ICC UNAVAILABLE: run scripts/m03_icc_redeclare.py. This line")
+        print("  will not assert a value it has not read.")
     for strat in ("f21_inst", "m03_slice", None):
         S = A if strat is None else A[A.stratum == strat]
         lab = strat or "BOTH POOLED"

@@ -1,0 +1,1695 @@
+{
+ "_about": "The M03 rung ICC, RE-DECLARED under the rule at plans/plan_icc_redeclaration.md, committed at b2b9a0cb BEFORE this producer existed. SUPERSEDES 0.855 / 0.846 in D_ladder_selection.md and 0.85 printed by d_ladder_fields.py:157, none of which was computed by anything. The ICC licenses collapsing 52 rungs to 12 and 18 scenarios; a HIGH value means the collapse costs nothing, a LOW one means it discarded independent information. ICC(1) UNDERSTATES correlation here because rungs are ordered and not exchangeable, so it is conservative toward the reading that would revive the rung unit. The median travels with its quartiles because it aggregates hundreds of items and can hide them disagreeing.",
+ "plan": "plans/plan_icc_redeclaration.md",
+ "rule": {
+  "1_population": "asserted at run: 12 and 18 scenarios",
+  "2_d": "share(inst) - share(indiv), producer's own, per rung",
+  "3_item": "(source, field), >= 8 scenarios",
+  "4_summary": "median over items, with quartiles",
+  "5_statistic": "ICC(1) one-way random effects"
+ },
+ "alignment_rungs": [
+  "sft_step",
+  "sft_endpoint",
+  "dpo_endpoint",
+  "rlvr_step"
+ ],
+ "strata": {
+  "f21_inst": {
+   "n_items": 90,
+   "n_items_dropped_under_8": 96,
+   "icc_median": 0.6469822449992011,
+   "icc_q1": 0.5405084735062483,
+   "icc_q3": 0.7352837677112313,
+   "icc_min": 0.255193951100145,
+   "icc_max": 0.9641500428384586,
+   "share_items_above_0.5": 0.8444444444444444,
+   "share_items_above_0.8": 0.1111111111111111,
+   "share_items_below_0.2": 0.0,
+   "items": [
+    {
+     "source": "usas",
+     "field": "A7",
+     "icc": 0.9641500428384586,
+     "n_scenarios": 12,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "norms:valence",
+     "field": "negative",
+     "icc": 0.9219698344380061,
+     "n_scenarios": 10,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "usas_fine",
+     "field": "logical_modal_and_discourse_operators",
+     "icc": 0.9209908197580476,
+     "n_scenarios": 12,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "usas",
+     "field": "X7",
+     "icc": 0.9095226720156158,
+     "n_scenarios": 9,
+     "n_rungs_median": 12
+    },
+    {
+     "source": "meta",
+     "field": "evaluation_modality",
+     "icc": 0.8954162855618546,
+     "n_scenarios": 12,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "wordnet",
+     "field": "change",
+     "icc": 0.8897014830247608,
+     "n_scenarios": 9,
+     "n_rungs_median": 13
+    },
+    {
+     "source": "wordnet",
+     "field": "social",
+     "icc": 0.886488524434604,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "rid",
+     "field": "abstraction:",
+     "icc": 0.8524632391278185,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "extreme",
+     "icc": 0.8370049943967494,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "flat",
+     "icc": 0.8284309382137433,
+     "n_scenarios": 11,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "gi",
+     "field": "other",
+     "icc": 0.7911399937991742,
+     "n_scenarios": 8,
+     "n_rungs_median": 19
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "moderate",
+     "icc": 0.7787093208509931,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:arousal",
+     "field": "aroused",
+     "icc": 0.7687952019309527,
+     "n_scenarios": 11,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "gi",
+     "field": "cognition_mental",
+     "icc": 0.7679917372508981,
+     "n_scenarios": 8,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas_fine",
+     "field": "number_quantity_and_order",
+     "icc": 0.7679225870417612,
+     "n_scenarios": 8,
+     "n_rungs_median": 29
+    },
+    {
+     "source": "usas",
+     "field": "X6",
+     "icc": 0.7670361087177497,
+     "n_scenarios": 10,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "moderate",
+     "icc": 0.7648853424038271,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "evaluation_comparison_and_judgment",
+     "icc": 0.764159346587158,
+     "n_scenarios": 11,
+     "n_rungs_median": 36
+    },
+    {
+     "source": "usas_fine",
+     "field": "body_health_and_consumption",
+     "icc": 0.7623740471268304,
+     "n_scenarios": 9,
+     "n_rungs_median": 21
+    },
+    {
+     "source": "rid",
+     "field": "sensation:touch",
+     "icc": 0.7556092851418309,
+     "n_scenarios": 9,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas",
+     "field": "Y2",
+     "icc": 0.7513429149037968,
+     "n_scenarios": 8,
+     "n_rungs_median": 17
+    },
+    {
+     "source": "usas",
+     "field": "X2.1",
+     "icc": 0.7398174577164751,
+     "n_scenarios": 10,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "meta",
+     "field": "quantity_degree",
+     "icc": 0.7354432741251958,
+     "n_scenarios": 10,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "extreme",
+     "icc": 0.7348052484693375,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "movement_transport_and_location",
+     "icc": 0.7252662683768353,
+     "n_scenarios": 10,
+     "n_rungs_median": 19
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "concrete",
+     "icc": 0.720577675798312,
+     "n_scenarios": 12,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "sociality_reciprocity_and_belonging",
+     "icc": 0.7192407090480112,
+     "n_scenarios": 10,
+     "n_rungs_median": 44
+    },
+    {
+     "source": "wordnet",
+     "field": "cognition",
+     "icc": 0.7182595201414864,
+     "n_scenarios": 10,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "Q2.2",
+     "icc": 0.71608929612016,
+     "n_scenarios": 10,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "X2.4",
+     "icc": 0.7117272985096176,
+     "n_scenarios": 10,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "meta",
+     "field": "social_interpersonal",
+     "icc": 0.706778866407381,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "wordnet",
+     "field": "communication",
+     "icc": 0.6989628573654596,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "meta",
+     "field": "communication_speech",
+     "icc": 0.6867676817221925,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "moderate",
+     "icc": 0.6861065990117943,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "Q1.2",
+     "icc": 0.6860642490780188,
+     "n_scenarios": 11,
+     "n_rungs_median": 44
+    },
+    {
+     "source": "usas_fine",
+     "field": "inquiry_discovery_and_education",
+     "icc": 0.6803705331837183,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "S7.1",
+     "icc": 0.6800472724219939,
+     "n_scenarios": 9,
+     "n_rungs_median": 21
+    },
+    {
+     "source": "usas_fine",
+     "field": "language_and_communication",
+     "icc": 0.6792236035163588,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:arousal",
+     "field": "neutral",
+     "icc": 0.6750642403620418,
+     "n_scenarios": 11,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "meta",
+     "field": "emotion_affect",
+     "icc": 0.6720660427350063,
+     "n_scenarios": 8,
+     "n_rungs_median": 36
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "abstract",
+     "icc": 0.6658408803407702,
+     "n_scenarios": 12,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:valence",
+     "field": "positive",
+     "icc": 0.6608929234856518,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "hierarchy_power_and_status",
+     "icc": 0.6577547029681268,
+     "n_scenarios": 9,
+     "n_rungs_median": 21
+    },
+    {
+     "source": "meta",
+     "field": "perception_sensation",
+     "icc": 0.6533790261067379,
+     "n_scenarios": 10,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "usas",
+     "field": "A2.2",
+     "icc": 0.6480412671422913,
+     "n_scenarios": 9,
+     "n_rungs_median": 21
+    },
+    {
+     "source": "norms:arousal",
+     "field": "calm",
+     "icc": 0.6459232228561108,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "governance_law_and_ethics",
+     "icc": 0.6450841001668561,
+     "n_scenarios": 10,
+     "n_rungs_median": 33
+    },
+    {
+     "source": "meta",
+     "field": "possession_exchange",
+     "icc": 0.6366783003856871,
+     "n_scenarios": 11,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "norms:dominance",
+     "field": "submissive",
+     "icc": 0.6350447135036925,
+     "n_scenarios": 10,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "rid",
+     "field": "social_behavior:",
+     "icc": 0.6184134699807768,
+     "n_scenarios": 10,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "meta",
+     "field": "cognition_mental",
+     "icc": 0.6095610385888187,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "moderate",
+     "icc": 0.6026797724455918,
+     "n_scenarios": 12,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "gi",
+     "field": "physical_action",
+     "icc": 0.5998340098691372,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "rid",
+     "field": "instrumental_behavior:",
+     "icc": 0.5888388314478175,
+     "n_scenarios": 9,
+     "n_rungs_median": 43
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "extreme",
+     "icc": 0.585401670385773,
+     "n_scenarios": 12,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "extreme",
+     "icc": 0.5809564389313887,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "science_technology_and_electronics",
+     "icc": 0.5779139253082157,
+     "n_scenarios": 8,
+     "n_rungs_median": 37
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "flat",
+     "icc": 0.577144506382585,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "neutral",
+     "icc": 0.5743802604963405,
+     "n_scenarios": 12,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "M1",
+     "icc": 0.5729265550549378,
+     "n_scenarios": 10,
+     "n_rungs_median": 19
+    },
+    {
+     "source": "usas",
+     "field": "A1.1.1",
+     "icc": 0.5713829651264694,
+     "n_scenarios": 10,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "gi",
+     "field": "communication_speech",
+     "icc": 0.568828315690069,
+     "n_scenarios": 10,
+     "n_rungs_median": 45
+    },
+    {
+     "source": "usas",
+     "field": "T2",
+     "icc": 0.5682392037666558,
+     "n_scenarios": 8,
+     "n_rungs_median": 27
+    },
+    {
+     "source": "meta",
+     "field": "other",
+     "icc": 0.5643194822530951,
+     "n_scenarios": 12,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "S5",
+     "icc": 0.5628296896050483,
+     "n_scenarios": 9,
+     "n_rungs_median": 4
+    },
+    {
+     "source": "norms:valence",
+     "field": "neutral",
+     "icc": 0.5543625758104116,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "people_and_gender",
+     "icc": 0.5506766075908672,
+     "n_scenarios": 9,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas",
+     "field": "Q2.1",
+     "icc": 0.537119095478042,
+     "n_scenarios": 10,
+     "n_rungs_median": 8
+    },
+    {
+     "source": "norms:dominance",
+     "field": "neutral",
+     "icc": 0.529737246375829,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "S2mf",
+     "icc": 0.5253565937198763,
+     "n_scenarios": 9,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas_fine",
+     "field": "duration_phase_and_age",
+     "icc": 0.5243666648066941,
+     "n_scenarios": 8,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "gi",
+     "field": "social_interpersonal",
+     "icc": 0.5158859062224456,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "volition_and_capability",
+     "icc": 0.5135846981391601,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "O2",
+     "icc": 0.513484519257772,
+     "n_scenarios": 10,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "usas_fine",
+     "field": "leisure_hobbies_and_play",
+     "icc": 0.504600316053623,
+     "n_scenarios": 10,
+     "n_rungs_median": 12
+    },
+    {
+     "source": "usas",
+     "field": "A9",
+     "icc": 0.5017004951631945,
+     "n_scenarios": 9,
+     "n_rungs_median": 29
+    },
+    {
+     "source": "usas_fine",
+     "field": "making_and_causation",
+     "icc": 0.49228978767045845,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:dominance",
+     "field": "dominant",
+     "icc": 0.48882044187307383,
+     "n_scenarios": 11,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "flat",
+     "icc": 0.4787659357680958,
+     "n_scenarios": 12,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "emotion_and_arousal",
+     "icc": 0.47746983808027427,
+     "n_scenarios": 8,
+     "n_rungs_median": 44
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "flat",
+     "icc": 0.47466548936408204,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "physical_appearance_and_properties",
+     "icc": 0.46581102077578984,
+     "n_scenarios": 9,
+     "n_rungs_median": 26
+    },
+    {
+     "source": "meta",
+     "field": "time_aspect",
+     "icc": 0.4336051020445668,
+     "n_scenarios": 8,
+     "n_rungs_median": 41
+    },
+    {
+     "source": "meta",
+     "field": "physical_action",
+     "icc": 0.42879649822548016,
+     "n_scenarios": 11,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "wordnet",
+     "field": "motion",
+     "icc": 0.4269015148696356,
+     "n_scenarios": 10,
+     "n_rungs_median": 12
+    },
+    {
+     "source": "usas_fine",
+     "field": "core_cognition_and_belief",
+     "icc": 0.4199820708783844,
+     "n_scenarios": 10,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "matter_objects_and_handling",
+     "icc": 0.37381285611857745,
+     "n_scenarios": 10,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "X2.5",
+     "icc": 0.35483839499019876,
+     "n_scenarios": 10,
+     "n_rungs_median": 4
+    },
+    {
+     "source": "usas",
+     "field": "X2.2",
+     "icc": 0.2998266418467403,
+     "n_scenarios": 10,
+     "n_rungs_median": 10
+    },
+    {
+     "source": "wordnet",
+     "field": "possession",
+     "icc": 0.255193951100145,
+     "n_scenarios": 8,
+     "n_rungs_median": 36
+    }
+   ],
+   "rungs_per_scenario_median": 49.5,
+   "design_effect": 32.37863888246125,
+   "effective_obs_per_scenario": 1.5287856966344866,
+   "effective_n_total": 18.345428359613837,
+   "scenario_unit_n": 12,
+   "rung_unit_n_claimed": 594
+  },
+  "m03_slice": {
+   "n_items": 143,
+   "n_items_dropped_under_8": 67,
+   "icc_median": 0.5892882102181514,
+   "icc_q1": 0.47926682399159326,
+   "icc_q3": 0.6820119861976383,
+   "icc_min": 0.11210845260064141,
+   "icc_max": 0.8956951552445108,
+   "share_items_above_0.5": 0.6923076923076923,
+   "share_items_above_0.8": 0.013986013986013986,
+   "share_items_below_0.2": 0.04195804195804196,
+   "items": [
+    {
+     "source": "usas",
+     "field": "Q1.3",
+     "icc": 0.8956951552445108,
+     "n_scenarios": 11,
+     "n_rungs_median": 6
+    },
+    {
+     "source": "usas",
+     "field": "A1.1.1",
+     "icc": 0.8474713255093531,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "P1",
+     "icc": 0.7876511447700594,
+     "n_scenarios": 9,
+     "n_rungs_median": 27
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "extreme",
+     "icc": 0.7848680452061225,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "wordnet",
+     "field": "motion",
+     "icc": 0.7843243112044426,
+     "n_scenarios": 16,
+     "n_rungs_median": 42
+    },
+    {
+     "source": "usas",
+     "field": "F4",
+     "icc": 0.7719255442338717,
+     "n_scenarios": 10,
+     "n_rungs_median": 22
+    },
+    {
+     "source": "usas",
+     "field": "N6",
+     "icc": 0.7699098205135728,
+     "n_scenarios": 10,
+     "n_rungs_median": 22
+    },
+    {
+     "source": "usas",
+     "field": "K5.1",
+     "icc": 0.7618652212305543,
+     "n_scenarios": 9,
+     "n_rungs_median": 20
+    },
+    {
+     "source": "meta",
+     "field": "social_interpersonal",
+     "icc": 0.7520099195786877,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "A2.1",
+     "icc": 0.7509113044533867,
+     "n_scenarios": 17,
+     "n_rungs_median": 17
+    },
+    {
+     "source": "norms:valence",
+     "field": "negative",
+     "icc": 0.7494904770350453,
+     "n_scenarios": 14,
+     "n_rungs_median": 28
+    },
+    {
+     "source": "meta",
+     "field": "communication_speech",
+     "icc": 0.7489816993040052,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "Q2.2",
+     "icc": 0.7472271764827586,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "Q1.2",
+     "icc": 0.7450908662575542,
+     "n_scenarios": 18,
+     "n_rungs_median": 48
+    },
+    {
+     "source": "usas_fine",
+     "field": "making_and_causation",
+     "icc": 0.7423964171546888,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "A1.7",
+     "icc": 0.7353466837906267,
+     "n_scenarios": 10,
+     "n_rungs_median": 22
+    },
+    {
+     "source": "usas_fine",
+     "field": "language_and_communication",
+     "icc": 0.7347784522771017,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "wordnet",
+     "field": "cognition",
+     "icc": 0.7316492424632214,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "rid",
+     "field": "abstraction:",
+     "icc": 0.7257724066741744,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "flat",
+     "icc": 0.7214116086224128,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "rid",
+     "field": "social_behavior:",
+     "icc": 0.7147971801931915,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:arousal",
+     "field": "neutral",
+     "icc": 0.7133027440477676,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "meta",
+     "field": "physical_action",
+     "icc": 0.7118585098711516,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "extreme",
+     "icc": 0.7102782021390041,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "M2",
+     "icc": 0.7101491560169904,
+     "n_scenarios": 17,
+     "n_rungs_median": 37
+    },
+    {
+     "source": "usas_fine",
+     "field": "body_health_and_consumption",
+     "icc": 0.7092813479859369,
+     "n_scenarios": 15,
+     "n_rungs_median": 19
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "concrete",
+     "icc": 0.709195521410364,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "sociality_reciprocity_and_belonging",
+     "icc": 0.7022187571485239,
+     "n_scenarios": 17,
+     "n_rungs_median": 48
+    },
+    {
+     "source": "gi",
+     "field": "cognition_mental",
+     "icc": 0.700895360136585,
+     "n_scenarios": 16,
+     "n_rungs_median": 38
+    },
+    {
+     "source": "usas",
+     "field": "S7.1",
+     "icc": 0.7002721358641887,
+     "n_scenarios": 15,
+     "n_rungs_median": 19
+    },
+    {
+     "source": "usas_fine",
+     "field": "core_cognition_and_belief",
+     "icc": 0.6965164396111102,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:dominance",
+     "field": "dominant",
+     "icc": 0.6958326077853428,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "wordnet",
+     "field": "social",
+     "icc": 0.6946126145066354,
+     "n_scenarios": 18,
+     "n_rungs_median": 46
+    },
+    {
+     "source": "usas_fine",
+     "field": "constraint_inclusion_and_exclusion",
+     "icc": 0.6916288938678266,
+     "n_scenarios": 15,
+     "n_rungs_median": 22
+    },
+    {
+     "source": "usas_fine",
+     "field": "evaluation_comparison_and_judgment",
+     "icc": 0.6831406929402457,
+     "n_scenarios": 15,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "usas",
+     "field": "M1",
+     "icc": 0.6820826586157092,
+     "n_scenarios": 18,
+     "n_rungs_median": 48
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "extreme",
+     "icc": 0.6819413137795673,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "flat",
+     "icc": 0.6818970783505713,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "extreme",
+     "icc": 0.681824211811691,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "rid",
+     "field": "instrumental_behavior:",
+     "icc": 0.6817428201413801,
+     "n_scenarios": 16,
+     "n_rungs_median": 37
+    },
+    {
+     "source": "usas_fine",
+     "field": "volition_and_capability",
+     "icc": 0.680531794248743,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "movement_transport_and_location",
+     "icc": 0.677892815457885,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "norms:dominance",
+     "field": "neutral",
+     "icc": 0.6708437626303193,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "moderate",
+     "icc": 0.6635912790893798,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "flat",
+     "icc": 0.6619570869108623,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "O2",
+     "icc": 0.6524300821159326,
+     "n_scenarios": 15,
+     "n_rungs_median": 40
+    },
+    {
+     "source": "usas",
+     "field": "X6",
+     "icc": 0.6509954204860762,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "O4.4",
+     "icc": 0.6503490863792373,
+     "n_scenarios": 17,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "meta",
+     "field": "other",
+     "icc": 0.6498365811845329,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "S7.4",
+     "icc": 0.64295191498045,
+     "n_scenarios": 10,
+     "n_rungs_median": 17
+    },
+    {
+     "source": "usas_fine",
+     "field": "logical_modal_and_discourse_operators",
+     "icc": 0.6337564300847973,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "abstract",
+     "icc": 0.6330864969737939,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "gi",
+     "field": "evaluation_modality",
+     "icc": 0.6320805098987395,
+     "n_scenarios": 12,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "wordnet",
+     "field": "change",
+     "icc": 0.6270696864305023,
+     "n_scenarios": 11,
+     "n_rungs_median": 33
+    },
+    {
+     "source": "usas",
+     "field": "A7",
+     "icc": 0.622068993342668,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "norms:concreteness_extremity",
+     "field": "flat",
+     "icc": 0.6213230041770733,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "meta",
+     "field": "quantity_degree",
+     "icc": 0.6191709407074332,
+     "n_scenarios": 17,
+     "n_rungs_median": 43
+    },
+    {
+     "source": "gi",
+     "field": "communication_speech",
+     "icc": 0.616753924184083,
+     "n_scenarios": 16,
+     "n_rungs_median": 38
+    },
+    {
+     "source": "rid",
+     "field": "sensation:touch",
+     "icc": 0.6135263580993404,
+     "n_scenarios": 15,
+     "n_rungs_median": 42
+    },
+    {
+     "source": "usas",
+     "field": "Y2",
+     "icc": 0.6098237052091116,
+     "n_scenarios": 13,
+     "n_rungs_median": 28
+    },
+    {
+     "source": "usas_fine",
+     "field": "money_and_finance",
+     "icc": 0.6095205170103585,
+     "n_scenarios": 17,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "meta",
+     "field": "possession_exchange",
+     "icc": 0.6047568999122929,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "gi",
+     "field": "social_interpersonal",
+     "icc": 0.6032492777702616,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "hierarchy_power_and_status",
+     "icc": 0.5999300946680767,
+     "n_scenarios": 16,
+     "n_rungs_median": 17
+    },
+    {
+     "source": "usas",
+     "field": "X2.5",
+     "icc": 0.5998837752307441,
+     "n_scenarios": 16,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas",
+     "field": "T2",
+     "icc": 0.5991940519600782,
+     "n_scenarios": 17,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "usas_fine",
+     "field": "duration_phase_and_age",
+     "icc": 0.5983858516262397,
+     "n_scenarios": 17,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "meta",
+     "field": "emotion_affect",
+     "icc": 0.5972094173881205,
+     "n_scenarios": 13,
+     "n_rungs_median": 13
+    },
+    {
+     "source": "wordnet",
+     "field": "communication",
+     "icc": 0.5960327680046817,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas_fine",
+     "field": "matter_objects_and_handling",
+     "icc": 0.5954298063848967,
+     "n_scenarios": 18,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "norms:concreteness",
+     "field": "neutral",
+     "icc": 0.5948294567753957,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "wordnet",
+     "field": "stative",
+     "icc": 0.5892882102181514,
+     "n_scenarios": 15,
+     "n_rungs_median": 29
+    },
+    {
+     "source": "norms:arousal",
+     "field": "calm",
+     "icc": 0.5880883422975635,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "X9.2",
+     "icc": 0.578251276185787,
+     "n_scenarios": 11,
+     "n_rungs_median": 22
+    },
+    {
+     "source": "usas",
+     "field": "A9",
+     "icc": 0.5755822782951789,
+     "n_scenarios": 18,
+     "n_rungs_median": 47
+    },
+    {
+     "source": "usas",
+     "field": "I1.3",
+     "icc": 0.5750532693342231,
+     "n_scenarios": 17,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "usas_fine",
+     "field": "number_quantity_and_order",
+     "icc": 0.5705063399817051,
+     "n_scenarios": 15,
+     "n_rungs_median": 38
+    },
+    {
+     "source": "norms:valence",
+     "field": "neutral",
+     "icc": 0.5699377422703606,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "meta",
+     "field": "time_aspect",
+     "icc": 0.5667202232729258,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "rid",
+     "field": "temporal_references:",
+     "icc": 0.5664463607271462,
+     "n_scenarios": 15,
+     "n_rungs_median": 15
+    },
+    {
+     "source": "norms:valence_extremity",
+     "field": "moderate",
+     "icc": 0.5641425237930304,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas_fine",
+     "field": "leisure_hobbies_and_play",
+     "icc": 0.5637488036849572,
+     "n_scenarios": 18,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "usas_fine",
+     "field": "suitability_and_utility",
+     "icc": 0.5579376449843927,
+     "n_scenarios": 15,
+     "n_rungs_median": 43
+    },
+    {
+     "source": "usas_fine",
+     "field": "physical_measurement_dimensions",
+     "icc": 0.5564219766142552,
+     "n_scenarios": 14,
+     "n_rungs_median": 26
+    },
+    {
+     "source": "usas",
+     "field": "F1",
+     "icc": 0.5518977033574476,
+     "n_scenarios": 12,
+     "n_rungs_median": 23
+    },
+    {
+     "source": "usas",
+     "field": "T1.3",
+     "icc": 0.5517353958409691,
+     "n_scenarios": 14,
+     "n_rungs_median": 32
+    },
+    {
+     "source": "usas",
+     "field": "F2",
+     "icc": 0.5405108338584441,
+     "n_scenarios": 8,
+     "n_rungs_median": 9
+    },
+    {
+     "source": "usas",
+     "field": "N3",
+     "icc": 0.5405108338584441,
+     "n_scenarios": 8,
+     "n_rungs_median": 9
+    },
+    {
+     "source": "norms:dominance_extremity",
+     "field": "moderate",
+     "icc": 0.539368499378824,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "gi",
+     "field": "physical_action",
+     "icc": 0.5261157928030687,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "A6.1",
+     "icc": 0.5245691445077861,
+     "n_scenarios": 10,
+     "n_rungs_median": 23
+    },
+    {
+     "source": "usas_fine",
+     "field": "emotion_and_arousal",
+     "icc": 0.521234628952523,
+     "n_scenarios": 14,
+     "n_rungs_median": 14
+    },
+    {
+     "source": "usas_fine",
+     "field": "physical_appearance_and_properties",
+     "icc": 0.5207156961849809,
+     "n_scenarios": 18,
+     "n_rungs_median": 48
+    },
+    {
+     "source": "usas",
+     "field": "S8",
+     "icc": 0.5199961115295317,
+     "n_scenarios": 14,
+     "n_rungs_median": 36
+    },
+    {
+     "source": "usas",
+     "field": "Z3c",
+     "icc": 0.5125056748583247,
+     "n_scenarios": 13,
+     "n_rungs_median": 36
+    },
+    {
+     "source": "wordnet",
+     "field": "possession",
+     "icc": 0.5113456006868264,
+     "n_scenarios": 17,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "usas_fine",
+     "field": "other_proper_names",
+     "icc": 0.5075072650606327,
+     "n_scenarios": 14,
+     "n_rungs_median": 42
+    },
+    {
+     "source": "usas",
+     "field": "Q1.1",
+     "icc": 0.5073206321189467,
+     "n_scenarios": 11,
+     "n_rungs_median": 7
+    },
+    {
+     "source": "norms:valence",
+     "field": "positive",
+     "icc": 0.5037063848207585,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "X2.4",
+     "icc": 0.4958462373345594,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "norms:arousal",
+     "field": "aroused",
+     "icc": 0.4958025792854132,
+     "n_scenarios": 18,
+     "n_rungs_median": 49
+    },
+    {
+     "source": "usas",
+     "field": "O3",
+     "icc": 0.4953995821969075,
+     "n_scenarios": 13,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "norms:arousal_extremity",
+     "field": "moderate",
+     "icc": 0.49406090125384144,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "norms:dominance",
+     "field": "submissive",
+     "icc": 0.4869494037954465,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "X3.4",
+     "icc": 0.4843901649975913,
+     "n_scenarios": 9,
+     "n_rungs_median": 33
+    },
+    {
+     "source": "usas",
+     "field": "H4",
+     "icc": 0.48166403316042194,
+     "n_scenarios": 11,
+     "n_rungs_median": 33
+    },
+    {
+     "source": "meta",
+     "field": "evaluation_modality",
+     "icc": 0.48115075617225744,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "A2.2",
+     "icc": 0.4773828918109291,
+     "n_scenarios": 17,
+     "n_rungs_median": 46
+    },
+    {
+     "source": "usas",
+     "field": "S1.1.1",
+     "icc": 0.476745070813948,
+     "n_scenarios": 15,
+     "n_rungs_median": 21
+    },
+    {
+     "source": "usas_fine",
+     "field": "science_technology_and_electronics",
+     "icc": 0.4750430663449442,
+     "n_scenarios": 17,
+     "n_rungs_median": 36
+    },
+    {
+     "source": "usas",
+     "field": "I2.1",
+     "icc": 0.4688183907382644,
+     "n_scenarios": 14,
+     "n_rungs_median": 7
+    },
+    {
+     "source": "usas_fine",
+     "field": "sensory_perception",
+     "icc": 0.4618259886394099,
+     "n_scenarios": 12,
+     "n_rungs_median": 29
+    },
+    {
+     "source": "usas_fine",
+     "field": "commerce_work_and_industry",
+     "icc": 0.45717767970264844,
+     "n_scenarios": 17,
+     "n_rungs_median": 44
+    },
+    {
+     "source": "usas",
+     "field": "S5",
+     "icc": 0.4527250468524266,
+     "n_scenarios": 9,
+     "n_rungs_median": 31
+    },
+    {
+     "source": "usas",
+     "field": "Z5",
+     "icc": 0.4483501976835101,
+     "n_scenarios": 17,
+     "n_rungs_median": 15
+    },
+    {
+     "source": "usas_fine",
+     "field": "housing_and_buildings",
+     "icc": 0.4482396188436159,
+     "n_scenarios": 17,
+     "n_rungs_median": 42
+    },
+    {
+     "source": "usas",
+     "field": "X2.1",
+     "icc": 0.4480732707001583,
+     "n_scenarios": 18,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas_fine",
+     "field": "governance_law_and_ethics",
+     "icc": 0.44576756234569864,
+     "n_scenarios": 18,
+     "n_rungs_median": 46
+    },
+    {
+     "source": "usas",
+     "field": "X7",
+     "icc": 0.43906747284264463,
+     "n_scenarios": 10,
+     "n_rungs_median": 8
+    },
+    {
+     "source": "usas_fine",
+     "field": "media_and_entertainment",
+     "icc": 0.43721999026974623,
+     "n_scenarios": 14,
+     "n_rungs_median": 31
+    },
+    {
+     "source": "wordnet",
+     "field": "creation",
+     "icc": 0.42971538368482365,
+     "n_scenarios": 14,
+     "n_rungs_median": 9
+    },
+    {
+     "source": "usas",
+     "field": "A12",
+     "icc": 0.41764275503116427,
+     "n_scenarios": 13,
+     "n_rungs_median": 43
+    },
+    {
+     "source": "usas",
+     "field": "X8",
+     "icc": 0.4052508323385428,
+     "n_scenarios": 14,
+     "n_rungs_median": 40
+    },
+    {
+     "source": "usas",
+     "field": "S6",
+     "icc": 0.4038553768682332,
+     "n_scenarios": 12,
+     "n_rungs_median": 35
+    },
+    {
+     "source": "rid",
+     "field": "sensation:vision",
+     "icc": 0.3913569743553984,
+     "n_scenarios": 13,
+     "n_rungs_median": 38
+    },
+    {
+     "source": "usas",
+     "field": "Q2.1",
+     "icc": 0.3761656161524588,
+     "n_scenarios": 18,
+     "n_rungs_median": 31
+    },
+    {
+     "source": "wordnet",
+     "field": "perception",
+     "icc": 0.37193753649252387,
+     "n_scenarios": 14,
+     "n_rungs_median": 43
+    },
+    {
+     "source": "meta",
+     "field": "cognition_mental",
+     "icc": 0.35394490233014153,
+     "n_scenarios": 18,
+     "n_rungs_median": 52
+    },
+    {
+     "source": "usas",
+     "field": "B3",
+     "icc": 0.3469613546129107,
+     "n_scenarios": 10,
+     "n_rungs_median": 6
+    },
+    {
+     "source": "usas",
+     "field": "A10",
+     "icc": 0.3347600871993954,
+     "n_scenarios": 10,
+     "n_rungs_median": 4
+    },
+    {
+     "source": "meta",
+     "field": "perception_sensation",
+     "icc": 0.3166105821672572,
+     "n_scenarios": 17,
+     "n_rungs_median": 50
+    },
+    {
+     "source": "usas",
+     "field": "S2mf",
+     "icc": 0.312722038867415,
+     "n_scenarios": 13,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "meta",
+     "field": "body_health",
+     "icc": 0.29575116208411467,
+     "n_scenarios": 12,
+     "n_rungs_median": 7
+    },
+    {
+     "source": "gi",
+     "field": "time_aspect",
+     "icc": 0.2860391853865939,
+     "n_scenarios": 10,
+     "n_rungs_median": 6
+    },
+    {
+     "source": "usas_fine",
+     "field": "people_and_gender",
+     "icc": 0.27460922603069865,
+     "n_scenarios": 13,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "usas",
+     "field": "G2.1",
+     "icc": 0.2180763981262521,
+     "n_scenarios": 15,
+     "n_rungs_median": 39
+    },
+    {
+     "source": "usas",
+     "field": "K2",
+     "icc": 0.20054513502381885,
+     "n_scenarios": 10,
+     "n_rungs_median": 10
+    },
+    {
+     "source": "usas_fine",
+     "field": "religion_and_supernatural",
+     "icc": 0.1824698682972295,
+     "n_scenarios": 13,
+     "n_rungs_median": 7
+    },
+    {
+     "source": "usas_fine",
+     "field": "inquiry_discovery_and_education",
+     "icc": 0.17824909366580882,
+     "n_scenarios": 18,
+     "n_rungs_median": 51
+    },
+    {
+     "source": "usas",
+     "field": "S9",
+     "icc": 0.16460728076053494,
+     "n_scenarios": 13,
+     "n_rungs_median": 7
+    },
+    {
+     "source": "usas",
+     "field": "C1",
+     "icc": 0.14583595686138792,
+     "n_scenarios": 10,
+     "n_rungs_median": 5
+    },
+    {
+     "source": "usas",
+     "field": "H2",
+     "icc": 0.14040901666979674,
+     "n_scenarios": 8,
+     "n_rungs_median": 5
+    },
+    {
+     "source": "usas",
+     "field": "X2.2",
+     "icc": 0.11210845260064141,
+     "n_scenarios": 17,
+     "n_rungs_median": 39
+    }
+   ],
+   "rungs_per_scenario_median": 42.0,
+   "design_effect": 25.160816618944207,
+   "effective_obs_per_scenario": 1.669262195900953,
+   "effective_n_total": 30.046719526217156,
+   "scenario_unit_n": 18,
+   "rung_unit_n_claimed": 756
+  }
+ },
+ "superseded": {
+  "f21_inst": 0.855,
+  "m03_slice": 0.846,
+  "producer_print_statement": 0.85
+ }
+}
