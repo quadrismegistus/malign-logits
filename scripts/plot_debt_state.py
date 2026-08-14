@@ -146,6 +146,41 @@ def state(folder, n, txt, sources=None, figs=None):
             "columns": cols}
 
 
+def reproduce(entry_numbers, path):
+    """Do the entry's numbers fall out of the named file, and as WHICH aggregate?
+
+    **THE STEP THE FIRST TWO PROMOTIONS SKIPPED.** Conditions 1-4 ask whether
+    the artifact exists, is the right one, and is unused. This asks the
+    question underneath: does the headline actually come out of it.
+
+    And it reports the aggregate, because `queue 18` turned on that. Its
+    entry claims twin 0.327 / random 0.060; those are MEANS, and the medians
+    are 0.336 / 0.054. **A per-family dot plot reaches for the median by
+    default and the gap reads as rounding rather than as a different
+    statistic** -- the same trap that cost two seats an hour on `queue 17`,
+    where three populations shared a median to one decimal and disagreed in
+    every tail.
+    """
+    try:
+        import pandas as pd
+        d = pd.read_csv(path) if path.endswith(".csv") else pd.read_parquet(path)
+    except Exception as e:
+        return {"error": str(e)[:60]}
+    want = [float(x) for x in entry_numbers if re.match(r"^-?\d+\.\d+$", x)]
+    if not want:
+        return {}
+    hits = {}
+    for col in d.select_dtypes("number").columns:
+        for agg in ("mean", "median", "sum", "max", "min"):
+            v = getattr(d[col], agg)()
+            for w in want:
+                if abs(v - w) < 0.0006:
+                    hits.setdefault(w, []).append("%s.%s=%.4f" % (col, agg, v))
+    return {"matched": hits,
+            "unmatched": [w for w in want if w not in hits],
+            "rows": len(d)}
+
+
 def _tracked(path):
     import subprocess
     r = subprocess.run(["git", "ls-files", "--error-unmatch", path],
@@ -163,7 +198,25 @@ def main():
             st = state(f, n, t)
             print("%s candidate %s\n  %s\n" % (f, n, t))
             for k, v in st.items():
-                print("  %-10s %s" % (k, v))
+                print("  %-10s %s" % (k, str(v)[:140]))
+            #: EVERY MATCHING FILE, NOT THE FIRST. A glob on
+            #: `v_displacement_twin*` returns five files; the first version
+            #: took `[0]` and reported the entry's numbers UNMATCHED because
+            #: it happened to read the residualised variant. **A false
+            #: negative that would have rejected a good candidate**, and the
+            #: same first-hit trap as reading an entry's first line. The
+            #: winner is whichever file reproduces, and which one it is IS
+            #: the answer the drawer needs.
+            for h in sorted(glob.glob(os.path.join(ROOT, "**", "*%s*" %
+                            os.path.basename(st["named"][0]).split("{")[0]),
+                            recursive=True) if st["named"] else []):
+                if ".git" in h or not h.endswith((".csv", ".parquet")):
+                    continue
+                r = reproduce(st["numbers"], h)
+                if r.get("matched"):
+                    print("  REPRODUCES %s -> %s" % (os.path.basename(h), r["matched"]))
+                elif r.get("unmatched"):
+                    print("  no match   %s" % os.path.basename(h))
         return 0
 
     sources = {f: open(f, errors="ignore").read()
