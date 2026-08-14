@@ -199,7 +199,14 @@ varies):
   NOTHING. **RH's call, because new numbers in a published table are
   his; item 10 stays held until he rules.**
 
-- **M03 ICC 0.855** — NEW Class 1B 2026-08-14 ([5901] §3, dario,
+- **M03 ICC 0.855** — RECOVERY AUTHORIZED to dario 2026-08-14 ([5998]):
+  it found the gap, holds the transcript method of record, and its
+  figure queue is closed. Same split as the M02 recovery ([5900]):
+  dario recovers and reproduces; the logic is second-seated by
+  whoever holds the M03 instrument. **If it does not reproduce, the
+  RE-DECLARE disposition is available** — declare the computation in a
+  plan before running, republish, mark the old value
+  superseded-not-reproduced ([5965]'s precedent). Class 1B 2026-08-14 ([5901] §3, dario,
   search space stated): `0.855` has zero hits in any `*.py` in the
   tree; quoted in `M03/findings/D_ladder_selection.md:265` and
   `M03/README.md`, and it UNDERWRITES the standing rule that the rung

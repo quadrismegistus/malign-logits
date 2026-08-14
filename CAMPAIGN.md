@@ -550,6 +550,23 @@ seat forgets at its peril:
   a way the mean's would not be — had those tables been
   mean-aggregated, the dumbbell would have been arithmetically correct
   and this whole class would not exist.
+  **THE FIGURE-SIDE COROLLARY, and it is the half a finding cannot
+  supply** ([5997], dario, on a panel it had ALREADY SHIPPED): **a
+  panel does not have to PERFORM the illegal operation to assert it.**
+  `fig30` put SFT, DPO and RLVR beside NET base->DPO and NET
+  base->RLVR — five independent columns, each correct, computing
+  nothing — and the ADJACENCY is the invitation to add the first three
+  and check the fourth, which `H_norm_acquisition`'s rider forbids by
+  construction. The finding presents the same five contrasts as a
+  table where nothing invites addition; **the layout created the
+  invitation, so the rider became load-bearing at the moment the
+  layout was chosen.** So the check is not *does my figure compute
+  this* but **does my figure's arrangement let a reader compute it** —
+  a design question the finding cannot answer for you. Note also that
+  swapping the summary does not exempt the panel: fig30 plots shares
+  of non-tied prompts, not medians, and shares do not add across
+  transitions either. Changing WHICH aggregator does not change THAT
+  there is one.
 - **PUT THE PRIOR ON THE AXIS** ([5990]): where a result is
   interesting for landing on the WRONG SIDE of a prediction rather
   than for its size, a panel showing only the distribution renders the
