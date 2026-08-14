@@ -72,7 +72,29 @@ The sharpest result here, and the first direct test of a mechanism the whole cam
 | **no-safety** | **0.0583** | **90%** | 4.78 | 33.8% |
 | no-wildchat | 0.0584 | 90% | 4.82 | 34.1% |
 
-**The control is the other three arms.** Removing any slice costs 10 to 12 percent, and the four ablations span 0.0572 to 0.0584 — a spread of 1.8 percent of the effect. **Removing the safety corpus costs the same as removing the maths corpus.** If displacement were the safety objective, `no-safety` would collapse and the others would not; instead the four are interchangeable.
+**The control is the other three arms.** Removing any slice costs 10 to 12 percent, and the four ablations span 0.0572 to 0.0584 — a spread of 1.8 percent of the effect. **Removing the safety corpus costs the same as removing the maths corpus.** If displacement were the safety objective, `no-safety` would collapse and the others would not; and it does not.
+
+**QUALIFIED 2026-08-14 ([6118], dario; `u_fan_ci.py`, `results/u_fan_ci.json`).** This section previously closed *"instead the four are interchangeable"*, and that sentence was flat at an unstated resolution: `t_fans.csv` carries no interval of any kind. Recomputing the per-prompt JS that `t_fans.py` averages and discards, paired bootstrap over 10,000 resamples:
+
+| pair | difference | 95% CI | |
+|---|---|---|---|
+| no-math − no-persona | +0.000427 | [−0.000237, +0.001078] | no difference |
+| **no-math − no-safety** | **−0.000664** | **[−0.001434, +0.000108]** | **no difference — the headline** |
+| no-math − no-wildchat | −0.000791 | [−0.001892, +0.000288] | no difference |
+| no-persona − no-safety | −0.001091 | [−0.001856, −0.000315] | **differ** |
+| no-persona − no-wildchat | −0.001218 | [−0.002319, −0.000124] | **differ** |
+| no-safety − no-wildchat | −0.000127 | [−0.001242, +0.000968] | no difference |
+
+**Two of six differ, both involving `no-persona`, which sits reliably below `no-safety` and `no-wildchat`.** The section's actual claim is unaffected: *removing the safety corpus costs the same as removing the maths corpus* is `no-math` against `no-safety`, and that is not significant. **What does not survive is "the four are interchangeable"**, and the distinction matters because the second is the sentence a reader would quote. The honest statement is that the row is flat to within about 2 percent (paired MDE 1.70% of the full-mix effect; largest observed difference 1.87%), against the behavioural panel's 20 percent.
+
+**And §4's booked ABSOLUTES no longer reproduce** ([6118]). `t_fans.csv` was written 2026-08-06 over 2,182 cells; the fan now finds 2,174 present in all five arms and every mean moves in the fourth decimal (full 0.0651458 → 0.0651986; no-safety 0.0583162 → 0.0583649). The cause is the prompt-catalogue refresh of 08-12. **The RATIOS — which are what this section claims and what the figure draws — are unaffected to better than 0.03 points**, so the producer asserts the ratios and declares the absolute drift rather than asserting it away. **This is the campaign's first CONFIRMED instance of an artifact going stale against a moved dependency** (`producer-debt.md` Class 4), after the founding instance was withdrawn as a measurement error the same day.
+
+**AND THE TWO BREAKS ARE ON DIFFERENT AXES — do not read them as disagreeing.** This document's own frontmatter records *"the four slices are interchangeable" broke (no-wildchat categorically different)*, sourced from `DISPLACEMENT_EVIDENCE.md` §197, while the bootstrap above finds no-wildchat indistinguishable and singles out no-persona. Both are right because they measure different things:
+
+- **HOW MUCH probability moves** (JS): the arms are flat to ~2%, and the only reliable separation is `no-persona` sitting below `no-safety` and `no-wildchat`.
+- **WHICH WORDS move** (faller Jaccard): `no-wildchat` is alone — 0.340 against full where the others are 0.522–0.534, and 0.294–0.303 against each of them where they sit at 0.486–0.563 with each other. **No overlap between the two groups.** Magnitude normal, direction different.
+
+**So "interchangeable" fails twice over, by two different arms, on two different questions** — and §4's body asserted it until today while the frontmatter had already recorded it broken. **A summary that outruns its own body is the defect worth naming here**: the frontmatter carried a finding established in a sibling document that this section's text still contradicted.
 
 The words also stay the same. `full` against `no-safety` has faller Jaccard 0.534, among the highest in the fan, against 0.02 to 0.04 between ladder rungs. Change the training corpus and you get the same operation on the same words; change the rung and you do not.
 
