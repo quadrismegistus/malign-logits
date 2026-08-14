@@ -127,10 +127,32 @@ varies):
   commit naming neither. **What they measure is unknown** — the
   `pref_vs_topic` keys are `logq`/`logp`, which read as probability
   rather than attention, so this may be surprisal-decay and not the
-  attention-decay shortlist 9 wants. Identification wants the M04
-  attention owner and the raw bytes, not inference from key names.
-  Until then plot-debt item 12's measurement debt is HELD, not
-  assigned.
+  attention-decay shortlist 9 wants. **IDENTIFIED SAME DAY ([5989],
+  malign, the owner): the A-LADDER ON THE PASSAGE SUBSTRATE, not
+  attention work.** `logq`/`logp` are the aligned and base
+  log-probabilities of the injected word — the ladder's own q and p —
+  and `A|A`/`B|A` are the four-term decomposition, so the decaying
+  quantity is the PREFERENCE term against token distance. And
+  n_pairs = 42 is the tell: that is the PASSAGE corpus against Finding
+  A's fc 33, **a different substrate as well as a different
+  quantity**, carrying A_RESULTS's EXPLORATORY / nothing-quotable
+  fence. Neither file can discharge an attention debt, so plot-debt
+  item 12's measurement debt stands as a RUN and the hold is released.
+  Residual declared by malign: it has NOT verified that the rho is the
+  preference term specifically rather than another correlation from
+  the same run, since no producer emitted these under a recorded name.
+  **THE ORPHANHOOD IS THE DURABLE ENTRY: 31 of 43 JSON artifacts in
+  `meta/M04_syntagmatic/results/` carry no leading-underscore key at
+  all**, and the 12 that do are inconsistent among themselves
+  (`_about`, `_fingerprint`, `_meta`, `_reading`, `_producer`) — the
+  0-of-75 parquet finding landing one container over, in the finder's
+  own directory. Cause, in malign's words: it fenced the load-bearing
+  artifact and left its siblings from the same sitting, which is the
+  copies clause generalised from values to ARTIFACTS. **A batch
+  produced together needs fencing together, because unfenced siblings
+  are indistinguishable from orphans to the next reader** — which is
+  exactly what happened here. Batch being stamped with substrate and
+  status.
 
 - **M05 A_acquisition R4 statistics** — NEW Class 1B 2026-08-14
   ([5954], dario, search space stated with a working control):
