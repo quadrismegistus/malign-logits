@@ -17,9 +17,14 @@ and supplies the variation. Every arm word carries a full-vocabulary `q`.
         is not in it, [5811])
     b = dy/dx fitted within (pair, prompt, role) across the arms present
 
-REFERENCE: in undisturbed generation the same slope on a SELF-SAMPLED opening
-is +0.016 to +0.024 (opening_matched's ANCOVA, 79 lines). If b_forced matches
-that, an imposed improbable word behaves like a self-sampled one.
+REFERENCE, FENCED -- read UNDIST_REF below before quoting it. In undisturbed
+generation the same slope on a SELF-SAMPLED opening is +0.016 (ANCOVA, 79
+lines) or +0.024 (naive, 80 lines). Those are TWO ESTIMATORS, NOT A RANGE, and
+b_forced is fitted within forced arms while both of those are fitted within
+undisturbed rows -- the two populations differ by one word of conditioning,
+which is the asymmetry that withdrew opening_matched. So "b_forced matches the
+reference, therefore an imposed word behaves like a self-sampled one" is the
+reading this file supports LEAST, not most.
 """
 import collections
 import json
@@ -38,7 +43,40 @@ OUTD = os.path.join(ROOT, "meta/M06_generation/results")
 CH = "clickhouse"
 EXCLUDE = ("SmolLM2-360M", "deepseek")
 ARMS = ("faller", "matched", "riser", "riser_matched")
-UNDIST_REF = (0.016, 0.024)
+#: THE UNDISTURBED REFERENCE, AND EVERY FENCE IT TRAVELS WITHOUT.
+#: Referred by @registrar at [5937] as the third instance of one hazard: a
+#: value reaching a third artifact stripped of the notice that governs it, so
+#: a reader who opens propagation.json alone has nothing to warn them. Emitted
+#: as a labelled object rather than a bare pair, IN the artifact, because a
+#: marker only in a finding is deleted by the next rerun.
+#:
+#: 1. IT IS NOT A RANGE. These are two ESTIMATORS' point medians over the same
+#:    undisturbed rows -- naive per-(pair, role) fit +0.024 over 80 lines, and
+#:    the within-prompt ANCOVA +0.016 over 79. Nothing computes an interval.
+#:    Recovered by rerunning m06_opening_matched.py, which reproduces to float
+#:    noise (146 of 150 fields identical, 4 differing in the 16th digit), and
+#:    now persisted there under `undisturbed_slope` instead of hand-carried.
+#: 2. IT IS NOT VOID BY THE OPENING_MATCHED WITHDRAWAL, contra the referral.
+#:    That withdrawal is a construction defect BETWEEN arms -- forced rows
+#:    carry one more word of conditioning than undisturbed ones. Both fits run
+#:    on `arm == "undisturbed"` only, so neither slope contains the asymmetry.
+#: 3. WHAT IS EXPOSED IS THE COMPARISON, NOT THE VALUE. This file's b_forced is
+#:    fitted entirely within FORCED arms; setting it beside a slope fitted
+#:    entirely within UNDISTURBED rows compares two populations that differ by
+#:    exactly the one word of conditioning the withdrawal names. Whether a
+#:    SLOPE inherits that asymmetry the way a MEAN does is untested. Treat the
+#:    comparison as fenced, and the offset repair (`offset_repair.md`) as the
+#:    route that would settle it.
+UNDIST_REF = {
+    "naive_per_pair_role": 0.024, "naive_n_lines": 80,
+    "ancova_within_prompt": 0.016, "ancova_n_lines": 79,
+    "source": "results/opening_matched.json -> undisturbed_slope",
+    "not_a_range": "two estimators' point medians, not an interval",
+    "status": "the SLOPES are undisturbed-only and survive opening_matched's "
+              "construction withdrawal; the forced-vs-undisturbed COMPARISON "
+              "in propagation.md reproduces the asymmetry that caused it and "
+              "is fenced, not quotable",
+}
 
 
 def ch_rows(q):
@@ -185,8 +223,13 @@ def main():
         out[tag] = res
 
     pd.DataFrame(rows).to_parquet(os.path.join(OUTD, "propagation_cells.parquet"))
-    print("\nREFERENCE: undisturbed self-sampled opening propagates at "
-          "b = %.3f to %.3f (opening_matched ANCOVA)" % UNDIST_REF)
+    print("\nREFERENCE (FENCED, see UNDIST_REF): undisturbed self-sampled "
+          "opening propagates at b = %.3f (ANCOVA, %d lines) and %.3f (naive, "
+          "%d lines) -- TWO ESTIMATORS, NOT A RANGE, and the comparison to "
+          "b_forced below is across populations differing by one word of "
+          "conditioning."
+          % (UNDIST_REF["ancova_within_prompt"], UNDIST_REF["ancova_n_lines"],
+             UNDIST_REF["naive_per_pair_role"], UNDIST_REF["naive_n_lines"]))
     p = os.path.join(OUTD, "propagation.json")
     json.dump(out, open(p, "w"), indent=1)
     print("  -> %s" % os.path.relpath(p, ROOT))

@@ -223,6 +223,24 @@ def main():
         fit[k] = (b0, b1)
     print("  fitted %d (pair, role) lines; median slope %+.3f"
           % (len(fit), np.median([b for _, b in fit.values()])))
+    #: PERSISTED because `propagation.md` quotes this slope and the ANCOVA one
+    #: below together as a RANGE, "0.016 to 0.024 nats per nat". THEY ARE NOT A
+    #: RANGE: they are two ESTIMATORS' point medians over the same undisturbed
+    #: rows, and nothing computes an interval anywhere. Until now both were
+    #: printed and never written, so the pair was hand-carried between findings
+    #: -- @registrar's [5937] referral, third instance of that hazard.
+    #: NOT void by this finding's construction withdrawal: that defect is an
+    #: asymmetry BETWEEN forced and undisturbed rows, and both fits run on
+    #: `arm == "undisturbed"` only. What the withdrawal does reach is any
+    #: comparison ACROSS arms, which is what propagation.md then does with them.
+    out["undisturbed_slope"] = {
+        "naive_per_pair_role": float(np.median([b for _, b in fit.values()])),
+        "naive_n_lines": len(fit),
+        "population": "undisturbed rows only; not void by the construction "
+                      "withdrawal, which is a between-arm asymmetry",
+        "fence": "the naive and ANCOVA medians are TWO ESTIMATORS, not an "
+                 "interval; do not quote them as a range",
+    }
     sens = collections.defaultdict(list)
     for (pair, role, arm, xb), v in acc.items():
         if arm == "undisturbed" or v[1] < MIN_PER_BIN:
@@ -259,6 +277,9 @@ def main():
     slope = {k: num[k] / den[k] for k in den if abs(den[k]) > 1e-9}
     print("  within-prompt slopes fitted: %d | median %+.3f"
           % (len(slope), np.median(list(slope.values()))))
+    out["undisturbed_slope"]["ancova_within_prompt"] = float(
+        np.median(list(slope.values())))
+    out["undisturbed_slope"]["ancova_n_lines"] = len(slope)
     base = {}
     for (pair, role, prompt, arm), g in anc.items():
         if arm != "undisturbed" or g[4] < 3 or (pair, role) not in slope:

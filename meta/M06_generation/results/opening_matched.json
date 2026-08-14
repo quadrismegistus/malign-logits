@@ -37,7 +37,7 @@
  "matched": {
   "aligned": {
    "median": -0.05505744207131702,
-   "mean": 0.005501061073428357,
+   "mean": 0.0055010610734283595,
    "n": 40,
    "up": 5,
    "dn": 35,
@@ -86,10 +86,18 @@
    "p_sign": 1.0
   }
  },
+ "undisturbed_slope": {
+  "naive_per_pair_role": 0.02414342434800358,
+  "naive_n_lines": 80,
+  "population": "undisturbed rows only; not void by the construction withdrawal, which is a between-arm asymmetry",
+  "fence": "the naive and ANCOVA medians are TWO ESTIMATORS, not an interval; do not quote them as a range",
+  "ancova_within_prompt": 0.015808958250426546,
+  "ancova_n_lines": 79
+ },
  "sensitivity": {
   "aligned:faller": {
    "median": -0.03556089359865311,
-   "mean": -0.04129334020681688,
+   "mean": -0.041293340206816874,
    "n": 805,
    "up": 320,
    "dn": 485,
@@ -105,7 +113,7 @@
   },
   "aligned:matched": {
    "median": -0.049745144571547106,
-   "mean": -0.03145194363340502,
+   "mean": -0.031451943633405026,
    "n": 779,
    "up": 273,
    "dn": 506,
@@ -129,7 +137,7 @@
   },
   "base:riser_matched": {
    "median": -0.036134111290994975,
-   "mean": -0.030874330619511628,
+   "mean": -0.03087433061951163,
    "n": 856,
    "up": 319,
    "dn": 537,

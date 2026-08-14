@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [syntagmatic, propagation, forced-arms, chain]
-description: "RH's reframe answered: forcing an improbable word DOES damage the chain, and the damage is ~1%. Propagation slope +0.0083 aligned / +0.0073 base nats-per-bit (37/3 and 36/4 of 40 pairs, p 2.0e-08 and 1.9e-07) = about 1.3% of the opening's improbability reaching the continuation. The undisturbed self-sampled baseline is 1.6-2.4%, so an IMPOSED improbable word propagates no more than a self-sampled one. H2 in direction, H1 in magnitude: the syntagm absorbs roughly 99% of a paradigmatic imposition. Role difference marginal and variant-dependent after the inherited-predicate repair (p 0.081 pooled / 0.039 single-token, worth 0.003 nats-per-bit) -- not quotable as an alignment effect."
+description: "RH's reframe answered: forcing an improbable word DOES damage the chain, and the damage is ~1%. Propagation slope +0.0083 aligned / +0.0073 base nats-per-bit (37/3 and 36/4 of 40 pairs, p 2.0e-08 and 1.9e-07) = 1.20% aligned and 1.05% base of the opening's improbability reaching the continuation (CORRECTED 2026-08-14: read 'about 1.3%', which follows from neither the medians nor the means). H2 in direction, H1 in magnitude: the syntagm absorbs roughly 99% of a paradigmatic imposition. **H3 IS FENCED AND NOT QUOTABLE:** the undisturbed self-sampled baseline is not the interval '1.6-2.4%' but two estimators' point medians (ANCOVA +0.0158/79 lines, naive +0.0241/80 lines), and comparing them to the forced slope sets a within-FORCED fit beside a within-UNDISTURBED one -- the same one-word conditioning asymmetry that withdrew opening_matched. The slopes themselves survive that withdrawal; the comparison does not. Role difference marginal and variant-dependent after the inherited-predicate repair (p 0.081 pooled / 0.039 single-token, worth 0.003 nats-per-bit) -- not quotable as an alignment effect."
 ---
 # The propagation slope: the chain absorbs about 99% of an imposition
 
@@ -63,18 +63,49 @@ restriction. A less probable forced word does leave a less predictable
 continuation. The chain is not indifferent to what is put in it.
 
 **H1 IN MAGNITUDE, overwhelmingly.** b is in nats-per-BIT, so per nat of
-opening improbability the continuation loses **b / ln 2 ~ 0.013 nats**.
-**About 1.3% of the imposition reaches the continuation, and roughly 99% is
-absorbed.** The damage is real, robust, and almost nothing.
+opening improbability the continuation loses b / ln 2. **CORRECTED
+2026-08-14 after @dario's [5936]:** this read "~0.013 nats, about 1.3%",
+which follows from neither estimator. From the committed per-pair slopes the
+medians give **1.20% aligned and 1.05% base**; the means give 1.67% and
+1.18%. 1.3% sat between the two and was quoted as though it were one of
+them. **Roughly 99% is absorbed on any of them**, so the claim does not
+move, but the number was a prose approximation wearing a computed number's
+precision. The damage is real, robust, and almost nothing.
 
-**H3: IMPOSITION COSTS NOTHING EXTRA.** The same slope for a SELF-SAMPLED
-opening in undisturbed generation is **0.016 to 0.024 nats per nat**
-(`opening_matched`'s within-prompt ANCOVA, 79 fitted lines). The forced
-slope, 0.013, is the same order and if anything SMALLER. **An imposed
-improbable word propagates no more than one the model chose itself** --
-which is what the architecture requires if provenance is invisible to the
-forward pass (malign's argument, [5810] §1), and this is the first version
-of that prediction that is actually testable rather than broken.
+**H3: IMPOSITION COSTS NOTHING EXTRA -- FENCED 2026-08-14, and the fence is
+larger than the correction above.** @registrar referred this at [5937] as a
+value travelling without its notice. Checking it turned up three things, of
+which the referral's own reading is the one that does not hold.
+
+**It is not a range.** This read "0.016 to 0.024 nats per nat
+(`opening_matched`'s within-prompt ANCOVA, 79 fitted lines)". Those are **two
+estimators' point medians over the same undisturbed rows**, not an interval:
+the within-prompt ANCOVA gives **+0.0158 over 79 lines**, the naive
+per-(pair, role) fit gives **+0.0241 over 80 lines**. Nothing computes an
+interval anywhere. The citation named one fit's line count while quoting both
+fits' numbers, which is how two point estimates came to look like uncertainty
+bounds. Both were printed and never persisted; they are now booked at
+`opening_matched.json -> undisturbed_slope`, recovered by a rerun that
+reproduces to float noise (146 of 150 fields identical, 4 differing in the
+16th digit).
+
+**It is NOT void by the `opening_matched` withdrawal**, contra the referral.
+That withdrawal is a construction defect BETWEEN arms -- forced rows carry one
+more word of conditioning than undisturbed ones. Both fits run on
+`arm == "undisturbed"` only, so neither slope can contain the asymmetry.
+
+**What the withdrawal does reach is this comparison.** b_forced is fitted
+entirely within FORCED arms; the reference is fitted entirely within
+UNDISTURBED rows; setting them side by side compares two populations
+differing by exactly the one word of conditioning that withdrew
+`opening_matched`. Whether a SLOPE inherits that asymmetry the way a MEAN does
+is untested. So the reading **"an imposed improbable word propagates no more
+than one the model chose itself"** -- 1.20% against 1.58% or 2.41% -- is NOT
+QUOTABLE, and the offset repair (`offset_repair.md`) is the route that would
+settle it. The direction survives on the face of the numbers and the
+architectural argument still predicts it (malign, [5810] §1); what does not
+survive is the claim that this was the first version of that prediction
+actually testable rather than broken. It is a fourth untested one.
 
 **And it is essentially not alignment, with one honest wrinkle.** aligned -
 base is +0.0039 (p 0.081) pooled and +0.0029 (p 0.039) single-token. The

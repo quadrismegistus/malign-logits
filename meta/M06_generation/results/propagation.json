@@ -1,10 +1,15 @@
 {
  "plan": "plans/plan_propagation.md",
  "n_rows": 601324,
- "undisturbed_reference": [
-  0.016,
-  0.024
- ],
+ "undisturbed_reference": {
+  "naive_per_pair_role": 0.024,
+  "naive_n_lines": 80,
+  "ancova_within_prompt": 0.016,
+  "ancova_n_lines": 79,
+  "source": "results/opening_matched.json -> undisturbed_slope",
+  "not_a_range": "two estimators' point medians, not an interval",
+  "status": "the SLOPES are undisturbed-only and survive opening_matched's construction withdrawal; the forced-vs-undisturbed COMPARISON in propagation.md reproduces the asymmetry that caused it and is fenced, not quotable"
+ },
  "single_token_share": 0.6869918699186992,
  "all arm words": {
   "aligned": {
@@ -17,7 +22,7 @@
   },
   "base": {
    "median": 0.007285161992541403,
-   "mean": 0.008205864755111024,
+   "mean": 0.008205864755111023,
    "n": 40,
    "up": 36,
    "dn": 4,
@@ -35,7 +40,7 @@
  "single-token only": {
   "aligned": {
    "median": 0.008079798156378416,
-   "mean": 0.011373948933086547,
+   "mean": 0.011373948933086549,
    "n": 40,
    "up": 38,
    "dn": 2,
