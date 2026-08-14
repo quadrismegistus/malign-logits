@@ -385,6 +385,36 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     make a coin flip look like evidence against the finding. Drawn as
     the tie it is; the finding's count of five is untouched and
     correct as stated (five sit below zero).
+11d. SHIPPED 2026-08-14 (dario, f599dcef) — SHORTLIST 10, the M02
+    D_CONTRA/D_CONTROL panel, **and THE FORM THIS ENTRY ASKED FOR IS
+    ARITHMETICALLY FALSE.** A dumbbell invites one reading — that the
+    distance between the marks is the contradiction-specific effect —
+    and it is not: `d_both` and `d_ctrl` are each the MEDIAN OVER 26
+    PAIRS of their own quantity, while `effect` is the median of the
+    per-pair DIFFERENCE. **A median of differences is not a difference
+    of medians**: `effect == d_both - d_ctrl` in 0 of 79 fields, with
+    median |discrepancy| 0.000911 — *the same order as the effects
+    themselves*. A single dumbbell letting the eye subtract would have
+    been wrong in every row by an amount comparable to what the
+    subtraction claims to show. Drawn as two panels, the subtitle
+    saying the gap is not the residual, with an assert so the
+    separation cannot quietly stop being necessary. Same family as the
+    median-vs-mean grain that decided four reconstructions today,
+    from a third direction: not WHICH aggregation but **whether an
+    aggregation commutes with a subtraction.** It does not, and
+    nothing in the artifact says so. SECOND CATCH, same panel: a first
+    version used free x scales, so the residual rescaled to its own
+    ±0.006 and a near-zero result FILLED its panel, reading as spread
+    as the effect beside it — the finding is that the residual is nil
+    against an effect three times larger, visible only on one ruler.
+    Caught by reading the caption against the geometry ([5976]'s mint,
+    second time today on this seat). The panel now shows, on a shared
+    ruler: effect spanning the axis with D_CONTRA and D_CONTROL
+    tracking closely, 39 of 79 surviving; and every residual collapsed
+    to a narrow band at zero, none surviving — **the finding's own
+    warning as a picture**, since reported as a residual alone a very
+    large effect would have been filed as a null.
+    **THIS CLOSES EVERY DRAWABLE ENTRY ON THE QUEUE.**
 11a. OPEN (queued 2026-08-14 on dario's flag, [5964]) — the
     CATEGORICAL-FORM companion to X §3g: `thumb` 0/60 in both arms and
     its neighbours, drawn on the categorical substrate ONLY, never

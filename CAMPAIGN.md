@@ -524,6 +524,18 @@ seat forgets at its peril:
   ever have tested it, and the next command refuted it. Both halves
   are recognition substituting for measurement — one on the reading
   side, one on the writing side.
+- **AN AGGREGATION DOES NOT COMMUTE WITH A SUBTRACTION, AND A
+  DUMBBELL ASSERTS THAT IT DOES** ([5993]): a median of per-pair
+  DIFFERENCES is not the difference of two per-pair MEDIANS —
+  `effect == d_both - d_ctrl` in 0 of 79 fields, median discrepancy
+  0.000911, *the same order as the effects themselves*. So the form
+  that invites the eye to subtract would have been wrong in every row
+  of the panel by an amount comparable to the quantity it displays.
+  Draw the residual as its own panel, say the gap is not the residual,
+  and assert it so the separation cannot quietly stop being necessary.
+  Third face of the grain problem that decided four reconstructions in
+  one day: not which aggregation, but whether it commutes with the
+  operation the figure invites.
 - **PUT THE PRIOR ON THE AXIS** ([5990]): where a result is
   interesting for landing on the WRONG SIDE of a prediction rather
   than for its size, a panel showing only the distribution renders the
