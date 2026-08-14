@@ -497,7 +497,21 @@ reproduced both counts):
 > 2,231-byte growth I took as corroboration was parquet compressing a
 > different row order.
 >
-> **THE CLASS IS RETAINED AS A HAZARD AND DEMOTED TO UNOBSERVED.** It is
+> **FIRST CONFIRMED INSTANCE, SAME DAY ([6118], dario): `t_fans.csv`.**
+> Written 2026-08-06 over 2,182 cells; the fan now finds 2,174 present in
+> all five arms and every mean moves in the fourth decimal (full
+> 0.0651458 -> 0.0651986). The cause is the **prompt-catalogue refresh of
+> 08-12** — a dependency that moved after the artifact was written, with
+> the producer unchanged, which is exactly this class. **The RATIOS are
+> unaffected to better than 0.03 points, and the ratios are what U §4
+> claims and the figure draws**, so dario's producer asserts the ratios
+> and DECLARES the absolute drift rather than asserting it away. **A guard
+> should protect the claim being made, not the incidental value it was
+> computed from.** So the class is observed after all — by someone else's
+> folder, on a real dependency, at a magnitude that changes no conclusion.
+>
+> **THE CLASS IS RETAINED AS A HAZARD AND WAS DEMOTED TO UNOBSERVED**
+> (for about an hour, until the above); It is
 > a real shape and the structural test below is worth keeping, but no
 > instance has ever been seen: three seats audited their own folders after
 > this one was booked and all three came back clean, which was the signal
