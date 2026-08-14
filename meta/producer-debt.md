@@ -90,9 +90,15 @@ varies):
   session DEFINITION, not the digits — relevant only if R4 is ever
   revived.
 
-- **M06 cross-lingual MATCHED-PROMPT leg (both keys)** — NEW Class 1B
-  2026-08-14 ([5932], dario, absence claim with search space stated;
-  registrar-booked): `crosslingual_arms.md`'s parse-free key block —
+- ~~**M06 cross-lingual MATCHED-PROMPT leg (both keys)**~~ **CLOSED BY
+  WITHDRAWAL 2026-08-14, `5c0b2915` ([5935]) — a disposition this file
+  did not previously have: neither discharged nor outstanding. The
+  debt is closed because the CLAIM is gone, not because the code came
+  back.** lacan exhausted both recovery routes and withdrew both
+  matched-prompt legs in the finding (struck, not deleted), removed
+  the `on the same prompts` clause at source, and stated the three
+  disagreeing key counts (97/100/71) in the doc. Booked as Class 1B
+  the same day on dario's referral: `crosslingual_arms.md`'s parse-free key block —
   23,677 passages, 71 keys, total_drift zh -0.0263 (5/20) / en -0.0171
   (3/22), mean_drift zh -0.0454 (1/24) / en -0.0409 (0/25), DiD .69 /
   1.0 — exists in NO artifact and has NO producer. The finding calls

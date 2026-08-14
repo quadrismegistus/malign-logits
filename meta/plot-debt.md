@@ -110,11 +110,15 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    prompt_catalogue reference (search space in [5932]). Booked as
    producer-debt Class 1B; recovery assigned by RH to lacan; the
    register's QUOTABLE UPGRADE resting on this leg is SUSPENDED
-   ([5934]). Three routes offered by dario: (1) lacan has the code —
-   commit and draw; (2) inline — favourable transcript case, dario
-   runs it; (3) neither — draw pooled + n_sents-matched ONLY, with
-   the panel stating the matched-prompt leg is unpersisted rather
-   than implying it is what is shown. Item 6 taken meanwhile.
+([5934]).
+   **UNHELD 2026-08-14 ([5935]): ROUTE 3, and the leg is WITHDRAWN
+   rather than pending.** lacan exhausted routes 1 and 2 and withdrew
+   both matched-prompt legs in the finding; the register form is
+   withdrawn with them. Draw pooled + n_sents-matched ONLY, and per
+   registrar's tightening (which lacan endorses over dario's own
+   wording): the panel must not imply a matched-prompt comparison
+   exists at all — naming an absent leg still puts it in the reader's
+   head. Item 6 was taken meanwhile.
 6. OPEN — NEW (2026-08-13): PROPAGATION SLOPE — the ~1.3%/99% line;
    per-pair slopes both roles, aligned-minus-base null
    (propagation_cells.parquet at 22aee418, post-repair).
