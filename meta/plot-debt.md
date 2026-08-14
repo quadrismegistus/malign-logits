@@ -23,7 +23,7 @@ per-folder candidate lists remain the backlog; statuses are dated.
 | M01_displacement | 21 | 38 | 36 are K's exploratory norm-pair biplots; shortlist items still undrawn |
 | M02_frame_exit | 11 | 1 (`z_depth_exit_null`) | results/ largely plot-ready |
 | M03_proceduralization | 4 | 4 (all in D, `f_figures.py`) | A, B_C, E entirely unplotted |
-| M04_syntagmatic | 2 | 14 (Finding A family) | produce-first discharge DISPUTED ([5901]: cited figures are PASSAGE substrate vs FC-quantity debt items; verify before relying); attention two-panel still undrawn |
+| M04_syntagmatic | 2 | 14 (Finding A family) | produce-first discharge INVALID — CONFIRMED by malign from own folder ([5904], 21ba7a00): 14 figures are passage/42-pair EXPLORATORY substrate vs Finding A's fc/33-pair; 12 now substrate-stamped in the producer; FC debt items REOPEN; attention two-panel still undrawn |
 | M05_emergence | 10 | 66 | fig19-23 sense family added; A-R4 joined panel still undrawn |
 | M06_generation | 3 | 3 (plan-C density pilots) | verdict-grade findings entirely unplotted |
 

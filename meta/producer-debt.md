@@ -78,6 +78,15 @@ varies):
   producer in any `.py` (fig12 also producer-less but DELIBERATELY
   retired, not adoptable).
 
+- **M04 A_offset_slope.png + A_offset_slope_terms.png** — NEW Class 1B
+  2026-08-14, SELF-REFERRED by malign ([5904] §3, verified: zero *.py
+  hits for the basename; referenced only in A_RESULTS.md's own figure
+  list). Worst-shaped instance: A_-prefixed (reads as the registered
+  finding), exploratory passage substrate, AND unstampable — the
+  producer-side substrate stamp protecting the other 12 cannot reach
+  them. Recovery favourable (A_RESULTS.md §9 quotes the slope values);
+  malign runs it (debt owner).
+
 - **M01 Registration S odds-scale statistics** — CANDIDATE 1B
   2026-08-14 ([5901], reader tier, NOT yet re-verified): the odds
   ratios in S finding 3 (3.26, 1.56, 0.18 at p=4.6e-06; the
