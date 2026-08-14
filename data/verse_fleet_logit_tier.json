@@ -1,0 +1,13 @@
+{
+ "_about": {
+  "what": "Full-vocabulary logits (.f16) from the verse fleet, 2026-08-14. COLLECTED AND PAID FOR; deliberately NOT ingested into ClickHouse (RH's call, [5886]).",
+  "why_this_file_exists": "The tier has ZERO live readers. No code path reaches it: cache.get_logits resolves through data/logit_dir_resolution.json, whose roots are cloud_run_20260801 and f11_twp and which contains no verse_fleet entry. So nothing fails if these files disappear, and until now the tier's entire claim on existence was a plan line, a docstring and one rendered caption. This is that claim, in the data directory, where it survives the figure.",
+  "booked_reader": "The closure decomposition (line_closure x rhyme_given_closure), queued at plan_verse_fleet.md:45 and declined by verse_capacity.py's own NOT clause because the rider rides this tier. UNWRITTEN.",
+  "why_twp_is_not_sufficient": "line_closure is P(end-of-line) -- mass NOT on any target word. twp_words holds true-word probabilities for a declared vocabulary; no quantity of those locates the remaining mass. Model coverage is complete (250/250 have twp rows) and quantity coverage is not.",
+  "note_for_whoever_writes_the_rider": "The cache's logit index does not contain these files. The rider must either extend data/logit_dir_resolution.json or read the merged directory directly -- it will NOT be reachable via cache.get_logits as shipped.",
+  "if_migrated": "A symlink serves an unwritten analysis exactly as it serves a live one; the failure mode is an unmounted volume, silent. If the path changes, the caption at verse_capacity_figs.py:118 changes in the SAME commit.",
+  "files": 253,
+  "bytes": 63251300096,
+  "measured": "2026-08-14"
+ }
+}
