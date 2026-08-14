@@ -40,7 +40,10 @@ def pull(b):
 
 
 def main():
-    boxes = json.load(open("data/blt_fleet/instances.json"))
+    #: Destroyed boxes stay in the record for provenance but are not
+    #: pulled from -- rsync to a dead host is a 15s timeout per cycle.
+    boxes = [b for b in json.load(open("data/blt_fleet/instances.json"))
+             if not b.get("destroyed")]
     with cf.ThreadPoolExecutor(len(boxes)) as ex:
         res = sorted(ex.map(pull, boxes))
     tot_rows = 0

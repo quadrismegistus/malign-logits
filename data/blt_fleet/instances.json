@@ -20,7 +20,8 @@
   "window_h": 343,
   "acquired": "2026-08-14T07:08:57",
   "purpose": "BLT byte-level surprisal, lacan commission [5887]",
-  "route_note": "proxy refused publickey; DIRECT route only (runbook 2.26)"
+  "route_note": "proxy refused publickey; DIRECT route only (runbook 2.26)",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  },
  {
   "id": 47685885,
@@ -42,6 +43,7 @@
   "dph": 0.4677777777777778,
   "window_h": 1535,
   "acquired": "2026-08-14T07:08:57",
-  "purpose": "BLT byte-level surprisal, lacan commission [5887]"
+  "purpose": "BLT byte-level surprisal, lacan commission [5887]",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  }
 ]

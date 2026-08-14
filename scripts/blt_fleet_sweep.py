@@ -12,7 +12,11 @@ import json, os, subprocess, sys, concurrent.futures as cf
 TOTAL = 483_085
 BOXES = "data/blt_fleet/instances.json"
 LOCAL = "data/raw/blt_fleet"
-CMD = ("echo -n 'proc='; pgrep -fc 'blt_clou[d]' || echo 0; "
+#: `pgrep -c` PRINTS 0 AND EXITS NON-ZERO when nothing matches, so
+#: `pgrep -c ... || echo 0` emits "00" -- and an alive-test of
+#: `proc not in ('0','')` then reads a DEAD runner as producing.
+#: Caught on shard 2 at 9.8%. Count without the fallback and parse as int.
+CMD = ("echo -n 'proc='; pgrep -fc 'blt_clou[d]'; "
        "echo -n '|rows='; cat /workspace/blt/blt_shard*.jsonl 2>/dev/null | wc -l; "
        "echo -n '|f32='; du -sm /workspace/blt 2>/dev/null | cut -f1; "
        "echo -n '|free='; df -BG /workspace | tail -1 | awk '{print $4}'; "
@@ -32,10 +36,34 @@ def probe(b):
         return (b, None)
 
 def main():
-    boxes = json.load(open(BOXES))
+    #: A DESTROYED BOX IS NOT PROBED BUT ITS WORK STILL EXISTS. Filtering
+    #: them out of the roster fixed the burn ($1.67/hr for two live boxes)
+    #: and immediately broke the thing that matters more: SCORED fell from
+    #: 476,644 to 235,983, because the tool started counting what its probe
+    #: could REACH instead of what exists. That is the verse fleet defect
+    #: exactly, reintroduced while fixing something else.
+    #:
+    #: So: probe the live boxes, and count the destroyed ones FROM DISK.
+    #: Their rows are pulled, sha256-verified against the box before it was
+    #: torn down, and are not going to change.
+    _all = json.load(open(BOXES))
+    boxes = [b for b in _all if not b.get("destroyed")]
+    retired = 0
+    for b in _all:
+        if not b.get("destroyed"):
+            continue
+        d = os.path.join("data/raw/blt_fleet", str(b["id"]))
+        for f in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if f.endswith(".jsonl") and not f.endswith(".skipped.jsonl"):
+                with open(os.path.join(d, f), "rb") as fh:
+                    retired += sum(1 for _ in fh)
     with cf.ThreadPoolExecutor(len(boxes)) as ex:
         res = list(ex.map(probe, boxes))
-    tot = burn = 0; live = 0; att = []
+    #: SEED THE TOTAL WITH THE RETIRED ROWS counted from disk above, so the
+    #: figure is what EXISTS, not what the probe reached. Monotone by
+    #: construction: a box leaving the fleet moves its rows from the live
+    #: term to the retired term and the sum is unchanged.
+    tot = retired; burn = 0; live = 0; att = []
     print("  %-6s %-10s %-6s %-9s %-7s %-6s %s" % ("shard","id","proc","rows","MB","free","rate"))
     for b, d in sorted(res, key=lambda x: x[0]['shard']):
         burn += b.get('dph') or 0
@@ -53,7 +81,8 @@ def main():
                   % (b['shard'], b['id'], f"{n:,}"))
             att.append((b['id'],'unreachable')); continue
         n = int(d.get('rows','0') or 0); tot += n
-        alive = d.get('proc','0').strip() not in ('0','')
+        try: alive = int(d.get('proc','0').strip() or 0) > 0
+        except ValueError: alive = False
         if alive and n > 0: live += 1
         else: att.append((b['id'], 'proc=%s rows=%d' % (d.get('proc'), n)))
         print("  %-6d %-10s %-6s %-9s %-7s %-6s %s" % (

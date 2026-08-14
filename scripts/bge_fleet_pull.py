@@ -22,6 +22,15 @@ append-verify pass excludes it.
 """
 import json, os, subprocess, sys, concurrent.futures as cf
 
+#: --meta-only pulls the .jsonl and .manifest.json but NOT the .f32 sidecar.
+#: The vectors are ~98.5% of the volume (42.6 KB/passage against ~300 bytes of
+#: jsonl), and the full run projects to 19.2 GB against 20.6 GB of local free
+#: space -- so the sidecar cannot land here until a destination is settled.
+#: The metadata still travels every cycle, because it is the part that says
+#: WHICH passages were embedded under WHICH splitter with how many sentences,
+#: and it is not reconstructible from a dead box. The vectors are.
+META_ONLY = "--meta-only" in sys.argv
+
 DEST = "data/raw/bge_fleet"
 BOXES = "data/bge_fleet/instances.json"
 REMOTE = "/workspace/bge/"
@@ -37,8 +46,10 @@ def pull(b):
     os.makedirs(d, exist_ok=True)
     rc = 0
     #: PASS 1: append-only artifacts (.jsonl, .f32, .refused.jsonl).
-    a = ['rsync', '-a', '--append-verify', '--partial', '--exclude', '*.manifest.json',
-         '-e', _ssh(b), 'root@%s:%s' % (b['host'], REMOTE), d + '/']
+    a = ['rsync', '-a', '--append-verify', '--partial', '--exclude', '*.manifest.json']
+    if META_ONLY:
+        a += ['--exclude', '*.f32']
+    a += ['-e', _ssh(b), 'root@%s:%s' % (b['host'], REMOTE), d + '/']
     #: PASS 2: the manifest, which is REWRITTEN and must not be appended to.
     m = ['rsync', '-a', '--include', '*.manifest.json', '--include', '*/',
          '--exclude', '*', '-e', _ssh(b),
