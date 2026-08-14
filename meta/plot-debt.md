@@ -153,10 +153,37 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    neither committed summary (medians 1.20% aligned / 1.05% base;
    means 1.67% / 1.18%); nothing turns on it (the claim is ~99%
    absorbed on any of them) and the panel quotes what it computes.
-7. OPEN — NEW (2026-08-13): FINDINGS H STAGE PLOT — SFT installs / DPO
-   rebounds concreteness to dead heat / RLVR re-suppresses; plus the
-   Pythia differentiation curve (concreteness 1.08 -> 2.87 from step
-   128, coverage fence shaded). data/m05_norm_mass.parquet.
+7. SHIPPED 2026-08-14 (dario, feaea8db) — FINDINGS H, two figures.
+   **fig30 STAGE MATRIX: position is a SIGN SPLIT, not a median.**
+   `vulgarity` carries 252-339 TIED prompts of 581, so its median is
+   exactly 0.0000 in four of five transitions while its sign test
+   reaches p 1.3e-25 — a median-coloured matrix would render the
+   table's strongest tie-dominated result as "no change". Position =
+   share of NON-TIED prompts moving up (what the finding's own sign
+   test measures); mark AREA = the non-tied count, so ties shrink the
+   mark instead of hiding. Non-significant cells drawn, not dropped —
+   the dissociation reads off the panel (DPO reverses SFT's sign on
+   four scales; register_level grey at 268/272 p 0.90; NET base->DPO
+   concreteness grey at 285/286, the dead heat).
+   **fig31 PYTHIA CURVE: the pre-fence region is DRAWN, greyed and
+   dotted.** At step 0 median concreteness reads 2.65, ABOVE the 1.08
+   floor it occupies once rated coverage reaches 1.0
+   (k_rated_mass_share 0.63 there), so an unfenced curve opens with a
+   collapse a reader takes for pretraining's largest early event.
+   Drawing the fenced region is the demonstration that the fence is
+   an instrument limit rather than conservatism.
+   **Two grain choices, both caught by asserts:** medians not means
+   (mean gives 1.23 vs booked 1.08, 3.04 vs 2.87) — third time this
+   session the median/mean grain decided whether a reconstruction
+   matched; and base_step rungs ONLY, because **the final rung carries
+   the same model twice** (base_step + base_endpoint, 584 prompts
+   each), so pooling averages the curve's last point with a duplicate
+   of itself: 2.8654 -> booked 2.87 against 2.8648 -> 2.86, a
+   fourth-decimal difference visible only at the finding's own quoted
+   precision. Riders travel on the panel (register_level
+   descriptor-only, construct NOT established; vulgarity sparse;
+   CHARGE IS NOT AROUSAL); valence omitted from fig31 as median-pinned
+   at the scale midpoint.
 8. SHIPPED 2026-08-14 — M01 T-14 family, three figures via
    `scripts/plot_t_figs.py` (registry: t14, t14_dumbbell, t14_words):
    the field-level slopegraph with lines as ACTUAL displacement routes
