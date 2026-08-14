@@ -100,9 +100,21 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    **A bare coefficient pair without its aggregation is not
    reproducible**, and this entry proved it by failing to reproduce
    for the next seat that tried.
-5. OPEN — NEW (2026-08-13): CROSS-LINGUAL INVARIANCE — paired zh/en
-   drift reductions + null DiD on matched prompts
-   (crosslingual_arms_pairs.parquet, parse-free key version).
+5. HELD 2026-08-14 ([5932], dario; NOT drawn) — CROSS-LINGUAL
+   INVARIANCE. The leg this entry names as its basis — the parse-free
+   matched-prompt key, which the finding calls "the one that travels"
+   — HAS NO ARTIFACT AND NO PRODUCER. Persisted contrasts are exactly
+   {total_drift, mean_drift} x {pooled, n_sents-matched} in both jsons
+   and both pairs parquets, where `matched` = n_sents-matched, NOT
+   prompt-matched; the named producer has no pair_role/parse/
+   prompt_catalogue reference (search space in [5932]). Booked as
+   producer-debt Class 1B; recovery assigned by RH to lacan; the
+   register's QUOTABLE UPGRADE resting on this leg is SUSPENDED
+   ([5934]). Three routes offered by dario: (1) lacan has the code —
+   commit and draw; (2) inline — favourable transcript case, dario
+   runs it; (3) neither — draw pooled + n_sents-matched ONLY, with
+   the panel stating the matched-prompt leg is unpersisted rather
+   than implying it is what is shown. Item 6 taken meanwhile.
 6. OPEN — NEW (2026-08-13): PROPAGATION SLOPE — the ~1.3%/99% line;
    per-pair slopes both roles, aligned-minus-base null
    (propagation_cells.parquet at 22aee418, post-repair).

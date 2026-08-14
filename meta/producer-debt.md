@@ -90,6 +90,26 @@ varies):
   session DEFINITION, not the digits — relevant only if R4 is ever
   revived.
 
+- **M06 cross-lingual MATCHED-PROMPT leg (both keys)** — NEW Class 1B
+  2026-08-14 ([5932], dario, absence claim with search space stated;
+  registrar-booked): `crosslingual_arms.md`'s parse-free key block —
+  23,677 passages, 71 keys, total_drift zh -0.0263 (5/20) / en -0.0171
+  (3/22), mean_drift zh -0.0454 (1/24) / en -0.0409 (0/25), DiD .69 /
+  1.0 — exists in NO artifact and has NO producer. The finding calls
+  this leg "the one that travels" and the frontmatter calls the
+  matched-prompt DiD "the strongest form"; the REGISTER's quotable
+  upgrade rests on it and is SUSPENDED until recovery ([5934]).
+  Persisted: {total_drift, mean_drift} x {pooled, n_sents-matched}
+  only (`matched` = n_sents, not prompt). All eight persisted values
+  reproduce. RECOVERY assigned by RH to lacan; favourable transcript
+  case if inline (eight values + population sizes + key definition =
+  rich needle strings; dario's pre-stand-down search located the
+  densest candidate log, cdbe9c9e — the same log that carried the Y
+  section 5 recovery). NEAR-MISS worth keeping: a grep for the medians
+  hit `crosslingual_arms_full.json`, same median to four places but
+  sign counts 1/24 against the parse-free 5/20 — a different
+  population wearing the same digits.
+
 - **M03 ICC 0.855** — NEW Class 1B 2026-08-14 ([5901] §3, dario,
   search space stated): `0.855` has zero hits in any `*.py` in the
   tree; quoted in `M03/findings/D_ladder_selection.md:265` and
