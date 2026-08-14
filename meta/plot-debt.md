@@ -85,11 +85,21 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    while mixed quadrants weaken — the audit's worry answered in the
    finding's favor. mean_drift quadrants NOT booked anywhere
    (script's own computation, single-pass).
-   (c) RHO PAIR UNRECONCILED — OPEN, assigned lacan (recorder of the
-   prior values): this entry previously carried surprisal -0.694 /
-   drift +0.167; dario computes -0.714 / +0.211 on the committed
-   _full_bge-m3 cells. Same direction and asymmetry, different
-   digits; neither quotable until reconciled.
+   (c) RHO PAIR RECONCILED 2026-08-14 (lacan, [5924]) — IT IS THE
+   AGGREGATION, not population or truncation. Over passages within
+   (pair, role), aligned minus base, n=38, on the committed
+   _full_bge-m3 cells:
+       MEDIAN  surprisal -0.694  drift +0.167   <- quote these
+       MEAN    surprisal -0.714  drift +0.211
+   Both reproduce exactly; neither seat miscoded. **Quote the median**:
+   it is the campaign convention for a pair grain (self_surprisal.md,
+   where the mean inverts the sign counts), and it is independently
+   right here because `total_drift` is an extreme statistic with a
+   skewed passage distribution. The qualitative claim is identical
+   either way — surprisal carries ~3-4x the association.
+   **A bare coefficient pair without its aggregation is not
+   reproducible**, and this entry proved it by failing to reproduce
+   for the next seat that tried.
 5. OPEN — NEW (2026-08-13): CROSS-LINGUAL INVARIANCE — paired zh/en
    drift reductions + null DiD on matched prompts
    (crosslingual_arms_pairs.parquet, parse-free key version).
