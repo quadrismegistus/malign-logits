@@ -338,6 +338,27 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     a categorical-form result against this panel's 0-100 score, and
     mixing them would repeat the substrate conflation; **queued
     separately as 11a**.
+11b. SHIPPED 2026-08-14 (dario, f605d56b) — SHORTLIST 7, Y_diegetic
+    3-4, added INTO `plot_y_figs.py` (registrar's file; purely
+    additive, ratified under the same terms as t18). **THE NULLS ARE
+    THE CONTENT.** A filter at the output blocks, deflects or declines,
+    so it predicts EXIT rises and sexual_scene falls; both are FLAT
+    (17 of 32 and 16 of 32, a coin flip twice) while composition
+    INSIDE the scene moves on 27 of 32. So the two flat measures are
+    drawn FIRST, at the same visual weight as the effects, with the
+    prediction they falsify written on them — **a figure showing only
+    the two moving measures would be the same finding with its
+    argument removed**, because the argument IS that the account
+    predicting movement predicts it where nothing happens. Two
+    populations, forced not chosen: `sexual_scene` cannot be measured
+    conditional on itself, so the flat pair is over all passages and
+    the moving pair conditional on the scene; each panel names its
+    own. READING THE PRODUCER WAS AGAIN THE WHOLE DIFFERENCE:
+    `y_diegetic.py` filters pass-A parsed, requires MIN_N=20 per arm,
+    reports rates as the MEAN of per-pair rates and deltas as the
+    MEDIAN of per-pair deltas — the guessed version had ALL FOUR
+    measures wrong (-8.86pp against a booked -6.12pp, two sign counts
+    moved). All twelve booked values assert.
 11a. OPEN (queued 2026-08-14 on dario's flag, [5964]) — the
     CATEGORICAL-FORM companion to X §3g: `thumb` 0/60 in both arms and
     its neighbours, drawn on the categorical substrate ONLY, never
