@@ -1,0 +1,30 @@
+{
+ "_about": "Manifest of every twp-shaped .jsonl cell on disk, one row per LINE so redundancy survives. Provenance is RECORDED (path, dir, line) and never inferred from scan order -- an earlier audit attributed cells to whichever directory a glob met first and reported data/twp_cloud as 88.4% un-ingested when the true figure over its own contents is 13.9%. `in_ch` is NOT stored: it is a statement about a moment and belongs in a report with a timestamp, not frozen into an artifact.",
+ "built": "2026-08-14T12:07:28Z",
+ "n_lines": 1778739,
+ "n_cells": 975219,
+ "n_files": 1438,
+ "ch_cells_at_build": 964679,
+ "disk_not_in_ch": 10540,
+ "ch_not_on_disk": 0,
+ "redundant_cells": 555112,
+ "gap_by_dir_all_holders": {
+  "data/f11_twp": 288,
+  "data/f11_twp_bf": 72,
+  "data/f11_twp_delta": 269,
+  "data/raw/cloud_run_20260801": 26,
+  "data/raw/m05": 257,
+  "data/raw/pythia": 2,
+  "data/raw/twp_fill": 2443,
+  "data/raw/twp_twp_00": 179,
+  "data/raw/twp_twp_01": 886,
+  "data/raw/twp_w2_gpu2": 291,
+  "data/raw/twp_w2_jais": 5,
+  "data/raw/verse_fleet": 904,
+  "data/raw/verse_fleet_merged": 904,
+  "data/twp_cloud": 4744,
+  "data/twp_grid_v3": 1507,
+  "data/twp_phase32b": 17,
+  "data/twp_phasefalcon": 4
+ }
+}

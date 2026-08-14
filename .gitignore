@@ -388,3 +388,10 @@ meta/M01_displacement/results/pair_cascade_pilot.parquet
 # Stray Finder duplicates of a committed figure; the originals are tracked.
 meta/M01_displacement/figures/x1_garment_layers copy.svg
 meta/M01_displacement/figures/x1_garment_layers copy.png
+
+# The twp manifest PARQUET is derived: one row per line over 1,438 files,
+# rebuilt by scripts/twp_jsonl_manifest.py in ~20 minutes. The JSON summary
+# beside it IS committed and carries the counts, the _about and the gap
+# table, so a reader gets the findings without the 43 MB.
+#     REGENERATE: uv run python scripts/twp_jsonl_manifest.py
+data/twp_jsonl_manifest.parquet
