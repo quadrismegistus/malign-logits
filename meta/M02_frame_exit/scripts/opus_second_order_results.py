@@ -38,8 +38,10 @@ different instrument answering a different question in the same finding.
 THE POOLING IS THE DEFINITION, AND IT IS THE ONE THING A READER MUST NOT GUESS
 -----------------------------------------------------------------------------
 Every headline is POOLED over both rounds, 1,600 judgements. Round 1 alone
-gives 4.62x for the contradiction cell and round 2 alone gives 2.55x; the
-published 3.37x is neither. The finding says so in prose (round 2 used the
+gives an odds ratio of 4.62 for the contradiction cell and round 2 alone 2.70;
+the published 3.37 is neither. (2.55 is round 2's RATE ratio -- an earlier
+draft of this docstring quoted it as the odds ratio, which is the same
+OR-for-RR slip this script exists to document in the finding.) The finding says so in prose (round 2 used the
 ablation's prompt, and the pooled value supersedes round 1's), and this is
 exactly the definitional choice that a missing producer leaves unrecoverable.
 
@@ -187,6 +189,14 @@ def build():
                        "(scipy.stats.contingency.odds_ratio); Fisher exact two-sided p"),
         "_gate": ("imports nothing from z_second_order; this arm uses reader verdicts, "
                   "not SO/DE markers, so the [5900] marker gate is inapplicable"),
+        "_control_power": (
+            "Every SAMESIDE control interval CONTAINS its own treatment estimate "
+            "(second-order 3.37 inside [0.23, 4.39] on 5/300 vs 5/300; moral 1.16 "
+            "inside [0.89, 2.16]; clinical 1.46 inside [0.55, 2.87]). No control "
+            "here can distinguish 'no effect on same-side items' from 'the same "
+            "effect on same-side items'. The second-order control's OR is exactly "
+            "1.00 because its cells are literally identical, which reads as clean "
+            "specificity and is not. lacan's second-seat finding, [5910]."),
         "pooled": {}, "by_round": {}, "ablation": _ablation(r1),
     }
     for field, name in (("verdict", "second-order"), ("moral", "moral"),
@@ -285,7 +295,22 @@ def main():
         s = out["pooled"][name]["SAMESIDE"]
         print(f"  {name:13s} base {c['base_rate']:6.1%}  aligned {c['aligned_rate']:6.1%}"
               f"  OR {c['odds_ratio']:5.2f} [{c['ci_lo']:.2f}, {c['ci_hi']:.2f}]"
-              f"  p {c['fisher_p']:.3g}   SAMESIDE OR {s['odds_ratio']:.2f}")
+              f"  p {c['fisher_p']:.3g}")
+        #: the control's INTERVAL, never its point estimate alone. lacan's
+        #: second-seat finding at [5910]: the same-side OR is exactly 1.00
+        #: because the cells are literally identical, and its interval
+        #: CONTAINS the 3.37 found in the treatment cell -- so the control
+        #: cannot distinguish "no effect here" from "the same effect here".
+        #: Printing 1.00 by itself reads as clean specificity and is not.
+        r1 = out["by_round"][name]["round1"]; r2 = out["by_round"][name]["round2"]
+        print(f"  {'':13s} SAMESIDE control OR {s['odds_ratio']:.2f} "
+              f"[{s['ci_lo']:.2f}, {s['ci_hi']:.2f}] on {s['aligned_yes']}/{s['aligned_n']} "
+              f"vs {s['base_yes']}/{s['base_n']} events"
+              + ("  <-- INTERVAL CONTAINS THE TREATMENT ESTIMATE; "
+                 "underpowered, not clean"
+                 if s['ci_lo'] <= c['odds_ratio'] <= s['ci_hi'] else ""))
+        print(f"  {'':13s} per-round CONTRA OR {r1['odds_ratio']:.2f} / "
+              f"{r2['odds_ratio']:.2f}")
     ab = out["ablation"]
     print(f"  ablation      n {ab['n']}, agreement {ab['agreement']:.1%}, "
           f"McNemar exact p {ab['mcnemar_exact_p']:.4f}")

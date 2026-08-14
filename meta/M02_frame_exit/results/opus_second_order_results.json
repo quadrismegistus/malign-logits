@@ -1,4 +1,5 @@
 {
+ "_control_power": "Every SAMESIDE control interval CONTAINS its own treatment estimate (second-order 3.37 inside [0.23, 4.39] on 5/300 vs 5/300; moral 1.16 inside [0.89, 2.16]; clinical 1.46 inside [0.55, 2.87]). No control here can distinguish 'no effect on same-side items' from 'the same effect on same-side items'. The second-order control's OR is exactly 1.00 because its cells are literally identical, which reads as clean specificity and is not. lacan's second-seat finding, [5910].",
  "_estimator": "odds ratio; conditional MLE 95% interval (scipy.stats.contingency.odds_ratio); Fisher exact two-sided p",
  "_gate": "imports nothing from z_second_order; this arm uses reader verdicts, not SO/DE markers, so the [5900] marker gate is inapplicable",
  "_inputs": [
