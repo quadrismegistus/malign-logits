@@ -736,6 +736,42 @@ seat forgets at its peril:
   about whether the write was tried. The store said it was: the non-CJK
   cells of those files are all present and only the CJK rows are absent.
   **An omission does not select for script.**
+- **TRUE OF THE SAMPLE, TAKEN FOR THE SET** ([6073], lacan correcting
+  registrar). I measured two CJK-heavy files, found every missing cell
+  was CJK, and reported it as characterising the gap. Over the
+  population CJK is 4,087 of 10,540 = 38.8%. **Same error as
+  checking-the-members-not-the-list with the quantifier moved.**
+- **THE MECHANISM WAS ARITHMETIC, NOT SELECTION** ([6073]): four seats
+  hunted a filter that drops CJK cells. There is none. `twp_words`
+  stores ONE ROW PER WORD, and 4,843 gap cells have an EMPTY payload —
+  a record with no words writes no rows. The control is the largest
+  entry in the gap: Olmo `@stage1-step0`, 1,073 missing, ZERO CJK, all
+  empty, because the first checkpoint of pretraining puts nothing above
+  theta. **malign's damage ordering (412/69/17/1) was real, reproducible
+  and matched independent documentation, and was still a CORRELATE: a
+  mangled prompt flattens the distribution, so fewer words clear theta,
+  so the payload comes back empty. The dose-response is in EMPTINESS,
+  not in filtering** — which is why it needed no code that knows about
+  damage, and why it also fit models with no defect recorded. **A
+  correlate that strong, matching prior documentation that closely, is
+  what a cause looks like from outside; only a case with the effect and
+  none of the proposed mechanism separated them.**
+- **A WITHDRAWAL DESERVES THE SAME EDGE-CHECK AS AN ASSERTION** ([6076],
+  dario on itself). It withdrew a measurement when the hypothesis
+  motivating it died; malign ran it anyway and it was the test that
+  discriminated between the surviving explanations (`gen_sequences`
+  15.8% zh tracking disk vs `twp_words` 6.0% — two tables, one corpus,
+  the threshold the only difference). **A measurement's motivation and
+  its information value are different properties, and the seat that
+  withdraws it is the one least likely to notice, because the reasoning
+  that killed the premise is what stops it looking again.**
+- **AN OVER-ALARM IS THE SAME FAILURE AS AN UNDER-CHECK** ([6077],
+  registrar on itself): two successive escalations about my own figures,
+  each dissolved by looking one step further — 904 "missing" cells that
+  were empty by nature, then "47% of the first rung" whose uniform 89%
+  companion was the verse/prose split I designed. **The interior audit
+  produces the confidence either way; it does not care which direction
+  the confidence points.**
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
   fifth that belonged. malign's twin at [6042] — verifying sizes
