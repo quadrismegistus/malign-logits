@@ -608,6 +608,16 @@ seat forgets at its peril:
   — everywhere, forever. Broadest form: **any string column whose
   value space is not controlled by the producer can collide, and the
   natural-language ones are most exposed.**
+  **THE EXEMPLAR, since a ruling wants a model and this one is in the
+  repo already** ([5985]): `meta/M04_syntagmatic/results/A_post_utterance_shock.json`
+  carries `_about`, `_producer`, `_finding`, `_spec`, `_spec_frozen_at`,
+  `_seed`, `_nboot`, `_arbiter`, a capture-only clause stating the
+  artifact MUST reproduce the finding — and a `_positive_control`
+  recorded as INVALID BY DESIGN *so nobody proposes it again with more
+  data*. That last is the convention past its own definition: the
+  artifact fences not only its scope but a DEAD END, so the next seat
+  does not re-walk it. Note it qualifies nothing about the 0-of-75
+  parquet count, which was parquets; this is JSON.
   **EXPOSURE, TRACED RATHER THAN LISTED** ([5971], malign completing
   its own post): the collision is real in 29 files and INERT in all
   but one path — every live consumer of the f37 tables reads with

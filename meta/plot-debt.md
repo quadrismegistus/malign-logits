@@ -369,13 +369,37 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     (Shortlist 5 done; remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
     M02 dumbbell) — unblocked, order per original ranking.
-12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
-    A's half now has artifacts AND figures (A_position_*, 2026-08-13);
-    the combined attention-vs-A panel remains undrawn. CAUTION
-    ([5901]): A_position_* figures are the PASSAGE-corpus substrate
-    (A_RESULTS.md, STATUS: EXPLORATORY, nothing quotable) — Finding A
-    proper is fc/33-pair/10-token and has ZERO figures; do not treat
-    the 14 passage figures as covering the FC debt.
+12. BLOCKED — M04 attention two-panel (shortlist 9). **STATUS
+    CORRECTED 2026-08-14 ([5985], dario): the blocked half is the
+    OTHER one.** This entry read half-blocked on Finding A and left
+    the impression the FC half was missing. It is not:
+    `results/A_post_utterance_shock.json` is Finding A's registered
+    half on the fc substrate — 23,746 cells, 5,112 sites, 33 pairs,
+    21 statistics including position +1..+10 — and is the most
+    completely self-describing artifact in the repo (see the `_about`
+    ruling; it carries producer, finding, spec, spec-frozen-at, seed,
+    nboot, arbiter, a capture-only reproduction clause, and a
+    `_positive_control` recorded as INVALID BY DESIGN *so nobody
+    proposes it again with more data*). **THE ACTUAL BLOCKER IS THE
+    ATTENTION-DECAY HALF, WHICH EXISTS AT ONE CELL**: shortlist 9
+    names `attn_delta_smollm2_e1_cross_w200.json` — one pair, one
+    prompt, three words, n=16. Drawing that above a 33-pair position
+    profile puts n=1 beside n=33 at equal visual weight, the exact
+    substrate mismatch this queue spent the day correcting, and M04's
+    own doc warns against re-dignifying the retracted two-cell
+    contrast. **And the population artifact measures something else**:
+    `attn_norm_sweep_full.json` is a real 28 cells but carries `d_norm`
+    and `probs` per word class, not decay against position — so the
+    quantity shortlist 9 wants exists only at n=1 and the n=28 artifact
+    does not contain it. Substituting one for the other would be the
+    substrate conflation with extra steps. **This is a measurement
+    debt with a different owner, not a plotting task.** CAUTION
+    RETAINED ([5901]): the `A_position_*` figures are the PASSAGE
+    substrate (A_RESULTS.md, EXPLORATORY, nothing quotable) and do not
+    cover the FC debt. FLAGGED NOT WORKED THROUGH ([5985]): the
+    head-concentration Lorenz curve among the M04 attention items may
+    sit against [5226]'s per-head fence (474 heads in
+    attn_norm_sweep_full against "nothing at the per-head unit").
 13. SHIPPED 2026-08-14 — displacement network viz, first pieces:
     `displacement_network_core.dot/svg` (135-edge working map, maps/
     idiom, basin clusters) and `displacement_basin_procedure` panel
