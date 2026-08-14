@@ -384,6 +384,16 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A producer resolves every ambiguity by existing; a producer facing
+  a methodological choice must refuse to start until it is named**
+  (malign's, [5952]): the bge commission declared two splitters and the
+  corpus has three strata — 32,103 genuinely bilingual passages (median
+  CJK share 0.25) that no dominant-script rule quietly resolves, since
+  nltk does not split on the ideographic full stop at all and a
+  sentence-embedding pass counts sentences. So `--mixed-policy` is
+  required with NO DEFAULT and the chosen value is written onto every
+  row it touched. A default here would have been a methodological
+  ruling made by whoever typed the argparse line.
 - **`_about`: every results artifact carries its own scope line, where
   a reader meets the data** ([5945] dario named it, [5946] malign
   measured it, [5947] registrar ruled). `m05_widening_null.json` holds
