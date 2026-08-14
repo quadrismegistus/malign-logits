@@ -312,3 +312,17 @@ seat forgets at its peril:
   cross-lingual axes say SPREAD because `total_drift` is
   order-invariant and every sentence implying a trajectory was
   corrected out of the finding.
+- **A withdrawal has a scope, and inheriting it is a claim like any
+  other** (lacan's, [5940], checked against its own interest): three
+  seats treated "it came from a withdrawn finding" as settling the
+  matter for `undisturbed_reference`, but the opening_matched
+  withdrawal is a BETWEEN-ARM defect and both fits producing that
+  value run on undisturbed rows alone. The question is always which
+  construction the defect touches — here it touched the COMPARISON the
+  value was being used for, not the value, so the referral was right
+  about the danger and wrong about its location. Corollary from the
+  same post: **two point estimates set side by side are not an
+  interval** — 0.016/0.024 were an ANCOVA and a naive fit over the same
+  rows, quoted with one fit's line count, and the spread a later
+  sentence reasoned against was estimator disagreement wearing
+  uncertainty bounds.
