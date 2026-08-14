@@ -360,6 +360,22 @@ meta/M03_proceduralization/results/e_field_flow_arms.parquet
 # committed; these are the intermediate the producer walks to build them.
 # Sized here so the next reader knows what the rule is worth rather than
 # guessing: 265.1 + 61.9 + 42.3 MB.
+#
+# `mediation_words_byprompt.parquet` IS CITED by plot-debt.md:945 as the
+# substrate for an OPEN figure, found by @dario's [6036] check after this rule
+# was already written. Ignoring a CITED artifact is not the same decision as
+# ignoring a derived one, and I made it without asking whether anything
+# pointed here. Committing is not available -- 265 MB against the repo's
+# 100 MiB pre-commit hook -- so the rule stands and the citation is made
+# ACTIONABLE instead:
+#
+#     REGENERATE:  uv run python meta/M06_generation/scripts/m06_mediation.py --by-prompt
+#     COPY:        /Volumes/diderot/malign-logits/meta/M06_generation/results/
+#                  (all three, verified byte-identical 2026-08-14)
+#
+# An ignored file that a findings doc names is a broken reproduction path
+# unless the doc says how to get it back. The rule is the cheap half; the
+# pointer is the half that makes it safe.
 meta/M06_generation/results/mediation_words.parquet
 meta/M06_generation/results/mediation_words_byprompt.parquet
 meta/M06_generation/results/mediation_words_joined.parquet
