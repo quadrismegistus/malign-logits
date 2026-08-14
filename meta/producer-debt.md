@@ -455,6 +455,35 @@ reproduced both counts):
   untracked/gitignored, machine-local. Re-run `pole_axis_build.py`
   (BGE-m3 encode, GloVe download) to regenerate.
 
+- ~~**twp store / ClickHouse ingest gap**~~ **CLOSED BY RULING
+  2026-08-14, RH via [6077]: DO NOT INGEST THE JULY CELLS.** Retired,
+  not deferred. `data/twp_ingest_worklist.json` (5733fe2d) is KEPT with
+  the ruling in its own `_about`, because **a list that vanishes teaches
+  the next seat to re-derive it**, and re-deriving this one cost four
+  seats an evening. Final accounting of the 10,540 distinct gap cells:
+
+      4,843  EMPTY PAYLOAD — correctly absent. `twp_words` stores one
+             row per WORD; a record with no words above theta=0.001
+             writes no rows. Arithmetic, not a filter.
+      5,696  JULY (twp_cloud 29-30 Jul pre-versioning, twp_grid_v3
+             30-31 Jul, twp_phase32b 31 Jul) — RH: not to be ingested.
+          1  cloud_run — not pursued.
+
+  **So the store is COMPLETE for everything it should hold: 964,679 of
+  970,376 non-empty cells = 99.41%**, with the 0.59% now formally
+  excluded rather than outstanding. The receipt reads *empty payload at
+  theta=0.001*, not *corrupted prompt* — which is what four wrong
+  explanations had to be cleared to establish (registrar's
+  "never offered", lacan's "one batch one cause", malign's "tokenizer
+  damage excludes CJK", registrar's "every missing cell is CJK").
+  **Each was measured, none careless, and each died to a case with the
+  effect and none of the proposed mechanism.** The control was
+  `Olmo-3-1025-7B@stage1-step0` — 1,073 cells, zero CJK, all empty —
+  **the LARGEST entry in the gap and the least interesting one**, while
+  four seats worked the multilingual cluster because it had a pattern.
+  And it was settled by `n_words`, a column lacan put in the manifest
+  with no specific purpose because RH asked for a manifest.
+
 ## Class 3 — WRITE-UP MISSING: a real result no document owns
 
 - **M02 L1 pilot family**: frame membership at chance from an LLM coder
