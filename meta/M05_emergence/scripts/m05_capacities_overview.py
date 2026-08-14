@@ -41,7 +41,8 @@ INK, INK2 = "#0b0b0b", "#52514e"
 COLORS = {"reference (facts)": "#2a78d6", "reasoning": "#1baf7a",
           "discourse tracking": "#eb6834", "semantic packages": "#4a3aa7",
           "poetic (hold the word)": "#c2477f",
-          "verse rhyme (pull)": "#8a6d00",
+          "verse rhyme (hit rate)": "#8a6d00",
+          "verse restraint (unrhymed)": "#c4a838",
           "sense (natural share)": "#4f7d70",
           "syntax (strict licit share)": "#8f5fbf"}
 LABEL = {"capacity_reference": "reference (facts)",
@@ -59,12 +60,27 @@ def build(ladder):
     for r in b.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx, fam=LABEL[r.family],
                          value=r.value, role=r.role, stage=r.stage))
-    v = d[d.family.isin(["verse_rhymed_pre-1900", "verse_rhymed_1900+"])
-          & (d.measure == "called_pull")]
-    for ck, g in v.groupby("ckpt_idx"):
-        rows.append(dict(ckpt_idx=ck, fam="verse rhyme (pull)",
-                         value=g.value.mean(), role=g.role.iloc[0],
-                         stage=g.stage.iloc[0]))
+    # verse as CORRECTNESS rates (RH 2026-08-14): hit = 1 - miss on
+    # rhymed poems, restraint = 1 - false alarm on unrhymed, at the
+    # declared m=0.05 margin (verse_error_rates.parquet, fig28/29's
+    # producer). Replaces the pull-mass line: shares of poems are the
+    # scale the rest of this page speaks.
+    er = pd.read_parquet(
+        "meta/M05_emergence/results/verse_error_rates.parquet")
+    er = er[er.margin == 0.05]
+    key = (d[["model", "ckpt_idx", "role", "stage"]]
+           .drop_duplicates("model").set_index("model"))
+    for r in er.itertuples():
+        if r.model not in key.index:
+            continue
+        k = key.loc[r.model]
+        rows.append(dict(ckpt_idx=int(k.ckpt_idx),
+                         fam="verse rhyme (hit rate)",
+                         value=1 - r.miss, role=k.role, stage=k.stage))
+        rows.append(dict(ckpt_idx=int(k.ckpt_idx),
+                         fam="verse restraint (unrhymed)",
+                         value=1 - r.false_alarm, role=k.role,
+                         stage=k.stage))
     s = d[(d.family == "sense") & (d.measure == "natural_share")]
     for r in s.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx, fam="sense (natural share)",
@@ -173,8 +189,10 @@ def draw(ladder, out):
                           "phase segments only (stage1/2/3, SFT, DPO, "
                           "RLVR) — no window crosses a boundary; faint: "
                           "raw rungs.\nSource: capacities_by_rung."
-                          "parquet; verse = called pull, eras averaged; "
-                          "unrhymed control ~0 omitted."),
+                          "parquet + verse_error_rates.parquet; verse "
+                          "as CORRECTNESS shares at m=0.05: hit rate = "
+                          "1−miss (rhymed), restraint = 1−false alarm "
+                          "(unrhymed)."),
                 color="")
          + theme_minimal(base_size=11)
          + theme(panel_grid_minor=element_blank(),
