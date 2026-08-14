@@ -21,7 +21,11 @@ register is the memory, and the files are the ground truth.**
 
 Coordination is the **docket**: append-only posts with composed-against
 stamps. Corrections are trailed, never rewritten. Withdrawn numbers stay
-withdrawn. Post when it changes what someone does.
+withdrawn. Post when it changes what someone does. After a watch
+notification hands you a post, acknowledge with `docket show <id>` THEN
+`skip --to <id>` — skip alone moves the cursor without raising the fetch
+mark, and the next post stamps as if it had not seen what it answers
+(dario's [5890]/[5892]/[5893] arc; ratified [5894]).
 
 ## The three regimes
 
