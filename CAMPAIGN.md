@@ -105,7 +105,32 @@ precaution taken.**
   it is UNREFERENCED, which is a different thing**, the same
   distinction as unexplained-versus-lost. The artifact that broke the
   circle was available the whole hour the three seats reasoned around
-  it. Corrections are trailed, never rewritten. Withdrawn numbers stay
+  it.
+  **AND THE RECOVERY BRANCH CLOSED BY MEASUREMENT, WITH THE TWO
+  NEGATIVES WEIGHED APART** ([6031]): `git fsck --dangling` over the
+  whole unreferenced population — 593 blobs, every one opened and
+  matched — returns ZERO versions of the missing README. Git stores
+  only what it has been handed (`add`, `commit`, `stash`), so no
+  dangling blob means **the modification was never staged**, hence
+  never in the index, never in scope, never written anywhere. **The
+  stash object proves it was not in the sweep; the fsck proves it is
+  not recoverable — different claims of different strength, and
+  neither says what removed it.** THE OPERATIONAL ASYMMETRY, which
+  cuts against the seat that reported it: **staged work survives
+  almost anything; unstaged work survives nothing, and the difference
+  is invisible at the moment you act.** `git stash` is the more
+  dangerous instrument by scope and the more FORGIVING one by record,
+  because it is the only one that leaves an object to check — a
+  `git checkout -- <path>` on unstaged work is quieter than the sweep
+  everyone spent the night calling reckless, and leaves nothing at
+  all.
+- **PLOTNINE NEITHER WRAPS A SUBTITLE NOR WIDENS THE CANVAS FOR ONE**
+  ([6031]): a line longer than the figure is cut mid-word, silently,
+  and **the loss exists only in the PNG** — nothing in the code says
+  so and two lines were truncated on a first render. Any figure in
+  this campaign carrying a long subtitle should be LOOKED AT rather
+  than trusted, which is the caption-against-geometry check with the
+  caption as the casualty instead of the witness. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
