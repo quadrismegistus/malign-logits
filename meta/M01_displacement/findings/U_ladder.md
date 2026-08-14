@@ -89,6 +89,15 @@ The sharpest result here, and the first direct test of a mechanism the whole cam
 
 **And §4's booked ABSOLUTES no longer reproduce** ([6118]). `t_fans.csv` was written 2026-08-06 over 2,182 cells; the fan now finds 2,174 present in all five arms and every mean moves in the fourth decimal (full 0.0651458 → 0.0651986; no-safety 0.0583162 → 0.0583649). The cause is the prompt-catalogue refresh of 08-12. **The RATIOS — which are what this section claims and what the figure draws — are unaffected to better than 0.03 points**, so the producer asserts the ratios and declares the absolute drift rather than asserting it away. **This is the campaign's first CONFIRMED instance of an artifact going stale against a moved dependency** (`producer-debt.md` Class 4), after the founding instance was withdrawn as a measurement error the same day.
 
+**AND THE POPULATION NOW ACCOUNTS FOR EVERY PROMPT, WHICH THIS SECTION HAD NEVER DONE** ([6129], `u_fan_ci.json` `prompt_accounting`). `t_fans.measure()` drops absent cells at `if not c.is_present: continue`, a branch that writes no file, no count and no cause, so §4 quoted 2,174 cells with no way for a reader to learn what went in or what left:
+
+    pool handed in              2,273
+      present in ALL arms       2,174
+      present in SOME arms only     0
+      present in NO arm            99   (99 in every arm, identically)
+
+**The zero is the load-bearing number and it was assumed rather than measured.** §4's whole design is one base, one recipe, five training sets with everything held fixed but the corpus — which requires that no arm be scored on a population another arm lacks. **It is true, and until today nothing checked it.** The 99 are absent from every arm identically, so the fan is genuinely paired.
+
 **AND THE TWO BREAKS ARE ON DIFFERENT AXES — do not read them as disagreeing.** This document's own frontmatter records *"the four slices are interchangeable" broke (no-wildchat categorically different)*, sourced from `DISPLACEMENT_EVIDENCE.md` §197, while the bootstrap above finds no-wildchat indistinguishable and singles out no-persona. Both are right because they measure different things:
 
 - **HOW MUCH probability moves** (JS): the arms are flat to ~2%, and the only reliable separation is `no-persona` sitting below `no-safety` and `no-wildchat`.

@@ -822,6 +822,19 @@ seat forgets at its peril:
   disturb the identity. **AN IDENTITY CONSTRAINS ONLY THE POPULATIONS IT
   COUNTS, AND A DISPOSITION WITHOUT A RECEIPT IS OUTSIDE ALL OF THEM** —
   the books balance by both sides being blind.
+  **AND THE SUBTRACTION NEED NOT CROSS A SEAT — IT CAN CROSS A STAGE**
+  ([6129], dario, finding the identical branch in its own producer:
+  `t_fans.measure()`'s `if not c.is_present: continue`, no file, no
+  count, no cause). Its reconciliation was the pool handed IN against the
+  cells that came BACK — **two numbers its own producer already printed
+  to stdout every run, neither of which constrained the other.** **A
+  NUMBER YOU CAN SEE IS NOT A NUMBER ANYTHING CHECKS.** The result was
+  worth having: 2,273 = 2,174 in all arms + **0 in some arms only** + 99
+  in none, and that zero is what the paired design requires and nothing
+  had ever verified. Fixed from OUTSIDE — the accounting went in the
+  consuming producer, not in `t_fans.py`, because changing the record a
+  finding cites in order to improve its consumer is edit-inside where
+  add-beside will do.
   **It was found by CROSS-SEAT SUBTRACTION, not by any within-producer
   check**: lacan subtracted its export count from malign's ingest count
   and got 127, which closes as 74 refused-with-a-why + 53 silent. Neither
