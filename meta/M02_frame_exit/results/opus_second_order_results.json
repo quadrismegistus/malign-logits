@@ -1,0 +1,224 @@
+{
+ "_estimator": "odds ratio; conditional MLE 95% interval (scipy.stats.contingency.odds_ratio); Fisher exact two-sided p",
+ "_gate": "imports nothing from z_second_order; this arm uses reader verdicts, not SO/DE markers, so the [5900] marker gate is inapplicable",
+ "_inputs": [
+  "judgements.json",
+  "round2_all.json",
+  "moral_clinical.json",
+  "ablation_no_example.json"
+ ],
+ "_what": "ENGLISH Opus-reader arm of second_order_naming.md, pooled over both rounds.",
+ "ablation": {
+  "agreement": 0.98,
+  "cells": {
+   "CONTRA_aligned": {
+    "n": 58,
+    "with_example": 10,
+    "without_example": 9
+   },
+   "CONTRA_base": {
+    "n": 56,
+    "with_example": 2,
+    "without_example": 4
+   },
+   "SAMESIDE_aligned": {
+    "n": 42,
+    "with_example": 1,
+    "without_example": 1
+   },
+   "SAMESIDE_base": {
+    "n": 44,
+    "with_example": 0,
+    "without_example": 1
+   }
+  },
+  "discordant_b": 1,
+  "discordant_c": 3,
+  "mcnemar_exact_p": 0.625,
+  "n": 200
+ },
+ "by_round": {
+  "clinical": {
+   "round1": {
+    "aligned_n": 200,
+    "aligned_rate": 0.05,
+    "aligned_yes": 10,
+    "base_n": 200,
+    "base_rate": 0.05,
+    "base_yes": 10,
+    "ci_hi": 2.745365444603741,
+    "ci_lo": 0.36425023195567263,
+    "conditional_mle_or": 1.0,
+    "fisher_p": 1.0,
+    "odds_ratio": 1.0,
+    "rate_ratio": 1.0
+   },
+   "round2": {
+    "aligned_n": 300,
+    "aligned_rate": 0.043333333333333335,
+    "aligned_yes": 13,
+    "base_n": 300,
+    "base_rate": 0.02,
+    "base_yes": 6,
+    "ci_hi": 7.2127865818166415,
+    "ci_lo": 0.7732523393982556,
+    "conditional_mle_or": 2.2166872017999726,
+    "fisher_p": 0.16028497554742585,
+    "odds_ratio": 2.2195121951219514,
+    "rate_ratio": 2.1666666666666665
+   }
+  },
+  "moral": {
+   "round1": {
+    "aligned_n": 200,
+    "aligned_rate": 0.21,
+    "aligned_yes": 42,
+    "base_n": 200,
+    "base_rate": 0.145,
+    "base_yes": 29,
+    "ci_hi": 2.7418458439062774,
+    "ci_lo": 0.9037822469677006,
+    "conditional_mle_or": 1.5656815097151828,
+    "fisher_p": 0.11591798721625689,
+    "odds_ratio": 1.5674378000872982,
+    "rate_ratio": 1.4482758620689655
+   },
+   "round2": {
+    "aligned_n": 300,
+    "aligned_rate": 0.14666666666666667,
+    "aligned_yes": 44,
+    "base_n": 300,
+    "base_rate": 0.15666666666666668,
+    "base_yes": 47,
+    "ci_hi": 1.4823259175784382,
+    "ci_lo": 0.5767766098816784,
+    "conditional_mle_or": 0.9253193460730502,
+    "fisher_p": 0.8200488516448706,
+    "odds_ratio": 0.9251994680851063,
+    "rate_ratio": 0.9361702127659574
+   }
+  },
+  "second-order": {
+   "round1": {
+    "aligned_n": 200,
+    "aligned_rate": 0.125,
+    "aligned_yes": 25,
+    "base_n": 200,
+    "base_rate": 0.03,
+    "base_yes": 6,
+    "ci_hi": 14.047195154997691,
+    "ci_lo": 1.788848063493428,
+    "conditional_mle_or": 4.603244584319463,
+    "fisher_p": 0.0005459300146145371,
+    "odds_ratio": 4.619047619047619,
+    "rate_ratio": 4.166666666666667
+   },
+   "round2": {
+    "aligned_n": 300,
+    "aligned_rate": 0.09333333333333334,
+    "aligned_yes": 28,
+    "base_n": 300,
+    "base_rate": 0.03666666666666667,
+    "base_yes": 11,
+    "ci_hi": 6.133702817271237,
+    "ci_lo": 1.27324140699923,
+    "conditional_mle_or": 2.7002909132409387,
+    "fisher_p": 0.007334289735711955,
+    "odds_ratio": 2.7045454545454546,
+    "rate_ratio": 2.5454545454545454
+   }
+  }
+ },
+ "pooled": {
+  "clinical": {
+   "CONTRA": {
+    "aligned_n": 500,
+    "aligned_rate": 0.046,
+    "aligned_yes": 23,
+    "base_n": 500,
+    "base_rate": 0.032,
+    "base_yes": 16,
+    "ci_hi": 2.9926486927855667,
+    "ci_lo": 0.7271945397639734,
+    "conditional_mle_or": 1.4580499454960658,
+    "fisher_p": 0.32712400056633667,
+    "odds_ratio": 1.4585953878406708,
+    "rate_ratio": 1.4375
+   },
+   "SAMESIDE": {
+    "aligned_n": 300,
+    "aligned_rate": 0.05333333333333334,
+    "aligned_yes": 16,
+    "base_n": 300,
+    "base_rate": 0.043333333333333335,
+    "base_yes": 13,
+    "ci_hi": 2.865851256579704,
+    "ci_lo": 0.5493600118711767,
+    "conditional_mle_or": 1.2433194895010802,
+    "fisher_p": 0.7040899391805994,
+    "odds_ratio": 1.2437703141928493,
+    "rate_ratio": 1.2307692307692308
+   }
+  },
+  "moral": {
+   "CONTRA": {
+    "aligned_n": 500,
+    "aligned_rate": 0.172,
+    "aligned_yes": 86,
+    "base_n": 500,
+    "base_rate": 0.152,
+    "base_yes": 76,
+    "ci_hi": 1.6481114409380242,
+    "ci_lo": 0.8158564428331154,
+    "conditional_mle_or": 1.1587409248263436,
+    "fisher_p": 0.4399247477880322,
+    "odds_ratio": 1.1589117721840836,
+    "rate_ratio": 1.131578947368421
+   },
+   "SAMESIDE": {
+    "aligned_n": 300,
+    "aligned_rate": 0.2,
+    "aligned_yes": 60,
+    "base_n": 300,
+    "base_rate": 0.15333333333333332,
+    "base_yes": 46,
+    "ci_hi": 2.1595033827973777,
+    "ci_lo": 0.8858242623870457,
+    "conditional_mle_or": 1.3796940776360376,
+    "fisher_p": 0.1638452076663491,
+    "odds_ratio": 1.3804347826086956,
+    "rate_ratio": 1.3043478260869568
+   }
+  },
+  "second-order": {
+   "CONTRA": {
+    "aligned_n": 500,
+    "aligned_rate": 0.106,
+    "aligned_yes": 53,
+    "base_n": 500,
+    "base_rate": 0.034,
+    "base_yes": 17,
+    "ci_hi": 6.296143245316908,
+    "ci_lo": 1.8842293198529523,
+    "conditional_mle_or": 3.3649343377982364,
+    "fisher_p": 9.608790105882515e-06,
+    "odds_ratio": 3.368732727990525,
+    "rate_ratio": 3.117647058823529
+   },
+   "SAMESIDE": {
+    "aligned_n": 300,
+    "aligned_rate": 0.016666666666666666,
+    "aligned_yes": 5,
+    "base_n": 300,
+    "base_rate": 0.016666666666666666,
+    "base_yes": 5,
+    "ci_hi": 4.394119039731283,
+    "ci_lo": 0.22757690243666087,
+    "conditional_mle_or": 1.0,
+    "fisher_p": 1.0,
+    "odds_ratio": 1.0,
+    "rate_ratio": 1.0
+   }
+  }
+ }
+}
