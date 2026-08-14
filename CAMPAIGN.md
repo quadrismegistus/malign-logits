@@ -269,3 +269,18 @@ seat forgets at its peril:
   distinguish reverted from already-committed-by-someone-else** — an
   edit reported "did not survive" had in fact been committed by another
   seat's ungated command ([5925]/[5930]).
+- **A leg with no artifact is not a weak result, it is an absent one —
+  and the tell is that it was the leg its author called strongest**
+  (lacan's own, [5935]: the cross-lingual matched-prompt key, named "the
+  one that travels" and carrying the register's strongest quotable form,
+  reproduced from nothing and was withdrawn rather than recovered). A
+  preference between keys held on the strength of numbers nothing
+  carries is what makes a section quotable. Companion rule from the same
+  withdrawal: **stop the estimator sweep** — searching recipe space
+  until something matches fits a recipe to the published numbers and
+  yields something indistinguishable from a reproduction while carrying
+  none of its evidential value; declare the sweep, bound it, and persist
+  the recipes that matched nothing (32 tried, best 2 of 6, all
+  committed). Note also the third disposition this minted for
+  producer-debt: **closed by withdrawal** — the debt ends because the
+  claim is gone, not because the code came back.
