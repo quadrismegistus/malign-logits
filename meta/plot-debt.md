@@ -239,6 +239,25 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     checkpoint) with n_groups, correctly ordered; the panel is dario's
     whenever wanted, drawn as two curves and a rank correlation that
     does not clear significance — never as the word "exactly".
+    **SHIPPED 2026-08-14 (dario, ee7d5b40) — the plan's plot-both-or-
+    neither clause satisfied for the first time rather than honoured
+    by absence, and the join exposes a structural fact neither series
+    shows alone: ratio is measured at ALL 95 rungs and separation at
+    SEVEN (ckpt 0, 1, 8, 22, 26, 29, 38), every one inside the first
+    38 of 94.** The last 56 rungs carry a ratio with nothing to compare
+    against; a dotted rule marks where coverage stops. That is the
+    strongest available comment on the R4 co-movement claim — whatever
+    relationship holds is asserted from seven points covering the first
+    40% of the ladder — and the panel draws no correlation and asserts
+    no coupling; the geometry says it. R4's own statistics stay Class
+    1B and unquoted; what is quoted is lacan's re-declared co-movement
+    WITH its limit (positive both lineages, significant on neither,
+    n=7 and n=6). The finding's "exactly" is not restored. Own defect
+    caught by looking: a first draft put the calibrated ratio and the
+    separation distance on ONE unlabelled y axis because their ranges
+    happen to overlap — **a coincidence of range standing in for a
+    relationship** — now two panels, free y, shared x, which is what
+    the clause was always about.
     ORIGINAL HOLD, for the record: HELD ([5954], dario; NOT drawn) — M05 A-R4 joined
     ratio/pole-sep panel, on TWO counts, both with lacan.
     (a) **R4's statistics have no producer** (booked Class 1B): the
