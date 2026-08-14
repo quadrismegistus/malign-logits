@@ -616,7 +616,36 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     STILL OWED from the original menu: nine-slot within-poem time
     course; closure gradient (BLOCKED: rider rides the un-ingested
     .f16 tier, RH's call); era x scheme matrix panel.
-15. OPEN (2026-08-14, RH-approved menu) — FINDINGS P FIGURES, for a
+15. **CLOSED 2026-08-14 ([6175], dario). All four shipped, and P had NO
+    figures of record when this opened.**
+
+        15(1) headroom ladder        f465bdf8
+        15(3) field poles            061ee44c
+        15(4) arm AUC distribution   31d46c06
+        15(2) named components       70779f68, weld at 47e7c75f
+
+    **THE ENTRY'S OWN FRAMING WAS DROPPED AND THAT WAS THE RIGHT CALL**
+    (registrar's ruling, dario's design decision): 15(2) asked for a
+    decomposition with an *unnamed majority as the dominant empty
+    region*. It is drawn as COUNTERFACTUALS, NOT SLICES, with no
+    remainder. Register and concreteness correlate at rho 0.493 and §7b
+    calls interiority and abstraction colinear by construction, so the
+    components overlap and can sum past one — **an empty wedge is itself
+    a partition claim**, and the finding denies the partition.
+
+    **AND THE LEDGER WENT TWO-OF-SIX TO SIX-OF-SIX BECAUSE malign EMITTED
+    THREE ARTIFACTS THAT DID NOT EXIST — in response to the FIGURE, not
+    to any suspicion of error.** Nothing in §7 was wrong: the duplication
+    dario reported was a genuine 3.9e-05 coincidence and the gaps were
+    Class 1A. What the emission produced was **two concreteness
+    instruments at 0.0921 and 0.1183 agreeing on direction and differing
+    by a quarter on magnitude, and four genre indices spanning
+    16.8-19.9%.** The panel's strongest feature is the agreement between
+    measures, and none of it was drawable that morning.
+    **A figure asked for numbers that a finding had only printed, and
+    the asking turned them into evidence.**
+
+15. ~~OPEN~~ (2026-08-14, RH-approved menu) — FINDINGS P FIGURES, for a
     new `plot_p_figs.py` registry (P currently has NO figures of
     record; the 36 K biplots are the superseded measurement study's):
     (1) HEADROOM LADDER — share of the +0.121 word-level ceiling each
