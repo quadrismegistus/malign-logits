@@ -6,7 +6,7 @@ role: finding
 topics: [self-surprisal, forced-arms, alignment-specific]
 description: "Self-surprisal by arm (A|A), RH's question: the answer runs OPPOSITE to the hypothesis it contained. Within the forced arms the ALIGNED model is soothed most by RISEN words, not fallen ones -- rose-vs-flat at held aligned probability lowers aligned self-surprisal (pair grain -0.0077, p 0.039) and does NOTHING to base (+0.0012, p 0.75), DiD -0.0150, p 0.0166 at pair grain and 0.0013 at cell grain. THE FIRST NON-NULL DiD IN THE FORCED SERIES after four nulls. **THE MIRROR IS HALF-ESTABLISHED**: S4 (ROSE) is arm-specific at both grains, but S3 (FELL) has DiD +0.0133 p 0.636 at the PAIR grain -- null at the unit this document calls conservative -- so the base being soothed by fallen words is solid while the claim that the aligned model is NOT also soothed by them is not established (dario, [5915]). Definitional choices that a reader must have: the pair grain is the MEDIAN over prompts within pair (the mean inverts the sign counts), and the sign test KEEPS zeros in the median while excluding them from the counts (dropping them shifts S3 base to -0.0208 against the booked -0.0199). Flagged for second-seat reconstruction because it is this seat's first positive after a long run of nulls."
 ---
-# Self-surprisal by arm: the aligned model is soothed by the vocabulary it promoted (and the mirror half is not established)
+# Self-surprisal by arm: the ALIGNED model is soothed by the vocabulary it promoted. The mirror half is not established.
 
 Plan: `plans/plan_self_surprisal.md`, committed before this producer.
 Producer `scripts/m06_self_surprisal.py`; results `results/self_surprisal.json`
