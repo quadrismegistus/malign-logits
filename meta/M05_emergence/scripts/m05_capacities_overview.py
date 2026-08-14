@@ -42,9 +42,14 @@ COLORS = {"reference (facts)": "#2a78d6", "reasoning": "#1baf7a",
           "discourse tracking": "#eb6834", "semantic packages": "#4a3aa7",
           "poetic (hold the word)": "#c2477f",
           "verse rhyme (hit rate)": "#8a6d00",
-          "verse restraint (unrhymed)": "#c4a838",
           "sense (natural share)": "#4f7d70",
           "syntax (strict licit share)": "#8f5fbf"}
+# Restraint (1 - false alarm) deliberately NOT on this page (RH +
+# registrar, 2026-08-14): it is vacuously 1.0 before any capacity
+# exists and near-ceiling after, so on a page whose grammar is
+# "abilities acquired over training" it reads backwards and flattens
+# to noise beside syntax. It lives on fig28/29 with its pair (miss /
+# false alarm share an error scale there).
 LABEL = {"capacity_reference": "reference (facts)",
          "capacity_reasoning": "reasoning",
          "capacity_discourse": "discourse tracking",
@@ -77,10 +82,6 @@ def build(ladder):
         rows.append(dict(ckpt_idx=int(k.ckpt_idx),
                          fam="verse rhyme (hit rate)",
                          value=1 - r.miss, role=k.role, stage=k.stage))
-        rows.append(dict(ckpt_idx=int(k.ckpt_idx),
-                         fam="verse restraint (unrhymed)",
-                         value=1 - r.false_alarm, role=k.role,
-                         stage=k.stage))
     s = d[(d.family == "sense") & (d.measure == "natural_share")]
     for r in s.itertuples():
         rows.append(dict(ckpt_idx=r.ckpt_idx, fam="sense (natural share)",
@@ -189,10 +190,9 @@ def draw(ladder, out):
                           "phase segments only (stage1/2/3, SFT, DPO, "
                           "RLVR) — no window crosses a boundary; faint: "
                           "raw rungs.\nSource: capacities_by_rung."
-                          "parquet + verse_error_rates.parquet; verse "
-                          "as CORRECTNESS shares at m=0.05: hit rate = "
-                          "1−miss (rhymed), restraint = 1−false alarm "
-                          "(unrhymed)."),
+                          "parquet + verse_error_rates.parquet; verse = "
+                          "hit rate (1−miss at m=0.05, rhymed poems); "
+                          "restraint/false alarm lives on fig28/29."),
                 color="")
          + theme_minimal(base_size=11)
          + theme(panel_grid_minor=element_blank(),
