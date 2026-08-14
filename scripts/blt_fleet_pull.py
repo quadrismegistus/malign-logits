@@ -44,12 +44,24 @@ def main():
     #: pulled from -- rsync to a dead host is a 15s timeout per cycle.
     boxes = [b for b in json.load(open("data/blt_fleet/instances.json"))
              if not b.get("destroyed")]
-    with cf.ThreadPoolExecutor(len(boxes)) as ex:
+    #: An empty roster is a finished fleet, not an error.
+    if not boxes:
+        print("  no live boxes -- nothing to pull")
+    with cf.ThreadPoolExecutor(max(len(boxes), 1)) as ex:
         res = sorted(ex.map(pull, boxes))
-    tot_rows = 0
     for s, i, st, rows, sz in res:
-        tot_rows += rows
         print("  shard %d  %-10s %-12s %9s rows  %6.2f GB" % (s, i, st, f"{rows:,}", sz/1e9))
+    #: COUNT THE WHOLE TREE, not this run's pulls -- the same fix the bge puller
+    #: got and this one did not. With every box destroyed the loop above is
+    #: empty and HELD LOCALLY printed 0 rows beside 1.90 GB of bytes that were
+    #: sitting right there. The size figure already walked DEST; the row counter
+    #: summed the pull results, so it reported what the probe reached.
+    tot_rows = 0
+    for root_, _d, fs in os.walk(DEST):
+        for f in fs:
+            if f.endswith('.jsonl') and not f.endswith('.skipped.jsonl'):
+                with open(os.path.join(root_, f), 'rb') as fh:
+                    tot_rows += sum(1 for _ in fh)
     #: MEASURE THE DISK, not the sum of what each pull reported -- a failed pull
     #: reporting 0 for data that is on disk is how TOTAL LOCAL went backwards
     #: last night ([5885]).

@@ -57,7 +57,16 @@ def main():
             if f.endswith(".jsonl") and not f.endswith(".skipped.jsonl"):
                 with open(os.path.join(d, f), "rb") as fh:
                     retired += sum(1 for _ in fh)
-    with cf.ThreadPoolExecutor(len(boxes)) as ex:
+    #: AN EMPTY ROSTER IS A FINISHED FLEET, NOT AN ERROR. Once every
+    #: box is marked destroyed this list is empty and
+    #: ThreadPoolExecutor(0) raises -- so the tool broke at exactly the
+    #: moment someone runs it to confirm the run is over. The bge sweep
+    #: had max(len,1) and this did not: same guard, one sibling.
+    if not boxes:
+        print("  no live boxes -- fleet complete; %s rows retired on disk"
+              % f"{retired:,}")
+        return 0
+    with cf.ThreadPoolExecutor(max(len(boxes), 1)) as ex:
         res = list(ex.map(probe, boxes))
     #: SEED THE TOTAL WITH THE RETIRED ROWS counted from disk above, so the
     #: figure is what EXISTS, not what the probe reached. Monotone by

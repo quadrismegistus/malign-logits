@@ -36,7 +36,8 @@
   "window_h": 684,
   "acquired": "2026-08-14T07:08:57",
   "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
-  "mixed_policy": "refuse"
+  "mixed_policy": "refuse",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  },
  {
   "id": 47685885,
@@ -48,6 +49,7 @@
   "window_h": 1140,
   "acquired": "2026-08-14T07:08:57",
   "purpose": "bge-m3 sentence embeddings, lacan commission [5896]",
-  "mixed_policy": "refuse"
+  "mixed_policy": "refuse",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  }
 ]

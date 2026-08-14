@@ -8,7 +8,8 @@
   "dph": 0.38911111111111113,
   "window_h": 684,
   "acquired": "2026-08-14T07:08:57",
-  "purpose": "BLT byte-level surprisal, lacan commission [5887]"
+  "purpose": "BLT byte-level surprisal, lacan commission [5887]",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  },
  {
   "id": 47685883,
@@ -32,7 +33,8 @@
   "dph": 0.41577777777777775,
   "window_h": 1140,
   "acquired": "2026-08-14T07:08:57",
-  "purpose": "BLT byte-level surprisal, lacan commission [5887]"
+  "purpose": "BLT byte-level surprisal, lacan commission [5887]",
+  "destroyed": "2026-08-14; BLT+bge complete, both tiers sha256-verified, box destroyed"
  },
  {
   "id": 47685889,
