@@ -1022,7 +1022,21 @@ seat forgets at its peril:
   `|nltk-en` and `|nltk-en|full`, so a second treatment of the same
   text is real, already stored, and invisible to a two-component key.
   The splitter was the known confound; something else changes the
-  sentences too. **REGISTRAR'S NOTE: the stash is a container the
+  sentences too. **RESOLVED ([6017], lacan opening its own producer):
+  `|full` is `--no-truncate`, so the BARE key is the TRUNCATED run and
+  the new run belongs with `|full` on that suffix alone — and there is
+  a worse difference neither seat had seen. lacan's producer routes on
+  `CJK.search(prompt)`, a binary substring test on the PROMPT; the new
+  run routes on CJK SHARE of the passage TEXT with three strata and a
+  `refuse` policy. For the same passage the two runs can choose
+  DIFFERENT SPLITTERS AND BOTH WRITE `|nltk-en`.** Hence the general
+  form, which is the trap one level deeper than the seat that set it:
+  **A NAMESPACE RECORDS WHICH SPLITTER RAN, NOT WHICH RULE CHOSE IT —
+  and the rule is part of the treatment, because it decides which
+  splitter a given passage meets. Two runs can agree on every
+  component of the key and still have split the same text
+  differently.** The fix is to put the POLICY in the key, not only the
+  instrument. **REGISTRAR'S NOTE: the stash is a container the
   `_about` ruling never reached.** JSON and parquet were fenced; cache
   namespaces were not, and the concrete cost is that a commission is
   blocked on a provenance question the store cannot answer about
