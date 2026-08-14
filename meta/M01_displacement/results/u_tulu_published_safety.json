@@ -1,0 +1,16 @@
+{
+  "_about": "Behavioral safety scores for the Tulu 3 SFT data ablations, as reported by the model's authors. THESE ARE NOT MEASURED IN THIS CAMPAIGN. A search of meta/ and data/ for the values 93.1 and 74.7 returns nothing but a coincidental percentage in an unrelated script comment, so no seat had read this table into the repository before 2026-08-14 and figure 4 is the first thing here to depend on it. Recorded as an artifact so the figure has a producer input rather than two numbers typed into a plotting script. WHAT IS KNOWN AND WHAT IS ASSUMED: the values were supplied by RH with the figure-4 commission and attributed to Tulu 3's own results table; NO seat has verified them against the paper from this repository, so the transcription is RH's and this file records provenance rather than confirming it. The exact metric -- which safety suite, and how averaged -- is UNVERIFIED from here and the axis label says so. Only two arms were supplied. Whether the published table reports behavioral safety for the other three ablation arms is likewise unverified, so the figure draws the two it has and marks the rest unavailable rather than implying a full grid; 'not supplied to this figure' is the honest statement and 'does not exist' is not. Consumed by meta/M01_displacement/scripts/plot_u_fan_figs.py.",
+  "source": "Tulu 3 (Allen Institute for AI), authors' published results table",
+  "supplied_by": "RH, 2026-08-14, figure 4 commission",
+  "verified_against_the_paper_by_this_seat": false,
+  "metric": "behavioral safety score, 0-100; the constituent suite and averaging are NOT established from this repository",
+  "scores": {
+    "full": 93.1,
+    "no-safety": 74.7
+  },
+  "arms_not_supplied": [
+    "no-math",
+    "no-persona",
+    "no-wildchat"
+  ]
+}

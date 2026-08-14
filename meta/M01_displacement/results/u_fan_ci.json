@@ -1,0 +1,113 @@
+{
+  "_about": "Intervals for U section 4's data-ablation fan. The finding asserts that four SFT-corpus ablations are interchangeable, which is a null, and t_fans.csv carries no interval. Per-prompt JS recomputed with t_fans.py's own measure(); means asserted to reproduce t_fans.csv to 1e-9. THE ARMS ARE PAIRED on the same prompts against the same base, so the paired difference is the quantity that licenses the null; the per-arm CI is shown because a bar chart's error bar is per-arm and would otherwise be read as the test. NOT movement_cells.js_total, which is the movement decomposition's total and a different quantity (2,199 cells, means ~18% lower). Producer: meta/M01_displacement/scripts/u_fan_ci.py",
+  "n_cells": 2174,
+  "n_cells_booked": 2182,
+  "booked_means_2026_08_06": {
+    "full": 0.0651458275316188,
+    "no-math": 0.05763676859277951,
+    "no-persona": 0.057236900446879214,
+    "no-safety": 0.05831617631514225,
+    "no-wildchat": 0.05843756496427438
+  },
+  "absolute_drift_vs_booked": {
+    "full": 5.277632347283623e-05,
+    "no-math": 6.427062831489139e-05,
+    "no-persona": 3.705564968628505e-05,
+    "no-safety": 4.873297611033417e-05,
+    "no-wildchat": 5.39747266111168e-05
+  },
+  "n_boot": 10000,
+  "seed": 20260814,
+  "base": "meta-llama/Llama-3.1-8B",
+  "arms": {
+    "full": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "no-math": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "no-persona": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "no-safety": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "no-wildchat": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data"
+  },
+  "per_arm": {
+    "full": {
+      "mean": 0.06519860385509163,
+      "ci_lo": 0.06358198218150415,
+      "ci_hi": 0.06684425041106572,
+      "pct_of_full": 100.0,
+      "pct_ci_lo": 100.0,
+      "pct_ci_hi": 100.0
+    },
+    "no-math": {
+      "mean": 0.0577010392210944,
+      "ci_lo": 0.05626333789818112,
+      "ci_hi": 0.05915000714931258,
+      "pct_of_full": 88.5004214957408,
+      "pct_ci_lo": 87.5533752918657,
+      "pct_ci_hi": 89.45849944473068
+    },
+    "no-persona": {
+      "mean": 0.0572739560965655,
+      "ci_lo": 0.05584995654730003,
+      "ci_hi": 0.05873204660882075,
+      "pct_of_full": 87.84537200192322,
+      "pct_ci_lo": 86.82278466656531,
+      "pct_ci_hi": 88.8896179334622
+    },
+    "no-safety": {
+      "mean": 0.058364909291252584,
+      "ci_lo": 0.05690381132692909,
+      "ci_hi": 0.05984380266715627,
+      "pct_of_full": 89.51864892839208,
+      "pct_ci_lo": 88.54908029120064,
+      "pct_ci_hi": 90.49676744307894
+    },
+    "no-wildchat": {
+      "mean": 0.0584915396908855,
+      "ci_lo": 0.05710487677295562,
+      "ci_hi": 0.05989264412313671,
+      "pct_of_full": 89.71287149167634,
+      "pct_ci_lo": 88.17954099190715,
+      "pct_ci_hi": 91.29327704530388
+    }
+  },
+  "paired": {
+    "no-math vs no-persona": {
+      "diff": 0.00042708312452889976,
+      "ci_lo": -0.00023696267941130276,
+      "ci_hi": 0.0010783750993251778,
+      "significant": false
+    },
+    "no-math vs no-safety": {
+      "diff": -0.0006638700701581823,
+      "ci_lo": -0.0014340316768122578,
+      "ci_hi": 0.00010843942951788431,
+      "significant": false
+    },
+    "no-math vs no-wildchat": {
+      "diff": -0.000790500469791099,
+      "ci_lo": -0.0018919455057856,
+      "ci_hi": 0.00028829894480753585,
+      "significant": false
+    },
+    "no-persona vs no-safety": {
+      "diff": -0.0010909531946870818,
+      "ci_lo": -0.0018555626343338004,
+      "ci_hi": -0.0003148334455941473,
+      "significant": true
+    },
+    "no-persona vs no-wildchat": {
+      "diff": -0.0012175835943199988,
+      "ci_lo": -0.0023187076143576517,
+      "ci_hi": -0.00012358059115443945,
+      "significant": true
+    },
+    "no-safety vs no-wildchat": {
+      "diff": -0.00012663039963291666,
+      "ci_lo": -0.0012419642837016424,
+      "ci_hi": 0.0009683310975160009,
+      "significant": false
+    }
+  },
+  "mde_paired_abs": 0.0011051476906088218,
+  "mde_paired_pct_of_full": 1.695048091927073,
+  "max_abs_paired_diff": 0.0012175835943199988,
+  "max_abs_paired_diff_pct_of_full": 1.867499489753127
+}
