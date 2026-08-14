@@ -115,6 +115,35 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     across pretraining rungs; scheme matrix; closure gradient. Likely
     the book's centerpiece panels. Wait for reconciliation + first
     reads before drawing.
+15. OPEN (2026-08-14, RH-approved menu) — FINDINGS P FIGURES, for a
+    new `plot_p_figs.py` registry (P currently has NO figures of
+    record; the 36 K biplots are the superseded measurement study's):
+    (1) HEADROOM LADDER — share of the +0.121 word-level ceiling each
+    instrument recovers: norms 7%, bge 17%, GloVe 18-21% (quote the
+    BAND, never 21%), site-delta 68-82% (flag: contains word
+    identity), with the 87% within-word variance shaded as unreachable
+    by any word-level feature. Numbers scattered across k_ceiling /
+    k_predict_embed / k_delta_predict outputs — assert against booked
+    values, t14_dumbbell-style. P's thesis as one image.
+    (2) NAMED-COMPONENTS DECOMPOSITION BAR — §7 ledger: register ~half
+    (frequency-residualised row welded on per [5606]), concreteness ~a
+    quarter, length zero, coder register zero, unnamed majority as the
+    dominant empty region; pairs with 7b interiority ~quarter.
+    Candidate two-panel with (1).
+    (3) FIELD-POLES DIVERGING BARS — §7b z-scores (contact +8.77,
+    matter, consumption, motion fall; communication, inquiry,
+    cognition x2, perception, evaluation rise), PERCEPTION WEDGE
+    highlighted (concrete-falls story cannot produce it); caption
+    carries 109/448 surviving FDR. The interiority evidence.
+    (4) PER-WORD ARM-AUC DISTRIBUTION — histogram of 4,106 features
+    (results/k/word_auc_en.tsv), 22% clearing |0.15| shaded, tails
+    labeled BY CLASS (deixis/bodily past-tense vs
+    institutional-procedural infinitives), never as "the diagnostic
+    words" (§3c sampling-noise fence).
+    BARRED BY THE DOC'S OWN FENCES: single pole word-lists as the
+    finding; POS-ordering bars (reverses under prompt mix); zh field
+    grain alone (0/219 FDR); en/zh geometry across encoders. Held:
+    four-instrument pole exhibit (drawable but caption-treacherous).
 
 ## STATUS CHANGES (2026-08-13/14)
 
