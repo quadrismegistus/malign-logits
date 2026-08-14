@@ -15,6 +15,30 @@ Producer `scripts/m06_crosslingual_arms.py`; results
 instrument was built at a3fb226b and deliberately withheld its arm split.
 Single pass; [5503] applies.
 
+## READ `findings/zh_fluency_and_ordering.md` BEFORE CITING THE CHINESE RESULT
+
+Added 2026-08-14. **The numbers below are reproduced exactly** -- that document's
+producer refuses to report until it recovers this finding's `total_drift` zh
+contrast (21/25, median -0.0314) from the same parquets, and it does, to the
+digit. **What is in question is what they measure.**
+
+  - Chinese fluency is itself an ARM VARIABLE: alignment improves it, 20 of 25
+    pairs, p=0.0041, judged blind at Cohen kappa 0.776.
+  - That gap PREDICTS this finding's `total_drift` effect: spearman -0.497,
+    p=0.0116, under the Bonferroni threshold for its family.
+  - Restricting to the 6 pairs where BOTH members write Chinese collapses
+    `total_drift` sevenfold (-0.0314 -> -0.0046) and leaves an ORDERING effect
+    unmoved (-0.0090 -> -0.0087), which is independent of fluency.
+
+So the sentence most at risk is **"First arm effect this campaign has measured
+on Chinese GENERATED TEXT"** in the frontmatter above: 12 of these 25 pairs have
+a base member that largely does not produce Chinese, and the effect does not
+survive their removal. The separable ordering test this document names as unrun
+HAS NOW BEEN RUN, with a ratio rather than the difference proposed below --
+the difference is not scale-free and comes back null.
+
+Nothing here is edited on that account; the disposition is RH's.
+
 ## Population
 
 25 base/aligned pairs complete in BOTH languages (24 dpo, 1 ppo), 23,677 of
