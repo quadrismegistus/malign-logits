@@ -35,6 +35,16 @@ real quantity with real spread (0.690 to 0.993), so that is the
 position channel. `n_z_ceiling` below draws the ceiling itself as a
 METHOD figure, so the reason is visible rather than only asserted.
 
+NOT A NEW FINDING. The saturation was booked as correction [4134] on
+2026-08-04 and then dropped from N_mass_migration.md by the 2026-08-12
+self-contained rewrite; it was rediscovered here from the artifact,
+blind to [4134], and restored to the doc at 8beecd00 ([5899]). The
+general form, in lacan's words at [5898]: a statistic bounded by its
+own arithmetic, quoted as if it were an estimate, is a defect even when
+the number is correct. Quote the counts. The drawing rule that follows
+is the one this script obeys: before a quantity gets a POSITION
+channel, ask what its maximum is and whether anything is sitting on it.
+
 Each figure function verifies the finding's booked numbers from the
 artifact before drawing and refuses (with a named reason) if they do
 not reproduce.
@@ -276,8 +286,10 @@ def n_z_ceiling():
                 "Below about p = 1e-16 that CDF evaluates to exactly 0.0 in double precision, so "
                 "p = 1e-17 and p = 1e-300 return the identical z.\n"
                 "The apparent agreement across clusters is float64, not evidence. The Stouffer Z of "
-                f"{BOOKED['stouffer_Z']:.2f} is therefore a floor for this reason as well as for the\n"
-                "conservative-clustering reason the finding names.\n"
+                f"{BOOKED['stouffer_Z']:.2f} is a floor for this reason as well as for the conservative-clustering reason.\n"
+                "Booked as correction [4134] on 2026-08-04; dropped from N_mass_migration.md in the 2026-08-12 rewrite; "
+                "rediscovered from the artifact while drawing this figure and restored to the doc at 8beecd00.\n"
+                "The underlying p-values are exact and the verdict is untouched.\n"
                 "METHOD FIGURE, INTERNAL: a property of the instrument, not of the models."),
             x="cluster z as stored in result_n_primary.json",
             y="cluster (base checkpoint)",
