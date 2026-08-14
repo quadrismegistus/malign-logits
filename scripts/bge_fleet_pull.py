@@ -87,11 +87,26 @@ def main():
     boxes = [b for b in json.load(open(BOXES)) if not b.get("destroyed")]
     with cf.ThreadPoolExecutor(max(len(boxes), 1)) as ex:
         res = sorted(ex.map(pull, boxes))
-    tot_rows = tot_sent = 0
     for s, i, st, rows, sent, sz in res:
-        tot_rows += rows; tot_sent += sent
         print("  shard %d  %-10s %-12s %9s passages  %10s sentences  %6.2f GB"
               % (s, i, st, f"{rows:,}", f"{sent:,}", sz / 1e9))
+    #: COUNT THE WHOLE TREE, not the sum of what THIS run pulled. The size
+    #: figure below already did this; the row and sentence counters did not, so
+    #: when destroyed boxes stopped being pulled, HELD LOCALLY fell 296,496 ->
+    #: 80,358 while the bytes on disk were unchanged. Same reach-vs-exists
+    #: defect as the sweep's, one layer down and inside the fix for it.
+    tot_rows = tot_sent = 0
+    for root_, _d, fs in os.walk(DEST):
+        for f in fs:
+            if not f.endswith('.jsonl') or f.endswith('.refused.jsonl'):
+                continue
+            with open(os.path.join(root_, f)) as fh:
+                for line in fh:
+                    tot_rows += 1
+                    try:
+                        tot_sent += json.loads(line)["n_sentences"]
+                    except Exception:
+                        pass
     #: MEASURE THE DISK, not the sum of what each pull reported -- a failed pull
     #: reporting 0 for data that is on disk is how TOTAL LOCAL went backwards
     #: ([5885]).
