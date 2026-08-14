@@ -694,6 +694,42 @@ returns green.
   is mislabelled — the bge row names no k — but the table invites a
   same-k reading it does not support.
 
+- **P §7's TABLE: TWO ROWS CARRY THE SAME n AND R2 AND ONLY ONE CAN BE
+  RIGHT** — new 2026-08-14 ([6164], dario; verified at this seat against
+  the artifacts). The table reads:
+
+      Brysbaert concreteness  2,916   0.1183   +0.241
+      coder concreteness      6,084   0.0921   +0.267
+      word length (en/bge)    6,120   0.1386   -0.213
+      word length (en/glove)  6,084   0.0921   -0.211
+
+  **`coder concreteness` and `word length (en/glove)` share BOTH n and
+  R2.** The glove row reproduces to the digit — `length_en_glove.json`
+  gives `r2_length` 0.09209674697588033 and `cos_axis_length_dir`
+  -0.21115659582296298. The bge row reproduces too (0.13856858,
+  -0.21282). **The concreteness row has no artifact anywhere**: no
+  `concreteness_en.json` exists, and `scale_solo_en.json` carries none of
+  0.0921 / 0.1183 / 0.0470 / 0.1994.
+  **Three of six rows reproduce, three do not, and one of the three that
+  does not duplicates a value from one of the three that does.** The
+  thread-nondeterminism of §3 explains a SPREAD; it does not explain the
+  same string twice. Most likely a transcription of the neighbouring
+  row's n and R2 into the concreteness row, but the true value is
+  unknown and unrecoverable from anything committed.
+- **AND PLOT-DEBT 15(2) IS HELD ON THE PEN'S RULING, NOT ONLY ON THE
+  ABOVE.** The entry asks for a stacked decomposition — register ~half,
+  concreteness ~a quarter, length zero, unnamed majority as remainder.
+  **§7b states that interiority and abstraction are colinear BY
+  CONSTRUCTION, and `confound_en.json` measures it** (register x
+  concreteness rho 0.493). *"Removing it costs half"* and *"removing it
+  costs a quarter"* are two counterfactuals, not two slices: they can sum
+  past 1 and here they nearly do. **A stacked bar with an unnamed
+  remainder asserts an additive partition the finding explicitly
+  denies** — the same defect as the site-delta denominator in 15(3), and
+  the queue entry asks for the pooled form both times. **Held. Do not
+  draw half a ledger and do not draw a partition the finding refuses.**
+  15(4) is unblocked and self-contained; take that instead.
+
 ## Class 3 — WRITE-UP MISSING: a real result no document owns
 
 - **M02 L1 pilot family**: frame membership at chance from an LLM coder
