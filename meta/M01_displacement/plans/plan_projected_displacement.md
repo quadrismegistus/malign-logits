@@ -119,6 +119,8 @@ A first registrable cut: the ~50 prompts where both branches are live by the Slo
 
 ## 8. PRE-RUN PREDICTION for the cross-lineage test — written before it runs
 
+> **PROVENANCE, because this section's value is entirely in its timestamp.** §8 was written before the cross-lineage run and landed in commit **`33318437`**, which is another seat's CAMPAIGN.md commit and describes none of it. My first commit attempt failed on shell quoting, which **left the file staged**, and the next seat's commit swept it — the shared-index class this campaign has booked, with the addition that **a FAILED commit is not a no-op: it arms the trap.** Nothing about the prediction changed in the sweep; it is byte-identical to what was written. Recorded here rather than by rewriting history, since `33318437` is another seat's and already in their record.
+
 RH's argument: applying the poles to lineages they never saw is an out-of-sample test of whether the axis is fitted to the outcome. It is only that if the prediction is written first, so this section is dated to the commit that carries it and states what each result would mean.
 
 **THE CLAIM UNDER TEST** is *alignment moves mass down the item's own naughtiness axis* — **not** *WildChat carries it*. Only Tulu has ablated arms, so the ablation claim stays at one training run whatever this returns. The two must not be reported as though the second inherited the first's n.
