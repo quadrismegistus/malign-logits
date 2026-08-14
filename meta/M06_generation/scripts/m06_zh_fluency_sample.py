@@ -46,13 +46,12 @@ import argparse
 import json
 import os
 import random
-import subprocess
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
+sys.path.insert(0, ROOT)
 OUTD = os.path.join(ROOT, "meta/M06_generation/results")
-CH = os.environ.get("MALIGN_CH_BIN", "clickhouse")
 
 PER_MODEL = 20
 N_BATCHES = 12
@@ -84,13 +83,17 @@ def main():
     sfx = ("_" + a.round) if a.round else ""
     outdir = a.outdir or os.path.join(OUTD, "zh_fluency_batches%s" % sfx)
 
-    q = ("SELECT model, prompt, sample_idx, text FROM malign_logits.gen_sequences "
-         "WHERE corpus='f11_l2' AND match(prompt,'%s') "
-         "ORDER BY cityHash64(model, prompt, sample_idx) "
-         "LIMIT %d BY model FORMAT JSONEachRow" % (ZH, a.per_model))
-    out = subprocess.run([CH, "client", "-q", q], capture_output=True,
-                         text=True, timeout=1800).stdout
-    rows = [json.loads(l) for l in out.split("\n") if l.strip()]
+    #: `ch.query` rather than a hand-rolled reader (registrar, [6148]). These
+    #: prompts contain embedded newlines -- the TSVRaw export at [6065]
+    #: returned 1,621,740 lines for 964,679 rows on exactly that -- and
+    #: JSONEachRow has no delimiter to collide with. A line that will not
+    #: parse raises here instead of being skipped without a receipt.
+    from malign_logits import ch
+    rows = ch.query(
+        "SELECT model, prompt, sample_idx, text FROM {db}.gen_sequences "
+        "WHERE corpus='f11_l2' AND match(prompt,'%s') "
+        "ORDER BY cityHash64(model, prompt, sample_idx) "
+        "LIMIT %d BY model" % (ZH, a.per_model))
     if not rows:
         raise SystemExit("no rows; is ClickHouse up and f11_l2 ingested?")
 
