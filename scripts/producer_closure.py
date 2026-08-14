@@ -15,44 +15,81 @@ is guaranteed to be one value behind.**
 Three of those four are the same object seen from different sides: a library,
 a sibling module and a shared constant are all NODES IN A TRANSITIVE IMPORT
 CLOSURE. Compute the closure once and all three are covered, including the
-values nobody has named yet, because a fifth flavour of "something I import
-moved" is still an import.
+values nobody has named yet. Running it then turned up two more:
 
-    library     import malign_logits.fields  -> in the closure
-    sibling     import a_dose_response       -> in the closure
-    constant    from plot_x import FRAG      -> in the closure
-    store       SELECT ... FROM twp_words    -> NOT a file; reported separately
+    1 library      import malign_logits.fields    in the closure
+    2 store        SELECT ... FROM twp_words      NOT a file; flagged, not closed
+    3 sibling      import a_dose_response         in the closure
+    4 constant     from plot_x import FRAG        in the closure
+    5 ARTIFACT edge   reads another producer's output   no import graph at all
+    6 library-reads-data   a module IN the closure loads a data file at run time
 
-THE STORE IS THE ONE THIS CANNOT CLOSE, and it is flagged rather than
-silently omitted. ClickHouse is not in anybody's import graph, so a producer
-whose closure is clean can still be reading rows inserted after its artifact
-was written. The `store` column says which closures reach the store at all;
-those need the insertion-time check for the cells actually read, which no
-static tool can do for them.
+**CHANNEL 6 IS THE ONE THAT MATTERS, because it produced false CLEANS.**
+`t_fans.py` imports `malign_logits.prompts`, unchanged since 07-30, which is
+"a readable view onto data/prompt_categorisation.json" and json.loads it at
+run time; the catalogue moved after the artifact. The module is in the
+closure and its own data dependency was not, so both other checks returned
+clean while the drift was real -- and that is the mechanism under the
+campaign's only confirmed Class 4 instance. Adding it moved `ok` from 137 to
+98: the blindness was silently clearing 39 producers.
+
+THE STORE IS THE ONE THIS CANNOT CLOSE. ClickHouse is in nobody's import
+graph, so a producer whose closure is clean can still be reading rows
+inserted after its artifact was written. The `store` column says which
+closures reach it; those need an insertion-time check for the cells actually
+read, which no static tool can do for them.
 
     grep for a NAME              answers "does this file say X"
     this                         answers "what does this file DEPEND ON"
 
-That distinction is dario's, from the same thread, and it is why the schema
-false positive happened: `FROM malign_logits.twp_words` is a name-match for
-an import and is not one. Here imports come from `ast`, so a schema string
-cannot be mistaken for a dependency and a lowercase SQL `from` cannot either.
+That distinction is dario's, and it is why the schema false positive
+happened: `FROM malign_logits.twp_words` is a name-match for an import and is
+not one. Imports here come from `ast`, so a schema string cannot be mistaken
+for a dependency and a lowercase SQL `from` cannot either.
 
 WHAT THE VERDICTS MEAN
-    STALE     a closure member is NEWER than the artifact. The artifact may
-              have been produced under a different definition. Re-run or
-              justify.
-    ok        every closure member is older than the artifact. Necessary, not
-              sufficient -- see the store column.
-    no-artifact   the producer's output path could not be resolved, so
-              nothing was compared. **This is not a pass.** It is reported
-              as its own state precisely so it cannot read as one.
+    STALE       an input's CONTENT moved after the artifact was written.
+                Exposure, not damage -- see below.
+    ordering    an input's timestamp is newer but its bytes are identical, or
+                the two were written by the same commit. Dismissed.
+    unverified  flagged, and git has no history from before the artifact that
+                would settle whether the content moved.
+    ok          no input moved. Necessary, not sufficient -- see `store`.
+    no-artifact the producer's output path did not resolve, so NOTHING WAS
+                COMPARED. **This is not a pass**, and is its own verdict
+                precisely so it cannot read as one. 581 of 895 land here.
 
-CHANGE TIME IS max(git commit time, mtime), which is deliberately the
-EARLIER-flagging of the two. A checkout resets mtimes so mtime alone can
-read as ancient; an uncommitted edit has no commit time at all so git alone
-misses live work. Taking the max means a file counts as changed if EITHER
-witness says so, which biases toward false STALE rather than false ok.
+**EXPOSURE IS NOT DAMAGE, and this tool only measures the first.**
+
+    exposure   an input moved      -> the artifact MIGHT differ
+    damage     a re-run differs    -> the artifact DOES differ
+
+A comment, a new function and a changed default are one verdict to this
+tool. The step from "the instrument fired" to "something is wrong" is where
+four seats made four errors in one night, including a withdrawn report of
+212,776 changed values that were a positional diff on rows that come out in
+a different order each run. **The only thing that has ever settled one of
+these is a re-run compared on a sorted unique key.** As of 2026-08-14: 146
+flagged, one confirmed instance underneath, found by re-deriving a null
+rather than by any staleness check.
+
+The practical use is the SHORTLIST, not the flag. dario's rule is better than
+anything here: **assert the claim rather than the input**, since a guard on
+the claim is indifferent to which of six channels moved. Its boundary is that
+an assert fires only when the producer runs, and Class 4 is by definition the
+population nobody has re-run -- so this graph is what speaks about the
+interval between runs, and the assert is what protects the next one.
+
+THE TWO CLOCKS ARE DELIBERATELY ASYMMETRIC:
+
+    change_time(dependency)  max(mtime, commit)  -> looks as NEW as possible
+    produced_time(artifact)  mtime only          -> looks as OLD as possible
+
+Both biases run toward false STALE rather than false ok. Using max for the
+artifact too meant that committing an old artifact dated it to the commit and
+erased its staleness -- a false clear. A residual false-clean remains: an
+artifact touched without being rewritten looks freshly produced. The real fix
+is a build stamp inside the artifact, which is a change to producers.
 """
 import argparse
 import ast
@@ -518,22 +555,6 @@ def audit(paths):
         store = [c for c in cl if touches_store(c)]
         if touches_store(p):
             store = [p] + store
-        newest, newest_t = None, 0.0
-        for c in cl:
-            t = change_time(c)
-            if t > newest_t:
-                newest, newest_t = c, t
-        #: an artifact is stale if a closure member changed AFTER it was
-        #: written. Every artifact is checked, not the first or the newest:
-        #: one producer writing a .json and a .parquet can have re-run for
-        #: one and not the other.
-        #: the artifact edge counts toward staleness exactly as an import
-        #: edge does: an input that moved after the output was written is an
-        #: input that moved, whether it is code or data.
-        for r, _w in dataedge:
-            t = change_time(r)
-            if t > newest_t:
-                newest, newest_t = r, t
         #: A TIME ORDERING IS PROMOTED TO A CHANGE ONLY BY CONTENT, and
         #: same-commit pairs are excluded before that even runs. Both gates
         #: are per-ARTIFACT: `stale` used to be the timestamp list and the
@@ -558,6 +579,19 @@ def audit(paths):
         for m in cl:
             inputs += path_literals(m)
         inputs = sorted(set(inputs))
+        #: `newest` IS COMPUTED OVER THE WHOLE INPUT SET, not over the import
+        #: closure alone. It used to be derived from `cl` + `dataedge` while
+        #: `stale` was driven by `inputs`, so an artifact could be stale on a
+        #: dependency `newest` had never seen -- leaving `newest_dep` None
+        #: beside a non-empty stale list, which crashed the text summary with
+        #: a TypeError while `--json` returned correct rows. @registrar hit it
+        #: on M05. Same defect as the marker/verdict split: I widened one half
+        #: of a pair and left the summary field on the old half.
+        newest, newest_t = None, 0.0
+        for dep in inputs:
+            t = change_time(dep)
+            if t > newest_t:
+                newest, newest_t = dep, t
         moved = None
         stale, dismissed, movers = [], [], []
         for a in arts:
@@ -660,6 +694,13 @@ def main():
         return _t.strftime("%Y-%m-%d %H:%M",
                            _t.localtime(change_time(os.path.join(ROOT, rel))))
 
+    def when_any(rel):
+        """`when` that tolerates None. The root cause of @registrar's crash
+        is fixed above, but a formatter is the wrong place to discover a
+        missing field: a traceback after a multi-minute walk reads as "the
+        tool is broken", not "one field was None"."""
+        return when(rel) if rel else "unknown"
+
     def when_art(rel):
         """Artifact time: mtime. Must match what the verdict was computed
         from -- printing change_time beside a STALE mark showed 13:37 for a
@@ -687,7 +728,7 @@ def main():
         print("  verdict    %s" % r["verdict"])
         if r["verdict"] == "STALE":
             print("             newest input %s (%s)"
-                  % (r["newest_dep"], when(r["newest_dep"])))
+                  % (r["newest_dep"] or "unknown", when_any(r["newest_dep"])))
         if r["store"]:
             print("\n  STORE EXPOSURE: closure reaches ClickHouse via %s"
                   % (", ".join(r["store_via"]) or "itself"))
@@ -719,7 +760,7 @@ def main():
         for a in r["stale"]:
             print("\n  STALE  %s" % a)
             print("         written %s, but %s changed %s"
-                  % (when(a), r["newest_dep"], when(r["newest_dep"])))
+                  % (when(a), r["newest_dep"] or "unknown", when_any(r["newest_dep"])))
     print("\n  (producers with no repo-local deps AND no resolvable artifact"
           " are omitted: nothing was measured about them)")
     return 0
