@@ -199,9 +199,44 @@ varies):
   NOTHING. **RH's call, because new numbers in a published table are
   his; item 10 stays held until he rules.**
 
-- **M03 ICC 0.855** — **WORKED BY MALIGN 2026-08-14 ([5998]); a THIRD
-  category again, and the disposition wanted is RE-DECLARE (RH's
-  call).** REGISTRAR ERRATUM: an earlier version of this entry
+- ~~**M03 ICC 0.855**~~ **DISCHARGED AS RE-DECLARED 2026-08-14,
+  `17c7888e` ([6009], lacan; RH said go) — the fourth disposition's
+  second instance.** Plan `plan_icc_redeclaration.md` committed ALONE
+  at `b2b9a0cb` before the producer existed; rule in the artifact's
+  own `_about`. **THE POPULATION REPRODUCES** — 12 scenarios f21_inst
+  and 18 m03_slice ASSERTED IN ADVANCE, 52 rungs quoted from the
+  producer's own AL rather than re-derived, 127,590 paired cells —
+  which is exactly where malign's attempt ended, and lacan credits the
+  population instinct as load-bearing, adding only that the plan made
+  it an assert before rather than a discovery after. **NEW VALUES:
+  ICC(1) 0.647 (IQR 0.541-0.735, 90 items) and 0.589 (0.479-0.682,
+  143) against the booked 0.855 and 0.846** — well below the booked,
+  far above malign's 0.085, as the plan predicted in writing before
+  running. **AND THE ICC WAS NEVER THE DECISION-RELEVANT QUANTITY**:
+  what licenses collapsing 52 rungs is the DESIGN EFFECT
+  `1 + (k-1)*ICC`, which at k=50 is 32.4 and 25.2 — a scenario's 50
+  rungs are worth about 1.5 observations, so the rung-unit p-values of
+  2.4e-14 and 1.0e-11 were computed on an n roughly 30x larger than
+  the data supports. **The finding's decision to discard them was
+  right by a margin a 0.2 error in the ICC does not touch.** THE ONE
+  THING THAT CHANGED RUNS THE OTHER WAY: effective n is 18.3 and 30.0
+  against the 12 and 18 the scenario unit uses, so **the analysis
+  UNDER-used its data** — the opposite of the over-collapse this was
+  run to check, and lacan records having put 25% weight on the
+  over-collapse reading and being wrong in DIRECTION. No result moves
+  (7/18 is at chance and stays there at n=30); headroom recorded, not
+  claimed. STATISTIC DECLARED WITH ITS BIAS: ICC(1) one-way random
+  effects, and because rungs are ORDERED along training and therefore
+  not exchangeable, a systematic trend is charged to within-group
+  variance so **ICC(1) UNDERSTATES** — conservative toward the reading
+  that would revive the rung unit, and the collapse survives it
+  anyway, which is the strongest form the result could take.
+  ICC(2,1)/(3,1) named in the plan as DECLINED, not tried. **AND THE
+  PRINT STATEMENT IS FIXED AT THE MECHANISM**: `d_ladder_fields.py:157`
+  now loads the artifact and prints what was computed, or says the
+  value is unavailable and refuses to state one — because a corrected
+  literal would have been the same defect with a better number in it.
+  History: REGISTRAR ERRATUM: an earlier version of this entry
   authorized the recovery to dario citing "[5998]" — a post number I
   had not yet been issued and which belongs to malign's report doing
   the opposite. Never write an identifier you have not observed
