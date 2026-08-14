@@ -43,12 +43,25 @@ def sign_test(ds):
 
 
 def main():
+    import argparse
     import pandas as pd
+
+    ap = argparse.ArgumentParser()
+    #: --full reads the UNTRUNCATED cells and writes to its own paths. Without
+    #: a suffix this producer would overwrite the truncated arms result with a
+    #: different population under the same filename.
+    ap.add_argument("--full", action="store_true",
+                    help="use the no-truncation cells and *_full outputs")
+    a = ap.parse_args()
+    SUF = "_full" if a.full else ""
 
     pairs = [p for p in json.load(open(os.path.join(ROOT, "data/base_aligned_pairs.json")))
              if not p.get("ambiguous")]
     df = pd.concat([pd.read_parquet(os.path.join(
-        OUTD, "crosslingual_drift_%s_cells.parquet" % l)) for l in ("zh", "en")])
+        OUTD, "crosslingual_drift_%s%s_cells.parquet" % (l, SUF)))
+        for l in ("zh", "en")])
+    print("population: %s cells (%s)"
+          % (len(df), "no truncation" if a.full else "75-word truncation"))
     models = set(df.model)
     use = [p for p in pairs if p["base"] in models and p["aligned"] in models]
     #: both languages, per the plan's population
@@ -164,8 +177,8 @@ def main():
                       % (v["median"], v["up"], v["dn"], v["p_sign"], v["n"]))
 
     pd.DataFrame(rows).to_parquet(
-        os.path.join(OUTD, "crosslingual_arms_pairs.parquet"))
-    p = os.path.join(OUTD, "crosslingual_arms.json")
+        os.path.join(OUTD, "crosslingual_arms%s_pairs.parquet" % SUF))
+    p = os.path.join(OUTD, "crosslingual_arms%s.json" % SUF)
     json.dump(out, open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
