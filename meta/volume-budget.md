@@ -22,6 +22,18 @@ Every row is a measurement with a moment attached, per [6044]: *a verification i
 - **registrar's one protective copy on diderot, 143.9 MB**: `y_confirmatory_coded.jsonl`, sha256 `6b25cfa60dc9b3b3e3ca0930dbb2f9d741bd0fc21f8a11e2fc10f62be071cec8`.
 - **`/Volumes/diderot/malign-logits` totals ~105 GB** at the measurement above.
 
+## `data/raw/verse_fleet` — 58.9 GiB, the one directory in the raw set that is NOT history
+
+Four seats reached MOVE-DO-NOT-DELETE independently by five routes ([6053]-[6060]). **Corrected count, after malign [6059] and dario [6060] and verified at this seat: the tier has ZERO live readers and ONE BOOKED reader.**
+
+- `contradiction_null.py --logits` is a live reader of the `.f16/.f32` **stash**, which resolves through `data/logit_dir_resolution.json` to `cloud_run_20260801` and `f11_twp`. **Neither that file nor `logit_index_provenance.json` contains a verse_fleet entry**, so `cache.get_logits` cannot reach this tier by any code path that exists today.
+- The booked reader is the **closure decomposition** (`line_closure x rhyme_given_closure`), a declared component of instrument 1 in `plan_verse_fleet.md:45`. Its numbers were **collected and paid for** and deliberately **not ingested** ([5886], RH's call). `line_closure` is P(end-of-line), mass NOT on any target word, which no quantity of true-word probabilities can locate: model coverage is complete at 250/250 and quantity coverage is not.
+
+**So deleting it destroys collected data rather than a reproduction path, and recovery means re-running the fleet.** And because nothing reaches it, **there is no smoke test for the move** — only the file count and the bytes.
+
+**The tier's entire claim on existence is prose**: a plan line, two docstrings, and one sentence on a rendered caption (fig24/25, "Closure decomposition awaits the .f16 tier"). Nothing fails if it disappears; the only thing that would notice is a second seat trying to keep the promise printed on the panel. **That makes the caption the primary record that the tier is wanted, which is a thin thread for 58.9 GiB.** A route warning for whoever writes the rider is in `verse_capacity.py`'s NOT clause (`c003c20f`).
+
+
 ## The rule this file exists to enforce
 
 **A protective copy is cheap individually and the volume is a shared resource, so check it against the headroom rather than assuming it free.** Both volumes are above 94 percent full and the spare on the only viable migration target is about 5 GiB. That is not headroom with room for an unplanned second copy.
