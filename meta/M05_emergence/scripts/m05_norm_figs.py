@@ -31,6 +31,22 @@ This is the campaign's quote-the-counts rule ([5899]) applied to a
 matrix: the statistic that survives the ties is the count, and the
 median is the summary that does not.
 
+AND THE COLUMNS DO NOT COMBINE, WHICH THE LAYOUT INVITES
+--------------------------------------------------------
+Three stage transitions sit beside two NETs, so the panel invites the
+reader to add the first three and check the fourth. The finding forbids
+it in a pre-agreed rider: NETs are their own paired per-prompt
+contrasts, summed stage medians do not equal the median NET, and any
+reading that adds rows 1-3 to predict row 4 is wrong by construction.
+
+The first version of this figure omitted that rider. It was added after
+@malign generalised the same defect from a different operator at
+[5994]: the mean is linear and commutes with any linear combination of
+its inputs, the median commutes with none, so a median-aggregated table
+admits exactly one safe operation -- reading a row. The share-of-
+non-tied encoding used here does not add either, so the rider applies to
+this panel's own quantity and not only to the medians it replaced.
+
 THE PYTHIA PANEL STARTS WHERE THE INSTRUMENT DOES
 -------------------------------------------------
 The finding's pre-agreed fence: below step 8 the instrument resolves a
@@ -160,6 +176,9 @@ def stage_matrix():
                 "THE DISSOCIATION: DPO reverses the SFT sign on four scales while register_level, the "
                 "scale SFT raised, is untouched (268/272, p 0.90). What SFT installs and what DPO "
                 "adjusts are different axes.\n"
+                "THE THREE STAGE COLUMNS DO NOT ADD TO THE TWO NET COLUMNS. NETs are their own paired "
+                "per-prompt contrasts, and any reading that combines SFT, DPO and RLVR to predict a NET "
+                "is wrong by construction (the finding's own pre-agreed rider).\n"
                 "RANKS NOT LEVELS: medians compare, differences do not scale. register_level is "
                 "descriptor-only, construct NOT ESTABLISHED; vulgarity is sparse; CHARGE IS NOT AROUSAL. "
                 "Single registrar pass."),
