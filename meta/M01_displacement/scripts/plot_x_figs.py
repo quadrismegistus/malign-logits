@@ -191,7 +191,143 @@ def word_vs_model():
     return out
 
 
-REGISTRY = {"word_vs_model": word_vs_model}
+
+def word_ladder_categorical():
+    """X 3g, categorical form: the ladder both arms obey, ending at zero.
+
+    THE COMPANION FIGURE, AND IT IS DELIBERATELY NOT MERGED WITH THE
+    SCORE PANEL. plot-debt 11a, queued on this seat's own flag at
+    [5964]: `word_vs_model` above draws the 0-100 sexual score, which
+    the finding names the better PRIMARY; this draws the categorical
+    form, which the finding names the more READABLE. They are different
+    measurements of the same design and the queue entry says
+    explicitly: categorical substrate ONLY, never mixed with the score
+    panel, the pair side by side as two figures rather than one.
+
+    A continuation counts as a sex scene only when BOTH coders label it
+    CONTINUES_SEXUAL.
+
+    WHY `thumb` IS THE ANCHOR
+    -------------------------
+    The finding calls it the most eloquent cell in the probe, and the
+    reason is what the two arms do together rather than apart:
+    **0 of 30 in the aligned arm and 0 of 30 in the base arm.** The base
+    model has had no alignment whatever and it cannot keep the scene
+    going either, once the word is `thumb`.
+
+    So the de-eroticising is not something alignment does to the
+    continuation. It is carried entirely by the substitution, and both
+    models obey it equally -- which is the same conclusion the score
+    panel reaches by a null on the arm, arrived at here by a ladder that
+    ends at zero on both sides at once.
+
+    Each cell is five sampled continuations, so a cell rate can take
+    only six values; the ladder is per word over 60 records, 30 per arm.
+    """
+    import numpy as np
+    from plotnine import (aes, element_text, geom_point, geom_segment,
+                          geom_text, ggplot, labs, scale_color_manual,
+                          scale_x_continuous, theme, theme_minimal)
+
+    d = pd.read_csv(os.path.join(RESULTS, "x_beam_frame.csv"))
+    f = d[d["class"].isin(["genital", "digit"])].copy()
+    f["cs"] = ((f.frame_opus == "CONTINUES_SEXUAL")
+               & (f.frame_sonnet == "CONTINUES_SEXUAL"))
+
+    booked_word = {"cock": 38, "penis": 33, "fingers": 7, "toes": 5, "thumb": 0}
+    by_word = f.groupby("word").cs.agg(["mean", "sum", "size"])
+    for w, pc in booked_word.items():
+        got = round(float(by_word.loc[w, "mean"]) * 100)
+        assert got == pc, f"{w} drifted: {got}% vs booked {pc}%"
+    for c, pc in (("genital", 36), ("digit", 4)):
+        got = round(float(f[f["class"] == c].cs.mean()) * 100)
+        assert got == pc, f"{c} drifted: {got}% vs booked {pc}%"
+    for r, pc in (("base", 19), ("aligned", 15)):
+        got = round(float(f[f.role == r].cs.mean()) * 100)
+        assert got == pc, f"{r} drifted: {got}% vs booked {pc}%"
+    th = f[f.word == "thumb"].groupby("role").cs.agg(["sum", "size"])
+    assert set(map(tuple, th.values)) == {(0, 30)}, \
+        f"thumb is no longer 0 of 30 in both arms: {th.to_dict()}"
+
+    g = (f.groupby(["word", "role"]).cs.agg(["mean", "sum", "size"])
+         .reset_index())
+    g["pct"] = g["mean"] * 100
+    order = by_word.sort_values("mean").index.tolist()
+    #: DODGE THE TWO ROLES. At `thumb` both arms are exactly 0, so undodged
+    #: marks coincide and only the one drawn last renders -- on the single
+    #: cell whose entire point is that BOTH arms are at zero. The anchor
+    #: would have shown one dot. Applied at every rung, not just thumb, so
+    #: the reader is never guessing whether two marks overlap or one is
+    #: missing.
+    g["ypos"] = (g.word.map({w: i for i, w in enumerate(order)})
+                 + g.role.map({"aligned": 0.13, "base": -0.13}))
+    g["cls"] = g.word.map(
+        f.drop_duplicates("word").set_index("word")["class"])
+
+    wide = g.pivot(index="word", columns="role", values="pct").reindex(order)
+    seg = pd.DataFrame({"word": wide.index,
+                        "y0": [i - 0.13 for i in range(len(wide))],
+                        "y1": [i + 0.13 for i in range(len(wide))],
+                        "base": wide["base"].values,
+                        "aligned": wide["aligned"].values})
+
+    lab = pd.DataFrame([{
+        "ypos": -0.02, "pct": 3.0,
+        "txt": "0 of 30 in the ALIGNED arm and 0 of 30 in the BASE arm.\n"
+               "The base model has had no alignment whatever and cannot\n"
+               "keep the scene going either."}])
+
+    p = (
+        ggplot()
+        + geom_segment(seg, aes("base", "y0", xend="aligned", yend="y1"),
+                       color="#c9c9c9", size=1.0)
+        + geom_point(g, aes("pct", "ypos", color="role"), size=3.4)
+        + geom_text(lab, aes("pct", "ypos", label="txt"), size=6.4, ha="left",
+                    va="center", color="#b03030", lineheight=1.25)
+        + scale_color_manual(values={"base": "#8a8a8a", "aligned": "#1f4e79"},
+                             name="")
+        + scale_x_continuous(limits=(-1.5, 46),
+                             labels=lambda bs: [f"{int(b)}%" for b in bs])
+        + labs(
+            title="Both arms obey the same ladder, and it ends at zero for both",
+            subtitle=(
+                "Share of continuations that BOTH coders label CONTINUES_SEXUAL, by the word forced "
+                "into the slot. 60 records per word, 30 per arm, five sampled continuations per cell.\n"
+                "The ladder runs cock 38% and penis 33% down through fingers 7% and toes 5% to thumb "
+                "0%. Genital 36% against digit 4%.\n"
+                "THE ARM BARELY MATTERS: base 19% against aligned 15%, and the two marks sit close at "
+                "every rung. The de-eroticising is carried by the substitution, not by alignment.\n"
+                "CATEGORICAL SUBSTRATE ONLY. The 0-100 score is the finding's better PRIMARY and is "
+                "drawn separately as `x_word_vs_model`; this is the more READABLE form and the two are "
+                "not mixed on one panel.\n"
+                "Each cell is five sampled continuations, so a cell rate can take only six values."),
+            x="continuations both coders call a sex scene",
+            y="",
+            caption=("Producer: meta/M01_displacement/scripts/plot_x_figs.py from "
+                     "results/x_beam_frame.csv.\n"
+                     "Asserted before drawing: the five per-word rates, genital 36% against digit 4%, "
+                     "base 19% against aligned 15%, and thumb at exactly 0 of 30 in each arm."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(10.6, 4.8),
+                plot_title=element_text(size=13, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.1, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_text(size=8.5),
+                legend_position="right")
+    )
+    #: y labels are the words themselves, in ladder order
+    from plotnine import scale_y_continuous
+    p = p + scale_y_continuous(breaks=list(range(len(order))), labels=order,
+                               limits=(-0.6, len(order) - 0.4))
+    out = os.path.join(FIGURES, "x_word_ladder_categorical.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print("    " + "  ".join(f"{w} {by_word.loc[w,'mean']:.0%}" for w in order))
+    return out
+
+REGISTRY = {"word_vs_model": word_vs_model,
+            "word_ladder": word_ladder_categorical}
 
 
 def main():
