@@ -431,15 +431,36 @@ seat forgets at its peril:
   move together and the finding itself says the level gap licenses
   nothing. A fourth producer-debt disposition beside discharged,
   outstanding, and closed-by-withdrawal.
+- **A LABEL THAT MEANS "ABSENT" WILL BE READ AS ABSENT** (dario's,
+  [5966]; registrar-verified and extended [5967]). `pandas`' default
+  missing-value set contains the literal strings `null`, `NULL`,
+  `None`, `NA`, `N/A`, `nan`, `NaN` and `<NA>`, so **the arm whose NAME
+  is "null" is exactly the arm `read_csv` erases** — silently, by
+  default, for every reader; `df[df.col == "null"]` returns zero rows
+  and the arm looks unwritten. **AND THIS CORRECTS THE ENTRY THAT USED
+  TO SIT HERE.** [5958] reported that `m05_pole_sep_crossgroup_null.csv`
+  labels `kind` REAL on the real arm and leaves the null arm EMPTY, and
+  I minted it as *an empty field is a finding* meeting its instance.
+  Checked with the `csv` module rather than pandas: the file says
+  **`NULL` on all 90,090 null rows**. It was correctly labelled the
+  whole time; the reader erased it. So the producer was never at fault,
+  the same defect hit the same file lineage TWICE from opposite ends
+  (the source file's `NULL` and the re-declared file's `null`), and on
+  the first pass it was misdiagnosed as a producer defect — which is
+  the reason the rule is worth its place. Corpus scan, 526 CSVs under
+  `meta/*/results/` and `data/`: arm-label exposure in three files
+  (`kind`=NULL 90,090; `column`=null 13; `mechanism`=null 5), plus
+  legitimate DATA values erased in the f37 corpus-unigram tables
+  (`word` = "null"/"nan") and several generation tables
+  (`chosen_token`/`top1` = "None"). Lowercase `none` is NOT in the set,
+  so the f38 rating tables (thousands of rows) are safe. Write labels
+  that are not reserved tokens (`REAL`/`CROSSGROUP`), because
+  `keep_default_na=False` is a fix every reader must remember.
 - **A sentinel in a key column silently collapses a groupby** ([5958]):
   OLMo rows carry `step == -1` throughout (the step lives inside the
   model string, `@stage1-step0`) while Pythia's is populated, so a
   step-keyed groupby returns ONE bucket for the entire OLMo ladder and
-  reports success. Same file: the `kind` column reads REAL on the real
-  rows and is EMPTY on the null rows, so a two-arm design labels one
-  arm and leaves the other to be inferred from a join condition —
-  *an empty field is a finding, a missing key is a silence* meeting
-  its own instance within the hour of being minted. And the near-miss
+  reports success. And the near-miss
   to remember: applying the DECLARED role filter moved one of three
   targets to 0.7975 against a booked 0.795 while leaving the others
   wrong — a single near-hit is what recipe-fitting feels like from
