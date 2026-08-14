@@ -247,6 +247,13 @@ def summarise(d):
             #: systematic and the next sparse ladder may not be immaterial).
             #: Normal coverage is 1,620/1,820 BY DESIGN: the other 200 are
             #: prose baselines this read correctly excludes.
+            #: AND DO NOT GENERALISE THE FIX ([6079], dario). Absent means
+            #: ZERO *here* -- an empty payload is a real measurement that
+            #: nothing cleared theta. In an estimator over `resolved_mass`
+            #: the same absent cell means UNMEASURED, and zeroing it would
+            #: invent a floor rather than remove a bias. Same hole, opposite
+            #: correct treatment, and nothing about the shape of the two
+            #: rung-curves tells you which you are looking at.
             n_cells_present=int(len(g)),
         ))
     return pd.DataFrame(rows)

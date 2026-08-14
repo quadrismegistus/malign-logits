@@ -772,6 +772,15 @@ seat forgets at its peril:
   companion was the verse/prose split I designed. **The interior audit
   produces the confidence either way; it does not care which direction
   the confidence points.**
+- **ABSENT-IS-ZERO AND ABSENT-IS-UNMEASURED ARE DIFFERENT HOLES**
+  ([6079], dario). In `verse_capacity` an absent cell means the payload
+  was empty, i.e. nothing cleared theta — a real measurement of
+  near-nothing, so DROPPING it overstates capacity. In an estimator over
+  `resolved_mass` the same absent cell means no observation, so ZEROING
+  it would invent a floor. **Same missing cell, opposite correct
+  treatment, and nothing about the shape of the two rung-curves says
+  which applies.** *Treat absent as zero* is as wrong in the general
+  case as *drop it* was in the specific one.
 - **A PATTERN RECRUITS ATTENTION AND A MAGNITUDE DOES NOT** ([6077],
   lacan). Four seats worked the multilingual cluster for an evening
   because it had a shape; the case that settled it was the LARGEST
