@@ -405,3 +405,29 @@ seat forgets at its peril:
   (`a_position_curves.json`, 215,010 rows, is the data behind the 12
   substrate-stamped M04 figures, so the fence currently sits on the
   rendering and not on the numbers).
+  **PARQUET IS A SEPARATE AND MUCH CHEAPER RULING ([5949] dario,
+  ruled [5950]), because nothing breaks and the mechanism already
+  exists.** Measured: 177 parquet artifacts, 16 carrying non-pandas
+  schema metadata, ALL 16 in `data/` and NONE in any `meta/*/results/`
+  — including zero of the five behind four of that night's seven
+  figures. `df.attrs` round-trips through plain pandas, needs no
+  wrapper on a 215k-row table, and cannot be separated from what it
+  describes, so it is the non-breaking half of the JSON proposal
+  without the sibling-file weakness. RULED: every new
+  `meta/*/results/*.parquet` writes `df.attrs` with at minimum its
+  scope sentence, and with `malign_logits.provenance.provenance()`
+  wherever the producer can call it — **do not invent a payload; the
+  16 compliant files already carry commit, tree_clean, script blob and
+  a declared closure with matches_commit flags.** No backfill of the
+  161; on-touch migration as for JSON. **This is not a new convention
+  but an existing one that stopped at a directory boundary** — and the
+  boundary matters more than it looks, because `provenance.py` exists
+  in answer to a FABRICATED COMMIT SHA (F39, 2026-07-27), its whole
+  design removes the memory test that produces one, and a seat
+  fabricated another on 2026-08-14 ([5921]) in a directory the module
+  had never reached. Its own principle belongs in this ledger
+  verbatim: **an empty field is a finding, a missing key is a
+  silence.** And the asymmetry that makes all of this urgent, in
+  dario's words: **a figure is a rendering that carries its fence; the
+  artifact behind it is the same numbers with the fence stripped — and
+  the artifact is what the next producer joins against.**
