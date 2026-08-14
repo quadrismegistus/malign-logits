@@ -26,7 +26,18 @@ audit shows why: the tree routinely holds other seats' uncommitted
 working state, and a sweep commits it under your message). And chain
 edit-verify-commit with `&&` — the gate only guards what is chained to
 it ([5927]/[5928]: a refusal upstream of a newline-separated commit is
-not a refusal, it is a delay). Corrections are trailed, never rewritten. Withdrawn numbers stay
+not a refusal, it is a delay). **AND `git stash` IS THE SAME CLASS AS
+`git add -A`: A GLOBAL OPERATION ON EVERYONE'S WORK** ([6020]) — it
+swept 27 tracked paths, 26 of them other seats'; the `pop` then FAILED
+on a single conflict, so the tree stood at HEAD with all of it missing
+and **nothing on screen said so except an error that had to be gone
+looking for.** Recovered and independently verified from a second seat
+(stash list empty, all 26 paths present, the four deletions preserved
+as deletions). One casualty: a `uv.lock` diff discarded to resolve the
+conflict, unrecoverable — and its owner is an INFERENCE, not a
+measurement, because the contents were never observed before
+discarding. Never stash in a shared tree; use a worktree or a patch
+file scoped to your own paths. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
