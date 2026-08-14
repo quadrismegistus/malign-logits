@@ -51,10 +51,26 @@ default.
 """
 import json
 import os
+import re
 import subprocess
 
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 DB = os.environ.get("MALIGN_CH_DB", "malign_logits")
+
+#: A FORMAT CLAUSE IS A TRAILING KEYWORD, NOT A SUBSTRING. The first version
+#: of this module tested `"FORMAT" not in sql.upper()`, which matches
+#: `formatReadableSize(...)` -- so a perfectly ordinary system.tables query
+#: silently got TSV back and the JSON parse failed on line 1. That is the same
+#: name-for-a-relation defect this module was written to retire, committed
+#: inside it within the hour. Match the clause where it can actually appear.
+_HAS_FORMAT = re.compile(r"\bFORMAT\s+[A-Za-z0-9_]+\s*;?\s*$", re.I)
+
+
+def _with_format(sql, fmt):
+    if _HAS_FORMAT.search(sql):
+        return sql
+    return sql.rstrip().rstrip(";") + " FORMAT " + fmt
+
 
 #: A query that returns more than this many bytes is almost certainly a mistake
 #: of the "SELECT * FROM a 350M-row table" kind. Raise rather than fill memory;
@@ -106,8 +122,7 @@ def query(sql, **kw):
     is not skipped, because a reader that skips is a disposition with no
     receipt and this module exists partly to stop writing those.
     """
-    if "FORMAT" not in sql.upper():
-        sql = sql.rstrip().rstrip(";") + " FORMAT JSONEachRow"
+    sql = _with_format(sql, "JSONEachRow")
     out = _run(sql, **kw)
     rows = []
     for i, line in enumerate(out.splitlines(), 1):
@@ -163,8 +178,7 @@ def parquet(sql, **kw):
     """
     import io as _io
     import pandas as pd
-    if "FORMAT" not in sql.upper():
-        sql = sql.rstrip().rstrip(";") + " FORMAT Parquet"
+    sql = _with_format(sql, "Parquet")
     return pd.read_parquet(_io.BytesIO(_run_bytes(sql, **kw)))
 
 
