@@ -412,7 +412,21 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     already exists spends a fleet; holding it for one identification
     spends minutes — and the identification wants whoever owns the M04
     attention line, reading the raw bytes rather than inferring from
-    key names. CAUTION
+    key names. **IDENTIFIED AND THE HOLD RELEASED ([5989], malign,
+    owner): they are the A-LADDER ON THE PASSAGE SUBSTRATE, not
+    attention work.** `logq`/`logp` are the aligned and base
+    log-probabilities of the injected word — the same q and p as the
+    ladder's log2(q/p) — and `A|A` / `B|A` are the four-term
+    decomposition, so the decaying quantity is the PREFERENCE term
+    against token distance. **And n_pairs = 42 is the tell: that is
+    the PASSAGE corpus, against Finding A's fc 33 — a different
+    substrate as well as a different quantity**, carrying A_RESULTS's
+    EXPLORATORY, nothing-quotable fence. Drawing them beside
+    `A_post_utterance_shock.json` would be the substrate conflation
+    again with the fence attached. So shortlist 9's attention-decay
+    quantity still exists only at n=1, **the measurement debt stands
+    as a RUN not a read**, and lacan's hold was right at the price it
+    named. CAUTION
     RETAINED ([5901]): the `A_position_*` figures are the PASSAGE
     substrate (A_RESULTS.md, EXPLORATORY, nothing quotable) and do not
     cover the FC debt. FLAGGED NOT WORKED THROUGH ([5985]): the
