@@ -1,0 +1,46 @@
+{
+ "_about": {
+  "what": "Provenance for the sent_embeddings namespaces this repo writes. The stash key is {embedder, prompt, text} and carries NO producer, so a namespace cannot answer how its entries were made. registrar [6018]: the stash is a container the _about ruling never reached. This file is that record, kept beside the data rather than in the key.",
+  "why_it_matters": "Two runs can agree on every component of a namespace and still have split the same text differently, because the namespace records WHICH SPLITTER RAN, not WHICH RULE CHOSE IT -- and the rule is part of the treatment (lacan [6017]).",
+  "producer": "scripts/bge_ingest.py (this run); m06_crosslingual_drift.py (lacan's)"
+ },
+ "namespaces": {
+  "BAAI/bge-m3|<splitter>|refuse-untrunc-2026-08-14": {
+   "owner": "malign, lacan commission [5896]",
+   "date": "2026-08-14",
+   "producer": "scripts/bge_cloud.py -> scripts/bge_ingest.py",
+   "routing_signal": "CJK share of the passage TEXT",
+   "routing_rule": "three declared strata (en/zh/mixed); --mixed-policy refuse",
+   "truncation": "none",
+   "population": "450,982 of 483,085 passages; the 32,103 mixed stratum refused",
+   "vectors": "float32, L2-normalized, dim 1024",
+   "manifests": "data/raw/bge_fleet/<id>/bge_shardNN.manifest.json",
+   "note": "The shard jsonl records `ref` WITHOUT the run suffix -- that is what the producer ran under. The suffix exists only in the stash key."
+  },
+  "BAAI/bge-m3|<splitter>": {
+   "owner": "lacan, cross-lingual drift (finished; artifacts committed)",
+   "producer": "m06_crosslingual_drift.py",
+   "routing_signal": "does the PROMPT contain any CJK character",
+   "routing_rule": "binary any-CJK, two strata, NO mixed stratum",
+   "truncation": "YES -- truncate_to_min_sentences(text, min_words=MIN_WORDS_EN)",
+   "note": "14,178 |nltk-en and 12,803 |stanza-zh entries."
+  },
+  "BAAI/bge-m3|<splitter>|full": {
+   "owner": "lacan",
+   "producer": "m06_crosslingual_drift.py --no-truncate",
+   "truncation": "none",
+   "routing_rule": "as above",
+   "note": "Same passages as the bare key, untruncated: 14,170 of 16,010 (prompt, text) pairs appear under both."
+  },
+  "BAAI/bge-m3": {
+   "owner": "unestablished",
+   "note": "100 entries, no provenance recoverable."
+  }
+ },
+ "known_collisions": {
+  "mechanism": "the stash applies normalize_text (rstrip) to the text key; the fleets keyed on RAW text",
+  "scale": "12 keys, 24 passages of 4-13 bytes differing only in trailing whitespace",
+  "listed_in": "data/ref_surprisal_key_collisions.json",
+  "ruling": "lacan [6017]: degenerate either way; worth a line in the manifest rather than a fix"
+ }
+}

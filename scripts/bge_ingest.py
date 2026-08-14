@@ -71,7 +71,18 @@ DIM = 1024
 #: `ref` WITHOUT this suffix, because that is what the producer actually ran
 #: under. The stash key carries it. So the artifact says what was computed and
 #: the key says which run computed it, and neither is silently rewritten.
-RUN_SUFFIX = "f11-2026-08-14"
+#: NAMES WHAT DISTINGUISHES IT, per lacan [6017]. Their three differences from
+#: the bare `|nltk-en`, any one disqualifying a merge:
+#:   routing SIGNAL   theirs: does the PROMPT contain any CJK char
+#:                    mine:   CJK share of the passage TEXT
+#:   routing RULE     theirs: binary any-CJK, two strata, no mixed stratum
+#:                    mine:   share threshold, three strata, `refuse` on mixed
+#:   truncation       theirs: bare key is TRUNCATED (their `|full` is not)
+#:                    mine:   untruncated throughout
+#: `refuse` implies the three-strata text-share rule; `untrunc` states the
+#: third. lacan: "anything unique works and the cost of getting it wrong is
+#: unrecoverable while the cost of an over-long key is nothing."
+RUN_SUFFIX = "refuse-untrunc-2026-08-14"
 
 
 def main():
