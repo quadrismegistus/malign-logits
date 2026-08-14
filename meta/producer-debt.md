@@ -486,6 +486,32 @@ reproduced both counts):
 
 ## Class 4 — ARTIFACT STALE AGAINST A DEPENDENCY: producer unchanged, numbers moved
 
+> **INSTANCE WITHDRAWN 2026-08-14 ([6113]). THE FOUNDING CASE DID NOT
+> HAPPEN.** `m05_field_flow.parquet`'s numbers never moved: compared on a
+> sorted unique key, 08-11 / my 12:38 re-run / a third run today agree to
+> **4.44e-16 with ZERO rows differing.** My "212,776 of 245,422 values
+> changed by up to 0.884" was a positional subtraction of two frames whose
+> ROW ORDER differs between runs. The alignment guard I ran auto-selected
+> `ckpt_idx` alone — not a unique key, 245,422 rows over 95 values — **so
+> it returned True and could not have returned anything else.** The
+> 2,231-byte growth I took as corroboration was parquet compressing a
+> different row order.
+>
+> **THE CLASS IS RETAINED AS A HAZARD AND DEMOTED TO UNOBSERVED.** It is
+> a real shape and the structural test below is worth keeping, but no
+> instance has ever been seen: three seats audited their own folders after
+> this one was booked and all three came back clean, which was the signal
+> and was read as reassurance. Everything below describes a mechanism, not
+> an event.
+>
+> **WHAT WAS REAL, AND IS NOW FIXED:** the producer accumulated through
+> unordered dict/set iteration, so its row order AND its float summation
+> order varied per run, making the parquet byte-unstable across identical
+> runs. `sorted()` on the output and on both accumulation loops; verified
+> **byte-identical across two full recomputes** (`df15b49dd6657187`).
+> Byte-stability is the cheapest "did this change?" check there is, and
+> its absence is the whole reason a false alarm was possible.
+
 New 2026-08-14. The first three classes ask whether the producer exists,
 whether it wrote, and whether anyone wrote it up. **None of them catches
 an artifact that went stale because a LIBRARY IT IMPORTS changed.** The

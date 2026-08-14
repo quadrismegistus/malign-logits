@@ -123,17 +123,31 @@ def main():
                 continue
             fmass = defaultdict(float)
             covered = 0.0
-            for w, p in wp.probs.items():
+            #: sorted() on BOTH loops: float addition is not associative, so
+            #: an unordered accumulation gives last-bit-different sums per
+            #: process. Harmless numerically (2e-16) and fatal to byte
+            #: comparison, which is the cheapest "did this change?" check
+            #: there is -- and its absence is what let a positional diff
+            #: invent 212,776 changed values on 2026-08-14 ([6113]).
+            for w, p in sorted(wp.probs.items()):
                 fs = word_fields(w)
                 if fs:
                     covered += p
-                for f in fs:
+                for f in sorted(fs):
                     fmass[f] += p
             for f, mss in fmass.items():
                 rows.append(dict(ckpt_idx=idx, role=role, stem=stem,
                                  domain=dom, member=member, field=f,
                                  mass=mss, covered=covered))
     df = pd.DataFrame(rows)
+    #: SORT BEFORE WRITING. Rows are accumulated through dict/set iteration,
+    #: so their order varies between identical runs and the parquet is
+    #: byte-unstable -- which on 2026-08-14 made a positional diff of two
+    #: runs report 212,776 changed values that did not exist ([6113]).
+    #: The campaign's own rule: a fixed seed does not make a run
+    #: reproducible when the data order is not fixed.
+    df = df.sort_values(["ckpt_idx", "stem", "domain", "member", "field"]
+                        ).reset_index(drop=True)
     df.to_parquet(OUT)
     print(f"wrote {OUT}: {len(df)} rows, {df.field.nunique()} fields")
     return figures(df, pop)
