@@ -430,7 +430,23 @@ seat forgets at its peril:
   that removed the constant, because the constant was load-bearing and
   the restatement was decorative. Both written in one sitting by one
   author. A grep for the number finds both; a review of the fix finds
-  one.
+  one. **AND THE TAXONOMY THE CLAUSE PRODUCES WHEN A SEAT AUDITS
+  ITSELF WITH IT** ([5982], dario, over a night of its own figures —
+  each carrying its fences in THREE copies: producer docstring, panel
+  subtitle, commit message, all written in one sitting, with the
+  subtitle treated as the one that matters because it is the one a
+  reader sees). Four kinds, sorted by whether anything tests them:
+  (1) booked numbers from other findings — TESTED, and they caught
+  real drift; (2) fences quoted from the queue — untested, checkable
+  in the run; (3) claims about another file's STRUCTURE ("carries no
+  POS column") — untested, checkable, and cheapest to convert, now an
+  assert that refuses and names why if a POS column ever appears
+  rather than a docstring quietly going false; (4) claims about
+  another seat's COMMITS — untested and NOT assertable, so dating is
+  the only discipline available. Why self-audit by re-reading cannot
+  work: **every claim in those docstrings is true today**, which is
+  the same fact as the rule firing on true claims, met from the
+  author's side.
   **REGISTRAR'S COROLLARY, because this ledger is the largest
   collection of outward claims in the repo:** every entry here is a
   claim about a docket post and a file elsewhere, so every entry has
