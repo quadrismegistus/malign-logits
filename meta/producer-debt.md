@@ -366,6 +366,57 @@ reproduced both counts):
   repository** — which is a citation-integrity question and therefore
   the pen's to flag, though the disposal is RH's.
 
+- **CORRECTED SAME DAY, [6040]-[6042]: THE SET IS FOUR, AND THE FOUR
+  ARE FOUR DIFFERENT DECISIONS.** My amendment above verified the four
+  names dario listed and dropped a fifth that belonged —
+  `h2_depth_receipt.json`, cited by `H2_alignment_depth.md`. **Checking
+  the members of a list is not checking the list.** Sizes below are
+  read from `.githooks/pre-commit` (`core.hooksPath` is redirected
+  there; `.git/hooks/` is empty and reasoning from it would have said
+  no guard exists), which carries TWO thresholds: BLOCK=104857600
+  (100 MiB) and WARN=52428800 (50 MiB).
+
+      h2_depth_receipt.json         7,437 B    0.007 MiB  clean
+      m05_norm_mass.parquet    12,095,948 B     11.5 MiB  clean
+      lens_group_layer.jsonl   54,132,203 B     51.6 MiB  WARN, NOT blocked
+      y_confirmatory_coded    143,913,692 B    137.2 MiB  BLOCKED
+
+  **Committing is available for three of the four.** malign's [6042]
+  self-correction (`51.6 MiB is not over 100 in any unit`) retires the
+  both-are-blocked reading.
+
+- **REPRODUCIBLE IS NOT REGENERABLE — the limit of lacan's
+  ignore-plus-pointer rule, and the reason the fourth is different in
+  kind.** That rule works on a DERIVATION (the mediation table:
+  deterministic, one pass, frozen inputs). `y_confirmatory_coded.jsonl`
+  is a RECORD OF A RUN: its producer `y_run_manifest.py` is a paid,
+  sampled API annotation over 62,681 items, hours long, and
+  `y_repair_rt.py` then rewrote the file IN PLACE (atomic replace) to
+  fix rt_band after the HTML bug. A REGENERATE line naming the runner
+  therefore describes a more expensive experiment that returns
+  different bytes, minus the repair. **For a record, the copy IS the
+  artifact of record.**
+
+- **AND THE COPY DID NOT EXIST. `y_confirmatory_coded.jsonl` was
+  found on NEITHER volume** — not diderot, not chambers — so the one
+  artifact that cannot be committed and cannot be regenerated also had
+  no backup, 143.9 MB of paid output in a single untracked file, on
+  the same night a seat swept the shared tree by accident.
+  **Registrar copied it to diderot as a protective, additive,
+  non-deciding action** (RH's disposal question is untouched):
+
+      /Volumes/diderot/malign-logits/meta/M01_displacement/results/y_confirmatory_coded.jsonl
+      sha256 6b25cfa60dc9b3b3e3ca0930dbb2f9d741bd0fc21f8a11e2fc10f62be071cec8
+      62,681 lines both sides — matches the manifest item count exactly
+
+  `lens_group_layer.jsonl` was already on diderot at identical size;
+  `m05_norm_mass.parquet` is absent there but regenerable from a
+  tracked deterministic producer, so its absence is a cost and not an
+  exposure. **One caveat if lens takes a pointer: its regeneration
+  reads `data/**/*.hidden.f32`, which is gitignored and mid-migration
+  to external disk (190 still local) — a pointer whose input is moving
+  must name where the input went.**
+
 ## Class 2 — ARTIFACT MISSING: producer works, output never committed
 
 - **M01 J §1**: `results/arch_displacement.json` absent (`arch_did_*`,

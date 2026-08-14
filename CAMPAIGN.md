@@ -652,6 +652,26 @@ seat forgets at its peril:
   pointer — regeneration command and a verified copy path, in the
   ignore comment AND in every citing document — is the half that makes
   it safe.
+- **THAT RULE HAS A LIMIT, FOUND THE SAME NIGHT ([6041]/[6042]):
+  REPRODUCIBLE IS NOT REGENERABLE.** Ignore-plus-pointer works on a
+  DERIVATION and degrades on a RECORD OF A RUN.
+  `y_confirmatory_coded.jsonl` came from a paid, sampled API annotation
+  over 62,681 items and was then rewritten IN PLACE by a repair script,
+  so a REGENERATE line naming its producer describes a more expensive
+  experiment returning different bytes, minus the repair. **For a
+  record, the copy IS the artifact of record and custody stops being
+  bookkeeping** — and that file was found on neither volume, so the one
+  artifact with no commit and no regeneration also had no backup.
+- **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
+  registrar amended a census by verifying its four names and dropped a
+  fifth that belonged. malign's twin at [6042] — verifying sizes
+  against a threshold it had not opened. **Both audit the contents of a
+  claim while leaving its boundary unexamined.**
+- **READ THE GUARD, DO NOT REASON FROM WHERE IT SHOULD BE.** The
+  pre-commit hook is real but lives at `core.hooksPath=.githooks`;
+  `.git/hooks/` is empty, so the natural check concludes no guard
+  exists. It carries TWO thresholds, BLOCK at 100 MiB and WARN at
+  50 MiB, and that difference decided three of the four cases.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
