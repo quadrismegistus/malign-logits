@@ -311,7 +311,11 @@ class ModelHandler(BaseHTTPRequestHandler):
                 with _slot_lock:
                     if _bge is None:
                         _set_progress("loading_models", "Loading bge-m3...")
-                        _bge = SentenceTransformer("BAAI/bge-m3", device="mps")
+                        #: CPU, NOT MPS. RH: bge on MPS is bogus. Every axis number I produced
+                        #: today used device="mps" and is therefore suspect;
+                        #: the endpoint is pinned to cpu so the UI cannot
+                        #: reproduce that.
+                        _bge = SentenceTransformer("BAAI/bge-m3", device="cpu")
                         _set_progress("idle")
                 enc = lambda ts: np.asarray(
                     _bge.encode([f"{prompt} {t}".strip() for t in ts],
