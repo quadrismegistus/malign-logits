@@ -180,9 +180,9 @@ def joined():
                 f"CO-MOVEMENT OF THE TWO ARMS: {COMOVE} -- positive and NOT significant. The finding's "
                 "word \"exactly\" was corrected in place and is not restored here; n=7 cannot establish "
                 "co-movement, only fail to contradict it.\n"
-                "THE R4 RATIO-versus-SEPARATION STATISTICS ARE NOT SHOWN. Spearman +0.61, co-drift "
-                "-0.12 and the lead tests have no producer anywhere in the repo and are booked Class "
-                "1B; this panel plots the two series and asserts nothing about their coupling.\n"
+                "THE R4 RATIO-versus-SEPARATION STATISTICS ARE NOT SHOWN. Spearman +0.61,\n"
+                "co-drift -0.12 and the lead tests have no producer anywhere in the repo and are\n"
+                "booked Class 1B; this panel plots the two series and asserts nothing about their coupling.\n"
                 "GREY BAND: rung 0 is not a measurement. Separation there is flat across all 32 layers "
                 "(a random-projection signature) and the ratio there rests on 4 groups against 21 "
                 "everywhere else."),

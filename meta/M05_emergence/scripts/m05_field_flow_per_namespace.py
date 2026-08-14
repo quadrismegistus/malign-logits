@@ -84,8 +84,9 @@ def main():
              + scale_color_manual({"riser": BLUE, "faller": ORANGE})
              + scale_x_continuous(expand=(0.03, 0, 0.03, 0))
              + labs(title=f"{title}: top 5 alignment risers (blue) and fallers (orange)",
-                    subtitle="Field-mass across the ladder, median over 105 pairs, window-5 smoothed. Ranked by "
-                             "base-endpoint -> RLVR movement. Shaded = post-training. Label at each field’s peak.",
+                    subtitle="Field-mass across the ladder, median over 105 pairs, window-5 smoothed.\n"
+                             "Ranked by base-endpoint -> RLVR movement. Shaded = post-training.\n"
+                             "Label at each field’s peak.",
                     x="training position (base | SFT | DPO | RLVR)",
                     y="continuation mass in field")
              + theme_minimal(base_size=11)
