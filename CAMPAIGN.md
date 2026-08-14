@@ -297,3 +297,18 @@ seat forgets at its peril:
   beside them and reproduce the population exactly). Corollary the same
   night: **a value printed in a subtitle is on the figure** — fencing a
   number in prose while displaying it does not withhold it ([5936]).
+  And the reason both corollaries kept biting the same seat ([5938]):
+  **transparency about an absence and reproduction of it are hard to
+  tell apart while you are writing the caption** — the instinct to
+  disclose on the figure is what puts the withdrawn thing in front of
+  the reader. Disclose in the producer docstring, where an editor meets
+  it and a reader does not.
+- **Assert the SHAPE of the claim, not only its values** ([5938]): a
+  figure whose finding says "null DiD, both arms negative" carries
+  guards on the nullness and the signs as well as on the sixteen
+  numbers, so the producer refuses to draw a claim the finding no
+  longer makes rather than drawing stale values correctly. Companion:
+  **a retired noun survives longest on an axis label** — the
+  cross-lingual axes say SPREAD because `total_drift` is
+  order-invariant and every sentence implying a trajectory was
+  corrected out of the finding.
