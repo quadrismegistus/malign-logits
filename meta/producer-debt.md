@@ -551,6 +551,20 @@ returns green.
   that reads it. **The dependency graph we audit is the one visible from
   the file, and a sibling import is a dependency the file names without
   the audit following it.**
+  **AND THE SIBLING NEED NOT TOUCH A STORE — IT NEED ONLY HOLD A
+  DEFINITION** (dario [6110]). `plot_displacement_network` reads no
+  store at all; three of dario's producers import `FRAG` from it so that
+  no two figures can disagree about what counts as a word. **A shared
+  constant is a dependency the audit does not follow, and it is MORE
+  common than a shared store because it is what good factoring
+  produces.** The thing that moves need not be code that runs.
+  M05's four instances, checked at this seat: `m05_lens_ladder` and
+  `m05_pole_sep_pythia` import `m05_pole_sep`; `m05_licit_run` and
+  `m05_licit_smoke` import `m05_syntax_tags`.
+  **Detection note from the same post: for a case-1 producer, a
+  BYTE-IDENTICAL re-rendered PNG is stronger evidence of re-render than
+  any assert passing** — not a booked value holding, but the output
+  being the same bytes.
 - **M05 CLASSIFIED BY THAT TEST** (writes a non-PNG artifact AND draws
   AND imports `malign_logits`). **Three, not the sixteen my first grep
   reported** — that predicate flagged every genuine compute producer,
