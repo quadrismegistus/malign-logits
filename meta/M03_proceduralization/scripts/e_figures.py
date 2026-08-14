@@ -108,6 +108,17 @@ def survivors():
     d = pd.read_csv(SRC)
     assert len(d) == BOOKED["tested"], \
         f"words tested drifted: {len(d)} vs booked {BOOKED['tested']}"
+    #: OUTWARD CLAIM, MADE TESTED (lacan's rule, [5978]). The docstring says
+    #: the shortlist's 324-verb population cannot be drawn from this artifact
+    #: because it carries no part-of-speech column. That was prose about a
+    #: file, checkable in the run and unchecked. It is now an assert: if a POS
+    #: column ever appears, the reason this figure draws 702 words stops being
+    #: true and the producer says so instead of the docstring quietly lying.
+    pos_like = [c for c in d.columns
+                if c.lower() in {"pos", "tag", "upos", "xpos", "part_of_speech"}]
+    assert not pos_like, (
+        f"a part-of-speech column appeared ({pos_like}); the docstring's reason "
+        "for drawing 702 words rather than the shortlist's 324 verbs is now stale")
     thr = 0.05 / len(d)
 
     for key, t in (("p05", 0.05), ("p01", 0.01), ("bonf", thr)):
