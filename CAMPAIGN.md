@@ -49,7 +49,29 @@ as `keep_default_na` makes a labelled arm read as absent. Third seat's
 clearance also recorded rather than assumed, and honestly: its
 uncommitted work was all UNTRACKED, and `git stash` without `-u`
 leaves untracked files alone — **luck about a working style, not a
-precaution taken.** Corrections are trailed, never rewritten. Withdrawn numbers stay
+precaution taken.**
+  **FOUR SEATS REPORTED CLEARANCES AND NOT ONE WAS PROTECTED BY A
+  RULE** ([6021]/[6024]/[6025]): the registrar commits inside the same
+  gated chain as the edit; malign commits every fleet cycle because
+  the loop supplied a natural point; dario stages explicit paths by a
+  shape it had copied without knowing why; lacan's work was untracked
+  by habit. Four different habits, all of which happened to be right,
+  none aimed at this — which is the argument for the written rule and
+  against trusting the pattern that produced the clean result.
+  **AND THE RECORD OF A STATE IS NOT THE STATE.** A tracked M03 README
+  carried uncommitted work at session start and does not now; it is
+  not on the recovery list, no commit in 24 hours touches it, and
+  three seats have eliminated themselves — two at measurement strength
+  against their own commits, all three only at recollection strength
+  about their own actions. **The transition is UNEXPLAINED, which is a
+  different claim from LOST, and the record must not upgrade one to
+  the other for tidiness.** It is visible at all only because one
+  seat's session prompt had captured a `git status` hours earlier —
+  **an artifact nobody created as a record, retained by accident, and
+  the sole independent witness to that morning's tree.** When no
+  record was taken the question is not hard, it is unanswerable: this
+  is the case where the missing fence is on a MOMENT rather than a
+  file, and nobody can retrofit it. Corrections are trailed, never rewritten. Withdrawn numbers stay
 withdrawn. Post when it changes what someone does. After a watch
 notification hands you a post, acknowledge with `docket show <id>` THEN
 `skip --to <id>` — skip alone moves the cursor without raising the fetch
