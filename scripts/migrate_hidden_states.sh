@@ -5,24 +5,36 @@
 #   scripts/migrate_hidden_states.sh list      what would move, and how big
 #   scripts/migrate_hidden_states.sh copy      rsync to diderot, with progress
 #   scripts/migrate_hidden_states.sh verify    OPTIONAL batch checksum
-#   scripts/migrate_hidden_states.sh link      cmp each file, then symlink it
+#   scripts/migrate_hidden_states.sh link      size-check, then symlink (--cmp for bytes)
 #   scripts/migrate_hidden_states.sh status    how far along, any inconsistency
 #   scripts/migrate_hidden_states.sh restore   bring them all back, undo links
 #
-# COPY THEN LINK. `verify` IS OPTIONAL AND SKIPPING IT COSTS NOTHING, which
-# corrects what this header said for its first four hours. The original design
-# required a `verify` stamp before `link` -- and `link` ALSO cmp's every file
-# immediately before deleting it, so the set was read twice for one guarantee
-# and the WEAKER pass was the gate. A batch stamp says the set was good at
-# some earlier moment; a per-file cmp says THIS file is good at the instant it
-# is removed, which is the distinction that cost 461 MB at [6005], where rsync
-# was right about what existed when it ran and wrong about what existed when
-# it was read.
+# COPY THEN LINK. This header has been wrong twice about its own gates and
+# both corrections are recorded rather than overwritten, because a runbook
+# that quietly rewrites its safety story is worse than one that shows the
+# argument.
 #
-# So nothing is ever deleted on a copy tool's word -- the guarantee is
-# unchanged -- and 87 GB is read once instead of twice. Space comes back
-# progressively as `link` walks the list. Run `verify` only if you want a
-# whole-set answer BEFORE committing to any deletion.
+#   v1  `link` REFUSED without a `verify` stamp. But `link` ALSO cmp'd every
+#       file before deleting it, so 87 GB was read twice for one guarantee and
+#       the WEAKER pass was the gate: a batch stamp says the set was good at
+#       some earlier moment, a per-file check says THIS file is good at the
+#       instant it is removed. That is the [6005] distinction exactly -- rsync
+#       right about what existed when it ran, wrong about what existed when it
+#       was read.
+#   v2  stamp requirement removed, per-file cmp became the gate.
+#   v3  RH's call: the byte comparison is behind `--cmp` and the DEFAULT is a
+#       size check. 87 GB read once at copy time and never again.
+#
+# WHAT THE DEFAULT GUARANTEES, stated plainly because it is weaker than v2:
+# the destination exists and matches the source size, checked per file
+# immediately before that file is deleted. Equal-length corruption is not
+# covered. It is a narrow window -- rsync verifies a whole-file checksum on
+# every file as it transfers, so the exposure is between a verified write and
+# a read minutes later -- but it is not zero, and after `link` the copies on
+# diderot are the only ones.
+#
+# USE `link --cmp` when the copy is not fresh, the volume has been remounted,
+# or anything else has written to it since. Then size is not enough.
 #
 # WHY SYMLINKS AND NOT A MOVED DIRECTORY. `lens_ratio_by_layer.scan_hidden()`
 # globs `data/**/*.jsonl` recursively and claims any file with a sibling
@@ -150,41 +162,59 @@ verify)
 
 link)
   need_volume
-  # NO STAMP REQUIRED, and removing that requirement makes this SAFER rather
-  # than laxer. `verify` re-reads all 87 GB to produce a batch stamp; the loop
-  # below then re-reads all 87 GB again to `cmp` each file immediately before
-  # deleting it. Two full passes for one guarantee, and the WEAKER of the two
-  # was the gate: a stamp says the set was good at some earlier moment, which
-  # is exactly the distinction that cost 461 MB at [6005]. The per-file cmp
-  # says this file is good at the instant it is removed. So the cmp is the
-  # gate, `verify` is an optional dry run, and space comes back as we go.
-  if [ -f "$STAMP" ]; then
-    echo "(batch verification present from $(cat "$STAMP"))"
+  # DEFAULT IS SIZE-ONLY. `link --cmp` adds a full byte comparison per file.
+  #
+  # RH's call, and the reasoning is worth keeping because the default matters
+  # more than the flag. What the size check leaves uncovered is corruption
+  # that preserves length, in a file rsync transferred minutes earlier -- and
+  # rsync ALWAYS verifies a whole-file checksum as it transfers, so that
+  # window is between a verified write and this read. Measured before
+  # choosing: 475 of 475 present at exactly the source size.
+  #
+  # What is NOT skipped, in either mode, because these cost nothing and are
+  # where the real failures have been: the destination must EXIST and must
+  # match the source SIZE, checked per file immediately before that file is
+  # removed. A batch stamp taken earlier is what [6005] showed to be the weak
+  # form -- rsync right about what existed when it ran, wrong about what
+  # existed when it was read -- so the check stays at the moment of deletion
+  # even when it is cheap.
+  #
+  # Use --cmp when the copy is old, the volume has been remounted, or anything
+  # else has written to it since. Then the size check is not enough.
+  DEEP=0
+  [ "${2:-}" = "--cmp" ] && DEEP=1
+  if [ "$DEEP" = "1" ]; then
+    echo "MODE: full byte comparison per file (slow, reads everything)"
   else
-    echo "(no batch stamp; each file is cmp'd against its copy before removal,"
-    echo " which is the stronger check and the one that actually gates deletion)"
+    echo "MODE: size-only per file (fast). Use '$0 link --cmp' for byte comparison."
   fi
   build_list
-  n=0
+  n=0; skipped=0
   while IFS= read -r f; do
     d="$DST/$f"
-    # re-check THIS file immediately before removing it, not just the batch
-    # stamp: the stamp says the set was good at some earlier moment, which is
-    # the distinction that cost 461 MB tonight.
     if [ ! -e "$d" ]; then
-      echo "SKIP (destination missing): $f" >&2
-      continue
+      echo "SKIP (destination missing): $f" >&2; skipped=$((skipped+1)); continue
     fi
-    if ! cmp -s "$f" "$d"; then
-      echo "SKIP (differs from destination): $f" >&2
-      continue
+    a=$(stat -f '%z' "$f"); b=$(stat -f '%z' "$d")
+    if [ "$a" != "$b" ]; then
+      echo "SKIP (size $a vs $b): $f" >&2; skipped=$((skipped+1)); continue
+    fi
+    if [ "$DEEP" = "1" ] && ! cmp -s "$f" "$d"; then
+      echo "SKIP (bytes differ at equal size): $f" >&2; skipped=$((skipped+1)); continue
     fi
     rm -f "$f"
     ln -s "$d" "$f"          # absolute, so it resolves from any cwd
     n=$((n+1))
   done < "$LIST"
-  echo "linked $n files. Originals removed only after a per-file cmp."
-  echo "Space freed locally; run '$0 status' to confirm."
+  echo "linked $n files, skipped $skipped."
+  if [ "$DEEP" = "1" ]; then
+    echo "Each original was removed only after a full byte comparison."
+  else
+    echo "Each original was removed only after its copy was confirmed present"
+    echo "at the identical size. Equal-length corruption is NOT covered; the"
+    echo "originals are gone, and the copies on diderot are now the only ones."
+  fi
+  echo "Run '$0 status' to confirm, and '$0 restore' to undo."
   ;;
 
 status)
