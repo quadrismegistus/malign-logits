@@ -187,8 +187,10 @@ def two_instruments():
                 "RIGHT: the distributional displacement measured on the same released checkpoints.\n"
                 "Every ablation costs about 10 percent, and removing safety costs what removing maths\n"
                 "costs. Bars are the booked 2026-08-06 values over 2,182 cells; error bars are paired\n"
-                "bootstrap intervals on the ratio from a 2,174-cell recomputation (the prompt catalogue\n"
-                "was refreshed on 08-12), the two agreeing on every ratio to better than 0.03 points.\n"
+                "bootstrap intervals on the ratio from a 2,174-cell recomputation -- the prompt catalogue\n"
+                "data/prompt_categorisation.json moved on 08-10, four days after the fan was measured,\n"
+                "and is read at run time by a module unchanged since 07-30 -- the two agreeing on every\n"
+                "ratio to better than 0.03 points.\n"
                 "THE NULL IS NOT CLEAN AND IS NOT LAUNDERED HERE: 2 of 6 pairwise comparisons are\n"
                 "significant, both involving −Persona, at under 2 percent of the full-mix effect."),
             x="", y="percent of the full data mix",

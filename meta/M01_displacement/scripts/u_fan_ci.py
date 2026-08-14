@@ -92,10 +92,16 @@ def main():
     print(f"\ncells present in all five arms: {len(J)}")
 
     #: THE BOOKED ABSOLUTES NO LONGER REPRODUCE AND THAT IS RECORDED, NOT FIXED.
-    #: t_fans.csv was written 2026-08-06 on 2,182 cells. The prompt catalogue
-    #: was refreshed on 2026-08-12 (it had disagreed with its source on 118
-    #: statuses; see u_from_tables.py), and the fan now finds 2,174 cells
-    #: present in all five arms. The means move in the 4th decimal.
+    #: t_fans.csv was written 2026-08-06 17:14 on 2,182 cells, and the fan now
+    #: finds 2,174 present in all five arms, with the means moving in the 4th
+    #: decimal. THE DRIVER IS `data/prompt_categorisation.json`, whose content
+    #: moved 2026-08-10 23:56 (9b1d453c). Not the 08-12 ClickHouse catalogue
+    #: refresh, which an earlier version of this comment blamed: t_fans.py
+    #: never touches ClickHouse. It reads `malign_logits.prompts`, which is
+    #: unchanged since 07-30 and `json.load`s that file AT RUN TIME
+    #: (prompts.py:62). So the module in the import graph is clean and the
+    #: data underneath it moved -- a library that reads a data file, which no
+    #: import-closure check can see (lacan, [6122]).
     #:
     #: What the finding CLAIMS is a set of ratios -- "removing any slice costs
     #: 10 to 12 percent", "the four span 1.8 percent of the effect" -- and the
