@@ -397,6 +397,31 @@ seat forgets at its peril:
   `b_word_delta_by_word.csv` not) — the near-miss was avoided only
   because the queue named the fence, so the pair is now recorded in
   the producer that must not confuse them.
+- **Pooling over a dimension with unequal coverage is a weighted
+  median by coverage, not a pooled estimate** ([5965], the fact that
+  settled the pole_sep reduction): `pole_sep` is BIT-IDENTICAL across
+  role — max difference exactly 0.0, asserted at run rather than taken
+  from prose — which reads as licence to pool, but 50,193 cells carry
+  all three roles against 15,675 carrying one, so a median over roles
+  weights each cell by how many controls happened to be run for it.
+  Identical values along a dimension do not make that dimension free
+  to collapse; the COUNTS along it are the question. This is what
+  produced the 0.7975-against-0.795 near-miss, and it makes both
+  candidate reductions indefensible rather than one of them right.
+- **A pre-declaration is checkable only if the plan is committed
+  ALONE, before the producer exists** ([5965]): `570afad4` holds the
+  plan and nothing else, `19240d87` the run — so the ordering is a
+  fact in git rather than a claim in prose. The same run shows what
+  the discipline is FOR: the plan recorded "if co-movement fails, that
+  is a real result against the finding and it gets reported, not
+  re-reduced", and co-movement came back positive on both lineages and
+  significant on neither, so "the null recovers EXACTLY as the real
+  column does" was corrected in place to *this cannot establish
+  co-movement, only fail to contradict it*. A prediction written
+  before the number is the only kind that can lose. Minor companion
+  from the same draft: **a lexicographic checkpoint sort is harmless
+  for an unordered statistic and wrong for every curve drawn from the
+  file** (`step1000` before `step128`).
 - **A finding whose argument survives its own numbers being wrong
   should not be defended by guessing the numbers** (lacan's, [5958]):
   with the per-checkpoint reduction unrecoverable at six simultaneous
