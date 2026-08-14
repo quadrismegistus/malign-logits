@@ -54,7 +54,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 OUTD = os.path.join(ROOT, "meta/M06_generation/results")
 CH = os.environ.get("MALIGN_CH_BIN", "clickhouse")
 
-PER_MODEL = 6
+PER_MODEL = 20
 N_BATCHES = 12
 CLIP = 260
 SEED = 20260814
@@ -64,57 +64,108 @@ SEED = 20260814
 ZH = "[一-鿿]"
 
 
+def cell(r):
+    """The identity of a passage, independent of any key assigned to it."""
+    return (r["model"], r["prompt"], r["sample_idx"])
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--outdir", default=os.path.join(OUTD, "zh_fluency_batches"))
+    ap.add_argument("--per-model", type=int, default=PER_MODEL)
+    ap.add_argument("--round", default="", help="suffix for the output names")
+    ap.add_argument("--exclude", default="",
+                    help="a previous sample.json; its passages get NO new key")
+    ap.add_argument("--iaa", type=int, default=0,
+                    help="additionally re-emit N ALREADY-JUDGED passages under "
+                         "fresh keys, for inter-rater agreement")
+    ap.add_argument("--batches", type=int, default=N_BATCHES)
+    ap.add_argument("--outdir", default="")
     a = ap.parse_args()
+    sfx = ("_" + a.round) if a.round else ""
+    outdir = a.outdir or os.path.join(OUTD, "zh_fluency_batches%s" % sfx)
 
     q = ("SELECT model, prompt, sample_idx, text FROM malign_logits.gen_sequences "
          "WHERE corpus='f11_l2' AND match(prompt,'%s') "
          "ORDER BY cityHash64(model, prompt, sample_idx) "
-         "LIMIT %d BY model FORMAT JSONEachRow" % (ZH, PER_MODEL))
+         "LIMIT %d BY model FORMAT JSONEachRow" % (ZH, a.per_model))
     out = subprocess.run([CH, "client", "-q", q], capture_output=True,
                          text=True, timeout=1800).stdout
     rows = [json.loads(l) for l in out.split("\n") if l.strip()]
     if not rows:
         raise SystemExit("no rows; is ClickHouse up and f11_l2 ingested?")
 
-    rng = random.Random(SEED)
-    keys = ["p%03d" % i for i in range(len(rows))]
+    #: `LIMIT n BY model` over a fixed cityHash64 order is a PREFIX, so a
+    #: larger n is a superset of a smaller one and previously judged passages
+    #: need not be re-judged. Verified rather than assumed: all 348 of the
+    #: 6-draw appear in the 20-draw.
+    seen, prior = {}, {}
+    if a.exclude:
+        prior = json.load(open(a.exclude))["truth"]
+        seen = {(v["model"], v["prompt"], v["sample_idx"]): k
+                for k, v in prior.items()}
+    fresh = [r for r in rows if cell(r) not in seen]
+
+    rng = random.Random(SEED + a.per_model)
+    keys = ["%s%04d" % (a.round or "p", i) for i in range(len(fresh))]
     rng.shuffle(keys)
     truth, items = {}, []
-    for k, r in zip(keys, rows):
+    for k, r in zip(keys, fresh):
         truth[k] = {"model": r["model"], "prompt": r["prompt"],
-                    "sample_idx": r["sample_idx"]}
+                    "sample_idx": r["sample_idx"], "role": "new"}
         items.append({"key": k, "prompt": r["prompt"],
                       "continuation": r["text"][:CLIP]})
+
+    #: ---- IAA: a SECOND rating of passages already rated once ----
+    #: Fresh keys, mixed into the same batches, so the judge cannot tell a
+    #: re-rate from a first rating. Agreement measured against round 1 is
+    #: then between two independent readers rather than one reader twice.
+    if a.iaa and prior:
+        bycell = {cell(r): r for r in rows}
+        pool = [c for c in seen if c in bycell]
+        pick = random.Random(SEED + 1).sample(pool, min(a.iaa, len(pool)))
+        for j, c in enumerate(pick):
+            r = bycell[c]
+            k = "%sIAA%04d" % (a.round or "p", j)
+            truth[k] = {"model": r["model"], "prompt": r["prompt"],
+                        "sample_idx": r["sample_idx"], "role": "iaa",
+                        "first_key": seen[c]}
+            items.append({"key": k, "prompt": r["prompt"],
+                          "continuation": r["text"][:CLIP]})
+
     rng.shuffle(items)
+    os.makedirs(outdir, exist_ok=True)
+    for i in range(a.batches):
+        with open(os.path.join(outdir, "batch_%02d.json" % i), "w") as f:
+            json.dump(items[i::a.batches], f, ensure_ascii=False, indent=1)
 
-    os.makedirs(a.outdir, exist_ok=True)
-    for i in range(N_BATCHES):
-        with open(os.path.join(a.outdir, "batch_%02d.json" % i), "w") as f:
-            json.dump(items[i::N_BATCHES], f, ensure_ascii=False, indent=1)
-
-    with open(os.path.join(OUTD, "zh_fluency_sample.json"), "w") as f:
+    path = os.path.join(OUTD, "zh_fluency_sample%s.json" % sfx)
+    with open(path, "w") as f:
         json.dump({"_about":
                    "BLIND fluency sample of f11_l2 Chinese continuations. "
                    "`truth` maps key -> model and MUST NOT be shown to a "
                    "judge; the batch files carry key/prompt/continuation "
                    "only. Keys are shuffled at assignment and the items "
                    "shuffled again before batching, so neither key order nor "
-                   "batch membership encodes the model.",
-                   "per_model": PER_MODEL, "clip_chars": CLIP,
-                   "seed": SEED, "n_batches": N_BATCHES,
+                   "batch membership encodes the model. `role` is 'new' for a "
+                   "first rating and 'iaa' for a SECOND rating of a passage "
+                   "already rated in an earlier round, carrying `first_key`; "
+                   "the two are indistinguishable to the judge by design.",
+                   "per_model": a.per_model, "clip_chars": CLIP,
+                   "seed": SEED, "n_batches": a.batches,
+                   "excluded_from": os.path.basename(a.exclude) or None,
+                   "n_new": sum(1 for v in truth.values() if v["role"] == "new"),
+                   "n_iaa": sum(1 for v in truth.values() if v["role"] == "iaa"),
                    "n_passages": len(items),
                    "n_models": len({v["model"] for v in truth.values()}),
                    "truth": truth}, f, ensure_ascii=False, indent=1)
 
-    print("%d passages | %d models | %d batches of ~%d -> %s"
-          % (len(items), len({v["model"] for v in truth.values()}),
-             N_BATCHES, len(items) // N_BATCHES,
-             os.path.relpath(a.outdir, ROOT)))
-    print("key->model map: %s" % os.path.relpath(
-        os.path.join(OUTD, "zh_fluency_sample.json"), ROOT))
+    print("draw %d/model -> %d rows | %d already judged | %d NEW | %d IAA re-rates"
+          % (a.per_model, len(rows), len(seen), len(fresh),
+             sum(1 for v in truth.values() if v["role"] == "iaa")))
+    print("%d items | %d batches of ~%d -> %s"
+          % (len(items), a.batches, len(items) // a.batches,
+             os.path.relpath(outdir, ROOT)))
+    print("key->model map: %s" % os.path.relpath(path, ROOT))
     return 0
 
 

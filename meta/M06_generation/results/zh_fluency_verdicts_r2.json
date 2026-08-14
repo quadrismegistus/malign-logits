@@ -1,0 +1,4733 @@
+{
+ "_about": "Round 2 blind fluency verdicts: 812 first ratings of f11_l2 Chinese continuations (20/model) plus 160 SECOND ratings of round-1 passages under fresh keys, mixed into the same batches so a judge cannot tell a re-rate from a first rating. Judged by 16 Claude Opus 5 agents via m06_zh_fluency_judge.js with the round-1 instructions VERBATIM. 971 of 972 returned; r20807 (Falcon3-1B-Base sample 17) was dropped by its agent and is reported as missing rather than backfilled.",
+ "model": "claude-opus-5[1m]",
+ "n_agents": 16,
+ "n_verdicts": 971,
+ "n_items": 972,
+ "missing": [
+  "r20807"
+ ],
+ "run_id": "wf_5decfb64-680",
+ "distribution": {
+  "broken": 324,
+  "not_chinese": 184,
+  "flawed": 344,
+  "fluent": 119
+ },
+ "verdicts": [
+  {
+   "key": "r20204",
+   "verdict": "broken",
+   "note": "wrong-character salad plus stray English/Russian/Korean tokens"
+  },
+  {
+   "key": "r20020",
+   "verdict": "not_chinese",
+   "note": "one broken clause then a long English passage"
+  },
+  {
+   "key": "r20218",
+   "verdict": "not_chinese",
+   "note": "short clause then English explanation"
+  },
+  {
+   "key": "r20044",
+   "verdict": "flawed",
+   "note": "sentences mostly parse but collocations off, incoherent across, garbled tail"
+  },
+  {
+   "key": "r20581",
+   "verdict": "broken",
+   "note": "wrong-character substitutions throughout"
+  },
+  {
+   "key": "r20042",
+   "verdict": "flawed",
+   "note": "novel dialogue reads naturally; opening passage muddled, 相信你好判断 ungrammatical"
+  },
+  {
+   "key": "r2IAA0063",
+   "verdict": "broken",
+   "note": "fragmentary word salad"
+  },
+  {
+   "key": "r20185",
+   "verdict": "not_chinese",
+   "note": "brief broken Chinese, then longer Korean gibberish"
+  },
+  {
+   "key": "r20425",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20281",
+   "verdict": "flawed",
+   "note": "largely natural narrative with several ungrammatical clauses"
+  },
+  {
+   "key": "r20257",
+   "verdict": "flawed",
+   "note": "comprehensible but awkward; 否判正常 nonsense, English insertion"
+  },
+  {
+   "key": "r20775",
+   "verdict": "flawed",
+   "note": "web-fiction register, mangled idioms and pronoun confusion"
+  },
+  {
+   "key": "r20336",
+   "verdict": "not_chinese",
+   "note": "four characters then English"
+  },
+  {
+   "key": "r2IAA0057",
+   "verdict": "not_chinese",
+   "note": "opens in Chinese, dominated by English"
+  },
+  {
+   "key": "r20586",
+   "verdict": "broken",
+   "note": "pseudo-analytic word salad"
+  },
+  {
+   "key": "r20664",
+   "verdict": "flawed",
+   "note": "mostly natural, some broken clauses and 过的好 error"
+  },
+  {
+   "key": "r20062",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20633",
+   "verdict": "broken",
+   "note": "nonsense coinage plus looping template lines"
+  },
+  {
+   "key": "r20279",
+   "verdict": "fluent",
+   "note": "natural essayistic prose despite stray romanization"
+  },
+  {
+   "key": "r20104",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20318",
+   "verdict": "flawed",
+   "note": "translationese; some clauses incoherent"
+  },
+  {
+   "key": "r20126",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r2IAA0123",
+   "verdict": "not_chinese",
+   "note": "one Chinese line then English"
+  },
+  {
+   "key": "r20306",
+   "verdict": "not_chinese",
+   "note": "broken fragments then English block"
+  },
+  {
+   "key": "r20165",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20428",
+   "verdict": "broken",
+   "note": "pseudo-classical gibberish"
+  },
+  {
+   "key": "r20293",
+   "verdict": "broken",
+   "note": "clauses do not cohere"
+  },
+  {
+   "key": "r20056",
+   "verdict": "not_chinese",
+   "note": "short Chinese opener then English"
+  },
+  {
+   "key": "r20708",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r2IAA0149",
+   "verdict": "fluent",
+   "note": "entertainment-news register, natural grammar"
+  },
+  {
+   "key": "r20404",
+   "verdict": "fluent",
+   "note": "very short but grammatical"
+  },
+  {
+   "key": "r20654",
+   "verdict": "flawed",
+   "note": "quote-list register; several ungrammatical or odd sentences"
+  },
+  {
+   "key": "r20323",
+   "verdict": "flawed",
+   "note": "reads like real fiction but 真想 typo and odd collocations"
+  },
+  {
+   "key": "r20770",
+   "verdict": "flawed",
+   "note": "magic-system paragraph natural, earlier lines garbled"
+  },
+  {
+   "key": "r2IAA0031",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20339",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20534",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20089",
+   "verdict": "broken",
+   "note": "machine-translation salad"
+  },
+  {
+   "key": "r20267",
+   "verdict": "fluent",
+   "note": "bilingual, Chinese portions natural and dominant"
+  },
+  {
+   "key": "r2IAA0109",
+   "verdict": "flawed",
+   "note": "mixed with English/Portuguese; Chinese list parses but opener garbled"
+  },
+  {
+   "key": "r2IAA0019",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20033",
+   "verdict": "flawed",
+   "note": "Chinese leads then English gloss; 话语卡/通信技能 unnatural"
+  },
+  {
+   "key": "r20176",
+   "verdict": "flawed",
+   "note": "news-style sentences readable, several broken spans"
+  },
+  {
+   "key": "r20714",
+   "verdict": "not_chinese",
+   "note": "three characters then English wiki text"
+  },
+  {
+   "key": "r2IAA0027",
+   "verdict": "fluent",
+   "note": "literary, natural"
+  },
+  {
+   "key": "r20385",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20402",
+   "verdict": "flawed",
+   "note": "purple fiction; 穿着...面容 and other collocation errors"
+  },
+  {
+   "key": "r20568",
+   "verdict": "not_chinese",
+   "note": "garbled Chinese line then English spam"
+  },
+  {
+   "key": "r20623",
+   "verdict": "not_chinese",
+   "note": "country-code list"
+  },
+  {
+   "key": "r20118",
+   "verdict": "flawed",
+   "note": "syntactically Chinese but vacuous, garbled spans and English tail"
+  },
+  {
+   "key": "r20780",
+   "verdict": "broken",
+   "note": "fragment listing, no coherent thread"
+  },
+  {
+   "key": "r20578",
+   "verdict": "not_chinese",
+   "note": "seven broken characters then English"
+  },
+  {
+   "key": "r2IAA0150",
+   "verdict": "not_chinese",
+   "note": "Japanese"
+  },
+  {
+   "key": "r20448",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r2IAA0021",
+   "verdict": "not_chinese",
+   "note": "English glosses with romanization dominate short Chinese phrases"
+  },
+  {
+   "key": "r2IAA0140",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20051",
+   "verdict": "broken",
+   "note": "most clauses incoherent despite a few readable ones"
+  },
+  {
+   "key": "r20669",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20667",
+   "verdict": "broken",
+   "note": "pseudo-classical gibberish with markup"
+  },
+  {
+   "key": "r20408",
+   "verdict": "flawed",
+   "note": "some fluent aphorisms amid translationese and broken clauses"
+  },
+  {
+   "key": "r2IAA0105",
+   "verdict": "flawed",
+   "note": "coherent critical essay frame, garbled embedded quotations"
+  },
+  {
+   "key": "r20192",
+   "verdict": "flawed",
+   "note": "grammatical MCQ options but odd collocations (姑息治疗, 做他实验的相关测试)"
+  },
+  {
+   "key": "r20195",
+   "verdict": "broken",
+   "note": "nonsense NPs, English spliced mid-word (绝对觅subscribe于)"
+  },
+  {
+   "key": "r20146",
+   "verdict": "broken",
+   "note": "word salad, wrong characters (讂/瓢爐/畏懲)"
+  },
+  {
+   "key": "r20024",
+   "verdict": "not_chinese",
+   "note": "two short broken Chinese clauses, then a longer English passage"
+  },
+  {
+   "key": "r20254",
+   "verdict": "broken",
+   "note": "non-parsing phrase 值越远以来 repeated throughout"
+  },
+  {
+   "key": "r20087",
+   "verdict": "broken",
+   "note": "rare-character salad plus a replacement glyph"
+  },
+  {
+   "key": "r20453",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20444",
+   "verdict": "flawed",
+   "note": "mostly parseable but semantically empty; 敘邊 is a non-word"
+  },
+  {
+   "key": "r20082",
+   "verdict": "flawed",
+   "note": "fluent literary flow with clear slips (有看, 讽颂, 去求)"
+  },
+  {
+   "key": "r20491",
+   "verdict": "flawed",
+   "note": "grammatical maths prose but 不想时间的人 and invented terms"
+  },
+  {
+   "key": "r20751",
+   "verdict": "broken",
+   "note": "穿派是很滨, 喜欢的付费, 幻想美联储28日的陪寄"
+  },
+  {
+   "key": "r2IAA0051",
+   "verdict": "fluent",
+   "note": "natural narrative; only 幸福的果 jars"
+  },
+  {
+   "key": "r20787",
+   "verdict": "flawed",
+   "note": "fluent boilerplate around one broken clause (取向更严重的一塔罪)"
+  },
+  {
+   "key": "r20696",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20161",
+   "verdict": "broken",
+   "note": "他垃圾状态在一天到下一天转变了; most clauses do not compose"
+  },
+  {
+   "key": "r20197",
+   "verdict": "fluent",
+   "note": "natural Chinese plus a code block"
+  },
+  {
+   "key": "r20348",
+   "verdict": "not_chinese",
+   "note": "one Chinese clause, then Spanish"
+  },
+  {
+   "key": "r2IAA0067",
+   "verdict": "not_chinese",
+   "note": "~26 broken Chinese chars, then long English"
+  },
+  {
+   "key": "r20678",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20592",
+   "verdict": "fluent",
+   "note": "formal proposal register; 招引起 is the one awkward collocation"
+  },
+  {
+   "key": "r20740",
+   "verdict": "broken",
+   "note": "pseudo-poetic; 雄温动物, 沓起的时光路遥 do not compose"
+  },
+  {
+   "key": "r20576",
+   "verdict": "not_chinese",
+   "note": "English with a Ukrainian fragment"
+  },
+  {
+   "key": "r2IAA0112",
+   "verdict": "not_chinese",
+   "note": "one fluent Chinese sentence, then a long English essay"
+  },
+  {
+   "key": "r20732",
+   "verdict": "fluent",
+   "note": "idiomatic diary prose"
+  },
+  {
+   "key": "r20108",
+   "verdict": "broken",
+   "note": "lyric pastiche, non-composing lines"
+  },
+  {
+   "key": "r20239",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20440",
+   "verdict": "not_chinese",
+   "note": "broken Chinese opening, English dominant by volume"
+  },
+  {
+   "key": "r20084",
+   "verdict": "flawed",
+   "note": "comprehensible but 脸色上飙, 听aways, 皖面表现"
+  },
+  {
+   "key": "r20191",
+   "verdict": "not_chinese",
+   "note": "short Chinese lines inside a mostly-English exchange"
+  },
+  {
+   "key": "r20030",
+   "verdict": "not_chinese",
+   "note": "one Chinese clause, then a long English passage"
+  },
+  {
+   "key": "r20085",
+   "verdict": "broken",
+   "note": "coherent opening degrading into MT salad (总是低古代, 美海军船只的腰)"
+  },
+  {
+   "key": "r20276",
+   "verdict": "flawed",
+   "note": "translated academic register, comprehensible with clear slips"
+  },
+  {
+   "key": "r20296",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20001",
+   "verdict": "broken",
+   "note": "short and incoherent (情况不及则，对方鸡块呢)"
+  },
+  {
+   "key": "r20513",
+   "verdict": "flawed",
+   "note": "natural overall but 张翰有10个美元每个月 is non-native word order"
+  },
+  {
+   "key": "r20565",
+   "verdict": "flawed",
+   "note": "Chinese dominant; 齐谊 a non-word, confused classical pastiche"
+  },
+  {
+   "key": "r20301",
+   "verdict": "flawed",
+   "note": "Chinese leads; 响应曾经停止了 and triple 最后"
+  },
+  {
+   "key": "r20420",
+   "verdict": "fluent",
+   "note": "rocky first clause, then sustained natural prose"
+  },
+  {
+   "key": "r20375",
+   "verdict": "flawed",
+   "note": "colloquial but 被拽跑了你 and person confusion"
+  },
+  {
+   "key": "r2IAA0151",
+   "verdict": "broken",
+   "note": "Chinese dominant but most clauses non-composing"
+  },
+  {
+   "key": "r2IAA0114",
+   "verdict": "flawed",
+   "note": "largely comprehensible; stray Russian/English tokens, 逃离住起来"
+  },
+  {
+   "key": "r20184",
+   "verdict": "broken",
+   "note": "无意势世界, 平假理; syntax holds, sense does not"
+  },
+  {
+   "key": "r20401",
+   "verdict": "broken",
+   "note": "不食的鞋膜, 她非常日語"
+  },
+  {
+   "key": "r2IAA0023",
+   "verdict": "not_chinese",
+   "note": "two English words"
+  },
+  {
+   "key": "r20040",
+   "verdict": "fluent",
+   "note": "short but perfectly natural"
+  },
+  {
+   "key": "r20387",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20160",
+   "verdict": "not_chinese",
+   "note": "bilingual gloss; 10 Chinese chars against ~20 English words"
+  },
+  {
+   "key": "r2IAA0078",
+   "verdict": "flawed",
+   "note": "synopsis gist readable; 有恩于的人, 命运的绪步走时"
+  },
+  {
+   "key": "r2IAA0124",
+   "verdict": "broken",
+   "note": "他晚晚也对他的情趣是无从负责起来的; most clauses fail"
+  },
+  {
+   "key": "r20235",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20731",
+   "verdict": "not_chinese",
+   "note": "broken Chinese opening, then an English poem"
+  },
+  {
+   "key": "r20137",
+   "verdict": "flawed",
+   "note": "grammatical but heavily repetitive; 贡献自己的余量"
+  },
+  {
+   "key": "r20661",
+   "verdict": "fluent",
+   "note": "clean expository Chinese"
+  },
+  {
+   "key": "r20182",
+   "verdict": "flawed",
+   "note": "six characters, grammatical fragments with no coherence between them"
+  },
+  {
+   "key": "r20698",
+   "verdict": "broken",
+   "note": "Chinese-dominant salad with code and multilingual junk"
+  },
+  {
+   "key": "r20426",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20031",
+   "verdict": "flawed",
+   "note": "translationese, comprehensible; one garbled span (¾展开...鲁姆弗雷思)"
+  },
+  {
+   "key": "r20683",
+   "verdict": "flawed",
+   "note": "syntax holds; 技巧 used as a verb, invented nouns (散包, 群法)"
+  },
+  {
+   "key": "r2IAA0002",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20247",
+   "verdict": "fluent",
+   "note": "natural counselling register; one stray English token \"worth\""
+  },
+  {
+   "key": "r20221",
+   "verdict": "broken",
+   "note": "word salad, stray Cyrillic"
+  },
+  {
+   "key": "r20265",
+   "verdict": "fluent",
+   "note": "very short, one English loanword"
+  },
+  {
+   "key": "r2IAA0075",
+   "verdict": "flawed",
+   "note": "bad-translation feel, many ungrammatical clauses"
+  },
+  {
+   "key": "r20811",
+   "verdict": "flawed",
+   "note": "opens well, second half near-incoherent"
+  },
+  {
+   "key": "r20720",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20406",
+   "verdict": "fluent",
+   "note": "translationese but grammatical"
+  },
+  {
+   "key": "r2IAA0013",
+   "verdict": "not_chinese",
+   "note": "bilingual list, English/markup dominant"
+  },
+  {
+   "key": "r20251",
+   "verdict": "flawed",
+   "note": "one badly garbled clause, rest readable"
+  },
+  {
+   "key": "r20764",
+   "verdict": "flawed",
+   "note": "several non-words and odd collocations"
+  },
+  {
+   "key": "r20424",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20532",
+   "verdict": "broken",
+   "note": "dialogue frame, unrecoverable content"
+  },
+  {
+   "key": "r2IAA0116",
+   "verdict": "flawed",
+   "note": "unnatural word order throughout"
+  },
+  {
+   "key": "r20240",
+   "verdict": "flawed",
+   "note": "garbled opening, then readable"
+  },
+  {
+   "key": "r20803",
+   "verdict": "not_chinese",
+   "note": "short garbled Chinese then English blog boilerplate"
+  },
+  {
+   "key": "r20022",
+   "verdict": "flawed",
+   "note": "first paragraph fine, then lexical nonsense"
+  },
+  {
+   "key": "r20080",
+   "verdict": "not_chinese",
+   "note": "one character then all English"
+  },
+  {
+   "key": "r20606",
+   "verdict": "not_chinese",
+   "note": "brief Chinese then English dialogue"
+  },
+  {
+   "key": "r20705",
+   "verdict": "not_chinese",
+   "note": "HTML/LaTeX markup dominant"
+  },
+  {
+   "key": "r20648",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20269",
+   "verdict": "broken",
+   "note": "multilingual noise"
+  },
+  {
+   "key": "r20332",
+   "verdict": "broken",
+   "note": "collapses into garbled bilingual name list"
+  },
+  {
+   "key": "r2IAA0001",
+   "verdict": "not_chinese",
+   "note": "English dominant, foreign scripts"
+  },
+  {
+   "key": "r2IAA0101",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20684",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20193",
+   "verdict": "not_chinese",
+   "note": "brief garbled Chinese then URLs/English"
+  },
+  {
+   "key": "r2IAA0033",
+   "verdict": "not_chinese",
+   "note": "replacement chars plus English system prompt"
+  },
+  {
+   "key": "r20236",
+   "verdict": "flawed",
+   "note": "coherent essay with stray English tokens"
+  },
+  {
+   "key": "r20639",
+   "verdict": "fluent",
+   "note": "exam-item pastiche, grammatical"
+  },
+  {
+   "key": "r20805",
+   "verdict": "not_chinese",
+   "note": "short Chinese then English dominant"
+  },
+  {
+   "key": "r20671",
+   "verdict": "flawed",
+   "note": "mostly fluent essay, a few garbled clauses"
+  },
+  {
+   "key": "r2IAA0120",
+   "verdict": "broken",
+   "note": "Chinese syntax, nonsense lexis"
+  },
+  {
+   "key": "r2IAA0004",
+   "verdict": "not_chinese",
+   "note": "looping English sentence"
+  },
+  {
+   "key": "r20260",
+   "verdict": "not_chinese",
+   "note": "German"
+  },
+  {
+   "key": "r20604",
+   "verdict": "not_chinese",
+   "note": "Pascal code"
+  },
+  {
+   "key": "r20366",
+   "verdict": "flawed",
+   "note": "redundant, clumsy"
+  },
+  {
+   "key": "r20190",
+   "verdict": "flawed",
+   "note": "garbled bilingual middle, glosses readable"
+  },
+  {
+   "key": "r20016",
+   "verdict": "flawed",
+   "note": "web-fiction register with several ungrammatical spots"
+  },
+  {
+   "key": "r20504",
+   "verdict": "not_chinese",
+   "note": "six garbled characters then English"
+  },
+  {
+   "key": "r20346",
+   "verdict": "broken",
+   "note": "garbled with English intrusions"
+  },
+  {
+   "key": "r20052",
+   "verdict": "flawed",
+   "note": "heavy translationese, thread followable"
+  },
+  {
+   "key": "r20376",
+   "verdict": "flawed",
+   "note": "one nonsense phrase, math solution fluent"
+  },
+  {
+   "key": "r20460",
+   "verdict": "not_chinese",
+   "note": "switches to English mid-clause"
+  },
+  {
+   "key": "r20390",
+   "verdict": "broken",
+   "note": "incoherent Chinese inside HTML"
+  },
+  {
+   "key": "r20386",
+   "verdict": "flawed",
+   "note": "literary and largely natural, a few non-words"
+  },
+  {
+   "key": "r2IAA0128",
+   "verdict": "flawed",
+   "note": "minor slips, otherwise fluent"
+  },
+  {
+   "key": "r20167",
+   "verdict": "broken",
+   "note": "garbled then collapses into markup"
+  },
+  {
+   "key": "r20781",
+   "verdict": "flawed",
+   "note": "misused collocation, refusal line fluent"
+  },
+  {
+   "key": "r20274",
+   "verdict": "flawed",
+   "note": "fluent except a nonsense noun phrase"
+  },
+  {
+   "key": "r20264",
+   "verdict": "flawed",
+   "note": "pseudo-literary, many unparseable clauses"
+  },
+  {
+   "key": "r20710",
+   "verdict": "fluent",
+   "note": "odd content, grammatical Chinese"
+  },
+  {
+   "key": "r20170",
+   "verdict": "flawed",
+   "note": "short, several ungrammatical sentences, prompt echo"
+  },
+  {
+   "key": "r20092",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20643",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20712",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20103",
+   "verdict": "broken",
+   "note": "pseudo-philosophy, no main clauses"
+  },
+  {
+   "key": "r2IAA0148",
+   "verdict": "fluent",
+   "note": "short but natural"
+  },
+  {
+   "key": "r2IAA0110",
+   "verdict": "flawed",
+   "note": "synopsis riddled with errors, plot followable"
+  },
+  {
+   "key": "r20113",
+   "verdict": "flawed",
+   "note": "one garbled sentence, then fluent analysis"
+  },
+  {
+   "key": "r20699",
+   "verdict": "fluent",
+   "note": "natural dialogue, one awkward sentence"
+  },
+  {
+   "key": "r20624",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20526",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0062",
+   "verdict": "flawed",
+   "note": "opening clause ungrammatical, JSON markup mid-way, rest comprehensible"
+  },
+  {
+   "key": "r20206",
+   "verdict": "flawed",
+   "note": "rambling colloquial post, several garbled clauses"
+  },
+  {
+   "key": "r20433",
+   "verdict": "flawed",
+   "note": "translationese; odd collocations"
+  },
+  {
+   "key": "r20069",
+   "verdict": "broken",
+   "note": "word salad then English boilerplate"
+  },
+  {
+   "key": "r20541",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20457",
+   "verdict": "not_chinese",
+   "note": "English only"
+  },
+  {
+   "key": "r20004",
+   "verdict": "not_chinese",
+   "note": "one Chinese clause, rest English/symbols"
+  },
+  {
+   "key": "r20501",
+   "verdict": "broken",
+   "note": "nonsense phrases then code garbage"
+  },
+  {
+   "key": "r20556",
+   "verdict": "fluent",
+   "note": "short but natural"
+  },
+  {
+   "key": "r20564",
+   "verdict": "flawed",
+   "note": "mostly well-formed, some garbled clauses and stray latin"
+  },
+  {
+   "key": "r20415",
+   "verdict": "flawed",
+   "note": "novelistic, missing characters and odd collocations"
+  },
+  {
+   "key": "r20152",
+   "verdict": "flawed",
+   "note": "readable forum register with English intrusions"
+  },
+  {
+   "key": "r20530",
+   "verdict": "flawed",
+   "note": "coherent clauses interleaved with nonsense"
+  },
+  {
+   "key": "r20738",
+   "verdict": "broken",
+   "note": "pure word salad"
+  },
+  {
+   "key": "r20758",
+   "verdict": "flawed",
+   "note": "wrong-character typo, otherwise parseable"
+  },
+  {
+   "key": "r20701",
+   "verdict": "broken",
+   "note": "numbered nonsense sentences"
+  },
+  {
+   "key": "r20075",
+   "verdict": "fluent",
+   "note": "amateur narrative prose, one awkward clause"
+  },
+  {
+   "key": "r20747",
+   "verdict": "not_chinese",
+   "note": "English after four characters"
+  },
+  {
+   "key": "r2IAA0028",
+   "verdict": "broken",
+   "note": "looping nonsense around 两股"
+  },
+  {
+   "key": "r2IAA0044",
+   "verdict": "flawed",
+   "note": "translationese with clear errors"
+  },
+  {
+   "key": "r20018",
+   "verdict": "broken",
+   "note": "machine-translation garbage, incomprehensible"
+  },
+  {
+   "key": "r20000",
+   "verdict": "broken",
+   "note": "pseudo-wuxia word salad"
+  },
+  {
+   "key": "r2IAA0104",
+   "verdict": "broken",
+   "note": "borderline; majority of content sentences unparseable"
+  },
+  {
+   "key": "r2IAA0009",
+   "verdict": "flawed",
+   "note": "garbled opening then translationese assistant boilerplate"
+  },
+  {
+   "key": "r20721",
+   "verdict": "not_chinese",
+   "note": "English after one clause"
+  },
+  {
+   "key": "r20003",
+   "verdict": "broken",
+   "note": "word salad then HTML"
+  },
+  {
+   "key": "r2IAA0068",
+   "verdict": "flawed",
+   "note": "scene followable despite garbage tokens"
+  },
+  {
+   "key": "r20041",
+   "verdict": "broken",
+   "note": "Russian-sourced MT garbage"
+  },
+  {
+   "key": "r20744",
+   "verdict": "flawed",
+   "note": "clauses grammatical, discourse incoherent translationese"
+  },
+  {
+   "key": "r2IAA0064",
+   "verdict": "broken",
+   "note": "pseudo-academic word salad"
+  },
+  {
+   "key": "r20577",
+   "verdict": "flawed",
+   "note": "concatenated forum snippets, some garbling"
+  },
+  {
+   "key": "r20039",
+   "verdict": "flawed",
+   "note": "grammatical sentences, incoherent content and garbled tail"
+  },
+  {
+   "key": "r20695",
+   "verdict": "flawed",
+   "note": "opening natural; wrong idiom and garbled tail"
+  },
+  {
+   "key": "r20490",
+   "verdict": "broken",
+   "note": "incoherent then Portuguese"
+  },
+  {
+   "key": "r20156",
+   "verdict": "broken",
+   "note": "word salad with repeated fragments"
+  },
+  {
+   "key": "r20548",
+   "verdict": "broken",
+   "note": "nonsense coinages"
+  },
+  {
+   "key": "r2IAA0042",
+   "verdict": "broken",
+   "note": "word salad then Cyrillic/Latin junk"
+  },
+  {
+   "key": "r20589",
+   "verdict": "flawed",
+   "note": "exam-format Chinese around a block of Korean gibberish"
+  },
+  {
+   "key": "r2IAA0074",
+   "verdict": "flawed",
+   "note": "comprehensible first half, tail collapses"
+  },
+  {
+   "key": "r2IAA0145",
+   "verdict": "not_chinese",
+   "note": "English/Romance mix"
+  },
+  {
+   "key": "r20246",
+   "verdict": "flawed",
+   "note": "broken constructions and calques"
+  },
+  {
+   "key": "r20198",
+   "verdict": "broken",
+   "note": "looping repetition then incoherent translationese"
+  },
+  {
+   "key": "r20795",
+   "verdict": "flawed",
+   "note": "followable narrative with clear errors"
+  },
+  {
+   "key": "r20515",
+   "verdict": "fluent",
+   "note": "natural exam-item Chinese"
+  },
+  {
+   "key": "r20277",
+   "verdict": "flawed",
+   "note": "literary translationese, ungrammatical spots"
+  },
+  {
+   "key": "r20514",
+   "verdict": "broken",
+   "note": "word salad mixed with English fragments"
+  },
+  {
+   "key": "r20544",
+   "verdict": "fluent",
+   "note": "natural colloquial personal ad"
+  },
+  {
+   "key": "r20010",
+   "verdict": "flawed",
+   "note": "exam options mostly natural, one garbled"
+  },
+  {
+   "key": "r2IAA0122",
+   "verdict": "flawed",
+   "note": "mild: 决定了打扫, awkward time phrase"
+  },
+  {
+   "key": "r20488",
+   "verdict": "broken",
+   "note": "word salad with unk tokens"
+  },
+  {
+   "key": "r2IAA0072",
+   "verdict": "flawed",
+   "note": "largely natural narrative, some wrong collocations"
+  },
+  {
+   "key": "r20148",
+   "verdict": "broken",
+   "note": "pseudo-medical word salad"
+  },
+  {
+   "key": "r20663",
+   "verdict": "broken",
+   "note": "Chinese portion is nonsense, then English"
+  },
+  {
+   "key": "r20344",
+   "verdict": "flawed",
+   "note": "syntax intact, nonsense noun phrases and invented terms"
+  },
+  {
+   "key": "r20724",
+   "verdict": "flawed",
+   "note": "mostly grammatical, garbled tail with code tokens"
+  },
+  {
+   "key": "r20173",
+   "verdict": "flawed",
+   "note": "pseudo-philosophy parseable, some nonsense clauses"
+  },
+  {
+   "key": "r20625",
+   "verdict": "broken",
+   "note": "nonsense coinages throughout"
+  },
+  {
+   "key": "r20194",
+   "verdict": "flawed",
+   "note": "heavy code-switching; Chinese clauses grammatical but fragmentary"
+  },
+  {
+   "key": "r20677",
+   "verdict": "flawed",
+   "note": "traditional-script wiki style, run-on and odd terms"
+  },
+  {
+   "key": "r20768",
+   "verdict": "broken",
+   "note": "mostly unparseable coinages"
+  },
+  {
+   "key": "r2IAA0020",
+   "verdict": "flawed",
+   "note": "comprehensible with several ungrammatical phrases"
+  },
+  {
+   "key": "r20489",
+   "verdict": "broken",
+   "note": "word salad throughout"
+  },
+  {
+   "key": "r20114",
+   "verdict": "broken",
+   "note": "web boilerplate plus incoherent strings"
+  },
+  {
+   "key": "r20059",
+   "verdict": "flawed",
+   "note": "\"我能告诉我怎么写吗\" wrong pronoun"
+  },
+  {
+   "key": "r20291",
+   "verdict": "flawed",
+   "note": "grammatical but 空行/垂死 nonsense terms; second half English"
+  },
+  {
+   "key": "r2IAA0054",
+   "verdict": "broken",
+   "note": "collapses into pseudo-classical word salad"
+  },
+  {
+   "key": "r20043",
+   "verdict": "flawed",
+   "note": "coherent Q&A shape, self-contradictory definitions, nonsense term 公共文律宝"
+  },
+  {
+   "key": "r20053",
+   "verdict": "flawed",
+   "note": "comprehensible but several garbled clauses and mojibake"
+  },
+  {
+   "key": "r20421",
+   "verdict": "flawed",
+   "note": "fluent ad register then awkward ungrammatical stretches"
+  },
+  {
+   "key": "r20021",
+   "verdict": "broken",
+   "note": "short, ungrammatical, foreign token inserted"
+  },
+  {
+   "key": "r20509",
+   "verdict": "fluent",
+   "note": "cloze-quiz format; all four idioms well formed"
+  },
+  {
+   "key": "r20692",
+   "verdict": "flawed",
+   "note": "garbled opening, then largely natural review prose"
+  },
+  {
+   "key": "r20486",
+   "verdict": "broken",
+   "note": "word salad then URL/package junk"
+  },
+  {
+   "key": "r20525",
+   "verdict": "not_chinese",
+   "note": "brief Chinese then dominated by Russian"
+  },
+  {
+   "key": "r20786",
+   "verdict": "flawed",
+   "note": "novel-style prose with several incoherent clauses"
+  },
+  {
+   "key": "r20357",
+   "verdict": "flawed",
+   "note": "assistant register, repeated wrong-character errors"
+  },
+  {
+   "key": "r20579",
+   "verdict": "not_chinese",
+   "note": "short Chinese fragments, English dominant"
+  },
+  {
+   "key": "r20238",
+   "verdict": "not_chinese",
+   "note": "12 Chinese chars then English gibberish"
+  },
+  {
+   "key": "r20295",
+   "verdict": "not_chinese",
+   "note": "mostly JavaScript code"
+  },
+  {
+   "key": "r20459",
+   "verdict": "broken",
+   "note": "nonsense terms, disconnected lines"
+  },
+  {
+   "key": "r20097",
+   "verdict": "broken",
+   "note": "one clean sentence then word salad"
+  },
+  {
+   "key": "r20681",
+   "verdict": "flawed",
+   "note": "aphorism list, mostly natural, two ungrammatical entries"
+  },
+  {
+   "key": "r20810",
+   "verdict": "broken",
+   "note": "Chinese lines are word salad; roughly half English"
+  },
+  {
+   "key": "r2IAA0113",
+   "verdict": "flawed",
+   "note": "sentences parse, discourse disjointed, 咬自己的嘴巴 unnatural"
+  },
+  {
+   "key": "r20450",
+   "verdict": "broken",
+   "note": "second half incoherent, 爱尔兰 looping"
+  },
+  {
+   "key": "r20659",
+   "verdict": "not_chinese",
+   "note": "two Chinese lines then multilingual token soup"
+  },
+  {
+   "key": "r20232",
+   "verdict": "broken",
+   "note": "looping repetition with wrong-character substitutions"
+  },
+  {
+   "key": "r20801",
+   "verdict": "broken",
+   "note": "mostly incoherent clauses"
+  },
+  {
+   "key": "r20511",
+   "verdict": "flawed",
+   "note": "fluent opening, later awkward phrasing and stray Arabic"
+  },
+  {
+   "key": "r20128",
+   "verdict": "not_chinese",
+   "note": "short garbled Chinese then English verse"
+  },
+  {
+   "key": "r20067",
+   "verdict": "not_chinese",
+   "note": "15 garbled Chinese chars then English"
+  },
+  {
+   "key": "r20245",
+   "verdict": "flawed",
+   "note": "translationese fiction plus SEO headline spam; comprehensible"
+  },
+  {
+   "key": "r20090",
+   "verdict": "flawed",
+   "note": "near-fluent surreal prose, a few impossible collocations"
+  },
+  {
+   "key": "r20470",
+   "verdict": "broken",
+   "note": "one clean sentence then word salad"
+  },
+  {
+   "key": "r20211",
+   "verdict": "not_chinese",
+   "note": "7-char ungrammatical fragment plus longer English gloss"
+  },
+  {
+   "key": "r20013",
+   "verdict": "broken",
+   "note": "bulk is garbled despite sentence rhythm"
+  },
+  {
+   "key": "r20734",
+   "verdict": "flawed",
+   "note": "machine-translation register, awkward but comprehensible"
+  },
+  {
+   "key": "r20171",
+   "verdict": "flawed",
+   "note": "literary register, malformed idiom 同船相舟, later awkwardness"
+  },
+  {
+   "key": "r2IAA0073",
+   "verdict": "broken",
+   "note": "word salad with code and foreign tokens"
+  },
+  {
+   "key": "r20693",
+   "verdict": "broken",
+   "note": "sentence shapes without extractable meaning"
+  },
+  {
+   "key": "r20783",
+   "verdict": "flawed",
+   "note": "mostly natural ad/novel copy, a couple of ungrammatical spots"
+  },
+  {
+   "key": "r2IAA0007",
+   "verdict": "fluent",
+   "note": "natural colloquial forum post with dated list"
+  },
+  {
+   "key": "r2IAA0126",
+   "verdict": "flawed",
+   "note": "single short clause, 担心很大 unnatural"
+  },
+  {
+   "key": "r20093",
+   "verdict": "flawed",
+   "note": "comprehensible translationese with a few incoherent phrases"
+  },
+  {
+   "key": "r20797",
+   "verdict": "not_chinese",
+   "note": "English only"
+  },
+  {
+   "key": "r2IAA0154",
+   "verdict": "broken",
+   "note": "word salad, English intrusion, more word salad"
+  },
+  {
+   "key": "r20756",
+   "verdict": "broken",
+   "note": "traditional-script word salad"
+  },
+  {
+   "key": "r20058",
+   "verdict": "broken",
+   "note": "opens parseable then BBA word salad"
+  },
+  {
+   "key": "r2IAA0127",
+   "verdict": "flawed",
+   "note": "fluent opening, later broken clauses and stray English"
+  },
+  {
+   "key": "r20054",
+   "verdict": "flawed",
+   "note": "design-writing register, grammatical, drifts and degrades at the end"
+  },
+  {
+   "key": "r20804",
+   "verdict": "broken",
+   "note": "sentence-shaped but not comprehensible"
+  },
+  {
+   "key": "r2IAA0146",
+   "verdict": "not_chinese",
+   "note": "short fluent Chinese lines; English/Hebrew dominant"
+  },
+  {
+   "key": "r20094",
+   "verdict": "flawed",
+   "note": "one comprehensible sentence, then garbled fragment with mojibake, then English"
+  },
+  {
+   "key": "r2IAA0102",
+   "verdict": "flawed",
+   "note": "sentences parse with wrong-word substitutions; closing list is word salad"
+  },
+  {
+   "key": "r20168",
+   "verdict": "flawed",
+   "note": "near-fluent essay Chinese, mild awkwardness, one stray English token"
+  },
+  {
+   "key": "r20338",
+   "verdict": "broken",
+   "note": "garbled Chinese then a fluent English paragraph"
+  },
+  {
+   "key": "r20529",
+   "verdict": "flawed",
+   "note": "largely fluent narrative, isolated broken clauses"
+  },
+  {
+   "key": "r20533",
+   "verdict": "flawed",
+   "note": "exam-item format, awkward stem and one ungrammatical option"
+  },
+  {
+   "key": "r2IAA0142",
+   "verdict": "broken",
+   "note": "repeated wrong-character substitutions, no extractable sense"
+  },
+  {
+   "key": "r20598",
+   "verdict": "broken",
+   "note": "question-mark loop, fragments near-meaningless"
+  },
+  {
+   "key": "r20689",
+   "verdict": "not_chinese",
+   "note": "one Chinese sentence then C# code"
+  },
+  {
+   "key": "r20179",
+   "verdict": "flawed",
+   "note": "comprehensible genre prose with several wrong-character errors"
+  },
+  {
+   "key": "r20458",
+   "verdict": "flawed",
+   "note": "translationese; 呷息声 wrong char, one nested phrase collapses"
+  },
+  {
+   "key": "r20546",
+   "verdict": "flawed",
+   "note": "fluent web-novel opening, garbled final paragraph"
+  },
+  {
+   "key": "r20230",
+   "verdict": "flawed",
+   "note": "awkward Chinese, then switches to English; Chinese still dominant"
+  },
+  {
+   "key": "r2IAA0022",
+   "verdict": "fluent",
+   "note": "fluent Chinese metalinguistic commentary"
+  },
+  {
+   "key": "r20037",
+   "verdict": "not_chinese",
+   "note": "predominantly Japanese gibberish"
+  },
+  {
+   "key": "r20149",
+   "verdict": "not_chinese",
+   "note": "brief garbled Chinese, then an English meta-question"
+  },
+  {
+   "key": "r20068",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20210",
+   "verdict": "broken",
+   "note": "incoherent, mixed simplified/traditional"
+  },
+  {
+   "key": "r20373",
+   "verdict": "flawed",
+   "note": "blog-like; several ungrammatical or nonsensical sentences"
+  },
+  {
+   "key": "r2IAA0056",
+   "verdict": "flawed",
+   "note": "grammatical five-char completion, then a title template stub"
+  },
+  {
+   "key": "r20140",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0099",
+   "verdict": "broken",
+   "note": "word salad with Cyrillic/English fragments"
+  },
+  {
+   "key": "r20312",
+   "verdict": "flawed",
+   "note": "middle paragraph parses; opening garbled; HTML tags interleaved"
+  },
+  {
+   "key": "r20120",
+   "verdict": "broken",
+   "note": "wrong-character substitutions throughout"
+  },
+  {
+   "key": "r20485",
+   "verdict": "broken",
+   "note": "clauses do not resolve; degenerates into forum tags"
+  },
+  {
+   "key": "r20627",
+   "verdict": "broken",
+   "note": "nonsense bullet list"
+  },
+  {
+   "key": "r20599",
+   "verdict": "not_chinese",
+   "note": "four-char Chinese phrase then an English meta-question"
+  },
+  {
+   "key": "r20107",
+   "verdict": "flawed",
+   "note": "garbled speech-like opening, then genuinely fluent marketing copy"
+  },
+  {
+   "key": "r20328",
+   "verdict": "flawed",
+   "note": "grammatical but 慢性患病 unnatural; QA artifact tail"
+  },
+  {
+   "key": "r20543",
+   "verdict": "broken",
+   "note": "incoherent Chinese plus Japanese and SQL dump"
+  },
+  {
+   "key": "r2IAA0131",
+   "verdict": "not_chinese",
+   "note": "four Chinese chars then all English"
+  },
+  {
+   "key": "r20686",
+   "verdict": "flawed",
+   "note": "mostly natural essayistic prose, a few garbled clauses"
+  },
+  {
+   "key": "r20272",
+   "verdict": "flawed",
+   "note": "dialogue fluent, narration heavy translationese"
+  },
+  {
+   "key": "r20649",
+   "verdict": "flawed",
+   "note": "translationese with wrong-character slips"
+  },
+  {
+   "key": "r2IAA0118",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20359",
+   "verdict": "broken",
+   "note": "garbled scene plus Japanese and English fragments"
+  },
+  {
+   "key": "r20616",
+   "verdict": "fluent",
+   "note": "collapses into exam-bank items, but each Chinese item is well-formed"
+  },
+  {
+   "key": "r20241",
+   "verdict": "broken",
+   "note": "fragmentary, 唈 wrong char, mixed with English"
+  },
+  {
+   "key": "r20006",
+   "verdict": "flawed",
+   "note": "literary translationese; several ungrammatical clauses"
+  },
+  {
+   "key": "r20036",
+   "verdict": "broken",
+   "note": "opening parses, rest is word salad"
+  },
+  {
+   "key": "r20102",
+   "verdict": "flawed",
+   "note": "translationese with OCR-like character errors"
+  },
+  {
+   "key": "r2IAA0041",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20567",
+   "verdict": "flawed",
+   "note": "largely fluent surreal narration, a few ungrammatical sentences"
+  },
+  {
+   "key": "r20159",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20597",
+   "verdict": "flawed",
+   "note": "several incoherent clauses, closing sentences grammatical"
+  },
+  {
+   "key": "r20045",
+   "verdict": "broken",
+   "note": "word salad plus pinyin gibberish"
+  },
+  {
+   "key": "r20303",
+   "verdict": "flawed",
+   "note": "web-novel style; alternates natural and garbled clauses"
+  },
+  {
+   "key": "r20748",
+   "verdict": "flawed",
+   "note": "garbled Chinese opening then English meta-request; Chinese dominant"
+  },
+  {
+   "key": "r20728",
+   "verdict": "flawed",
+   "note": "first sentence natural, second incoherent"
+  },
+  {
+   "key": "r20454",
+   "verdict": "not_chinese",
+   "note": "multilingual gibberish, Chinese a minority"
+  },
+  {
+   "key": "r20638",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20233",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20512",
+   "verdict": "fluent",
+   "note": "degenerates into a chapter-title list, but each title is well-formed"
+  },
+  {
+   "key": "r20331",
+   "verdict": "fluent",
+   "note": "natural legal-news register"
+  },
+  {
+   "key": "r20469",
+   "verdict": "not_chinese",
+   "note": "ten broken Chinese chars, rest English commentary"
+  },
+  {
+   "key": "r20560",
+   "verdict": "flawed",
+   "note": "translationese, one English word left untranslated"
+  },
+  {
+   "key": "r20123",
+   "verdict": "fluent",
+   "note": "natural conversational prose; a couple of stylistic oddities"
+  },
+  {
+   "key": "r20115",
+   "verdict": "broken",
+   "note": "key sentences yield no meaning; English tail"
+  },
+  {
+   "key": "r20076",
+   "verdict": "flawed",
+   "note": "bilingual alternation; Chinese clauses ungrammatical"
+  },
+  {
+   "key": "r20111",
+   "verdict": "not_chinese",
+   "note": "entirely English"
+  },
+  {
+   "key": "r20327",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20100",
+   "verdict": "broken",
+   "note": "garbled Chinese then config-file dump"
+  },
+  {
+   "key": "r2IAA0014",
+   "verdict": "broken",
+   "note": "a few parseable questions inside otherwise incoherent text"
+  },
+  {
+   "key": "r2IAA0156",
+   "verdict": "flawed",
+   "note": "odd collocations, then self-translation into English"
+  },
+  {
+   "key": "r20443",
+   "verdict": "broken",
+   "note": "incoherent with romaji gibberish"
+  },
+  {
+   "key": "r20392",
+   "verdict": "flawed",
+   "note": "scene is followable but many garbled clauses and code-mixing"
+  },
+  {
+   "key": "r20477",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20066",
+   "verdict": "not_chinese",
+   "note": "one Chinese sentence, then markup and multilingual/English text"
+  },
+  {
+   "key": "r20478",
+   "verdict": "flawed",
+   "note": "unpunctuated, many broken collocations, but scene recoverable"
+  },
+  {
+   "key": "r20217",
+   "verdict": "flawed",
+   "note": "well-formed sentences, subject mismatch, then code dump"
+  },
+  {
+   "key": "r20389",
+   "verdict": "not_chinese",
+   "note": "garbled Chinese opening, English gibberish dominates"
+  },
+  {
+   "key": "r20463",
+   "verdict": "fluent",
+   "note": "metalinguistic analysis, grammatical throughout"
+  },
+  {
+   "key": "r20647",
+   "verdict": "not_chinese",
+   "note": "short broken Chinese, then Gurmukhi and a long English quotation"
+  },
+  {
+   "key": "r20243",
+   "verdict": "flawed",
+   "note": "long natural place-name list, but 国足首发号 and 撕扯毁坏掉 are broken"
+  },
+  {
+   "key": "r2IAA0147",
+   "verdict": "not_chinese",
+   "note": "one broken Chinese clause, rest English"
+  },
+  {
+   "key": "r20784",
+   "verdict": "flawed",
+   "note": "parseable sentences, several semantically incoherent (展现了出有态度)"
+  },
+  {
+   "key": "r2IAA0144",
+   "verdict": "broken",
+   "note": "word salad, wrong characters, random script and topic jumps"
+  },
+  {
+   "key": "r20727",
+   "verdict": "flawed",
+   "note": "web-spam register; several clauses collapse (激素雄黄蓝汞)"
+  },
+  {
+   "key": "r20441",
+   "verdict": "broken",
+   "note": "Chinese dominant but incoherent, mixed with code"
+  },
+  {
+   "key": "r20047",
+   "verdict": "flawed",
+   "note": "Buddhist-jargon mimicry; frames intact, noun piles uninterpretable"
+  },
+  {
+   "key": "r20613",
+   "verdict": "flawed",
+   "note": "machine-translation feel, 和等等 unnatural"
+  },
+  {
+   "key": "r20311",
+   "verdict": "broken",
+   "note": "word salad throughout"
+  },
+  {
+   "key": "r20399",
+   "verdict": "not_chinese",
+   "note": "two characters then shell/code"
+  },
+  {
+   "key": "r2IAA0076",
+   "verdict": "flawed",
+   "note": "grammatical opening, middle degrades into broken clauses"
+  },
+  {
+   "key": "r20750",
+   "verdict": "broken",
+   "note": "word salad plus LaTeX list"
+  },
+  {
+   "key": "r20471",
+   "verdict": "flawed",
+   "note": "sentence frames fine, repeated wrong words (讼解, 在在场人)"
+  },
+  {
+   "key": "r2IAA0125",
+   "verdict": "broken",
+   "note": "incoherent, then English"
+  },
+  {
+   "key": "r20234",
+   "verdict": "not_chinese",
+   "note": "one broken Chinese line, rest English"
+  },
+  {
+   "key": "r20151",
+   "verdict": "not_chinese",
+   "note": "code-switched salad, English dominant"
+  },
+  {
+   "key": "r20588",
+   "verdict": "flawed",
+   "note": "fluent metalinguistic frame, broken example sentences"
+  },
+  {
+   "key": "r20601",
+   "verdict": "not_chinese",
+   "note": "one awkward Chinese clause then an English paragraph"
+  },
+  {
+   "key": "r20027",
+   "verdict": "flawed",
+   "note": "comprehensible stretches, recurrent broken clauses (就就, 大搞笑)"
+  },
+  {
+   "key": "r20083",
+   "verdict": "fluent",
+   "note": "idiomatic web fiction; 削减 for hair is the one bad collocation"
+  },
+  {
+   "key": "r20531",
+   "verdict": "broken",
+   "note": "very short, ungrammatical"
+  },
+  {
+   "key": "r20687",
+   "verdict": "fluent",
+   "note": "exam-item Chinese, grammatical; incoherent answers are content"
+  },
+  {
+   "key": "r2IAA0048",
+   "verdict": "broken",
+   "note": "poem layout, most lines wrong-character salad"
+  },
+  {
+   "key": "r20552",
+   "verdict": "flawed",
+   "note": "narrative with several ungrammatical clauses; closing paragraph fluent"
+  },
+  {
+   "key": "r20205",
+   "verdict": "not_chinese",
+   "note": "fragment then English book blurb"
+  },
+  {
+   "key": "r2IAA0132",
+   "verdict": "broken",
+   "note": "list of nonsense self-descriptions"
+  },
+  {
+   "key": "r20249",
+   "verdict": "fluent",
+   "note": "regulatory prose is natural; mismatched attribution is content"
+  },
+  {
+   "key": "r2IAA0097",
+   "verdict": "broken",
+   "note": "word salad throughout"
+  },
+  {
+   "key": "r20180",
+   "verdict": "flawed",
+   "note": "essay register, wrong characters (培诂) and broken phrases"
+  },
+  {
+   "key": "r20263",
+   "verdict": "not_chinese",
+   "note": "four characters then English"
+  },
+  {
+   "key": "r2IAA0029",
+   "verdict": "flawed",
+   "note": "translated-fantasy feel, several ungrammatical sentences"
+  },
+  {
+   "key": "r20262",
+   "verdict": "not_chinese",
+   "note": "single English word"
+  },
+  {
+   "key": "r20596",
+   "verdict": "flawed",
+   "note": "readable narrative, recurrent ungrammatical clauses"
+  },
+  {
+   "key": "r20436",
+   "verdict": "flawed",
+   "note": "fluent Chinese opener (被权力浪漫 odd), then wholesale switch to English"
+  },
+  {
+   "key": "r2IAA0003",
+   "verdict": "flawed",
+   "note": "dense theory-translationese; strained but structured, 困素 a nonword"
+  },
+  {
+   "key": "r20445",
+   "verdict": "flawed",
+   "note": "largely natural profile writing with clear unnatural spots (等死亡, 做这笔事)"
+  },
+  {
+   "key": "r20475",
+   "verdict": "broken",
+   "note": "Chinese dominant and incoherent, then garbled English"
+  },
+  {
+   "key": "r20096",
+   "verdict": "flawed",
+   "note": "fluent two-sentence opener, then multilingual title spam"
+  },
+  {
+   "key": "r20124",
+   "verdict": "flawed",
+   "note": "translated-encyclopedia register, several unparseable clauses"
+  },
+  {
+   "key": "r20506",
+   "verdict": "fluent",
+   "note": "natural analytical prose; one awkward sentence near the end"
+  },
+  {
+   "key": "r2IAA0000",
+   "verdict": "flawed",
+   "note": "fluent opener, some word-salad clauses, then parseable translationese"
+  },
+  {
+   "key": "r20707",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r20555",
+   "verdict": "not_chinese",
+   "note": "brief flawed Chinese then English"
+  },
+  {
+   "key": "r20493",
+   "verdict": "flawed",
+   "note": "half-and-half; Chinese portion semi-poetic with a broken opening line"
+  },
+  {
+   "key": "r20300",
+   "verdict": "flawed",
+   "note": "coherent narrative, awkward time expressions and a broken final clause"
+  },
+  {
+   "key": "r20413",
+   "verdict": "flawed",
+   "note": "poetic translationese; some lines fluent, some ungrammatical"
+  },
+  {
+   "key": "r20498",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r20139",
+   "verdict": "broken",
+   "note": "word salad then glossary fragments"
+  },
+  {
+   "key": "r20785",
+   "verdict": "broken",
+   "note": "word salad with invented characters"
+  },
+  {
+   "key": "r20611",
+   "verdict": "broken",
+   "note": "fragmentary lines, mostly incoherent"
+  },
+  {
+   "key": "r20561",
+   "verdict": "flawed",
+   "note": "quiz stubs mostly grammatical, one broken item"
+  },
+  {
+   "key": "r20073",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r2IAA0066",
+   "verdict": "flawed",
+   "note": "broken opening, numbered paragraphs parseable with odd word choices"
+  },
+  {
+   "key": "r20127",
+   "verdict": "flawed",
+   "note": "garbled colloquial first half, fluent reply paragraph"
+  },
+  {
+   "key": "r20656",
+   "verdict": "fluent",
+   "note": "natural structured explanation"
+  },
+  {
+   "key": "r2IAA0010",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r20800",
+   "verdict": "broken",
+   "note": "broken Chinese collapsing into code"
+  },
+  {
+   "key": "r20753",
+   "verdict": "not_chinese",
+   "note": "one character then English"
+  },
+  {
+   "key": "r20762",
+   "verdict": "flawed",
+   "note": "mostly natural web copy, a few broken clauses and a wrong character (癌砪)"
+  },
+  {
+   "key": "r20503",
+   "verdict": "broken",
+   "note": "salad Chinese clause, then English degeneration"
+  },
+  {
+   "key": "r20653",
+   "verdict": "broken",
+   "note": "nonce compounds, mixed simplified/traditional"
+  },
+  {
+   "key": "r20799",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20256",
+   "verdict": "flawed",
+   "note": "sentences parse but many nonce words, stray Cyrillic"
+  },
+  {
+   "key": "r20802",
+   "verdict": "flawed",
+   "note": "salad narrative then fluent refusal boilerplate"
+  },
+  {
+   "key": "r20109",
+   "verdict": "flawed",
+   "note": "one good sentence, English intrusion, MCQ junk"
+  },
+  {
+   "key": "r20723",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20452",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0083",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20110",
+   "verdict": "broken",
+   "note": "natural dialogue collapses into 的-loop"
+  },
+  {
+   "key": "r20585",
+   "verdict": "flawed",
+   "note": "several unparseable clauses amid readable dialogue"
+  },
+  {
+   "key": "r20685",
+   "verdict": "fluent",
+   "note": "one redundant 为什么…的原因"
+  },
+  {
+   "key": "r2IAA0052",
+   "verdict": "flawed",
+   "note": "one garbled clause with English intrusion; rest natural"
+  },
+  {
+   "key": "r20164",
+   "verdict": "broken",
+   "note": "salad Chinese then English"
+  },
+  {
+   "key": "r20464",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20079",
+   "verdict": "flawed",
+   "note": "readable, one mojibake char, odd collocations"
+  },
+  {
+   "key": "r20688",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20223",
+   "verdict": "broken",
+   "note": "first clause fine, rest salad"
+  },
+  {
+   "key": "r20666",
+   "verdict": "flawed",
+   "note": "garbled narrative then fluent refusal"
+  },
+  {
+   "key": "r20665",
+   "verdict": "not_chinese",
+   "note": "short Chinese fragment, then English"
+  },
+  {
+   "key": "r2IAA0094",
+   "verdict": "broken",
+   "note": "translationese salad, most clauses unparseable"
+  },
+  {
+   "key": "r20636",
+   "verdict": "flawed",
+   "note": "clean exam item then garbled biology stem"
+  },
+  {
+   "key": "r2IAA0087",
+   "verdict": "flawed",
+   "note": "exam-style prose, several wrong collocations"
+  },
+  {
+   "key": "r20435",
+   "verdict": "not_chinese",
+   "note": "four Chinese chars, then all English"
+  },
+  {
+   "key": "r20479",
+   "verdict": "broken",
+   "note": "one good clause, then salad plus English"
+  },
+  {
+   "key": "r20023",
+   "verdict": "fluent",
+   "note": "real literary-critical register; one typo, one garbled NP"
+  },
+  {
+   "key": "r20384",
+   "verdict": "flawed",
+   "note": "garbled Chinese with English gloss following"
+  },
+  {
+   "key": "r20227",
+   "verdict": "broken",
+   "note": "sentence-shaped but collocations nearly all wrong"
+  },
+  {
+   "key": "r20322",
+   "verdict": "not_chinese",
+   "note": "short Chinese, then long English"
+  },
+  {
+   "key": "r20591",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20142",
+   "verdict": "flawed",
+   "note": "readable opening, degrades into markup and English"
+  },
+  {
+   "key": "r20231",
+   "verdict": "flawed",
+   "note": "translationese, unnatural collocations throughout"
+  },
+  {
+   "key": "r20150",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20360",
+   "verdict": "not_chinese",
+   "note": "one short Chinese clause, then long English quote"
+  },
+  {
+   "key": "r20329",
+   "verdict": "broken",
+   "note": "ten chars of pseudo-classical nonsense plus symbols"
+  },
+  {
+   "key": "r20290",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0096",
+   "verdict": "flawed",
+   "note": "natural colloquial dialogue with several wrong-character errors"
+  },
+  {
+   "key": "r2IAA0092",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20537",
+   "verdict": "fluent",
+   "note": "natural prose; one incomplete predicate, Bengali tail"
+  },
+  {
+   "key": "r20500",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20347",
+   "verdict": "flawed",
+   "note": "grammatical sentences, nonce terminology"
+  },
+  {
+   "key": "r20352",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20019",
+   "verdict": "flawed",
+   "note": "half readable, half salad, then English translation"
+  },
+  {
+   "key": "r20337",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20697",
+   "verdict": "broken",
+   "note": "structural scaffolding but most clauses meaningless"
+  },
+  {
+   "key": "r20736",
+   "verdict": "not_chinese",
+   "note": "two short lines then Romanian gibberish"
+  },
+  {
+   "key": "r20646",
+   "verdict": "flawed",
+   "note": "grammatical but semantically incoherent, odd compounds"
+  },
+  {
+   "key": "r20612",
+   "verdict": "not_chinese",
+   "note": "13 Chinese chars, then English with repetition"
+  },
+  {
+   "key": "r20280",
+   "verdict": "flawed",
+   "note": "long readable stretches, several garbled clauses"
+  },
+  {
+   "key": "r2IAA0136",
+   "verdict": "flawed",
+   "note": "convoluted opening sentence, 解决出 wrong"
+  },
+  {
+   "key": "r20177",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20095",
+   "verdict": "flawed",
+   "note": "translationese Chinese then English Q&A"
+  },
+  {
+   "key": "r20298",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20542",
+   "verdict": "flawed",
+   "note": "art-criticism register, pervasive wrong collocations"
+  },
+  {
+   "key": "r20253",
+   "verdict": "fluent",
+   "note": "idiomatic textbook answer-key Chinese"
+  },
+  {
+   "key": "r20545",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20539",
+   "verdict": "broken",
+   "note": "one good sentence then markup and pseudo-classical salad"
+  },
+  {
+   "key": "r20438",
+   "verdict": "broken",
+   "note": "machine-translationese, majority of clauses incoherent"
+  },
+  {
+   "key": "r2IAA0011",
+   "verdict": "fluent",
+   "note": "strong translated-literary prose, two localized lapses"
+  },
+  {
+   "key": "r2IAA0117",
+   "verdict": "broken",
+   "note": "garbled hanzi then pinyin gibberish"
+  },
+  {
+   "key": "r20652",
+   "verdict": "broken",
+   "note": "topical thread but majority of clauses salad"
+  },
+  {
+   "key": "r20007",
+   "verdict": "flawed",
+   "note": "narrative parses; closing gloss largely incoherent"
+  },
+  {
+   "key": "r20711",
+   "verdict": "broken",
+   "note": "opens in Chinese, degenerates into multilingual token salad"
+  },
+  {
+   "key": "r20518",
+   "verdict": "broken",
+   "note": "Chinese portion is word salad; English poem follows"
+  },
+  {
+   "key": "r20350",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20547",
+   "verdict": "broken",
+   "note": "incoherent middle, Vietnamese insert; only the blog boilerplate reads"
+  },
+  {
+   "key": "r2IAA0046",
+   "verdict": "broken",
+   "note": "grammatical fragments, no coherence; ends in link spam"
+  },
+  {
+   "key": "r20050",
+   "verdict": "flawed",
+   "note": "natural opening, degrades into ungrammatical clauses and a spam URL"
+  },
+  {
+   "key": "r2IAA0141",
+   "verdict": "flawed",
+   "note": "mostly natural list prose; redundancy and stray kana"
+  },
+  {
+   "key": "r20153",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0077",
+   "verdict": "flawed",
+   "note": "very short; 修补家境 is an odd collocation"
+  },
+  {
+   "key": "r20451",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20289",
+   "verdict": "not_chinese",
+   "note": "three characters then English narrative"
+  },
+  {
+   "key": "r2IAA0047",
+   "verdict": "flawed",
+   "note": "comprehensible; several ungrammatical clauses, escaped unicode"
+  },
+  {
+   "key": "r20065",
+   "verdict": "not_chinese",
+   "note": "one awkward Chinese clause then an English paragraph"
+  },
+  {
+   "key": "r20430",
+   "verdict": "flawed",
+   "note": "exam-answer prose; garbled classical quotation, 安慰安慰 duplication"
+  },
+  {
+   "key": "r20735",
+   "verdict": "broken",
+   "note": "nonsense plus raw HTML"
+  },
+  {
+   "key": "r2IAA0157",
+   "verdict": "fluent",
+   "note": "drama-review prose; minor 的/得 slip"
+  },
+  {
+   "key": "r20225",
+   "verdict": "broken",
+   "note": "invented/rare-character salad"
+  },
+  {
+   "key": "r2IAA0081",
+   "verdict": "broken",
+   "note": "Chinese leads and dominates but most clauses unparseable"
+  },
+  {
+   "key": "r20098",
+   "verdict": "not_chinese",
+   "note": "prompt echoed once; body is English multiple-choice options"
+  },
+  {
+   "key": "r20722",
+   "verdict": "flawed",
+   "note": "translationese academic prose with typos"
+  },
+  {
+   "key": "r20125",
+   "verdict": "fluent",
+   "note": "content is physics nonsense; the Chinese itself is natural"
+  },
+  {
+   "key": "r20349",
+   "verdict": "not_chinese",
+   "note": "23 broken characters then English apology"
+  },
+  {
+   "key": "r20505",
+   "verdict": "flawed",
+   "note": "reads well early, clear errors later"
+  },
+  {
+   "key": "r20064",
+   "verdict": "fluent",
+   "note": "play-script dialogue; a couple of aspect-marker slips"
+  },
+  {
+   "key": "r20242",
+   "verdict": "not_chinese",
+   "note": "short broken Chinese lead, then English plot summary"
+  },
+  {
+   "key": "r20507",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20284",
+   "verdict": "flawed",
+   "note": "followable narrative, many wrong-character substitutions"
+  },
+  {
+   "key": "r20743",
+   "verdict": "flawed",
+   "note": "opens coherently, degrades into nonsense MCQ options"
+  },
+  {
+   "key": "r20492",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20199",
+   "verdict": "flawed",
+   "note": "bullets parse; connecting sentences ungrammatical"
+  },
+  {
+   "key": "r20374",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0111",
+   "verdict": "not_chinese",
+   "note": "one odd clause then an English system prompt"
+  },
+  {
+   "key": "r2IAA0037",
+   "verdict": "flawed",
+   "note": "comprehensible but loose collocations throughout"
+  },
+  {
+   "key": "r20605",
+   "verdict": "not_chinese",
+   "note": "prompt restated, then English exposition"
+  },
+  {
+   "key": "r20258",
+   "verdict": "fluent",
+   "note": "colloquial but natural"
+  },
+  {
+   "key": "r20566",
+   "verdict": "fluent",
+   "note": "very short, grammatical"
+  },
+  {
+   "key": "r20594",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20590",
+   "verdict": "flawed",
+   "note": "syntax holds, referents nonsense; invented character compound"
+  },
+  {
+   "key": "r2IAA0080",
+   "verdict": "broken",
+   "note": "occasional parseable clause, mostly unrecoverable"
+  },
+  {
+   "key": "r20181",
+   "verdict": "broken",
+   "note": "Chinese block is salad; Portuguese tail roughly equal in length"
+  },
+  {
+   "key": "r20351",
+   "verdict": "not_chinese",
+   "note": "43 characters of salad then an English paragraph"
+  },
+  {
+   "key": "r20133",
+   "verdict": "broken",
+   "note": "pure character salad"
+  },
+  {
+   "key": "r2IAA0129",
+   "verdict": "not_chinese",
+   "note": "one Chinese clause then degenerate Russian"
+  },
+  {
+   "key": "r2IAA0086",
+   "verdict": "broken",
+   "note": "one flawed sentence then code/garbage; English tail"
+  },
+  {
+   "key": "r20409",
+   "verdict": "not_chinese",
+   "note": "11 characters then English"
+  },
+  {
+   "key": "r20773",
+   "verdict": "flawed",
+   "note": "sentences natural but the paragraph loops twice"
+  },
+  {
+   "key": "r20025",
+   "verdict": "flawed",
+   "note": "readable narrative with recurrent collocation errors"
+  },
+  {
+   "key": "r20416",
+   "verdict": "broken",
+   "note": "syntax present, lexis nonsense throughout"
+  },
+  {
+   "key": "r20765",
+   "verdict": "flawed",
+   "note": "business jargon; several ungrammatical phrases"
+  },
+  {
+   "key": "r20209",
+   "verdict": "broken",
+   "note": "looping salad"
+  },
+  {
+   "key": "r20607",
+   "verdict": "flawed",
+   "note": "editorial-commentary genre reads well; some ungrammatical stretches"
+  },
+  {
+   "key": "r20143",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20183",
+   "verdict": "flawed",
+   "note": "clauses parse, discourse incoherent"
+  },
+  {
+   "key": "r2IAA0006",
+   "verdict": "flawed",
+   "note": "convincing essay register; two garbled sentences and a typo"
+  },
+  {
+   "key": "r20519",
+   "verdict": "broken",
+   "note": "degenerates into repetition of 可"
+  },
+  {
+   "key": "r20806",
+   "verdict": "not_chinese",
+   "note": "broken Chinese clause then English commentary"
+  },
+  {
+   "key": "r20637",
+   "verdict": "not_chinese",
+   "note": "two English words only"
+  },
+  {
+   "key": "r2IAA0121",
+   "verdict": "fluent",
+   "note": "vivid narrative; two minor aspect errors"
+  },
+  {
+   "key": "r20521",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0069",
+   "verdict": "fluent",
+   "note": "very short, grammatical"
+  },
+  {
+   "key": "r20250",
+   "verdict": "not_chinese",
+   "note": "short broken Chinese opener, then a long list of English XML-style tags"
+  },
+  {
+   "key": "r20418",
+   "verdict": "broken",
+   "note": "Chinese-English word salad, characters mid-word"
+  },
+  {
+   "key": "r20309",
+   "verdict": "flawed",
+   "note": "readable but ungrammatical patches; dialogue semantically incoherent"
+  },
+  {
+   "key": "r20285",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20798",
+   "verdict": "broken",
+   "note": "looping repetition, collapsed syntax"
+  },
+  {
+   "key": "r20763",
+   "verdict": "fluent",
+   "note": "idiomatic sentences throughout; narrative content disjointed"
+  },
+  {
+   "key": "r20060",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20134",
+   "verdict": "not_chinese",
+   "note": "one Chinese clause, then a full English paragraph"
+  },
+  {
+   "key": "r20032",
+   "verdict": "not_chinese",
+   "note": "garbled Chinese fragment, dominant English"
+  },
+  {
+   "key": "r20278",
+   "verdict": "fluent",
+   "note": "odd nine-character opener, rest natural essay prose"
+  },
+  {
+   "key": "r2IAA0071",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20749",
+   "verdict": "not_chinese",
+   "note": "six Chinese characters, rest English"
+  },
+  {
+   "key": "r20569",
+   "verdict": "flawed",
+   "note": "junk first line, body largely natural"
+  },
+  {
+   "key": "r20057",
+   "verdict": "broken",
+   "note": "opens readable, degenerates into word salad"
+  },
+  {
+   "key": "r20706",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20266",
+   "verdict": "not_chinese",
+   "note": "two characters plus English tokens"
+  },
+  {
+   "key": "r20536",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20632",
+   "verdict": "flawed",
+   "note": "grammatical but with nonsense clauses"
+  },
+  {
+   "key": "r20675",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20307",
+   "verdict": "not_chinese",
+   "note": "four characters, rest garbled English"
+  },
+  {
+   "key": "r20540",
+   "verdict": "flawed",
+   "note": "unnatural collocations, non-sequitur clauses"
+  },
+  {
+   "key": "r20371",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20481",
+   "verdict": "broken",
+   "note": "very short and incoherent"
+  },
+  {
+   "key": "r20626",
+   "verdict": "not_chinese",
+   "note": "brief Chinese opener, English dialogue dominates"
+  },
+  {
+   "key": "r20046",
+   "verdict": "flawed",
+   "note": "clean first sentences, then nonsense noun phrases"
+  },
+  {
+   "key": "r20038",
+   "verdict": "flawed",
+   "note": "pseudo-spec prose, several incoherent clauses"
+  },
+  {
+   "key": "r20715",
+   "verdict": "fluent",
+   "note": "well-formed but only a few characters"
+  },
+  {
+   "key": "r20162",
+   "verdict": "broken",
+   "note": "Chinese portion nonsense; roughly half English"
+  },
+  {
+   "key": "r20668",
+   "verdict": "broken",
+   "note": "rare-character junk plus HTML"
+  },
+  {
+   "key": "r20760",
+   "verdict": "not_chinese",
+   "note": "one clause of Chinese, rest English"
+  },
+  {
+   "key": "r20754",
+   "verdict": "flawed",
+   "note": "largely natural; two clear errors"
+  },
+  {
+   "key": "r20316",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20709",
+   "verdict": "fluent",
+   "note": "natural exam-commentary register"
+  },
+  {
+   "key": "r20427",
+   "verdict": "flawed",
+   "note": "literary but with missing nouns and odd phrases"
+  },
+  {
+   "key": "r20302",
+   "verdict": "not_chinese",
+   "note": "Japanese"
+  },
+  {
+   "key": "r20682",
+   "verdict": "broken",
+   "note": "starts coherent, collapses into garbage characters"
+  },
+  {
+   "key": "r20662",
+   "verdict": "flawed",
+   "note": "web-novel prose with unnatural collocations"
+  },
+  {
+   "key": "r20334",
+   "verdict": "flawed",
+   "note": "translationese but comprehensible; English tail"
+  },
+  {
+   "key": "r2IAA0103",
+   "verdict": "broken",
+   "note": "wrong-character coinages; heavy English admixture"
+  },
+  {
+   "key": "r20396",
+   "verdict": "not_chinese",
+   "note": "two English words"
+  },
+  {
+   "key": "r20752",
+   "verdict": "not_chinese",
+   "note": "five characters, rest Turkish"
+  },
+  {
+   "key": "r20078",
+   "verdict": "not_chinese",
+   "note": "nonsense fragment, then bulk HTML/CSS"
+  },
+  {
+   "key": "r20314",
+   "verdict": "fluent",
+   "note": "well-formed but very short"
+  },
+  {
+   "key": "r20495",
+   "verdict": "not_chinese",
+   "note": "two characters, rest English"
+  },
+  {
+   "key": "r20691",
+   "verdict": "flawed",
+   "note": "comprehensible with awkward phrasing"
+  },
+  {
+   "key": "r20174",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20792",
+   "verdict": "broken",
+   "note": "character garbage mixed with Latin junk"
+  },
+  {
+   "key": "r20166",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20222",
+   "verdict": "flawed",
+   "note": "literary but repeated wrong word choices"
+  },
+  {
+   "key": "r2IAA0115",
+   "verdict": "broken",
+   "note": "Chinese dominant but incoherent; tails into other languages"
+  },
+  {
+   "key": "r20761",
+   "verdict": "flawed",
+   "note": "grammatical translationese with clear collocation errors"
+  },
+  {
+   "key": "r20484",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20341",
+   "verdict": "broken",
+   "note": "sentence shapes intact, meaning collapses"
+  },
+  {
+   "key": "r20655",
+   "verdict": "fluent",
+   "note": "idiomatic exam prose; one odd phrase"
+  },
+  {
+   "key": "r20178",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20658",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20730",
+   "verdict": "not_chinese",
+   "note": "four characters, then English and Hindi"
+  },
+  {
+   "key": "r20294",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20219",
+   "verdict": "broken",
+   "note": "coined nonsense terms plus markup"
+  },
+  {
+   "key": "r20419",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20778",
+   "verdict": "broken",
+   "note": "collage of fragments with wrong-character substitutions"
+  },
+  {
+   "key": "r20603",
+   "verdict": "broken",
+   "note": "nonsense collocations, mixed English/Russian fragments"
+  },
+  {
+   "key": "r20745",
+   "verdict": "broken",
+   "note": "Chinese sentence frames, incoherent throughout"
+  },
+  {
+   "key": "r20155",
+   "verdict": "not_chinese",
+   "note": "one short flawed Chinese clause, bulk is English translation"
+  },
+  {
+   "key": "r20550",
+   "verdict": "not_chinese",
+   "note": "brief grammatical Chinese opening, then long English logic puzzle"
+  },
+  {
+   "key": "r20335",
+   "verdict": "flawed",
+   "note": "exercise register, several ungrammatical clauses"
+  },
+  {
+   "key": "r20704",
+   "verdict": "broken",
+   "note": "nonwords, most clauses incomprehensible"
+  },
+  {
+   "key": "r20074",
+   "verdict": "flawed",
+   "note": "subtitle format; some lines comprehensible, opening incoherent"
+  },
+  {
+   "key": "r20737",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r20796",
+   "verdict": "broken",
+   "note": "Chinese syntax, nonsensical collocations throughout"
+  },
+  {
+   "key": "r20121",
+   "verdict": "flawed",
+   "note": "largely natural literary prose with ungrammatical clauses"
+  },
+  {
+   "key": "r2IAA0018",
+   "verdict": "broken",
+   "note": "nonwords, no coherent meaning"
+  },
+  {
+   "key": "r20226",
+   "verdict": "flawed",
+   "note": "fluent web-novel prose marred by stray Arabic/latin tokens"
+  },
+  {
+   "key": "r20088",
+   "verdict": "fluent",
+   "note": "natural literary translationese; one loose clause"
+  },
+  {
+   "key": "r20618",
+   "verdict": "not_chinese",
+   "note": "brief broken Chinese, bulk is English bio"
+  },
+  {
+   "key": "r20446",
+   "verdict": "flawed",
+   "note": "essay middle is grammatical, opening and end incoherent"
+  },
+  {
+   "key": "r20229",
+   "verdict": "broken",
+   "note": "looping incoherent bullet list"
+  },
+  {
+   "key": "r20220",
+   "verdict": "not_chinese",
+   "note": "Python code"
+  },
+  {
+   "key": "r20091",
+   "verdict": "broken",
+   "note": "word salad, then markdown image links"
+  },
+  {
+   "key": "r2IAA0061",
+   "verdict": "flawed",
+   "note": "genre-typical prose with particle errors and a stray English token"
+  },
+  {
+   "key": "r2IAA0088",
+   "verdict": "not_chinese",
+   "note": "Scala code"
+  },
+  {
+   "key": "r20353",
+   "verdict": "broken",
+   "note": "invented compounds, clauses do not cohere"
+  },
+  {
+   "key": "r20248",
+   "verdict": "broken",
+   "note": "subtitle fragments, incoherent, ends in Korean"
+  },
+  {
+   "key": "r20395",
+   "verdict": "flawed",
+   "note": "long stretch of coherent prose, odd collocations and stray English"
+  },
+  {
+   "key": "r20679",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20212",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20368",
+   "verdict": "flawed",
+   "note": "film-review register, several unnatural phrasings"
+  },
+  {
+   "key": "r20361",
+   "verdict": "not_chinese",
+   "note": "ungrammatical Chinese clause then English"
+  },
+  {
+   "key": "r20345",
+   "verdict": "not_chinese",
+   "note": "English only"
+  },
+  {
+   "key": "r20365",
+   "verdict": "broken",
+   "note": "tiny, fragmentary multiple-choice stubs"
+  },
+  {
+   "key": "r2IAA0079",
+   "verdict": "broken",
+   "note": "wrong collocations plus long looping repetition"
+  },
+  {
+   "key": "r20793",
+   "verdict": "not_chinese",
+   "note": "broken Chinese fragment then English word list"
+  },
+  {
+   "key": "r20270",
+   "verdict": "fluent",
+   "note": "short but grammatical quiz-style question"
+  },
+  {
+   "key": "r2IAA0082",
+   "verdict": "broken",
+   "note": "scattered parseable fragments, overall incoherent"
+  },
+  {
+   "key": "r20288",
+   "verdict": "not_chinese",
+   "note": "one Chinese sentence then English"
+  },
+  {
+   "key": "r20299",
+   "verdict": "flawed",
+   "note": "comprehensible narrative with several incoherent stretches"
+  },
+  {
+   "key": "r20726",
+   "verdict": "flawed",
+   "note": "incoherent opening, fluent advice register after"
+  },
+  {
+   "key": "r20340",
+   "verdict": "broken",
+   "note": "degenerate, runs of commas"
+  },
+  {
+   "key": "r20305",
+   "verdict": "flawed",
+   "note": "heavy translationese, about half comprehensible"
+  },
+  {
+   "key": "r20308",
+   "verdict": "not_chinese",
+   "note": "two Chinese characters then Arabic and English"
+  },
+  {
+   "key": "r2IAA0005",
+   "verdict": "flawed",
+   "note": "grammatical but with odd, unidiomatic collocations"
+  },
+  {
+   "key": "r20587",
+   "verdict": "flawed",
+   "note": "mostly natural expository prose, one dangling clause"
+  },
+  {
+   "key": "r20794",
+   "verdict": "flawed",
+   "note": "Chinese leads, translationese with a nonword; English question appended"
+  },
+  {
+   "key": "r20086",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0089",
+   "verdict": "broken",
+   "note": "incoherent, then a sentence repeated three times"
+  },
+  {
+   "key": "r20510",
+   "verdict": "fluent",
+   "note": "natural academic Chinese"
+  },
+  {
+   "key": "r20719",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r2IAA0093",
+   "verdict": "flawed",
+   "note": "fluent narration, translationese dialogue"
+  },
+  {
+   "key": "r20132",
+   "verdict": "flawed",
+   "note": "incoherent opening, then fluent exam text"
+  },
+  {
+   "key": "r20456",
+   "verdict": "not_chinese",
+   "note": "six Chinese characters, rest English"
+  },
+  {
+   "key": "r20535",
+   "verdict": "not_chinese",
+   "note": "short Chinese clause then English"
+  },
+  {
+   "key": "r20595",
+   "verdict": "broken",
+   "note": "incoherent lines interleaved with HTML entities"
+  },
+  {
+   "key": "r20321",
+   "verdict": "flawed",
+   "note": "fluent opening, later clauses convoluted and unidiomatic"
+  },
+  {
+   "key": "r20135",
+   "verdict": "flawed",
+   "note": "comprehensible fantasy prose, stray English tokens and odd clauses"
+  },
+  {
+   "key": "r20388",
+   "verdict": "not_chinese",
+   "note": "broken Chinese fragment then English/code"
+  },
+  {
+   "key": "r20474",
+   "verdict": "not_chinese",
+   "note": "opens with broken Chinese, degenerates into English/code junk"
+  },
+  {
+   "key": "r20593",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20259",
+   "verdict": "flawed",
+   "note": "broken opening, coherent analytical passage after"
+  },
+  {
+   "key": "r20642",
+   "verdict": "broken",
+   "note": "very short; doubled particle and an incoherent clause"
+  },
+  {
+   "key": "r20602",
+   "verdict": "broken",
+   "note": "mojibake, code fragments, incoherent"
+  },
+  {
+   "key": "r20790",
+   "verdict": "broken",
+   "note": "exam-key format, semantically hollow, nonwords"
+  },
+  {
+   "key": "r20144",
+   "verdict": "broken",
+   "note": "invented compounds, no coherent meaning"
+  },
+  {
+   "key": "r20703",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20244",
+   "verdict": "flawed",
+   "note": "awkward collocations, corrupted token, stray English name"
+  },
+  {
+   "key": "r20411",
+   "verdict": "broken",
+   "note": "coherent opener then collapses into word salad"
+  },
+  {
+   "key": "r20563",
+   "verdict": "flawed",
+   "note": "translationese narrative, several odd phrasings"
+  },
+  {
+   "key": "r2IAA0108",
+   "verdict": "flawed",
+   "note": "disjointed list fragments with HTML, fluent closing paragraph"
+  },
+  {
+   "key": "r20767",
+   "verdict": "not_chinese",
+   "note": "only ' PLAY'"
+  },
+  {
+   "key": "r20315",
+   "verdict": "broken",
+   "note": "incoherent opener then a JSON comment dump"
+  },
+  {
+   "key": "r20615",
+   "verdict": "broken",
+   "note": "non-words, incoherent second half"
+  },
+  {
+   "key": "r20391",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20130",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20554",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20527",
+   "verdict": "fluent",
+   "note": "one stray glitch token, otherwise natural technical prose"
+  },
+  {
+   "key": "r20106",
+   "verdict": "flawed",
+   "note": "gist recoverable, final clause incoherent"
+  },
+  {
+   "key": "r20676",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20482",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20261",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r2IAA0015",
+   "verdict": "fluent",
+   "note": "one minor slip"
+  },
+  {
+   "key": "r2IAA0024",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0050",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20367",
+   "verdict": "not_chinese",
+   "note": "one Chinese line then all English"
+  },
+  {
+   "key": "r2IAA0045",
+   "verdict": "broken",
+   "note": "spam keyword string"
+  },
+  {
+   "key": "r20077",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20343",
+   "verdict": "not_chinese",
+   "note": "short Chinese clause then code and English"
+  },
+  {
+   "key": "r20614",
+   "verdict": "flawed",
+   "note": "parseable but semantically incoherent, trails into English"
+  },
+  {
+   "key": "r20214",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20275",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20739",
+   "verdict": "broken",
+   "note": "wrong-word errors, unparseable clauses"
+  },
+  {
+   "key": "r20483",
+   "verdict": "flawed",
+   "note": "quiz text with garbled English-laced analysis"
+  },
+  {
+   "key": "r20356",
+   "verdict": "not_chinese",
+   "note": "one clause then multiscript noise"
+  },
+  {
+   "key": "r20777",
+   "verdict": "flawed",
+   "note": "garbled token insertions"
+  },
+  {
+   "key": "r20422",
+   "verdict": "flawed",
+   "note": "real internet Chinese plus a Japanese garbage block"
+  },
+  {
+   "key": "r20400",
+   "verdict": "broken",
+   "note": "translationese that does not cohere"
+  },
+  {
+   "key": "r20434",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20621",
+   "verdict": "flawed",
+   "note": "parseable sentences, absurd collocations, inline English glosses"
+  },
+  {
+   "key": "r20369",
+   "verdict": "not_chinese",
+   "note": "one short clause then English"
+  },
+  {
+   "key": "r20517",
+   "verdict": "flawed",
+   "note": "ungrammatical clauses, HTML tail"
+  },
+  {
+   "key": "r20324",
+   "verdict": "flawed",
+   "note": "run-on garbled opener, fluent exam-analysis body"
+  },
+  {
+   "key": "r20608",
+   "verdict": "flawed"
+  },
+  {
+   "key": "r20117",
+   "verdict": "broken",
+   "note": "string of invented images, then English"
+  },
+  {
+   "key": "r2IAA0090",
+   "verdict": "not_chinese",
+   "note": "one clause then Ruby code"
+  },
+  {
+   "key": "r20538",
+   "verdict": "not_chinese",
+   "note": "entirely English"
+  },
+  {
+   "key": "r20333",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20431",
+   "verdict": "flawed",
+   "note": "policy translationese with several non-words"
+  },
+  {
+   "key": "r20620",
+   "verdict": "flawed",
+   "note": "strong literary opening, degrades in second half"
+  },
+  {
+   "key": "r2IAA0060",
+   "verdict": "not_chinese",
+   "note": "fragment then English paragraph"
+  },
+  {
+   "key": "r20362",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20628",
+   "verdict": "flawed",
+   "note": "broken first line, mostly grammatical commentary after"
+  },
+  {
+   "key": "r20746",
+   "verdict": "flawed",
+   "note": "natural sentences but the block repeats verbatim"
+  },
+  {
+   "key": "r20462",
+   "verdict": "broken",
+   "note": "word salad plus repetition of the prompt"
+  },
+  {
+   "key": "r20410",
+   "verdict": "flawed",
+   "note": "several ungrammatical sentences amid readable prose"
+  },
+  {
+   "key": "r20224",
+   "verdict": "broken",
+   "note": "non-words and foreign tokens in most clauses"
+  },
+  {
+   "key": "r20005",
+   "verdict": "broken",
+   "note": "incoherent then an Apache license header"
+  },
+  {
+   "key": "r20330",
+   "verdict": "flawed",
+   "note": "grammatical but vague, odd coinages"
+  },
+  {
+   "key": "r20417",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20228",
+   "verdict": "flawed",
+   "note": "mostly grammatical, some broken clauses, CSS tail"
+  },
+  {
+   "key": "r20203",
+   "verdict": "flawed",
+   "note": "awkward, Japanese 彼女, garbled quiz insert"
+  },
+  {
+   "key": "r20782",
+   "verdict": "flawed",
+   "note": "disjointed header section, largely grammatical narrative"
+  },
+  {
+   "key": "r20622",
+   "verdict": "not_chinese",
+   "note": "few broken characters then Portuguese"
+  },
+  {
+   "key": "r20580",
+   "verdict": "not_chinese",
+   "note": "mostly URLs and percent-encoding"
+  },
+  {
+   "key": "r20559",
+   "verdict": "not_chinese",
+   "note": "four Chinese chars, then English translation and chat markup"
+  },
+  {
+   "key": "r2IAA0034",
+   "verdict": "broken",
+   "note": "word salad with embedded English tokens"
+  },
+  {
+   "key": "r20326",
+   "verdict": "flawed",
+   "note": "sentences parse but several clauses near-nonsense"
+  },
+  {
+   "key": "r2IAA0095",
+   "verdict": "flawed",
+   "note": "opens fluent, then garbled pseudo-philosophy"
+  },
+  {
+   "key": "r20600",
+   "verdict": "broken",
+   "note": "nonsense compounds, then Japanese"
+  },
+  {
+   "key": "r20672",
+   "verdict": "broken",
+   "note": "looping repetition of one phrase, then Dutch"
+  },
+  {
+   "key": "r20657",
+   "verdict": "flawed",
+   "note": "parseable but semantically incoherent; tail in English"
+  },
+  {
+   "key": "r20283",
+   "verdict": "not_chinese",
+   "note": "short Chinese opener, then image markup and English"
+  },
+  {
+   "key": "r20584",
+   "verdict": "flawed",
+   "note": "narrative holds, odd coinages and doubled words"
+  },
+  {
+   "key": "r20461",
+   "verdict": "flawed",
+   "note": "largely natural wiki prose, one garbled token"
+  },
+  {
+   "key": "r20255",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0119",
+   "verdict": "flawed",
+   "note": "translationese; two collocations semantically off"
+  },
+  {
+   "key": "r20466",
+   "verdict": "broken",
+   "note": "a few nonsense chars plus chat markup"
+  },
+  {
+   "key": "r20766",
+   "verdict": "broken",
+   "note": "phrase-level incoherence throughout"
+  },
+  {
+   "key": "r20759",
+   "verdict": "flawed",
+   "note": "well-formed sentences, pronoun confusion, incoherent thread"
+  },
+  {
+   "key": "r20101",
+   "verdict": "not_chinese",
+   "note": "one non-Chinese word"
+  },
+  {
+   "key": "r20189",
+   "verdict": "not_chinese",
+   "note": "breaks into a long English forum post"
+  },
+  {
+   "key": "r20774",
+   "verdict": "broken",
+   "note": "wrong-character substitutions, meaning does not cohere"
+  },
+  {
+   "key": "r20496",
+   "verdict": "fluent",
+   "note": "polished literary prose; one pronoun slip"
+  },
+  {
+   "key": "r20292",
+   "verdict": "broken",
+   "note": "Chinese word salad drifting into English and Spanish"
+  },
+  {
+   "key": "r20009",
+   "verdict": "flawed",
+   "note": "one dropped character, otherwise comprehensible"
+  },
+  {
+   "key": "r2IAA0139",
+   "verdict": "flawed",
+   "note": "structured exposition with several ungrammatical spots"
+  },
+  {
+   "key": "r2IAA0100",
+   "verdict": "flawed",
+   "note": "doubled pronoun, awkward syntax; ends in English"
+  },
+  {
+   "key": "r20201",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20702",
+   "verdict": "flawed",
+   "note": "advice register, two garbled clauses"
+  },
+  {
+   "key": "r20432",
+   "verdict": "flawed",
+   "note": "mostly fluent, one broken clause"
+  },
+  {
+   "key": "r20208",
+   "verdict": "not_chinese",
+   "note": "six Chinese chars, rest English"
+  },
+  {
+   "key": "r20528",
+   "verdict": "fluent",
+   "note": "natural assistant prose; one nonstandard term"
+  },
+  {
+   "key": "r20635",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20136",
+   "verdict": "flawed",
+   "note": "idiom misuse and a duplicated verb"
+  },
+  {
+   "key": "r20282",
+   "verdict": "not_chinese",
+   "note": "short Chinese fragment, then English"
+  },
+  {
+   "key": "r20070",
+   "verdict": "fluent",
+   "note": "code block plus one fully natural Chinese sentence"
+  },
+  {
+   "key": "r20583",
+   "verdict": "broken",
+   "note": "about half the clauses unparseable"
+  },
+  {
+   "key": "r20674",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20319",
+   "verdict": "flawed",
+   "note": "grammatical but strained, several odd collocations"
+  },
+  {
+   "key": "r20378",
+   "verdict": "not_chinese",
+   "note": "drifts into Russian and English"
+  },
+  {
+   "key": "r20574",
+   "verdict": "flawed",
+   "note": "most clauses parse, two are nonsense"
+  },
+  {
+   "key": "r20630",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20325",
+   "verdict": "not_chinese",
+   "note": "nine Chinese chars, rest English"
+  },
+  {
+   "key": "r20002",
+   "verdict": "fluent",
+   "note": "native-like joke text; one garbled noun"
+  },
+  {
+   "key": "r20071",
+   "verdict": "flawed",
+   "note": "first clause garbled, remainder fluent"
+  },
+  {
+   "key": "r20011",
+   "verdict": "fluent",
+   "note": "natural Chinese question titles, but URLs dominate the text"
+  },
+  {
+   "key": "r2IAA0040",
+   "verdict": "broken",
+   "note": "machine-translation salad with English place names"
+  },
+  {
+   "key": "r20186",
+   "verdict": "not_chinese",
+   "note": "bilingual parallel text, English dominant"
+  },
+  {
+   "key": "r20449",
+   "verdict": "not_chinese",
+   "note": "short garbled Chinese, then English"
+  },
+  {
+   "key": "r20571",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20216",
+   "verdict": "fluent",
+   "note": "short but natural, plus a citation block"
+  },
+  {
+   "key": "r20313",
+   "verdict": "flawed",
+   "note": "colloquial monologue readable; framing clauses ungrammatical"
+  },
+  {
+   "key": "r20437",
+   "verdict": "flawed",
+   "note": "heavy translationese, dialogue itself natural"
+  },
+  {
+   "key": "r20551",
+   "verdict": "flawed",
+   "note": "punctuation misuse and garbled spans, still mostly parseable"
+  },
+  {
+   "key": "r20398",
+   "verdict": "flawed",
+   "note": "academic register, some ungrammatical predicates"
+  },
+  {
+   "key": "r20379",
+   "verdict": "not_chinese",
+   "note": "English only"
+  },
+  {
+   "key": "r20297",
+   "verdict": "broken",
+   "note": "wrong-character strings, most clauses unparseable"
+  },
+  {
+   "key": "r20694",
+   "verdict": "flawed",
+   "note": "translated-review feel, a few nonsense phrases"
+  },
+  {
+   "key": "r20317",
+   "verdict": "broken",
+   "note": "word salad with stray symbols and markup"
+  },
+  {
+   "key": "r20729",
+   "verdict": "flawed",
+   "note": "readable narrative with several ungrammatical clauses"
+  },
+  {
+   "key": "r20377",
+   "verdict": "not_chinese",
+   "note": "a quoted phrase, then all English"
+  },
+  {
+   "key": "r2IAA0153",
+   "verdict": "flawed",
+   "note": "simple sentences, repeated clear errors"
+  },
+  {
+   "key": "r20405",
+   "verdict": "flawed",
+   "note": "devotional register, a few unidiomatic lines"
+  },
+  {
+   "key": "r20651",
+   "verdict": "broken",
+   "note": "degenerate Chinese interleaved with URLs"
+  },
+  {
+   "key": "r20008",
+   "verdict": "flawed",
+   "note": "Chinese metalanguage grammatical but analysis incoherent; heavy English quotation"
+  },
+  {
+   "key": "r20809",
+   "verdict": "flawed",
+   "note": "ungrammatical opening clause, then fluent refusal boilerplate"
+  },
+  {
+   "key": "r2IAA0017",
+   "verdict": "flawed",
+   "note": "grammatical but unnatural collocations (良好的互动权限)"
+  },
+  {
+   "key": "r20081",
+   "verdict": "broken",
+   "note": "wrong-character coinages, corrupted glyphs, collapses into token junk"
+  },
+  {
+   "key": "r20549",
+   "verdict": "not_chinese",
+   "note": "short garbled Chinese opening, then long English passage dominates"
+  },
+  {
+   "key": "r20789",
+   "verdict": "not_chinese",
+   "note": "one short Chinese clause, rest English"
+  },
+  {
+   "key": "r20364",
+   "verdict": "broken",
+   "note": "wrong-character substitutions throughout (饭笙, 生神精经)"
+  },
+  {
+   "key": "r20342",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20808",
+   "verdict": "not_chinese",
+   "note": "fluent Chinese boilerplate but English MCQ options dominate"
+  },
+  {
+   "key": "r20472",
+   "verdict": "flawed",
+   "note": "surreal but syntactically real; several incoherent collocations"
+  },
+  {
+   "key": "r20105",
+   "verdict": "broken",
+   "note": "word salad, then PHP code fragments"
+  },
+  {
+   "key": "r20700",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20755",
+   "verdict": "broken",
+   "note": "wrong-character substitutions, meaning collapses"
+  },
+  {
+   "key": "r20372",
+   "verdict": "broken",
+   "note": "grammatical shell, no recoverable meaning"
+  },
+  {
+   "key": "r20237",
+   "verdict": "flawed",
+   "note": "nonsense noun phrases inside otherwise grammatical frames"
+  },
+  {
+   "key": "r20499",
+   "verdict": "broken",
+   "note": "word salad plus HTML markup"
+  },
+  {
+   "key": "r20393",
+   "verdict": "broken",
+   "note": "three semantically empty sentences, broken final clause"
+  },
+  {
+   "key": "r2IAA0055",
+   "verdict": "broken",
+   "note": "looping repetition of the prompt line, incoherent"
+  },
+  {
+   "key": "r20049",
+   "verdict": "not_chinese",
+   "note": "one broken Chinese sentence then an English paragraph"
+  },
+  {
+   "key": "r20494",
+   "verdict": "broken",
+   "note": "SEO spam, Chinese portions are word salad"
+  },
+  {
+   "key": "r20502",
+   "verdict": "flawed",
+   "note": "well-formed religious prose, semantically drifting clauses"
+  },
+  {
+   "key": "r2IAA0065",
+   "verdict": "flawed",
+   "note": "translationese; unnatural collocations throughout"
+  },
+  {
+   "key": "r20455",
+   "verdict": "broken",
+   "note": "pseudo-technical babble; meaning does not cohere"
+  },
+  {
+   "key": "r2IAA0107",
+   "verdict": "flawed",
+   "note": "largely natural essay prose with several contorted clauses"
+  },
+  {
+   "key": "r2IAA0039",
+   "verdict": "broken",
+   "note": "doubled characters, nonsense coinages, random English tokens"
+  },
+  {
+   "key": "r2IAA0038",
+   "verdict": "broken",
+   "note": "fragmentary; ungrammatical opening plus stray English"
+  },
+  {
+   "key": "r20287",
+   "verdict": "flawed",
+   "note": "grammatical Q&A frame, odd collocation 法律界面"
+  },
+  {
+   "key": "r20188",
+   "verdict": "broken",
+   "note": "invented compounds, no recoverable meaning"
+  },
+  {
+   "key": "r20358",
+   "verdict": "not_chinese",
+   "note": "one broken Chinese clause then bulk CSS markup"
+  },
+  {
+   "key": "r20631",
+   "verdict": "flawed",
+   "note": "some fluent sentences, some broken fragments and repetition"
+  },
+  {
+   "key": "r20414",
+   "verdict": "flawed",
+   "note": "real-sounding Chinese with odd collocations (受百般磨杀)"
+  },
+  {
+   "key": "r2IAA0143",
+   "verdict": "broken",
+   "note": "interleaved zh/en word salad"
+  },
+  {
+   "key": "r20158",
+   "verdict": "flawed",
+   "note": "literary register, several ungrammatical or empty phrases"
+  },
+  {
+   "key": "r20072",
+   "verdict": "fluent",
+   "note": "exam boilerplate, natural throughout"
+  },
+  {
+   "key": "r20779",
+   "verdict": "broken",
+   "note": "markup plus incoherent quoted passages"
+  },
+  {
+   "key": "r20640",
+   "verdict": "flawed",
+   "note": "coherent plot narration degrading into junk tokens"
+  },
+  {
+   "key": "r20403",
+   "verdict": "flawed",
+   "note": "machine-translated theory prose; stray Russian token"
+  },
+  {
+   "key": "r20473",
+   "verdict": "broken",
+   "note": "wrong-character phrases, meaning collapses"
+  },
+  {
+   "key": "r20487",
+   "verdict": "flawed",
+   "note": "many grammatical lines, some nonsense noun phrases"
+  },
+  {
+   "key": "r20202",
+   "verdict": "broken",
+   "note": "invented verbs and objects, word salad"
+  },
+  {
+   "key": "r20439",
+   "verdict": "flawed",
+   "note": "redundant, odd collocations, then derails into code tokens"
+  },
+  {
+   "key": "r2IAA0137",
+   "verdict": "not_chinese",
+   "note": "one broken clause, then LaTeX and English"
+  },
+  {
+   "key": "r20617",
+   "verdict": "broken",
+   "note": "short and incoherent, invented glosses"
+  },
+  {
+   "key": "r20129",
+   "verdict": "not_chinese",
+   "note": "brief broken Chinese, then English paragraph dominates"
+  },
+  {
+   "key": "r20634",
+   "verdict": "not_chinese",
+   "note": "two Chinese characters, rest English"
+  },
+  {
+   "key": "r20304",
+   "verdict": "flawed",
+   "note": "dictionary-entry pastiche, mostly well-formed with corrupt patches"
+  },
+  {
+   "key": "r20141",
+   "verdict": "broken",
+   "note": "dense wrong-character coinages (歇老呼吸, 累结能力)"
+  },
+  {
+   "key": "r20286",
+   "verdict": "flawed",
+   "note": "mostly natural literary narration, garbled final sentence"
+  },
+  {
+   "key": "r20516",
+   "verdict": "flawed",
+   "note": "garbled quoted line, grammatical reply with empty collocations"
+  },
+  {
+   "key": "r20641",
+   "verdict": "flawed",
+   "note": "idiomatic web-page boilerplate fragments, no discourse coherence"
+  },
+  {
+   "key": "r2IAA0159",
+   "verdict": "flawed",
+   "note": "idiomatic betting commentary spliced mid-sentence onto the opening"
+  },
+  {
+   "key": "r20476",
+   "verdict": "flawed",
+   "note": "fluent sentences mixed with unnatural collocations"
+  },
+  {
+   "key": "r20772",
+   "verdict": "broken",
+   "note": "syntax breaks down repeatedly; nonexistent characters"
+  },
+  {
+   "key": "r20122",
+   "verdict": "flawed",
+   "note": "single short sentence, ungrammatical 这个要神圣的塔"
+  },
+  {
+   "key": "r20610",
+   "verdict": "flawed",
+   "note": "natural dialogue with translationese and one broken clause"
+  },
+  {
+   "key": "r20147",
+   "verdict": "fluent",
+   "note": "natural literary prose despite repetitive style"
+  },
+  {
+   "key": "r20112",
+   "verdict": "broken",
+   "note": "word salad throughout"
+  },
+  {
+   "key": "r20172",
+   "verdict": "flawed",
+   "note": "comprehensible but translationese, mojibake, prompt repetition"
+  },
+  {
+   "key": "r20017",
+   "verdict": "fluent",
+   "note": "very short but grammatical"
+  },
+  {
+   "key": "r20035",
+   "verdict": "broken",
+   "note": "decent opening then looping keyword spam dominates"
+  },
+  {
+   "key": "r20718",
+   "verdict": "fluent",
+   "note": "Chinese frame natural; English is quoted material"
+  },
+  {
+   "key": "r2IAA0085",
+   "verdict": "flawed",
+   "note": "translationese, several nonsense collocations"
+  },
+  {
+   "key": "r20213",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20447",
+   "verdict": "not_chinese",
+   "note": "mostly English/romanization"
+  },
+  {
+   "key": "r20690",
+   "verdict": "not_chinese",
+   "note": "English plus Korean dominate"
+  },
+  {
+   "key": "r20310",
+   "verdict": "fluent",
+   "note": "web-novel register, natural dialogue"
+  },
+  {
+   "key": "r2IAA0049",
+   "verdict": "not_chinese",
+   "note": "pinyin gibberish dominates"
+  },
+  {
+   "key": "r20200",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20169",
+   "verdict": "flawed",
+   "note": "criticism prose largely natural, garbled opening"
+  },
+  {
+   "key": "r20713",
+   "verdict": "flawed"
+  },
+  {
+   "key": "r20645",
+   "verdict": "flawed",
+   "note": "readable but several non-idiomatic phrases"
+  },
+  {
+   "key": "r20061",
+   "verdict": "flawed",
+   "note": "grammatical but referentially incoherent"
+  },
+  {
+   "key": "r20680",
+   "verdict": "flawed",
+   "note": "fluent expository stretches, two broken joins"
+  },
+  {
+   "key": "r2IAA0016",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0035",
+   "verdict": "flawed",
+   "note": "mostly parses, recurring nonsense phrases"
+  },
+  {
+   "key": "r2IAA0008",
+   "verdict": "flawed",
+   "note": "markup junk, typo, awkward phrasing"
+  },
+  {
+   "key": "r20196",
+   "verdict": "flawed"
+  },
+  {
+   "key": "r20791",
+   "verdict": "flawed",
+   "note": "smooth register, three lexical errors"
+  },
+  {
+   "key": "r2IAA0158",
+   "verdict": "broken",
+   "note": "looping repetition, syntax collapses"
+  },
+  {
+   "key": "r20380",
+   "verdict": "not_chinese",
+   "note": "code/path garbage"
+  },
+  {
+   "key": "r20609",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20163",
+   "verdict": "fluent",
+   "note": "literary, one minor slip"
+  },
+  {
+   "key": "r20394",
+   "verdict": "flawed",
+   "note": "HTML tags, grammatical shells with incoherent content"
+  },
+  {
+   "key": "r20769",
+   "verdict": "flawed",
+   "note": "ad copy mostly natural, one broken clause"
+  },
+  {
+   "key": "r2IAA0135",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20442",
+   "verdict": "flawed",
+   "note": "wrong pinyin glosses, Latin gibberish inserts"
+  },
+  {
+   "key": "r20026",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20157",
+   "verdict": "flawed",
+   "note": "bulk is a transliterated name list; final sentence salad"
+  },
+  {
+   "key": "r20673",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r2IAA0130",
+   "verdict": "flawed",
+   "note": "dialogue natural, analysis ungrammatical"
+  },
+  {
+   "key": "r20757",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20381",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20520",
+   "verdict": "broken",
+   "note": "opens fine then degenerates"
+  },
+  {
+   "key": "r20012",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20670",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0036",
+   "verdict": "flawed",
+   "note": "frequent breakdowns plus stray English/Spanish"
+  },
+  {
+   "key": "r20370",
+   "verdict": "broken",
+   "note": "half the clauses have no recoverable meaning"
+  },
+  {
+   "key": "r20742",
+   "verdict": "broken",
+   "note": "traditional script, incoherent"
+  },
+  {
+   "key": "r2IAA0091",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20508",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20028",
+   "verdict": "fluent",
+   "note": "very short but grammatical"
+  },
+  {
+   "key": "r20644",
+   "verdict": "fluent",
+   "note": "colloquial essay register, muddled content only"
+  },
+  {
+   "key": "r20131",
+   "verdict": "flawed"
+  },
+  {
+   "key": "r20382",
+   "verdict": "fluent",
+   "note": "grammatical throughout, surreal content"
+  },
+  {
+   "key": "r2IAA0053",
+   "verdict": "broken",
+   "note": "Q&A frame intact, answers are salad"
+  },
+  {
+   "key": "r2IAA0059",
+   "verdict": "flawed",
+   "note": "comprehensible, unnatural collocations"
+  },
+  {
+   "key": "r20412",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20397",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20650",
+   "verdict": "fluent",
+   "note": "very short"
+  },
+  {
+   "key": "r2IAA0134",
+   "verdict": "flawed",
+   "note": "some fluent lines, pseudo-classical verse breaks down"
+  },
+  {
+   "key": "r20570",
+   "verdict": "not_chinese",
+   "note": "English bulk after degraded Chinese opening"
+  },
+  {
+   "key": "r2IAA0025",
+   "verdict": "broken",
+   "note": "looping salad; English tail roughly half"
+  },
+  {
+   "key": "r2IAA0106",
+   "verdict": "broken",
+   "note": "single clause that does not parse"
+  },
+  {
+   "key": "r2IAA0032",
+   "verdict": "flawed"
+  },
+  {
+   "key": "r20660",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20524",
+   "verdict": "broken"
+  },
+  {
+   "key": "r2IAA0152",
+   "verdict": "flawed",
+   "note": "literary register with several broken phrases"
+  },
+  {
+   "key": "r20558",
+   "verdict": "not_chinese"
+  },
+  {
+   "key": "r20522",
+   "verdict": "broken"
+  },
+  {
+   "key": "r20119",
+   "verdict": "broken",
+   "note": "grammatical shells, dense nonsense terms"
+  },
+  {
+   "key": "r20741",
+   "verdict": "flawed",
+   "note": "natural prose but junk filename and English insertions"
+  },
+  {
+   "key": "r20733",
+   "verdict": "broken",
+   "note": "word salad"
+  },
+  {
+   "key": "r20116",
+   "verdict": "flawed",
+   "note": "fluent open, degrades; foreign-word intrusions"
+  },
+  {
+   "key": "r20271",
+   "verdict": "flawed",
+   "note": "followable but many nonsense phrases"
+  },
+  {
+   "key": "r20175",
+   "verdict": "flawed",
+   "note": "mostly natural, few odd collocations"
+  },
+  {
+   "key": "r20252",
+   "verdict": "broken",
+   "note": "garbled, looping 漫画漫画漫画, replacement char"
+  },
+  {
+   "key": "r20553",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20523",
+   "verdict": "not_chinese",
+   "note": "brief broken Chinese, then English gibberish"
+  },
+  {
+   "key": "r20138",
+   "verdict": "flawed",
+   "note": "concatenated blog fragments, some garble"
+  },
+  {
+   "key": "r20215",
+   "verdict": "fluent",
+   "note": "translationese but sound"
+  },
+  {
+   "key": "r20467",
+   "verdict": "broken",
+   "note": "word salad, rare chars"
+  },
+  {
+   "key": "r20629",
+   "verdict": "flawed",
+   "note": "garbled opener, phishing list comprehensible"
+  },
+  {
+   "key": "r20771",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20268",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20572",
+   "verdict": "broken",
+   "note": "garbled, JP/EN fragments"
+  },
+  {
+   "key": "r20015",
+   "verdict": "not_chinese",
+   "note": "French"
+  },
+  {
+   "key": "r20048",
+   "verdict": "broken",
+   "note": "garbled traditional, foreign intrusions"
+  },
+  {
+   "key": "r20573",
+   "verdict": "not_chinese",
+   "note": "mostly English/HTML"
+  },
+  {
+   "key": "r20207",
+   "verdict": "broken",
+   "note": "garbled, foreign fragments"
+  },
+  {
+   "key": "r20619",
+   "verdict": "not_chinese",
+   "note": "5 chars then all English"
+  },
+  {
+   "key": "r20014",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r2IAA0030",
+   "verdict": "fluent"
+  },
+  {
+   "key": "r20154",
+   "verdict": "broken",
+   "note": "garbled; Bengali/English mixed but Chinese-dominant"
+  },
+  {
+   "key": "r20355",
+   "verdict": "broken",
+   "note": "looping 来回家, nonsense collocations"
+  },
+  {
+   "key": "r20429",
+   "verdict": "not_chinese",
+   "note": "English"
+  },
+  {
+   "key": "r2IAA0133",
+   "verdict": "fluent",
+   "note": "repetitive but coherent"
+  },
+  {
+   "key": "r2IAA0155",
+   "verdict": "fluent",
+   "note": "very short (保守派) but valid"
+  },
+  {
+   "key": "r20063",
+   "verdict": "broken",
+   "note": "pervasive nonsense collocations"
+  },
+  {
+   "key": "r20273",
+   "verdict": "flawed",
+   "note": "surreal, followable-ish thread"
+  },
+  {
+   "key": "r20497",
+   "verdict": "flawed",
+   "note": "half comprehensible, surreal breakdown"
+  },
+  {
+   "key": "r2IAA0043",
+   "verdict": "fluent",
+   "note": "web-novel style"
+  },
+  {
+   "key": "r20562",
+   "verdict": "flawed",
+   "note": "philosophical essay, awkward/garbled spots"
+  },
+  {
+   "key": "r20055",
+   "verdict": "not_chinese",
+   "note": "brief garbled Chinese, then English poem"
+  },
+  {
+   "key": "r20145",
+   "verdict": "flawed",
+   "note": "followable sad story, many errors"
+  },
+  {
+   "key": "r20557",
+   "verdict": "not_chinese",
+   "note": "Hebrew"
+  },
+  {
+   "key": "r2IAA0012",
+   "verdict": "flawed",
+   "note": "grammatical frames, garbled content; borderline broken"
+  },
+  {
+   "key": "r20320",
+   "verdict": "not_chinese",
+   "note": "mostly English"
+  },
+  {
+   "key": "r20407",
+   "verdict": "flawed",
+   "note": "Chinese prose plus markup/filing codes"
+  },
+  {
+   "key": "r20465",
+   "verdict": "flawed",
+   "note": "mostly natural instructional, couple odd collocations"
+  },
+  {
+   "key": "r20423",
+   "verdict": "flawed",
+   "note": "Chinese paragraph then English dialogue; borderline code-switch"
+  },
+  {
+   "key": "r20034",
+   "verdict": "not_chinese",
+   "note": "one Chinese line then English"
+  },
+  {
+   "key": "r2IAA0058",
+   "verdict": "flawed",
+   "note": "mix of fluent and garbled sentences"
+  },
+  {
+   "key": "r20099",
+   "verdict": "broken",
+   "note": "grammatical skeletons, incoherent content"
+  },
+  {
+   "key": "r20354",
+   "verdict": "broken",
+   "note": "word salad plus English fragments"
+  },
+  {
+   "key": "r20717",
+   "verdict": "fluent",
+   "note": "grammar-exercise worksheet, EN words as content"
+  },
+  {
+   "key": "r20383",
+   "verdict": "not_chinese",
+   "note": "brief garbled Chinese, then English"
+  },
+  {
+   "key": "r20029",
+   "verdict": "not_chinese",
+   "note": "JS code"
+  },
+  {
+   "key": "r20776",
+   "verdict": "not_chinese",
+   "note": "Chinese opening then long Latin block"
+  },
+  {
+   "key": "r2IAA0084",
+   "verdict": "flawed",
+   "note": "Chinese-dominant, HTML noise plus garble; EN tail"
+  },
+  {
+   "key": "r20363",
+   "verdict": "flawed",
+   "note": "half comprehensible; borderline broken"
+  },
+  {
+   "key": "r2IAA0070",
+   "verdict": "not_chinese",
+   "note": "one Chinese phrase then English"
+  },
+  {
+   "key": "r20480",
+   "verdict": "not_chinese",
+   "note": "broken Chinese fragment, coherent English majority"
+  },
+  {
+   "key": "r20725",
+   "verdict": "broken",
+   "note": "garbled, looping 肖像山"
+  },
+  {
+   "key": "r20468",
+   "verdict": "not_chinese",
+   "note": "6 chars then English sentence"
+  },
+  {
+   "key": "r2IAA0026",
+   "verdict": "flawed",
+   "note": "fluent bookends, garbled middle, EN intrusions"
+  },
+  {
+   "key": "r20187",
+   "verdict": "flawed",
+   "note": "surreal grammatical prose; borderline broken"
+  },
+  {
+   "key": "r20716",
+   "verdict": "not_chinese",
+   "note": "mid-word switch to English"
+  },
+  {
+   "key": "r20575",
+   "verdict": "flawed",
+   "note": "Chinese sentence plus English tail; borderline"
+  },
+  {
+   "key": "r20582",
+   "verdict": "broken",
+   "note": "garbled Chinese, then English/German"
+  },
+  {
+   "key": "r2IAA0138",
+   "verdict": "broken",
+   "note": "looping 她爱，她爱; template token leak"
+  },
+  {
+   "key": "r2IAA0098",
+   "verdict": "flawed",
+   "note": "mostly fluent, degenerate near-verbatim repetition"
+  },
+  {
+   "key": "r20788",
+   "verdict": "fluent",
+   "note": "grammar-analysis essay"
+  }
+ ]
+}
