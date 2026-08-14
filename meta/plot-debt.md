@@ -119,9 +119,22 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    wording): the panel must not imply a matched-prompt comparison
    exists at all — naming an absent leg still puts it in the reader's
    head. Item 6 was taken meanwhile.
-6. OPEN — NEW (2026-08-13): PROPAGATION SLOPE — the ~1.3%/99% line;
-   per-pair slopes both roles, aligned-minus-base null
-   (propagation_cells.parquet at 22aee418, post-repair).
+6. SHIPPED 2026-08-14 (dario, 932ca0c3) — PROPAGATION SLOPE:
+   m06_propagation_figs.py -> propagation_slope. TWO SCALES of the
+   same points, because the finding asserts both that the slope is
+   reliably positive and that it is almost nothing, and one axis
+   serves one claim while defeating the other. All four variant x
+   role medians, sign counts, and both aligned-minus-base contrasts
+   asserted, so the not-an-alignment-effect fence cannot go stale
+   without the producer refusing. H3 is neither drawn NOR quoted (it
+   comes from opening_matched — UNPLOTTABLE, see STATUS CHANGES); the
+   registrar tightening at [5934] caught a first draft that omitted
+   the reference from the geometry and then printed its numbers in
+   the subtitle — A VALUE PRINTED IN A SUBTITLE IS ON THE FIGURE.
+   Arithmetic note ([5936]): the finding's prose "~1.3%" follows from
+   neither committed summary (medians 1.20% aligned / 1.05% base;
+   means 1.67% / 1.18%); nothing turns on it (the claim is ~99%
+   absorbed on any of them) and the panel quotes what it computes.
 7. OPEN — NEW (2026-08-13): FINDINGS H STAGE PLOT — SFT installs / DPO
    rebounds concreteness to dead heat / RLVR re-suppresses; plus the
    Pythia differentiation curve (concreteness 1.08 -> 2.87 from step
@@ -234,7 +247,16 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
 - M05 C-R4 recapture bars: BLOCKED -> DEAD. R4 withdrawn ([5781]) —
   the domain contrast does not reproduce; nothing to draw.
 - OPENING-MATCHED FAMILY: UNPLOTTABLE — withdrawn at construction
-  level ([5811]); nothing from it may be drawn in any form. Its
+  level ([5811]); nothing from it may be drawn in any form.
+  **AND ITS VALUES HAVE LEAKED INTO A THIRD ARTIFACT** ([5936], dario):
+  `propagation.json` carries `undisturbed_reference: [0.016, 0.024]`
+  as a bare pair of floats with no provenance and no status — the
+  withdrawal notice lives in another finding and in this queue, so a
+  plotter meeting that file alone has nothing to warn them. Same shape
+  as the parse-free numbers reaching the register and as
+  mediation_readings.json before [5903]. REFERRED to lacan for the
+  same treatment: mark IN THE ARTIFACT and patch the producer, so a
+  rerun cannot erase the marker. Its
   arm-ORDERING was additionally never established ([5805]) — no
   ordering bar chart even from surviving arm-vs-arm quantities without
   the paired test drawn beside it.
