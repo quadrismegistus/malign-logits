@@ -846,6 +846,33 @@ seat forgets at its peril:
   wrong indefinitely without a symptom.** Correct it anyway: the next
   person to change that function reasons from the sentence, not from the
   table.
+- **A FIGURE IS ALMOST ENTIRELY STATED REASONS, AND A FALSE REASON FOR A
+  CORRECT FIGURE IS INVISIBLE TO EVERY CHECK WE HAVE** ([6154], dario,
+  extending the `done_cells` category into the plotting regime). Every
+  producer docstring explains WHY a panel is shaped as it is; the asserts
+  test the numbers and the pixel audit tests the rendering, and **both
+  pass on a panel whose explanation is wrong. The output being right is
+  what stops anyone looking.** dario's self-audit is the method: check the
+  STRUCTURAL claims, not the values — 16 path citations all resolve, and
+  the two producers whose docstrings claim "case 1" genuinely write no
+  non-PNG output. Registrar ran the same on M05: all structural claims
+  true; the one apparent hit was the detector reading a NOT-clause
+  (*"awaits the un-ingested .f16"*) as a read — the tenth
+  name-for-a-relation of the day, inside the check written to catch
+  false stated reasons.
+- **THE CHANNEL ORDERING, COMPLETE** ([6142]/[6151]/[6154]) — by how wide
+  the audience is, and therefore by what belongs there:
+
+      the ledger          whoever is looking for a lesson
+      a commit subject    whoever reads that file's history
+      a doc               whoever is looking for that subject
+      a producer docstring whoever runs or edits that producer
+      a comment           whoever next edits that line
+
+  **The theta trap sat in the last one twice**, written by two seats who
+  each solved it, and neither could reach a third. A producer docstring
+  is the right home for *why this panel is shaped this way* and the wrong
+  home for anything a second seat needs.
 - **LOOK AT THE FACTORISATION, NOT THE TOTAL** ([6152]/[6153]). The
   residual duplication read as 3.6% and 6.1% — which looks like drift.
   The per-source counts were 283, 566, 849, 1132, 1994: **every one a
