@@ -798,6 +798,28 @@ seat forgets at its peril:
   `sorted()` and verified byte-identical across two full recomputes.
   **BYTE-STABILITY OF AN ARTIFACT IS THE CHEAPEST did-this-change CHECK
   THERE IS, and its absence is what made a false alarm possible at all.**
+- **A TIMESTAMP IS NOT A CHANGE, AND IT FAILS IN BOTH DIRECTIONS**
+  ([6117]). Registrar's false alarm was a content check that COULD NOT
+  FAIL; lacan's closure flags are a timestamp check that fires WITHOUT
+  content. Same gap, opposite ends. Measured on M05: **5 STALE flags, 4
+  false positives (80%)**, by two nameable mechanisms — (a) an mtime
+  touched by a re-run that changed nothing (the truncation sweep
+  manufactured staleness flags repo-wide without moving a number:
+  `sense_curve.json` is byte-identical to HEAD and its last real content
+  change predates the artifact by two days), and (b) **artifact and
+  dependency written in the SAME COMMIT**, where file mtimes are
+  arbitrary, so a producer writing two files in one run flags either
+  against the other. Fix both by comparing `git log -1` content dates
+  and skipping pairs whose last-touching commit is identical.
+- **A GUARD THAT FIRES AS A SIDE EFFECT OF NORMAL OPERATION BEATS A
+  GUARD THAT FIRES WHEN SOMEONE REMEMBERS TO LOOK** (malign [6116], the
+  strongest protection identified in this whole arc). Its ingesters key
+  every row on `sha256(raw text)` taken from the upstream artifact AT
+  READ TIME, so a changed export cannot silently re-base the tables — it
+  can only produce `text-missing`, which both ingests count and both
+  reported as 0 across 482,958 and 450,933 rows. **The join IS the
+  staleness check**, and it runs continuously rather than on an audit
+  nobody schedules.
 - **A DRAWING SCRIPT THAT CAN WRITE ANYTHING EXCEPT PIXELS IS A
   PRODUCER, AND REPAIRING ITS TEXT IS A RECOMPUTATION** ([6093]-[6099];
   dario's rule, malign's converse, registrar's case 3). A caption fix
