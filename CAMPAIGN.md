@@ -873,6 +873,29 @@ seat forgets at its peril:
   each solved it, and neither could reach a third. A producer docstring
   is the right home for *why this panel is shaped this way* and the wrong
   home for anything a second seat needs.
+- **A VACUOUS TEST IS A THIRD CATEGORY AND THE WORST OF THE THREE**
+  ([6161]/[6162]). Beside *false stated reason* (a detector, no detection
+  event) and *no stated reason* (neither), it has **a detector, the
+  detector RUNS, it runs green, and the green is why nobody looks.**
+  Found by mutation: dropping the SQL from `ch`'s error left all 13 tests
+  passing, because the test's two assertions were satisfied by stderr and
+  by an unconditional header rather than by its subject. **Re-aimed twice
+  — the second attempt hid a marker in a SQL comment and ClickHouse echoed
+  the comment too.** The honest conclusion was not that the test was weak
+  but that **a server error cannot test that guard at all**, which is the
+  difference between a bad test and a test with no possible subject, and
+  only the second tells you where the guard earns its keep.
+- **MUTATE THE GUARD AND ALSO THE STATE — THEY ARE DIFFERENT TESTS**
+  (dario [6162], on its own run and then on the registrar's). Mutating
+  the guard proves the guard FIRES; it does not prove the guard catches
+  the state it exists to detect. For a tolerance or equality check the two
+  are equivalent; **for a structural guard they are not** — `assert
+  len(xs) == 4` tested by naming a nonexistent field is a different
+  mutation from an artifact that genuinely stops carrying four
+  instruments. Registrar's own suite failed this: four predicate tests
+  inspected the regex directly and never sent a query, so the failure that
+  actually broke the module was uncovered end to end until two tests were
+  added that drive it through `ch.query`.
 - **A DROPPED KEY COLUMN PRODUCES THE DEFECT YOU WERE LOOKING FOR**
   ([6155], malign's near-miss, reproduced at the registrar seat). The same
   duplicate check on `twp_residual`, one column apart:
