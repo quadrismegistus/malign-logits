@@ -24,32 +24,41 @@ legible. Neither panel alone is honest.
 
 WHAT IS NOT DRAWN, AND WHY
 --------------------------
-H3 is the finding's interpretive payoff: the same slope for a
-SELF-SAMPLED opening is 0.016 to 0.024 nats per nat, so an imposed
-improbable word propagates no more than one the model chose itself.
-**That reference is NOT on this figure, and its VALUE is not quoted on
-it either.** `propagation.md:72` sources the reference to
-`opening_matched`'s within-prompt ANCOVA, and plot-debt:220 records the
-OPENING-MATCHED FAMILY as UNPLOTTABLE, withdrawn at construction level
-([5811]), "nothing from it may be drawn in any form" -- and a value
-printed in a subtitle is on the figure.
+H3 is the finding's interpretive payoff: an imposed improbable word
+propagates no more than one the model chose itself. **The comparison is
+not on this panel.**
 
-The first draft of this file got that half-right and half-wrong: it
-omitted the reference from the panel geometry and then quoted the
-numbers in the subtitle while explaining they were fenced. Registrar's
-tightening at [5934] is the rule now applied here -- a panel should not
-NAME an absent leg, because naming it puts it in the reader's head
-anyway. So the panel states its own scope and stops. This docstring
-carries the full account, which is where it belongs: the docstring is
-read by whoever edits the producer, the subtitle by whoever reads the
-result.
+The reason, corrected by lacan at [5940] after an earlier version of
+this docstring got it wrong: the undisturbed reference is NOT void by
+the opening_matched withdrawal. That withdrawal is a construction
+defect BETWEEN arms -- forced rows carry one more word of conditioning
+than undisturbed ones -- and both fits producing the reference run on
+`arm == "undisturbed"` rows only, so neither can contain a between-arm
+asymmetry. A value from a withdrawn finding does not inherit the
+withdrawal; the withdrawal has a scope and this value sits outside it.
 
-Worth naming because the number does not look withdrawn where a
-plotter meets it: `propagation.json` carries
-`undisturbed_reference: [0.016, 0.024]` as a bare pair of floats with
-no marker of its provenance or its status. The withdrawal notice lives
-in a different finding and in the queue; the value has travelled into
-this artifact without it. Referred rather than resolved here.
+What is actually exposed is the COMPARISON. `b_forced` here is fitted
+entirely within FORCED arms and the reference entirely within
+UNDISTURBED rows, so setting them side by side compares two populations
+differing by exactly the one word of conditioning that withdrew
+opening_matched. Whether a SLOPE inherits that asymmetry the way a mean
+does is untested. So H3 is fenced and not quotable, and the panel makes
+no comparison to undisturbed generation.
+
+**And it was never a range.** "0.016 to 0.024 nats per nat" is two
+ESTIMATORS' point medians over the same rows -- ANCOVA within-prompt
++0.0158 over 79 lines, naive per (pair, role) +0.0241 over 80 -- not an
+interval. Nothing computes an interval anywhere. Had this figure drawn
+the reference as a shaded band, which is what "0.016 to 0.024" invites,
+it would have rendered estimator disagreement as uncertainty about a
+single quantity. That is a second reason the band is absent and it is
+independent of the fencing.
+
+The first draft of this file also quoted the numbers in the subtitle
+while explaining they were fenced, which is half the rule. Registrar's
+tightening at [5934] is applied: a panel should not NAME an absent leg,
+because naming it puts it in the reader's head anyway. The panel states
+its own scope and stops; this docstring carries the account.
 
 ON THE HEADLINE PERCENTAGE
 --------------------------
