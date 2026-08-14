@@ -247,5 +247,11 @@ seat forgets at its peril:
   whose symmetric layout asserted a DiD only one cell carried
   [5915]/[5917]). The audits that catch this class: draw it, assert every
   booked value not most, put the caveat in the column/title/producer
-  where a rewrite or rerun cannot shed it, and quote counts and
-  definitions rather than statistics bounded by their own arithmetic.
+  where a rewrite or rerun cannot shed it — IN THE TITLE THE FENCE COMES
+  FIRST, not after the claim ([5919]: a title is read alone more often
+  than anything else on a panel) — and quote counts and definitions
+  rather than statistics bounded by their own arithmetic. Sharpened
+  [5919]: recomputation does not merely miss this class, it CANNOT SEE
+  it — every instance survives "is the number right" because the number
+  is right; the check that catches it is drawing the thing and looking
+  at what the picture asserts.
