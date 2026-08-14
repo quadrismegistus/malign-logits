@@ -84,7 +84,9 @@ Ordering transfers almost perfectly. **Sign does not**: under the EN axis 裤子
 1. **Poles are a declaration and must be frozen before the arms are read.** They are the analyst's degree of freedom and the whole result moves with them — `wings`/`legs` and `arms`/`legs` give different orderings of the same candidates.
 2. **Pole sets must differ on the intended axis and only that axis.** `wings`/`legs` confounds sexual with metaphorical; anatomy-vs-objects reads a vulgar→clinical shift as an *increase*, which is what produced the apparent "wrong direction" in Chinese before the mechanism was decomposed.
 3. **A flat axis is a result about the PROMPT.** Where the charge is compositional rather than lexical — `She spread her ___`, whose naughty word `legs` is anatomically neutral — no pole pair separates the candidates. `feet` and `knees` rank beside `thighs` under every pair tried. That is a screening signal, and it is the same fact as `urinated on the churchyard cross` from the other side.
-4. **N is comparable across ARMS at one prompt, never across prompts.** The axis and origin are per prompt.
+4. **N is comparable across ARMS at one prompt, never across prompts** — but **ΔN is far more robust than the level, and pole sets need NOT match across a matched pair.** Measured on one prompt across four tagging schemes: N(base) spreads 0.0417 while ΔN spreads **0.0054**, 7.7× tighter, because `ΔN = Σ ΔP(w)·s(w)` and `Σ ΔP(w) ≈ 0`, so the origin cancels and only the axis DIRECTION survives.
+
+   This matters for gendered pairs, and RH's objection is the reason it was checked: *gender matters to connotation*. `bra` is not a candidate after "his" and `blouse` is not the neuter of `shirt`, so identical word lists would force into one centroid a word that context never produces — a distortion with no compensating gain. The requirement is that both halves' axes point at the same CONSTRUCT, not that they are the same vector. Compare ΔN, never the levels.
 5. **CPU for bge**, per RH; every number above was re-run on CPU and matched MPS to three decimals at this scale, which does not license MPS elsewhere.
 
 ## 7. Scale, and what it costs
