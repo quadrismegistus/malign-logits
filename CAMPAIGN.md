@@ -384,6 +384,19 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **An axis bound must carry an assert that stops it becoming a
+  filter** ([5959]): bounding at ±0.004 to stop a few extreme
+  non-survivors crushing 65 survivors into a seventh of the panel is
+  legitimate, but the same bound silently drops a survivor the day the
+  data changes — so the producer refuses if any survivor lands
+  outside, and the count excluded (8 of 702, all grey) is printed. A
+  rendering choice that can change the population needs a guard, not a
+  caption. Companion from the same figure: **two artifacts whose names
+  differ by one character, in one directory, with a fence applying to
+  only one** (`c_word_delta_by_word.csv` form-confounded,
+  `b_word_delta_by_word.csv` not) — the near-miss was avoided only
+  because the queue named the fence, so the pair is now recorded in
+  the producer that must not confuse them.
 - **A finding whose argument survives its own numbers being wrong
   should not be defended by guessing the numbers** (lacan's, [5958]):
   with the per-checkpoint reduction unrecoverable at six simultaneous
