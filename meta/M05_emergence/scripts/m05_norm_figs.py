@@ -202,12 +202,39 @@ def pythia_curve():
                           theme_minimal)
 
     d = pd.read_parquet(MASS)
-    #: base_step ONLY. The final rung carries the same model twice, once as
-    #: base_step and once as base_endpoint, so pooling the roles averages the
-    #: last point with a duplicate of itself: concreteness 2.8648 pooled
-    #: against 2.8654 on the ladder, which is the difference between 2.86 and
-    #: the booked 2.87 once rounded. This is a pretraining-STEP curve and the
-    #: endpoint is a different role, not another rung. Found by the assert.
+    #: base_step ONLY. On THIS ladder the final rung carries the same model
+    #: twice, once as base_step and once as base_endpoint, so pooling the roles
+    #: averages the last point with a duplicate of itself: concreteness 2.8648
+    #: pooled against 2.8654 on the ladder, which is the difference between
+    #: 2.86 and the booked 2.87 once rounded. This is a pretraining-STEP curve
+    #: and the endpoint is a different role, not another rung. Found by the
+    #: assert.
+    #:
+    #: DO NOT GENERALISE THE REASON TO THE OLMO LADDER. It has the identical
+    #: surface — one model_id under both roles, 584 prompts each — and is NOT a
+    #: duplicate. Two discriminators, cheapest first:
+    #:
+    #:   1. THE STEP FIELD, no threshold needed (dario, [5947]). Pythia's
+    #:      endpoint sits AT the final rung's step, 143000 == 143000. OLMo's
+    #:      endpoint is step 0 against a final rung at 1413814. The cases
+    #:      differ in a stored field before any value is compared. Not
+    #:      sufficient alone — two different checkpoints could share a step —
+    #:      but it is free and unambiguous, so run it first.
+    #:   2. THE VALUES, which need their grain named or they mean nothing:
+    #:      max over 584 prompts of |base_step_final − base_endpoint|, on the
+    #:      RESOLVED_MASS column: pythia 6.5e-3, olmo 4.1e-1 (62x).
+    #:      The SAME comparison over the seven dist_mean_k_* scale columns:
+    #:      pythia 4.5e-2, olmo 3.89 (87x). Both reproduce exactly; they are
+    #:      different COLUMNS, not different summaries, and they differ ~8x on
+    #:      both sides. A seat reading '6.5e-3' and computing it over the
+    #:      scales gets 0.045 and concludes the opposite, so the column is
+    #:      part of the number.
+    #:
+    #: pythia-6.9b is one set of weights scored twice; Olmo-3-1025-7B's
+    #: endpoint is the released base against a stage1 rung. Same repo name,
+    #: different weights — dropping it as a duplicate would delete the
+    #: released checkpoint. The discriminator is whether the VALUES agree to
+    #: nondeterminism, never whether the LABELS collide.
     d = d[(d.ladder == "pythia") & (d.role == "base_step")]
     g = (d.groupby("step")
          .agg(**{s: (f"dist_mean_k_{s}", "median") for s in BOOKED_PYTHIA},
