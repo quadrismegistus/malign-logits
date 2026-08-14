@@ -239,7 +239,162 @@ def vc_olmo_scheme():
     print(f"wrote {out}")
 
 
-REGISTRY = {"vc_olmo": vc_olmo, "vc_olmo_scheme": vc_olmo_scheme}
+def vc_errors():
+    """Signal-detection split of the rhyme capacity (RH's design,
+    2026-08-14): MISS = rhymed poem whose called-slot pull fails to
+    clear the depth-matched null by margin m; FALSE ALARM = unrhymed
+    poem whose would-be-partner class clears it. The margin is the
+    honest criterion: bare exceedance is a COIN FLIP at zero signal
+    (two near-zero numbers compared pairwise), which would fake a ~50%
+    false-alarm rate from noise. m=0.05 primary (bold), m=0.02
+    sensitivity (thin dashed). Miss = 100% at init is the correct
+    reading (cannot yet). Writes fig28 (OLMo) / fig29 (Pythia) +
+    results/verse_error_rates.parquet."""
+    import numpy as np
+    d = pd.read_parquet(
+        "meta/M05_emergence/results/verse_capacity_cells.parquet")
+    d["pull"] = d.tclass - d.p_target_word
+
+    rows = []
+    for model, g in d.groupby("model"):
+        by = {s: h.set_index("id_human") for s, h in g.groupby("slot")}
+        if "called" not in by:
+            continue
+        called = by["called"]
+        deltas, rhymed = {}, {}
+        for pm in called.index:
+            m4 = by["mid4"].pull.get(pm, np.nan) if "mid4" in by else np.nan
+            nr = by["near"].pull.get(pm, np.nan) if "near" in by else np.nan
+            coll = (by["near"].collides.get(pm, "None")
+                    if "near" in by else "None")
+            null = (m4 if coll not in ("None", "nan", "")
+                    else np.nanmean([m4, nr]))
+            if np.isnan(null):
+                continue
+            deltas[pm] = called.pull[pm] - null
+            rhymed[pm] = called.scheme[pm] != "unrhymed"
+        dl = pd.Series(deltas)
+        rh = pd.Series(rhymed)
+        for m in (0.05, 0.02):
+            rows.append(dict(
+                model=model, margin=m,
+                miss=float((dl[rh] < m).mean()),
+                false_alarm=float((dl[~rh] > m).mean()),
+                n_rhymed=int(rh.sum()), n_unrhymed=int((~rh).sum())))
+    R = pd.DataFrame(rows)
+    R.to_parquet("meta/M05_emergence/results/verse_error_rates.parquet")
+    print(f"rates: {len(R):,} rows")
+
+    from plotnine import (aes, annotate, element_blank, element_line,
+                          element_text, geom_line, geom_point, geom_text,
+                          ggplot, labs, scale_color_manual,
+                          scale_linetype_manual, scale_x_continuous,
+                          theme, theme_minimal, ylim)
+    EC = {"miss (rhymed, no rhyme)": "#c0392b",
+          "false alarm (unrhymed, rhymes)": "#2a78d6"}
+    for ladder, fign, window in (("olmo", 28, 5), ("pythia", 29, 9)):
+        if ladder == "olmo":
+            sub = R[R.model.str.contains("llenai")].copy()
+            pos = sub.model.map(olmo_position)
+            sub["section"] = [p[0] for p in pos]
+            sub["order"] = [(p[1],) + p[2] for p in pos]
+            sub = sub[sub.section.notna()]
+        else:
+            sub = R[R.model.str.contains("pythia")].copy()
+            sub["section"] = "BASE"
+            sub["order"] = sub.model.map(
+                lambda m: int(re.search(r"@step(\d+)$", m).group(1))
+                if "@step" in m else 10**9)
+        ladder_o = (sub[["model", "order", "section"]]
+                    .drop_duplicates("model").sort_values("order")
+                    .reset_index(drop=True))
+        ladder_o["x"] = ladder_o.index
+        sub = sub.merge(ladder_o[["model", "x"]], on="model")
+        long = pd.concat([
+            sub.assign(y=sub.miss, kind="miss (rhymed, no rhyme)"),
+            sub.assign(y=sub.false_alarm,
+                       kind="false alarm (unrhymed, rhymes)")])
+        long["mlab"] = long.margin.map({0.05: "m=0.05", 0.02: "m=0.02"})
+        long["grp"] = long.kind + long.mlab + long.section
+        long = long.sort_values("x")
+        long["smooth"] = (long.groupby(["kind", "mlab", "section"])["y"]
+                          .transform(lambda v: v.rolling(
+                              window, center=True, min_periods=1).mean()))
+        bounds = {s: (g.x.min(), g.x.max())
+                  for s, g in long.groupby("section")}
+        xmax = int(long.x.max())
+        lab = (long[long.mlab == "m=0.05"].sort_values("x")
+               .groupby("kind", as_index=False).tail(1))
+        p = ggplot(long, aes("x", color="kind"))
+        for sec, fill in (("SFT", "#efece4"), ("DPO", "#e7e2d5"),
+                          ("RLVR", "#efece4")):
+            if sec in bounds:
+                lo, hi = bounds[sec]
+                p = p + annotate("rect", xmin=lo - 0.5, xmax=hi + 0.5,
+                                 ymin=-0.02, ymax=1.05, fill=fill,
+                                 alpha=0.6)
+        segsz = long.groupby("grp").grp.transform("size")
+        p = (p
+             + geom_line(aes(y="y", group="grp", linetype="mlab"),
+                         size=0.4, alpha=0.25)
+             + geom_line(data=long[long.mlab == "m=0.05"],
+                         mapping=aes(y="smooth", group="grp"), size=1.1)
+             + geom_line(data=long[long.mlab == "m=0.02"],
+                         mapping=aes(y="smooth", group="grp"), size=0.6,
+                         alpha=0.6, linetype="dashed")
+             + geom_point(data=long[(segsz == 1)
+                                    & (long.mlab == "m=0.05")],
+                          mapping=aes(y="smooth"), size=1.8,
+                          show_legend=False)
+             + geom_text(data=lab,
+                         mapping=aes(x=xmax + max(1, int(xmax * 0.015)),
+                                     y="smooth", label="kind",
+                                     color="kind"),
+                         ha="left", size=8, fontweight="bold",
+                         show_legend=False)
+             + scale_x_continuous(expand=(0, 0, 0.34, 0))
+             + scale_color_manual([EC[k] for k in EC], limits=list(EC))
+             + scale_linetype_manual(["solid", "dashed"],
+                                     limits=["m=0.05", "m=0.02"],
+                                     guide=None)
+             + ylim(-0.02, 1.05)
+             + labs(x="training position (ordinal ladder)",
+                    y="error rate (share of poems)",
+                    title=f"Rhyme error types across the "
+                          f"{'OLMo-3' if ladder == 'olmo' else 'Pythia'}"
+                          " ladder",
+                    subtitle=("MISS: rhymed poem, called-slot pull fails "
+                              "to clear the depth-matched null by m. "
+                              "FALSE ALARM: unrhymed poem clears it.\n"
+                              "Bold m=0.05, dashed m=0.02 (bare "
+                              "exceedance is a coin flip at zero signal "
+                              "— the margin is the criterion). Smoothed "
+                              "within phase segments; faint = raw.\n"
+                              "Miss=100% at init is the correct reading "
+                              "(cannot yet). 120 rhymed / 60 unrhymed "
+                              "poems per rung."),
+                    color="")
+             + theme_minimal(base_size=11)
+             + theme(panel_grid_minor=element_blank(),
+                     panel_grid_major=element_line(color="#e8e7e3",
+                                                   size=0.4),
+                     text=element_text(color=INK),
+                     plot_title=element_text(size=13, weight="bold"),
+                     plot_subtitle=element_text(size=8, color=INK2),
+                     legend_position="none",
+                     figure_size=(11, 6.2)))
+        for sec in bounds:
+            lo, hi = bounds[sec]
+            p = p + annotate("text", x=(lo + hi) / 2, y=1.03, label=sec,
+                             color=INK2, size=9)
+        out = os.path.join(
+            FIGDIR, f"fig{fign}_verse_errors_{ladder}.png")
+        p.save(out, dpi=300, verbose=False)
+        print(f"wrote {out}")
+
+
+REGISTRY = {"vc_olmo": vc_olmo, "vc_olmo_scheme": vc_olmo_scheme,
+            "vc_errors": vc_errors}
 
 if __name__ == "__main__":
     for k in (sys.argv[1:] or list(REGISTRY)):
