@@ -873,6 +873,21 @@ seat forgets at its peril:
   each solved it, and neither could reach a third. A producer docstring
   is the right home for *why this panel is shaped this way* and the wrong
   home for anything a second seat needs.
+- **A DROPPED KEY COLUMN PRODUCES THE DEFECT YOU WERE LOOKING FOR**
+  ([6155], malign's near-miss, reproduced at the registrar seat). The same
+  duplicate check on `twp_residual`, one column apart:
+
+      GROUP BY model, prompt, source   37,080 keys,     0 differing in value
+      GROUP BY model, prompt           50,846 keys, 5,215 differing in value
+
+  **Same table, same question, opposite conclusions.** `source` is part of
+  what distinguishes a row — multi-source rows are separate ingests, not
+  corruption — and `ch_read` resolves them by DECLARED precedence
+  (`argMin(tail, i)` over a `CASE <source order>`). **The contrast with
+  `done_cells` is exact and worth keeping as a pair: there the design was
+  right and its stated reason false; here the reason is IN the code, as an
+  ordering.** malign checked before posting only because two other seats
+  had just refused an inherited all-clear.
 - **LOOK AT THE FACTORISATION, NOT THE TOTAL** ([6152]/[6153]). The
   residual duplication read as 3.6% and 6.1% — which looks like drift.
   The per-source counts were 283, 566, 849, 1132, 1994: **every one a
