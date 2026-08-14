@@ -470,8 +470,17 @@ class ModelHandler(BaseHTTPRequestHandler):
                     return
                 S = ax.score(sorted(set(words) | set(naughty) | set(nice)))
                 st = ax.stats(probs, S) if probs else {}
+                #: `pole_gap` AND `n_poles` ARE UNCONDITIONAL. They depend only
+                #: on the poles, not on a distribution -- and the refactor moved
+                #: them inside `stats()`, which is skipped when the caller
+                #: supplies its own word list. The UI does exactly that, so it
+                #: got `undefined.toFixed(3)` on the first render. A field that
+                #: needs no probabilities must not be gated on having them.
                 self._respond(200, dict({
                     "prompt": prompt, "axis_norm": ax.norm,
+                    "pole_gap": ax.pole_gap,
+                    "n_poles": [len(naughty), len(nice)],
+                    "lev_mover": 0.1027, "lev_dead": 0.0694,
                     "naughty_mass": (sum(probs.get(w, 0.0) for w in naughty)
                                      if probs else None),
                     "nice_mass": (sum(probs.get(w, 0.0) for w in nice)

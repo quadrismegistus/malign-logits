@@ -146,7 +146,11 @@
 			const j = await r.json();
 			if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
 			axis = Object.fromEntries(j.scores.map((x: {word: string; s: number}) => [x.word, x.s]));
-			poleGap = j.pole_gap;
+			//: DEFENSIVE. `poleGap.toFixed(3)` threw on undefined and blanked the
+			//: whole panel when a server refactor moved `pole_gap` behind a
+			//: condition the UI never satisfies. A missing field should degrade to
+			//: a dash, not take the render down -- the contract can change again.
+			poleGap = typeof j.pole_gap === 'number' ? j.pole_gap : NaN;
 			sortByAxis = true;
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
@@ -430,7 +434,7 @@
 					<span class="cnt">tag one word each side to build the axis</span>
 				{/if}
 				{#if axis}
-					<span class="cnt">pole gap {poleGap.toFixed(3)}</span>
+					<span class="cnt">pole gap {isNaN(poleGap) ? '—' : poleGap.toFixed(3)}</span>
 					<label class="cnt sortlbl">
 						<input type="checkbox" bind:checked={sortByAxis} /> sort by axis
 					</label>
