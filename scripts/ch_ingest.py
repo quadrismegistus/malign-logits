@@ -461,9 +461,20 @@ def insert(table, rows):
 def done_cells(residual_table):
     """(model, prompt) already ingested, read from the RESIDUAL table.
 
-    The residual tables carry exactly one row per cell, so this is ~266k rows
-    rather than the 900M+ in `logit_probs`. Asking the fact table the same
-    question would scan three orders of magnitude more to get the same set.
+    The residual tables carry ~one row per cell, so this is ~1M rows rather
+    than the 1.7B in `logit_probs`. Asking the fact table the same question
+    would scan three orders of magnitude more to get the same set.
+
+    **"EXACTLY one row per cell" IS WHAT THIS SAID AND IT IS NOT TRUE**
+    (measured 2026-08-14). `twp_residual` carries 37,080 duplicate rows and
+    `logit_residual` 18,112 -- every one payload-identical, each affected cell
+    written exactly twice and never more. The bulk of it is ONE event: the
+    283-prompt ACTIVE transgression batch ingested twice across 129 models.
+    **The skip is unharmed, because this function builds a SET and duplicates
+    collapse into it** -- which is why nobody noticed. What was wrong is the
+    stated REASON for reading this table rather than the fact table, and a
+    design rationale resting on a false invariant is worth correcting even
+    when the design is right.
 
     Skipping here rather than relying on ReplacingMergeTree is deliberate:
     Replacing dedupes at MERGE time, eventually, so a re-run without this would
