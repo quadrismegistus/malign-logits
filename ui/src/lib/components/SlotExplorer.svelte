@@ -41,16 +41,34 @@
 	let error = $state('');
 	let elapsed = $state(0);
 
-	//: Tags live OUTSIDE `resp` so they survive a re-query. Retyping the sets
-	//: after every edit is what makes an authoring tool unusable.
+	//: Tags live OUTSIDE `resp` so they survive a RE-QUERY OF THE SAME PROMPT --
+	//: changing k, or re-expanding -- because retyping the sets after every
+	//: adjustment is what makes an authoring tool unusable.
+	//:
+	//: BUT THEY MUST NOT SURVIVE A NEW PROMPT, which the first version let them
+	//: do. A tag is a claim about THIS slot's semantics: `shirt` is naughty
+	//: under "slipped his hand inside her" and nice under "he took off his", and
+	//: carrying it across left words coloured by a judgement made about a
+	//: different sentence. `taggedFor` records which prompt the sets belong to.
 	let naughty = $state<Set<string>>(new Set());
 	let nice = $state<Set<string>>(new Set());
+	let taggedFor = $state('');
+	let clearedNote = $state('');
 
 	const BASE = import.meta.env.DEV ? '/api' : '';
 
 	async function run() {
 		if (!prompt.trim()) return;
 		loading = true; error = '';
+		//: CLEARED ON A PROMPT CHANGE, and SAID SO. A silent clear looks like the
+		//: tags were lost; a silent carry-over looks like they were meant.
+		if (taggedFor && prompt !== taggedFor && (naughty.size || nice.size)) {
+			const n = naughty.size + nice.size;
+			naughty = new Set(); nice = new Set(); axis = null; sortByAxis = false;
+			clearedNote = `cleared ${n} tag${n > 1 ? 's' : ''} — they belonged to the previous prompt`;
+		} else if (prompt === taggedFor) {
+			clearedNote = '';
+		}
 		const t0 = performance.now();
 		try {
 			const url = `${BASE}/api/slot?prompt=${encodeURIComponent(prompt)}`
@@ -59,6 +77,7 @@
 			const j = await r.json();
 			if (!r.ok || j.error) throw new Error(j.error || `HTTP ${r.status}`);
 			resp = j;
+			taggedFor = prompt;
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
 			resp = null;
@@ -70,6 +89,7 @@
 
 	function tag(w: string, set: 'nice' | 'naughty', ev?: MouseEvent) {
 		ev?.preventDefault();
+		clearedNote = '';
 		const [add, other] = set === 'nice' ? [nice, naughty] : [naughty, nice];
 		if (add.has(w)) add.delete(w); else { add.add(w); other.delete(w); }
 		nice = new Set(nice); naughty = new Set(naughty);
@@ -403,6 +423,7 @@
 		</div>
 
 		{#if saveMsg}<p class="savemsg">{saveMsg}</p>{/if}
+		{#if clearedNote}<p class="clearednote">{clearedNote}</p>{/if}
 		<p class="hint">
 			left-click = nice · right-click = naughty
 			<button class="ghost viewtog" onclick={() => (view = view === 'list' ? 'scatter' : 'list')}>
@@ -537,6 +558,8 @@
 	.val.good { color: #59a14f; }
 	.val.bad { color: #e15759; }
 	.branch.dim .val, .branch.dim .lbl { color: #666; }
+	.clearednote { font-family: 'SF Mono', monospace; font-size: 11px; color: #888;
+	               margin: 0 0 6px 2px; }
 	.savemsg { font-family: 'SF Mono', monospace; font-size: 11px; color: #6f9dc9;
 	           margin: 0 0 6px 2px; }
 	.words.hidden { display: none; }

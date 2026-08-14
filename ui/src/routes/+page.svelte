@@ -25,7 +25,9 @@
 	let serverInfo: ServerInfo | null = $state(null);
 	let prompts: string[] = $state([]);
 	let prompt = $state('She was so angry she wanted to');
-	let activeTab = $state('trajectories');
+	//: SlotExplorer is the default tab: it is the authoring entry point and the
+	//: only one that needs no analysis run first.
+	let activeTab = $state('slot');
 	let loading = $state(false);
 	let progressText = $state('');
 	let error = $state('');
