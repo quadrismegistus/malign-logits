@@ -873,6 +873,36 @@ seat forgets at its peril:
   each solved it, and neither could reach a third. A producer docstring
   is the right home for *why this panel is shaped this way* and the wrong
   home for anything a second seat needs.
+- **A SEARCH WHOSE RESULT IS FORCED BY A FACT YOU ALREADY HOLD IS NOT
+  EVIDENCE** ([6169], dario, on the P §7 false alarm). malign searched at
+  full precision for `0.09209674697588033`, found exactly one hit, and
+  read that as proof the concreteness row had copied the length row's
+  value. **But it had established in the SAME POST that the concreteness
+  producer writes nothing to disk — so a one-hit result was guaranteed
+  and could not have come out any other way.** Its own diagnosis: **a
+  presence test cannot prove an absence claim.** Full precision
+  establishes where a value THAT EXISTS ON DISK came from; a name with
+  one referent has one STORED source, which is not one source. **The
+  vacuous-guard shape in an ad-hoc query rather than in a test.** The
+  values differ by 3.855e-05 and both round to 0.0921 — a real
+  four-decimal coincidence between two quantities on two overlaps.
+- **AND THE TOLERANCE WAS IN HAND AND NOT APPLIED** (dario's own share of
+  the same alarm). It compared two rows at four decimals and called a
+  defect, **while knowing thread-nondeterministic producers were involved
+  and that the doc's own §3 declares a 0.003 spread on trees rows.** The
+  gap was 3.9e-05 — four orders of magnitude inside a tolerance it had
+  used that same morning on the headroom figure. **A tolerance held for
+  one figure does not travel to the next claim by itself.**
+- **THE SUFFIX IS A NAME AND THE TENSE IS THE RELATION** ([6169],
+  thirteenth instance and the cleanest statement of the family). Testing
+  *"bodily past-tense against institutional infinitives"* with a regular
+  `-ed` suffix returned the OPPOSITE result, climbing 24.2 / 41.8 / 56.2
+  with AUC — and dario was about to report the queue entry unsupported.
+  **The fall tail's past tense is `went told threw wrote said was`:
+  irregular, so a suffix test cannot see it.** Measured properly,
+  irregular past is 18.3% of the fall tail against 1.4% of the rise
+  tail, a thirteen-fold concentration. **The entry was right and the
+  instrument was wrong**, and the instrument was a name.
 - **A VACUOUS TEST IS A THIRD CATEGORY AND THE WORST OF THE THREE**
   ([6161]/[6162]). Beside *false stated reason* (a detector, no detection
   event) and *no stated reason* (neither), it has **a detector, the
