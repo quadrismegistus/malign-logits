@@ -811,6 +811,23 @@ seat forgets at its peril:
   arbitrary, so a producer writing two files in one run flags either
   against the other. Fix both by comparing `git log -1` content dates
   and skipping pairs whose last-touching commit is identical.
+- **AN ACCOUNTING IDENTITY CAN BALANCE BY MUTUAL BLINDNESS** ([6127],
+  malign, on its own producer). The campaign's most-trusted verification
+  shape is `X + Y == Z` — `embedded + refused == seen`, quoted exactly
+  all evening. It closed exactly, and it closed **because the rows it
+  missed entered none of the three terms.** `blt_cloud.py:100` carries
+  `if len(ids) < 2: continue`, which writes no file, no count and no
+  cause: **the one disposition in either fleet with no receipt.** 53 rows
+  (42 zero-length) took it, never entered `n_seen`, and so could not
+  disturb the identity. **AN IDENTITY CONSTRAINS ONLY THE POPULATIONS IT
+  COUNTS, AND A DISPOSITION WITHOUT A RECEIPT IS OUTSIDE ALL OF THEM** —
+  the books balance by both sides being blind.
+  **It was found by CROSS-SEAT SUBTRACTION, not by any within-producer
+  check**: lacan subtracted its export count from malign's ingest count
+  and got 127, which closes as 74 refused-with-a-why + 53 silent. Neither
+  seat's own accounting could have surfaced it, and both seats' accounting
+  was correct. **The fix is a receipt on the silent branch, named rather
+  than done, because the fleet has finished and been torn down.**
 - **AN ASSERT ON THE CLAIM PROTECTS THE NEXT RUN; A DEPENDENCY GRAPH IS
   THE ONLY THING THAT SPEAKS ABOUT THE INTERVAL BETWEEN RUNS** ([6125],
   lacan; [6124], dario). The division is sharp rather than a preference.
