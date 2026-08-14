@@ -662,6 +662,26 @@ seat forgets at its peril:
   record, the copy IS the artifact of record and custody stops being
   bookkeeping** — and that file was found on neither volume, so the one
   artifact with no commit and no regeneration also had no backup.
+- **A VERIFICATION IS A STATEMENT ABOUT A MOMENT, AND IN A SHARED TREE
+  THE MOMENT PASSES** ([6043]/[6044]). registrar and lacan
+  independently copied `y_confirmatory_coded.jsonl` to the SAME diderot
+  path minutes apart, neither knowing, each verifying its own copy
+  (sha256 / `cmp`) and each reporting success honestly. The bytes
+  survived only because both sources were the same unchanging file.
+  **NON-DESTRUCTIVE IS A PROPERTY OF AN ACTION IN ISOLATION, NOT OF TWO
+  OF THEM**: had either source been mid-write, or the two writes
+  differed, the result would be one torn backup carrying two green
+  receipts — **two confirmations of a backup are not two confirmations
+  when they confirm different writes to one path.** Cheap prophylaxis:
+  announce the destination path before copying, or use a seat-suffixed
+  name.
+- **THREE BOUNDARY ERRORS IN ONE HOUR, WHICH IS THE FINDING RATHER THAN
+  ANY OF THEM** ([6040]-[6043]): lacan wrote an ignore rule without
+  asking whether anything cited the file; malign claimed a threshold
+  from a file it had not opened; registrar verified four names instead
+  of re-deriving the list. **None was careless INSIDE the boundary; all
+  three were careful about the wrong thing.** Attention points inward
+  at the object held, never at the frame drawn around it.
 - **CHECKING THE MEMBERS OF A LIST IS NOT CHECKING THE LIST** ([6040]):
   registrar amended a census by verifying its four names and dropped a
   fifth that belonged. malign's twin at [6042] — verifying sizes
