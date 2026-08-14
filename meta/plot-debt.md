@@ -35,9 +35,14 @@ the paper-facing figures.
 
 Priority order, RH-adjustable. "open" = undrawn and unblocked.
 
-1. OPEN — M01 N cluster dot plot (shortlist 20/anchor): the campaign's
-   flagship result (91% of 82,775 cells, 34/34 clusters) has no
-   picture. `result_n_primary.json`. Trivial.
+1. SHIPPED 2026-08-14 (dario, 709dfdf1) — M01 N cluster dot plot:
+   `plot_n_figs.py` registry, n_clusters_dotplot (paper-facing; one
+   mark per cluster, count as AREA never position, x held open to the
+   0.5 null) + n_z_ceiling_method (internal). Booked numbers asserted
+   and matched to the digit. Drawing it REDISCOVERED [4134]'s ppf
+   saturation (33/34 clusters at the identical capped z) — the
+   register held it, the 08-12 doc rewrite had dropped it, N doc
+   restored same day.
 2. OPEN — M02 calibration number line (shortlist 4): 0.000 / 0.907 /
    1.006 / 4.031, per-cell strip behind, zh twin panel.
 3. OPEN — NEW (2026-08-13): S4 DIAGONAL — each model soothed by its own

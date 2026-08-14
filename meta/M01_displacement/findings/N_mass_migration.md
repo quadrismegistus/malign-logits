@@ -16,7 +16,7 @@ Does the substitution effect hold at the full English scale of the corpus? The m
 
 ## What was found
 
-**Substitution, confirmed at scale.** 2,199 stimuli by 44 base-to-aligned edges, 82,775 cells: 91% run in the substitution direction, and all 34 of 34 model clusters agree. The combined statistic (a Stouffer Z, combining evidence across clusters) is reported as a FLOOR — the clustering choices are conservative, so the true strength is at least this. This is the anchor of the paper's first axis: when alignment takes a word away, the mass re-concentrates on nameable substitutes.
+**Substitution, confirmed at scale.** 2,199 stimuli by 44 base-to-aligned edges, 82,775 cells: 91% run in the substitution direction, and all 34 of 34 model clusters agree. The combined statistic (a Stouffer Z, combining evidence across clusters) is reported as a FLOOR for TWO reasons: the clustering choices are conservative, and the producer's p-to-z conversion saturates at |z| = 8.3265 per family (below p ~ 1e-16 the float64 CDF underflows, so 33 of 34 clusters contribute the identical capped value — the statistic is bounded by its own arithmetic before any clustering argument applies; the underlying p-values are exact and the verdict is untouched). The saturation was booked at correction [4134] on 2026-08-04 but dropped from this document in the 2026-08-12 self-contained rewrite; the design seat independently rediscovered it from the artifact while drawing the figure ([5897]), which restored it here. This is the anchor of the paper's first axis: when alignment takes a word away, the mass re-concentrates on nameable substitutes.
 
 ## The limit that travels
 

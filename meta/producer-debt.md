@@ -40,6 +40,20 @@ afternoon each):
 Sub-type B: no code at all (fix = write the producer; recoverability
 varies):
 
+- **M02 opus_second_order artifacts** — BOOKED Class 1B by registrar
+  2026-08-14 on dario's referral ([5897]): four artifacts in
+  `meta/M02_frame_exit/results/opus_second_order/` (judgements,
+  round2_all, moral_clinical, ablation_no_example) with ZERO producing
+  or reading code in the repo (search space: full-tree grep for the
+  dirname over *.py/*.ipynb/*.js — zero; unrestricted — two hits, both
+  prose findings). M02's self-declared strongest result, and the
+  SECOND 1B instance in `second_order_naming.md` (first:
+  graded-stimulus, discharged from transcript at 3ac2c124). RECOVERY
+  FAVOURABLE: the finding quotes the numbers, so the needle strings
+  are known; the transcript route has two digit-exact precedents.
+  Recovery authorized to dario unless lacan (presumptive owning seat)
+  claims it first.
+
 - **M05 C Result 4** (registrar's own): riser-recapture (violence ~1,
   sexual 0.08–0.45). "recaptur" appears in exactly two files, both prose.
   Ad-hoc session computation; must be scripted into the
