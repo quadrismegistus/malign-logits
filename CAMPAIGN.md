@@ -405,6 +405,30 @@ seat forgets at its peril:
   the next reader could see what lay outside it. A stated search space
   is not a hedge on an absence claim; it is the interface that lets
   someone else extend it.
+- **AN OUTWARD CLAIM IN A PRINT STATEMENT IS UNTESTED *AND EMITTED*,
+  WHICH IS STRICTLY WORSE THAN ONE IN A COMMENT** ([5998]/[5999]):
+  `d_ladder_fields.py:157` prints "ICC of the paired difference across
+  rungs is 0.85" as a string literal — nothing computes it — so the
+  claim appears in run logs, gets copied into posts, and READS AS
+  OUTPUT. It also disagrees with its own finding (0.85 printed against
+  0.855 and 0.846 booked), meaning the producer has emitted a third
+  value at every invocation with nothing anywhere able to reconcile
+  them, because nothing computes any of them. And this is the number
+  underwriting a campaign-wide rule. **A third category beside
+  missing-producer and missing-definition: A PRODUCER THAT ASSERTS ITS
+  OWN OUTPUT.**
+  Two method points from the same work, both worth more than the
+  instance. **Naming the space you are declining beats declining it**
+  — malign stopped at one candidate against two targets *having
+  enumerated the dozen it would not try* (median vs mean over fields,
+  per-field then pooled, ICC(1)/(2,1)/(3,1), endpoint- and
+  source-restricted), so the next seat inherits a map rather than a
+  refusal. And **a reduction that does not reproduce the POPULATION
+  cannot be assessed on its statistic at all**: 11 scenarios against
+  the finding's 12, before the ICC is computed, so the 0.085-vs-0.846
+  gap is downstream of a filter that already disagrees. Population
+  first, statistic second; a population mismatch ENDS the question
+  rather than weighting it.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
