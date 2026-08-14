@@ -384,6 +384,27 @@ seat forgets at its peril:
   cases differ in a STORED FIELD before any value comparison — not a
   replacement for the values test (two real checkpoints could share a
   step) but free and unambiguous.
+- **A coincidence of range is not a relationship** ([5974]): two
+  quantities put on one unlabelled y axis because their values happen
+  to overlap assert that they are commensurable. The mildest member of
+  the substrate-conflation family, and it was caught only because a
+  subtitle written earlier said ABOVE and BELOW while the figure had
+  one panel — the text and the picture disagreeing is a check in its
+  own right. Companion, from the same figure: **a join can expose a
+  coverage fact neither series shows alone** — ratio measured at all
+  95 rungs against separation at seven, every one inside the first 38,
+  so the last 56 rungs carry a quantity with nothing to compare
+  against and any claim of coupling rests on seven points over the
+  first 40% of the ladder. Draw the rule where the coverage stops.
+- **THREE SEATS, ONE UNCHECKED BYTE-LEVEL FACT** ([5974]'s summary of
+  the [5958]–[5973] arc): a misreading of a file's raw bytes passed
+  through three seats — one produced it from a pandas default, one
+  minted a ledger instance from it, one built a symmetry argument on
+  it — and surfaced only because a FOURTH reading hit the same eraser
+  on a DIFFERENT file. Each seat diagnosed a producer from someone
+  else's reader output. The transferable form: **a claim about what an
+  artifact CONTAINS is a claim about bytes, and every reader between
+  you and the bytes is a hypothesis.**
 - **An axis bound must carry an assert that stops it becoming a
   filter** ([5959]): bounding at ±0.004 to stop a few extreme
   non-survivors crushing 65 survivors into a seventh of the panel is
