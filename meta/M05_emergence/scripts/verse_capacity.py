@@ -62,6 +62,8 @@ import json
 import os
 import re
 import subprocess
+
+from malign_logits import ch as chdb
 import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -78,11 +80,19 @@ OUT = "meta/M05_emergence/results"
 
 
 def ch(q, data=None):
-    r = subprocess.run([CH, "client", "-q", q],
-                       input=data, capture_output=True, text=True)
-    if r.returncode:
-        sys.exit(f"CH error: {r.stderr[:800]}")
-    return r.stdout
+    """Local shim over `malign_logits.ch`, kept because the call sites below
+    read well with a bare `ch(...)`.
+
+    The module is imported as `chdb` rather than `ch` on purpose: this file
+    already had a function of that name, and a rename would have touched every
+    call site to no benefit. Migrated 2026-08-14 ([6148]) so the DDL and INSERT
+    paths get the shared reader's error reporting -- which carries the failing
+    SQL, where this used to `sys.exit` with 800 characters of stderr and no
+    statement.
+    """
+    if data is not None:
+        return chdb.execute(q, stdin=data)
+    return chdb.execute(q)
 
 
 def load_temp_tables():
@@ -149,10 +159,7 @@ def pull_cells():
     INNER JOIN malign_logits.vf_manifest_tmp m ON d.prompt = m.prompt
     GROUP BY d.model, m.cell_id
     FORMAT Parquet"""
-    r = subprocess.run([CH, "client", "-q", q], capture_output=True)
-    if r.returncode:
-        sys.exit(f"CH error: {r.stderr[:800].decode()}")
-    d = pd.read_parquet(io.BytesIO(r.stdout))
+    d = chdb.parquet(q)
     man = pd.DataFrame(json.loads(x) for x in open_manifest_rows())
     d = d.merge(man, on="cell_id", how="left")
 
@@ -161,10 +168,7 @@ def pull_cells():
       WHERE rule_version = 3
         AND prompt IN (SELECT prompt FROM malign_logits.vf_manifest_tmp)
       GROUP BY model, prompt FORMAT Parquet"""
-    r = subprocess.run([CH, "client", "-q", qr], capture_output=True)
-    if r.returncode:
-        sys.exit(f"CH error: {r.stderr[:800].decode()}")
-    res = pd.read_parquet(io.BytesIO(r.stdout))
+    res = chdb.parquet(qr)
     d = d.merge(res, on=["model", "prompt"], how="left")
     return d
 

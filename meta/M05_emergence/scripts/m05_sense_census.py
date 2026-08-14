@@ -22,6 +22,8 @@ import hashlib
 import json
 import os
 import subprocess
+
+from malign_logits import ch
 import sys
 
 import pandas as pd
@@ -62,13 +64,15 @@ def battery_texts():
 
 
 def ch_pairs(q):
-    r = subprocess.run([CH, "client", "--query", q + " FORMAT TSV"],
-                       capture_output=True, text=True, check=True)
-    out = []
-    for line in r.stdout.splitlines():
-        p, _, w = line.partition("\t")
-        out.append((unescape(p), unescape(w)))
-    return out
+    """(prompt, word) pairs. Migrated 2026-08-14 to `malign_logits.ch`.
+
+    WAS `FORMAT TSV` partitioned on the first tab and unescaped by hand --
+    the third such reader in this repo, after `ch_read._unesc` and gens's
+    opt-in `unescape_cols`, each written after the escaping was missed once.
+    JSONEachRow has nothing to unescape and no delimiter to partition on, so
+    a prompt containing a tab or a newline arrives whole ([6148]).
+    """
+    return [(r["prompt"], r["word"]) for r in ch.query(q)]
 
 
 def expand(s):

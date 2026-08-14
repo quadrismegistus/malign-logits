@@ -141,6 +141,33 @@ def scalar(sql, default=None, **kw):
     return vals[0]
 
 
+def _run_bytes(sql, limit_bytes=DEFAULT_LIMIT_BYTES):
+    sql = sql.replace("{db}", DB)
+    r = subprocess.run([CH, "client", "--query", sql], capture_output=True)
+    if r.returncode:
+        raise ClickHouseError(r.stderr.decode("utf-8", "replace"), sql)
+    if limit_bytes is not None and len(r.stdout) > limit_bytes:
+        raise ClickHouseError("result exceeded limit_bytes=%d (got %d)"
+                              % (limit_bytes, len(r.stdout)), sql)
+    return r.stdout
+
+
+def parquet(sql, **kw):
+    """A DataFrame via `FORMAT Parquet`. Binary transport, for bulk reads.
+
+    Prefer this over `df` when the result is large: Parquet carries types and
+    compresses, where JSONEachRow spends a line of text per row. Added
+    2026-08-14 because `verse_capacity` needed it and the first version of
+    this module could not express it -- `_run` decodes as text, which
+    corrupts a binary payload silently rather than failing.
+    """
+    import io as _io
+    import pandas as pd
+    if "FORMAT" not in sql.upper():
+        sql = sql.rstrip().rstrip(";") + " FORMAT Parquet"
+    return pd.read_parquet(_io.BytesIO(_run_bytes(sql, **kw)))
+
+
 def df(sql, **kw):
     """A pandas DataFrame. Empty result gives an empty frame, not an exception."""
     import pandas as pd

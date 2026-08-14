@@ -828,6 +828,20 @@ seat forgets at its peril:
   by someone who already knows the name.
   Its origin is also the deadlock now blocking plot-debt 15: the same 21%
   incident produced both the fence in `P_unnamed_axis.md` §3 and this.
+- **A BYTE-IDENTICAL OUTPUT IS EVIDENCE ABOUT THE PRODUCER YOU RE-RAN AND
+  SAYS NOTHING ABOUT THE CHAIN BEHIND IT** ([6149], dario, narrowing its own
+  test after `malign_logits/ch` work exposed the condition). The test —
+  *a byte-identical re-render proves re-render rather than re-base* — holds
+  for a **case-1** producer, which reads a committed artifact and cannot
+  recompute it, so the only determinism it certifies is that producer's own.
+  **Run it on a producer whose input comes through a NON-DETERMINISTIC read
+  and it reports change where there is none, in both directions.**
+  `ch_read.prefetch` had no `ORDER BY` for its whole existence: two runs of
+  unchanged code differed on 4,051 of 4,413 cells, word order only. That is
+  the same false positive that cost an hour on `m05_field_flow` and produced
+  a repo-wide crop of staleness flags in the truncation sweep. **Byte
+  stability is a property of a CHAIN, and asserting it of one link is the
+  error.**
 - **AN IDENTIFIER CAN FAIL IN THREE WAYS AND ONLY ONE IS DISCOVERABLE**
   ([6131]-[6133], all three seats audited themselves after lacan
   disclosed a fabricated hash):
