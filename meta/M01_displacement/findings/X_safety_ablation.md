@@ -87,7 +87,16 @@ Safety separated on `departed` (p=0.0066), `arrived` (0.013), `js_total` (0.0003
 
 **The binarised claim is NOT supported.** McNemar on the same pairs is null for every arm on every metric (safety 0.63 / 0.19 / 0.16). Only 115–157 of 684 pairs are discordant, so 77–83% of the data contributes nothing: the effect is a *shrinkage of magnitude*, not a flip of sign. Fisher was also run at RH's request and is the wrong test here — it treats the two rows as independent samples when they are the same 684 pairs — and returns nothing either. So: *removing safety data shrinks the gap* holds; *removing safety data changes which member reacts more* does not.
 
-**The faller set is defined per edge**, so the DiD differenced sums over different word sets. Rechecked on a fixed set (full SFT's fallers applied to both edges, 150 MARKED prompts): **safety survives** — own-set −0.00195 against fixed-set −0.00192, agreeing to three decimals. **WildChat does not** — Jaccard 0.325 against full, and the two estimates diverge by 40% (−0.00223 vs −0.00314).
+**The faller set is defined per edge**, so the DiD differenced sums over different word sets. A drop could mean the same words contribute less divergence, or merely that fewer words cleared the predicate. Rechecked on a fixed set — full SFT's fallers scored on both edges, 150 MARKED prompts, `scripts/x_pair_ablation_fixedset.py`:
+
+| arm | faller set size | Jaccard vs full | own-set | fixed-set | divergence |
+|---|---|---|---|---|---|
+| persona | 4.53 | 0.492 | −0.00123 | −0.00123 | **0%** |
+| **safety** | 4.75 | 0.531 | **−0.00195** | **−0.00192** | **1%** |
+| math | 4.60 | 0.529 | −0.00164 | −0.00144 | 12% |
+| **wildchat** | 4.47 | **0.325** | −0.00223 | −0.00314 | **41%** |
+
+**Safety survives** — the two readings agree to three decimals, so the effect is the same words contributing less, not a different set being flagged. **WildChat does not**: its faller set overlaps full's by only 0.325 and the estimates diverge by 41%, so a substantial part of its reading is *which* words got flagged. This is the check that withdrew §3a's WildChat claim, and it is the reason to keep a check that can return either answer.
 
 ### 3a. WITHDRAWN: "magnitude and mechanism come apart"
 
@@ -187,6 +196,7 @@ Section 1 is the least exposed of the six: largest population, no set definition
 | pair DiD (section 3) | `scripts/x_pair_ablation_split.py` → `results/x_pair_ablation_split.csv` |
 | share diagnostic (section 3) | `scripts/x_pair_ablation_share.py` |
 | McNemar / Fisher (section 3) | `scripts/x_pair_ablation_mcnemar.py` |
+| fixed-set recheck (section 3) | `scripts/x_pair_ablation_fixedset.py` |
 | JS by role (section 3a) | `scripts/x_pair_ablation_decompose.py` → `results/x_pair_ablation_decompose.csv` |
 | K ratings | `malign_logits/fields.py`, `lexicons/k_ratings_{en,zh}.json` |
 | arms | `data/model_registry.json` — never a literal in any producer above |
