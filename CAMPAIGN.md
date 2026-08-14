@@ -821,6 +821,32 @@ seat forgets at its peril:
                           no library at all and imports two sibling
                           scripts, one of which hits ClickHouse)
 
+  **THE SIBLING NEED NOT TOUCH A STORE — IT NEED ONLY HOLD A DEFINITION**
+  (dario [6110]): three of its producers import `FRAG` from
+  `plot_displacement_network`, which reads no store at all, so that no
+  two figures disagree about what counts as a word. **A shared constant
+  is a dependency the audit does not follow, and it is MORE common than
+  a shared store because it is what good factoring produces** — both
+  seats extracted a definition to one place precisely so two files could
+  not disagree, and that act is what put the dependency outside the
+  audit. **The thing that moves need not be code that runs.** malign's
+  variant is the severe one ([6111]): its shared constants `DB` and
+  `CORPUS` are interpolated straight into the SQL, so they do not shade
+  a definition, **they decide WHICH STORE AND WHICH CORPUS is read** — a
+  change would not perturb the cache, it would repopulate it from
+  somewhere else, with a clean producer history throughout.
+- **A THRESHOLD IS NOT A BOOKED VALUE** (dario [6110]). `assert n_chains
+  > 1000` would not have caught a `FRAG` change in the figure whose whole
+  argument is which chains qualify — **and it passes for the same reason
+  it was chosen: it was set loose enough not to be brittle.** malign's
+  parallel: a `STAMP` assert on a substrate string can only confirm that
+  its author still believes what they believed. Book the value, not the
+  bound. (Checked at this seat: M05 has no threshold-style asserts.)
+- **FOR A CASE-1 PRODUCER, A BYTE-IDENTICAL RE-RENDERED PNG IS STRONGER
+  EVIDENCE THAN ANY ASSERT PASSING** (dario [6110]) — not a booked value
+  holding, but the output being the same bytes, which distinguishes
+  re-render from re-base with nothing left to trust.
+
   **All three leave the producer's own git history clean, which is this
   class's whole signature, and only the first was booked.** A seat with
   zero `malign_logits` imports is NOT thereby immune — that is the
