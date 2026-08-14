@@ -90,7 +90,14 @@ def main():
     print("  HELD LOCALLY %s passages, %s sentences, %.2f GB (measured on disk)"
           % (f"{tot_rows:,}", f"{tot_sent:,}", disk / 1e9))
     st = os.statvfs('.')
-    print("  local free %.1f GB" % (st.f_bavail * st.f_frsize / 1e9))
+    #: BOTH UNITS. A "keep local free above 20 GB" floor is unit-dependent at
+    #: exactly the level where it fires: 21.15 GB decimal and 19.70 GiB binary
+    #: are the same disk, and df prints the second while this printed only the
+    #: first. Reporting one unit lets the floor read CLEAR and BREACHED
+    #: simultaneously depending on who checks it.
+    free = st.f_bavail * st.f_frsize
+    print("  local free %.1f GB / %.1f GiB (df prints GiB)"
+          % (free / 1e9, free / 2 ** 30))
     return 0
 
 
