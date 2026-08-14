@@ -126,11 +126,23 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     coupling as an image). t14_words is HELD: it quotes the retired
     binomial's numbers and awaits the T amendment on the new
     instrument.
-14. INCOMING — VERSE FLEET figures (fleet lands 2026-08-14 early am):
-    the nine-slot within-poem time course; called-slot rhyme pull
-    across pretraining rungs; scheme matrix; closure gradient. Likely
-    the book's centerpiece panels. Wait for reconciliation + first
-    reads before drawing.
+14. PART-SHIPPED 2026-08-14 (registrar, first-read session with RH) —
+    VERSE FLEET figures. SHIPPED: fig24 (rhyme capacity x era, full
+    OLMo ladder — the SFT step-down), fig25 (x scheme + compulsion
+    curve), fig28/29 (error types: miss vs false alarm at declared
+    m=0.05, verse_error_rates.parquet), fig26/27 (ALL-CAPACITIES
+    overview, both ladders: battery + poetic + syntax + sense + verse
+    hit rate; segment-aware moving averages, right-edge labels; verse
+    restraint deliberately NOT on the overview — vacuous pre-capacity,
+    lives with its pair on fig28/29). Producers:
+    M05 verse_capacity.py (tables), verse_capacity_figs.py,
+    m05_capacities_overview.py, aggregate_capacities.py
+    (capacities_by_rung.parquet — ONE tidy per-rung table, all
+    capacity families; syntax recomputed from class_mass since its
+    curve was never persisted; OLMo sense unjoinable, declared).
+    STILL OWED from the original menu: nine-slot within-poem time
+    course; closure gradient (BLOCKED: rider rides the un-ingested
+    .f16 tier, RH's call); era x scheme matrix panel.
 15. OPEN (2026-08-14, RH-approved menu) — FINDINGS P FIGURES, for a
     new `plot_p_figs.py` registry (P currently has NO figures of
     record; the 36 K biplots are the superseded measurement study's):
