@@ -1,16 +1,5 @@
 # Registration E v3 — H2 on the GAP stratum
 
----
-
-## STATUS AS OF 2026-08-01 — added [2073], derived from the docket
-
-**CLOSED. RESULT ON THE RECORD.**
-
-- **Result:** 19 of 25 independent lineages, p = 0.0073, on the blind family arm. Pooled residualised A = +0.0340 (confirmatory-but-sighted). Displacing 16 of 25, p = 0.1148 — underpowered, not negative.
-- **§E8's independence claim is CORRECTED.** It read *a more complete registry gives fewer lineages and a larger p, never the reverse*. **"Never" holds only if registry errors are errors of OMISSION**; a spurious `same_base_as` splits a lineage on correction and LOWERS p. Nobody has audited the registry for false positives. Honest form: corrections are overwhelmingly likely to merge, but that is an empirical claim about this registry, not a property of the collapse ([1860].2).
-- **E's substrate is Registration F's problem.** H2 is H1's quantity with `abs()` applied, so E could not have computed extremity without holding signed valence — F is SIGHTED FROM BIRTH on the gap stratum, established from the code without running the arm ([1994]b).
-
-
 A DELTA on frozen `registration_c_delta_v6.md` `06f0272d7f21b901`, which governs
 everything not named here. **Authorised by RH ([1808]): "let's use as much data
 as we can."** Drafted by the pen. **v1 `e7771dcc5a1bfddc` and v2 `d811f26e777497d2` are SUPERSEDED.**

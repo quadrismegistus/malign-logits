@@ -162,10 +162,30 @@ def main():
 
     print("PILOT %s -> %s   group %s   k=%d" % (PAIR[0], PAIR[1], TARGET, K))
     print("   %s" % g["both"])
-    res = {}
-    for mid in PAIR:
-        print("\n%s" % mid)
-        res[mid] = run_model(mid, prompts)
+    #: **CACHE THE PER-LAYER DISTRIBUTIONS, NOT ONLY THE DERIVED MASSES.**
+    #: The forward passes are the whole cost (~12 min for this cell) and the
+    #: first version persisted only A_mass/B_mass, so the k-sweep that killed
+    #: the top-k measure had to fall back to final-layer twp, and validating
+    #: the replacement measure would have meant paying the cost again. Both the
+    #: word dict AND the residual are cached: `tail` is what distinguishes "no
+    #: mass" from "below theta", and a cache that dropped it would reintroduce
+    #: the absent-vs-empty ambiguity on every later read.
+    cache = os.path.join(CAMP, "results", "lens_pilot_layers.json")
+    if os.path.exists(cache):
+        raw = json.load(open(cache))
+        res = {m: {p: {int(l): (d["words"], d["resid"]) for l, d in pv.items()}
+                   for p, pv in mv.items()} for m, mv in raw.items()}
+        print("   reusing %s" % os.path.relpath(cache, ROOT))
+    else:
+        res = {}
+        for mid in PAIR:
+            print("\n%s" % mid)
+            res[mid] = run_model(mid, prompts)
+        with open(cache, "w") as fh:
+            json.dump({m: {p: {str(l): {"words": w, "resid": r}
+                               for l, (w, r) in pv.items()}
+                           for p, pv in mv.items()} for m, mv in res.items()}, fh)
+        print("   cached %s" % os.path.relpath(cache, ROOT))
 
     print("\n" + "=" * 78)
     print("A_mass / B_mass ON THE BOTH PROMPT, BY RELATIVE DEPTH")

@@ -48,6 +48,12 @@
    "failures": 1,
    "symptom": "torch.cuda.is_available() False while nvidia-smi reports the card (RTX 4090) normally. Second host today with this exact shape.",
    "note": "Instance 47557703. Caught by the PRE-SETUP cuda check, so no setup time was spent -- the check exists because machine 29796 was not caught that way."
+  },
+  "56458": {
+   "seen": "2026-08-13",
+   "failures": 1,
+   "symptom": "DOWNLOAD STARVATION, not a launch failure. Three concurrent verse-fleet boxes on this host (23.158.136.85) each cycled through 18-19 of 31 models in 45 minutes with an HF cache of 1-7 MB and ZERO cells written \u2014 every fetch rate-limited, backed off, gave up, and the runner advanced to the next model. The log reads like two-thirds progress. pgrep says RUN throughout. The discriminator that works is whether ~/.cache/huggingface GROWS: static across 45s = state, not race.",
+   "note": "blocklisted after a REPLACEMENT box landed back on the same machine minutes after three were destroyed for this \u2014 the durable-handle lesson: record the machine at acquisition, because the instance id dies with the box and the host does not."
   }
  }
 }

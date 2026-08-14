@@ -130,6 +130,49 @@ def fetch_logits(models, prompts):
     return D
 
 
+def fetch_stash(models, prompts):
+    """FULL-VOCABULARY logits from the .f16/.f32 stash -- F11's own estimator.
+
+    The CH tables are both thresholded (twp at theta=0.001 over words, logit_probs
+    at 1e-6 over tokens); F11 used the complete softmax. This is the only
+    substrate that matches it. Olmo-3-1025-7B: 100,278 tokens, of which 4,202
+    clear 1e-6 and carry 99.70% of the mass.
+
+    **DTYPE IS DECLARED, NOT DEFAULTED.** The store is mixed and cache.get_logits
+    REFUSES a read that names no dtype -- "a dtype difference is a logit
+    difference" -- which is the guard working. Precedence float32 then float16,
+    matching the ingester's stated preference. Returns the per-model dtype tally
+    alongside the data so a caller can check dtype is CONSTANT WITHIN a model:
+    every contrast here is AB against its own poles, so a dtype that varied
+    across prompts of one model would put the difference inside the contrast.
+    """
+    import numpy as _np
+    from malign_logits.cache import get_cache
+    cm = get_cache()
+    D, dts = {}, collections.defaultdict(collections.Counter)
+    for m in models:
+        for pr in prompts:
+            v = None
+            for dt in ("float32", "float16"):
+                try:
+                    v = cm.get_logits(m, pr, dtype=dt)
+                except Exception:
+                    v = None
+                if v is not None:
+                    dts[m][dt] += 1
+                    break
+            if v is None:
+                continue
+            v = _np.asarray(v, dtype=_np.float64)
+            e = _np.exp(v - v.max())
+            pv = e / e.sum()
+            #: kept as a dense dict on nonzero support so _vecs can align it
+            #: with the other substrates without special-casing.
+            nz = _np.flatnonzero(pv > 0)
+            D[(m, pr)] = {str(int(t)): float(pv[t]) for t in nz}
+    return D, dts
+
+
 def _is_cjk(s):
     return any("一" <= c <= "鿿" for c in s)
 
@@ -274,6 +317,9 @@ def score(D, models, G):
 def main():
     from scipy import stats
     ap = argparse.ArgumentParser()
+    ap.add_argument("--stash", action="store_true",
+                    help="also score on FULL-VOCABULARY logits from the .f16/.f32 "
+                         "stash -- F11's own estimator, and the only unthresholded one")
     ap.add_argument("--logits", action="store_true",
                     help="cross-check on logit_probs for the models that have "
                          "them; 2.8M rows for 12 models, so not the default")
@@ -352,8 +398,21 @@ def main():
               % ("=" * 78, len(sub), "=" * 78))
         L = score(fetch_logits(sub, prompts), sub, G)
         T = score(D, sub, G)
-        for lab, X in (("full logits 1e-6", L), ("twp words 0.001", T)):
-            print("   %-18s obs %.3f  null %.3f  resolution %5.2f  signal %+0.3f"
+        subs = [("logit_probs 1e-6", L), ("twp words 0.001", T)]
+        if a.stash:
+            SD, dts = fetch_stash(sub, prompts)
+            mixed = sorted(m for m, c in dts.items() if len(c) > 1)
+            print("   stash dtype: %d models float32-only, %d float16-only, "
+                  "%d MIXED WITHIN MODEL"
+                  % (sum(1 for c in dts.values() if set(c) == {"float32"}),
+                     sum(1 for c in dts.values() if set(c) == {"float16"}),
+                     len(mixed)))
+            for m in mixed:
+                print("      MIXED %s %s -- a dtype difference inside the contrast"
+                      % (m, dict(dts[m])))
+            subs.insert(0, ("full logits (stash)", score(SD, sub, G)))
+        for lab, X in subs:
+            print("   %-20s obs %.3f  null %.3f  resolution %5.2f  signal %+0.3f"
                   % (lab, X.obs.median(), X["null"].median(), X.res.median(),
                      X["null"].median() - X.obs.median()))
     print("\nwrote %s" % os.path.relpath(out, ROOT))

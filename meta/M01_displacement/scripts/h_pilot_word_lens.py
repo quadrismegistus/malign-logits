@@ -434,6 +434,47 @@ def main():
                          rb.get("mojibake", 0.0), te, ts,
                          "DISPERSED" if te and te > 0 else "SUBSTITUTED"))
 
+            #: ---- WHEN DOES THE SEMANTIC TRANSFER HAPPEN? -------------------
+            #: The claim is CATEGORY-LEVEL, not word-level: physical violence
+            #: giving way to vocalization. Word-level traces cannot be compared
+            #: across families because the families do not promote the same
+            #: words -- llama takes scream/shout/yell, amber takes scream/punch,
+            #: olmo drops `kill` below theta entirely. Categories make them one
+            #: measurement.
+            #:
+            #: The induced taxonomy is used because it was built ON THIS
+            #: CORPUS's vocabulary; USAS fine mislabels it (`punch` comes back
+            #: `other_proper_names`, the puppet). Summed over the FULL per-layer
+            #: dict, never a top-k: at the output the top 40 hold 0.70 of the
+            #: mass and mid-stack they hold 0.08, so a top-k category trace
+            #: would measure the top-k's composition and not the distribution's.
+            cat = {}
+            with open(os.path.join(CAMP, "lexicons", "m01_token_labels.csv")) as f:
+                import csv as _csv
+                for r in _csv.DictReader(f):
+                    cat[r["token"]] = r["category"]
+            def cmass(words):
+                out = collections.Counter()
+                for (w, _), p in words.items():
+                    if w in cat:
+                        out[cat[w]] += p
+                return out
+            traces = {L: cmass(per[L][0]) for L in layers}
+            keep = [c for c, _ in collections.Counter(
+                {c: max(t.get(c, 0.0) for t in traces.values())
+                 for c in {k for t in traces.values() for k in t}}).most_common(6)]
+            print("\n  CATEGORY MASS BY LAYER (induced taxonomy, full distribution)")
+            print("  %5s %8s %s" % ("layer", "covered", "".join("%15s" % c[:14] for c in keep)))
+            for L in layers:
+                t = traces[L]
+                tot = sum(per[L][0].values()) or 1.0
+                cov = sum(t.values()) / tot
+                print("  %5d %8.3f %s%s"
+                      % (L, cov, "".join("%15.5f" % t.get(c, 0.0) for c in keep),
+                         "   <- output" if L == layers[-1] else ""))
+            results.setdefault("_traces", {})["%s/%s" % (fam, arm)] = {
+                str(L): dict(traces[L]) for L in layers}
+
             print("\n  TOP %d WORDS BY LAYER" % a.topk)
             for L in layers:
                 words = per[L][0]
@@ -450,14 +491,16 @@ def main():
                                "top_agrees": top_h == top_s},
             }
 
-    out = os.path.join(CAMP, "results", "h_pilot_word_lens.json")
+    tag = "-".join(sorted(fams))
+    out = os.path.join(CAMP, "results", "h_pilot_word_lens.%s.json" % tag)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     json.dump({"_about": "true word probabilities per layer, twp's expansion driven "
                          "against each layer's readout. One prompt, no null.",
                "_producer": "meta/M01_displacement/scripts/h_pilot_word_lens.py",
                "_prompt": a.prompt, "_dtype": a.dtype,
                "_rule_version": T.RULE_VERSION, "_theta": T.THETA,
-               "results": {"%s/%s" % k: v for k, v in results.items()}},
+               "results": {("%s/%s" % k if isinstance(k, tuple) else k): v
+                           for k, v in results.items()}},
               open(out, "w"), ensure_ascii=False, indent=1)
     print("wrote %s" % os.path.relpath(out, ROOT))
     return 0

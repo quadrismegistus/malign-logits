@@ -3,8 +3,8 @@
  "_integrity": "SELF-CONSISTENT, NOT SOURCE-VERIFIED. What was checked is STRUCTURE: byte size against the row pointers, and row count against the scored-cell count, on every file. What was NEVER checked is CONTENT against the cloud instances -- the handover verification compared *.jsonl only, which is 4% of the bytes, and both sources were destroyed before the omission was noticed. Ruled [3009] Rider 1; this sentence is inherited by every reader.",
  "_root": "paths are BASENAMES resolved against MALIGN_LOGIT_ROOT (default data/raw/cloud_run_20260801). Moving the payloads is a config change, not a re-index.",
  "_load_bearing": "THE .f16 FILES ARE INFRASTRUCTURE, NOT RUN OUTPUT. Deleting them silently empties this cache.",
- "entries": 454958,
- "files": 247,
+ "entries": 545069,
+ "files": 401,
  "files_provenance": {
   "01-ai__Yi-1.5-9B-Chat.f16": {
    "dim": 64000,
@@ -57,9 +57,9 @@
   "EleutherAI__pythia-6.9b.f16": {
    "dim": 50432,
    "dtype": "float16",
-   "n_rows": 2583,
+   "n_rows": 234,
    "itemsize": 2,
-   "bytes": 260531712,
+   "bytes": 23602176,
    "check": "bytes == n_rows * dim * itemsize"
   },
   "HuggingFaceH4__zephyr-7b-beta.f16": {
@@ -1716,6 +1716,1238 @@
    "n_rows": 3,
    "itemsize": 2,
    "bytes": 601668,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step0.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step10000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step100000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step105000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step110000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step115000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step120000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step125000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step130000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step135000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step140000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step15000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step16.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step20000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step25000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step30000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step35000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step40000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step45000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step5000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step50000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step512.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step55000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step60000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step65000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step70000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step75000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step80000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step85000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step90000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step95000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step1.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step1000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step101000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step106000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step11000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step111000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step116000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step121000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step126000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step131000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step136000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step141000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step16000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step21000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step26000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step31000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step32.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step36000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step41000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step46000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step51000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step56000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step6000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step61000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step66000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step71000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step76000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step81000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step86000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step91000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step96000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step102000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step107000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step112000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step117000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step12000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step122000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step127000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step132000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step137000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step142000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step17000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step2.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step2000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step22000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step27000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step32000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step37000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step42000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step47000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step52000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step57000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step62000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step64.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step67000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step7000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step72000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step77000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step82000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step87000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step92000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step97000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step103000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step108000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step113000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step118000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step123000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step128.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step128000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step13000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step133000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step138000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step143000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step18000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step23000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step28000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step3000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step33000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step38000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step4.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step43000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step48000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step53000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step58000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step63000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step68000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step73000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step78000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step8000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step83000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step88000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step93000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step98000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step104000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step109000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step114000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step119000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step124000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step129000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step134000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step139000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step14000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step19000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step24000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step256.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step29000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step34000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step39000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step4000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step44000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step49000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step54000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step59000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step64000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step69000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step74000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step79000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step8.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step84000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step89000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step9000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step94000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
+   "check": "bytes == n_rows * dim * itemsize"
+  },
+  "EleutherAI__pythia-6.9b@step99000.f16": {
+   "dim": 50432,
+   "dtype": "float16",
+   "n_rows": 584,
+   "itemsize": 2,
+   "bytes": 58904576,
    "check": "bytes == n_rows * dim * itemsize"
   },
   "Aleph-Alpha__Pharia-1-LLM-7B-control-aligned-hf.f16": {

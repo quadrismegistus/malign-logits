@@ -49,6 +49,24 @@ import k_analysis as A
 import k_population as KP
 
 K = os.path.join(ROOT, "meta/M01_displacement/results/k")
+#: --source LITERARY restricts to the 102 novel-snippet prompts. IT MATTERS FOR
+#: THE POS COMPARISON AND NOT FOR MUCH ELSE. Measured over the top-20 slots:
+#:
+#:                    LITERARY        M01_PAIRS (the designed minimal pairs)
+#:     verb          2.98 of 20        11.88 of 20
+#:     noun          4.06              0.37
+#:     adjective     1.18              0.13
+#:     adverb        1.62              1.42
+#:
+#: The designed pairs are 59% verbs and 2% nouns, and they outnumber the literary
+#: cells 14:1, so a POS comparison on the full corpus is reading prompt design as
+#: much as lexical structure. In particular an adverb band at rank 500+ scores
+#: 0.500 against a 0.500 null because adverbs are never in contention there --
+#: an absence of MEASUREMENT, not of effect.
+#:
+#: THE COST IS POWER: 97 prompts per model against 2,220, so each per-model rate
+#: is built from a twenty-third of the observations and a null here cannot
+#: distinguish absence from noise.
 TOPN = 20            #: the rank cutoff defining "in the running"
 POS = {"vv": "verb", "nn": "noun", "jj": "adjective", "rr": "adverb"}
 
@@ -69,7 +87,9 @@ def main(lang="en"):
         tqdm = lambda x, **k: x
 
     MAXR, BAND = arg("--max-rank", 2000), arg("--band", 50)
-    out_path = os.path.join(K, "armclf_bands_%s.jsonl" % lang)
+    SRC = sys.argv[sys.argv.index("--source") + 1] if "--source" in sys.argv else None
+    out_path = os.path.join(K, "armclf_bands_%s%s.jsonl"
+                            % (lang, "_" + SRC.lower() if SRC else ""))
     done = set()
     if os.path.exists(out_path):
         for ln in open(out_path):
@@ -97,8 +117,10 @@ def main(lang="en"):
     top = A.q("""
       SELECT word, sum(p) mass FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
         SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
-      GROUP BY word ORDER BY mass DESC LIMIT 40000""" % (A.DB, models, A.DB, lang))
+        WHERE status='ACTIVE' AND language='%s'%s)
+      GROUP BY word ORDER BY mass DESC LIMIT 40000"""
+              % (A.DB, models, A.DB, lang,
+                 " AND source='%s'" % SRC if SRC else ""))
     byu = FL._byu()
     bypos = collections.defaultdict(list)
     for r in top:
@@ -121,8 +143,9 @@ def main(lang="en"):
       SELECT model, prompt, groupArray(word) ws, groupArray(p) ps
       FROM %s.twp_words WHERE model IN ('%s') AND prompt IN (
         SELECT DISTINCT prompt FROM %s.prompt_catalogue
-        WHERE status='ACTIVE' AND language='%s')
-      GROUP BY model, prompt""" % (A.DB, models, A.DB, lang))
+        WHERE status='ACTIVE' AND language='%s'%s)
+      GROUP BY model, prompt"""
+              % (A.DB, models, A.DB, lang, " AND source='%s'" % SRC if SRC else ""))
     mods = sorted(arm)
     mi = {m: i for i, m in enumerate(mods)}
     C = np.zeros((len(mods), len(allw)), np.float32)

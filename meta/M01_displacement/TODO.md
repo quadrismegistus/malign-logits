@@ -240,6 +240,60 @@ paired**, because that is the comparison finding 9 cannot make and all six suppl
 **NOT A REGISTRATION.** Pre-registration ended for this programme on RH's instruction.
 This is a measurement; if it produces something it is written up as `findings/U_ladder.md`; the plan is `registrations/plan_u_ladder.md`.
 
+### U RERUN — ON HOLD, 2026-08-10, RH's instruction. Waiting on malign's missing-checkpoint sweep.
+
+**The rerun is worth doing and must not be started yet.** `t_ladder.py:ladders()` builds
+its family set from what is currently scored (`if mid not in scored: continue`), so U's
+"16 families" was whatever had coverage on 6 August rather than a frozen list. The
+registry has since reached **25 three-layer families**, so a rerun today already picks up
+more than U saw. **RH's instruction is to wait**: malign has an agent searching for
+families whose intermediate/SFT checkpoint exists but was never registered, and it has
+already found at least one. Running before that lands means running twice.
+
+**WHAT THE RERUN IS FOR, AND IT IS NOT "MORE FAMILIES".** U's finding 2 reports the
+faller-share gradient at **13 of 16 families, p = 0.011** and at the lineage unit **7 of
+9 groups, p = 0.164**. The family figure is the inflated one; the lineage figure is the
+deduplicated one. U states the caveat as *"AI2 is 6 of the 16 and Olmo pretraining
+accounts for 5"*, which names the lineage problem and misses a duplicate-ARM problem
+inside it. Measured 2026-08-10 across the 25 three-layer families:
+
+    shared base      pythia-2.8b               archangel-{dpo,kto,ppo,slic}
+                     Olmo-3-1025-7B            olmo, olmo-think
+                     Llama-3.1-8B              tulu, tulu-no-safety
+    shared SFT       archangel_sft_pythia2-8b  archangel x4
+    shared SUPEREGO  Tulu-3-8B-DPO             tulu, tulu-no-safety
+    shared RLVR      Tulu-3.1-8B               tulu, tulu-no-safety
+
+**25 families hold 20 distinct bases**, and the two collapses bite at DIFFERENT rungs:
+archangel duplicates `base->sft` four times off one SFT checkpoint; tulu duplicates
+`pref->rlvr` twice and exactly. Three of tulu-no-safety's four arms are the same
+checkpoint as tulu's, and only the SFT differs.
+
+**`tulu-no-safety`'s `sft->pref` is not a rung at all.** allenai never released a DPO
+trained on any ablated SFT (malign's sweep checked the full 107-row Tulu listing), so
+that edge runs from an ablated SFT to a checkpoint never trained from it. Worse than
+duplication, because duplication measures something once. The CLAUDE.md sentence
+explaining the tulu/tulu-no-safety identity has been corrected by the pen to the
+release-fact reason and now disclaims the ablation-nullity reading explicitly.
+
+**So the rerun needs new BASES, not new families.** One further exclusion: `phi4` must
+not enter as a base->aligned ladder. `microsoft/phi-4`'s own card describes it as "a
+combination of SFT and iterative DPO", so the family is ALIGNED -> SFT -> RL, the same
+class as Pharia.
+
+**Preconditions before starting.** malign's missing-checkpoint sweep has reported; the
+three new 3-layer caveats in the register are honoured (`llm-jp-3` protected as the
+roster's one clean DPO-isolation edge, since its instruct2/instruct3 SFT tables are
+identical 8 of 8 so `ego->superego` isolates DPO with the mixture fixed; `smol3`'s
+0.9/0.1 linear merge staged as `ppo` and never pooled with DPO arms; `phi4` excluded);
+and the result is read at the BASE unit, not the family unit.
+
+**Read the roster through the library, not the export.** Per [5264],
+`data/base_aligned_pairs.json` on disk is stale and still carries the retired Teuken
+pairing, while live `Registry().base_aligned_pairs()` derives the corrected arms. The
+file's own `_schema` note names the hazard: *"a cache that can outrank its source is how
+59 models shadowed 112 for five weeks."*
+
 ## MAYBE — THE EMERGENT-MISALIGNMENT PAIRS. Cheap to run, weak to cite.
 
 **WHY IT WOULD BE INTERESTING.** Findings U.4 shows removing the safety corpus from

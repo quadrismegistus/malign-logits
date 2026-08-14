@@ -33,7 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 os.chdir(ROOT)
 
-OUTDIR = "data/raw/l2_zh_batches"
+OUTDIR = "meta/M02_frame_exit/data/opus_readers_zh"
 CH = os.environ.get("MALIGN_CH_BIN", "/opt/homebrew/bin/clickhouse")
 N = 800
 SEED = 20260812
