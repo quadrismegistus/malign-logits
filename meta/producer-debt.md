@@ -59,15 +59,42 @@ varies):
   resolves to today, the disagreement is a FINDING, not a merge
   conflict, and surfaces before either version is canonical.
 
-- **M05 C Result 4** (registrar's own): riser-recapture (violence ~1,
-  sexual 0.08–0.45). "recaptur" appears in exactly two files, both prose.
-  Ad-hoc session computation; must be scripted into the
-  `m05_pair_displacement` family and reproduced before quoting.
-- **M04 A, the exploratory half**: per-index grid, +1-only four terms,
-  long-window sweep — zero hits in `channel3_run.py`, nothing in
-  M04/scripts. The long-window aggregation is not recoverable from the
-  frozen slot spec ([5024].2) and MAY NOT BE RECONSTRUCTIBLE; the
-  finding's own Robust/Not-robust split turns on it.
+- ~~**M05 C Result 4**~~ STALE, corrected 2026-08-14 ([5901] §2):
+  `m05_pair_displacement.py --recapture` now writes
+  `results/m05_recapture.json`; R4 itself is WITHDRAWN ([5781]) and
+  plot-debt carries C-R4 as DEAD. What remains lost is the original
+  session DEFINITION, not the digits — relevant only if R4 is ever
+  revived.
+
+- **M03 ICC 0.855** — NEW Class 1B 2026-08-14 ([5901] §3, dario,
+  search space stated): `0.855` has zero hits in any `*.py` in the
+  tree; quoted in `M03/findings/D_ladder_selection.md:265` and
+  `M03/README.md`, and it UNDERWRITES the standing rule that the rung
+  is not an observation. Orphaned within one module (the other tree
+  hits are different quantities, checked).
+
+- **M05 fig12b / fig13** — cited-figure provenance 2026-08-14
+  ([5901] §4): both actively embedded in findings, neither has a
+  producer in any `.py` (fig12 also producer-less but DELIBERATELY
+  retired, not adoptable).
+
+- **M01 Registration S odds-scale statistics** — CANDIDATE 1B
+  2026-08-14 ([5901], reader tier, NOT yet re-verified): the odds
+  ratios in S finding 3 (3.26, 1.56, 0.18 at p=4.6e-06; the
+  harm-versus-prohibition gradient) may have no producing code —
+  `s_analysis.py` declares itself model-free and neither output CSV
+  carries an odds column. Verify before booking firm; the M05 C-R4
+  case is the standing reason reader-tier items are leads.
+- **M04 A, the exploratory half** — CORRECTED 2026-08-14 ([5901] §1,
+  dario, verified with location): the per-index PRIMARY row HAS code,
+  at `meta/M02_frame_exit/scripts/channel3_run.py:346-353` (the file
+  lives in M02's scripts, not M04's — why it read as absent), and that
+  block is headed DECLARED SECONDARIES, so "exploratory" was also
+  wrong for that row. STILL UNLOCATED: the four TERM rows, the
+  +1-only four terms, the long-window sweep. The long-window
+  aggregation is not recoverable from the frozen slot spec ([5024].2)
+  and MAY NOT BE RECONSTRUCTIBLE; the finding's own Robust/Not-robust
+  split turns on it.
 
 DISCHARGED FROM THIS CLASS, for the record and the method. **Two of the
 four discharges so far surfaced something the debt was hiding** (Z's §5

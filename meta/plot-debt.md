@@ -23,7 +23,7 @@ per-folder candidate lists remain the backlog; statuses are dated.
 | M01_displacement | 21 | 38 | 36 are K's exploratory norm-pair biplots; shortlist items still undrawn |
 | M02_frame_exit | 11 | 1 (`z_depth_exit_null`) | results/ largely plot-ready |
 | M03_proceduralization | 4 | 4 (all in D, `f_figures.py`) | A, B_C, E entirely unplotted |
-| M04_syntagmatic | 2 | 14 (Finding A family) | produce-first DISCHARGED; attention two-panel still undrawn |
+| M04_syntagmatic | 2 | 14 (Finding A family) | produce-first discharge DISPUTED ([5901]: cited figures are PASSAGE substrate vs FC-quantity debt items; verify before relying); attention two-panel still undrawn |
 | M05_emergence | 10 | 66 | fig19-23 sense family added; A-R4 joined panel still undrawn |
 | M06_generation | 3 | 3 (plan-C density pilots) | verdict-grade findings entirely unplotted |
 
@@ -94,7 +94,11 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     M02 dumbbell) — unblocked, order per original ranking.
 12. HALF-BLOCKED — M04 attention §5 two-panel (shortlist 9): Finding
     A's half now has artifacts AND figures (A_position_*, 2026-08-13);
-    the combined attention-vs-A panel remains undrawn.
+    the combined attention-vs-A panel remains undrawn. CAUTION
+    ([5901]): A_position_* figures are the PASSAGE-corpus substrate
+    (A_RESULTS.md, STATUS: EXPLORATORY, nothing quotable) — Finding A
+    proper is fc/33-pair/10-token and has ZERO figures; do not treat
+    the 14 passage figures as covering the FC debt.
 13. SHIPPED 2026-08-14 — displacement network viz, first pieces:
     `displacement_network_core.dot/svg` (135-edge working map, maps/
     idiom, basin clusters) and `displacement_basin_procedure` panel
