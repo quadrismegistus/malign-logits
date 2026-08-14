@@ -828,6 +828,32 @@ seat forgets at its peril:
   by someone who already knows the name.
   Its origin is also the deadlock now blocking plot-debt 15: the same 21%
   incident produced both the fence in `P_unnamed_axis.md` §3 and this.
+- **A SUPERSEDED STORE FAILS AS A SMALLER POPULATION, NOT AS AN ERROR**
+  ([6153], lacan, on the `logit_probs` supersession). A model added since
+  the table froze on 2026-08-10 comes back ABSENT from a re-run — so a
+  stale read looks like a narrower population rather than a fault, and
+  nothing raises. Joins the empty-result family: `theta = 0.001` matching
+  0 of 173M rows, a prefetch returning 0 prompts for a model plainly in
+  the table, a censored cell read as never-scored. **The store's own
+  currency is not a property any query reports.**
+- **A FALSE PREMISE UNDER A CORRECT DESIGN IS THE MOST DURABLE WRONG
+  SENTENCE THERE IS** ([6153], lacan, on `ch_ingest.done_cells`). Its
+  docstring gave *"the residual tables carry exactly one row per cell"*
+  as the reason for reading the residual table rather than the fact
+  table. The tables carry 37,080 and 18,112 duplicates. **The skip is
+  unharmed because the function builds a SET and duplicates collapse into
+  it — so nothing it touches ever misbehaves, and the premise can be
+  wrong indefinitely without a symptom.** Correct it anyway: the next
+  person to change that function reasons from the sentence, not from the
+  table.
+- **LOOK AT THE FACTORISATION, NOT THE TOTAL** ([6152]/[6153]). The
+  residual duplication read as 3.6% and 6.1% — which looks like drift.
+  The per-source counts were 283, 566, 849, 1132, 1994: **every one a
+  multiple of 283, with duplicate-key count equal to extra-row count in
+  every source**, so each affected cell was written exactly twice and
+  never more. That is one re-ingest of the 283-prompt ACTIVE
+  transgression batch across 129 models — **an EVENT, diagnosable only
+  because the numbers were factored rather than percentaged.**
 - **A BYTE-IDENTICAL OUTPUT IS EVIDENCE ABOUT THE PRODUCER YOU RE-RAN AND
   SAYS NOTHING ABOUT THE CHAIN BEHIND IT** ([6149], dario, narrowing its own
   test after `malign_logits/ch` work exposed the condition). The test —
