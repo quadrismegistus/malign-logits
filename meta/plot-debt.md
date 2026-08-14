@@ -71,26 +71,25 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    established half (S4) and the open one (S3). Definitional choices
    (median grain, zeros convention) now in the doc beside the
    numbers.
-4. OPEN — NEW (2026-08-13); UPDATED 2026-08-14 (lacan) — F15-ON-PASSAGES
-   QUADRANT FLOW — Q2 breakdown drains to metonymic/unmarked, 34/38 pairs
-   (f15_on_passages_cells.parquet with per-passage quadrant labels).
-   Natural flow/alluvial diagram.
-   **STILL DRAWABLE, WITH ONE THING THAT MUST GO ON THE FIGURE.** Reran on
-   bge-m3 with NO 75-word truncation (`_full_bge-m3`, 38,577 passages): all
-   four flows replicate and strengthen — Q1 +0.114 (31/7), Q2 -0.335 (2/36),
-   Q3 -0.123 (6/32), Q4 +0.299 (35/3). So the flow is robust to embedder and
-   to truncation, which the earlier MiniLM-only version could not establish.
-   **But the two axes do not carry equal information.** The Q1 share change
-   tracks the surprisal axis at rho -0.694 and the drift axis at +0.167
-   (MiniLM truncated: -0.804 and +0.011). The drift axis went from inert to
-   minor, not to load-bearing. A two-axis diagram invites the reader to
-   assume parity, so the ~4:1 asymmetry belongs ON the panel, not in a
-   caption. Prefer the newer `_full_bge-m3` cells as the basis.
-   **Owed before it is final**: the quadrant splits on `total_drift`, the
-   metric the audit found weakest and which rises +0.10 with sentence count,
-   saturating near n=10 — and untruncated passages sit past that knee. A
-   `mean_drift` quadrant is the obvious variant and is cheap now the
-   embeddings are cached.
+4. SHIPPED 2026-08-14 (dario, 0b7ab63c) — F15-ON-PASSAGES QUADRANT
+   figure, THREE departures booked:
+   (a) NOT AN ALLUVIAL — a REFUSAL, ratified: ribbons assert
+   item-level migration, and base/aligned passages are different
+   generations with no passage correspondence (3,361 of 35,216 keys
+   even share a prompt slot). The suggested rendering would have
+   asserted a false fact about the data. Figure keeps the quadrant
+   plane, draws per-pair SHARE change within each quadrant.
+   (b) mean_drift RIDER DISCHARGED without a run (column existed in
+   the committed cells): all four flows replicate and SHARPEN on the
+   pure surprisal transition (Q2 -0.335->-0.370, Q4 +0.299->+0.366)
+   while mixed quadrants weaken — the audit's worry answered in the
+   finding's favor. mean_drift quadrants NOT booked anywhere
+   (script's own computation, single-pass).
+   (c) RHO PAIR UNRECONCILED — OPEN, assigned lacan (recorder of the
+   prior values): this entry previously carried surprisal -0.694 /
+   drift +0.167; dario computes -0.714 / +0.211 on the committed
+   _full_bge-m3 cells. Same direction and asymmetry, different
+   digits; neither quotable until reconciled.
 5. OPEN — NEW (2026-08-13): CROSS-LINGUAL INVARIANCE — paired zh/en
    drift reductions + null DiD on matched prompts
    (crosslingual_arms_pairs.parquet, parse-free key version).
