@@ -40,6 +40,10 @@ OUTD = os.path.join(ROOT, "meta/M06_generation/results")
 CH = os.environ.get("MALIGN_CH_BIN", "clickhouse")
 SEED = 20260813
 N_BOOT = 2000
+#: promoting M01's per-cell mover label to a word type: how much evidence,
+#: and how one-sided, before a word counts. See the note at the join.
+MIN_CELLS = 10
+SUPERMAJ = 0.80
 
 
 def ch_rows(q):
@@ -166,9 +170,23 @@ def main():
     key = list(zip(PW["pair"], PW["word"]))
     nf = np.array([mv.get(k, (0, 0, 0.0))[0] for k in key], dtype=float)
     nr = np.array([mv.get(k, (0, 0, 0.0))[1] for k in key], dtype=float)
-    PW["is_faller"] = (nf > 0) & (nf > nr)
-    PW["is_riser"] = (nr > 0) & (nr > nf)
+    md = np.array([mv.get(k, (0, 0, 0.0))[2] for k in key], dtype=float)
+
+    # A BARE MAJORITY IS NOT A MOVER. `the` splits 232 fall / 248 rise over
+    # 1,575 Llama prompts with mean delta -0.0027: a coin flip, which
+    # `nf > nr` promoted to "riser" on a 3% margin and which flooded the mover
+    # set with function words. A real mover is LOPSIDED and LARGE -- `kill` is
+    # 85 fall / 0 rise at -0.0208, `hurt` 1 / 24 at +0.0019. So require a
+    # minimum of cells, a supermajority of them in one direction, and a mean
+    # delta of the matching sign. The label is M01's per-cell fact; promoting
+    # it to a word type has to be earned, not assumed.
+    n_mv = nf + nr
+    frac_f = np.divide(nf, np.maximum(n_mv, 1))
+    PW["is_faller"] = (n_mv >= MIN_CELLS) & (frac_f >= SUPERMAJ) & (md < 0)
+    PW["is_riser"] = (n_mv >= MIN_CELLS) & ((1 - frac_f) >= SUPERMAJ) & (md > 0)
     PW["in_m01"] = np.array([k in mv for k in key])
+    print("  mover rule: >=%d cells, >=%.0f%% one-way, mean delta matching sign"
+          % (MIN_CELLS, 100 * SUPERMAJ))
 
     # GATE V: movers must actually occur in passage text before any share claim
     occ = PW["occ_b"] + PW["occ_a"]
@@ -203,9 +221,13 @@ def main():
         ok = np.isfinite(lv) & (w > 0)
         fa, ri = g["is_faller"].to_numpy(), g["is_riser"].to_numpy()
         inm = g["in_m01"].to_numpy()
-        def wm(mask, vals=lv):
-            m = mask & ok
-            return float(np.average(vals[m], weights=w[m])) if m.sum() else np.nan
+        def wm(mask, vals=None):
+            v = lv if vals is None else vals
+            # the finite mask must come from THE COLUMN BEING AVERAGED: a word
+            # absent from one arm is NaN in that arm's level column only, and
+            # reusing the base-text mask made every aligned-text figure NaN.
+            m = mask & np.isfinite(v) & (w > 0)
+            return float(np.average(v[m], weights=w[m])) if m.sum() else np.nan
         # `still` = M01 MEASURED it and it did not move; `unmeasured` = M01
         # never saw it. Pooling those two would hide the thing GATE V asks.
         rows.append((pair, wm(fa), wm(ri), wm(inm & ~fa & ~ri), wm(~inm),
@@ -295,6 +317,21 @@ def main():
                  "matched_ci": [float(lo), float(hi)],
                  "enrichment": float(enrich)}
 
+    #: THE M1/M2/M3 BLOCKS ARE WITHDRAWN and this producer must not emit them
+    #: unmarked. They rest on a CLASSIFIED mover set whose unit was wrong (every
+    #: threshold admitted `the`), withdrawn at docket [5881]; the surviving
+    #: claims live in mediation_corr.json and mediation_contrast.json. Marking
+    #: the file by hand would evaporate on the next run, which is the desync
+    #: shape registrar named at [5902] -- so the marker is emitted here.
+    res = {"_STATUS": {
+        "_WITHDRAWN_KEYS": ["M1", "M2", "M3", "mover_token_share"],
+        "_WHY": "classified mover set; the UNIT was wrong, not the cutoff "
+                "(`the` is non-still in 30.5%% of its cells, direction -3.3%%). "
+                "Withdrawn at docket [5881].",
+        "_SUPERSEDED_BY": ["mediation_corr.json", "mediation_contrast.json"],
+        "_STILL_VALID": ["decomposition", "n_pairs", "gate_r_residual"]},
+        **{("WITHDRAWN_" + k if k in ("M1", "M2", "M3", "mover_token_share")
+            else k): v for k, v in res.items()}}
     json.dump(res, open(os.path.join(OUTD, "mediation_readings.json"), "w"),
               indent=1)
     PW.to_parquet(os.path.join(OUTD, "mediation_words_joined.parquet"), index=False)

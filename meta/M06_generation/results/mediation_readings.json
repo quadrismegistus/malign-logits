@@ -1,0 +1,68 @@
+{
+ "_STATUS": {
+  "_WITHDRAWN_KEYS": [
+   "M1",
+   "M2",
+   "M3",
+   "mover_token_share"
+  ],
+  "_WHY": "M1/M2/M3 and mover_token_share are computed from a CLASSIFIED mover set (a word-type label derived by thresholding per-cell movement). Every threshold tried admitted `the`, which is non-still in 30.5% of its 1,575 Llama cells with a direction of -3.3%: the UNIT was wrong, not the cutoff. Withdrawn on the docket at [5881].",
+  "_SUPERSEDED_BY": {
+   "artifact": "mediation_corr.json (continuous scores) and mediation_contrast.json (the common-support contrast)",
+   "producers": [
+    "m06_mediation_corr.py",
+    "m06_mediation_contrast.py"
+   ],
+   "claim": "net_fall vs composition rho -0.285, 36/36 pairs; volatility null +0.008, 18/36; and median(level|fall)-median(level|rise) +0.3471 / +0.4435 on common support"
+  },
+  "_STILL_VALID": [
+   "decomposition",
+   "n_pairs",
+   "gate_r_residual"
+  ],
+  "_NOTE": "This artifact is MIXED. The decomposition never used mover labels and stands. Flagged by registrar at [5902] as the engine-state Clause 2 shape: a withdrawn-numbers artifact carrying no marker of its own withdrawal."
+ },
+ "decomposition": {
+  "delta": -1.2848911301288914,
+  "composition": -1.3098381115643378,
+  "level": 0.02494698143544672,
+  "comp1": -1.7748310598811017,
+  "lev1": 0.4899399297522106,
+  "comp2": -0.8448451632475742,
+  "lev2": -0.4400459668813172
+ },
+ "n_pairs": 36,
+ "gate_r_residual": 0.0,
+ "WITHDRAWN_mover_token_share": {
+  "faller": 0.16804185721818174,
+  "riser": 0.0521118924535798,
+  "in_m01": 0.8503249541920435
+ },
+ "WITHDRAWN_M1": {
+  "faller": 0.40605740390147815,
+  "riser": 0.2905028717236327,
+  "still": 0.4098501735968479,
+  "unmeasured": 1.1329981951027357,
+  "faller_alt_text": -0.18751219122842322,
+  "riser_alt_text": -0.5238421505932782,
+  "faller_minus_riser": 0.1155545321778455,
+  "n_pairs": 36,
+  "p": 1.763927866704762e-05,
+  "pairs_positive": 33
+ },
+ "WITHDRAWN_M2": {
+  "faller": -160.833256810041,
+  "riser": 178.77755338544958,
+  "n_pairs": 36
+ },
+ "WITHDRAWN_M3": {
+  "mover_token_share": 0.21997322310830886,
+  "mover_level_share": 0.17580882877232046,
+  "matched_median": 0.10468889188022845,
+  "matched_ci": [
+   0.09776539716859257,
+   0.11387348908823228
+  ],
+  "enrichment": 1.6793455887703757
+ }
+}
