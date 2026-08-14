@@ -628,6 +628,43 @@ returns green.
   values, or pin them all to the 08-11 lexicon. **The one state nobody
   chose is the one we have.**
 
+- **P §3's BOOKED +0.0229 HAS NO ARTIFACT, AND CANNOT GET ONE BY
+  RE-RUNNING** — new 2026-08-14 ([6140], dario, blocked on plot-debt
+  item 15). The finding books a MEAN OVER FIVE RUNS and fences the
+  reader off the largest draw in bold: *"Do not quote 21%."* **The
+  committed artifact `results/k/predict_embed_en_glove.json` IS that
+  largest draw** (+0.0256, 21.2% of the 0.120678 headroom), so a figure
+  drawn to this campaign's own discipline — booked numbers re-derived
+  from the artifact — asserts the forbidden value and asserts it
+  correctly. Drawing 19% instead puts a number on a panel that no
+  committed artifact reproduces. **The other four draws exist only as
+  prose**, in the doc and in the producer's docstring.
+  **AND RE-RUNNING CANNOT FIX IT, BY DESIGN.** `k_predict_embed.py:69-82`
+  states that `HistGradientBoosting` is thread-order dependent through
+  OpenMP, that `random_state` does not control it, and that
+  `OMP_NUM_THREADS=1` was CONSIDERED AND REJECTED because it "would
+  report one arbitrary thread schedule as though it were the answer."
+  So the booked mean is **unreproducible in principle**: five fresh draws
+  give a different five and a different mean.
+  **THEREFORE THIS IS A RECORD, NOT A DERIVATION** — the same class as
+  `y_confirmatory_coded.jsonl` — and lacan's precondition applies
+  unchanged: *the pointer only works when the thing pointed at is
+  derivable; where it is a record, the pointer is a copy path or it is
+  nothing.* **The fix is to PERSIST the five draws as data, not to
+  recompute them**, and it must be add-beside: the producer overwrites
+  its results file on every run (its own docstring says so), so a re-run
+  replaces a cited artifact with a sixth draw and loses the record that
+  raised the question. **Owner's call, not the pen's; blocked item 15
+  until then.**
+  **Second-order note worth keeping either way** ([6140] §1): the share
+  figures are the max of ten sweep rows and `k_predict_embed.py:207` says
+  so — *"THE BEST ROW IS SELECTED AFTER SEEING THE SCORES, so this
+  fraction is an upper bound on what the embedding recovers, not an
+  estimate of it."* GloVe's quoted row is k=50 and bge's is its own max
+  at k=100, so the two encoders are not compared at the same k. Nothing
+  is mislabelled — the bge row names no k — but the table invites a
+  same-k reading it does not support.
+
 ## Class 3 — WRITE-UP MISSING: a real result no document owns
 
 - **M02 L1 pilot family**: frame membership at chance from an LLM coder
