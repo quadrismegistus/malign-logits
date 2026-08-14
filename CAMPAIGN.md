@@ -524,6 +524,21 @@ seat forgets at its peril:
   ever have tested it, and the next command refuted it. Both halves
   are recognition substituting for measurement — one on the reading
   side, one on the writing side.
+- **PUT THE PRIOR ON THE AXIS** ([5990]): where a result is
+  interesting for landing on the WRONG SIDE of a prediction rather
+  than for its size, a panel showing only the distribution renders the
+  number and drops the finding. Shade the predicted region, and a
+  reader who knows nothing about the prior can see that 41 of 46 land
+  outside it. Companion from the same panel: **effect and agreement
+  are two channels and collapsing them asserts they rank together** —
+  position for the lineage's median, colour for the share of its own
+  cells that agree, diverging at 0.5 so a bare majority reads pale
+  however large the median; here the smallest-median lineage is among
+  the darkest and several large-median ones are pale, so the two
+  rankings are demonstrably different. And **a tie is not a
+  dissenter**: a lineage at -0.000138 with exactly 63 of 126 cells
+  each way, drawn in the same red as one at -0.0184, makes a coin flip
+  look like evidence against the finding.
 - **A coincidence of range is not a relationship** ([5974]): two
   quantities put on one unlabelled y axis because their values happen
   to overlap assert that they are commensurable. The mildest member of
