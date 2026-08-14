@@ -1,0 +1,43 @@
+// expression basin watershed — sinks (computed: purity>=0.9,
+// in>=5) + top-6 feeders each + top-2 second-hop feeders.
+// All edges displacement-coupled and split-half certified.
+digraph basin {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=12];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="EXPRESSION basin. Sinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'expression' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\l";
+  "shout" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "scream" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "gasped" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "laughed" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "shook" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "frowned" [fillcolor="#fde2cf", penwidth=2, fontsize=14];
+  "get" -> "scream" [label="21x"];
+  "take" -> "shout" [label="20x"];
+  "take" -> "scream" [label="19x"];
+  "go" -> "scream" [label="13x"];
+  "see" -> "scream" [label="10x"];
+  "go" -> "shout" [label="10x"];
+  "leave" -> "shout" [label="9x"];
+  "be" -> "shout" [label="9x"];
+  "found" -> "frowned" [label="3x"];
+  "noticed" -> "frowned" [label="3x"];
+  "discovered" -> "gasped" [label="3x"];
+  "realized" -> "frowned" [label="3x"];
+  "smacked" -> "shook" [label="3x"];
+  "decided" -> "frowned" [label="2x"];
+  "read" -> "gasped" [label="2x"];
+  "demanded" -> "shook" [label="2x"];
+  "learned" -> "gasped" [label="2x"];
+  "slapped" -> "shook" [label="2x"];
+  "yanked" -> "shook" [label="2x"];
+  "realised" -> "gasped" [label="2x"];
+  "it" -> "laughed" [label="2x"];
+  "smashed" -> "laughed" [label="2x"];
+  "broke" -> "laughed" [label="2x"];
+  "killed" -> "laughed" [label="2x"];
+  "die" -> "see" [label="3x"];
+  "suffer" -> "see" [label="3x"];
+}

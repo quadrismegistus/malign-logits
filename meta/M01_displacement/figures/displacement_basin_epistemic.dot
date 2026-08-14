@@ -1,0 +1,41 @@
+// epistemic basin watershed — sinks (computed: purity>=0.9,
+// in>=5) + top-6 feeders each + top-2 second-hop feeders.
+// All edges displacement-coupled and split-half certified.
+digraph basin {
+  rankdir=LR; node [shape=box, style="rounded,filled",
+    fillcolor=white, fontname="Helvetica", fontsize=12];
+  edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="EPISTEMIC basin. Sinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'epistemic' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\l";
+  "understand" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
+  "believe" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
+  "realize" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
+  "question" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
+  "regret" [fillcolor="#e8dff5", penwidth=2, fontsize=14];
+  "cry" -> "realize" [label="13x"];
+  "be" -> "realize" [label="8x"];
+  "be" -> "question" [label="5x"];
+  "cry" -> "question" [label="4x"];
+  "weep" -> "question" [label="4x"];
+  "play" -> "realize" [label="4x"];
+  "go" -> "question" [label="4x"];
+  "will" -> "believe" [label="4x"];
+  "had" -> "believe" [label="4x"];
+  "asked" -> "believe" [label="3x"];
+  "love" -> "realize" [label="3x"];
+  "now" -> "believe" [label="3x"];
+  "talk" -> "regret" [label="2x"];
+  "tell" -> "regret" [label="2x"];
+  "go" -> "regret" [label="2x"];
+  "be" -> "regret" [label="2x"];
+  "told" -> "understand" [label="2x"];
+  "spoke" -> "understand" [label="2x"];
+  "guess" -> "understand" [label="2x"];
+  "tried" -> "understand" [label="2x"];
+  "required" -> "had" [label="4x"];
+  "included" -> "had" [label="3x"];
+  "have" -> "talk" [label="3x"];
+  "be" -> "talk" [label="3x"];
+  "thought" -> "will" [label="3x"];
+}

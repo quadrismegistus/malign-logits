@@ -5,6 +5,9 @@ digraph basin {
   rankdir=LR; node [shape=box, style="rounded,filled",
     fillcolor=white, fontname="Helvetica", fontsize=12];
   edge [fontsize=8, color="#777777", fontcolor="#555555"];
+  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;
+  fontcolor="#555555";
+  label="PROCEDURE basin. Sinks (bordered) are COMPUTED: purity >= 0.9, in-degree >= 5.\lTheir grouping into a 'procedure' basin is a READING, an editorial layer, not a computed property.\lEdges are displacement-coupled and split-half certified; labels are shrunken full-data lift.\l";
   "reach" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
   "prepare" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];
   "adjust" [fillcolor="#d0e6f5", penwidth=2, fontsize=14];

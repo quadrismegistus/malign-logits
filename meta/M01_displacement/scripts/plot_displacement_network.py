@@ -82,6 +82,21 @@ def core():
         '  rankdir=LR; node [shape=box, style="rounded,filled",',
         '    fillcolor=white, fontname="Helvetica", fontsize=11];',
         '  edge [fontsize=8, color="#777777", fontcolor="#555555"];',
+        #: THE FENCE GOES ON THE RENDERED IMAGE, NOT IN A DOT COMMENT.
+        #: This docstring requires the caption to say BOTH halves -- sinks
+        #: computed, grouping curated -- and until now both the comment and
+        #: the shipped `procedure` panel failed it in two ways: a `//`
+        #: comment is stripped by dot at render, so the figure travelled
+        #: with no fence at all; and the comment stated only the first half.
+        #: A graph label survives into the .svg and .png, which is where a
+        #: reader meets the figure.
+        '  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;',
+        '  fontcolor="#555555";',
+        f'  label="{basin.upper()} basin. Sinks (bordered) are COMPUTED:'
+        f' purity >= 0.9, in-degree >= 5.\\lTheir grouping into a'
+        f' \'{basin}\' basin is a READING, an editorial layer, not a'
+        ' computed property.\\lEdges are displacement-coupled and'
+        ' split-half certified; labels are shrunken full-data lift.\\l";',
     ]
     for b, ws in BASINS.items():
         present = [w for w in ws
@@ -124,6 +139,21 @@ def basin_panel(basin):
         '  rankdir=LR; node [shape=box, style="rounded,filled",',
         '    fillcolor=white, fontname="Helvetica", fontsize=12];',
         '  edge [fontsize=8, color="#777777", fontcolor="#555555"];',
+        #: THE FENCE GOES ON THE RENDERED IMAGE, NOT IN A DOT COMMENT.
+        #: This docstring requires the caption to say BOTH halves -- sinks
+        #: computed, grouping curated -- and until now both the comment and
+        #: the shipped `procedure` panel failed it in two ways: a `//`
+        #: comment is stripped by dot at render, so the figure travelled
+        #: with no fence at all; and the comment stated only the first half.
+        #: A graph label survives into the .svg and .png, which is where a
+        #: reader meets the figure.
+        '  labelloc="b"; labeljust="l"; fontname="Helvetica"; fontsize=9;',
+        '  fontcolor="#555555";',
+        f'  label="{basin.upper()} basin. Sinks (bordered) are COMPUTED:'
+        f' purity >= 0.9, in-degree >= 5.\\lTheir grouping into a'
+        f' \'{basin}\' basin is a READING, an editorial layer, not a'
+        ' computed property.\\lEdges are displacement-coupled and'
+        ' split-half certified; labels are shrunken full-data lift.\\l";',
     ]
     for w in sinks:
         if w in set(E.R):
