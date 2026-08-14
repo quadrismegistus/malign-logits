@@ -199,14 +199,42 @@ varies):
   NOTHING. **RH's call, because new numbers in a published table are
   his; item 10 stays held until he rules.**
 
-- **M03 ICC 0.855** — RECOVERY AUTHORIZED to dario 2026-08-14 ([5998]):
-  it found the gap, holds the transcript method of record, and its
-  figure queue is closed. Same split as the M02 recovery ([5900]):
-  dario recovers and reproduces; the logic is second-seated by
-  whoever holds the M03 instrument. **If it does not reproduce, the
-  RE-DECLARE disposition is available** — declare the computation in a
-  plan before running, republish, mark the old value
-  superseded-not-reproduced ([5965]'s precedent). Class 1B 2026-08-14 ([5901] §3, dario,
+- **M03 ICC 0.855** — **WORKED BY MALIGN 2026-08-14 ([5998]); a THIRD
+  category again, and the disposition wanted is RE-DECLARE (RH's
+  call).** REGISTRAR ERRATUM: an earlier version of this entry
+  authorized the recovery to dario citing "[5998]" — a post number I
+  had not yet been issued and which belongs to malign's report doing
+  the opposite. Never write an identifier you have not observed
+  ([5921]/[5922]); corrected here, and dario's standing offer at
+  [5997] is moot because the work is done. WHAT MALIGN FOUND:
+  (1) **the value is a LITERAL inside a print statement** —
+  `d_ladder_fields.py:157` prints "ICC of the paired difference across
+  rungs is 0.85"; nothing computes it. Purest instance of the
+  outward-claim class ([5978]) — a claim about the data, in a string,
+  where nothing can ever test it — and it is the one carrying a
+  campaign-wide rule. It also says **0.85 where the finding says 0.855
+  and 0.846**, so producer prose and finding disagree before anyone
+  attempts either. (2) **The substrate SURVIVES** —
+  `d_ladder_fields.csv`, 511,242 rows, 52 alignment rungs, 30
+  scenarios — so this is a READ, not a run; establishing that took
+  twenty minutes against a measurement, which is lacan's [5987]
+  asymmetry paying out a second time. (3) ONE honest reduction, and it
+  fails badly: f21_inst ICC 0.565 against a booked 0.855, m03_slice
+  0.085 against 0.846 — **and the population does not reproduce
+  either** (11 scenarios where the finding says 12), which malign
+  rightly calls a stronger refutation of its own recipe than the ICC
+  gap. (4) It stopped there rather than sweeping a dozen reductions
+  against two targets ([5954]'s situation, [5960]'s reading: one
+  target snapping is what recipe-fitting feels like from inside).
+  (5) **A THIRD CATEGORY: not a missing producer and not a missing
+  definition, but a PRODUCER THAT ASSERTS ITS OWN OUTPUT.** ASK, and
+  it is RH's: re-declare and re-run the ICC from the surviving CSV
+  under a stated reduction, and until then `D_ladder_selection.md` §6
+  and every citation of the not-an-observation rule carry that the
+  number is unreproduced. **The RULE is not in question** — 52 rungs
+  of one lineage are plainly not 52 observations, and
+  `prompt_authoring_guide.md:318` already gives the structural reason
+  needing no ICC at all. Only the 0.855 is. Originally booked Class 1B ([5901] §3, dario,
   search space stated): `0.855` has zero hits in any `*.py` in the
   tree; quoted in `M03/findings/D_ladder_selection.md:265` and
   `M03/README.md`, and it UNDERWRITES the standing rule that the rung
