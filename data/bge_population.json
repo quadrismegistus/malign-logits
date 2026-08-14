@@ -1,0 +1,21 @@
+{
+ "_about": {
+  "what": "Denominator for bge_fleet_sweep: passages a run will embed, by --mixed-policy. NOT the BLT total, which is all passages.",
+  "why": "This was a constant in the sweep justified by a comment. A comment making a claim about another artifact is untested (lacan [5978]); nothing could notice if corpus and constant disagreed, and the sweep would misreport all run.",
+  "producer": "scripts/bge_population.py",
+  "source": "data/raw/blt_passages.jsonl.gz",
+  "source_sha256": "a720c465e077c6e51a53d290788ad635f3d0d915c135cc139e0f90871a33ba6a",
+  "source_passages": 483085
+ },
+ "by_script": {
+  "en": 372103,
+  "zh": 78879,
+  "mixed": 32103
+ },
+ "total_by_policy": {
+  "refuse": 450982,
+  "dominant": 483085,
+  "zh": 483085,
+  "en": 483085
+ }
+}

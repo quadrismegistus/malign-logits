@@ -5,15 +5,17 @@
     route    per-box host/port in data/bge_fleet/instances.json
 
 THE TOTAL IS NOT THE BLT TOTAL, and reusing it would misreport progress for the
-whole run. The BLT pass scored all 483,085 passages. bge runs under
-`--mixed-policy refuse` (lacan [5955]), which excludes the 32,103 `mixed`
-passages, so the denominator is:
+whole run. The BLT pass scored every passage; bge runs under `--mixed-policy
+refuse` (lacan [5955]), which excludes the `mixed` stratum. A shard that had
+embedded everything it will ever embed would sit short of 100% forever and read
+as stalled -- the failure mode where the tool, not the fleet, is wrong.
 
-    en 372,103 + zh 78,879 = 450,982
-
-Against 483,085 that reads 93.4%, so a shard that has embedded everything it
-will ever embed would sit at 93.4% forever and look stalled at the end -- the
-failure mode where the tool, not the fleet, is wrong.
+**The counts are deliberately NOT written here.** An earlier version of this
+docstring spelled them out, which made it the same untested cross-file claim as
+the constant it was justifying -- and it survived the fix that removed the
+constant, sitting fifteen lines above it. The numbers live in
+`data/bge_population.json` with the corpus sha256 they were measured on; run
+`scripts/bge_population.py` to produce or re-check them.
 
 A SEPARATE FILE from blt_fleet_sweep.py on purpose. The BLT fleet is live while
 this is written, and the alternative -- a --job flag on the shared tool -- both
@@ -27,9 +29,29 @@ and treating it as an error would report a policy as a fault.
 """
 import json, subprocess, sys, concurrent.futures as cf
 
-#: en 372,103 + zh 78,879, measured on data/raw/blt_passages.jsonl.gz.
-TOTAL = 450_982
+#: READ, NOT ASSERTED. This was `TOTAL = 450_982` with a comment explaining
+#: where it came from -- a claim about a DIFFERENT file that nothing here could
+#: check (lacan [5978]). If the corpus changed, the constant and the comment
+#: would agree with each other and disagree with reality, and the sweep would
+#: misreport progress for a whole run while looking healthy.
+#:
+#: Now measured by scripts/bge_population.py, which stamps the corpus sha256.
+#: The policy key matters: the denominator is policy-dependent, so a single
+#: number is right for exactly one of the four --mixed-policy values.
+POLICY = "refuse"          # lacan [5955]
+POP = "data/bge_population.json"
 BOXES = "data/bge_fleet/instances.json"
+
+
+def _total():
+    """Denominator, or refuse. A guessed denominator is worse than no sweep."""
+    try:
+        d = json.load(open(POP))
+    except FileNotFoundError:
+        sys.exit("  missing %s -- run scripts/bge_population.py first. Refusing "
+                 "to guess a denominator: every progress number divides by it."
+                 % POP)
+    return int(d["total_by_policy"][POLICY])
 
 CMD = ("echo -n 'proc='; pgrep -fc 'bge_clou[d]'; "
        "echo -n '|rows='; cat /workspace/bge/bge_shard*.jsonl 2>/dev/null "
@@ -59,6 +81,7 @@ def probe(b):
 
 
 def main():
+    TOTAL = _total()
     try:
         boxes = json.load(open(BOXES))
     except FileNotFoundError:
