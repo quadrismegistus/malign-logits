@@ -59,7 +59,14 @@ CMD = ("echo -n 'proc='; pgrep -fc 'bge_clou[d]'; "
        "echo -n '|ref='; cat /workspace/bge/*.refused.jsonl 2>/dev/null | wc -l; "
        "echo -n '|mb='; du -sm /workspace/bge 2>/dev/null | cut -f1; "
        "echo -n '|free='; df -BG /workspace | tail -1 | awk '{print $4}'; "
-       "echo -n '|rate='; grep -oE '[0-9.]+/s' /workspace/bge.log 2>/dev/null | tail -1")
+       #: ANCHORED TO THE PROGRESS LINE. A bare `[0-9.]+/s` matched
+       #: `python3.11/s`ite-packages in a TRACEBACK and reported 3.11/s for a
+       #: crashed process -- a dead shard showing throughput, which is the
+       #: exact failure the runbook's casualty pattern is about, produced by
+       #: the monitor itself. The producer's progress line is
+       #: `N embedded  M sentences  T min  R/s`, so require `embedded`.
+       "echo -n '|rate='; grep -E '[0-9]+ embedded' /workspace/bge.log 2>/dev/null "
+       "| grep -oE '[0-9.]+/s' | tail -1")
 
 
 def probe(b):
