@@ -74,7 +74,14 @@ varies):
   producer now prints intervals, counts, per-round ORs, and a
   contains-treatment flag per row. STILL open: zh arm, marker half,
   ablation, verdict soundness. Register status: no quotable form for
-  the reader arm exists; enters fenced if it enters.
+  the reader arm exists; enters fenced if it enters. DOC CLOSED
+  ([5914], a5499d6e): SAMESIDE caveat now a COLUMN (intervals +
+  contains-treatment note per row, severity graded); the layout had
+  invited reading three near-unity ORs as specificity evidence —
+  nothing false, rhetorical work the contents could not support.
+  Registrar's register pass done same day: floor-flags on the
+  cross-lingual sign-count p-values, zh anchors marked not-yet-
+  quotable with lacan's interval rider attached.
 
 - ~~**M05 C Result 4**~~ STALE, corrected 2026-08-14 ([5901] §2):
   `m05_pair_displacement.py --recapture` now writes
