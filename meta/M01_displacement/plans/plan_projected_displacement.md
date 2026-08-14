@@ -117,6 +117,29 @@ The population is the 2,583 prompts carrying `twp` on all six Tulu checkpoints (
 
 A first registrable cut: the ~50 prompts where both branches are live by the Slot Explorer's screen, poles declared and frozen, `ΔN` and its split as the primary, the four ablation arms as the contrast, EN/ZH as a declared stratum.
 
+## 8. PRE-RUN PREDICTION for the cross-lineage test — written before it runs
+
+RH's argument: applying the poles to lineages they never saw is an out-of-sample test of whether the axis is fitted to the outcome. It is only that if the prediction is written first, so this section is dated to the commit that carries it and states what each result would mean.
+
+**THE CLAIM UNDER TEST** is *alignment moves mass down the item's own naughtiness axis* — **not** *WildChat carries it*. Only Tulu has ablated arms, so the ablation claim stays at one training run whatever this returns. The two must not be reported as though the second inherited the first's n.
+
+**FROZEN INPUTS.** The 22 items and their poles as committed at `9d46ca2d`; the roster is the 31 runnable representative pairs over 57 checkpoints after the preflight exclusions (15 NOT_IN_GRID, 4 SSM/kernels, 1 not downloaded, 1 both).
+
+**THE POLES ARE NOT INDEPENDENT OF TULU AND ARE INDEPENDENT OF EVERYTHING ELSE.** They were declared while looking at the pooled base ∪ Tulu-SFT distribution. No other lineage's distribution was seen. Tulu's own rate is **19 of 22 items negative**, and that number is contaminated by construction; the cross-lineage rate is not.
+
+**PREDICTION: the direction holds — mean ΔN < 0 — in at least 21 of 31 lineages (≥ 2/3).**
+
+    >= 21/31   the axis measures something the poles did not encode
+    16-20/31   ambiguous: real but weaker out of sample, and the Tulu figure is
+               partly fitted. Reportable only with both numbers side by side.
+    <= 15/31   AT OR BELOW A COIN FLIP -- the poles are fitted to Tulu and the
+               22-item result is an artifact of having chosen them there.
+               This would withdraw the exploratory claim, not weaken it.
+
+**A SECOND PREDICTION, WHICH IS THE ONE I AM LESS SURE OF.** Suppression and substitution are near-equal for Tulu's full SFT (−0.0130 / −0.0131). If that balance is a property of *alignment* it should recur across lineages; if it is a property of *Tulu's mixture* it should not. **No prediction is offered on which**, deliberately — an untethered guess here would be a free parameter, and the split is exactly what the EN/ZH result says can differ between regimes.
+
+**WHAT WOULD NOT COUNT AS SUPPORT.** A large mean ΔN carried by a few lineages. The test is the COUNT of lineages, not the magnitude, because one lineage moving enormously is one observation however large it is.
+
 ## Producers
 
 | what | where |

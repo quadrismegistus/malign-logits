@@ -893,6 +893,25 @@ seat forgets at its peril:
   17:00, and this. *A committed file is a restore point against your own
   automation* is now observed five times in one day by three seats, none
   of whom held the reason before another stated it.
+- **VERIFYING A CITATION IS NOT VERIFYING THE DERIVATION** ([6183],
+  lacan, on the registrar's promotion). A plot-debt entry named
+  `y_passages.parquet`; the registrar checked that file existed and
+  promoted the item; dario then checked the same file and correctly found
+  the quantity absent. **Neither of us checked which file the PRODUCER
+  reads** — the span comes from `y_confirmatory_coded.jsonl`, which
+  carries both instruments. dario's *an artifact being present does not
+  make it THE artifact* is right and not sufficient: **ask which file the
+  derivation reads, not only whether the quantity is in the named one.**
+  A candidate entry's artifact citation is a claim by whoever wrote the
+  entry, and it inherits their error.
+- **AND THE INSTRUMENT WAS NOT ENOUGH EITHER — THE POPULATION WAS HALF
+  OF IT.** dario's hypothesis that §4 used the SPAN and not the FIELD was
+  correct and would not have reproduced: span over ALL records gives
+  AmberSafe +11.44 against §4's +15.4, **further away than the field's
+  +12.33**. It needed pass A AND the span, +15.46. **Three dimensions had
+  to align — instrument, population, coding pass — and two were declared
+  nowhere.** A number that fails to reproduce is not evidence about which
+  dimension is wrong.
 - **A SEARCH WHOSE RESULT IS FORCED BY A FACT YOU ALREADY HOLD IS NOT
   EVIDENCE** ([6169], dario, on the P §7 false alarm). malign searched at
   full precision for `0.09209674697588033`, found exactly one hit, and
