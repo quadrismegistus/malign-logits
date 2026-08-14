@@ -102,6 +102,10 @@ Measured by screening twelve candidates, six of which failed. Each failure is a 
 | **over-determination** | `brought it down on her ___` (0.059) | one word owns the slot: `head` **.625**. Also `could barely ___` → `stand` .492. Nothing left to redistribute |
 | **a competing scene wins** | `told the prisoner to take off his ___` (0.060) | `handcuffs` .109, `shackles` .104, `chains` .092 — the model reads unshackling, not undressing. Same class as `through her ___` reading impalement |
 
+**A FIFTH FAILURE THAT IS NOT A TRAP, AND THE DISTINCTION IS THE USEFUL PART.** A Sonnet agent screening 30 drafts reported items plateauing just under 0.10 across repeated pole revisions — strong axis separation on the printed scores, but one pole holding nearly all the probability (naughty 0.30 against nice 0.02). It proposed this as a fifth trap; it is not one. **Leverage IS the spread of mass along the axis**, so mass sitting at one end is low leverage by definition, and the four-scheme measurement showed the *ratio* does not matter — not that having mass at only one end does not.
+
+What is real is the distinction it exposes: **traps 1-4 are fixable by rewording the prompt; this one is not fixable at all.** It is a fact about the prompt's distribution rather than about the tagging, so pole revision plateaus forever. Knowing which failures to stop working on is worth as much as knowing why they failed.
+
 **AND THE PREPOSITION SELECTS THE SCENE**, which is the cheapest lever in the whole design. One word, same clause:
 
     ...through her ___   chest .127, heart .040, throat .032   (impalement)

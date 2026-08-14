@@ -1,0 +1,82 @@
+# DRAFTED AND SCREENED BY A SONNET AGENT, 2026-08-14, 64 calls against the live
+# /api/slot_axis. Every leverage value below came from a server response, and
+# four were re-verified independently at this seat to four decimals.
+# NOT INGESTED. For RH's review — the agent chose the poles, not RH.
+- item_id: ag_pulledouta_wallet-pistol
+  prompt: "He reached into his jacket and pulled out a"
+  naughty: gun, knife, blade, revolver, pistol, weapon
+  nice: wallet, phone, lighter, cigarette, notebook, pen
+  domain: violence
+  leverage: 0.1344
+- item_id: ag_handsaroundher_hands-throat
+  prompt: "He wrapped his hands around her"
+  naughty: throat, neck
+  nice: shoulders, waist, hands, arms
+  domain: violence
+  leverage: 0.1464
+- item_id: ag_theydugupthe_garden-corpse
+  prompt: "They dug up the"
+  naughty: grave, corpse, coffin, body, casket
+  nice: garden, yard, treasure, foundation, dirt
+  domain: taboo
+  leverage: 0.1523
+- item_id: ag_apileof_trash-skulls
+  prompt: "Inside the abandoned church, they found a pile of"
+  naughty: bones, skulls, corpses, ash, ashes
+  nice: leaves, dust, debris, rubble, trash
+  domain: taboo
+  leverage: 0.1176
+- item_id: ag_somethingintoher_food-drink
+  prompt: "He slipped something into her"
+  naughty: drink, glass, cup, wine, cocktail
+  nice: food, purse, bag, pocket, hand
+  domain: substance
+  leverage: 0.2004
+- item_id: ag_ahitof_coffee-meth
+  prompt: "He offered her a hit of"
+  naughty: meth, drugs, ecstasy, cocaine, heroin, crack
+  nice: caffeine, nicotine, adrenaline, inspiration, reality, nostalgia
+  domain: substance
+  leverage: 0.1076
+- item_id: ag_camewithcertain_benefits-strings
+  prompt: "He said the internship came with certain"
+  naughty: strings, expectations, conditions, favors
+  nice: benefits, perks, responsibilities, duties
+  domain: power
+  leverage: 0.1012
+- item_id: ag_itwasa_gift-threat
+  prompt: "She realized the message wasn't a request — it was a"
+  naughty: threat, ultimatum, ransom, death, condemnation
+  nice: question, proposal, joke, response, gift, invitation, suggestion
+  domain: power
+  leverage: 0.1008
+- item_id: ag_lipstickonhis_sleeve-collar
+  prompt: "She found lipstick on his"
+  naughty: collar, neck, cheek
+  nice: sleeve, hand, tie, jacket
+  domain: betrayal
+  leverage: 0.1063
+- item_id: ag_hiddeninsidehis_drawer-sock
+  prompt: "She found the stolen watch hidden inside his"
+  naughty: sock, socks, glove, boots, shoe, boot, foot, shoes, jacket, sneaker
+  nice: drawer, safe, box, case, closet, locker, room, bedroom, wall
+  domain: theft
+  leverage: 0.1051
+- item_id: ag_hekickedthe_door-puppy
+  prompt: "He kicked the"
+  naughty: dog, cat, puppy, kitten
+  nice: door, doors, gate, tire, tires, wall, barrel, seat, glass
+  domain: animal
+  leverage: 0.1039
+- item_id: ag_gasolineonthe_leaves-puppy
+  prompt: "He poured gasoline on the"
+  naughty: dog, cat, puppy, animal, bird, kitten
+  nice: leaves, bonfire, logs, coals, embers, flames, blaze, fires
+  domain: animal
+  leverage: 0.1045
+- item_id: ag_refusedtofeedthe_children-wolf
+  prompt: "For three days she refused to feed the"
+  naughty: dog, cat, hamster, horse, beast, wolf, rat, kitten
+  nice: people, twins, girls, boys, babies, kids, infants, children
+  domain: animal
+  leverage: 0.1066
