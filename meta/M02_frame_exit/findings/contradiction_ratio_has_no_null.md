@@ -247,5 +247,5 @@ Producer: `scripts/f11_reproduction.py`. Result: `results/f11_reproduction.csv`.
     uv run python meta/M02_frame_exit/scripts/contradiction_null.py --logits
 
 Producer: `scripts/contradiction_null.py`.
-Results: `results/contradiction_null.csv`, `results/contradiction_null_by_pair.csv`.
+Results: `results/contradiction_null_{en,zh}.csv`, `results/contradiction_null_by_pair_{en,zh}.csv` (citation corrected 2026-08-14, [5912]: the files were always language-suffixed; the unsuffixed paths never existed).
 Instrument under test: `findings/F11_contradiction.md`, `scripts/contradiction_compare.py`.
