@@ -192,7 +192,25 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    itself on the page (violence stratum, 245/21) with the whispered
    sink beside it. Booked-number asserts, slices in subtitles,
    truncations stated.
-9. OPEN — T-18 x M05-C sign-disagreement dumbbell (shortlist 2).
+9. SHIPPED 2026-08-14 (dario, 0db7cbcd) — T-18 x M05-C sign
+   disagreement. Landed INSIDE `plot_t_figs.py` (registrar's file)
+   because its registry had reserved the slot in a comment; purely
+   additive, one function + one entry, flagged not assumed —
+   RATIFIED [5946]. DEPARTURE: ONE panel, not the shortlist's two.
+   Two panels put the estimates in two coordinate systems and make
+   the reader carry a sign across the gutter; on one axis the
+   disagreement IS a segment crossing zero, and 6 of 16 do it.
+   **What the entry did not know: the units disagree about
+   SIGNIFICANCE more widely than about sign** — 13 of 16 fields clear
+   q 0.05 at the edge unit against 6 of 16 on the lineage (RID
+   aggression: edge +0.0002 q 0.43 sees nothing, lineage -0.0054
+   q 0.007 a significant fall), so significance is drawn at both
+   units, FILL mapped (not shape) so "filled clears q 0.05" is
+   literally what the mark does. NOT framed as a replication failure:
+   50 base-to-aligned edges against 105 pairs on ONE lineage, neither
+   estimate the other's check — and that fence came off the ARTIFACT's
+   own `_about` field, not off any document (see the `_about`
+   convention, [5946]).
 10. OPEN — M05 A-R4 joined ratio/pole-sep panel (shortlist 3).
 11. OPEN — M03 E survivor scatter (shortlist 5) + remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
