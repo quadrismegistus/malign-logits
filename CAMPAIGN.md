@@ -705,6 +705,15 @@ seat forgets at its peril:
   raises AT THE WRITE, after every passage is embedded, means all the
   work is done, nothing is recorded, and the sweep calls it a crashed
   shard.
+- **A GUARD THAT ONLY EVER REFUSES IS INDISTINGUISHABLE FROM A WORKING
+  ONE — TEST BOTH BRANCHES** ([5992]): the bge launcher refuses while
+  BLT is live on a box and proceeds when it is not, and both were
+  exercised, because a guard observed only in its refusing state has
+  never been shown to permit. Same post, the positive form of the
+  lazy-construction rule: **warm and probe the instrument before the
+  loop**, so a missing model kills the run in its first second instead
+  of quietly turning 16.3% of the corpus into refusals at full
+  reported throughput.
 - **A rehearsal that cannot reach every shard is worth less than no
   rehearsal, because it prints what a good one prints** (malign's,
   [5957]): `--limit` was a global cap whose `break` left only the row
