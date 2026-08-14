@@ -1,12 +1,13 @@
 {
+ "_about": "Propagation slope: forcing an improbable word, does the syntagm absorb it? H1 HOLDS -- the chain absorbs roughly 99%, medians give 1.20% aligned / 1.05% base of the imposition reaching the continuation. H3 IS FENCED AND NOT QUOTABLE: comparing b_forced to `undisturbed_reference` sets a within-FORCED fit beside a within-UNDISTURBED one, the same one-word conditioning asymmetry that withdrew opening_matched. The aligned-base difference is NOT quotable as an alignment effect (p 0.081 pooled). Single seat, unaudited; [5503] applies.",
  "plan": "plans/plan_propagation.md",
  "n_rows": 601324,
  "undisturbed_reference": {
-  "naive_per_pair_role": 0.024,
+  "naive_per_pair_role": 0.02414342434800358,
   "naive_n_lines": 80,
-  "ancova_within_prompt": 0.016,
+  "ancova_within_prompt": 0.015808958250426546,
   "ancova_n_lines": 79,
-  "source": "results/opening_matched.json -> undisturbed_slope",
+  "source": "results/opening_matched.json -> undisturbed_slope (read at run)",
   "not_a_range": "two estimators' point medians, not an interval",
   "status": "the SLOPES are undisturbed-only and survive opening_matched's construction withdrawal; the forced-vs-undisturbed COMPARISON in propagation.md reproduces the asymmetry that caused it and is fenced, not quotable"
  },
@@ -22,7 +23,7 @@
   },
   "base": {
    "median": 0.007285161992541403,
-   "mean": 0.008205864755111023,
+   "mean": 0.008205864755111024,
    "n": 40,
    "up": 36,
    "dn": 4,
@@ -40,7 +41,7 @@
  "single-token only": {
   "aligned": {
    "median": 0.008079798156378416,
-   "mean": 0.011373948933086549,
+   "mean": 0.011373948933086547,
    "n": 40,
    "up": 38,
    "dn": 2,

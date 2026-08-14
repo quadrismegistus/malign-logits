@@ -171,7 +171,21 @@ def main():
         raise SystemExit("REFUSING: common support too thin; the estimator "
                          "would describe a corner, not the comparison")
 
-    out = {"plan": "plans/plan_opening_matched.md", "bin_nats": BIN,
+    out = {"_about":
+           "WITHDRAWN AT CONSTRUCTION LEVEL ([5811]), not amended. The "
+           "comparison never matched openings: the forced word conditions the "
+           "generation but is absent from BOTH the prompt and the scored text, "
+           "so forced rows are scored on a continuation carrying one more word "
+           "of context than undisturbed rows. EVERY forced-vs-undisturbed "
+           "number in this file -- main effect, profile, ANCOVA, sensitivity, "
+           "context_control -- compares sequences with different amounts of "
+           "conditioning, and the asymmetry is a sufficient explanation for the "
+           "whole effect. `offset_repair.md` is the repair. THE ONE EXCEPTION "
+           "IS `undisturbed_slope`: both its fits run on undisturbed rows "
+           "ONLY, so neither can carry a between-arm defect -- read its own "
+           "fence before quoting it, and do not quote its two values as a "
+           "range.",
+           "plan": "plans/plan_opening_matched.md", "bin_nats": BIN,
            "min_per_bin": MIN_PER_BIN, "min_bins": MIN_BINS,
            "n_rows": n_rows, "x_range": [float(min(xs_seen)), float(max(xs_seen))]}
 

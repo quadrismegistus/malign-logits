@@ -155,7 +155,20 @@ def main():
         "SELECT DISTINCT prompt, pair_id, pair_role FROM "
         "malign_logits.prompt_catalogue WHERE pair_id != ''")).drop_duplicates("prompt")
 
-    out = {"leg": "parse-free (pair_id base, pair_role), crosslingual_arms.md:111-123",
+    out = {"_about":
+           "A NEGATIVE RESULT, and the artifact of a failed reconstruction "
+           "rather than of a finding. crosslingual_arms.md reported a "
+           "matched-prompt contrast on a parse-free key and ruled it the leg "
+           "that travels; it has no artifact and no producer, and its output "
+           "appears in no session log anywhere. This rebuilds it from the "
+           "frozen per-passage cells: THE POPULATION REPRODUCES EXACTLY "
+           "(23,677 passages, 25 pairs), THE NUMBERS DO NOT -- 32 declared "
+           "recipes return at most 2 of 6 booked values, and that on the input "
+           "whose population does not match. Both legs are WITHDRAWN. Nothing "
+           "in `sweep` is a result: it is the search space, persisted so the "
+           "negative is checkable, and quoting any recipe's values as a "
+           "finding inverts what this file is for.",
+           "leg": "parse-free (pair_id base, pair_role), crosslingual_arms.md:111-123",
            "referral": "[5932] dario, plot-debt item 5",
            "booked": {"%s|%s" % (k, l): v for k, d in BOOKED.items()
                       for l, v in d.items()} | BOOKED_N,

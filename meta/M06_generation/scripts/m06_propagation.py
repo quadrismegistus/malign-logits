@@ -67,16 +67,25 @@ ARMS = ("faller", "matched", "riser", "riser_matched")
 #:    SLOPE inherits that asymmetry the way a MEAN does is untested. Treat the
 #:    comparison as fenced, and the offset repair (`offset_repair.md`) as the
 #:    route that would settle it.
-UNDIST_REF = {
-    "naive_per_pair_role": 0.024, "naive_n_lines": 80,
-    "ancova_within_prompt": 0.016, "ancova_n_lines": 79,
-    "source": "results/opening_matched.json -> undisturbed_slope",
-    "not_a_range": "two estimators' point medians, not an interval",
-    "status": "the SLOPES are undisturbed-only and survive opening_matched's "
-              "construction withdrawal; the forced-vs-undisturbed COMPARISON "
-              "in propagation.md reproduces the asymmetry that caused it and "
-              "is fenced, not quotable",
-}
+#: READ, NOT RESTATED. db4c8625 named opening_matched.json as the source and
+#: then hardcoded the four values beside the pointer, so the two could drift
+#: silently -- the value-loses-its-owner shape, introduced by the commit that
+#: was repairing that shape. It now loads, and refuses if the source is absent.
+def undist_ref():
+    p = os.path.join(OUTD, "opening_matched.json")
+    if not os.path.exists(p):
+        raise SystemExit("m06_propagation: %s absent; run m06_opening_matched.py "
+                         "first -- this file will not restate its values." % p)
+    s = json.load(open(p))["undisturbed_slope"]
+    return {k: s[k] for k in ("naive_per_pair_role", "naive_n_lines",
+                              "ancova_within_prompt", "ancova_n_lines")} | {
+        "source": "results/opening_matched.json -> undisturbed_slope (read at run)",
+        "not_a_range": "two estimators' point medians, not an interval",
+        "status": "the SLOPES are undisturbed-only and survive opening_matched's "
+                  "construction withdrawal; the forced-vs-undisturbed COMPARISON "
+                  "in propagation.md reproduces the asymmetry that caused it and "
+                  "is fenced, not quotable",
+    }
 
 
 def ch_rows(q):
@@ -186,8 +195,18 @@ def main():
             per[(pair, role)].append(b)
         return per, spread
 
-    out = {"plan": "plans/plan_propagation.md", "n_rows": n_rows,
-           "undisturbed_reference": UNDIST_REF,
+    out = {"_about":
+           "Propagation slope: forcing an improbable word, does the syntagm "
+           "absorb it? H1 HOLDS -- the chain absorbs roughly 99%, medians give "
+           "1.20% aligned / 1.05% base of the imposition reaching the "
+           "continuation. H3 IS FENCED AND NOT QUOTABLE: comparing b_forced to "
+           "`undisturbed_reference` sets a within-FORCED fit beside a "
+           "within-UNDISTURBED one, the same one-word conditioning asymmetry "
+           "that withdrew opening_matched. The aligned-base difference is NOT "
+           "quotable as an alignment effect (p 0.081 pooled). Single seat, "
+           "unaudited; [5503] applies.",
+           "plan": "plans/plan_propagation.md", "n_rows": n_rows,
+           "undisturbed_reference": undist_ref(),
            "single_token_share": n1 / len(ws)}
     rows = []
     for tag, restrict in (("all arm words", False), ("single-token only", True)):
@@ -228,8 +247,10 @@ def main():
           "%d lines) -- TWO ESTIMATORS, NOT A RANGE, and the comparison to "
           "b_forced below is across populations differing by one word of "
           "conditioning."
-          % (UNDIST_REF["ancova_within_prompt"], UNDIST_REF["ancova_n_lines"],
-             UNDIST_REF["naive_per_pair_role"], UNDIST_REF["naive_n_lines"]))
+          % (out["undisturbed_reference"]["ancova_within_prompt"],
+             out["undisturbed_reference"]["ancova_n_lines"],
+             out["undisturbed_reference"]["naive_per_pair_role"],
+             out["undisturbed_reference"]["naive_n_lines"]))
     p = os.path.join(OUTD, "propagation.json")
     json.dump(out, open(p, "w"), indent=1)
     print("  -> %s" % os.path.relpath(p, ROOT))

@@ -1,4 +1,5 @@
 {
+ "_about": "WITHDRAWN AT CONSTRUCTION LEVEL ([5811]), not amended. The comparison never matched openings: the forced word conditions the generation but is absent from BOTH the prompt and the scored text, so forced rows are scored on a continuation carrying one more word of context than undisturbed rows. EVERY forced-vs-undisturbed number in this file -- main effect, profile, ANCOVA, sensitivity, context_control -- compares sequences with different amounts of conditioning, and the asymmetry is a sufficient explanation for the whole effect. `offset_repair.md` is the repair. THE ONE EXCEPTION IS `undisturbed_slope`: both its fits run on undisturbed rows ONLY, so neither can carry a between-arm defect -- read its own fence before quoting it, and do not quote its two values as a range.",
  "plan": "plans/plan_opening_matched.md",
  "bin_nats": 0.5,
  "min_per_bin": 5,
@@ -11,7 +12,7 @@
  "faller": {
   "aligned": {
    "median": -0.03419435826616701,
-   "mean": -0.01545881589440604,
+   "mean": -0.015458815894406036,
    "n": 40,
    "up": 9,
    "dn": 31,
@@ -37,7 +38,7 @@
  "matched": {
   "aligned": {
    "median": -0.05505744207131702,
-   "mean": 0.0055010610734283595,
+   "mean": 0.005501061073428365,
    "n": 40,
    "up": 5,
    "dn": 35,
@@ -113,7 +114,7 @@
   },
   "aligned:matched": {
    "median": -0.049745144571547106,
-   "mean": -0.031451943633405026,
+   "mean": -0.03145194363340502,
    "n": 779,
    "up": 273,
    "dn": 506,
@@ -121,7 +122,7 @@
   },
   "base:matched": {
    "median": -0.034683343394930954,
-   "mean": -0.019757985844133075,
+   "mean": -0.019757985844133078,
    "n": 845,
    "up": 324,
    "dn": 521,
@@ -195,7 +196,7 @@
   },
   "aligned:riser_matched": {
    "median": -0.03209975995530387,
-   "mean": 0.008563679938319121,
+   "mean": 0.008563679938319127,
    "n": 38,
    "up": 6,
    "dn": 32,
