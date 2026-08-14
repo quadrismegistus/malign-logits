@@ -943,6 +943,16 @@ exist; nothing here needs a new run.
    the finding. That misreading cost three docket corrections on 08-13/14
    ([5881] -> [5884]); this figure is the cheapest guard against a reader
    repeating it. `mediation_words_byprompt.parquet` joined to `movement`.
+   **THAT INPUT IS IGNORED, NOT TRACKED** (265 MB against the repo's
+   100 MiB pre-commit hook, so committing was never available;
+   lacan `fec71c44`, caught by dario's cited-artifact test at [6036]
+   and fixed at [6037]). To get it back:
+       REGENERATE  uv run python meta/M06_generation/scripts/m06_mediation.py --by-prompt
+       COPY        /Volumes/diderot/malign-logits/meta/M06_generation/results/
+   **An ignored file that a document names is a broken reproduction
+   path unless the document says how to get it back** — the ignore
+   rule is the cheap half, the pointer is the half that makes it
+   safe.
 
 3. OPEN — **THE DISSOCIATION, TWO PANELS.** net_fall vs composition change
    (rho -0.285, 36/36 pairs negative) beside pct_moved vs composition (+0.008,

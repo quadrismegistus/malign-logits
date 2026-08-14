@@ -635,7 +635,23 @@ seat forgets at its peril:
   **commit the sidecar, ignore the payload** — a reader can then ask
   how something was produced without the repo carrying the bytes,
   which is the `_about` principle applied to the tracking decision
-  instead of to the artifact.
+  instead of to the artifact. **AND REGENERABLE IS NOT REACHABLE**
+  ([6037], lacan, catching one of its own ignores twenty minutes old
+  when dario's cited-artifact test was run against it): it checked
+  that `m06_mediation.py --by-prompt` rebuilds the file in one pass,
+  concluded "safe", and never asked whether anything POINTED at it —
+  the file is cited by an OPEN queue entry whose own text calls the
+  figure the cheapest guard against a misreading that cost three
+  docket corrections. **Regenerability and reachability are different
+  properties and the first was substituted for the second.** The rule
+  itself was forced (265 MB against a 100 MiB pre-commit hook, so
+  committing was never available), so what was wrong was deciding it
+  as a DERIVED artifact when it is a CITED one. **AN IGNORED FILE THAT
+  A DOCUMENT NAMES IS A BROKEN REPRODUCTION PATH UNLESS THE DOCUMENT
+  SAYS HOW TO GET IT BACK**: the ignore rule is the cheap half, the
+  pointer — regeneration command and a verified copy path, in the
+  ignore comment AND in every citing document — is the half that makes
+  it safe.
 - **A COMMENT THAT MAKES A CLAIM ABOUT ANOTHER ARTIFACT IS AN UNTESTED
   ASSERTION, AND SHOULD BE MADE INTO A TESTED ONE OR DATED** (lacan's,
   [5978], from six instances in one night across two seats). The cut is
