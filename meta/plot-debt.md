@@ -43,8 +43,16 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
    saturation (33/34 clusters at the identical capped z) — the
    register held it, the 08-12 doc rewrite had dropped it, N doc
    restored same day.
-2. OPEN — M02 calibration number line (shortlist 4): 0.000 / 0.907 /
-   1.006 / 4.031, per-cell strip behind, zh twin panel.
+2. SHIPPED 2026-08-14 (dario, a17788c8) — M02 calibration number
+   line: contradiction_null_figs.py -> contradiction_null_numberline,
+   en anchors asserted, zh twin (0.958/1.004/3.852 — UNASSERTED, not
+   booked anywhere; booking debt noted [5912]). Three declared
+   departures, all registrar-ratified [5913]: LINEAR axis anchored at
+   0 overriding this entry's "log-spaced" suggestion (log cannot show
+   the zero anchor and would push OBSERVED/NEUTRALIZATION apart —
+   their 0.1 separation IS the finding); labels on opposite sides of
+   the strip; zh tail cut at shared limit with count+max printed on
+   panel. PROVISIONAL status on the panel.
 3. OPEN — NEW (2026-08-13): S4 DIAGONAL — each model soothed by its own
    promoted vocabulary; 2x2 role x word-class with one significant cell
    per arm ([5795]/[5825]; self_surprisal_cells.parquet). The surviving

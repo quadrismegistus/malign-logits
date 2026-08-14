@@ -67,10 +67,14 @@ varies):
   ORs are 0.25 / 4.12 (unity is their average, not an observation).
   The title's "and only the contradiction", reader-arm half, now
   reads NOT YET SHOWN by this instrument; the regex pole control
-  (0.93x, 52,559 passages) carries the specificity weight. STILL
-  open: zh arm, marker half, ablation, verdict soundness. Register
-  status: no quotable form for the reader arm exists; enters fenced
-  if it enters.
+  (0.93x, 52,559 passages) carries the specificity weight.
+  GENERALIZED ([5912]): NOT ONE of the three same-side controls can
+  exclude its own treatment effect (second-order 3.37 in [0.23,4.39];
+  moral 1.16 in [0.89,2.16]; clinical 1.46 in [0.55,2.87]) — the
+  producer now prints intervals, counts, per-round ORs, and a
+  contains-treatment flag per row. STILL open: zh arm, marker half,
+  ablation, verdict soundness. Register status: no quotable form for
+  the reader arm exists; enters fenced if it enters.
 
 - ~~**M05 C Result 4**~~ STALE, corrected 2026-08-14 ([5901] §2):
   `m05_pair_displacement.py --recapture` now writes
