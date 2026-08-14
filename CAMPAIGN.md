@@ -1004,7 +1004,29 @@ seat forgets at its peril:
   required with NO DEFAULT and the chosen value is written onto every
   row it touched. A default here would have been a methodological
   ruling made by whoever typed the argparse line.
-- **`_about`: every results artifact carries its own scope line, where
+- **A MERGED NAMESPACE IS WORSE THAN A WRONG ONE, BECAUSE NOTHING
+  DOWNSTREAM CAN SEPARATE THEM** (malign's, [6016]): the bge ingest
+  found its own target keys already populated — 14,178 under
+  `BAAI/bge-m3|nltk-en` and 12,803 under `|stanza-zh` — written by
+  something with no manifest, no `_about`, and no producer recorded in
+  the key. A skip-if-present ingest would have kept 203 pre-existing
+  vectors, silently dropped this run's for exactly those passages, and
+  left one table holding 225,629 rows from this fleet plus 203 from
+  somewhere else, indistinguishable. **The asymmetry decides it: a
+  distinct namespace costs nothing now and is unrecoverable later**,
+  which is the third time in one night that argument has settled a
+  hold. AND THE NAMESPACE ITSELF IS UNDER-SPECIFIED ONE LEVEL DEEPER
+  THAN THE TRAP IT WAS BUILT FOR: a THIRD component `|full` exists in
+  the store that the producer cannot emit, and it is **not a different
+  corpus** — 14,170 of 16,010 (prompt, text) pairs appear under both
+  `|nltk-en` and `|nltk-en|full`, so a second treatment of the same
+  text is real, already stored, and invisible to a two-component key.
+  The splitter was the known confound; something else changes the
+  sentences too. **REGISTRAR'S NOTE: the stash is a container the
+  `_about` ruling never reached.** JSON and parquet were fenced; cache
+  namespaces were not, and the concrete cost is that a commission is
+  blocked on a provenance question the store cannot answer about
+  itself.
   a reader meets the data** ([5945] dario named it, [5946] malign
   measured it, [5947] registrar ruled). `m05_widening_null.json` holds
   `_about: "ONE LINEAGE (OLMo) — SHAPE/timing, not generalisation"`,
