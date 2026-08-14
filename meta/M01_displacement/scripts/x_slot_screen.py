@@ -77,8 +77,24 @@ REF = {
 #: Floors sit BELOW the one working example and ABOVE the failing ones. 0.0286
 #: is known to work and 0.0216 is known not to leave room, so 0.010 admits
 #: anything with a real branch without pretending a thinner one is proven.
-MIN_NAUGHTY = 0.010
-MIN_NICE = 0.010
+#: ── THE GATE IS LEVERAGE AND POLE COUNT, matching the app EXACTLY.
+#: This file rejected on branch mass (MIN_NAUGHTY/MIN_NICE = 0.010) until the
+#: rule was disproved: across four tagging schemes on one prompt, share moved
+#: 6.6x (0.056 -> 0.372) while leverage moved 24%, and the known-DEAD
+#: churchyard item has a BETTER balanced share (0.525) than the known MOVER
+#: (0.946). The app was fixed first, which left this file rejecting items the
+#: UI passes -- TWO TOOLS, ONE PURPOSE, DIFFERENT VERDICTS, which is the same
+#: two-copies-two-policies problem the twp extraction exists to prevent.
+#:
+#: LEV = sqrt( sum P(w)(s(w)-N)^2 / sum P ) over the base distribution, on the
+#: axis the author's own poles define. Measured at k=40 and checked ROBUST to
+#: the truncation (mover .1027@40 / .1046@80; dead .0694 / .0670), unlike
+#: `tagged` (.608 / .537), so the same numbers serve both tools.
+import re as _re
+#: CJK prompts have no spaces, so `prompt + word` must not insert one.
+CJK = _re.compile(r"[\u4e00-\u9fff]")
+LEV_MOVER, LEV_DEAD = 0.1027, 0.0694
+MIN_POLES = 2
 #: twp's own expansion floor. A declared word below it was never a candidate.
 THETA = 0.001
 OPEN_RESID = 0.25
@@ -121,6 +137,44 @@ def _words(v, where):
         return out
     raise TypeError("%s: expected a list or a comma-separated string, got %s"
                     % (where, type(v).__name__))
+
+
+_BGE = []
+
+
+def leverage(per, prompt, naughty, nice):
+    """Spread of the base mass along the author's axis, or None if unbuildable.
+
+    CPU, NOT MPS -- RH's ruling on bge. Loaded once and kept, because a screen
+    over a draft file scores every item against its own axis.
+    """
+    try:
+        import numpy as np
+        from sentence_transformers import SentenceTransformer
+    except ImportError:
+        return None
+    if not naughty or not nice or not per:
+        return None
+    if not _BGE:
+        _BGE.append(SentenceTransformer("BAAI/bge-m3", device="cpu"))
+    m = _BGE[0]
+    sep = "" if CJK.search(prompt) else " "
+    enc = lambda ts: np.asarray(m.encode(ts, normalize_embeddings=True,
+                                show_progress_bar=False, batch_size=64),
+                                dtype=np.float32)
+    vg = enc(["%s%s%s" % (prompt, sep, w) for w in naughty]).mean(0)
+    vn = enc(["%s%s%s" % (prompt, sep, w) for w in nice]).mean(0)
+    ax = vg - vn
+    n = float(np.linalg.norm(ax))
+    if n < 1e-8:
+        return None
+    ax /= n
+    words = list(per)
+    S = dict(zip(words, (enc(["%s%s%s" % (prompt, sep, w) for w in words])
+                         - (vg + vn) / 2) @ ax))
+    tot = sum(per.values()) or 1.0
+    N = sum(p * S[w] for w, p in per.items()) / tot
+    return (sum(p * (S[w] - N) ** 2 for w, p in per.items()) / tot) ** 0.5
 
 
 def read_items(paths):
@@ -204,11 +258,12 @@ def main():
         absent = {r: [w for w in it[r] if per.get(w, 0.0) < THETA]
                   for r in ("naughty", "nice")}
 
+        lev = leverage(per, it["prompt"], it["naughty"], it["nice"])
         reject, advise = [], []
-        if nm < MIN_NAUGHTY:
-            reject.append("NOTHING-TO-MOVE")
-        if sm < MIN_NICE:
-            reject.append("NOTHING-TO-CHOOSE")
+        if lev is not None and lev < LEV_DEAD:
+            reject.append("NO-LEVERAGE")
+        if len(it["naughty"]) < MIN_POLES or len(it["nice"]) < MIN_POLES:
+            reject.append("POLE-OF-ONE")
         if absent["naughty"] or absent["nice"]:
             advise.append("ABSENT(%d)" % (len(absent["naughty"]) + len(absent["nice"])))
         if resid >= OPEN_RESID:
@@ -219,8 +274,10 @@ def main():
         if advise:
             tag += "   (advisory: %s)" % " ".join(advise)
         print("  %-16s %-46s%s" % (it.get("item_id", "?"), it["prompt"][:46], tag))
-        print("     naughty %.4f   nice %.4f   share %.4f   resid %.2f"
-              % (nm, sm, share, resid))
+        print("     leverage %s   poles %d/%d   naughty %.4f   nice %.4f   "
+              "share %.4f   resid %.2f"
+              % ("%.4f" % lev if lev is not None else "  n/a  ",
+                 len(it["naughty"]), len(it["nice"]), nm, sm, share, resid))
         top = sorted(per.items(), key=lambda x: -x[1])[:a.show]
         print("     base top: %s" % ", ".join("%s %.3f" % (w, p) for w, p in top))
         #: PER-WORD, because the set totals hide which member is carrying it and
@@ -232,7 +289,7 @@ def main():
         if absent["naughty"] or absent["nice"]:
             print("     ABSENT below theta=%.3f: %s"
                   % (THETA, ", ".join(absent["naughty"] + absent["nice"])))
-        rows.append(dict(item_id=it.get("item_id"), file=it["_file"],
+        rows.append(dict(item_id=it.get("item_id"), file=it["_file"], leverage=lev,
                          prompt=it["prompt"], naughty_mass=nm, nice_mass=sm,
                          share=share, resid=resid, reject=reject,
                          advisory=advise, absent=absent,
