@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-13
 role: finding
 topics: [drift, cross-lingual, chinese, arms]
-description: "The cross-lingual arm contrast: ALIGNMENT NARROWS THE SEMANTIC SPREAD OF A PASSAGE IN CHINESE AS IT DOES IN ENGLISH (the metric is ORDER-INVARIANT and is NOT a trajectory claim -- corrected below), on the same 25 pairs, the same corpus, the same rung and -- after RH corrected the fence -- the SAME MATCHED PROMPTS (97 keys, zero zh-only), with language the only manipulation. zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
+description: "The cross-lingual arm contrast: ALIGNMENT NARROWS THE SEMANTIC SPREAD OF A PASSAGE IN CHINESE AS IT DOES IN ENGLISH (the metric is ORDER-INVARIANT and is NOT a trajectory claim -- corrected below), on the same 25 pairs, the same corpus and the same rung, with language the only manipulation. **THE MATCHED-PROMPT LEGS ARE WITHDRAWN AS UNREPRODUCED (2026-08-14, [5932]): no artifact, no producer, and 32 declared recipes over the frozen per-passage cells return at most 2 of 6 booked values -- prompt content is NOT held constant in any surviving construction.** zh -0.0314 (4/21 of 25 pairs, p 9e-04), en -0.0205 (1/24, p 1.6e-06) on total_drift; both stronger on mean_drift; all four cells survive n_sents matching. The language DiD is NULL on every construction -- p 0.23 to 1.0 pooled, and p 0.69 on both metrics with MATCHED PROMPTS (1,901 pair-key units), which is the strongest form and holds topic, construct and role by construction. First arm effect this campaign has measured on Chinese GENERATED TEXT."
 ---
 # The cross-lingual arm contrast: the same operation in both languages
 
@@ -84,7 +84,42 @@ matching, at 24 of 25 pairs on three of the four constructions.
 -0.0023 (p 0.42), +0.0021 (p 1.0), +0.0133 (p 0.23), +0.0120 (p 0.23) across
 the four constructions -- it does not even hold a sign.
 
-## The strongest construction: MATCHED PROMPTS
+## MATCHED PROMPTS: BOTH LEGS WITHDRAWN AS UNREPRODUCED, 2026-08-14
+
+**EVERY NUMBER IN THIS SECTION IS WITHDRAWN.** Neither matched-prompt leg has
+an artifact or a producer. @dario found it at [5932] while holding plot-debt
+item 5, which named this section as the figure's basis and which he declined
+to draw. Both blocks below were computed inline in a session that ended; what
+is persisted, in both arms JSONs and both pairs parquets, is four contrasts --
+`{total_drift, mean_drift} x {pooled, n_sents-matched}` -- and `matched` there
+means N_SENTS-matched, not prompt-matched. `m06_crosslingual_arms.py`, the
+producer this finding names, contains no reference to `pair_id`, `pair_role`
+or the catalogue.
+
+Reconstruction attempted, `scripts/m06_crosslingual_parsefree.py` ->
+`results/crosslingual_parsefree_attempt.json`. **The population reproduces
+exactly (23,677 passages, 25 pairs) from the per-passage
+`crosslingual_drift_{lang}[_full]_cells.parquet` joined to the catalogue's
+declared columns. The numbers do not.** 32 declared recipes -- 4 key grains x
+inner{mean,median} x outer{mean,median}, against both the truncated and the
+untruncated cells -- return at most **2 of the 6** booked parse-free values,
+and the published key count of 71 is not reachable (nearest 72). The one
+recurring hit, `mean_drift` zh 1/24, also appears in four persisted contrasts,
+so it discriminates nothing. The sweep is bounded on purpose: searching
+estimator space until something matches fits a recipe to the target and would
+be indistinguishable from a reproduction while carrying none of its value.
+
+**WHAT SURVIVES, AND WHAT DOES NOT.** The invariance conclusion stands on the
+persisted contrasts alone: across both inputs, both arms are negative in 8/8
+arm tests and the DiD is p>=0.23 in 8/8. What does not stand is this section's
+status as **"the strongest construction"** and its ruling that **"the
+parse-free key is the one that travels"** -- a preference between matching
+keys, asserted on numbers nothing carries. The three key counts this finding
+quotes (97 in the frontmatter, 100 in the block below, 71 in the parse-free
+block) are also mutually inconsistent and none of them reproduces.
+
+The blocks are left standing, struck rather than deleted, so the record shows
+what was claimed.
 
 RH corrected a fence this finding had wrong (see the limits): the two prompt
 sets are not different texts. Keyed on `pair_id` base plus role suffix
@@ -119,15 +154,19 @@ passages, 71 keys, every passage in the paired population retained:
     mean_drift   zh -0.0454 (1/24, p 1.6e-06) | en -0.0409 (0/25, p 6.0e-08)
                  DiD en-zh  +0.0042  13/12  p 1.0
 
-Same conclusion on both keys; the DiD stays null and holds no sign either
+~~Same conclusion on both keys; the DiD stays null and holds no sign either
 way. **The parse-free key is the one that travels**, since it drops nothing
-and rests on declared columns.
+and rests on declared columns.~~ WITHDRAWN, see the head of this section: no
+producer, and the eight numbers do not come back from the frozen cells.
 
-**THE INVARIANCE HOLDS ON MATCHED CONTENT.** Both arms' reductions survive,
+~~**THE INVARIANCE HOLDS ON MATCHED CONTENT.** Both arms' reductions survive,
 the DiD is null on both metrics and holds no sign. **Alignment reduces
 trajectory drift by the same amount in Chinese and English ON THE SAME
 PROMPTS**, which makes the effect a property of the operation rather than of
-English.
+English.~~ WITHDRAWN AS STATED. The conclusion is still supported, but by the
+persisted pooled and n_sents-matched contrasts, NOT by matched prompts -- so
+"on the same prompts" is exactly the clause that has to come out. Prompt
+content is not held constant in any surviving construction.
 
 ## What it is worth, and the limits that bound it
 
