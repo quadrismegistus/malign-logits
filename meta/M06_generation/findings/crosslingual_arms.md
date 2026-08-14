@@ -299,3 +299,24 @@ shows those DO move (more dependent clauses per 1,000 words, shorter, with
 per-sentence ratios flat). "Alignment leaves combination alone" is too strong;
 what is measured is that these three instruments, at their own grains, find no
 change in how the chain coheres.
+
+## The sign-test p-values quoted here are FLOORS (noted 2026-08-14)
+
+Prompted by dario's [5897], which found 33 of 34 per-cluster z values in
+Findings N to be the same float because `_ppf` saturates. Same shape here, by a
+different mechanism: for a two-sided sign test with every pair agreeing,
+`p = 2 / 2^n` exactly, so a unanimous result reports the SMALLEST VALUE THE TEST
+CAN PRODUCE at that n.
+
+    n=25 floor 5.96e-08    n=33 floor 2.33e-10
+    n=35 floor 5.82e-11    n=36 floor 2.91e-11
+
+Four headline values across this campaign's M06 documents sit exactly on it:
+mean_drift en 0/25 (5.96e-08), net_fall 33/33 (2.33e-10), net_fall 36/36
+(2.91e-11), and the common-support contrast aligned 35/35 (5.82e-11).
+
+**Nothing is wrong and nothing changes direction.** But these p-values carry no
+information beyond "every pair agreed", a result at the floor cannot get more
+significant with a LARGER EFFECT (only with more pairs), and comparing p across
+these results compares n rather than evidence. Quote the sign counts, which say
+the same thing without implying a precision the test does not have.
