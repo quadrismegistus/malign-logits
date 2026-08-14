@@ -85,6 +85,21 @@ Median deltas +0.1513 and +0.1514. Splitting the construct did not isolate the e
 
 **Heterogeneity is the object**: AmberSafe +15.4pp, gemma-2-9b-it +7.0pp, llm-jp-3 +6.4pp, pythia-6.9b-hh-dpo +6.2pp against a median of +0.8pp, and four negative pairs including both Mamba architectures. A 20-point spread on a sub-point median.
 
+**Artifact and population, added 2026-08-14 after another seat could not reproduce these and correctly held a figure on them ([6182]).** `results/y_guilt_heterogeneity.json`, producer `scripts/y_guilt_heterogeneity.py`, at `af23eef8`. The numbers above are the **`<guilt>` SPAN on coding PASS A**, and neither half was stated here:
+
+| gate | instrument | median | AmberSafe | spread |
+| --- | --- | --- | --- | --- |
+| all records | span | +0.51 | +11.44 | 15.5 |
+| all records | field | +0.75 | +12.33 | 16.3 |
+| **pass A** | **span** | **+0.78** | **+15.46** | **19.9** |
+| pass B | span | -0.13 | +8.11 | 20.1 |
+
+`pass` is the coding pass and takes `'A'`/`'B'`. The span alone does not reach these values; the seat that tried it got +11.44 for AmberSafe, which is further off than the field.
+
+**And "four negative pairs" means four below -1pp.** Ten pairs are below zero; four fall under -1pp -- phi-4-reasoning -4.41, falcon-mamba-7b-instruct -1.32, Olmo-3-7B-Instruct-DPO -1.23, Falcon3-Mamba-7B-Instruct -1.03 -- and both Mamba architectures are among those four, which is what the sentence above claims. That threshold was recoverable only from this paragraph's own parenthetical; it is now declared in the producer, which asserts the booked values and refuses to emit if they move.
+
+The source `y_confirmatory_coded.jsonl` is 143 MB and gitignored by name, so it does not arrive with a clone. **Draw from the 32-row artifact, not from it.**
+
 ## 5. The superego shift dissociates from the assistant shift
 
 Correlation between the two across 32 pairs: **r = −0.544**. Pairs that gain the assistant are not the pairs that gain the moral content.
