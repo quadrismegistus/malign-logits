@@ -264,6 +264,40 @@ Priority order, RH-adjustable. "open" = undrawn and unblocked.
     `b_word_delta_by_word.csv` is not — same directory, filenames
     differing by ONE CHARACTER, fence applying to one. Recorded in the
     producer docstring for the next seat in that folder.
+    **SHORTLIST 6 ALSO SHIPPED 2026-08-14 (dario, d9c48a34)** — X §3g,
+    "the word moves the scene and the model does not", new
+    `plot_x_figs.py` under the per-letter regime (older `x_*.py`
+    predate it, untouched). ONE AXIS, STACKED, and that is the whole
+    design: the finding sets WORD (genital vs digit, +14.3 pts, 12/12,
+    p 0.00049) against MODEL (aligned vs base, -0.8 pts, 15/30,
+    p 0.918) and claims one is an effect and the other nothing —
+    independent scales would show two clouds of similar width and
+    invite exactly the opposite reading. **The null panel carries its
+    own power band** (8.4 pts at 80%, observed -0.8 inside it):
+    a null is worth drawing only if the reader can see it is not an
+    empty measurement. READING THE SECTION IN FULL CHANGED THE PANEL:
+    §3g carries a fence the queue entry did not — a pooled rate
+    "nearly went into this document" (unpaired -8 pts looks tempting;
+    paired at cell level p 0.484), and the direction REVERSES within
+    families (AmberSafe 80->0 on one token, 40->60 on another;
+    Tulu-3-DPO opposite on both), so the model null is **"no
+    consistent direction across six alignment implementations"**, not
+    "nothing happens". The drawn spread became the evidence for that
+    wording unintentionally: the MODEL contrast is visibly WIDER than
+    the WORD contrast while centred on zero, which is what an
+    inconsistent direction looks like and is exactly what two pooled
+    bars would have erased. NOT DRAWN: `thumb` at 0 of 60 in BOTH arms
+    (the base model cannot keep the scene going on that word at all) —
+    a categorical-form result against this panel's 0-100 score, and
+    mixing them would repeat the substrate conflation; **queued
+    separately as 11a**.
+11a. OPEN (queued 2026-08-14 on dario's flag, [5964]) — the
+    CATEGORICAL-FORM companion to X §3g: `thumb` 0/60 in both arms and
+    its neighbours, drawn on the categorical substrate ONLY, never
+    mixed with the 0-100 score panel. Small, and the finding calls the
+    categorical the more readable form while naming the score the
+    better primary — so the pair belongs side by side as two figures,
+    not one.
     (Shortlist 5 done; remaining shortlist
     items 6-8, 10 (X §3g, Y_diegetic four-panel, B_C lineage dots,
     M02 dumbbell) — unblocked, order per original ranking.
