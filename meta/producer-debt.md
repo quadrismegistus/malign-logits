@@ -327,6 +327,45 @@ directory), which is the reason to work the class rather than annotate it:
   `results/A_post_utterance_shock.json`; capture-only, reproduces
   exactly ([5439]).
 
+Sub-type C — **CODE THAT EXISTS, RUNS, AND IS IN NO COMMIT** (a class
+this file did not carry until 2026-08-14, [6036], dario; registrar
+reproduced both counts):
+
+- **Ten untracked producers.** `git ls-files --others --exclude-standard
+  | grep '/scripts/.*\.py$'` returns 10 — four in M01
+  (`boundary_signatures`, `canonical_sites_newlineages`,
+  `k_conjunctions`, `m05_sites_newlineages`), six in M02
+  (`exit_logit_markers`, `l1_term_anchor`, `l1_three_anchor`,
+  `l1_valence_pole`, `lens_from_cache`, `z_opposition_smoke`).
+  **Severity is lower than it looks and dario said so rather than
+  dramatising it**: none is cited by any findings doc, README,
+  `plot-debt.md` or this file, and they read as pilot code. But they
+  are one `git clean` from gone, nobody has decided about them, and
+  **an uncommitted producer is unauditable by exactly the argument
+  that makes a missing one unauditable** — while looking fine from
+  inside the working tree. The state that is wrong and silent, one
+  container further out.
+
+- **23 untracked data files, ~424 MB, READ by committed producers that
+  do not write them** — so ignoring them costs no disk and costs the
+  reproduction path: the producer stays, the input vanishes, and the
+  failure appears only when someone runs it. Upper bound, method
+  declared: basename matching with a stem heuristic separating writes
+  from reads, imperfect in both directions (a looser first pass gave
+  43 files / 432 MB and was withdrawn — `.key` was matching
+  `dict.keys()`).
+
+- **AND THE FOUR THAT BITE, because a findings doc naming a file is
+  not a heuristic** — registrar verified the citation counts directly:
+  `y_confirmatory_coded.jsonl` (143.9 MB, cited by 2),
+  `lens_group_layer.jsonl` (54.1 MB, cited by 2),
+  `m05_norm_mass.parquet` (12.0 MB, cited by 2). All three untracked.
+  `lens_prompt_layer.jsonl` (108.6 MB) is untracked and cited by 0 on
+  my grep, so it belongs with the 23 rather than these. **If a cited
+  artifact is ignored, a finding cites a file that is not in the
+  repository** — which is a citation-integrity question and therefore
+  the pen's to flag, though the disposal is RH's.
+
 ## Class 2 — ARTIFACT MISSING: producer works, output never committed
 
 - **M01 J §1**: `results/arch_displacement.json` absent (`arch_did_*`,
