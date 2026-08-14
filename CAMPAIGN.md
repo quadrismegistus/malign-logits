@@ -432,13 +432,39 @@ seat forgets at its peril:
   Companion from the same rehearsal: **a per-shard line that prints
   global running totals defeats the only reason to print per shard** —
   a shard contributing every bad row would have been unattributable.
-- **A fix deployed by crash-and-relaunch reaches only the boxes that
-  crashed** ([5957]): the byte+4 guard is live on shard 2, which hit
-  the assert and was relaunched with it, and absent from shards 0, 1
-  and 3, which never crashed and are still running the pre-guard
-  build. Every row those three have written is unguarded, and the
-  ingest is the only thing refusing them. Fleet-wide correctness is a
-  property of the DEPLOYED build per box, not of the repository.
+- **A patched file on disk and a running process are independent
+  facts** ([5962], correcting [5957] and this entry's first version):
+  Python compiles the source at process start, so `grep` on the file
+  answers a different question than "is the guard in the running
+  process" — the check is the FILE MTIME against the PROCESS START
+  TIME. Instance, and note it is the RETRACTION of the instance this
+  entry originally carried: malign inferred from which box had crashed
+  that three of four shards were running a pre-guard build, then
+  checked and found the guard in the file on all four AND every
+  process started 2–5 seconds after that file was written. All four
+  had been relaunched; nothing was unguarded. The general principle
+  the withdrawn instance was minted for — fleet correctness is a
+  property of the deployed build per box, not of the repository —
+  still holds, but it is not what happened here, and had the rsync
+  gone out without a restart the grep would have reported "guard
+  present" about a process that had never seen it.
+- **A valid embedding index and a valid byte are different predicates**
+  ([5962]): the two special-token classes fail in OPPOSITE directions
+  and the discriminator is the embedding table, not the byte range.
+  `<unk>` maps to id 260, outside the 0..259 table, and CUDA-asserts
+  the shard dead; `<s>` / `</s>` / `<pad>` map to ids 1, 2, 3, which
+  are valid rows, so they score SILENTLY with wrong tokenisation.
+  malign's own classifier split them on byte range and duly labelled
+  `</s>` as crashing, against the direct evidence of `</s>` rows
+  carrying surprisal arrays.
+- **An assurance is stronger when the class cannot escape the check
+  than when the check has caught everything so far** ([5962]): a
+  special-token literal always collapses two or more bytes into one
+  token, so it can only SHORTEN a row — there is no divergence that
+  preserves byte count, hence no silently-wrong-but-right-length row
+  for a length check to miss. That is an exhaustiveness argument about
+  the failure mode, not a hit rate, and it is the difference between
+  "the guard works" and "the guard cannot be evaded by this class".
 - **A producer resolves every ambiguity by existing; a producer facing
   a methodological choice must refuse to start until it is named**
   (malign's, [5952]): the bge commission declared two splitters and the
