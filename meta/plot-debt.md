@@ -839,17 +839,41 @@ stopping while addition continues; `results/t_ladder_steps.csv`).
 ## Per-folder candidate lists
 
 > **NUMBERING NAMESPACE: `<folder> candidate N`.** Each folder restarts at 1.
+>
+> **RECONCILED 2026-08-14 AGAINST THE SHORTLIST, PARTIALLY, AND THE
+> REMAINDER IS HONESTLY UNKNOWN.** Ten of these 59 entries name a
+> shortlist number, and every shortlist entry is now confirmed shipped or
+> blocked ([6180]) — so **those ten are discharged by derivation** and are
+> marked below:
+>
+>     M01 1 -> sl 1    M02 1 -> sl 4    M03 1 -> sl 5    M05 1 -> sl 3
+>     M01 3 -> sl 6    M02 6 -> sl 10   M03 3 -> sl 8    M05 2 -> sl 2
+>     M01 4 -> sl 7                     M04 1 -> sl 9  (BLOCKED)
+>
+> **THE OTHER 49 ARE UNVERIFIED AND I AM NOT GUESSING.** A number-matching
+> heuristic found producers asserting the values of only 5 of the 59, which
+> proves almost nothing: most entries name too few distinctive numbers for
+> that test to have power, and *absence of a match is not absence of a
+> figure*. **Determining their state needs the check that actually worked
+> on the shortlist — read what the entry specifies, then look for a
+> producer asserting it — and that is per-entry work, not a sweep.**
+>
+> **So this pool carries the same defect the shortlist did and it has never
+> been tested**, because nothing has been promoting from it. dario's
+> reading is the right prior: assume it is worse, not better. **Before
+> taking anything from here, verify that one entry rather than trusting the
+> list.**
 
 Condensed from the readers' reports: doc / result / data / suggested form.
 Ordering within each folder is the reader's ranking.
 
 ### M01_displacement (reader's tier 1 and 2; tier 3 all blocked, see above)
 
-1. T-14 fallers/risers dumbbell — `s_everything_marginal.csv` (shortlist 1).
+1. **[DISCHARGED via its shortlist link]** T-14 fallers/risers dumbbell — `s_everything_marginal.csv` (shortlist 1).
 2. T-18 affect DiD paired slope, arrows coloured widens/converges —
    `t_affect_did.csv` (shortlist 2).
-3. X §3g two-panel — `x_beam_frame.csv` (shortlist 6).
-4. Y_diegetic §3 conditional panel — `y_passages.parquet` (shortlist 7).
+3. **[DISCHARGED via its shortlist link]** X §3g two-panel — `x_beam_frame.csv` (shortlist 6).
+4. **[DISCHARGED via its shortlist link]** Y_diegetic §3 conditional panel — `y_passages.parquet` (shortlist 7).
 5. U-1/2 ladder: JS by rung + faller share 49.3/28.6/1.0 collapse —
    `t_ladder_steps.csv`, slope chart, one grey line per family.
 6. S-3 harm gradient by domain, violence −0.290 to taboo −0.033 —
@@ -885,7 +909,7 @@ Ordering within each folder is the reader's ranking.
 
 ### M02_frame_exit
 
-1. Calibration number line (shortlist 4).
+1. **[DISCHARGED via its shortlist link]** Calibration number line (shortlist 4).
 2. Next-word three-role word dumbbells (`kill` −9.9/−1.3/−21.3; the epistemic
    residual) — `dp.pkl`, REBUILD REQUIRED first.
 3. t and resid by role, paired violins, resid=1.0 marked —
@@ -895,7 +919,7 @@ Ordering within each folder is the reader's ranking.
    `polesep_vs_superposition.csv`. Cheapest strong figure in the folder.
 5. Non-universality slope plot, base→aligned per lineage, 12/46 reversers,
    AmberSafe −0.1392 named — `contradiction_null_by_pair_en.csv` + `_zh`.
-6. D_CONTRA-on-D_CONTROL dumbbell (shortlist 10).
+6. **[DISCHARGED via its shortlist link]** D_CONTRA-on-D_CONTROL dumbbell (shortlist 10).
 7. Falcon3 concentration lollipop, 52.76% vs 2.01% ceiling, Mamba rows
    labelled to kill the vendor reading — `eassist_ambient.csv`.
 8. t(both) by depth, one line per role, base/aligned solid/dashed —
@@ -913,10 +937,10 @@ Ordering within each folder is the reader's ranking.
 
 ### M03_proceduralization
 
-1. E §3/§4 survivor scatter (shortlist 5).
+1. **[DISCHARGED via its shortlist link]** E §3/§4 survivor scatter (shortlist 5).
 2. E §4 dumbbell, 65 rows, indiv vs inst dots joined, coloured by pattern —
    `b_word_delta_by_word.csv`. The words the argument quotes.
-3. B_C §1 lineage dot plot (shortlist 8).
+3. **[DISCHARGED via its shortlist link]** B_C §1 lineage dot plot (shortlist 8).
 4. B_C §2 `should`-confound seven-condition interval plot —
    `b_arm_cells.csv`. "Triples with a prompt-final modal AND survives
    without one" as a two-group comparison.
@@ -936,7 +960,7 @@ Ordering within each folder is the reader's ranking.
 
 ### M04_syntagmatic (Finding A items all blocked on produce-first)
 
-1. Attention §5 two-panel decay comparison (shortlist 9).
+1. **[DISCHARGED via its shortlist link]** Attention §5 two-panel decay comparison (shortlist 9).
 2. A position profile, point-with-CI across indices 1–10, zero rule —
    BLOCKED (channel3 re-run + dump).
 3. A term × index grid, five panels or signed heatmap — BLOCKED (same).
@@ -964,8 +988,8 @@ C Result 1 states in prose. Adopt or retire them doc by doc; `fig12` (the
 unsigned predecessor of fig12b) stays uncited deliberately — C's correction
 section withdrew that read.
 
-1. A-R4 joined ratio/pole-sep panel (shortlist 3; discharges the plan).
-2. C-R3 vs T-18 sign-disagreement dumbbell (shortlist 2).
+1. **[DISCHARGED via its shortlist link]** A-R4 joined ratio/pole-sep panel (shortlist 3; discharges the plan).
+2. **[DISCHARGED via its shortlist link]** C-R3 vs T-18 sign-disagreement dumbbell (shortlist 2).
 3. A-R1 paired per-site onset distribution, lag histogram centred on zero,
    never-fall/never-rise flanking bars — `m05_onsets.json` `paired`. Makes
    p=.97 legible; the result that kills F04's lag.
