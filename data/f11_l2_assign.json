@@ -1,0 +1,49 @@
+{
+ ".vastai.l2n10.json": [
+  14,
+  36,
+  26
+ ],
+ ".vastai.l2n11.json": [
+  7,
+  37,
+  51
+ ],
+ ".vastai.l2n12.json": [
+  46,
+  47,
+  44
+ ],
+ ".vastai.l2n6.json": [
+  41,
+  50
+ ],
+ ".vastai.l2n9.json": [
+  5,
+  31
+ ],
+ ".vastai.l2probe.json": [
+  8,
+  4
+ ],
+ ".vastai.l2s1.json": [
+  18,
+  12
+ ],
+ ".vastai.l2s2.json": [
+  20,
+  28
+ ],
+ ".vastai.l2s3.json": [
+  22,
+  35
+ ],
+ ".vastai.l2s4.json": [
+  27,
+  0
+ ],
+ ".vastai.l2s5.json": [
+  33,
+  25
+ ]
+}

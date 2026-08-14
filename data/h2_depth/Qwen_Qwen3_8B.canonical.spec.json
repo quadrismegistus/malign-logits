@@ -1,0 +1,12 @@
+{
+ "spec_sha": "cfb64390de9739b4",
+ "pair": "Qwen/Qwen3-8B",
+ "base": "Qwen/Qwen3-8B-Base",
+ "rule": "canonical",
+ "kstep": 4,
+ "dtype": "float16",
+ "no_row": [],
+ "rows": 231,
+ "last_run_s": 1336.242112159729,
+ "rc": 0
+}

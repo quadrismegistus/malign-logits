@@ -1,0 +1,22 @@
+{
+ "what": "malign_logits/twp.py == scripts/twp_cloud.py, verified by OUTPUT not source diff",
+ "producer": "scripts/verify_twp_extraction.py",
+ "model": "HuggingFaceTB/SmolLM2-360M",
+ "date": "2026-08-13",
+ "device": "mps (local, Mac Studio M2 Max)",
+ "repo_commit": "4796d74e",
+ "result": "EXTRACTION VERIFIED: identical on every check",
+ "checks": [
+  "RULE_VERSION 3",
+  "THETA 0.001",
+  "MAX_DEPTH 6",
+  "RULE_COMMITS ['50e0b13','6bb9f56','68ec402']",
+  "DICT bytes b16011275c42955c",
+  "DICT path string identical",
+  "tokenizer vocab 49152",
+  "boundary_mask over 49152 tokens (32594 boundary)",
+  "clean_surface 4096 samples, 0 differ",
+  "expand x4 incl. CJK: words/residual/batches all equal"
+ ],
+ "consequence": "twp.py is the blessed import path; twp_cloud.py's 'until verified' clause is discharged"
+}

@@ -1,0 +1,56 @@
+{
+ "_meta": {
+  "unit": "lineage, prompts paired within lineage by TEXT",
+  "rate": "per 100 words of continuation",
+  "markup_filtered": false,
+  "signatures": {
+   "boundary": "[.!?][\"'\u201d]?\\s+[A-Z]",
+   "format": "\\n|#{1,6} |\\n\\s*[-*\u2022] |\\n\\s*\\d+[.)] |class=|https?://|<[a-z/]",
+   "quote": "[\"\u201c\u201d]"
+  }
+ },
+ "result": {
+  "f11_l2": {
+   "lineages": 25,
+   "boundary": {
+    "median_delta_per_100w": -0.01616,
+    "rises": 10,
+    "n": 24,
+    "sign_p": 0.5412561893463135
+   },
+   "format": {
+    "median_delta_per_100w": 1.39102,
+    "rises": 14,
+    "n": 25,
+    "sign_p": 0.6900379657745361
+   },
+   "quote": {
+    "median_delta_per_100w": -0.19758,
+    "rises": 12,
+    "n": 25,
+    "sign_p": 1.0
+   }
+  },
+  "y": {
+   "lineages": 31,
+   "boundary": {
+    "median_delta_per_100w": 0.14788,
+    "rises": 17,
+    "n": 31,
+    "sign_p": 0.720100131817162
+   },
+   "format": {
+    "median_delta_per_100w": 1.05659,
+    "rises": 19,
+    "n": 31,
+    "sign_p": 0.28104151505976915
+   },
+   "quote": {
+    "median_delta_per_100w": 0.20062,
+    "rises": 18,
+    "n": 31,
+    "sign_p": 0.47312965989112854
+   }
+  }
+ }
+}

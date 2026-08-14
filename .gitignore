@@ -398,3 +398,27 @@ meta/M01_displacement/figures/x1_garment_layers copy.png
 # table, so a reader gets the findings without the 43 MB.
 #     REGENERATE: uv run python scripts/twp_jsonl_manifest.py
 data/twp_jsonl_manifest.parquet
+
+# ---- OVER THE 100 MiB HARD BLOCK: named individually, not by pattern ----
+# `.githooks/pre-commit` BLOCKs at 104857600 and WARNs at 52428800. These two
+# are the only untracked files above the block as of 2026-08-14, so they are
+# named rather than globbed -- a pattern here would silently swallow whatever
+# grows past 100 MiB next, and the point of naming them is that the list has
+# to be revisited deliberately.
+#
+# BOTH ARE COPIED TO /Volumes/diderot/malign-logits/<same path>, verified
+# byte-identical 2026-08-14. That is what makes ignoring them safe, and it is
+# the only thing that does -- an ignored file with no second copy is a single
+# point of failure wearing a rule.
+#
+# y_confirmatory_coded.jsonl is the WORST CASE of the four artifacts audited
+# tonight and the ignore is forced rather than chosen: 137.2 MiB so no commit
+# path exists; a PAID sampled API annotation over 62,681 items, then rewritten
+# in place by y_repair_rt.py, so it cannot be regenerated to the same bytes
+# even in principle; and TWELVE readers across M01 and M02. A regenerate
+# pointer is worthless for it -- the pointer has to be a copy path.
+meta/M01_displacement/results/y_confirmatory_coded.jsonl
+# lens_prompt_layer.jsonl: 108.6 MiB, 0 citing documents, regenerable only by
+# the lens run that is 90 of 370 models scored. Its sibling lens_group_layer
+# (51.6 MiB, cited by 2 docs) IS committed -- under the block, in the warn band.
+meta/M02_frame_exit/results/lens_prompt_layer.jsonl

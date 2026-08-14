@@ -1,0 +1,1165 @@
+{
+ "_about": "Delivered-vs-declared for the passage corpus. Absence is counted from the frozen population, never from the absence of a failure record.",
+ "_producer": "scripts/passage_reconcile.py",
+ "_population": "forced_arms_46reps_drmatch.json",
+ "_dedup_key": "(pair, role, prompt_id, word)",
+ "n_declared": 46,
+ "totals": {
+  "ABSENT": 8,
+  "DUPLICATED": 1,
+  "IN_FLIGHT": 6,
+  "ok": 31
+ },
+ "sequences": 888640,
+ "unscorable": 12,
+ "pairs": [
+  {
+   "pair": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf>Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1466,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "RWKV/rwkv-4-7b-pile>RWKV/rwkv-raven-7b",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1056,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "Zyphra/Zamba2-7B>Zyphra/Zamba2-7B-Instruct",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 540,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "allenai/Olmo-Hybrid-7B>allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1890,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box4"
+   ],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1562,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box2"
+   ],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "inceptionai/jais-family-6p7b>inceptionai/jais-family-6p7b-chat",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1836,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1858,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box0"
+   ],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "openGPT-X/Teuken-7B-base-v0.6>openGPT-X/Teuken-7B-instruct-v0.6",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1860,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box5"
+   ],
+   "status": "ABSENT"
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1860,
+   "rows": 3688,
+   "distinct": 1844,
+   "pct": 99.13978494623656,
+   "dup_rows": 1844,
+   "boxes": [
+    "box4"
+   ],
+   "sequences": 59008,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 7376
+   },
+   "roles": {
+    "base": 1844,
+    "aligned": 1844
+   },
+   "manifests": [],
+   "status": "DUPLICATED"
+  },
+  {
+   "pair": "BAAI/Aquila2-7B>BAAI/AquilaChat2-7B",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1796,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "rescue_aquila_baichuan"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "baichuan-inc/Baichuan2-7B-Base>baichuan-inc/Baichuan2-7B-Chat",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1846,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "rescue_aquila_baichuan"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "google/recurrentgemma-9b>google/recurrentgemma-9b-it",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1898,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box3"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "kakaocorp/kanana-2-3b-base>kakaocorp/kanana-2-3b-instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1836,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box3"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "tiiuae/Falcon3-Mamba-7B-Base>tiiuae/Falcon3-Mamba-7B-Instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1860,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box6"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "tiiuae/falcon-mamba-7b>tiiuae/falcon-mamba-7b-instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1552,
+   "rows": 0,
+   "distinct": 0,
+   "pct": 0.0,
+   "dup_rows": 0,
+   "boxes": [],
+   "sequences": 0,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {},
+   "roles": {},
+   "manifests": [
+    "box6"
+   ],
+   "status": "IN_FLIGHT"
+  },
+  {
+   "pair": "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1872,
+   "rows": 1858,
+   "distinct": 1858,
+   "pct": 99.25213675213675,
+   "dup_rows": 0,
+   "boxes": [
+    "box1"
+   ],
+   "sequences": 29728,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3716
+   },
+   "roles": {
+    "base": 929,
+    "aligned": 929
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1828,
+   "rows": 1824,
+   "distinct": 1824,
+   "pct": 99.78118161925602,
+   "dup_rows": 0,
+   "boxes": [
+    "box2"
+   ],
+   "sequences": 29184,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3648
+   },
+   "roles": {
+    "base": 912,
+    "aligned": 912
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 116,
+   "rows": 116,
+   "distinct": 116,
+   "pct": 100.0,
+   "dup_rows": 0,
+   "boxes": [
+    "box3"
+   ],
+   "sequences": 1856,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 232
+   },
+   "roles": {
+    "base": 58,
+    "aligned": 58
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1804,
+   "rows": 1794,
+   "distinct": 1794,
+   "pct": 99.44567627494457,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 28704,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3588
+   },
+   "roles": {
+    "base": 897,
+    "aligned": 897
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "LLM360/Amber>LLM360/AmberSafe",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1818,
+   "rows": 1798,
+   "distinct": 1798,
+   "pct": 98.8998899889989,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 28768,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3596
+   },
+   "roles": {
+    "base": 899,
+    "aligned": 899
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1852,
+   "rows": 1832,
+   "distinct": 1832,
+   "pct": 98.92008639308855,
+   "dup_rows": 0,
+   "boxes": [
+    "box1"
+   ],
+   "sequences": 29312,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3664
+   },
+   "roles": {
+    "base": 916,
+    "aligned": 916
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1626,
+   "rows": 1618,
+   "distinct": 1618,
+   "pct": 99.5079950799508,
+   "dup_rows": 0,
+   "boxes": [
+    "box2"
+   ],
+   "sequences": 25888,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3236
+   },
+   "roles": {
+    "base": 809,
+    "aligned": 809
+   },
+   "manifests": [
+    "box2"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1758,
+   "rows": 1744,
+   "distinct": 1744,
+   "pct": 99.20364050056882,
+   "dup_rows": 0,
+   "boxes": [
+    "box3"
+   ],
+   "sequences": 27904,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3488
+   },
+   "roles": {
+    "base": 872,
+    "aligned": 872
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1590,
+   "rows": 1580,
+   "distinct": 1580,
+   "pct": 99.37106918238993,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 25280,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3160
+   },
+   "roles": {
+    "base": 790,
+    "aligned": 790
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1846,
+   "rows": 1826,
+   "distinct": 1826,
+   "pct": 98.91657638136512,
+   "dup_rows": 0,
+   "boxes": [
+    "box1"
+   ],
+   "sequences": 29216,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3652
+   },
+   "roles": {
+    "base": 913,
+    "aligned": 913
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1882,
+   "rows": 1860,
+   "distinct": 1860,
+   "pct": 98.83103081827842,
+   "dup_rows": 0,
+   "boxes": [
+    "box2"
+   ],
+   "sequences": 29760,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3720
+   },
+   "roles": {
+    "base": 930,
+    "aligned": 930
+   },
+   "manifests": [
+    "box2"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "allenai/Olmo-3-1025-7B>allenai/Olmo-3-7B-Instruct-DPO",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1814,
+   "rows": 1794,
+   "distinct": 1794,
+   "pct": 98.89746416758544,
+   "dup_rows": 0,
+   "boxes": [
+    "box3"
+   ],
+   "sequences": 28704,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3588
+   },
+   "roles": {
+    "base": 897,
+    "aligned": 897
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "bigscience/bloom-7b1>bigscience/bloomz-7b1",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1820,
+   "rows": 1802,
+   "distinct": 1802,
+   "pct": 99.01098901098901,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 28832,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3604
+   },
+   "roles": {
+    "base": 901,
+    "aligned": 901
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "croissantllm/CroissantLLMBase>croissantllm/CroissantLLMChat-v0.1",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1770,
+   "rows": 1760,
+   "distinct": 1760,
+   "pct": 99.43502824858757,
+   "dup_rows": 0,
+   "boxes": [
+    "box1"
+   ],
+   "sequences": 28160,
+   "unscorable": 9,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3520
+   },
+   "roles": {
+    "base": 880,
+    "aligned": 880
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "google/gemma-2-9b>google/gemma-2-9b-it",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1876,
+   "rows": 1864,
+   "distinct": 1864,
+   "pct": 99.36034115138592,
+   "dup_rows": 0,
+   "boxes": [
+    "box7"
+   ],
+   "sequences": 29824,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3728
+   },
+   "roles": {
+    "base": 932,
+    "aligned": 932
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1834,
+   "rows": 1816,
+   "distinct": 1816,
+   "pct": 99.0185387131952,
+   "dup_rows": 0,
+   "boxes": [
+    "box4"
+   ],
+   "sequences": 29056,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3632
+   },
+   "roles": {
+    "base": 908,
+    "aligned": 908
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1836,
+   "rows": 1820,
+   "distinct": 1820,
+   "pct": 99.12854030501089,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 29120,
+   "unscorable": 2,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3640
+   },
+   "roles": {
+    "base": 910,
+    "aligned": 910
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "internlm/internlm2-base-7b>internlm/internlm2-chat-7b",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1668,
+   "rows": 1654,
+   "distinct": 1654,
+   "pct": 99.16067146282974,
+   "dup_rows": 0,
+   "boxes": [
+    "box5"
+   ],
+   "sequences": 26464,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass_under_override": 3308
+   },
+   "roles": {
+    "base": 827,
+    "aligned": 827
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "kakaocorp/kanana-1.5-8b-base>kakaocorp/kanana-1.5-8b-instruct-2505",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1096,
+   "rows": 1076,
+   "distinct": 1076,
+   "pct": 98.17518248175182,
+   "dup_rows": 0,
+   "boxes": [
+    "box2"
+   ],
+   "sequences": 17216,
+   "unscorable": 1,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 2152
+   },
+   "roles": {
+    "base": 538,
+    "aligned": 538
+   },
+   "manifests": [
+    "box2"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "llm-jp/llm-jp-3-7.2b>llm-jp/llm-jp-3-7.2b-instruct3",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1844,
+   "rows": 1822,
+   "distinct": 1822,
+   "pct": 98.80694143167028,
+   "dup_rows": 0,
+   "boxes": [
+    "box4"
+   ],
+   "sequences": 29152,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3644
+   },
+   "roles": {
+    "base": 911,
+    "aligned": 911
+   },
+   "manifests": [
+    "box4"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1848,
+   "rows": 1834,
+   "distinct": 1834,
+   "pct": 99.24242424242425,
+   "dup_rows": 0,
+   "boxes": [
+    "box7"
+   ],
+   "sequences": 29344,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3668
+   },
+   "roles": {
+    "base": 917,
+    "aligned": 917
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "meta-llama/Llama-3.1-8B>meta-llama/Llama-3.1-8B-Instruct",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1884,
+   "rows": 1870,
+   "distinct": 1870,
+   "pct": 99.25690021231422,
+   "dup_rows": 0,
+   "boxes": [
+    "box5"
+   ],
+   "sequences": 29920,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3740
+   },
+   "roles": {
+    "base": 935,
+    "aligned": 935
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1844,
+   "rows": 1836,
+   "distinct": 1836,
+   "pct": 99.56616052060737,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 29376,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3672
+   },
+   "roles": {
+    "base": 918,
+    "aligned": 918
+   },
+   "manifests": [
+    "box0b"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1860,
+   "rows": 1834,
+   "distinct": 1834,
+   "pct": 98.60215053763442,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 29344,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3668
+   },
+   "roles": {
+    "base": 917,
+    "aligned": 917
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "stabilityai/stablelm-2-1_6b>stabilityai/stablelm-2-zephyr-1_6b",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1862,
+   "rows": 1848,
+   "distinct": 1848,
+   "pct": 99.24812030075188,
+   "dup_rows": 0,
+   "boxes": [
+    "box7"
+   ],
+   "sequences": 29568,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3696
+   },
+   "roles": {
+    "base": 924,
+    "aligned": 924
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0>weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 834,
+   "rows": 832,
+   "distinct": 832,
+   "pct": 99.76019184652279,
+   "dup_rows": 0,
+   "boxes": [
+    "box5"
+   ],
+   "sequences": 13312,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 1664
+   },
+   "roles": {
+    "base": 416,
+    "aligned": 416
+   },
+   "manifests": [],
+   "status": "ok"
+  },
+  {
+   "pair": "tiiuae/Falcon-H1-7B-Base>tiiuae/Falcon-H1-7B-Instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": true,
+   "expected": 1890,
+   "rows": 1866,
+   "distinct": 1866,
+   "pct": 98.73015873015873,
+   "dup_rows": 0,
+   "boxes": [
+    "box6"
+   ],
+   "sequences": 29856,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3732
+   },
+   "roles": {
+    "base": 933,
+    "aligned": 933
+   },
+   "manifests": [
+    "box6"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1538,
+   "rows": 1524,
+   "distinct": 1524,
+   "pct": 99.08972691807543,
+   "dup_rows": 0,
+   "boxes": [
+    "box7"
+   ],
+   "sequences": 24384,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3048
+   },
+   "roles": {
+    "base": 762,
+    "aligned": 762
+   },
+   "manifests": [
+    "box7"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1796,
+   "rows": 1778,
+   "distinct": 1778,
+   "pct": 98.99777282850779,
+   "dup_rows": 0,
+   "boxes": [
+    "box1"
+   ],
+   "sequences": 28448,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3556
+   },
+   "roles": {
+    "base": 889,
+    "aligned": 889
+   },
+   "manifests": [
+    "box1"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat",
+   "declared": true,
+   "assigned": true,
+   "live_box": false,
+   "expected": 1550,
+   "rows": 1530,
+   "distinct": 1530,
+   "pct": 98.70967741935483,
+   "dup_rows": 0,
+   "boxes": [
+    "box0b"
+   ],
+   "sequences": 24480,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3060
+   },
+   "roles": {
+    "base": 765,
+    "aligned": 765
+   },
+   "manifests": [
+    "box0"
+   ],
+   "status": "ok"
+  },
+  {
+   "pair": "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf",
+   "declared": true,
+   "assigned": false,
+   "live_box": false,
+   "expected": 1856,
+   "rows": 1842,
+   "distinct": 1842,
+   "pct": 99.24568965517241,
+   "dup_rows": 0,
+   "boxes": [
+    "box7"
+   ],
+   "sequences": 29472,
+   "unscorable": 0,
+   "blocked_rows": 0,
+   "fidelity": {
+    "pass": 3684
+   },
+   "roles": {
+    "base": 921,
+    "aligned": 921
+   },
+   "manifests": [],
+   "status": "ok"
+  }
+ ]
+}

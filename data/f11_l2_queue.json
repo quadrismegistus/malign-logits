@@ -1,0 +1,296 @@
+[
+ {
+  "idx": 6,
+  "size": 0.36,
+  "base": "HuggingFaceTB/SmolLM2-360M",
+  "aligned": "HuggingFaceTB/SmolLM2-360M-Instruct"
+ },
+ {
+  "idx": 10,
+  "size": 0.5,
+  "base": "Qwen/Qwen2.5-0.5B",
+  "aligned": "Qwen/Qwen2.5-0.5B-Instruct"
+ },
+ {
+  "idx": 17,
+  "size": 1.0,
+  "base": "allenai/OLMoE-1B-7B-0125",
+  "aligned": "allenai/OLMoE-1B-7B-0125-DPO"
+ },
+ {
+  "idx": 40,
+  "size": 1.0,
+  "base": "openbmb/MiniCPM5-1B-Base",
+  "aligned": "openbmb/MiniCPM5-1B"
+ },
+ {
+  "idx": 45,
+  "size": 1.0,
+  "base": "tiiuae/Falcon3-1B-Base",
+  "aligned": "tiiuae/Falcon3-1B-Instruct"
+ },
+ {
+  "idx": 14,
+  "size": 1.1,
+  "base": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+  "aligned": "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+ },
+ {
+  "idx": 42,
+  "size": 1.5,
+  "base": "tiiuae/Falcon-H1-1.5B-Base",
+  "aligned": "tiiuae/Falcon-H1-1.5B-Instruct"
+ },
+ {
+  "idx": 7,
+  "size": 3.0,
+  "base": "HuggingFaceTB/SmolLM3-3B-Base",
+  "aligned": "HuggingFaceTB/SmolLM3-3B"
+ },
+ {
+  "idx": 46,
+  "size": 3.0,
+  "base": "tiiuae/Falcon3-3B-Base",
+  "aligned": "tiiuae/Falcon3-3B-Instruct"
+ },
+ {
+  "idx": 41,
+  "size": 6.0,
+  "base": "stabilityai/stablelm-2-1_6b",
+  "aligned": "stabilityai/stablelm-2-zephyr-1_6b"
+ },
+ {
+  "idx": 1,
+  "size": 6.7,
+  "base": "AI-Sweden-Models/gpt-sw3-6.7b",
+  "aligned": "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct"
+ },
+ {
+  "idx": 5,
+  "size": 6.9,
+  "base": "EleutherAI/pythia-6.9b",
+  "aligned": "lomahony/eleuther-pythia6.9b-hh-dpo"
+ },
+ {
+  "idx": 2,
+  "size": 7.0,
+  "base": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+  "aligned": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf"
+ },
+ {
+  "idx": 3,
+  "size": 7.0,
+  "base": "BSC-LT/salamandra-7b",
+  "aligned": "BSC-LT/salamandra-7b-instruct"
+ },
+ {
+  "idx": 8,
+  "size": 7.0,
+  "base": "LLM360/Amber",
+  "aligned": "LLM360/AmberSafe"
+ },
+ {
+  "idx": 9,
+  "size": 7.0,
+  "base": "OpenLLM-France/Lucie-7B",
+  "aligned": "OpenLLM-France/Lucie-7B-Instruct-v1.1"
+ },
+ {
+  "idx": 11,
+  "size": 7.0,
+  "base": "Qwen/Qwen2.5-7B",
+  "aligned": "Qwen/Qwen2.5-7B-Instruct"
+ },
+ {
+  "idx": 13,
+  "size": 7.0,
+  "base": "RWKV/rwkv-4-7b-pile",
+  "aligned": "RWKV/rwkv-raven-7b"
+ },
+ {
+  "idx": 15,
+  "size": 7.0,
+  "base": "Zyphra/Zamba2-7B",
+  "aligned": "Zyphra/Zamba2-7B-Instruct"
+ },
+ {
+  "idx": 18,
+  "size": 7.0,
+  "base": "allenai/Olmo-3-1025-7B",
+  "aligned": "allenai/Olmo-3-7B-Instruct-DPO"
+ },
+ {
+  "idx": 20,
+  "size": 7.0,
+  "base": "allenai/Olmo-Hybrid-7B",
+  "aligned": "allenai/Olmo-Hybrid-Instruct-DPO-7B"
+ },
+ {
+  "idx": 21,
+  "size": 7.0,
+  "base": "baichuan-inc/Baichuan2-7B-Base",
+  "aligned": "baichuan-inc/Baichuan2-7B-Chat"
+ },
+ {
+  "idx": 22,
+  "size": 7.0,
+  "base": "bigscience/bloom-7b1",
+  "aligned": "bigscience/bloomz-7b1"
+ },
+ {
+  "idx": 23,
+  "size": 7.0,
+  "base": "croissantllm/CroissantLLMBase",
+  "aligned": "croissantllm/CroissantLLMChat-v0.1"
+ },
+ {
+  "idx": 24,
+  "size": 7.0,
+  "base": "deepseek-ai/deepseek-llm-7b-base",
+  "aligned": "deepseek-ai/deepseek-llm-7b-chat"
+ },
+ {
+  "idx": 27,
+  "size": 7.0,
+  "base": "huggyllama/llama-7b",
+  "aligned": "PKU-Alignment/beaver-7b-v1.0"
+ },
+ {
+  "idx": 29,
+  "size": 7.0,
+  "base": "inceptionai/jais-family-6p7b",
+  "aligned": "inceptionai/jais-family-6p7b-chat"
+ },
+ {
+  "idx": 30,
+  "size": 7.0,
+  "base": "internlm/internlm2-base-7b",
+  "aligned": "internlm/internlm2-chat-7b"
+ },
+ {
+  "idx": 32,
+  "size": 7.0,
+  "base": "m-a-p/CT-LLM-Base",
+  "aligned": "m-a-p/CT-LLM-SFT-DPO"
+ },
+ {
+  "idx": 33,
+  "size": 7.0,
+  "base": "m-a-p/neo_7b",
+  "aligned": "m-a-p/neo_7b_instruct_v0.1"
+ },
+ {
+  "idx": 36,
+  "size": 7.0,
+  "base": "microsoft/phi-4",
+  "aligned": "microsoft/phi-4-reasoning"
+ },
+ {
+  "idx": 37,
+  "size": 7.0,
+  "base": "mistralai/Mistral-7B-v0.1",
+  "aligned": "HuggingFaceH4/zephyr-7b-beta"
+ },
+ {
+  "idx": 38,
+  "size": 7.0,
+  "base": "mosaicml/mpt-7b",
+  "aligned": "mosaicml/mpt-7b-instruct"
+ },
+ {
+  "idx": 39,
+  "size": 7.0,
+  "base": "openGPT-X/Teuken-7B-base-v0.6",
+  "aligned": "openGPT-X/Teuken-7B-instruct-commercial-v0.4"
+ },
+ {
+  "idx": 43,
+  "size": 7.0,
+  "base": "tiiuae/Falcon-H1-7B-Base",
+  "aligned": "tiiuae/Falcon-H1-7B-Instruct"
+ },
+ {
+  "idx": 47,
+  "size": 7.0,
+  "base": "tiiuae/Falcon3-7B-Base",
+  "aligned": "tiiuae/Falcon3-7B-Instruct"
+ },
+ {
+  "idx": 48,
+  "size": 7.0,
+  "base": "tiiuae/Falcon3-Mamba-7B-Base",
+  "aligned": "tiiuae/Falcon3-Mamba-7B-Instruct"
+ },
+ {
+  "idx": 49,
+  "size": 7.0,
+  "base": "tiiuae/falcon-mamba-7b",
+  "aligned": "tiiuae/falcon-mamba-7b-instruct"
+ },
+ {
+  "idx": 50,
+  "size": 7.0,
+  "base": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+  "aligned": "togethercomputer/RedPajama-INCITE-7B-Chat"
+ },
+ {
+  "idx": 31,
+  "size": 7.2,
+  "base": "llm-jp/llm-jp-3-7.2b",
+  "aligned": "llm-jp/llm-jp-3-7.2b-instruct3"
+ },
+ {
+  "idx": 4,
+  "size": 8.0,
+  "base": "EleutherAI/pythia-2.8b",
+  "aligned": "ContextualAI/archangel_sft-dpo_pythia2-8b"
+ },
+ {
+  "idx": 12,
+  "size": 8.0,
+  "base": "Qwen/Qwen3-8B-Base",
+  "aligned": "Qwen/Qwen3-8B"
+ },
+ {
+  "idx": 28,
+  "size": 8.0,
+  "base": "ibm-granite/granite-3.0-8b-base",
+  "aligned": "ibm-granite/granite-3.0-8b-instruct"
+ },
+ {
+  "idx": 35,
+  "size": 8.0,
+  "base": "meta-llama/Llama-3.1-8B",
+  "aligned": "meta-llama/Llama-3.1-8B-Instruct"
+ },
+ {
+  "idx": 0,
+  "size": 9.0,
+  "base": "01-ai/Yi-1.5-9B",
+  "aligned": "01-ai/Yi-1.5-9B-Chat"
+ },
+ {
+  "idx": 25,
+  "size": 9.0,
+  "base": "google/gemma-2-9b",
+  "aligned": "google/gemma-2-9b-it"
+ },
+ {
+  "idx": 26,
+  "size": 9.0,
+  "base": "google/recurrentgemma-9b",
+  "aligned": "google/recurrentgemma-9b-it"
+ },
+ {
+  "idx": 51,
+  "size": 9.0,
+  "base": "zai-org/glm-4-9b-hf",
+  "aligned": "zai-org/glm-4-9b-chat-hf"
+ },
+ {
+  "idx": 44,
+  "size": 10.0,
+  "base": "tiiuae/Falcon3-10B-Base",
+  "aligned": "tiiuae/Falcon3-10B-Instruct"
+ }
+]

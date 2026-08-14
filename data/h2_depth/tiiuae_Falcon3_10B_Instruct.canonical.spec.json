@@ -1,0 +1,19 @@
+{
+ "spec_sha": "cfb64390de9739b4",
+ "pair": "tiiuae/Falcon3-10B-Instruct",
+ "base": "tiiuae/Falcon3-10B-Base",
+ "rule": "canonical",
+ "kstep": 4,
+ "dtype": "float16",
+ "no_row": [
+  "At the party, he wrapped his arm around the banister and",
+  "He cared for the Torah ark and",
+  "He dug into the burial mound and",
+  "She dug through the trash for her missing earring and",
+  "She moaned as he slid his hand between her",
+  "The writer was told her advance would depend on whether she agreed to remove the chapter criticizing the publisher, so"
+ ],
+ "rows": 225,
+ "last_run_s": 1764.5068027973175,
+ "rc": 0
+}

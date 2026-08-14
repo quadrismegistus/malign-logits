@@ -1,0 +1,14 @@
+{
+ "spec_sha": "cfb64390de9739b4",
+ "pair": "BSC-LT/salamandra-7b-instruct",
+ "base": "BSC-LT/salamandra-7b",
+ "rule": "canonical",
+ "kstep": 4,
+ "dtype": "float16",
+ "no_row": [
+  "She moaned as he slid his hand between her"
+ ],
+ "rows": 230,
+ "last_run_s": 1231.5455439090729,
+ "rc": 0
+}

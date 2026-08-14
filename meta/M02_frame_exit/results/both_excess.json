@@ -1,0 +1,178 @@
+{
+ "_meta": {
+  "slots": 69,
+  "passages": 63000,
+  "smoke": false,
+  "unit": "(arm, group, role); excess = BOTH - mean(POLE_A,POLE_B)",
+  "fields": "malign_logits.fields.count_all, all six sources",
+  "warning": "meta/usas_fine/usas are ONE lexicon; never summed"
+ },
+ "min_groups": 8,
+ "result": {
+  "Q1a excess in BASE, against zero": {
+   "word": [
+    {
+     "key": "options",
+     "p": 7.62939453125e-06,
+     "up": 0,
+     "n": 18,
+     "mean": -0.000391354959458595,
+     "holm": 0.00428009033203125
+    },
+    {
+     "key": "step",
+     "p": 4.00543212890625e-05,
+     "up": 1,
+     "n": 20,
+     "mean": -0.00031000223007305043,
+     "holm": 0.022430419921875
+    }
+   ],
+   "wordnet": [],
+   "usas": [
+    {
+     "key": "usas:Q2.2",
+     "p": 2.09808349609375e-05,
+     "up": 1,
+     "n": 21,
+     "mean": -0.002369247699806864,
+     "holm": 0.0060634613037109375
+    }
+   ],
+   "meta": [
+    {
+     "key": "meta:emotion_affect",
+     "p": 0.0014896392822265625,
+     "up": 18,
+     "n": 21,
+     "mean": 0.0021794112031755927,
+     "holm": 0.019365310668945312
+    }
+   ],
+   "rid": [],
+   "gi": [],
+   "usas_fine": [
+    {
+     "key": "usas_fine:cosmos_weather_and_environment",
+     "p": 2.09808349609375e-05,
+     "up": 20,
+     "n": 21,
+     "mean": 0.0013737248597361414,
+     "holm": 0.000881195068359375
+    }
+   ]
+  },
+  "Q1b excess in ALIGNED, against zero": {
+   "word": [],
+   "wordnet": [
+    {
+     "key": "wordnet:possession",
+     "p": 2.09808349609375e-05,
+     "up": 1,
+     "n": 21,
+     "mean": -0.0024874581190193093,
+     "holm": 0.0003147125244140625
+    }
+   ],
+   "usas": [
+    {
+     "key": "usas:X9.2",
+     "p": 2.09808349609375e-05,
+     "up": 1,
+     "n": 21,
+     "mean": -0.002183257145038221,
+     "holm": 0.00595855712890625
+    },
+    {
+     "key": "usas:T2",
+     "p": 2.09808349609375e-05,
+     "up": 1,
+     "n": 21,
+     "mean": -0.0013492359425815083,
+     "holm": 0.00595855712890625
+    }
+   ],
+   "meta": [
+    {
+     "key": "meta:time_aspect",
+     "p": 0.00022125244140625,
+     "up": 2,
+     "n": 21,
+     "mean": -0.0026739380414462477,
+     "holm": 0.00287628173828125
+    },
+    {
+     "key": "meta:possession_exchange",
+     "p": 0.0014896392822265625,
+     "up": 3,
+     "n": 21,
+     "mean": -0.006286272316710806,
+     "holm": 0.01787567138671875
+    }
+   ],
+   "rid": [
+    {
+     "key": "rid:instrumental_behavior:",
+     "p": 0.00022125244140625,
+     "up": 2,
+     "n": 21,
+     "mean": -0.004260931167998367,
+     "holm": 0.00951385498046875
+    }
+   ],
+   "gi": [
+    {
+     "key": "gi:possession_exchange",
+     "p": 0.0014896392822265625,
+     "up": 3,
+     "n": 21,
+     "mean": -0.001388814698245387,
+     "holm": 0.019365310668945312
+    },
+    {
+     "key": "gi:evaluation_modality",
+     "p": 0.0014896392822265625,
+     "up": 18,
+     "n": 21,
+     "mean": 0.002131826544307804,
+     "holm": 0.019365310668945312
+    }
+   ],
+   "usas_fine": [
+    {
+     "key": "usas_fine:pronouns",
+     "p": 0.00022125244140625,
+     "up": 19,
+     "n": 21,
+     "mean": 0.0003098194416601011,
+     "holm": 0.00907135009765625
+    },
+    {
+     "key": "usas_fine:volition_and_capability",
+     "p": 0.00022125244140625,
+     "up": 2,
+     "n": 21,
+     "mean": -0.00329782360988408,
+     "holm": 0.00907135009765625
+    },
+    {
+     "key": "usas_fine:duration_phase_and_age",
+     "p": 9.5367431640625e-07,
+     "up": 0,
+     "n": 21,
+     "mean": -0.002899880861036212,
+     "holm": 4.00543212890625e-05
+    }
+   ]
+  },
+  "Q2 alignment CHANGES the excess, paired by group": {
+   "word": [],
+   "wordnet": [],
+   "usas": [],
+   "meta": [],
+   "rid": [],
+   "gi": [],
+   "usas_fine": []
+  }
+ }
+}

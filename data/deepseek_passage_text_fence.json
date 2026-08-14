@@ -1,0 +1,22 @@
+{
+ "_what": "FENCE, not repair: the deepseek pair's passage text is unrecoverable from the store",
+ "pair": "deepseek-ai/deepseek-llm-7b-base>deepseek-ai/deepseek-llm-7b-chat",
+ "corpus": "passage",
+ "rows": 24800,
+ "measured": {
+  "carry_G_marker": 22358,
+  "carry_G_pct": 90.2,
+  "spaceless_by_position_predicate": 17610,
+  "spaceless_pct": 71.0,
+  "rows_with_empty_token_ids": 0,
+  "mean_token_ids": 217.2
+ },
+ "why_not_repairable": "The stored text is a FAITHFUL decode of the stored token_ids \u2014 four independent decode paths (decode(), convert_tokens_to_string, manual G->space, backend tokenizer) all reproduce it. And the TOKENS THEMSELVES CARRY NO WORD-INITIAL SPACE MARKERS: ['mu','ff','led','her','sc','ream','with','his'] where a space-encoding tokenizer would give 'Ghis','Gwith'. The information was never in the ids, so no decode can restore it.",
+ "raw_tree": "data/raw/passage_corpus/box2/y__deepseek-ai__deepseek-llm-7b-base.jsonl is a 0-BYTE STUB \u2014 no independent copy exists",
+ "origin": "generation-time tokenizer, not ingest. Consistent with the standing record that deepseek/croissant/Teuken mangle text in the TOKENIZER, which no card or environment changes.",
+ "fence": "EXCLUDE this pair from every TEXT-GRAIN analysis on corpus='passage'. Distribution-grain and token-id-grain reads are unaffected \u2014 the ids are intact and self-consistent.",
+ "open_question_not_mine": "m06_text_flags reports english_nltkwords_share up to 0.87 on these rows, which cannot have been computed from this text. Two artifacts describe the same rows and only one can be right about them; the flags' source is outside my custody.",
+ "repo_commit": "3c2dd9d4",
+ "date": "2026-08-13",
+ "by": "malign"
+}

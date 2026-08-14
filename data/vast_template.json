@@ -1,0 +1,17 @@
+{
+ "malign-fc": {
+  "template_hash_id": "d196aad7c5ee54f5375a2bdb23c34a7a",
+  "template_id": 527540,
+  "image": "pytorch/pytorch",
+  "tag": "2.6.0-cuda12.4-cudnn9-devel",
+  "extra_filters": "\"{\\\"cuda_max_good\\\": {\\\"gte\\\": 12.4}}\""
+ },
+ "malign-fc-ssm": {
+  "template_hash_id": "c6768eef1beb438def7b7e555b63d724",
+  "template_id": 527541,
+  "image": "pytorch/pytorch",
+  "tag": "2.6.0-cuda12.4-cudnn9-devel",
+  "extra_filters": "\"{\\\"cuda_max_good\\\": {\\\"gte\\\": 12.4}, \\\"gpu_ram\\\": {\\\"gte\\\": 44000}}\""
+ },
+ "_note": "Two templates share each name; the OLDER ones do NOT install transformers and will boot a box that writes PROVISION_OK and then dies on `No module named transformers`. ALWAYS launch from the hash_id in this file, never by name."
+}

@@ -1,0 +1,393 @@
+{
+ "population": {
+  "n_prompts": 231,
+  "n_pairs": 25,
+  "prompt_list_sha256_16": "6c711861c1389bec",
+  "pair_list_sha256_16": "58df7dbaf4cfcd38",
+  "n_beam105": 210,
+  "n_category": 21
+ },
+ "spec_sha": {
+  "canonical": "cfb64390de9739b4"
+ },
+ "shards": [
+  {
+   "pair": "01-ai/Yi-1.5-9B-Chat",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "b43ab78e90ef8efb"
+  },
+  {
+   "pair": "BSC-LT/salamandra-7b-instruct",
+   "rule": "canonical",
+   "rows": 230,
+   "owed": 0,
+   "no_row": 1,
+   "md5": "c045cf534955b2c1"
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "316539520c8dd771"
+  },
+  {
+   "pair": "HuggingFaceTB/SmolLM3-3B",
+   "rule": "canonical",
+   "rows": 230,
+   "owed": 0,
+   "no_row": 1,
+   "md5": "3e72ebb8607cbf22"
+  },
+  {
+   "pair": "LLM360/AmberSafe",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "39c6c58d00f71ff9"
+  },
+  {
+   "pair": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "07953a3d607176ad"
+  },
+  {
+   "pair": "Qwen/Qwen2.5-0.5B-Instruct",
+   "rule": "canonical",
+   "rows": 229,
+   "owed": 0,
+   "no_row": 2,
+   "md5": "4e50f0bcfdf0dd32"
+  },
+  {
+   "pair": "Qwen/Qwen2.5-7B-Instruct",
+   "rule": "canonical",
+   "rows": 229,
+   "owed": 0,
+   "no_row": 2,
+   "md5": "8379b29256699d4c"
+  },
+  {
+   "pair": "Qwen/Qwen3-8B",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "9a9646ecc59c20c9"
+  },
+  {
+   "pair": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "89ac83bfec0615b1"
+  },
+  {
+   "pair": "allenai/OLMo-2-0425-1B-DPO",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "72497a612b95eabb"
+  },
+  {
+   "pair": "google/gemma-2-9b-it",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "d4453f3e5f9acbe0"
+  },
+  {
+   "pair": "PKU-Alignment/beaver-7b-v1.0",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "3047f189bac3b182"
+  },
+  {
+   "pair": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "rule": "canonical",
+   "rows": 0,
+   "owed": 0,
+   "no_row": 231,
+   "md5": "d41d8cd98f00b204"
+  },
+  {
+   "pair": "m-a-p/CT-LLM-SFT-DPO",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "414591efa1ae0eb1"
+  },
+  {
+   "pair": "m-a-p/neo_7b_instruct_v0.1",
+   "rule": "canonical",
+   "rows": 0,
+   "owed": 0,
+   "no_row": 231,
+   "md5": "d41d8cd98f00b204"
+  },
+  {
+   "pair": "meta-llama/Llama-3.1-8B-Instruct",
+   "rule": "canonical",
+   "rows": 230,
+   "owed": 0,
+   "no_row": 1,
+   "md5": "488d0e8d1de00de4"
+  },
+  {
+   "pair": "microsoft/phi-4-reasoning",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "34ed004922e7a691"
+  },
+  {
+   "pair": "HuggingFaceH4/zephyr-7b-beta",
+   "rule": "canonical",
+   "rows": 230,
+   "owed": 0,
+   "no_row": 1,
+   "md5": "66dab6f604ec513d"
+  },
+  {
+   "pair": "openbmb/MiniCPM5-1B",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "b047c7381773c404"
+  },
+  {
+   "pair": "stabilityai/stablelm-2-zephyr-1_6b",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "fd4c7645f45a976d"
+  },
+  {
+   "pair": "tiiuae/Falcon3-10B-Instruct",
+   "rule": "canonical",
+   "rows": 225,
+   "owed": 0,
+   "no_row": 6,
+   "md5": "56ea40cf359230e4"
+  },
+  {
+   "pair": "tiiuae/Falcon3-1B-Instruct",
+   "rule": "canonical",
+   "rows": 228,
+   "owed": 0,
+   "no_row": 3,
+   "md5": "2b7d78e628b5eb08"
+  },
+  {
+   "pair": "tiiuae/Falcon3-3B-Instruct",
+   "rule": "canonical",
+   "rows": 231,
+   "owed": 0,
+   "no_row": 0,
+   "md5": "a6743f5987c02905"
+  },
+  {
+   "pair": "tiiuae/Falcon3-7B-Instruct",
+   "rule": "canonical",
+   "rows": 230,
+   "owed": 0,
+   "no_row": 1,
+   "md5": "dc2073caec22328e"
+  }
+ ],
+ "total_rows": 5295,
+ "events": [
+  {
+   "kind": "pair",
+   "pair": "01-ai/Yi-1.5-9B-Chat",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 681.6
+  },
+  {
+   "kind": "pair",
+   "pair": "BSC-LT/salamandra-7b-instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 1913.2
+  },
+  {
+   "kind": "pair",
+   "pair": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 2200.8
+  },
+  {
+   "kind": "pair",
+   "pair": "HuggingFaceTB/SmolLM3-3B",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 2877.1
+  },
+  {
+   "kind": "pair",
+   "pair": "LLM360/AmberSafe",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 3868.3
+  },
+  {
+   "kind": "pair",
+   "pair": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 4875.7
+  },
+  {
+   "kind": "pair",
+   "pair": "Qwen/Qwen2.5-0.5B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 5092.9
+  },
+  {
+   "kind": "pair",
+   "pair": "Qwen/Qwen2.5-7B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 6031.3
+  },
+  {
+   "kind": "pair",
+   "pair": "Qwen/Qwen3-8B",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 7367.6
+  },
+  {
+   "kind": "pair",
+   "pair": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 7603.5
+  },
+  {
+   "kind": "pair",
+   "pair": "allenai/OLMo-2-0425-1B-DPO",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 7817.8
+  },
+  {
+   "kind": "pair",
+   "pair": "google/gemma-2-9b-it",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 10264.6
+  },
+  {
+   "kind": "pair",
+   "pair": "PKU-Alignment/beaver-7b-v1.0",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 11237.8
+  },
+  {
+   "kind": "pair",
+   "pair": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 11310.2
+  },
+  {
+   "kind": "pair",
+   "pair": "m-a-p/CT-LLM-SFT-DPO",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 11804.0
+  },
+  {
+   "kind": "pair",
+   "pair": "m-a-p/neo_7b_instruct_v0.1",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 11883.7
+  },
+  {
+   "kind": "pair",
+   "pair": "meta-llama/Llama-3.1-8B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 13041.3
+  },
+  {
+   "kind": "pair",
+   "pair": "microsoft/phi-4-reasoning",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 16814.9
+  },
+  {
+   "kind": "pair",
+   "pair": "HuggingFaceH4/zephyr-7b-beta",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 18089.7
+  },
+  {
+   "kind": "pair",
+   "pair": "openbmb/MiniCPM5-1B",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 18365.1
+  },
+  {
+   "kind": "pair",
+   "pair": "stabilityai/stablelm-2-zephyr-1_6b",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 18675.6
+  },
+  {
+   "kind": "pair",
+   "pair": "tiiuae/Falcon3-10B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 20440.2
+  },
+  {
+   "kind": "pair",
+   "pair": "tiiuae/Falcon3-1B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 20668.8
+  },
+  {
+   "kind": "pair",
+   "pair": "tiiuae/Falcon3-3B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 21088.6
+  },
+  {
+   "kind": "pair",
+   "pair": "tiiuae/Falcon3-7B-Instruct",
+   "rule": "canonical",
+   "status": "ran",
+   "elapsed_s": 22059.2
+  }
+ ]
+}

@@ -1,0 +1,444 @@
+"""
+malign-logits
+=============
+
+A toolkit for psychoanalytic analysis of LLM probability distributions.
+
+Compares base (id), SFT (ego), DPO (superego), and optionally RLVR
+(reinforced superego) checkpoints from the same model family to map
+repression, displacement, and condensation signatures of AI alignment.
+
+Quick start (OO interface)::
+
+    from malign_logits import Psyche
+    psyche = Psyche.from_pretrained()
+
+    s = psyche.analyze("He lay naked in his bed and")
+    s.repression          # DataFrame of ego-superego deltas
+    s.id_scores           # drive-weighted repression scores
+    s.analysis_df         # full combined DataFrame
+
+Model families::
+
+    from malign_logits import Psyche
+    psyche = Psyche.from_family("llama")  # 2-layer
+    psyche = Psyche.from_family("olmo")   # 4-layer (default)
+"""
+
+__version__ = "0.2.0"
+
+# Centralized stdlib / third-party imports used across modules.
+import math
+import os
+import platform
+from collections import defaultdict
+
+import numpy as np
+import pandas as pd
+import plotly.graph_objects as go
+import torch
+from tqdm import tqdm
+
+import warnings
+# Silence the noisy HF/torch chatter this project triggers on MPS, but do NOT
+# blanket-ignore everything — a bare filterwarnings("ignore") at import hid the
+# package's own DeprecationWarnings from every consumer.
+warnings.filterwarnings("ignore", category=UserWarning)
+warnings.filterwarnings("ignore", category=FutureWarning)
+
+from dataclasses import dataclass
+
+PATH_HERE = os.path.dirname(os.path.abspath(__file__))
+PATH_REPO = os.path.dirname(PATH_HERE)
+PATH_DATA = os.path.join(PATH_REPO, "data")
+PATH_DATA_RAW = os.path.join(PATH_DATA, "raw")
+PATH_STASH = os.path.join(PATH_DATA_RAW, "stash")  # deprecated: use cache.get_cache()
+PATH_FIGURES = os.path.join(PATH_REPO, "figures")
+
+
+# ---------------------------------------------------------------------------
+# Model family registry
+# ---------------------------------------------------------------------------
+
+@dataclass
+class ModelFamily:
+    """A model family with checkpoints at each training stage.
+
+    The main path is linear: base → ego (SFT) → superego (DPO) → reinforced_superego (RLVR).
+    Reasoning branches off the base (or a specified base) as an alternative post-training path.
+    """
+    name: str
+    base: str                              # primary process (always required)
+    ego: str | None = None                 # SFT checkpoint
+    superego: str | None = None            # DPO or instruct-as-superego
+    reinforced_superego: str | None = None # RLVR
+    # Reasoning branch
+    reasoning: str | None = None           # reasoning model (R1-distill, native thinking)
+    reasoning_base: str | None = None      # base it branches from (if cross-family distillation)
+    thinking_mode: bool = False            # supports /think toggle on instruct model
+
+    @property
+    def n_layers(self):
+        return sum(1 for x in [self.base, self.ego, self.superego, self.reinforced_superego] if x is not None)
+
+    @property
+    def has_reasoning(self):
+        return self.reasoning is not None or self.thinking_mode
+
+    @property
+    def all_checkpoints(self):
+        """All model IDs in this family, including reasoning."""
+        ids = [self.base]
+        for x in [self.ego, self.superego, self.reinforced_superego, self.reasoning]:
+            if x is not None:
+                ids.append(x)
+        return ids
+
+
+MODEL_FAMILIES = {
+    "olmo": ModelFamily(
+        name="OLMo 3 7B",
+        base="allenai/Olmo-3-1025-7B",
+        ego="allenai/Olmo-3-7B-Instruct-SFT",
+        superego="allenai/Olmo-3-7B-Instruct-DPO",
+        reinforced_superego="allenai/Olmo-3-7B-Instruct",
+    ),
+    "olmo-think": ModelFamily(
+        name="OLMo 3 7B Think",
+        base="allenai/Olmo-3-1025-7B",
+        ego="allenai/Olmo-3-7B-Think-SFT",
+        superego="allenai/Olmo-3-7B-Think-DPO",
+    ),
+    "olmo-tiny": ModelFamily(
+        name="OLMo 2 1B",
+        base="allenai/OLMo-2-0425-1B",
+        ego="allenai/OLMo-2-0425-1B-SFT",
+        superego="allenai/OLMo-2-0425-1B-DPO",
+        reinforced_superego="allenai/OLMo-2-0425-1B-Instruct",
+    ),
+    "smol": ModelFamily(
+        name="SmolLM2 360M",
+        base="HuggingFaceTB/SmolLM2-360M",
+        superego="HuggingFaceTB/SmolLM2-360M-Instruct",
+    ),
+    "qwen-tiny": ModelFamily(
+        name="Qwen 2.5 0.5B",
+        base="Qwen/Qwen2.5-0.5B",
+        superego="Qwen/Qwen2.5-0.5B-Instruct",
+    ),
+    "llama": ModelFamily(
+        name="Llama 3.1 8B",
+        base="meta-llama/Llama-3.1-8B",
+        superego="meta-llama/Llama-3.1-8B-Instruct",
+        reasoning="deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+    ),
+    "amber": ModelFamily(
+        name="Amber",
+        base="LLM360/Amber",
+        ego="LLM360/AmberChat",
+        superego="LLM360/AmberSafe",
+    ),
+    # Beaver: PPO against PKU-SafeRLHF cost+reward judges (same judges we score with in F37).
+    # Same safety curriculum as Amber (PKU-SafeRLHF), different route: PPO vs DPO.
+    # Base is unofficial LLaMA-1 7B mirror (huggyllama).
+    "beaver": ModelFamily(
+        name="Beaver 7B",
+        base="huggyllama/llama-7b",
+        ego="PKU-Alignment/alpaca-7b-reproduced",
+        superego="PKU-Alignment/beaver-7b-v1.0",
+    ),
+    "qwen": ModelFamily(
+        name="Qwen 2.5 7B",
+        base="Qwen/Qwen2.5-7B",
+        superego="Qwen/Qwen2.5-7B-Instruct",
+        reasoning="deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+    ),
+    "tulu": ModelFamily(
+        name="Tulu 3.1 8B",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+        superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
+        reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
+    ),
+    # The safety-data ablation as a FULL pipeline: same base, same DPO, only the
+    # SFT differs. Distinct from tulu-sft-* below, which are 2-layer families
+    # that treat each SFT variant as a terminal stage; this one keeps the ego
+    # position so base->ego->superego stays comparable to `tulu`.
+    #
+    # Restored 2026-07-27. `tulu`'s ego had been pointing at the no-safety
+    # checkpoint and this key was absent entirely, so the registry no longer
+    # reproduced its own data: battery_results.csv holds 47 rows under
+    # `tulu-no-safety` that no registered family could regenerate, and
+    # `--family tulu` returned the ablation arm under the standard name. The
+    # data was never wrong -- the two arms' base->superego metrics are
+    # identical because base and superego ARE identical, which is the control
+    # working, not a duplicate.
+    "tulu-no-safety": ModelFamily(
+        name="Tulu 3 8B (SFT without safety data)",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+        superego="allenai/Llama-3.1-Tulu-3-8B-DPO",
+        reinforced_superego="allenai/Llama-3.1-Tulu-3.1-8B",
+    ),
+    # Tulu SFT ablation variants (all share Llama 3.1 8B base)
+    "tulu-sft-full": ModelFamily(
+        name="Tulu SFT (full)",
+        base="meta-llama/Llama-3.1-8B",
+        superego="allenai/Llama-3.1-Tulu-3-8B-SFT",
+    ),
+    "tulu-sft-nopersona": ModelFamily(
+        name="Tulu SFT (no persona)",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    ),
+    #: **SFT ARMS GO IN `ego`, NOT `superego`** (RH, 7 Aug: "All the sft's are
+    #: 'ego' ... and dpo is 'superego'"). Declaring an SFT checkpoint in the
+    #: superego slot made three ablation arms read as aligned ENDPOINTS, which
+    #: is what put position=superego on them in the registry.
+    "tulu-sft-nomath": ModelFamily(
+        name="Tulu SFT (no math)",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    ),
+    "tulu-sft-nowildchat": ModelFamily(
+        name="Tulu SFT (no wildchat)",
+        base="meta-llama/Llama-3.1-8B",
+        ego="allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+    ),
+    "zephyr": ModelFamily(
+        name="Zephyr 7B",
+        base="mistralai/Mistral-7B-v0.1",
+        ego="HuggingFaceH4/mistral-7b-sft-beta",
+        superego="HuggingFaceH4/zephyr-7b-beta",
+    ),
+    "pythia": ModelFamily(
+        name="Pythia 6.9B",
+        base="EleutherAI/pythia-6.9b",
+        ego="lomahony/eleuther-pythia6.9b-hh-sft",
+        superego="lomahony/eleuther-pythia6.9b-hh-dpo",
+    ),
+    "deepseek-7b": ModelFamily(
+        name="DeepSeek LLM 7B",
+        base="deepseek-ai/deepseek-llm-7b-base",
+        superego="deepseek-ai/deepseek-llm-7b-chat",
+    ),
+    # New families with reasoning variants
+    "smol3": ModelFamily(
+        name="SmolLM3 3B",
+        base="HuggingFaceTB/SmolLM3-3B-Base",
+        superego="HuggingFaceTB/SmolLM3-3B",
+        thinking_mode=True,
+    ),
+    "qwen3": ModelFamily(
+        name="Qwen3 8B",
+        base="Qwen/Qwen3-8B-Base",
+        superego="Qwen/Qwen3-8B",
+        thinking_mode=True,
+    ),
+    # Chinese bilingual
+    "map-neo": ModelFamily(
+        name="MAP-Neo 7B",
+        base="m-a-p/neo_7b",
+        ego="m-a-p/neo_7b_sft_v0.1",
+        superego="m-a-p/neo_7b_instruct_v0.1",
+    ),
+    # Chinese-primary
+    "ct-llm": ModelFamily(
+        name="CT-LLM 2B",
+        base="m-a-p/CT-LLM-Base",
+        ego="m-a-p/CT-LLM-SFT",
+        superego="m-a-p/CT-LLM-SFT-DPO",
+    ),
+    "internlm2": ModelFamily(
+        name="InternLM 2 7B",
+        base="internlm/internlm2-base-7b",
+        ego="internlm/internlm2-chat-7b-sft",
+        superego="internlm/internlm2-chat-7b",
+    ),
+    # Alignment method comparison
+    "archangel-dpo": ModelFamily(
+        name="Archangel DPO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-dpo_pythia2-8b",
+    ),
+    "archangel-kto": ModelFamily(
+        name="Archangel KTO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-kto_pythia2-8b",
+    ),
+    "archangel-ppo": ModelFamily(
+        name="Archangel PPO (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-ppo_pythia2-8b",
+    ),
+    "archangel-slic": ModelFamily(
+        name="Archangel SLIC (Pythia 2.8B)",
+        base="EleutherAI/pythia-2.8b",
+        ego="ContextualAI/archangel_sft_pythia2-8b",
+        superego="ContextualAI/archangel_sft-slic_pythia2-8b",
+    ),
+    # SSM / hybrid architectures
+    "olmo-hybrid": ModelFamily(
+        name="OLMo Hybrid 7B",
+        base="allenai/Olmo-Hybrid-7B",
+        ego="allenai/Olmo-Hybrid-Instruct-SFT-7B",
+        superego="allenai/Olmo-Hybrid-Instruct-DPO-7B",
+    ),
+    "falcon-mamba": ModelFamily(
+        name="Falcon Mamba 7B",
+        base="tiiuae/falcon-mamba-7b",
+        superego="tiiuae/falcon-mamba-7b-instruct",
+    ),
+    "falcon3-mamba": ModelFamily(
+        name="Falcon3 Mamba 7B",
+        base="tiiuae/Falcon3-Mamba-7B-Base",
+        superego="tiiuae/Falcon3-Mamba-7B-Instruct",
+    ),
+    # RWKV (pure RNN, zero attention, zero SSM)
+    "rwkv": ModelFamily(
+        name="RWKV-4 7B",
+        base="RWKV/rwkv-4-7b-pile",
+        superego="RWKV/rwkv-raven-7b",
+    ),
+    # MoE
+    "olmoe": ModelFamily(
+        name="OLMoE 1B-7B",
+        base="allenai/OLMoE-1B-7B-0125",
+        ego="allenai/OLMoE-1B-7B-0125-SFT",
+        superego="allenai/OLMoE-1B-7B-0125-DPO",
+        reinforced_superego="allenai/OLMoE-1B-7B-0125-Instruct",
+    ),
+    # Falcon3 (Llama arch, TII)
+    "falcon3-1b": ModelFamily(
+        name="Falcon3 1B",
+        base="tiiuae/Falcon3-1B-Base",
+        superego="tiiuae/Falcon3-1B-Instruct",
+    ),
+    "falcon3-3b": ModelFamily(
+        name="Falcon3 3B",
+        base="tiiuae/Falcon3-3B-Base",
+        superego="tiiuae/Falcon3-3B-Instruct",
+    ),
+    "falcon3-7b": ModelFamily(
+        name="Falcon3 7B",
+        base="tiiuae/Falcon3-7B-Base",
+        superego="tiiuae/Falcon3-7B-Instruct",
+    ),
+    "falcon3-10b": ModelFamily(
+        name="Falcon3 10B",
+        base="tiiuae/Falcon3-10B-Base",
+        superego="tiiuae/Falcon3-10B-Instruct",
+    ),
+    # Falcon-H1 (SSM-Transformer hybrid, TII)
+    "falcon-h1-1.5b": ModelFamily(
+        name="Falcon-H1 1.5B",
+        base="tiiuae/Falcon-H1-1.5B-Base",
+        superego="tiiuae/Falcon-H1-1.5B-Instruct",
+    ),
+    "falcon-h1-7b": ModelFamily(
+        name="Falcon-H1 7B",
+        base="tiiuae/Falcon-H1-7B-Base",
+        superego="tiiuae/Falcon-H1-7B-Instruct",
+    ),
+    # Yi (01.AI, Chinese+English)
+    "yi": ModelFamily(
+        name="Yi 1.5 9B",
+        base="01-ai/Yi-1.5-9B",
+        superego="01-ai/Yi-1.5-9B-Chat",
+    ),
+    # Baichuan2 (Chinese+English, pretraining ckpts available)
+    "baichuan": ModelFamily(
+        name="Baichuan2 7B",
+        base="baichuan-inc/Baichuan2-7B-Base",
+        superego="baichuan-inc/Baichuan2-7B-Chat",
+    ),
+    # GLM-4 (THUDM/Zhipu, Chinese+English)
+    "glm4": ModelFamily(
+        name="GLM-4 9B",
+        base="zai-org/glm-4-9b-hf",
+        superego="zai-org/glm-4-9b-chat-hf",
+    ),
+    # StableLM 2 (Stability AI, 3-stage: base→chat-SFT→zephyr-DPO)
+    "stablelm": ModelFamily(
+        name="StableLM 2 1.6B",
+        base="stabilityai/stablelm-2-1_6b",
+        ego="stabilityai/stablelm-2-1_6b-chat",
+        superego="stabilityai/stablelm-2-zephyr-1_6b",
+    ),
+    # RedPajama (Together, 3-stage: base→instruct-SFT→chat-RLHF)
+    "redpajama": ModelFamily(
+        name="RedPajama 7B",
+        base="togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+        ego="togethercomputer/RedPajama-INCITE-7B-Instruct",
+        superego="togethercomputer/RedPajama-INCITE-7B-Chat",
+    ),
+    # TinyLlama (Llama 2 arch, intermediate pretraining ckpts)
+    "tinyllama": ModelFamily(
+        name="TinyLlama 1.1B",
+        base="TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+        superego="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    ),
+    # BLOOM (BigScience, 46 languages, multitask-tuned not safety-aligned)
+    "bloom": ModelFamily(
+        name="BLOOM 7B",
+        base="bigscience/bloom-7b1",
+        superego="bigscience/bloomz-7b1",
+    ),
+    # MiniCPM5 (OpenBMB/Tsinghua, Chinese, 3-stage)
+    "minicpm": ModelFamily(
+        name="MiniCPM5 1B",
+        base="openbmb/MiniCPM5-1B-Base",
+        ego="openbmb/MiniCPM5-1B-SFT",
+        superego="openbmb/MiniCPM5-1B",
+    ),
+    # Phi-4 (Microsoft)
+    "phi4": ModelFamily(
+        name="Phi-4 14B",
+        base="microsoft/phi-4",
+        superego="microsoft/phi-4-reasoning",
+    ),
+    # Scale variants
+    "olmo-32b": ModelFamily(
+        name="OLMo 3.1 32B",
+        base="allenai/Olmo-3-1125-32B",
+        ego="allenai/Olmo-3.1-32B-Instruct-SFT",
+        superego="allenai/Olmo-3.1-32B-Instruct-DPO",
+        reinforced_superego="allenai/Olmo-3.1-32B-Instruct",
+    ),
+    "llama-70b": ModelFamily(
+        name="Llama 3.1 70B",
+        base="meta-llama/Llama-3.1-70B",
+        superego="meta-llama/Llama-3.1-70B-Instruct",
+    ),
+}
+
+TULU_ABLATIONS = {
+    "standard": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+    "no-safety": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+    "no-persona": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+    "no-math": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+    "no-wildchat": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+}
+
+DEFAULT_FAMILY = "olmo"
+
+# Legacy constants — point at default family for backward compat in function signatures
+BASE_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].base
+SFT_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].ego
+DPO_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].superego
+INSTRUCT_MODEL_NAME = MODEL_FAMILIES[DEFAULT_FAMILY].reinforced_superego
+
+
+# Centralized intra-package imports.
+# Order matters: later modules depend on names defined by earlier ones.
+from .core import *
+from .models import *
+from .analysis import *
+from .experiments import *
+from .generation import *
+from .viz import *
+from .psyche import *
+from .circuit import Circuit, Mode

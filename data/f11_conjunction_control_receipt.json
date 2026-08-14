@@ -1,0 +1,93 @@
+{
+ "HuggingFaceH4/zephyr-7b-beta": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "LLM360/Amber": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "LLM360/AmberSafe": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "Qwen/Qwen2.5-7B": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "Qwen/Qwen2.5-7B-Instruct": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": 0.8,
+  "max_new_tokens": 80
+ },
+ "allenai/Llama-3.1-Tulu-3-8B-DPO": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": 0.9,
+  "max_new_tokens": 80
+ },
+ "allenai/OLMo-2-0425-1B": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "allenai/OLMo-2-0425-1B-DPO": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "allenai/Olmo-3-1025-7B": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ },
+ "allenai/Olmo-3-7B-Instruct-DPO": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": 0.95,
+  "max_new_tokens": 80
+ },
+ "meta-llama/Llama-3.1-8B": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": 0.9,
+  "max_new_tokens": 80
+ },
+ "meta-llama/Llama-3.1-8B-Instruct": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": 0.9,
+  "max_new_tokens": 80
+ },
+ "mistralai/Mistral-7B-v0.1": {
+  "do_sample": true,
+  "temperature": 1.0,
+  "top_k": 50,
+  "top_p_inherited": null,
+  "max_new_tokens": 80
+ }
+}

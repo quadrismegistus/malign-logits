@@ -1,0 +1,9 @@
+{
+ "what": "non-payload metadata extracted from data/raw jsonl BEFORE any deletion",
+ "why": "these fields exist in NO ClickHouse column: passage_corpus carries design/engine/fidelity/mode/max_tokens/n_samples/cross_scored/word; f11_l2 carries decoder/dtype/engine/lang/claims/n_declared/prompt_sha256_16. decoder+dtype are the provenance the campaign learned to record the expensive way (HF generate MERGES a checkpoint's generation_config, vLLM REPLACES it).",
+ "what_is_dropped": "only the bulk payload \u2014 sequences[] for passage_corpus (count and field names kept), text/token_ids/prompt_token_ids for f11_l2 (lengths kept)",
+ "not_a_substitute": "this preserves PROVENANCE, not DATA. The sequences themselves are in ClickHouse gen_sequences (verified 42/42 and 228,520/228,520 by the 13 Aug audit); this sidecar covers only what the store has no column for.",
+ "repo_commit": "da54ff6e",
+ "date": "2026-08-13",
+ "by": "malign"
+}

@@ -1,0 +1,16 @@
+{
+ "spec_sha": "cfb64390de9739b4",
+ "pair": "tiiuae/Falcon3-1B-Instruct",
+ "base": "tiiuae/Falcon3-1B-Base",
+ "rule": "canonical",
+ "kstep": 4,
+ "dtype": "float16",
+ "no_row": [
+  "He cared for the Torah ark and",
+  "The mob dragged him into the street and began to",
+  "Unless the clerk agreed to backdate the invoice, the accountant would not sign off on her overtime pay, and so"
+ ],
+ "rows": 228,
+ "last_run_s": 228.50418376922607,
+ "rc": 0
+}
