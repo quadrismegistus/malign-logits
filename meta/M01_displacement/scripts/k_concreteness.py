@@ -176,15 +176,40 @@ def main():
     print("   %-22s %7s %9s %14s %16s"
           % ("measure", "n", "R2 axis", "rho w/ axis", "cos(axis, dir)"))
     FREE = {}
+    #: EMITTED, not only printed. @dario at [6164] could verify three of six rows
+    #: of P §7's table and not these, because this producer computed them and
+    #: wrote nothing: no `json.dump` anywhere, and `results/k/analysis_en.log`
+    #: holds none of the values and is untracked. So the numbers reached the doc
+    #: by transcription, which is the only mechanism consistent with the
+    #: concreteness row carrying `0.09209674697588033` -- the LENGTH row's value,
+    #: whose full-precision form has exactly one hit in the repository
+    #: (`results/k/length_en_glove.json`). Ruled at [6166]: the values were
+    #: unverifiable, not unrecoverable, and this is the discharge.
+    TABLE = {}
     for n, d in MEAS.items():
         ws = sorted(d)
         E = np.array([EM[w] for w in ws]); P = E @ ax
         c = np.array([d[w] for w in ws])
         cd = unit(Ridge(alpha=1.0).fit(E, c).coef_)
         FREE[n] = unit(ax - (ax @ cd) * cd)
+        r2_axis = r2(P, [c])
+        rho = spearmanr(P, c).statistic
+        cos_dir = float(ax @ cd)
+        cos_free = float(ax @ FREE[n])
+        TABLE[n] = {"n": len(ws), "r2_axis": float(r2_axis), "rho_with_axis": float(rho),
+                    "cos_axis_dir": cos_dir, "cos_axis_free": cos_free}
         print("   %-22s %7d %9.4f %+14.3f %+16.3f"
-              % (n, len(ws), r2(P, [c]), spearmanr(P, c).statistic, float(ax @ cd)))
-        print("     cos(axis, concreteness-free axis) %+.3f" % float(ax @ FREE[n]))
+              % (n, len(ws), r2_axis, rho, cos_dir))
+        print("     cos(axis, concreteness-free axis) %+.3f" % cos_free)
+
+    #: FULL PRECISION IN THE ARTIFACT, four decimals on screen. A rounded value
+    #: is a name and the full-precision value is closer to a relation: `0.0921`
+    #: matches three unrelated CSVs in `data/` as a coincidental substring, and
+    #: `0.09209674697588033` matches exactly one file. Only the second can
+    #: establish where a number came from.
+    _p = os.path.join(K, "concreteness_en.json")
+    json.dump({"measures": TABLE, "axis": af}, open(_p, "w"), indent=1)
+    print("\n  -> %s" % os.path.relpath(_p, ROOT))
 
     #: 3. PREDICTION on the verb-eliciting sites
     rows = fetch_pairs()

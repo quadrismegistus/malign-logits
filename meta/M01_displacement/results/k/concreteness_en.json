@@ -1,0 +1,19 @@
+{
+ "measures": {
+  "coder concreteness": {
+   "n": 6084,
+   "r2_axis": 0.0920581956367692,
+   "rho_with_axis": 0.28739829440126236,
+   "cos_axis_dir": 0.2671392879672274,
+   "cos_axis_free": 0.9636579272876672
+  },
+  "Brysbaert Conc.M": {
+   "n": 2916,
+   "r2_axis": 0.11830452648858092,
+   "rho_with_axis": 0.3342882115120892,
+   "cos_axis_dir": 0.24061018131698478,
+   "cos_axis_free": 0.9706218319441448
+  }
+ },
+ "axis": "axis_en.json"
+}

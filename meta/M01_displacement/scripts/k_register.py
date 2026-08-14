@@ -95,7 +95,7 @@ def register_index(u, hi, lo):
 
 
 def main():
-    from sklearn.linear_model import LogisticRegression
+    from sklearn.linear_model import LogisticRegression, Ridge
     from sklearn.ensemble import HistGradientBoostingClassifier
     from sklearn.model_selection import GroupKFold
     from sklearn.metrics import roc_auc_score
@@ -115,6 +115,7 @@ def main():
     print("   the index is corpus counts, and they share no inputs.\n")
     print("   %-24s %8s %10s   %s" % ("index", "n words", "rho w/ axis", "rho w/ coder register_level"))
     RI = {}
+    INDEX_TABLE = {}
     for name, (hi, lo) in INDICES.items():
         vals = {u: register_index(u, hi, lo) for u in EM}
         vals = {u: v for u, v in vals.items() if v is not None}
@@ -126,6 +127,33 @@ def main():
         r2 = spearmanr([vals[u] for u in rl],
                        [rate[u]["register_level"] for u in rl]).statistic
         print("   %-24s %8d %+10.3f   %+.3f" % (name, len(common), r, r2))
+        #: EMITTED. This producer already wrote `register_en.json`, but only the
+        #: AUC block -- these index rows were printed and lost, which is why
+        #: @dario could not verify P §7's register row at [6164]. Stored at full
+        #: precision beside the rest. See k_concreteness.py for the class.
+        #:
+        #: R2 AND COSINE ADDED at @dario's request [6170]: the rhos alone do not
+        #: reconstruct §7's row, and are not meant to -- rho^2 is 0.1891 against
+        #: the printed 0.1994, so the R2 is a REGRESSION fit and not a squared
+        #: Spearman. Computed exactly as k_concreteness computes its own: the
+        #: axis projection regressed on the index, and the cosine between the
+        #: axis and the Ridge direction of the index in the embedding space.
+        #: Same formula in both files means the two rows of §7 are comparable,
+        #: which is the point of putting them in one table.
+        E_ = np.array([EM[u] for u in common])
+        P_ = E_ @ axis
+        c_ = np.array([vals[u] for u in common], float)
+        X_ = np.column_stack([np.ones(len(P_)), c_])
+        b_, *_ = np.linalg.lstsq(X_, P_, rcond=None)
+        r2_axis = float(1 - (P_ - X_ @ b_).var() / P_.var())
+        cd_ = Ridge(alpha=1.0).fit(E_, c_).coef_
+        cd_ = cd_ / np.linalg.norm(cd_)
+        cos_dir = float(axis @ cd_)
+        print("     r2_axis %.4f   cos(axis, dir) %+.3f" % (r2_axis, cos_dir))
+        INDEX_TABLE[name] = {"n_words": len(common), "rho_with_axis": float(r),
+                             "rho_with_coder_register": float(r2),
+                             "n_rated": len(rl), "r2_axis": r2_axis,
+                             "cos_axis_dir": cos_dir}
 
     #: 2. DOES IT PREDICT? Same protocol as k_predict: held out by word.
     best = PRIMARY
@@ -195,7 +223,8 @@ def main():
 
     p = os.path.join(K, "register_en.json")
     json.dump({"indices": {k: len(v) for k, v in RI.items()}, "used": best,
-               "n_cells": int(len(y)), "n_words": len(set(g)), "auc": out},
+               "n_cells": int(len(y)), "n_words": len(set(g)), "auc": out,
+               "index_table": INDEX_TABLE},
               open(p, "w"), indent=1)
     print("\n  -> %s" % os.path.relpath(p, ROOT))
     return 0
