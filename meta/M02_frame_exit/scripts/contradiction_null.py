@@ -49,6 +49,24 @@ so this file computes BOTH sides on the SAME substrate and never compares its
 null to F11's published values. `--logits` re-runs on `logit_probs` (1e-6,
 ~3.6k tokens, 98-99% of mass) to show the truncation does not carry the result.
 
+**`--logits` READS A SUPERSEDED TABLE. Flagged 2026-08-14 by registrar at
+[6150]; recorded here because the warning was on the docket and not in the
+file that needs it.** RH: *"logit_probs was abandoned, we decided to keep
+logits in the f16 files."* The table was last written 2026-08-10 and holds 123
+models frozen at that date.
+
+    fetch_logits   ->  ClickHouse `logit_probs`   SUPERSEDED, frozen 08-10
+    fetch_stash    ->  the `.f16` set via cache   LIVE
+
+**Both paths are real and they point at DIFFERENT STORES**, which is how the
+two got conflated: when a seat established at [6068] that this file "reads a
+different store", that was true of `fetch_stash` and not of `fetch_logits`.
+The `--logits` result cited in `findings/contradiction_ratio_has_no_null.md`
+is NOT invalidated -- it measured what was in the table when it ran -- but a
+re-run today reads a store that stopped moving on 08-10, and any model added
+since is simply absent rather than erroring. Use `fetch_stash` for anything
+new; keep `--logits` only to reproduce the published cross-check.
+
 UNIT. The pair is the unit and the pairs are the 46 LINEAGE REPRESENTATIVES of
 `data/lineage_representative_pairs.txt`, not 52 arms -- Falcon3 1B/3B/7B are one
 lineage and three rows would be three counts of one observation.
