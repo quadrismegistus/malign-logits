@@ -80,10 +80,30 @@ BOOKED_FAIL = {
 }
 
 
+#: Populations after the FRAG filter, booked here so a change to the SHARED
+#: `FRAG` definition cannot silently move this figure's basis. This producer
+#: imports FRAG from `plot_displacement_network` so the folder's figures
+#: cannot disagree about what a word is -- which is the right coupling and
+#: is also a SIBLING dependency: a file in this folder that this one names
+#: and whose edits are invisible in this file's own git history. The other
+#: two dependents (`plot_couples_table`, `plot_graph_structure`) already
+#: assert their populations; this one guarded only with `n_chains > 1000`,
+#: a threshold rather than a booked value, so a FRAG change could have moved
+#: the population without tripping anything. Measured: FRAG has never
+#: changed. This asserts that it stays that way.
+BOOKED_POP = {"pair_cascade_replicated.parquet": (1818, 670),
+              "pair_cascade_replicated_verbs.parquet": (795, 419)}
+
+
 def _edges(path):
     d = pd.read_parquet(os.path.join(RESULTS, path))
     e = d[d.displacement_coupled & d.replicated][["F", "R", "lift_full"]]
-    return d, e[~e.F.isin(FRAG) & ~e.R.isin(FRAG)]
+    e = e[~e.F.isin(FRAG) & ~e.R.isin(FRAG)]
+    got = (len(e), len(set(e.F) | set(e.R)))
+    assert got == BOOKED_POP[path], \
+        (f"{path} population drifted: {got} vs booked {BOOKED_POP[path]} -- "
+         "check whether FRAG moved in plot_displacement_network")
+    return d, e
 
 
 def strip():
