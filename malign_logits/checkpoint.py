@@ -208,11 +208,29 @@ class Checkpoint:
         expanded in different runs under different conditions, **which is
         exactly the failure of 2026-08-15**: `rule_version=3` on both sides of
         a pair that could not be compared word-to-word.
-        **This property is a same-run guarantee that was wearing a has-data
-        name, and the rename made the guarantee visible.** For a cross-arm
-        comparison it is the stricter and correct gate; the 95-vs-152 gap is
-        the price of the guarantee, not a coverage bug. **Whoever wants the
-        other 57 should widen the RUN, not loosen the gate.**
+        **THAT SAME-RUN READING IS WITHDRAWN** (malign [6314], lacan
+        concurring [6315]). `landed_v3` globs a DIRECTORY; `Step.prompts`
+        then reads the STORE, from any run, with no re-check that the cell
+        compared is the v3 cell. **Nothing ties the gate to the data it
+        gates** -- it makes the SCHEDULING same-run, not the comparison.
+        Measured over every family, both predicates on both arms:
+
+            landed_v3 AND has_data   63
+            landed_v3 only            0    <- a STRICT SUBSET
+            has_data only            28    all with shared prompts
+            neither                   2
+
+        **`landed_v3 only = 0` means it protects nothing `has_data` would
+        lose.** The 28 it excludes are the post-31-July additions without
+        exception -- **a date fence wearing a capability name.** It did
+        exclude dolphin, whose defect is IN THE STORE, **by date and not by
+        detection.**
+        **So keep these callers here anyway, and for neither seat's original
+        reason**: both predicates are wrong for a cross-arm comparison, and
+        the gate such a comparison actually wants is CONFORMANCE per edge --
+        surface conformance on the (model, store) side and
+        `edge_token_overlap` on the id side. Those are the two axes that
+        failed on dolphin and neither predicate is either of them.
         """
         return self.id in _landed()
 
