@@ -441,15 +441,65 @@ class ModelHandler(BaseHTTPRequestHandler):
                 mids = [s.strip() for s in params.get(
                     "model", "meta-llama/Llama-3.1-8B,"
                              "allenai/Llama-3.1-Tulu-3-8B-SFT").split(",") if s.strip()]
+                #: ── THE APP'S EXPANSIONS ARE CACHED, PER MODEL, BOTH WAYS.
+                #: This endpoint used to expand on every query and throw the
+                #: result away: `set_true_word_probs` appeared nowhere in this
+                #: file. So an author who screened forty prompts here paid ~2.6s
+                #: of twp expansion per model per prompt, produced exactly the
+                #: cells a later run needs, and persisted none of them -- and the
+                #: pre-run screen, which reads the stash, then reported those
+                #: prompts as NEVER EXPANDED. The work had been done twice and
+                #: kept zero times.
+                #:
+                #: CACHED PER COMPONENT MODEL, NEVER THE POOL. The pooled
+                #: distribution is a sum-then-renormalise across two checkpoints
+                #: and is not any model's distribution; writing it under either
+                #: model id would poison the stash with a cell no producer could
+                #: reproduce. The loop expands each model separately, so `w1` is
+                #: exactly the right object and `mid` is exactly its key.
+                from .cache import get_cache as _get_cache
+                _cm = None
+                try:
+                    _cm = _get_cache()
+                except Exception:
+                    pass
                 pooled, res, calls, skipped = {}, None, 0, None
                 for mid in mids:
-                    tok, model, bmask, cjk, pol, dev = _get_slot_model(mid)
-                    try:
-                        w1, r1, c1 = twp.expand(model, tok, prompt, dev, bmask,
-                                                cjk=cjk, bos_policy=pol)
-                    except twp.SkipPrompt as sk:
-                        skipped = str(sk)
-                        break
+                    w1 = r1 = None
+                    if _cm is not None:
+                        try:
+                            _c = _cm.get_true_word_probs(mid, prompt,
+                                                         theta=twp.THETA)
+                            if _c and _c.get("rows"):
+                                w1 = {(r["word"], r.get("t1", 0)): float(r["p"])
+                                      for r in _c["rows"]}
+                                r1, c1 = _c["residual"], 0
+                        except Exception:
+                            w1 = r1 = None
+                    if w1 is None:
+                        tok, model, bmask, cjk, pol, dev = _get_slot_model(mid)
+                        try:
+                            w1, r1, c1 = twp.expand(model, tok, prompt, dev, bmask,
+                                                    cjk=cjk, bos_policy=pol)
+                        except twp.SkipPrompt as sk:
+                            skipped = str(sk)
+                            break
+                        if _cm is not None:
+                            #: A CACHE WRITE MUST NOT FAIL THE REQUEST -- but it
+                            #: MUST say why it failed. The store REFUSES a payload
+                            #: that cannot name the rule that produced it, and a
+                            #: producer that logged only the exception TYPE once
+                            #: turned 121 consecutive refusals into noise.
+                            try:
+                                _cm.set_true_word_probs(mid, prompt, {
+                                    "rows": [{"word": sf, "t1": t1, "p": m}
+                                             for (sf, t1), m in w1.items()],
+                                    "residual": r1, "batches": c1,
+                                    "rule_version": twp.RULE_VERSION,
+                                    "dict_sha": twp.dict_sha()}, theta=twp.THETA)
+                            except Exception as _e:
+                                print("slot cache write failed for %s: %s: %s"
+                                      % (mid, type(_e).__name__, _e))
                     calls += c1
                     #: SUM THEN RENORMALISE, per RH. Each arm's scored mass is
                     #: 1 - residual, so a plain sum would let the arm with the
