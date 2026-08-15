@@ -32,16 +32,29 @@ YAMLS = ["pair_drafts/round3/_run_combined.yaml",
 
 
 def ladder(with_dpo=True):
-    """(label, model_id) from the registry, in ladder order."""
-    ms = json.load(open(os.path.join(ROOT, "data/model_registry.json")))["models"]
-    ids = {m["model_id"] for m in ms}
+    """(label, model_id) from the registry, in ladder order.
+
+    VIA `Checkpoint`, NOT A HAND-PARSE. This function opened
+    `data/model_registry.json` and built an id set by hand until 2026-08-15 --
+    written that way the same day, and after being told to prefer the registry
+    over MODEL_FAMILIES. Preferring the registry and then parsing it raw is how
+    the file came to have 29 direct readers: each one gets no traversal, no
+    typed record, and no notice when the schema moves.
+
+    `Checkpoint.is_known` is the membership test the hand-rolled `ids` set was
+    approximating, and it raises a NAMED error on an unknown id rather than
+    silently dropping it from a set comprehension -- which is the difference
+    between an arm that is absent and an arm nobody can see is absent.
+    """
+    from malign_logits.checkpoint import Checkpoint
+    known = lambda m: Checkpoint(m).is_known
     out = [("base", "meta-llama/Llama-3.1-8B"),
            ("full SFT", "allenai/Llama-3.1-Tulu-3-8B-SFT")]
     for tag in ["safety", "math", "persona", "wildchat"]:
         mid = "allenai/Llama-3.1-Tulu-3-8B-SFT-no-%s-data" % tag
-        if mid in ids:
+        if known(mid):
             out.append(("no-" + tag, mid))
-    if with_dpo and "allenai/Llama-3.1-Tulu-3-8B-DPO" in ids:
+    if with_dpo and known("allenai/Llama-3.1-Tulu-3-8B-DPO"):
         out.append(("DPO (full)", "allenai/Llama-3.1-Tulu-3-8B-DPO"))
     return out
 
