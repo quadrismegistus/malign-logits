@@ -180,7 +180,7 @@ def two_instruments():
             #: not merely omitting a third, it is DENYING it (registrar,
             #: [6190]) -- so the title no longer enumerates, and says which
             #: instruments are ON THIS PANEL rather than how many exist.
-            title="One ablation suite, two instruments on this panel and a third that disagrees: safety is categorical behaviorally and unremarkable distributionally",
+            title="One ablation suite, two instruments on this panel and two more that disagree with the right-hand one",
             subtitle=(
                 "The Tulu 3 SFT data ablations. One base (Llama-3.1-8B), one recipe, five training sets,\n"
                 "everything held fixed but the corpus. Both panels are percent of the full data mix, with\n"
@@ -199,15 +199,23 @@ def two_instruments():
                 "ratio to better than 0.03 points.\n"
                 "THE NULL IS NOT CLEAN AND IS NOT LAUNDERED HERE: 2 of 6 pairwise comparisons are\n"
                 "significant, both involving −Persona, at under 2 percent of the full-mix effect.\n"
-                "AND A THIRD INSTRUMENT DISAGREES WITH THE RIGHT-HAND PANEL. X section 4b, run\n"
-                "2026-08-15, finds −Safety the ONLY arm excluding zero and strengthening as stimulus\n"
-                "quality rises, with −WildChat null. IT IS NOT DRAWN HERE AND IT IS NOT COMPARABLE:\n"
-                "the QUANTITY is a signed projection onto a pole axis, not JS over the union support;\n"
-                "the POPULATION is 39 items never previously scored, not these 2,182 prompts; and the\n"
-                "WEIGHT is descriptive and unregistered over four training runs, so no p-value in it\n"
-                "escapes a 1-in-4 arm-level ceiling by its own accounting. A third column would\n"
-                "assert that these are three measurements of one thing, which is the claim that is\n"
-                "false."),
+                "TWO OTHER INSTRUMENTS DISAGREE WITH THE RIGHT-HAND PANEL, AND THEY AGREE WITH EACH\n"
+                "OTHER. X section 1 (K-norms, 2,583 prompts) puts −Safety at 23% of the full mix's\n"
+                "reduction, sign p 0.028, against −Math at p 0.13; X section 4b (projected displacement,\n"
+                "39 never-scored items, run 2026-08-15) makes −Safety the only arm excluding zero and\n"
+                "−Math null. Built independently, they land on the same quarter for safety, 23% and\n"
+                "27.3%, while disagreeing with each other about −WildChat.\n"
+                "SO THE DISAGREEMENT HAS A LOCATION: it is safety-against-maths. This panel has them\n"
+                "equal at 89.5% and 88.5%; both of those instruments separate them.\n"
+                "NEITHER IS DRAWN HERE, BECAUSE A THIRD COLUMN WOULD ASSERT COMMENSURABILITY -- that\n"
+                "these are measurements of one thing. They are not: JS over the union support with the\n"
+                "residual retained is not a signed projection onto a pole axis that excludes the\n"
+                "residual entirely, and neither is a K-weighted probability mass.\n"
+                "AND THIS PANEL CLAIMS NO EVIDENTIAL ADVANTAGE OVER THEM. 2,182 prompts against 39\n"
+                "items is a difference in WITHIN-ARM PRECISION and not in replication: the unit that\n"
+                "licenses a causal claim about removing a corpus is the TRAINING RUN, and there are\n"
+                "four of them here exactly as there. The 1-in-4 arm-level ceiling X states for itself\n"
+                "sits on this panel too."),
             x="", y="percent of the full data mix",
             caption=(
                 "Producers: meta/M01_displacement/scripts/plot_u_fan_figs.py from results/u_fan_ci.json\n"
