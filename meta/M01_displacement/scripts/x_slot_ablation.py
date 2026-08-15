@@ -40,9 +40,19 @@ artifact and not the other". For the twp stash on a live cell:
     max |diff| 2.57e-04      sum |diff| 2.23e-03
     words crossing the 3e-3 mover floor:  ZERO
 
-An order of magnitude inside the warning, and no CATEGORICAL decision flips.
-Effect on what this producer reports: leverage 0.1064 -> 0.1063, dN -0.02694 ->
--0.02696, invisible at the five decimals anything is quoted to.
+17x inside the warning (2.57e-04 against 4.4e-03), and no CATEGORICAL decision
+flips. Effect on what this producer reports: leverage 0.1064 -> 0.1063, dN
+-0.02694 -> -0.02696 -- a difference of 2.0e-05, which is 142x smaller than the
+smallest effect this finding quotes (+0.00285).
+
+THAT LAST SENTENCE USED TO READ "invisible at the five decimals anything is
+quoted to" AND IT WAS FALSE. Those two dN values differ at five decimals, and
+at four (-0.0269 against -0.0270); the leverage pair differs at four. The claim
+survived every check anyone would run BECAUSE IT CONTAINED NO NUMBER -- a
+characterisation inherited into a docstring is an unaudited quantity wearing
+words, and no numeric assert can fail on prose ([6224]). The repair is not a
+better adjective, it is the ratio: 142x below the smallest quoted effect is
+checkable and "invisible" never was.
 
 SO THE RUN STAMPS ITS OWN PROVENANCE: every cell records whether it was cached
 or freshly expanded, and the artifact carries the totals. A run mixing the two
