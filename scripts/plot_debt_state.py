@@ -289,7 +289,7 @@ def state(folder, n, txt, sources=None, figs=None):
 
     #: 1. the artifact it names
     named = re.findall(r"`([^`]+\.(?:csv|json|parquet|tsv))`", txt)
-    have, all_hits = [], []
+    have, all_hits, ambiguous = [], [], []
     for a in named:
         base = os.path.basename(a).split("{")[0]
         hits = [h for h in glob.glob(os.path.join(ROOT, "**", "*%s*" % base),
@@ -302,6 +302,24 @@ def state(folder, n, txt, sources=None, figs=None):
         exact = [h for h in hits if os.path.basename(h) == os.path.basename(a)]
         have += (exact or hits)[:1]
         all_hits += hits
+        #: PROVE THE CHOICE IMMATERIAL RATHER THAN JUSTIFY IT (dario, [6207],
+        #: on `attn_norm_sweep{,_full}.json`). Picking the exact basename is
+        #: still a JUDGMENT about which file the entry meant. Where several
+        #: match, measure whether they agree: if they do, the choice cannot
+        #: have mattered and no justification is owed; if they do not, that
+        #: is a finding and it belongs on the panel, not in a shrug.
+        #: **Cheaper than arguing, and it converts my first-match trap from a
+        #: judgment into an assert.**
+        #: **AND IT IS BLIND WHERE IT CANNOT MEASURE.** `population()` returns
+        #: None for a plain `.json`, so for most JSON artifacts this proves
+        #: nothing and stays silent. **Silence here is UNMEASURED, not
+        #: agreement** -- dario's own [6199] rule, and the failure mode would
+        #: be to read a quiet check as a clean one.
+        if len(hits) > 1:
+            pops = {os.path.basename(h): population(h) for h in hits}
+            seen = {v for v in pops.values() if v is not None}
+            if len(seen) > 1:
+                ambiguous.append("%s -> %s" % (os.path.basename(a), pops))
 
     #: 2. a producer asserting its numbers -- the condition that catches a
     #: figure already drawn, and the one the bad promotion skipped
@@ -335,7 +353,8 @@ def state(folder, n, txt, sources=None, figs=None):
     return {"artifact": bool(have) if named else None, "named": named,
             "numbers": nums, "drawn_by": drawn_by, "marked": marked,
             "tracked": all(_tracked(h) for h in have) if have else None,
-            "columns": cols, "selection": sel}
+            "columns": cols, "selection": sel,
+            "ambiguous_file": ambiguous or None}
 
 
 def reproduce(entry_numbers, path):
