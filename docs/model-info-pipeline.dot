@@ -1,110 +1,78 @@
-// The model-information pipeline, as measured 2026-08-15.
+// The model-information pipeline. Measured 2026-08-15, redrawn after a night's work.
 //
-// NOT a design. A census: every node here was found by grepping the repo
-// tonight, and every count on an edge or a node is a measured number, not an
-// estimate. Render:  dot -Tsvg docs/model-info-pipeline.dot -o docs/model-info-pipeline.svg
+// v1 drew the BUILD side and concluded the shape was fine. It was -- and it missed
+// the thing that actually bites. RH asked two seats the same question, "how do you
+// get the representative model pairs", and got two different routes. THAT is the
+// query side, and it is what this version centres.
 //
-// RED     = a defect measured tonight, still present
-// ORANGE  = a place a fact is DECIDED (there should be one; there are three)
-// BLUE    = generated artifact, has a producer
-// GREEN   = access path intended for consumers
-// GREY    = store state, deliberately not carried
+//   dot -Tsvg docs/model-info-pipeline.dot -o docs/model-info-pipeline.svg
+//
+// GREEN  = repaired tonight, with the number
+// RED    = still wrong
+// ORANGE = a place a fact is decided (three; there should be one)
+// PURPLE = ONE QUESTION, THREE ANSWERS -- the chaos, and the reason for the work
 
 digraph model_info {
-  rankdir=TB;
-  graph [fontname="Helvetica", fontsize=11, labelloc=t, nodesep=0.35, ranksep=0.55,
-         label="Model information: declaration -> join -> access\nmeasured 2026-08-15"];
-  node  [fontname="Helvetica", fontsize=10, shape=box, style="filled,rounded", fillcolor="#eef3f8", color="#7a8fa6"];
-  edge  [fontname="Helvetica", fontsize=9, color="#5a6b7d"];
+  rankdir=TB; compound=true;
+  graph [fontname="Helvetica", fontsize=11, labelloc=t, nodesep=0.3, ranksep=0.5,
+         label="Model information: three declarations, one join, THREE ANSWERS\nmeasured 2026-08-15, after the night's repairs"];
+  node [fontname="Helvetica", fontsize=10, shape=box, style="filled,rounded", fillcolor="#eef3f8", color="#7a8fa6"];
+  edge [fontname="Helvetica", fontsize=9, color="#5a6b7d"];
 
-  // ---------------------------------------------------------------- DECLARED
   subgraph cluster_decl {
-    label="DECLARED — where a fact is decided";
-    style="rounded,filled"; fillcolor="#fff6e8"; color="#d9a441"; fontsize=11;
-
-    MF   [label="MODEL_FAMILIES\nmalign_logits/__init__.py\n64 families / 145 ids\nSLOT-BASED: one model per position", fillcolor="#ffe0b0", color="#c8860a"];
-    XTRA [label="registry_extra_models.json\n8 models, per-checkpoint\nexists because the slots are FULL\n(one base, many arms)", fillcolor="#ffe0b0", color="#c8860a"];
-    RMV  [label="REMOVED_MODELS + REMOVED_POSITION\nIN CODE, build_model_registry.py\n6 models", fillcolor="#ffe0b0", color="#c8860a"];
+    label="DECLARED — three sites, should be one"; style="rounded,filled";
+    fillcolor="#fff6e8"; color="#d9a441"; fontsize=11;
+    MF   [label="MODEL_FAMILIES\n__init__.py · 64 families\nSLOT-BASED: one model per position", fillcolor="#ffe0b0", color="#c8860a"];
+    XTRA [label="registry_extra_models.json\n8 models, now carrying position\nexists because the slots are FULL", fillcolor="#ffe0b0", color="#c8860a"];
+    RMV  [label="REMOVED_POSITION\nIN CODE · 6 models", fillcolor="#ffe0b0", color="#c8860a"];
   }
 
-  // ---------------------------------------------------------------- MEASURED
   subgraph cluster_meas {
-    label="MEASURED — receipts, each with a producer";
-    style="rounded,filled"; fillcolor="#eef7ee"; color="#6a9a6a"; fontsize=11;
-
-    TOK  [label="tokenizer_properties.json\n154 models\nvocab_size / vocab_len / n_added"];
-    CJK  [label="cjk_coverage.csv\n108 models"];
-    PROBE[label="probe_model_requirements\n306 probe fields"];
-    CUR  [label="model_curated.json"];
+    label="MEASURED"; style="rounded,filled"; fillcolor="#eef7ee"; color="#6a9a6a"; fontsize=11;
+    TOK [label="tokenizer_properties.json\n154 models  (+4 tonight)", fillcolor="#d6ecd6", color="#4a8a4a"];
+    CJK [label="cjk_coverage.csv · 108"];
+    PRB [label="probe fields · 306"];
   }
 
-  // ------------------------------------------------------------------- BUILD
-  BUILD [label="build_model_registry.py\n*** THREE CONSTRUCTION PATHS ***\ndeclared | extra-rows | REMOVED\nthe tokenizer join was missing on ALL THREE",
-         shape=box, style="filled", fillcolor="#ffd6d6", color="#c0392b", penwidth=2];
+  BUILD [label="build_model_registry.py\nTHREE construction paths\nthe tokenizer join is now on ALL THREE",
+         style=filled, fillcolor="#d6ecd6", color="#4a8a4a", penwidth=2];
 
-  REG   [label="model_registry.json\n159 rows — THE JOIN\nGENERATED, do not edit", fillcolor="#dce9f7", color="#3b6ea5", penwidth=2];
+  REG [label="model_registry.json · 159 rows\nposition   159/159   was 145\nvocab_len  154/159   was 0\ndirection    0/159   RULED, NOT BUILT\nstatus STILL ONE COLUMN holding three axes",
+       fillcolor="#dce9f7", color="#3b6ea5", penwidth=2];
 
-  // -------------------------------------------------------------- DOWNSTREAM
-  subgraph cluster_down {
-    label="GENERATED DOWNSTREAM";
-    style="rounded,filled"; fillcolor="#f2f6fb"; color="#8aa4c0"; fontsize=11;
-
-    LIN  [label="lineage_map_models.json"];
-    REQ  [label="model_requirements.json"];
-    REV  [label="model_revisions.json"];
-    ETO [label="edge_token_overlap.json\n198 edges — PER ETO\nthe only comparability answer"];
-    LRP  [label="lineage_representative_pairs.txt\n46 pairs, FROZEN to the battery\n(registry route gives 51)"];
-    FLEET[label="fleet_plan_census.json"];
-    CH   [label="ClickHouse {db}.models\n159 rows, regenerated whole"];
+  subgraph cluster_q {
+    label="ONE QUESTION — \"the representative model pairs\" — THREE ANSWERS";
+    style="rounded,filled"; fillcolor="#f6eefb"; color="#8e5ea8"; fontsize=11;
+    Q1 [label="lineage.representative_pairs()\n51 · live registry, measurable", fillcolor="#e9d9f2", color="#8e5ea8"];
+    Q2 [label="movement_edges WHERE\nis_model_pair AND is_representative\n52 over 47 bases\nSTALE: built 12 Aug, before tonight", fillcolor="#e9d9f2", color="#8e5ea8"];
+    Q3 [label="lineage_representative_pairs.txt\n46 · FROZEN to the battery\nholds 1 pair that is base>EGO", fillcolor="#e9d9f2", color="#8e5ea8"];
   }
+  CHAOS [label="ALL THREE ARE CORRECT.\nNone announces which population it is.\nTwo seats asked the same question\ntook two different routes.\nTHE DEFECT IS THE AMBIGUITY,\nNOT THE NUMBERS.",
+         shape=note, fillcolor="#f0e0f8", color="#8e5ea8", penwidth=2];
 
-  // ------------------------------------------------------------------ ACCESS
   subgraph cluster_acc {
-    label="ACCESS";
-    style="rounded,filled"; fillcolor="#eef7ee"; color="#6a9a6a"; fontsize=11;
-
-    RGY  [label="Registry\n51 files construct it", fillcolor="#d6ecd6", color="#4a8a4a"];
-    CP   [label="Checkpoint — THE INTENDED FACADE\n25 files\nhas_data 152 | landed_v3 95 | is_excluded 6", fillcolor="#d6ecd6", color="#4a8a4a", penwidth=2];
+    label="ACCESS"; style="rounded,filled"; fillcolor="#eef7ee"; color="#6a9a6a"; fontsize=11;
+    CP [label="Checkpoint — THE FACADE\n28 files  (was 25)\nhas_data 152 · landed_v3 95 · is_excluded 6\nall three predicates repaired tonight", fillcolor="#d6ecd6", color="#4a8a4a", penwidth=2];
   }
+  RAW [label="16 files still read the JSON raw\n9 builders — legitimate\n7 CONSUMERS LEFT  (was 18)\nlineage.py migrated: the library no\nlonger bypasses its own store",
+       fillcolor="#ffe9e9", color="#c0392b", penwidth=2];
 
-  RAW  [label="29 FILES READ THE JSON RAW\n8 builders (legitimate)\n1 malign_logits/lineage.py (the library itself)\n18 consumers — 16 hand-roll the list-or-dict shape\n1 of 18 migrated",
-        fillcolor="#ffd6d6", color="#c0392b", penwidth=2];
+  SURF [label="surface conformance\nper (model, STORE) · one producer now\nRECOMPUTE, do not carry", fillcolor="#e8e8e8", color="#888888", style="filled,rounded,dashed"];
 
-  // ------------------------------------------------------------- STORE STATE
-  SURF [label="surface conformance\nper (model, STORE)\nNOT model info — RECOMPUTE, do not carry\n5.6s over 401 models", fillcolor="#e8e8e8", color="#888888", style="filled,rounded,dashed"];
-  STORE[label="twp_words / true_word_probs\nCITABLE / WORKING — different authority", fillcolor="#e8e8e8", color="#888888"];
-
-  // ------------------------------------------------------------------- EDGES
-  MF   -> BUILD [label="slots"];
-  XTRA -> BUILD [label="8 per-checkpoint"];
-  RMV  -> BUILD [label="6 in code"];
-  TOK  -> BUILD [label="joined 2026-08-15\non all 3 paths", color="#c0392b", fontcolor="#c0392b"];
-  CJK  -> BUILD; PROBE -> BUILD; CUR -> BUILD;
-
+  MF -> BUILD; XTRA -> BUILD; RMV -> BUILD;
+  TOK -> BUILD [label="joined on all 3 paths", color="#4a8a4a", fontcolor="#4a8a4a"];
+  CJK -> BUILD; PRB -> BUILD;
   BUILD -> REG;
-  BUILD -> LIN;
-  REG -> REQ; REG -> REV; REG -> FLEET; REG -> CH; REG -> LRP;
-  TOK -> ETO [label="same producer"];
+  REG -> Q1;
+  REG -> Q2 [style=dashed, label="via a 12 Aug build"];
+  REG -> Q3 [style=dashed, label="via the battery"];
+  REG -> CP;
+  REG -> RAW [color="#c0392b", penwidth=2, label="7 consumers left"];
+  SURF -> CP [style=dotted, color="#888888", label="deliberately NOT wired"];
 
-  REG -> RGY;
-  RGY -> CP [label="facade over"];
-  REG -> RAW [label="bypasses both", color="#c0392b", fontcolor="#c0392b", penwidth=2];
-
-  ETO -> CP [label="cp.comparable_with\nwired 2026-08-15", style=dashed];
-  STORE -> SURF [label="measured from"];
-  SURF -> CP [label="DELIBERATELY NOT WIRED\nstore state, not a model fact", style=dotted, color="#888888", fontcolor="#888888"];
-
-  // ---------------------------------------------------------------- FINDINGS
-  N1 [shape=note, fillcolor="#fff0f0", color="#c0392b",
-      label="THREE declaration sites.\nThe principle says one."];
-  N2 [shape=note, fillcolor="#fff0f0", color="#c0392b",
-      label="A join added to a codebase\nwith N constructors is N joins.\nNothing enumerates them."];
-  N3 [shape=note, fillcolor="#fff0f0", color="#c0392b",
-      label="status holds THREE axes in one column.\nNOT_IN_GRID false on 49 of its 52 rows\n(14,243,474 cells)."];
-  N4 [shape=note, fillcolor="#fff0f0", color="#c0392b",
-      label="direction field: RULED, 0 rows built.\n57 of 58 superegos unexamined."];
-
-  XTRA -> N1 [style=invis]; BUILD -> N2 [style=invis]; REG -> N3 [style=invis]; CP -> N4 [style=invis];
-  { rank=same; N1; N2; }
-  { rank=same; N3; N4; }
+  N [shape=note, fillcolor="#fff0f0", color="#c0392b",
+     label="STILL OPEN\n· direction: 0 rows, needs RH on spend\n· status: one column, three axes\n· 7 consumers\n· 3 declaration sites"];
+  REG -> N [style=invis];
+  Q2 -> CHAOS [style=invis];
+  { rank=same; CHAOS; N; }
 }
