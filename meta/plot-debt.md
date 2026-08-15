@@ -1217,9 +1217,23 @@ Ordering within each folder is the reader's ranking.
    hardens a contested artifact into a picture.
 5. A pair-level strip, 33 pairs, bigscience outlier labelled, ALL vs CLEAN
    medians — BLOCKED (same). The honest-limits figure.
-6. Attention §3e per-pair baseline strips, pooled null vs KW p 0.0019 —
+6. **[DISCHARGED 2026-08-15 — `attn_baseline_by_pair.png`, dario,
+   `e8b6a7c8`]** Null pooled result on the panel beside the per-pair strips,
+   because the cancellation lesson is unreadable without the thing that got
+   cancelled. Two derivation traps caught in drawing: **the residual is the
+   STORED `d_norm`, not total minus baseline** (subtraction gives 0.1028
+   against the booked 0.0951), and **the sign-test p is ONE-SIDED**
+   (two-sided 0.0037 would have broken the collision the subtitle exists to
+   explain). Collision guarded by assert: the modal-sign count's naive p
+   equals the Kruskal-Wallis 0.0019 to four decimals and is inadmissible.
+   Attention §3e per-pair baseline strips, pooled null vs KW p 0.0019 —
    `attn_norm_sweep_full.json`. The "pooling cancels opposing signs" lesson.
-7. Attention §3c refutation strips, three contrasts over 28 cells —
+7. **[DISCHARGED 2026-08-15 — `attn_sweep_refutation.png`, dario,
+   `f8b9c975`]** **No per-cell p encoded, deliberately**: §3c's verdict is
+   that those values are not evidence, so encoding them would smuggle the
+   disqualified quantity into the most persuasive channel. Axis limits set
+   from the data, labels anchored to their own dots.
+   Attention §3c refutation strips, three contrasts over 28 cells —
    `attn_norm_sweep{,_full}.json`. A null prose cannot make credible.
 8. Attention §3 cross-vs-own two lines against position —
    `attn_delta_smollm2_e1_{cross,own}.json`. The one surviving fact.
