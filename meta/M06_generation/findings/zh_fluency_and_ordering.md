@@ -33,7 +33,27 @@ Checked against registrar's heterogeneity flag rather than assumed: the 25 are
 the frozen file, and `BAAI/Aquila2-7B > AquilaChat2-7B` -- the base->EGO
 (SFT-only) member that makes the frozen 46 heterogeneous elsewhere -- **is not
 in this population.** So all 25 contrast base against a preference-tuned arm
-and the contrast is of one kind throughout.
+and the contrast is of one kind ON STAGE.
+
+**AND IT IS NOT HOMOGENEOUS ON GRID STATUS, which the paragraph above did not
+say and which I had measured hours before writing it.** Three of the 25 are
+`status: NOT_IN_GRID`, `in_grid_spec: False`:
+
+    BSC-LT/salamandra-7b            > salamandra-7b-instruct
+    OpenLLM-France/Lucie-7B         > Lucie-7B-Instruct-v1.1
+    ibm-granite/granite-3.0-8b-base > granite-3.0-8b-instruct
+
+All three carry the same exclusion reason -- *not on the v3 grid roster* -- so
+they were scored before the grid was defined rather than excluded for a defect.
+They are also the three pairs with no `cjk_tier` at all, and all six models sit
+in the bottom half of the judged fluency ranking. **The population is 22 grid
+pairs plus 3 off-roster ones**, and anything treating these 25 as the v3 grid
+is wrong by three.
+
+**Found by distrusting a clean run** (registrar, [6206]: *the absence of a
+finding is the one result that never forces you to look for a second cause*).
+Five provenance checks came back clean and I stopped, having already measured
+this one earlier in the same session and never carried it into the document.
 
 ## Why this exists: `cjk_tier` measures a vocabulary, not a model
 
