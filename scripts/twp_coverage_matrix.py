@@ -65,15 +65,13 @@ def checkpoints():
 
     The registry is the wider set (146 vs 104); a pair member absent from the
     registry would otherwise vanish from a table titled "all checkpoints"."""
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. This block hand-rolled the
+    #: list-or-dict shape of `model_registry.json` -- 16 of the 18 consumers
+    #: that opened it did, each a place a schema change breaks silently and
+    #: each re-implementing what `Registry` already does once.
     ids = set()
-    reg = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))
-    ms = reg.get("models") or reg
-    if isinstance(ms, dict):
-        ids |= set(ms.keys())
-    else:
-        for m in ms:
-            if isinstance(m, dict):
-                ids.add(m.get("model_id") or m.get("id"))
+    from malign_logits.checkpoint import Checkpoint
+    ids |= {cp.id for cp in Checkpoint.all()}
     bap = json.load(open(os.path.join(ROOT, "data", "base_aligned_pairs.json")))
     rows = bap["pairs"] if isinstance(bap, dict) and "pairs" in bap else bap
     role = {}
