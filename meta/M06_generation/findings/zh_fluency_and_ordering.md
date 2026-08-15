@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-14
 role: finding
 topics: [drift, ordering, cross-lingual, chinese, arms, fluency, jakobson]
-description: "Alignment makes models write BETTER CHINESE (20/25 pairs, p=0.0041, judged blind at Cohen kappa 0.776), and that gap PREDICTS the arm effect on total_drift (spearman -0.497, p=0.0116) that `crosslingual_arms.md` reports as its Chinese headline. Restricting to the 6 pairs where both models write Chinese collapses total_drift SEVENFOLD (-0.0314 -> -0.0046) and leaves an ORDERING effect unmoved (-0.0090 -> -0.0087), which is independent of fluency (rho +0.215, p=0.30). So the surviving Chinese arm effect is on COMBINATION and not on SELECTION. The ordering test is nominal only (18/25, p=0.043) and the restricted sign tests confirm nothing at n=6, as pre-declared. English is NULL on ordering (14/25, p=0.69) while its spread effect holds (24/25)."
+description: "Alignment makes models write BETTER CHINESE (20/25 pairs, p=0.0041, judged blind at Cohen kappa 0.776), and that gap PREDICTS the arm effect on total_drift (spearman -0.497, p=0.0116) that `crosslingual_arms.md` reports as its Chinese headline. The DIFFERENCE between those two dependences is established on all 25 pairs (rho difference -0.694, 95% CI [-1.184, -0.161]), so the surviving Chinese arm effect is on COMBINATION and not on SELECTION. **The restriction figures (total_drift -0.0314 -> -0.0046 against order_ratio -0.0090 -> -0.0087) are DESCRIPTIVE ONLY: the difference of those changes has a CI spanning zero and is NOT established -- corrected 2026-08-15, do not draw or cite it as the argument.** The ordering test is nominal only (18/25, p=0.043) and the restricted sign tests confirm nothing at n=6, as pre-declared. English is NULL on ordering (14/25, p=0.69) while its spread effect holds (24/25)."
 ---
 # Chinese fluency is an arm variable, and it separates the spread effect from the ordering effect
 
@@ -135,7 +135,7 @@ alignment improves Chinese most are the pairs showing the most narrowing.
 embedding of prose**, and in twelve of the 25 pairs the base model produces
 word salad while the aligned model does not.
 
-## 3. Restriction separates the two effects
+## 3. Restriction: descriptive, and NOT the argument (see the correction below)
 
 Keeping only pairs where BOTH members write Chinese (`min(score) >= 2.0`,
 6 pairs; `>= 1.5`, 8 pairs):
