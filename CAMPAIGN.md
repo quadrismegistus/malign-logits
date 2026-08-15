@@ -1003,6 +1003,29 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A BARE DECIMAL IS NOT AN IDENTIFIER** (registrar, [6239], closing a gap
+  lacan's [6236] exposed). An exposure check that greps a FINDING'S NAME can
+  only find documents that CITE it, never documents that QUOTE its numbers
+  without naming it. So the registrar re-ran the pole-axis clearance on the
+  ten values themselves. **23 files matched and not one was exposure**: the
+  top hits were the registrar's own debt entry, a word list where `0.128`
+  and `0.793` are per-word scores, and unrelated statistics sharing three
+  decimals. lacan's own footnote is the same thing in miniature — its search
+  for `0.031` matched `-0.031`, a different quantity from a different
+  instrument.
+  **This is dario's `L8.H9` rule from the other side.** A categorical value
+  cannot be approximately right; **a bare decimal can be coincidentally
+  right, and across a repository it usually is.** Value-grep is the correct
+  method and it needs a companion — a column name, a role, a population —
+  or its precision collapses. **The name-based clearance stands.**
+  **AND THE SCARE IT PRODUCED WAS SETTLED BY A TIMESTAMP.**
+  `l3_role_geometry_figs.py` carries all four booked role values and reads
+  the union parquet, which reads exactly like the missing producer. It is
+  UNTRACKED and was **modified in the same minute the check ran** — dario's
+  live work implementing the [6235] ruling, its own header saying *every
+  number on this panel is measured here and none is quoted.* **A file's age
+  is part of its evidence, and an uncommitted file is not a finding about
+  the repository.**
 - **A REPAIR SELECTED BY ITS TARGET IS NOT A REPAIR** (lacan, [6234],
   declining to reconstruct an unreproducible booked value). *A value
   recovered by finding some transformation that lands on 0.128 would be a
