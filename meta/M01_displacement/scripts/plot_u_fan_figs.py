@@ -174,13 +174,24 @@ def two_instruments():
                              labels=["0%", "25%", "50%", "75%", "100%"])
         + facet_wrap("~panel", nrow=1)
         + labs(
-            #: THE TITLE COUNTED THE INSTRUMENTS AND THE COUNT WENT STALE.
-            #: "two instruments, two answers" was true when drawn and stopped
-            #: being true when X section 4b landed. A figure that says TWO is
-            #: not merely omitting a third, it is DENYING it (registrar,
-            #: [6190]) -- so the title no longer enumerates, and says which
-            #: instruments are ON THIS PANEL rather than how many exist.
-            title="One ablation suite, two instruments on this panel and two more that disagree with the right-hand one",
+            #: THE TITLE NAMES THE RELATION, NOT THE POPULATION, AND IT TOOK TWO
+            #: GOES TO STOP COUNTING. "Two instruments, two answers" was true
+            #: when drawn and died when X section 4b landed. Its replacement,
+            #: "two on this panel and two more that disagree", enumerated
+            #: twice and would die the same death one instrument further on --
+            #: re-pinned to a number that is still a function of how many
+            #: instruments happen to have been built.
+            #:
+            #: WORSE, IT WAS THE HEADCOUNT THIS FIGURE'S CAPTION REFUSES TO
+            #: MAKE. I declined "the minority of three" forty lines below on
+            #: the ground that quantities which cannot be averaged cannot be
+            #: polled, while the title said two-against-one above it, and a
+            #: reader meets the title first. **A count a reader can audit in
+            #: the next sentence is a table of contents; a count in a title is
+            #: a verdict** (registrar, [6194]). The relation is stable and is
+            #: the actual finding, so the title states that and the caption
+            #: does the enumerating where it can be checked.
+            title="One ablation suite, and the instruments disagree about whether safety data is special",
             subtitle=(
                 "The Tulu 3 SFT data ablations. One base (Llama-3.1-8B), one recipe, five training sets,\n"
                 "everything held fixed but the corpus. Both panels are percent of the full data mix, with\n"
