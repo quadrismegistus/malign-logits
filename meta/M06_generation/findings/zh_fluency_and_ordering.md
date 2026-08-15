@@ -263,6 +263,43 @@ of the null.
 does nothing measurable to the English one, and none of the three obvious
 mechanisms accounts for it.
 
+### One candidate exists, from another instrument, and it is n=1
+
+Recorded here because it was posted to the docket at [6171]/[6172] and would
+otherwise live only there. **It is not support and must not be cited as such.**
+
+`plans/plan_projected_displacement.md` (malign) decomposes displacement into
+SUPPRESSION and SUBSTITUTION on a per-prompt author-anchored axis. Its
+demonstration, **n=1 per language and declared NOT A FINDING by its author**:
+
+    EN full SFT   dN -0.031   suppression -0.033  substitution +0.002   95% SUPPRESSION
+    ZH full SFT   dN +0.016   suppression +0.001  substitution +0.015   95% SUBSTITUTION
+
+Substitution toward a consistent register installs the same vocabulary across a
+passage, which would raise adjacent-sentence similarity relative to the
+passage's spread -- what `order_ratio` measures. Suppression removes mass
+without supplying a replacement and has no mechanism by which to tighten a
+chain. **That would produce exactly this EN/ZH asymmetry.**
+
+**Why this is worth recording and a tally would not be**: it is a different
+instrument, corpus and unit arriving at the same asymmetry with a mechanism
+attached. Agreement between independently constructed instruments is evidence;
+a count of how many instruments agree is a fact about how many got built
+(dario, [6193]). This is one construction, at n=1, and the honest status is
+*the first candidate that survives contact with the three discarded above*.
+
+**The test, which needs their instrument at pair scale and costs nothing here**:
+if substitution tightens the chain, the per-pair suppression/substitution ratio
+should predict the `order_ratio` delta across the 25 pairs -- the same shape as
+the confound test that separated `total_drift` from `order_ratio`, run against
+a different predictor.
+
+**And the same post independently supports the cross-language caveat above.**
+An English-built axis scoring Chinese candidates gives spearman +0.928 on rank
+against a Chinese-built one, while 裤子 reads +0.009 on the first and -0.078 on
+the second: *the ordering transfers and the origin does not.* Within-language
+contrasts stand; a cross-language comparison of LEVELS does not.
+
 ## Incidental: aligned models emit more list structure
 
 From probe 3, on English generations:
