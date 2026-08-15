@@ -1390,7 +1390,7 @@ shows no ink at the edge on any of the eight M06 PNGs.
 NOT THE POPULATION** — the difference is null on both cell sets.
 
     truncated cells, same 25 pairs
-    order_diff    zh  16/25  -0.0030  p=0.23    NULL
+    order_diff    zh   9/16  -0.00334 p=0.2295  NULL
     order_ratio   zh  18/25  -0.0090  p=0.043   nominal
 
 `order_diff` = mean(successive) − mean(all pairwise), the drift audit's
@@ -1416,16 +1416,33 @@ run until it reproduces the published `total_drift` contrast (21/25, median
 first error here, giving 28 pairs at 24/28, −0.0174, *"entirely plausible
 and a different measurement."*
 
-    truncated      en  12/25  +0.0005  p=1.00
-    untruncated    en  16/25  -0.0020  p=0.23
-    dario reports  en  14/25  -0.0020  p=0.69
+**CORRECTED 2026-08-15 — the registrar's first version of this table carried
+two transcription errors from [6246] and published them here and to RH.**
+dario caught them at [6247]; **these values are read from the artifacts at
+this seat, not from either seat's post**:
 
-**The medians match the untruncated variant exactly and the counts sit two
-apart**, which is what near-zero pairs do to a sign count while leaving a
-median alone. **The figure and `zh_fluency_and_ordering.md` are on different
-populations and will not match if a reader lays them side by side.** The
-Chinese lines agree to the digit across two independently written
-producers.
+    file                          median     up/dn   p_sign
+    crosslingual_ordering      en -0.00030   12/13   1.000
+      (truncated)              zh -0.00334    9/16   0.2295
+    crosslingual_ordering_full en -0.00204   11/14   0.6900
+      (untruncated)            zh -0.00373    9/16   0.2295
+
+**What was wrong here**: truncated `en` was booked as `+0.0005` and is
+**-0.00030, the opposite sign**; untruncated `en` was booked as `16/25` at
+`p=0.23`, which are **the zh row's count and p** — it is 11/14 at p=0.69.
+dario's figure reports the untruncated row correctly.
+
+**The figure and `zh_fluency_and_ordering.md` are on different populations
+and will not match if a reader lays them side by side** — but the population
+choice **moves the median and the sign count and leaves every conclusion
+where it was**: the difference statistic is null in both languages on both
+cell sets (en p=1.00 / 0.69, zh p=0.2295 / 0.2295).
+
+**And the Chinese agreement is real but narrower than first stated** (dario,
+[6247]): zh counts and p are **identical across the truncation** — 9/16 and
+0.2295 in both — so the two independent implementations agree on a statistic
+that happens to be **stable across the population difference**, while the
+medians differ in the fourth decimal.
 
 #### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
 
