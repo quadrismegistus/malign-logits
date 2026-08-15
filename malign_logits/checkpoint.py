@@ -33,6 +33,7 @@ a roster holding two pure-SSM families.
 from __future__ import annotations
 
 import glob
+import json
 import os
 from functools import cached_property, lru_cache
 
@@ -44,6 +45,52 @@ def _registry():
 
 
 @lru_cache(maxsize=1)
+def _artifact(name):
+    """A committed data artifact as parsed JSON, or {} if absent.
+
+    Absent is NOT an error here: a machine without the file should get an empty
+    map and a caller that can tell empty from zero, rather than an exception on
+    import. **The distinction lives in the accessors**, which return None only
+    for a missing row.
+    """
+    from . import PATH_DATA
+    fp = os.path.join(PATH_DATA, name)
+    if not os.path.exists(fp):
+        return {}
+    with open(fp, encoding="utf-8") as fh:
+        return json.load(fh)
+
+
+@lru_cache(maxsize=1)
+def _tokenizer_props():
+    """{model_id: row} from data/tokenizer_properties.json. 150 models."""
+    d = _artifact("tokenizer_properties.json")
+    rows = d.get("models") if isinstance(d, dict) else d
+    if isinstance(rows, dict):
+        return {k: v for k, v in rows.items() if isinstance(v, dict)}
+    return {r["model"]: r for r in (rows or []) if isinstance(r, dict) and "model" in r}
+
+
+
+@lru_cache(maxsize=1)
+def _edge_overlap():
+    """{(base, aligned): row} from data/edge_token_overlap.json. 198 edges."""
+    d = _artifact("edge_token_overlap.json")
+    rows = d.get("edges") if isinstance(d, dict) else d
+    out = {}
+    for r in (rows or []):
+        if not isinstance(r, dict):
+            continue
+        #: THE FIELDS ARE `parent` / `child`, read from the artifact rather than
+        #: guessed. The first version tried base/aligned/a/b/from/to -- five
+        #: names, none of them the two that exist.
+        a = r.get("parent")
+        b = r.get("child")
+        if a and b:
+            out[(a, b)] = r
+    return out
+
+
 def _landed():
     """Model ids with cells on disk. Not the same as being scheduled."""
     from . import PATH_DATA
@@ -169,6 +216,64 @@ class Checkpoint:
         """The declared relation path to another checkpoint, or []."""
         oid = other.id if isinstance(other, Checkpoint) else other
         return _registry().path(self.id, oid)
+
+    # -- MEASURED ARTIFACTS ------------------------------------------------
+    #: WHAT IS DELIBERATELY *NOT* HERE: the surface fingerprint.
+    #: `data/surface_fingerprint.json` measures how a model's cells were WRITTEN
+    #: into `twp_words`. RH, 2026-08-15: *is that just surveying the current
+    #: situation of ClickHouse, and not a true property of the models?* **It is.**
+    #: The same checkpoint re-expanded fingerprints clean, so it describes the
+    #: STORE at a moment, not the model -- and a committed file describing a
+    #: mutable state, keyed per model, is `NOT_IN_GRID` again: a snapshot
+    #: recorded as though it were a property, false the moment the state moves.
+    #: **It is also a 5.6-second query over all 401 models.** Recompute it; do
+    #: not carry it. Hanging it off `Checkpoint` would have put store diagnostics
+    #: on the model object and given the staleness somewhere to hide.
+    #: THREE COMMITTED MEASUREMENTS THIS CLASS COULD NOT SEE, until 2026-08-15.
+    #: `grep tokenizer_properties|edge_token_overlap malign_logits/*.py` returned
+    #: ZERO, and `Checkpoint(...).vocab_size` returned None for a value measured
+    #: and sitting in another file. **Under the plan to make this class the only
+    #: public read path, that made tokenizer comparability formally unreachable**
+    #: -- every migrating consumer would have lost the one artifact answering
+    #: *can these two distributions be compared at all* ([6304], malign).
+    #:
+    #: EACH RETURNS None ONLY FOR "NO ROW", NEVER FOR A MEASURED ZERO. Tonight
+    #: booked that collision three times: `is_excluded` testing a literal nothing
+    #: writes, a schema field absent-reading-as-false, and null-versus-unknown.
+    #: A caller that needs to tell "unmeasured" from "measured clean" uses the
+    #: `_measured` companions rather than truthiness.
+
+    @cached_property
+    def tokenizer(self):
+        """The `data/tokenizer_properties.json` row, or None if unmeasured.
+
+        Carries `vocab_len` and `n_added_tokens`, which the registry row does
+        NOT: the runbook's §2.22 lesson is that a vocab guard on the model does
+        not protect the tokenizer and the stricter bound is
+        `min(model_vocab, len(tokenizer))`. Somebody measured both and nothing
+        read either.
+        """
+        return _tokenizer_props().get(self.id)
+
+    @property
+    def tokenizer_measured(self):
+        """Whether a tokenizer row exists. Distinct from its values being zero."""
+        return self.id in _tokenizer_props()
+
+
+    def comparable_with(self, other, store=None):
+        """The `data/edge_token_overlap.json` row for this pair, or None.
+
+        **NECESSARY AND NOT SUFFICIENT** (lacan, [6309]). Token-ID overlap and
+        stored-surface conformance are INDEPENDENT axes. dolphin/Mistral differ
+        by one token in 32,000, so every field here reads comparable -- and the
+        word-level join still lost 83% of prompts, because one endpoint's cells
+        were written with a boundary marker. **Check `surface()` on both ends
+        too; this answers the id question only.**
+        """
+        oid = other.id if isinstance(other, Checkpoint) else other
+        e = _edge_overlap()
+        return e.get((self.id, oid)) or e.get((oid, self.id))
 
     # -- collection ---------------------------------------------------------
     @staticmethod
