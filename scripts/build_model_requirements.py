@@ -219,14 +219,27 @@ COMPUTE_DTYPE.update({m: ("bfloat16", "vLLM refuses gemma2 at float16 as a HARD 
 #: reported BLOCKED: 0 with two gated checkpoints in the roster, which is the
 #: false-clean this whole file exists to prevent. A block is a fact about access
 #: or existence and belongs declared, with a date so it can be retired.
+#: PENDING AND DENIED ARE DIFFERENT STATES AND ONLY ONE OF THEM INVITES A RETRY.
+#: These three read "no grant yet" / "same request pending" until 2026-08-15,
+#: which is the tense that gets tried again — and a reader with a spare hour
+#: would have re-applied, waited, and re-checked a door that is shut. RH's
+#: access request was REFUSED, so the block is now PERMANENT and says so.
+#: Whoever revisits this should be arguing about whether to seek access by some
+#: other route, not about whether the request has come through.
 BLOCKED_DECLARED = {
     "AI-Sweden-Models/gpt-sw3-6.7b":
-        "gated=manual. Access requires a European university affiliation and a "
-        "matching email; RH applied 2026-08-10, no grant yet. config.json 403s.",
+        "PERMANENT — ACCESS DENIED. gated=manual; RH applied 2026-08-10 and was "
+        "REFUSED (recorded 2026-08-15). Not pending. Do not re-request without a "
+        "new institutional route. config.json 403s, so vocab_size and tokenizer "
+        "were never measured and this checkpoint CANNOT enter any "
+        "full-vocabulary comparison even if access is later granted.",
     "AI-Sweden-Models/gpt-sw3-6.7b-v2":
-        "gated=manual, same request pending. This is the CORRECT base for the "
-        "-v2-instruct arm (different data, longer training, DIFFERENT TOKENIZER).",
-    "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct": "gated=manual, same request pending.",
+        "PERMANENT — ACCESS DENIED, same refusal (recorded 2026-08-15). This is "
+        "the CORRECT base for the -v2-instruct arm (different data, longer "
+        "training, DIFFERENT TOKENIZER), which is why the pairing "
+        "6.7b -> 6.7b-v2-instruct is CROSS-LINEAGE and must not be made.",
+    "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct":
+        "PERMANENT — ACCESS DENIED, same refusal (recorded 2026-08-15).",
 }
 
 KERNELS = ("mamba", "zamba", "falcon-h1")

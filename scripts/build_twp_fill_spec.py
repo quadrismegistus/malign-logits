@@ -51,11 +51,19 @@ HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT); sys.path.insert(0, HERE)
 
 #: Cannot run today, and the reason is not ours to fix by running anything.
+#:
+#: SECOND COPY OF THE SAME DECLARATION, which is why it went stale: the
+#: authoritative list is BLOCKED_DECLARED in `build_model_requirements.py`, and
+#: this one still read "no grant yet" after the request was REFUSED. A grep for
+#: the cause found the first copy; nothing pointed at the second.
 BLOCKED = {
     "AI-Sweden-Models/gpt-sw3-6.7b":
-        "gated=manual; RH applied, no grant yet (403 on config.json)",
+        "PERMANENT -- ACCESS DENIED 2026-08-15. Not pending; do not re-request.",
     "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct":
-        "gated=manual; RH applied, no grant yet",
+        "PERMANENT -- ACCESS DENIED 2026-08-15. Not pending.",
+    "AI-Sweden-Models/gpt-sw3-6.7b-v2":
+        "PERMANENT -- ACCESS DENIED 2026-08-15. The correct base for the "
+        "-v2-instruct arm, so that pair is unbuildable, not merely ungated.",
     "mosaicml/mpt-7b":
         "repo id DEAD -- 404 at the API, not a permissions error. Should come "
         "out of base_aligned_pairs.json rather than sit in a blocked list.",

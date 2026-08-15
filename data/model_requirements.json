@@ -94,7 +94,7 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "gated=manual. Access requires a European university affiliation and a matching email; RH applied 2026-08-10, no grant yet. config.json 403s.",
+   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED. gated=manual; RH applied 2026-08-10 and was REFUSED (recorded 2026-08-15). Not pending. Do not re-request without a new institutional route. config.json 403s, so vocab_size and tokenizer were never measured and this checkpoint CANNOT enter any full-vocabulary comparison even if access is later granted.",
    "observations": 1
   },
   {
@@ -121,7 +121,7 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "gated=manual, same request pending. This is the CORRECT base for the -v2-instruct arm (different data, longer training, DIFFERENT TOKENIZER).",
+   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED, same refusal (recorded 2026-08-15). This is the CORRECT base for the -v2-instruct arm (different data, longer training, DIFFERENT TOKENIZER), which is why the pairing 6.7b -> 6.7b-v2-instruct is CROSS-LINEAGE and must not be made.",
    "observations": 0
   },
   {
@@ -148,7 +148,7 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "gated=manual, same request pending.",
+   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED, same refusal (recorded 2026-08-15).",
    "observations": 1
   },
   {
@@ -230,7 +230,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
-   "observations": 1
+   "observations": 2
   },
   {
    "model": "BAAI/AquilaChat2-7B",
@@ -2105,7 +2105,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
-   "observations": 0
+   "observations": 1
   },
   {
    "model": "baichuan-inc/Baichuan2-7B-Chat",
@@ -2483,7 +2483,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
-   "observations": 0
+   "observations": 1
   },
   {
    "model": "google/recurrentgemma-9b-it",
@@ -3413,7 +3413,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
-   "observations": 1
+   "observations": 2
   },
   {
    "model": "openGPT-X/Teuken-7B-instruct-v0.6",
