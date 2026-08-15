@@ -1106,6 +1106,16 @@ Ordering within each folder is the reader's ranking.
 
 ### M02_frame_exit
 
+**TWO HANDOFF FLAGS (dario, [6240], recorded here rather than left in a
+commit message).** (1) **Candidates 2 and 9 both say REBUILD REQUIRED on
+`dp.pkl` and nobody has costed the rebuild.** An uncosted dependency
+silently blocks two entries and is invisible in every state report,
+including `plot_debt_state`, because both entries look merely open.
+(2) **Candidates 12 and 13 are marked WITH ITS WRITE-UP** — the write-up
+debt gating a figure rather than the reverse, **the only entries in any
+folder where the ladder runs that way.**
+
+
 1. **[DISCHARGED via its shortlist link]** Calibration number line (shortlist 4).
 2. Next-word three-role word dumbbells (`kill` −9.9/−1.3/−21.3; the epistemic
    residual) — `dp.pkl`, REBUILD REQUIRED first.
