@@ -242,7 +242,163 @@ def onset_lag():
     return out
 
 
-REGISTRY = {"onset_lag": onset_lag}
+
+
+#: A-R2's base_order, verbatim from data/m05_onsets.json
+BOOKED_ORDER = {
+    "packages": (2, "stage1-2000"), "reference": (2, "stage1-2000"),
+    "reasoning": (2, "stage1-2000"), "poetic_pull": (2, "stage1-2000"),
+    "discourse": (10, "stage1-32000"),
+}
+#: the ladder facts the panel depends on
+BOOKED_LADDER = {"total_steps": 1413814, "pct_at_2000": 0.141, "ratio": 16}
+DISC_C, TIE_C = "#b03030", "#5c7ea3"
+#: The four tied families are drawn in alphabetical order and that order is NOT
+#: a ranking. A-R2's own sentence: the Weatherby ordering is NOT RESOLVED at
+#: onset grain. A strip invites the eye to read rank down the rows, so the tie
+#: is drawn as one shared marker and the rows are labelled as arbitrary.
+TIED = ["packages", "poetic_pull", "reasoning", "reference"]
+
+
+def acquisition_order():
+    """M05 candidate 6: one ordering fact, and a four-way tie that is not one."""
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_rug, geom_segment, geom_text, ggplot, labs,
+                          scale_color_identity, scale_x_log10,
+                          scale_y_continuous, theme, theme_minimal)
+
+    order = {e["family"]: (e["onset_rung"], e["onset_step"])
+             for e in json.load(open(ONSETS))["base_order"]}
+    assert order == BOOKED_ORDER, f"base_order changed: {order}"
+
+    df = pd.read_parquet(CURVES)
+    base = df[df.role == "base_step"]
+    rungs = sorted(base.step.unique())
+    total = float(max(rungs))
+    assert int(total) == BOOKED_LADDER["total_steps"], f"ladder ends at {total}"
+
+    #: THE TIE'S HEADROOM, WHICH IS THE PANEL'S MAIN FENCE. Step 0 is
+    #: incomplete -- 518 rows against 1,554 at every later rung, 231 of them
+    #: empty -- so the first rung carrying a complete payload is 1,000 and the
+    #: tie sits at the second, 2,000. The criterion gets exactly ONE rung below
+    #: the tie in which to separate the four families, and does not.
+    sizes = {s: len(base[base.step == s]) for s in (0.0, 1000.0, 2000.0)}
+    empty0 = int(base[(base.step == 0.0)].payload_empty.sum())
+    assert sizes[0.0] < sizes[1000.0] == sizes[2000.0], \
+        f"step 0 is no longer the short rung: {sizes}"
+    assert empty0 > 0, "step 0 has no empty cells; the headroom sentence is wrong"
+    below = [s for s in rungs if 0 < s < 2000]
+    assert len(below) == 1, \
+        f"{len(below)} complete rungs below the tie, not 1; the panel says one"
+
+    steps = {f: float(v[1].split("-")[1]) for f, v in order.items()}
+    assert steps["discourse"] / steps["packages"] == BOOKED_LADDER["ratio"], \
+        "the 16x gap has moved"
+    pct = 100 * steps["packages"] / total
+    assert abs(pct - BOOKED_LADDER["pct_at_2000"]) < 0.005, f"{pct:.3f}%"
+
+    rows = []
+    for i, fam in enumerate(TIED):
+        rows.append({"y": len(TIED) - i, "fam": fam.replace("_", " "),
+                     "x": steps[fam], "col": TIE_C})
+    rows.append({"y": 0, "fam": "discourse tracking", "x": steps["discourse"],
+                 "col": DISC_C})
+    d = pd.DataFrame(rows)
+    d["x0"] = min(rungs[1:]) * 0.72
+    d["lx"] = d.x * 1.22
+    rug = pd.DataFrame({"x": [s for s in rungs if s > 0]})
+
+    ann = pd.DataFrame([
+        {"x": steps["packages"] * 1.35, "y": 4.62,
+         "t": f"four families, one shared onset at {steps['packages']:,.0f} steps\n"
+              f"= {pct:.2f}% of pretraining, the SECOND complete rung",
+         "c": "#444444"},
+        {"x": steps["discourse"] * 1.35, "y": 0.34,
+         "t": f"{BOOKED_LADDER['ratio']}x later, and the only ordering the criterion delivers",
+         "c": DISC_C}])
+
+    p = (
+        ggplot()
+        + geom_rug(rug, aes("x"), sides="b", color="#cccccc", size=0.4)
+        + geom_segment(d, aes("x0", "y", xend="x", yend="y", color="col"),
+                       size=0.9, alpha=0.55)
+        + geom_point(d, aes("x", "y", color="col"), size=4.0)
+        #: LABELS RIGHT OF THE DOT, NOT NUDGED LEFT. On a log10 scale nudge_x
+        #: is in LOG units, so a -0.06 nudge moves the text to x * 0.87 --
+        #: which on this panel is on top of the stem, striking every family
+        #: name through. The label position is now a column in the data.
+        + geom_text(d, aes("lx", "y", label="fam"), size=7.4, ha="left",
+                    color="#222222")
+        + geom_text(ann, aes("x", "y", label="t", color="c"), size=6.5,
+                    ha="left", lineheight=1.3)
+        + scale_color_identity()
+        + scale_x_log10(limits=(600, 2_600_000),
+                        breaks=[1000, 2000, 10000, 32000, 100000, 1000000],
+                        labels=["1k", "2k", "10k", "32k", "100k", "1M"])
+        + scale_y_continuous(breaks=[], limits=(-0.55, 5.1))
+        + labs(
+            title="Discourse tracking arrives an order of magnitude late; the other four tie at the grid's floor",
+            subtitle=(
+                "Onset rung on the BASE arm for five capability families, on a log step axis. The\n"
+                "registered criterion is the bootstrap CI of the median contrast above zero at a rung and\n"
+                "at every later rung. Grey ticks along the bottom are the 29 rungs actually measured.\n"
+                "THE FOUR-WAY TIE IS NOT AN ORDERING RESULT AND MUST NOT BE READ AS ONE. A-R2's own\n"
+                "sentence is that the Weatherby ordering -- poetic against referential against cognitive\n"
+                "-- is NOT RESOLVED at onset grain: everything except discourse clears reliably-above-\n"
+                "chance essentially at once. The four rows here are alphabetical and carry no ranking.\n"
+                "AND THE TIE SITS ONE RUNG ABOVE THE FLOOR. Step 0 is incomplete, so the first rung with\n"
+                "a complete payload is 1,000 and the onset is at the second, 2,000. The criterion gets a\n"
+                "single rung below the tie in which to separate four families. A tie with one rung of\n"
+                "headroom is a limit of resolution, not a demonstration that the four arrive together.\n"
+                "THE ONE ORDERING FACT THE CRITERION DOES DELIVER is the red row. Holding a discourse\n"
+                "model of the text -- where the key is, who has the umbrella -- emerges sixteen times\n"
+                "later than fact completion, package completion, inference and formulaic pull. Reference\n"
+                "as trivia is early; reference as WORLD-TRACKING is the late achievement.\n"
+                "NO MAGNITUDES ARE DRAWN. A-R2's magnitude shapes are first-look medians with CIs\n"
+                "pending, and the time-to-half-max milestone that would resolve what onset cannot is\n"
+                "post-hoc and unrun. This panel shows only the registered criterion's answer.\n"
+                "BOTH ONSETS ARE EARLY IN ABSOLUTE TERMS: 2,000 and 32,000 steps of 1,413,814, so even\n"
+                "the late one lands inside the first 2.3% of pretraining."),
+            x="pretraining step at onset  (log scale; ticks are the measured rungs)",
+            y="",
+            caption=(
+                "Producer: meta/M05_emergence/scripts/m05_onset_figs.py from data/m05_onsets.json\n"
+                "(`base_order`) and data/m05_curves.parquet for the rung ladder. plot-debt M05\n"
+                "candidate 6.\n"
+                "Asserted before drawing: the whole base_order block unchanged, family by family; the\n"
+                "ladder's final step 1,413,814; that the 32,000-to-2,000 ratio is still 16; that 2,000 is\n"
+                "0.141% of pretraining; and the headroom claim in three parts -- that step 0 is shorter\n"
+                "than every later rung, that it contains empty cells, and that exactly ONE complete rung\n"
+                "lies below the tie. That last is the panel's fence and is the one most likely to rot,\n"
+                "since it depends on the ladder rather than on any published number.\n"
+                "The four tied families are drawn in alphabetical order. Any vertical arrangement of a\n"
+                "tie invites a reading of rank, so the order is stated here as arbitrary rather than\n"
+                "left for the reader to assume."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(12.6, 7.2),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
+                                           lineheight=1.45),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left",
+                                          lineheight=1.45),
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "fig34_acquisition_order.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    for r in rows:
+        print(f"    {r['fam']:<22} onset step {r['x']:>8,.0f}")
+    print(f"    2,000 steps = {pct:.3f}% of {total:,.0f}; discourse "
+          f"{BOOKED_LADDER['ratio']}x later")
+    print(f"    step 0 short ({sizes[0.0]} rows vs {sizes[1000.0]}), "
+          f"{empty0} empty; {len(below)} complete rung below the tie")
+    return out
+
+
+REGISTRY = {"onset_lag": onset_lag, "acquisition_order": acquisition_order}
 
 
 def main():
