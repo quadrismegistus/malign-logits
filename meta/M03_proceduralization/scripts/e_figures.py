@@ -217,7 +217,185 @@ def survivors():
     return out
 
 
-FIGURES_REGISTRY = {"survivors": survivors}
+
+
+#: Bonferroni over the 702 tested words, as E section 2 declares it.
+BONF = 7.1e-05
+#: Pattern is the fence: section 3 is titled READ THE PATTERN COLUMN, NOT THE
+#: SIGN. Cool tones are the DEGREE cases (same direction in both arms), warm
+#: tones the four that actually reverse, grey the two flat on one side.
+PATTERN_COLOR = {
+    "falls in both": "#6f9ac4",
+    "rises in both": "#4a8c6a",
+    "rises individual, falls institutional": "#b03030",
+    "falls individual, rises institutional": "#d4762a",
+    "flat on one side": "#bdbdbd",
+}
+PATTERN_ORDER = list(PATTERN_COLOR)
+
+
+def dumbbell():
+    """M03 candidate 2: the 65 the argument quotes, as degree rather than kind."""
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_segment, geom_vline, ggplot, labs,
+                          scale_color_manual, scale_shape_manual,
+                          scale_x_continuous, scale_y_continuous, theme,
+                          theme_minimal)
+
+    d = pd.read_csv(SRC)
+    assert len(d) == BOOKED["tested"], \
+        f"words tested drifted: {len(d)} vs booked {BOOKED['tested']}"
+
+    #: THE TWO 65s, PINNED SO THE PANEL CANNOT MEAN THE WRONG ONE. Section 2
+    #: books `p<0.01 -> 189, institutional 124, individual 65` and, on the very
+    #: next line, `Bonferroni -> 65 total`. Both integers are 65 and they count
+    #: different things. This figure draws the SECOND. If the collision ever
+    #: goes away the subtitle's disambiguation becomes noise and should be cut,
+    #: so the coincidence is asserted rather than assumed.
+    assert BOOKED["p01"][2] == BOOKED["bonf"][0] == 65, \
+        ("the two 65s no longer collide; this panel spends three lines "
+         "distinguishing them and those lines are now misleading")
+    n01, i01, v01 = BOOKED["p01"]
+    got01 = d[d.p < 0.01]
+    assert (len(got01), int((got01.median_d > 0).sum()),
+            int((got01.median_d < 0).sum())) == (n01, i01, v01), \
+        f"the p<0.01 row moved: {len(got01)} words"
+
+    b = d[d.p < BONF].copy()
+    n_b, i_b, v_b = BOOKED["bonf"]
+    assert len(b) == n_b, f"Bonferroni survivors drifted: {len(b)} vs {n_b}"
+    #: THE SPLIT IS BY SIGN OF median_d AND NOT BY WHICH ARM MOVED MORE.
+    #: Splitting on |delta_indiv| vs |delta_inst| gives 37/28 against 43/22.
+    #: That wrong split is the exact misreading section 3 exists to forbid, so
+    #: the right one is asserted and the wrong one is asserted to be wrong.
+    assert int((b.median_d > 0).sum()) == i_b, "institutional-leaning count"
+    assert int((b.median_d < 0).sum()) == v_b, "individual-leaning count"
+    by_magnitude = int((b.median_delta_inst.abs()
+                        > b.median_delta_indiv.abs()).sum())
+    assert by_magnitude != i_b, \
+        ("splitting by which arm moved MORE now agrees with splitting by the "
+         "sign of median_d; the subtitle says they differ and would be wrong")
+
+    b["pattern"] = [_pattern(r.median_delta_indiv, r.median_delta_inst)
+                    for r in b.itertuples()]
+    counts = b.pattern.value_counts().to_dict()
+    for k, v in BOOKED["patterns"].items():
+        assert counts.get(k, 0) == v, \
+            f"pattern '{k}': {counts.get(k, 0)} words, section 3 books {v}"
+    reversals = (BOOKED["patterns"]["rises individual, falls institutional"]
+                 + BOOKED["patterns"]["falls individual, rises institutional"])
+    assert reversals == 4, f"{reversals} reversals, section 3 says four of 65"
+    #: the title's claim, made tested: "almost never by direction" is 59 of 65
+    #: moving the same way in both arms, with 4 reversing and 2 flat on one side
+    same_way = (BOOKED["patterns"]["falls in both"]
+                + BOOKED["patterns"]["rises in both"])
+    assert same_way == 59 and same_way + reversals + 2 == n_b, \
+        f"{same_way} of {n_b} move the same way in both arms; the title says almost all do"
+    #: OUTWARD CLAIM, MADE TESTED. The subtitle explains the rows sitting on
+    #: zero by naming `reass` as the extreme case. That is a fact about one row
+    #: of a file that moves, so it is asserted rather than described. A reader
+    #: who sees a mark at x=0 on a panel of significant words needs this.
+    r = b[b.word == "reass"]
+    assert len(r) == 1, "`reass` is no longer among the survivors; the subtitle names it"
+    assert abs(float(r.median_d.iloc[0]) - 9.6e-09) < 5e-10, \
+        f"`reass` median_d is now {float(r.median_d.iloc[0]):.3g}, not the quoted 9.6e-09"
+    assert (int(r.lineages_pos.iloc[0]), int(r.lineages_tested.iloc[0])) == (35, 42), \
+        "`reass` lineage agreement moved; the subtitle quotes 35 of 42"
+
+    #: grouped by pattern, then by size within the group, so the blocks the
+    #: argument counts are visible as blocks rather than recovered from a legend
+    b["rank"] = [PATTERN_ORDER.index(p) for p in b.pattern]
+    b = b.sort_values(["rank", "median_d"],
+                      ascending=[False, True]).reset_index(drop=True)
+    b["y"] = range(len(b))
+    b["pattern"] = pd.Categorical(b.pattern, categories=PATTERN_ORDER,
+                                  ordered=True)
+    long = pd.concat([
+        b.assign(delta=b.median_delta_indiv, arm="individual"),
+        b.assign(delta=b.median_delta_inst, arm="institutional")])
+
+    lo = min(b.median_delta_indiv.min(), b.median_delta_inst.min())
+    hi = max(b.median_delta_indiv.max(), b.median_delta_inst.max())
+    pad = 0.06 * (hi - lo)
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#333333", size=0.5)
+        + geom_segment(b, aes("median_delta_indiv", "y",
+                              xend="median_delta_inst", yend="y",
+                              color="pattern"), size=0.8, alpha=0.75)
+        + geom_point(long, aes("delta", "y", color="pattern", shape="arm"),
+                     size=2.0, fill="white")
+        + scale_color_manual(values=PATTERN_COLOR, name="pattern (section 3)")
+        + scale_shape_manual(values=["o", "s"], name="arm")
+        + scale_x_continuous(limits=(lo - pad, hi + pad))
+        + scale_y_continuous(breaks=list(b.y), labels=list(b.word),
+                             limits=(-0.8, len(b) - 0.2))
+        + labs(
+            title="The same operation on both speakers, applied harder to one: the arms differ by degree and almost never by direction",
+            subtitle=(
+                "The 65 words surviving Bonferroni (p < 7.1e-05) over all 702 tested. Each row joins the\n"
+                "word's median change in the INDIVIDUAL arm (circle) to its change in the INSTITUTIONAL\n"
+                "arm (square); colour is the pattern, not the sign.\n"
+                "WHICH 65. Section 2 books two of them one line apart -- 65 individual-leaning words at\n"
+                "p < 0.01, and 65 total survivors at Bonferroni. This is the second. The first is a\n"
+                "subset of a larger set at a looser threshold and is not drawn here.\n"
+                "WHY COLOUR IS THE PATTERN AND NOT THE SIGN, which is section 3's title. `d > 0` means\n"
+                "institutional-leaning and arises two ways: the word RISES more institutionally, or it\n"
+                "FALLS less there. Thirty-five of the 65 fall in BOTH arms. A panel coloured by the sign\n"
+                "of d would show 43 institutional against 22 individual and silently read as 'the\n"
+                "institution gets more of it' for 35 words where both speakers lose the word.\n"
+                "THE SPLIT IS BY THAT SIGN AND NOT BY WHICH ARM MOVED MORE. Those are different\n"
+                "instruments on the same 65: sign gives the booked 43/22, larger-absolute-movement gives\n"
+                "37/28. Both are computable from this file and only the first is the finding's.\n"
+                "ONLY FOUR REVERSE (warm colours), and two more are flat on one side. The contrast is\n"
+                "overwhelmingly a matter of degree: across all 324 verbs measured in both arms the two\n"
+                "arms correlate at Pearson 0.909 with zero significant reversals.\n"
+                "SOME ROWS SIT AT ZERO AND STILL SURVIVED, because p here is a sign test over lineages:\n"
+                "a word qualifies on the CONSISTENCY of its direction, not the size of its median.\n"
+                "`reass` is the extreme case at a median of 9.6e-09 with 35 of 42 lineages agreeing."),
+            x="median change in word probability, aligned minus base   (p_aligned - p_base, b_word_delta.py:102)",
+            y="",
+            caption=(
+                "Producer: meta/M03_proceduralization/scripts/e_figures.py from\n"
+                "results/b_word_delta_by_word.csv (producer b_word_delta.py). plot-debt M03 candidate 2.\n"
+                "Asserted before drawing: 702 words tested; 65 survivors at Bonferroni split 43/22 by the\n"
+                "sign of median_d; all five of section 3's pattern counts; that exactly four reverse; that\n"
+                "the two 65s still collide, since the subtitle spends three lines separating them; and\n"
+                "that splitting by larger absolute movement still DISAGREES with splitting by sign, which\n"
+                "is the misreading the panel warns against.\n"
+                "SELECTION: 65 of 702 tested words, and the other 637 are not on this panel. The cut is\n"
+                "Bonferroni over the whole vocabulary, which is section 2's, not this figure's.\n"
+                "NOT CHECKABLE HERE, AND THE SUBTITLE QUOTES BOTH: section 2's '58 of the 65 are lexical\n"
+                "verbs' needs a part-of-speech column this artifact does not carry, and section 3's '324\n"
+                "verbs, Pearson 0.909' needs both that column and the per-lineage cells. Those two numbers\n"
+                "are quoted from the finding; everything else on this panel is re-derived and asserted."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(13.0, 13.6),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left"),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                axis_text_y=element_text(size=5.8),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank(),
+                legend_position="bottom", legend_box="horizontal",
+                legend_title=element_text(size=7.0),
+                legend_text=element_text(size=6.6))
+    )
+    out = os.path.join(FIGURES, "e_survivor_dumbbell.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print(f"    {len(b)} Bonferroni survivors of {len(d)} tested; "
+          f"{i_b} institutional-leaning / {v_b} individual-leaning by sign")
+    print(f"    by larger absolute movement instead: {by_magnitude} / "
+          f"{len(b) - by_magnitude}  (NOT the finding's split)")
+    for k in PATTERN_ORDER:
+        print(f"    {k:<40} {counts.get(k, 0):>3}")
+    return out
+
+
+FIGURES_REGISTRY = {"survivors": survivors, "dumbbell": dumbbell}
 
 
 def main():
