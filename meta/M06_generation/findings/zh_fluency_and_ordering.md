@@ -4,7 +4,7 @@ grade: ungraded  # single pass, no cross-seat audit; per [5503] nothing here is 
 date: 2026-08-14
 role: finding
 topics: [drift, ordering, cross-lingual, chinese, arms, fluency, jakobson]
-description: "Alignment makes models write BETTER CHINESE (20/25 pairs, p=0.0041, judged blind at Cohen kappa 0.776), and that gap PREDICTS the arm effect on total_drift (spearman -0.497, p=0.0116) that `crosslingual_arms.md` reports as its Chinese headline. The DIFFERENCE between those two dependences is established on all 25 pairs (rho difference -0.694, 95% CI [-1.184, -0.161]), so the surviving Chinese arm effect is on COMBINATION and not on SELECTION. **The restriction figures (total_drift -0.0314 -> -0.0046 against order_ratio -0.0090 -> -0.0087) are DESCRIPTIVE ONLY: the difference of those changes has a CI spanning zero and is NOT established -- corrected 2026-08-15, do not draw or cite it as the argument.** The ordering test is nominal only (18/25, p=0.043) and the restricted sign tests confirm nothing at n=6, as pre-declared. English shows NO CONSISTENT DIRECTION on ordering (14/25, p=0.69) while its spread effect holds (24/25) -- and that null is CANCELLATION, not absence: no English pair sits at zero, 9 of 25 move beyond 0.01, and |median|/IQR is 0.03 against Chinese's 0.35."
+description: "Alignment makes models write BETTER CHINESE (20/25 pairs, p=0.0041, judged blind at Cohen kappa 0.776), and that gap COVARIES with the arm effect on total_drift (symmetric evidence; no direction is claimed) (spearman -0.497, p=0.0116) that `crosslingual_arms.md` reports as its Chinese headline. The DIFFERENCE between those two dependences is established on all 25 pairs (rho difference -0.694, 95% CI [-1.184, -0.161]), so the surviving Chinese arm effect is on COMBINATION and not on SELECTION. **The restriction figures (total_drift -0.0314 -> -0.0046 against order_ratio -0.0090 -> -0.0087) are DESCRIPTIVE ONLY: the difference of those changes has a CI spanning zero and is NOT established -- corrected 2026-08-15, do not draw or cite it as the argument.** The ordering test is nominal only (18/25, p=0.043) and the restricted sign tests confirm nothing at n=6, as pre-declared. English shows NO CONSISTENT DIRECTION on ordering (14/25, p=0.69) while its spread effect holds (24/25) -- and that null is CANCELLATION, not absence: no English pair sits at zero, 9 of 25 move beyond 0.01, and |median|/IQR is 0.03 against Chinese's 0.35."
 ---
 # Chinese fluency is an arm variable, and it separates the spread effect from the ordering effect
 
@@ -140,12 +140,31 @@ through the broken/coherent distinction and not through language choice, which
 is consistent with `order_ratio` being independent of it, since a coherence
 difference is what an ordering measure is sensitive to.
 
-## 2. That gap predicts the Chinese arm effect on `total_drift`
+## 2. That gap COVARIES with the Chinese arm effect on `total_drift`
 
-Across the 25 pairs, the fluency gap predicts the drift gap:
+Across the 25 pairs, the fluency gap covaries with the drift gap:
 
     zh total_drift  unmatched   spearman -0.497   p=0.0116
     (Bonferroni threshold for the 4-test family: p < 0.0125)
+
+**THE WORD IS "COVARIES" AND NOT "PREDICTS", corrected 2026-08-15.** This
+document said *predicts* five times, including in the heading above, on
+evidence that is a SPEARMAN CORRELATION -- symmetric in its two variables.
+dario at [6227], on the same defect in `pole_axis_t_is_not_superposition.md`:
+*an ordinary least-squares line of y on x asserts exactly the asymmetry the
+finding declines.*
+
+**And the arrow is not merely unevidenced, it is the wrong shape.** Alignment
+causes BOTH the fluency change and the drift change; the across-pair
+correlation between them is a common-cause pattern, not a predictive one.
+**The confound argument does not need a direction** -- if the two covary, the
+drift measurement is not clean whichever way anything runs -- so asserting one
+buys nothing and claims more than the data holds.
+
+**Consequence for the panel proposed at [6225]:** the two confound scatters
+carry NO least-squares line. A principal axis is admissible because it is
+symmetric in the two variables; an OLS fit of drift on fluency would draw the
+arrow this paragraph withdraws.
 
 `total_drift` unmatched is the leg `crosslingual_arms.md` PERSISTED; its
 matched legs, withdrawn as unreproduced at [5932], sit at p=0.066. Pairs where
@@ -165,8 +184,8 @@ Keeping only pairs where BOTH members write Chinese (`min(score) >= 2.0`,
     order_ratio   -0.0090    -0.0087    -0.0087   rho +0.215  p=0.30
 
 **The same restriction collapses the set-diameter effect sevenfold and leaves
-the ordering effect unmoved, and the fluency gap predicts the first and not
-the second.**
+the ordering effect unmoved, and the fluency gap covaries with the first and
+not the second.**
 
 ### CORRECTED 2026-08-15: the argument is the correlations, NOT the restriction
 
@@ -188,7 +207,7 @@ hidden -- exactly the defect the plan warned about, committed one section below
 the warning.
 
 **What survives is the other leg, and it is the better one.** The fluency gap
-predicts the `total_drift` arm effect (rho -0.497) and not the `order_ratio`
+covaries with the `total_drift` arm effect (rho -0.497) and not the `order_ratio`
 one (+0.215), and **the DIFFERENCE between those correlations excludes zero on
 all 25 pairs**, not on the 6. The dissociation is real; it rests on the full
 population rather than the underpowered subset, and the restriction figures
