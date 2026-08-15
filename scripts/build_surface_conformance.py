@@ -86,10 +86,82 @@ def measure(cm, twp, mid, prompts):
             "byte_rate": round(byte / rows, 4)}
 
 
+CH_STORE = "malign_logits.twp_words"
+#: The same CJK class as CJK above. NOTE the escape form [\x{4e00}-\x{9fff}]
+#: does NOT work in ClickHouse -- it matches everything, "hello world" included.
+CH_CJK = "[一-鿿]"
+CH_BYTE = r"^<0x[0-9A-Fa-f]{2}>$"
+#: U+2581 LOWER ONE EIGHTH BLOCK, SentencePiece's word-boundary marker.
+U2581_HEX = "E29681"
+
+
+def census_rows():
+    """Every cell in the ClickHouse store, not a probe sample.
+
+    THE SECOND STORE IS THE POINT, not extra coverage (@malign, [6316]).
+    `true_word_probs` (the CacheManager stash) and `malign_logits.twp_words`
+    are two stores holding one fact, reconciled to synonymy on 10 Aug at RH's
+    instruction -- 400,644 cells, zero difference either way, from a starting
+    gap of ~127,000. **That was five days and several fleets ago.**
+    Conformance established on one store is not a property of the other,
+    however tightly they were once reconciled -- the argument @malign used
+    against `landed_v3` this afternoon, turned on this producer.
+
+    Both rows are emitted per model and never collapsed. If they never
+    disagree the second row costs four lines and proves it; if they do, we
+    learn on the day it starts rather than when a registration returns n=59.
+
+    Returns (rows, None) or ([], reason) -- NEVER a silent empty. This half
+    cannot run in every venv (`clickhouse_connect` is absent from some), and a
+    producer that quietly emits one store having promised two is the defect
+    this file exists to catch.
+    """
+    try:
+        from malign_logits import ch
+    except Exception as e:
+        return [], "import failed: %s" % str(e)[:80]
+    q = """select model,
+                  countIf(NOT match(prompt, '%s')) AS en_rows,
+                  countIf(NOT match(prompt, '%s') AND startsWith(word, unhex('%s'))) AS en_mark,
+                  countIf(NOT match(prompt, '%s') AND match(word, '%s')) AS en_byte,
+                  countIf(match(prompt, '%s')) AS zh_rows,
+                  countIf(match(prompt, '%s') AND startsWith(word, unhex('%s'))) AS zh_mark,
+                  countIf(match(prompt, '%s') AND match(word, '%s')) AS zh_byte
+           from %s group by model order by model""" % (
+        CH_CJK, CH_CJK, U2581_HEX, CH_CJK, CH_BYTE,
+        CH_CJK, CH_CJK, U2581_HEX, CH_CJK, CH_BYTE, CH_STORE)
+    try:
+        res = list(ch.query(q))
+    except Exception as e:
+        return [], "query failed: %s" % str(e)[:80]
+    rows = []
+    for r in res:
+        def part(pre):
+            n = r["%s_rows" % pre]
+            if not n:
+                return None
+            return {"prompts": None, "rows": n,
+                    "u2581_rate": round(r["%s_mark" % pre] / n, 4),
+                    "byte_rate": round(r["%s_byte" % pre] / n, 4)}
+        e, z = part("en"), part("zh")
+        rates = [x for x in (e, z) if x]
+        if not rates:
+            continue
+        wu = max(x["u2581_rate"] for x in rates)
+        wb = max(x["byte_rate"] for x in rates)
+        rows.append({"model": r["model"], "store": CH_STORE, "en": e, "zh": z,
+                     "worst_u2581": wu, "worst_byte": wb,
+                     "conforms": wu <= U2581_MAX and wb <= BYTE_MAX})
+    return rows, None
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--n", type=int, default=6, help="probe prompts per script")
+    ap.add_argument("--no-census", action="store_true",
+                    help="stash probe only; the ClickHouse half needs "
+                         "clickhouse_connect, absent from some venvs")
     a = ap.parse_args()
 
     from malign_logits import twp
@@ -119,15 +191,42 @@ def main():
         if not ok:
             bad.append(row)
 
+    census, census_skip = ([], "--no-census") if a.no_census else census_rows()
+
+    #: CROSS-STORE AGREEMENT IS THE DRIFT SIGNAL, and it is why both rows are
+    #: kept. Synonymy was verified 10 Aug; a verdict that differs between the
+    #: stash and ClickHouse means one of them has moved since.
+    by_store = {}
+    for r in out + census:
+        by_store.setdefault(r["model"], {})[r["store"]] = r
+    both = {m: v for m, v in by_store.items() if len(v) == 2}
+    disagree = [m for m, v in both.items()
+                if len({x["conforms"] for x in v.values()}) > 1]
+
     print("  surface conformance, store=true_word_probs, %d probes per script"
           % a.n)
-    print("  %d models measured, %d with no cells on the probes\n"
+    print("  %d models measured, %d with no cells on the probes"
           % (len(out), nodata))
+    if census_skip:
+        print("  CENSUS HALF DID NOT RUN (%s) -- this artifact covers ONE store"
+              % census_skip)
+    else:
+        print("  census, store=%s: %d models, %s cells"
+              % (CH_STORE, len(census),
+                 format(sum((x["en"] or {}).get("rows", 0)
+                            + (x["zh"] or {}).get("rows", 0)
+                            for x in census), ",")))
+        print("  models in BOTH stores: %d | verdicts DISAGREEING: %d %s"
+              % (len(both), len(disagree),
+                 disagree[:3] if disagree else ""))
+    print()
+    bad = [r for r in out + census if not r["conforms"]]
     if bad:
         print("  NON-CONFORMING:")
         for r in bad:
-            print("     %-52s u2581 %.3f  byte %.3f" %
-                  (r["model"][:52], r["worst_u2581"], r["worst_byte"]))
+            print("     %-52s [%s] u2581 %.3f  byte %.3f" %
+                  (r["model"][:52], r["store"], r["worst_u2581"],
+                   r["worst_byte"]))
             for k in ("en", "zh"):
                 if r[k]:
                     print("        %s  u2581 %.3f  byte %.3f  (%d rows)"
@@ -151,7 +250,13 @@ def main():
                              "on a CJK-heavy model dilutes an English defect "
                              "below any threshold",
             "_n_probes_per_script": a.n,
-            "models": out}, open(p, "w"), indent=1)
+            "_stores": ["true_word_probs"] if census_skip
+                       else ["true_word_probs", CH_STORE],
+            "_census_skipped": census_skip,
+            "_cross_store": {"in_both": len(both),
+                             "verdicts_disagree": len(disagree),
+                             "disagreeing": sorted(disagree)},
+            "models": out + census}, open(p, "w"), indent=1)
         print("\n  wrote %s" % p)
     return 0
 
