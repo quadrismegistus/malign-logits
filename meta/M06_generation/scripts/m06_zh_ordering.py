@@ -49,6 +49,13 @@ OUT = os.path.join(OUTD, "zh_ordering.json")
 BOOKED = {"metric": "total_drift", "lang": "zh", "matched": False,
           "neg": 21, "n": 25, "median": -0.0314, "tol": 5e-4}
 FLUENT_THRESHOLDS = (0.0, 1.5, 2.0)
+#: bootstrap seed. Declared here rather than borrowed: the first version of
+#: the interval block referenced `SEED` from a sibling producer's namespace
+#: and raised NameError -- which is the right failure, since an unseeded
+#: bootstrap would have produced a different CI on every run and nothing
+#: would have looked wrong.
+SEED = 20260814
+BOOT = 20000
 SCORE = {"fluent": 3, "flawed": 2, "broken": 1, "not_chinese": 0}
 
 
@@ -230,6 +237,86 @@ def main():
             print("    %-12s n=%d  spearman %+.3f  p=%.4g  -> %s"
                   % (metric, len(xs), rho, pv,
                      "tracks fluency" if pv < .05 else "independent of fluency"))
+
+    #: ---- 5. PUT THE INTERVAL INSIDE THE COMPARISON ----
+    #: malign at [6188]: *freezing a rule does not supply it an error bar*.
+    #: This finding's headline compared two CHANGES under restriction
+    #: (-0.0314 -> -0.0046 against -0.0090 -> -0.0087) with no uncertainty on
+    #: either, having disclaimed the restricted p-values and then leaned on
+    #: restricted POINT ESTIMATES from the same 6 pairs. Both quantities get
+    #: a paired bootstrap: one resample of PAIRS per replicate, both metrics
+    #: computed on it, so the two are correlated exactly as the data are.
+    print("\n5. INTERVALS ON THE COMPARISONS THEMSELVES")
+    import random as _rnd
+    tab = {}
+    for m in ("total_drift", "order_ratio"):
+        for p, v in per_pair(d, m, "zh").items():
+            if v == v:
+                tab.setdefault(p, {})[m] = float(v)
+    allp = [p for p, v in tab.items() if len(v) == 2]
+    flu = [p for p in allp
+           if p.split(">")[0] in sc and p.split(">")[1] in sc
+           and min(sc[p.split(">")[0]], sc[p.split(">")[1]]) >= 2.0]
+
+    def _med(v):
+        v = sorted(v)
+        n = len(v)
+        return v[n // 2] if n % 2 else 0.5 * (v[n // 2 - 1] + v[n // 2])
+
+    B, rr = BOOT, _rnd.Random(SEED)
+    chg = {"total_drift": [], "order_ratio": []}
+    dif = []
+    for _ in range(B):
+        A = [allp[rr.randrange(len(allp))] for _ in allp]
+        F = [flu[rr.randrange(len(flu))] for _ in flu]
+        row = {}
+        for m in chg:
+            row[m] = _med([tab[p][m] for p in F]) - _med([tab[p][m] for p in A])
+            chg[m].append(row[m])
+        dif.append(row["total_drift"] - row["order_ratio"])
+
+    def _ci(v):
+        v = sorted(v)
+        return _med(v), v[int(.025 * len(v))], v[int(.975 * len(v))]
+
+    out["intervals"] = {}
+    for m in ("total_drift", "order_ratio"):
+        c, lo, hi = _ci(chg[m])
+        out["intervals"]["change_%s" % m] = {"est": c, "lo": lo, "hi": hi}
+        print("   change under restriction %-12s %+.4f [%+.4f, %+.4f] %s"
+              % (m, c, lo, hi, "excludes 0" if lo > 0 or hi < 0 else "INCLUDES 0"))
+    c, lo, hi = _ci(dif)
+    out["intervals"]["difference_of_changes"] = {"est": c, "lo": lo, "hi": hi}
+    print("   DIFFERENCE OF CHANGES        %+.4f [%+.4f, %+.4f] -> %s"
+          % (c, lo, hi, "ESTABLISHED" if lo > 0 or hi < 0 else "NOT ESTABLISHED"))
+
+    #: the confound-correlation difference, which is the leg that survives
+    gap = {p: sc[p.split(">")[1]] - sc[p.split(">")[0]] for p in allp
+           if p.split(">")[0] in sc and p.split(">")[1] in sc}
+    P = [p for p in allp if p in gap]
+    rt = stats.spearmanr([gap[p] for p in P],
+                         [tab[p]["total_drift"] for p in P]).statistic
+    ro = stats.spearmanr([gap[p] for p in P],
+                         [tab[p]["order_ratio"] for p in P]).statistic
+    ds = []
+    for _ in range(B):
+        S = [P[rr.randrange(len(P))] for _ in P]
+        g = [gap[p] for p in S]
+        if len(set(g)) < 3:
+            continue
+        a = stats.spearmanr(g, [tab[p]["total_drift"] for p in S]).statistic
+        b = stats.spearmanr(g, [tab[p]["order_ratio"] for p in S]).statistic
+        if a == a and b == b:
+            ds.append(a - b)
+    c, lo, hi = _ci(ds)
+    out["intervals"]["confound_rho_difference"] = {
+        "total_drift_rho": float(rt), "order_ratio_rho": float(ro),
+        "est": c, "lo": lo, "hi": hi, "n_pairs": len(P)}
+    print("   confound rho difference (n=%d) %+.3f [%+.3f, %+.3f] -> %s"
+          % (len(P), c, lo, hi,
+             "ESTABLISHED" if lo > 0 or hi < 0 else "NOT ESTABLISHED"))
+    print("   -> the dissociation rests on the CORRELATIONS at n=25, not on")
+    print("      the restriction at n=6.")
 
     json.dump(out, open(OUT, "w"), indent=1)
     print("\n-> %s" % os.path.relpath(OUT, ROOT))

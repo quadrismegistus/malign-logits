@@ -146,9 +146,33 @@ Keeping only pairs where BOTH members write Chinese (`min(score) >= 2.0`,
 
 **The same restriction collapses the set-diameter effect sevenfold and leaves
 the ordering effect unmoved, and the fluency gap predicts the first and not
-the second.** That is the argument, and it is not the restricted p-values --
-`plan_zh_ordering.md` declared in advance that a sign test over 6 pairs can
-only return 6/6 (p=0.031) or nothing, and it returned 5/6 and 6/8.
+the second.**
+
+### CORRECTED 2026-08-15: the argument is the correlations, NOT the restriction
+
+The paragraph above compared two CHANGES with no uncertainty on either. Prompted
+by malign at [6188] -- *freezing a rule does not supply it an error bar* -- both
+comparisons now carry a paired bootstrap (one resample of PAIRS per replicate,
+both metrics computed on it, 20,000 replicates, in `m06_zh_ordering.py`):
+
+    change under restriction  total_drift  +0.0221  [-0.0040, +0.0379]  INCLUDES 0
+    change under restriction  order_ratio  +0.0001  [-0.0417, +0.0164]  INCLUDES 0
+    DIFFERENCE OF THE CHANGES              +0.0249  [-0.0183, +0.0584]  NOT ESTABLISHED
+
+    confound rho difference (n=25)         -0.694   [-1.184, -0.161]    ESTABLISHED
+
+**So "collapses versus stays" is DESCRIPTIVE and not established.** I had
+disclaimed the restricted p-values and then leaned on restricted POINT
+ESTIMATES from the same six pairs, which is the same n with the uncertainty
+hidden -- exactly the defect the plan warned about, committed one section below
+the warning.
+
+**What survives is the other leg, and it is the better one.** The fluency gap
+predicts the `total_drift` arm effect (rho -0.497) and not the `order_ratio`
+one (+0.215), and **the DIFFERENCE between those correlations excludes zero on
+all 25 pairs**, not on the 6. The dissociation is real; it rests on the full
+population rather than the underpowered subset, and the restriction figures
+below should be read as illustration.
 
 ## The ordering statistic, and why it is a ratio
 
