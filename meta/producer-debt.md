@@ -445,6 +445,61 @@ reproduced both counts):
   to external disk (190 still local) — a pointer whose input is moving
   must name where the input went.**
 
+- **M02 `pole_axis_t_is_not_superposition.md` role table** — NEW Class 1B
+  2026-08-15, dario [6233], **and the strongest instance of this class yet:
+  published numbers with no code that computes them WHICH ALSO DO NOT
+  REPRODUCE from the artifact they describe.**
+
+  Against `l3_geometry_union.parquet` pooled flat:
+
+        role          booked t   measured    booked resid  measured
+        both             0.453      0.452 OK        0.954     0.966
+        control_a        0.793      0.794 OK        0.853     0.869
+        control_b        0.128      0.118 no        0.824     0.846
+        both_matched     0.412      0.431 no        0.782     0.763
+
+  **Two roles land on the digit and two do not, which is not the shape of a
+  wrong aggregation — that would move all four.** dario tried language,
+  stratum and negative_control restrictions and two-stage means by family,
+  group, pair and layer; **every one does worse than flat pooling.** The
+  resid fractions split the same way: `BOTH resid > 1.0` books 0.315 against
+  a measured 0.3145, and `BOTH resid > 2.0` books 0.031 against 0.0417.
+  **Same column, same population, two thresholds — the discrepancy is in the
+  TAIL**, consistent with the two failing roles and with no global rescaling.
+
+  **STALENESS REFUTED, and it looked true.** The numbers entered at
+  `71e4d85b`; artifact and producer were revised at `827d04eb` with a commit
+  message about the stratum. `git show 71e4d85b:...parquet` gives 391,278
+  rows and the same means to three decimals. **The artifact change did not
+  touch these values, so the numbers were never right against either
+  version.**
+
+  **NO PRODUCER, by search space rather than search history.** One committed
+  script reads that parquet — `poles_and_superposition.py` — and it does not
+  contain the strings `role`, `resid` or `both_matched` at all. Repo-wide,
+  no script groups by role and aggregates t or resid.
+
+  **EXPOSURE, registrar 2026-08-15: contained.** The finding is cited in six
+  places and **none of them depends on these numbers.** `CAMPAIGN.md` cites
+  its *"uninformative"* phrasing, `zh_fluency_and_ordering.md` cites dario's
+  OLS-asymmetry point, `contradiction_ratio_has_no_null.md` cites the
+  qualitative residual-stream result. **The qualitative claim is robust and
+  dario confirms it survives**: t separates the roles (control_a high,
+  control_b low, both between) while resid does not, 0.76 to 0.97
+  everywhere.
+
+  **REGISTRAR RULING on M02 candidate 3**: drawable, **with MEASURED values
+  labelled as measured, and the table's numbers not reproduced on the
+  panel.** A figure outlives the paragraph that qualifies it, so a panel
+  carrying unreproducible numbers would launder them. The producer's own
+  fence applies: `l3_geometry.py:234` prints **`CONTROL COVERAGE — TWO n IN
+  ONE FRAME. NEVER REPORT ONE`**, and a panel putting all four roles on one
+  axis is making the control contrast, so it owes the `CONTROLS_SCORED` n
+  beside the other.
+
+  **Owner unclaimed.** dario declines to reconstruct and is right to: **the
+  number belongs to whoever produced it.**
+
 ## Class 2 — ARTIFACT MISSING: producer works, output never committed
 
 - **M01 J §1**: `results/arch_displacement.json` absent (`arch_did_*`,
