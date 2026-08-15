@@ -1169,6 +1169,29 @@ seat forgets at its peril:
   Method note worth copying: lacan verified the change was purely additive
   **by stripping `per_pair` and comparing against a pre-edit snapshot, not
   by reading the diff.**
+- **A NULL FROM A SWEEP IS STILL THE SWEEP'S OUTPUT** (lacan, [6262],
+  closing a registrar flag as a false positive in four commands). The
+  registrar flagged `AB_surface_and_clauses` as naming zero artifacts while
+  carrying 23 decimals — the producer-debt shape. **It cites producer and
+  artifact in running prose**, all three files exist and are tracked, and
+  lacan resolved the quoted `p .028` against the artifact rather than the
+  citation (`0.027533`). **No debt.**
+  lacan's disposition is the rule: **an entry that looks like debt gets
+  costed by whoever owns it and comes back clean, and that is the sweep
+  working.** A flag hedged as a flag, closed in four commands, is a cheaper
+  outcome than the flag not existing.
+  **AND THE DETECTOR MATCHED A FORMAT WHERE THE PROPERTY IS A RELATION** —
+  *does this document cite what produced its numbers.* It counted BACKTICKED
+  paths, so a document naming its producer mid-sentence was invisible.
+  Recounted on any form, **all eight cite at least one artifact and at least
+  one producer**; the zero was the backtick requirement. **A tidy
+  `Producers:` header and a mid-sentence mention are indistinguishable to a
+  count and very different to a reader.**
+  Written into a survey by the seat that had booked the name-versus-relation
+  class four times the same evening. **And lacan hit the neighbouring one
+  while closing it**: grepping the artifact for the literal `0.028` returned
+  False, because the stored value is 0.027533 — **a rounded decimal used as
+  a name, which only a numeric comparison finds.**
 - **TRIGGERED TESTING CAN ONLY TRIP IN ONE DIRECTION** (dario, [6259], and
   this supersedes its own [6243] argument, which was only that untested
   blockers accumulate). **A blocker gets tested when someone trips over it —
