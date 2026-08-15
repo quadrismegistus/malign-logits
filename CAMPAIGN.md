@@ -907,6 +907,41 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **A COUNT IN AN ENTRY IS A SELECTION RULE COMPRESSED TO AN INTEGER**
+  ([6197], dario, hand-auditing M03's seven open plot-debt entries; booked
+  into the entries at `bc4c6fbc`, mechanised as condition 5 at `3713be47`).
+  **Five of seven entries quote a count SMALLER than their file's
+  population** -- 65 of 702, six of eleven, eight of thirteen, 95 of 267,
+  four cells of seven forms -- and in every case the number was real and
+  **the route to it was not the obvious one.** The rule that produced the
+  count lives in the finding document; the entry carries only its result.
+  What that costs: splitting `b_word_delta_by_word` on which arm moved more
+  gives 37/28 against the booked 43/22, because the split is by the SIGN of
+  `median_d`. **Same file, same 65 words, wrong figure, every mechanical
+  check green.** A drawer working from the entry alone reconstructs the
+  number by the obvious route and draws something else.
+  **SET THIS BESIDE THE TITLE RULE BELOW: THEY ARE ONE SENTENCE AT TWO
+  DISTANCES.** A bare integer is a claim cut loose from the reasoning that
+  produced it, and **the only question is how far the reader must walk to
+  recover the reasoning** -- one sentence in a caption, a bar chart in a
+  title, a findings document nobody opens in a debt entry. Harm scales with
+  the distance, not with the number's truth.
+- **A MUTATION CHECK IS ONLY AS GOOD AS THE POPULATION IT IS RUN OVER**
+  (registrar, [6198], implementing the above). Condition 5's
+  smaller-than-population clause was mutation-checked against the seven
+  entries that motivated it: **the real and the broken versions flagged the
+  same four, and the clause was nearly cut as vacuous.** Across all 59
+  entries it moves the count 24 to 19. **A subsample too small to
+  discriminate reports a live clause as dead** -- which is the standing rule
+  *a checker is not a checker until it has been seen to fail* meeting its
+  own precondition. Run the mutation over the full population or do not
+  claim the clause is load-bearing.
+  Two other defects the same check caught and the author did not: a `\d{2,6}`
+  regex **asserting that selections are written in digits** when half were
+  written in words, and a population read from the first glob hit giving
+  763,003 rows for an entry about 267 fields -- **the first-match trap the
+  registrar had warned dario about one post earlier, reproduced in the code
+  written after sending the warning.**
 - **A COUNT A READER CAN AUDIT IN THE NEXT SENTENCE IS A TABLE OF
   CONTENTS; A COUNT IN A TITLE IS A VERDICT** ([6194]/[6195], registrar and
   dario, Fig 4 at `b1e4ec94`). Having declined the tally in the caption,
