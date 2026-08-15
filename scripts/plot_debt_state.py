@@ -188,7 +188,7 @@ def selection(txt, path):
 
 
 RETRACT = re.compile(
-    r"retract|withdraw|superseded|does not hold|did not hold|no longer holds"
+    r"retract|withdraw|superseded|supersedes|refuted|refutes|does not hold|did not hold"
     r"|does NOT replicate|is dead|now dead|confounded", re.I)
 
 
@@ -230,6 +230,29 @@ def retracted(folder, txt):
                     or base.startswith(doc_tok.lower() + ".")):
                 continue
             body = open(path, errors="ignore").read().splitlines()
+            #: THE FRONT MATTER AND THE LETTERED SIBLINGS. dario [6205]:
+            #: *"I had read as far as the retraction and stopped, because the
+            #: retraction was what I was checking for."* **A grep for
+            #: retractions finds the one you grep for.** Worse here: this
+            #: doc's `## 3b.` is a TOP-LEVEL sibling of `## 3.`, so a scan
+            #: that stops at the next `##` terminates EXACTLY where the
+            #: supersession begins -- and the document says so in its front
+            #: matter, before section 1: *"sections 2 and 3 are superseded by
+            #: 3b and 3c wherever they disagree."* The tool read neither.
+            first = next((k for k, l in enumerate(body)
+                          if re.match(r"^##\s+(?!#)", l)), len(body))
+            for line in body[:first]:
+                if RETRACT.search(line) and re.search(r"\bsection", line, re.I):
+                    hits.append("%s [FRONT MATTER] %s"
+                                % (os.path.basename(path), line.strip()[:64]))
+            for k, line in enumerate(body):
+                m2 = re.match(r"^##\s+%s([a-z])[.\s]" % re.escape(sec), line)
+                nxt = next((j for j in range(k + 1, len(body))
+                            if re.match(r"^##\\s+(?!#)", body[j])), len(body))
+                if m2 and RETRACT.search("\n".join(body[k:nxt])):
+                    hits.append("%s [SIBLING SECTION %s%s] %s"
+                                % (os.path.basename(path), sec, m2.group(1),
+                                   line.lstrip("# ").strip()[:56]))
             start = None
             for i, line in enumerate(body):
                 if re.match(r"^##\s+%s[.\s]" % re.escape(sec), line):
