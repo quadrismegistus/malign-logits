@@ -328,6 +328,7 @@ BOOKED_3C = {
                   "label": "NONMOVER  -  RISER", "pred": "predicted NEAR zero"},
 }
 ROWS = ["f_minus_n", "f_minus_r", "n_minus_r"]
+STRIP_X_LIM = (-1.04, 0.58)
 DOT_C, MED_C, HI_C = "#9a9a9a", "#2b2b2b", "#b03030"
 
 
@@ -386,6 +387,11 @@ def sweep_strips():
          "the panel's headline says it does")
 
     d_pts, d_rows = pd.DataFrame(pts), pd.DataFrame(rows)
+    #: NOTHING MAY BE CLIPPED: an off-panel cell would silently subtract one
+    #: dot from a panel whose whole evidence is how the 28 dots are spread.
+    assert d_pts.v.min() > STRIP_X_LIM[0] and d_pts.v.max() < STRIP_X_LIM[1], \
+        (f"cells span {d_pts.v.min():+.4f}..{d_pts.v.max():+.4f} against an "
+         f"axis of {STRIP_X_LIM}")
     #: precomputed rather than expressed inside aes(): plotnine evaluates aes
     #: strings, so an expression there works until it silently does not, and a
     #: mapped `size` would build a scale and rescale the very values it shows
@@ -429,7 +435,7 @@ def sweep_strips():
         #: LIMITS SET FROM THE DATA, NOT FROM A ROUND NUMBER. The first version
         #: ran to +/-1.0 while the cells span -0.47 to +0.51, so half the panel
         #: was empty and the evidence sat compressed in the middle third.
-        + scale_x_continuous(limits=(-1.04, 0.58),
+        + scale_x_continuous(limits=STRIP_X_LIM,
                              breaks=[-0.4, -0.2, 0, 0.2, 0.4])
         + scale_y_continuous(breaks=[], limits=(-0.55, len(ROWS) - 0.35))
         + labs(
@@ -492,7 +498,234 @@ def sweep_strips():
     return out
 
 
-REGISTRY = {"cross_own": cross_own, "sweep_strips": sweep_strips}
+
+
+#: Section 3e. Keyed on the BASE side of the pair string, which is how the
+#: document names them; the aligned side reads SmolLM2-360M-Instruct and would
+#: match nothing here.
+BOOKED_3E = {
+    "stabilityai/stablelm-2-1_6b": (+0.2179, 0.0187),
+    "tiiuae/Falcon3-1B-Base": (+0.1883, 0.1017),
+    "allenai/OLMo-2-0425-1B": (-0.2157, 0.1343),
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": (+0.0594, 0.1474),
+    "HuggingFaceTB/SmolLM2-360M": (+0.0386, 0.0666),
+    "Qwen/Qwen2.5-0.5B": (-0.0197, 0.1439),
+}
+#: pooled over all 28 cells, and the decomposition that explains why
+BOOKED_POOLED = {"med": +0.0531, "pos": 17, "p": 0.227}
+BOOKED_DECOMP = {"total": 0.1015, "baseline": 0.1633, "residual": 0.0951}
+#: THE TWO 0.0019s. Kruskal-Wallis across the six pairs HOLDS. A modal-sign
+#: count over the same 28 values gives the SAME p to four decimals against a
+#: naive 0.5 null and does NOT hold, because the modal sign is defined by the
+#: majority: under random signs a 5-prompt pair already agrees 3.44 times.
+BOOKED_KW_P = 0.0019
+BOOKED_SIGN = {"agree": 22, "n": 28, "naive_p": 0.0019, "correct_exp": 19.24,
+               "correct_p": 0.077}
+PAIR_C, HI_POS, HI_NEG = "#9a9a9a", "#1a7a6a", "#b03030"
+X_LIM = (-0.71, 0.40)
+#: KEY ON THE ID, LABEL WITH THE DOCUMENT'S NAME. Section 3e writes
+#: "TinyLlama-1.1B"; the id carries a further 26 characters of checkpoint
+#: detail that would run the row label into the data. Both are kept so the
+#: assert cannot pass on a display string.
+DISPLAY = {"TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T": "TinyLlama-1.1B"}
+
+
+def baseline_strips():
+    """M04 candidate 6: the pooled null is cancellation, not absence."""
+    from scipy.stats import binomtest, kruskal, wilcoxon
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_segment, geom_text, geom_vline, ggplot, labs,
+                          scale_color_identity, scale_x_continuous,
+                          scale_y_continuous, theme, theme_minimal)
+    import pandas as pd
+
+    cells = json.load(open(os.path.join(RESULTS, "attn_norm_sweep_full.json")))
+    assert len(cells) == BOOKED_SWEEP["cells"], f"{len(cells)} cells, not 28"
+
+    #: the baseline shift: log of the ratio of each arm's OWN undisturbed
+    #: attention-back, median over that cell's heads
+    shift, by_pair = [], {}
+    for x in cells:
+        ub, ua = np.array(x["U"]["base"]), np.array(x["U"]["aligned"])
+        v = float(np.median(np.log(ua / ub)))
+        shift.append(v)
+        by_pair.setdefault(x["pair"].split(">")[0], []).append(v)
+    b = np.array(shift)
+
+    assert abs(np.median(b) - BOOKED_POOLED["med"]) < 5e-5, "pooled median"
+    assert int((b > 0).sum()) == BOOKED_POOLED["pos"], "pooled positive count"
+    _, p_pool = wilcoxon(b)
+    assert abs(p_pool - BOOKED_POOLED["p"]) < 5e-4, f"pooled p {p_pool:.4f}"
+
+    assert set(by_pair) == set(BOOKED_3E), \
+        f"pairs drifted: {sorted(set(by_pair) ^ set(BOOKED_3E))}"
+    rows = []
+    for pair, vals in by_pair.items():
+        v = np.array(vals)
+        med = float(np.median(v))
+        iqr = float(np.percentile(v, 75) - np.percentile(v, 25))
+        bm, bi = BOOKED_3E[pair]
+        assert abs(med - bm) < 5e-5, f"{pair}: median {med:+.4f} vs {bm}"
+        assert abs(iqr - bi) < 5e-5, f"{pair}: IQR {iqr:.4f} vs {bi}"
+        rows.append({"pair": DISPLAY.get(pair, pair.split("/")[-1]),
+                     "med": med, "iqr": iqr,
+                     "n": len(v), "vals": v})
+
+    _, p_kw = kruskal(*by_pair.values())
+    assert abs(p_kw - BOOKED_KW_P) < 5e-5, f"Kruskal-Wallis p {p_kw:.4f}"
+
+    #: THE COLLISION, PINNED. Two tests over the same 28 numbers print the same
+    #: p to four decimals and only one is admissible. If they ever separate,
+    #: the panel's three lines distinguishing them become noise and should go.
+    agree = sum(int(max((np.array(v) > 0).sum(), (np.array(v) < 0).sum()))
+                for v in by_pair.values())
+    assert agree == BOOKED_SIGN["agree"], f"modal-sign agreement {agree}, not 22"
+    p_naive = binomtest(agree, BOOKED_SIGN["n"], 0.5,
+                        alternative="greater").pvalue
+    assert abs(p_naive - BOOKED_SIGN["naive_p"]) < 5e-5, f"naive p {p_naive:.4f}"
+    assert round(p_naive, 4) == round(p_kw, 4), \
+        ("the Kruskal-Wallis p and the discredited sign-test p no longer agree "
+         "to four decimals; the panel spends three lines separating them")
+    #: and the correct null for a majority-defined statistic
+    exp = sum(np.mean([max(k, len(v) - k) for k in
+                       np.random.default_rng(0).binomial(len(v), 0.5, 40000)])
+              for v in by_pair.values())
+    assert abs(exp - BOOKED_SIGN["correct_exp"]) < 0.05, f"null expectation {exp:.2f}"
+
+    #: the decomposition: the BASELINE is larger than the TOTAL it sits inside
+    tot, res = [], []
+    for x in cells:
+        ub, ua = np.array(x["U"]["base"]), np.array(x["U"]["aligned"])
+        for w in ("FALLER", "NONMOVER", "RISER"):
+            lb = np.array(x["levels"][w + "_base"])
+            la = np.array(x["levels"][w + "_aligned"])
+            tot.append(float(np.median(np.log(la / lb))))
+            res.append(abs(x["d_norm"][w]))
+    d_tot, d_bas, d_res = (float(np.median(np.abs(tot))),
+                           float(np.median(np.abs(b))), float(np.median(res)))
+    for name, got, bk in (("total", d_tot, BOOKED_DECOMP["total"]),
+                          ("baseline", d_bas, BOOKED_DECOMP["baseline"]),
+                          ("residual", d_res, BOOKED_DECOMP["residual"])):
+        assert abs(got - bk) < 5e-5, f"|{name}| {got:.4f} vs section 3e's {bk}"
+    assert d_bas > d_tot, \
+        "the baseline is no longer larger than the total; that is the panel's point"
+
+    #: NOTHING MAY BE CLIPPED. A point outside the limits vanishes silently,
+    #: and a missing dot on a panel whose argument is the SPREAD of the dots
+    #: would subtract evidence without raising anything.
+    assert float(b.min()) > X_LIM[0] and float(b.max()) < X_LIM[1], \
+        (f"data spans {b.min():+.4f}..{b.max():+.4f} and the axis is {X_LIM}; "
+         "a cell would be drawn off-panel")
+
+    d_rows = pd.DataFrame(rows).sort_values("med").reset_index(drop=True)
+    d_rows["y"] = range(len(d_rows))
+    d_rows["col"] = [HI_NEG if m < -0.15 else HI_POS if m > 0.15 else "#2b2b2b"
+                     for m in d_rows.med]
+    d_rows["y0"], d_rows["y1"] = d_rows.y - 0.22, d_rows.y + 0.22
+    d_rows["lx"] = -0.70
+    d_rows["lab_y"], d_rows["stat_y"] = d_rows.y + 0.17, d_rows.y - 0.13
+    d_rows["stat"] = [f"n={r.n}   median {r.med:+.4f}   IQR {r.iqr:.4f}"
+                      for r in d_rows.itertuples()]
+    pts = pd.DataFrame([{"y": r.y, "v": v, "col": r.col}
+                        for r in d_rows.itertuples() for v in r.vals])
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#333333", size=0.6)
+        + geom_vline(xintercept=float(np.median(b)), linetype="dashed",
+                     color="#777777", size=0.5)
+        + geom_point(pts, aes("v", "y", color="col"), size=2.2, alpha=0.8)
+        + geom_segment(d_rows, aes("med", "y0", xend="med", yend="y1"),
+                       color="#2b2b2b", size=1.6)
+        + geom_text(d_rows, aes("lx", "lab_y", label="pair"), size=7.4,
+                    ha="left", color="#222222")
+        + geom_text(d_rows, aes("lx", "stat_y", label="stat"), size=6.4,
+                    ha="left", color="#666666")
+        + geom_text(pd.DataFrame([{"x": float(np.median(b)) + 0.012, "y": 5.62,
+                                   "t": f"pooled median {np.median(b):+.4f}   "
+                                        f"Wilcoxon p {p_pool:.3f}   NULL"}]),
+                    aes("x", "y", label="t"), size=6.6, ha="left",
+                    color="#777777")
+        + scale_color_identity()
+        #: THE LEFT GUTTER IS SIZED AGAINST THE LEFTMOST DATUM. I first wrote
+        #: -0.243 here, read off an earlier render rather than measured: the
+        #: true minimum is OLMo on `sexual_explicit_1` at -0.4976, twice as far
+        #: out. A number taken from a picture is a guess with a decimal point.
+        + scale_x_continuous(limits=X_LIM,
+                             breaks=[-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3])
+        + scale_y_continuous(breaks=[], limits=(-0.6, len(d_rows) - 0.15))
+        + labs(
+            title="The pooled test is null because the pairs disagree in sign, not because nothing moves",
+            subtitle=(
+                "Change in each model's attention-back to its OWN undisturbed continuation, aligned minus\n"
+                "base, as a log ratio. One dot per prompt, grouped by model pair, heavy tick at the pair\n"
+                "median. This is the quantity D_norm divides out.\n"
+                "POOLED ACROSS ALL 28 CELLS THE SHIFT IS NULL: median +0.0531, 17 of 28 positive,\n"
+                "Wilcoxon p 0.227. PER PAIR IT IS NOT: Kruskal-Wallis across the six pairs, p 0.0019.\n"
+                "Which pair you are in predicts the shift. The dashed line is the pooled median and it\n"
+                "sits between two pairs that move by a fifth in opposite directions.\n"
+                "THE NULL IS CANCELLATION, NOT ABSENCE. stablelm at +0.2179 and OLMo at -0.2157 very\n"
+                "nearly annihilate. Three pairs shift by around a fifth and three barely move.\n"
+                "THE INSTRUMENT HID IT FIRST AND THE POOLED TEST HID IT SECOND. D_norm divides each arm\n"
+                "by this baseline, so any effect moving forced and self-chosen words TOGETHER is zero by\n"
+                "construction -- and that is the most likely shape for a general effect. The median\n"
+                "|baseline| is 0.1633 against a median |total| of 0.1015: the part divided out is LARGER\n"
+                "than the total it sits inside.\n"
+                "TWO TESTS ON THIS PANEL'S 28 NUMBERS PRINT p = 0.0019 AND ONLY ONE IS ADMISSIBLE. The\n"
+                "Kruskal-Wallis holds. A modal-sign count -- 22 of 28 prompts agreeing with their pair's\n"
+                "majority sign -- gives the identical p against a naive one-sided 0.5 null and does NOT,\n"
+                "because the modal sign IS the majority: under random signs a 5-prompt pair already\n"
+                "agrees 3.44 times, the correct null expects 19.24 of 28, and p is 0.077. Section 3e\n"
+                "reports it only because it was run first and got it wrong.\n"
+                "LIMITS. 6 pairs and 5 sexual prompts, but 28 cells rather than 30: two pairs contribute\n"
+                "four. U is measured on undisturbed generations from these prompts only. Nothing here\n"
+                "says the shift is general rather than a property of this domain, and nothing predicts\n"
+                "its direction."),
+            x="log ratio of aligned to base attention-back on each model's own undisturbed continuation",
+            y="",
+            caption=(
+                "Producer: meta/M04_syntagmatic/scripts/attn_figures.py from\n"
+                "results/attn_norm_sweep_full.json (producers attn_decompose.py, attn_norm_sweep.py).\n"
+                "plot-debt M04 candidate 6. The `_full` file is required here and not interchangeable\n"
+                "with attn_norm_sweep.json: only it stores U and the per-head levels, which is why\n"
+                "section 3e needed a re-run.\n"
+                "Asserted before drawing: 28 cells; the pooled median, positive count and Wilcoxon p;\n"
+                "all six pair medians AND their IQRs; the Kruskal-Wallis p; the decomposition medians\n"
+                "for total, baseline and residual, and that the baseline still exceeds the total.\n"
+                "Two asserts guard the coincidence rather than a value: that the modal-sign count is\n"
+                "still 22 of 28 and that its naive p still equals the Kruskal-Wallis p to four decimals.\n"
+                "If those ever separate, the panel's five lines distinguishing them are noise and should\n"
+                "be cut. The corrected null expectation of 19.24 is recomputed by simulation.\n"
+                "Pairs are keyed on the BASE side of the pair string, which is how section 3e names\n"
+                "them; the aligned side reads SmolLM2-360M-Instruct and would match nothing."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(13.0, 8.4),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
+                                           lineheight=1.45),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left",
+                                          lineheight=1.45),
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "attn_baseline_by_pair.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    print(f"    pooled median {np.median(b):+.4f}, {int((b>0).sum())}/28 positive, "
+          f"Wilcoxon p {p_pool:.3f} (null)")
+    print(f"    Kruskal-Wallis across 6 pairs p {p_kw:.4f}")
+    for r in d_rows.itertuples():
+        print(f"    {r.pair:<46} {r.n} prompts  median {r.med:+.4f}  IQR {r.iqr:.4f}")
+    print(f"    |baseline| {d_bas:.4f} > |total| {d_tot:.4f}, |residual| {d_res:.4f}")
+    print(f"    sign-test trap pinned: {agree}/28, naive p {p_naive:.4f} == KW "
+          f"{p_kw:.4f}; correct null {exp:.2f} -> p {BOOKED_SIGN['correct_p']}")
+    return out
+
+
+REGISTRY = {"cross_own": cross_own, "sweep_strips": sweep_strips,
+            "baseline_strips": baseline_strips}
 
 
 def main():
