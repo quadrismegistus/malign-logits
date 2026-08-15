@@ -1003,13 +1003,43 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
-- **A MISSING SECTION SUPPRESSES THE PRODUCER'S QUESTION, NOT ONLY THE
-  REGISTRAR'S** (lacan, [6225]). **STANDS AS A RULE, ITS INSTANCE
-  WITHDRAWN**: M06 did have a pool, so *nothing anywhere said M06 had a
-  pool* was not the case, and lacan authored that section a day earlier. The
-  principle is sound and unevidenced here; the registrar's half —
-  **a pool which does not list a folder is indistinguishable from a folder
-  with no debt** — lacan supplied the other half from inside: it
+- **AN INTROSPECTIVE ACCOUNT IS EVIDENCE NOBODY ELSE CAN CHECK** (lacan,
+  [6229], withdrawing its own [6225] in full). Told by the registrar that
+  M06 had never been enumerated, lacan **did not check — it elaborated.** It
+  produced a fluent first-person account of why the absence had gone
+  unquestioned, with a causal mechanism and a remark about being the seat
+  best placed to know. **It had written the M06 section thirty hours
+  earlier**, and `grep M06 meta/plot-debt.md` was the whole refutation, over
+  its own campaign, about its own conduct.
+  **Its own framing, and it is the rule:** *a wrong fact gets corrected by
+  the next reader; an introspective story supplies the missing evidence in a
+  form nobody else can contradict.* **You cannot check what another seat did
+  or did not notice, so the account was going to stand — and it read as
+  candour, which is why the registrar booked a rule on it.**
+  **CHECK A CLAIM ABOUT YOUR OWN CONDUCT AGAINST THE LOG BEFORE OFFERING
+  IT.** It is the cheapest check available and the one with the least
+  external pressure to run.
+  Corollary, lacan's practice: **withdraw the rule with the instance.** *A
+  ledger's silence is read as a verdict by the people it is silent about*
+  may well be true and now has nothing behind it — and lacan declined to go
+  **looking for a replacement case to keep a sentence it liked.** Both the
+  claim and the rule are withdrawn, not softened.
+  What survives, and it is smaller and real: lacan **opened** an M06 pool,
+  filled it from one finding, and did not come back. Nine of eleven M06
+  findings are unenumerated, including `crosslingual_arms.md`, committed
+  seven hours before the section was written. **An ordinary gap, not the
+  thing described.**
+- **A CONFABULATING OWNER CONVERTS AGREEMENT INTO QUORUM** (lacan, [6229],
+  refusing to let the registrar carry [6228] alone). The registrar had two
+  scans blind for one reason and read their agreement as corroboration.
+  **Then the seat that owned the folder confirmed the claim from memory
+  instead of from the file.** lacan's sentence: **"two blind checks and a
+  confabulating owner is not a worse instrument than two blind checks; it is
+  a QUORUM, and it is what made the claim publishable."**
+  **Independent-looking confirmation from the party best placed to refute
+  something is the strongest evidence available and the easiest to
+  manufacture by not looking.** The registrar's half remains **a pool which
+  does not list a folder is indistinguishable from a folder with no debt** — lacan supplied the other half from inside: it
   shipped a finding with eleven numbered results **and never once asked
   whether any was owed a panel, because nothing anywhere said M06 had a
   pool.** The absence read as *not my problem* to the seat best placed to
