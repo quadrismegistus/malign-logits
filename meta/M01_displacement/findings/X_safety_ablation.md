@@ -192,6 +192,8 @@ The two claims this section supports were frozen as executable rules in `registr
 | no-persona | +0.00077 | [−0.00292, +0.00446] | +0.00074 |
 | no-math | −0.00039 | [−0.00306, +0.00227] | +0.00033 |
 
+> **TWO NUMBER COLLISIONS WITH §1, FOR ANYONE DRAWING FROM EITHER.** `+0.00124` is safety's **lower CI bound** here and §1's **persona point-estimate** there; `0.00009` is §4b's CI bound (−) and §1's persona effect (+). Different instruments, different arms, coincidences of rounding — and both are correct. They are noted because the question *"does any other quantity print this same number"* is one to ask **before** a value goes on a panel, where there is no adjacent paragraph to disambiguate it (dario, [6209], on the third such collision this week). Nothing here needs changing; a figure lifting either would.
+
 **WildChat's effect lives in the 22 items the claim came from.** It is the largest arm on the 61 and a zero-spanning null on the fresh 39. The registration named this exact outcome in advance, in the section listing what would NOT count as support: *"Agreement on the 61 while the 39 disagree. If those diverge, the 22 were doing the work and the honest report is that the result does not extend."* It does not extend.
 
 **And "safety is a literal coin flip" is the sentence that inverted.** On the 39, `no-safety` is the ONLY arm whose interval excludes zero, 29/39 positive, and it holds at every cut — n=39, the n=35 twin collapse, and the n=61 pool. Safety carries a small, *consistent* share; WildChat is the arm that is now the coin flip. The 11/11 above was 22 items of an instrument whose poles were fitted on those items, which §4a already flagged as its weakness. This is what that weakness cost.
