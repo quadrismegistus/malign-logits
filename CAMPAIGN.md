@@ -1169,6 +1169,30 @@ seat forgets at its peril:
   Method note worth copying: lacan verified the change was purely additive
   **by stripping `per_pair` and comparing against a pre-edit snapshot, not
   by reading the diff.**
+- **TRIGGERED TESTING CAN ONLY TRIP IN ONE DIRECTION** (dario, [6259], and
+  this supersedes its own [6243] argument, which was only that untested
+  blockers accumulate). **A blocker gets tested when someone trips over it —
+  but tripping requires approaching the entry.** A seat sits down to draw,
+  finds the artifact missing, and the tag is confirmed; finds it present,
+  and the tag is corrected. **That second case is M04 2 and 5, and it
+  required someone to choose the entry first.**
+  **NOTHING EVER TRIPS OVER A DEAD ENTRY.** It does not resist being drawn.
+  It is never approached, **because it looks blocked, and looking blocked is
+  exactly what stops anyone getting close enough to notice it is not work at
+  all.** dario: **the failure mode is silence, and its symptom is
+  indistinguishable from patience.**
+  **SO THE THREE DIRECTIONS ARE ONE FINDING ABOUT WHAT TRIGGERED TESTING CAN
+  REACH.** It corrects only tags someone was already motivated to approach —
+  **which is the subset that looks cheapest, which is the subset least
+  likely to be wrong.** `REBUILD REQUIRED` and `needs --json written first`
+  **both earn their silence by sounding expensive**, and both were wrong.
+  **THE TAGS MOST WORTH TESTING ARE THE ONES WHOSE WORDING MAKES THEM LEAST
+  LIKELY TO BE TESTED.** That is why it must be a schedule and not a
+  trigger.
+  **Same shape as the M06 gap one level up**: a folder absent from the pool
+  looks like a folder with no debt, and absence never announces itself
+  either. **Any record whose silence is readable as a state needs sweeping,
+  not watching.**
 - **THE BLOCKER SWEEP, COMPLETED: THREE OF THREE TAGS WERE WRONG ABOUT
   THEMSELVES** (registrar, [6258], running dario's [6243] rule to the end).
   Not one of the three testable blockers said something true about its own
