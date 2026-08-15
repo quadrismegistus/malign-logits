@@ -123,6 +123,42 @@ transgressive stimuli, and a judge that marked down violent content would
 produce an arm effect out of the instrument, since aligned models emit less of
 it.
 
+### The instrument penalises LENGTH within a model, and rewards it across them
+
+Raised by the malign seat at [6326]: if the blind score tracked output length,
+every number here would carry a length term, including the tier separation in
+the next section. Measured on all 1,319 judged items, both rounds:
+
+    BETWEEN models   spearman(mean length, mean score)   +0.366  p=0.0047  n=58
+                     excluding bloomz-7b1                +0.332  p=0.012   n=57
+    WITHIN models    median spearman(item length, score)  -0.381
+                     40 of 42 models NEGATIVE                     p=4.1e-10
+
+**The two grains run opposite, and the within-model one is what tests the
+worry.** If the coders rewarded length, holding the model fixed would show it.
+Holding the model fixed, SHORTER passages score HIGHER on 40 of 42 models. So
+the between-model relationship is not the instrument rewarding length; it is
+models that sustain fluent Chinese also producing more of it, which is a
+property of models and is the thing being measured.
+
+**Mechanism, offered as hypothesis rather than result: 58% of items sit at the
+260-character clip**, so within-model variation is largely "stopped early"
+against "ran to the cap", and a passage that runs to the cap has more
+opportunity to display an error, or is looping. Either way the coder sees more
+to mark down.
+
+**THIS DOES NOT REACH THE ARM CONTRAST.** Section 1 is a paired within-model
+comparison -- base and aligned judged on the same prompts -- so a length penalty
+applies to both sides of every pair. It is recorded because it is a real and
+previously unmeasured property of the instrument, not because it moves a number
+here.
+
+**And it inverts the bloomz reading.** Its round-1 items ran 101, 165, 19, 41,
+87 and 14 characters and all scored 0. Under the measured within-model effect
+short items get the FAVOURABLE read, so bloomz scored 0.00 *with* the length
+advantage. The 0.00 is worse than it looked rather than an artifact of a short
+sample.
+
 ## 1. Alignment improves Chinese fluency
 
     20 pairs more fluent | 5 less | 0 tied
