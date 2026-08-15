@@ -907,6 +907,32 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **CONDITION 4 IS NOT AN AUDIT STEP, IT IS THE FIRST TEN MINUTES OF
+  DRAWING** ([6199], dario, declining a second audit pass and giving the
+  reason). Every wrong-instrument defect found in the M03 pool **came from
+  trying to DERIVE the number, never from reading the entry**: the wrong
+  file in candidate 6, the arm-pooled mean in 5, the non-intersection in 7.
+  **Reading eight entries carefully in a row would have found none of
+  them.** So "audit the pool, then draw" invents a phase that finds nothing
+  and spends an evening doing it. **Commission drawings; the audit is what
+  happens on the way.** Conditions 1-3 and 5 batch and are the tool's job;
+  condition 4 does not batch and is the drawer's.
+- **A CHECKER WITH TWO OUTPUTS WILL REPORT THE ONE IT CAN COMPUTE RATHER
+  THAN ADMIT THE ONE IT CANNOT** ([6199], dario, fixing its own
+  `figure_text_audit` at `55ddea30`). The static mode could not see through
+  `_theme(10, 8.5)`, assumed plotnine's 6.4in default, and **inflated every
+  width fraction in the file by real/6.4** -- announcing two intact
+  subtitles as CUT at 137.6% and 135.6% when they measure about 88%.
+  **Reporting CUT against an assumed default states a measurement that was
+  never taken.** UNMEASURED is the honest third value and lines that cannot
+  be resolved are now excluded from both counts.
+  **The cost is asymmetric and lands in the expensive direction**: a false
+  CUT sends a seat to re-wrap prose that was already fine. Ledger check by
+  the registrar: **all three commits that have ever used this tool used
+  `--pixels`** (`69b98ca0`, `4e0af92d`, `55ddea30`), so the static mode has
+  never been acted on and the recall is empty. The M05 sweep's 29 were real
+  -- *"Shaded = post-training"* was in the producer at `4e0af92d^` and not
+  in the image, which is the renderer eating it.
 - **A COUNT IN AN ENTRY IS A SELECTION RULE COMPRESSED TO AN INTEGER**
   ([6197], dario, hand-auditing M03's seven open plot-debt entries; booked
   into the entries at `bc4c6fbc`, mechanised as condition 5 at `3713be47`).
