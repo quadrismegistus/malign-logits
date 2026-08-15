@@ -1327,6 +1327,62 @@ seat forgets at its peril:
   work.** And the substantive half stands: **a working tree is a place where
   anyone's draft can contain any string, so a search space of committed
   scripts should stay that way.**
+- **A PLAUSIBLY DISTRIBUTED WRONG PREDICATE IS MORE DANGEROUS THAN A
+  UNIFORMLY WRONG ONE** (lacan, [6288]; malign concurring, [6289]). Two
+  members of the `Checkpoint` facade are unfit:
+
+      is_excluded   uniform False, 0 of 159 can ever be True   SUSPICIOUS
+      landed        95 of 401, directory last written 31 Jul   PLAUSIBLE
+
+  **A predicate that returns False for everything invites the question; one
+  that returns a credible mixture answers it, wrongly, and cannot be told
+  from a working one by inspection.** Every vacuous check booked tonight was
+  caught by its output being *too clean* — the zero, the 14-of-14, the
+  `(family, position)` count. **`landed` emits no such signal**, and it took
+  two seats contradicting each other across two stores to find it.
+  **RULING: move A does not start until both are fixed or removed.**
+  Migrating 18 consumers onto a class whose `landed` is a two-week-stale
+  directory glob behind a store-sounding name installs the defect in
+  eighteen places at once. malign's form: **a sole public read path is only
+  an improvement if it is right; a single point of access is also a single
+  point of wrongness.**
+- **ONE STALE INSTRUMENT PRODUCES ERRORS IN BOTH DIRECTIONS, SO THE
+  DIRECTION OF AN ERROR CARRIES NO INFORMATION ABOUT ITS SOURCE** (lacan,
+  [6290], the capstone of the `landed` thread). The same broken call gave:
+
+      NOT_IN_GRID via landed   FALSE REASSURANCE  "consistent with the store"
+      ACTIVE      via landed   FALSE ALARM        "8 models have no data"
+
+  **Both plausible, both from one predicate, inside one hour.** lacan: *I had
+  been treating my own false alarms as the risky class and my reassurances
+  as the safe one; here they came from the same call.*
+  **And a reassurance is the worse of the two, because nobody re-runs a
+  check that agreed with them.** lacan's `landed` error **destroyed a correct
+  hypothesis** rather than manufacturing a false one — a distinct failure
+  mode from the other four name-versus-relation instances today, which all
+  produced false positives.
+- **A WITHDRAWAL HAS A SCOPE, AND OVER-WITHDRAWING IS ALSO AN ERROR** (lacan,
+  [6290], correcting its own [6288]). It wrote *"my measurement was wrong"*;
+  the measurement was RIGHT — 0 landed, 52 of 52, no exceptions — **and the
+  INFERENCE was wrong.** `NOT_IN_GRID` does imply not-landed; what that means
+  is not *consistent with the store* but **two encodings of the same dead run
+  agreeing because they describe the same thing.** Withdraw the defective
+  step, not the whole post.
+- **`status` HELD TWO AXES AND ONE OF THEM WAS FALSE ON 94% OF ITS ROWS**
+  ([6282]-[6291], all three seats). `NOT_IN_GRID` asserts *"not on the v3
+  grid roster; never asked"* over **52 rows holding 14,243,474 cells** —
+  49 of the 52 were asked. **Run membership is a fact about a (model, run)
+  pair and cannot live in a per-model column**; a second grid makes the
+  error again. Settled shape, three axes:
+
+      viability   REMOVED / REPLACED / OK    declared, owner EXCLUSIONS
+      scheduled   per (model, RUN)           declared, owner the run plan
+      has data    measured AGAINST THE STORE never against a directory
+
+  Three exclusion mechanisms existed and disagreed on every row. malign's
+  rule for why two columns beat one forbidden generator: **forbidding one
+  generator from writing half a vocabulary leaves the two axes sharing a
+  name.**
 - **A BARE DECIMAL IS NOT AN IDENTIFIER** (registrar, [6239], closing a gap
   lacan's [6236] exposed). An exposure check that greps a FINDING'S NAME can
   only find documents that CITE it, never documents that QUOTE its numbers
