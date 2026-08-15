@@ -1111,6 +1111,28 @@ commit message).** (1) **Candidates 2 and 9 both say REBUILD REQUIRED on
 `dp.pkl` and nobody has costed the rebuild.** An uncosted dependency
 silently blocks two entries and is invisible in every state report,
 including `plot_debt_state`, because both entries look merely open.
+
+> **COSTED, registrar 2026-08-15. THERE IS NO REBUILD TO COST ON THIS
+> MACHINE.** `results/dp.pkl` is present at 8,802,244 bytes, **modified
+> 9 Aug 12:15 against its producer's 12:14 — one minute NEWER, so not
+> stale** — and it loads clean: a dict of `DP` (13 F11 frames), `VOC`
+> (1,784), `E` (1,784 embeddings), `AX` (13 pole axes), `by` (21).
+> **The tag reads as a compute blocker and the real status is Class 2:
+> untracked and gitignored, machine-local.** The cost is a BGE-m3 encode
+> plus a GloVe download **only on a machine that lacks the file**. At
+> 8.8 MB it is far under the 100 MiB hook, so **committing it would
+> retire the blocker permanently** — RH's call, not booked as a decision.
+> **REPLACE "REBUILD REQUIRED" WITH "MACHINE-LOCAL" IN BOTH ENTRIES**;
+> the present wording has kept two drawable entries closed.
+>
+> **AND A NEW CONDITION-5 FLAG ON CANDIDATE 9, WHICH THE REBUILD TAG WAS
+> HIDING.** Its *"observed -0.12 to +0.15"* does not fall out of a
+> pooled read: word-level projections over all 13 frames run **-0.390 to
+> +0.876 with p1-p99 at -0.026 to +0.037** (n=78,771). The entry's range
+> is some per-model or per-frame aggregate it does not name. **I did not
+> go looking for an aggregation that lands on -0.12/+0.15** — that is the
+> decoy-repair the [6234] rule forbids. **The artifact is fine and the
+> entry is underspecified**, which is the same shape as M03 candidate 5.
 (2) **Candidates 12 and 13 are marked WITH ITS WRITE-UP** — the write-up
 debt gating a figure rather than the reverse, **the only entries in any
 folder where the ladder runs that way.**
