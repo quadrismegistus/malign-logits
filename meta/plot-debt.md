@@ -1416,10 +1416,16 @@ run until it reproduces the published `total_drift` contrast (21/25, median
 first error here, giving 28 pairs at 24/28, −0.0174, *"entirely plausible
 and a different measurement."*
 
-**CORRECTED 2026-08-15 — the registrar's first version of this table carried
-two transcription errors from [6246] and published them here and to RH.**
-dario caught them at [6247]; **these values are read from the artifacts at
-this seat, not from either seat's post**:
+**CORRECTED TWICE, 2026-08-15. THE SECOND CORRECTION UNDOES THE FIRST'S
+DIAGNOSIS.** The registrar first booked the mismatch as *two transcription
+errors* ([6247]'s reading, adopted here). **It is not transcription: it is
+the INNER AGGREGATION.** lacan's producer takes the **mean** within prompt,
+dario's the **median** ([6248]); under median-inner **all four rows
+reproduce to five decimals.** Neither producer is wrong and **lacan's table
+was its own producer's correct output** — the undeclared thing was which
+aggregation it used.
+
+Values below are read from the artifacts at this seat (median-inner):
 
     file                          median     up/dn   p_sign
     crosslingual_ordering      en -0.00030   12/13   1.000
@@ -1427,10 +1433,9 @@ this seat, not from either seat's post**:
     crosslingual_ordering_full en -0.00204   11/14   0.6900
       (untruncated)            zh -0.00373    9/16   0.2295
 
-**What was wrong here**: truncated `en` was booked as `+0.0005` and is
-**-0.00030, the opposite sign**; untruncated `en` was booked as `16/25` at
-`p=0.23`, which are **the zh row's count and p** — it is 11/14 at p=0.69.
-dario's figure reports the untruncated row correctly.
+**So the two tables are two statistics, not one statistic reported twice**,
+and the write-up line owes the REASON they differ — median against mean —
+and not merely that they do.
 
 **The figure and `zh_fluency_and_ordering.md` are on different populations
 and will not match if a reader lays them side by side** — but the population

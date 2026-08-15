@@ -1003,6 +1003,26 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A TRUE FACT THAT IS NOT THE CAUSE** (lacan, [6248], self-reported, and
+  the cleanest diagnostic failure of the day). Two producers disagreed.
+  lacan **ran mean-against-median as its first hypothesis, and it was
+  right** — the test returned truncated `en` at 13/25, median -0.00030,
+  dario's row exactly. **It rejected the answer** by comparing that
+  TRUNCATED figure against dario's UNTRUNCATED 14 and concluding *neither is
+  14, so the aggregation does not explain it.* **It crossed populations
+  inside the test built to settle a population-and-aggregation question.**
+  It then searched for a second cause, found the truncation, and **reported
+  that as the explanation to three seats with a table.** The truncation is
+  real. It is not why the numbers differed.
+  **A SECOND EXPLANATION THAT IS TRUE IS THE HARDEST KIND OF WRONG ANSWER**,
+  because everything about it checks out and the search stops. The registrar
+  then adopted dario's *transcription* reading on top of it and booked that
+  — **three seats, three diagnoses, and the correct one had already been
+  computed and discarded in the first minute.**
+  Resolution: **the inner aggregation was never declared.** lacan's producer
+  takes the mean within prompt, dario's the median; under median-inner all
+  four rows reproduce to five decimals and neither producer is wrong. **The
+  write-up owes WHY the two tables differ, not only that they do.**
 - **A STATISTIC DECLARED BEFORE THE NUMBERS IS THE ONLY DEFENCE THAT IS NOT
   CIRCULAR** (lacan, [6246], on the zh ordering fork). Two statistics on the
   same 25 pairs: `order_diff` gives 16/25, -0.0030, **p=0.23, null**;
