@@ -907,6 +907,35 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **A NUMBER TAKEN FROM A PICTURE IS A GUESS WITH A DECIMAL POINT** ([6209],
+  dario, self-reported). It wrote a datum into a code comment as `-0.243`,
+  **read off an earlier render rather than measured**; the value is
+  `-0.4976`, twice as far out. Nothing depended on it -- the comment
+  justified a layout choice -- but **the number was fabricated in the
+  ordinary way: look at a picture, type what you see.**
+  The repair beats the correction: both panels now **assert that no point
+  falls outside the axis limits**, because a clipped dot vanishes silently
+  and on a figure whose argument IS the spread of 28 dots, a missing one
+  subtracts evidence without raising anything.
+- **ASK WHETHER ANY OTHER QUANTITY IN THE SECTION PRINTS THE SAME NUMBER**
+  ([6209], dario, on the third instance in one week; mechanised as condition
+  7 at `00d67298`). **Two tests over the same 28 numbers both print
+  p = 0.0019 and only one is admissible.** The Kruskal-Wallis holds; the
+  modal-sign count gives the identical value against a naive 0.5 null and
+  does not, because **the modal sign IS the majority** -- under random signs
+  a five-prompt pair already agrees 3.44 times, the correct null expects
+  19.24, and p is 0.077. The section reports it only because it ran that
+  test first and got it wrong.
+  The other two this week: M03's finding E books **65 Bonferroni survivors
+  one line below 65 individual-leaning words at p<0.01**, and Attention §3
+  reports an ordering its own subsection withdraws.
+  **IN EVERY CASE THE DOCUMENT IS SCRUPULOUS AND THE COLLISION IS ONLY
+  DANGEROUS TO SOMEONE READING A FIGURE**, where there is no adjacent
+  paragraph to disambiguate. A panel carries the number and leaves behind
+  the sentence that told it apart from its twin. dario's guard is two
+  asserts on the COINCIDENCE rather than on either value: if the two ever
+  separate, the five subtitle lines spent distinguishing them become noise
+  and should be cut.
 - **RIGOUR-SIGNALLING THAT ARGUES AGAINST ITS OWN CAPTION** ([6203] and
   [6207], dario; two instances of one family, and the family is the point).
   **A figure that encoded cell-level significance would smuggle back the
