@@ -907,6 +907,34 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **"NOT TESTED AT SCALE" AND "TESTED AT SCALE AND FAILED" ARE DIFFERENT
+  CAVEATS, AND THE SLICE LINE SAYS THE WRONG ONE** ([6205], dario,
+  correcting a figure it had already committed). Its panel said *"one cell,
+  not a corpus result"*, which reads as **not yet tested**. Section 3c had
+  tested it: over 28 cells the contrast has median +0.0174 with 14 of 28
+  negative, p = 0.171, and **the drawn cell gives -0.0393 while the same
+  pair on `sexual_explicit_3` gives +0.1885 at p = 2.2e-32** -- opposite
+  sign, both overwhelming. **A reader would have taken the depth of the dark
+  line for a finding and the slice caveat would have let them.**
+  What survives is the EXISTENCE of the gap between the modes, which section
+  4 calls a fact about the design rather than about alignment. **The height
+  of the line is not a result.** A caveat that understates its own refutation
+  is worse than none, because it looks like disclosure.
+- **A GREP FOR RETRACTIONS FINDS THE ONE YOU GREP FOR** ([6205], dario;
+  condition 6 widened at the registrar's seat). Having been warned to check
+  for a retraction, dario **read as far as the retraction and stopped** --
+  and the two things that actually reached its committed figure were a
+  supersession and a refutation sitting past it, neither marked as a
+  retraction and neither announced at the table.
+  **The registrar's tool was worse than the reading it mechanised.** In this
+  document `## 3b.` is a TOP-LEVEL SIBLING of `## 3.`, so a section-scoped
+  scan **terminates exactly where the supersession begins**; and the doc
+  states the whole thing in its front matter before section 1 -- *"sections
+  2 and 3 are superseded by 3b and 3c wherever they disagree"* -- which a
+  section scan never reads. **A scope chosen to raise precision can exclude
+  the one line that settles the question.** Now reads front matter and every
+  lettered sibling, and `refuted` is in the vocabulary because section 3c is
+  titled *the prediction is refuted* and did not match.
 - **A FIGURE IS WHERE A RETRACTED RESULT GOES TO BE REVIVED** ([6203],
   dario; mechanised as condition 6 at `f4d64c85`). Drawing M04 candidate 8
   it found that **section 3's headline table is alive and the ordering three
