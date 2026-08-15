@@ -162,9 +162,45 @@ def _kwargs_of(call, names):
     return {k.arg: k.value for k in call.keywords if k.arg in names}
 
 
-def _scan_function(fn):
+def _theme_helpers(tree):
+    """{helper name: index of its width parameter}.
+
+    A FALSE-POSITIVE CLASS FOUND BY DRAWING (dario, 2026-08-15). A folder that
+    wraps its theme in `def _theme(w, h): ... theme(figure_size=(w, h))` and
+    calls `_theme(10, 8.5)` declares its width perfectly well, and the inline
+    scan below cannot see it. Assuming 6.4in then inflates every fraction in
+    that file by real_width/6.4 -- for `f_figures.py:fig_diverging` that turned
+    88% into a reported 137.6% CUT, on two lines that ship intact. The pixel
+    mode disagreed and the pixel mode was right.
+    """
+    out = {}
+    for fn in [n for n in ast.walk(tree) if isinstance(n, ast.FunctionDef)]:
+        params = [a.arg for a in fn.args.args]
+        for node in ast.walk(fn):
+            if not isinstance(node, ast.Call):
+                continue
+            if getattr(node.func, "id", getattr(node.func, "attr", "")) != "theme":
+                continue
+            for k in node.keywords:
+                if k.arg == "figure_size" and isinstance(k.value, ast.Tuple):
+                    w = k.value.elts[0]
+                    if isinstance(w, ast.Name) and w.id in params:
+                        out[fn.name] = params.index(w.id)
+    return out
+
+
+def _scan_function(fn, helpers=None):
     """(figure_size width, {element: size}, {element: text}) for one function."""
     figw, sizes, texts = None, {}, {}
+    for node in ast.walk(fn):
+        if isinstance(node, ast.Call) and helpers:
+            nm = getattr(node.func, "id", getattr(node.func, "attr", ""))
+            if nm in helpers and figw is None:
+                i = helpers[nm]
+                if i < len(node.args) and isinstance(node.args[i], ast.Constant):
+                    v = node.args[i].value
+                    if isinstance(v, (int, float)):
+                        figw = float(v)
     for node in ast.walk(fn):
         if not isinstance(node, ast.Call):
             continue
@@ -200,9 +236,10 @@ def audit(paths, show_all=False):
             tree = ast.parse(open(f, errors="ignore").read())
         except SyntaxError:
             continue
+        helpers = _theme_helpers(tree)
         for fn in [n for n in ast.walk(tree)
                    if isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef))]:
-            figw, sizes, texts = _scan_function(fn)
+            figw, sizes, texts = _scan_function(fn, helpers)
             if not texts:
                 continue
             w = figw or DEFAULT_FIGSIZE
@@ -217,19 +254,33 @@ def audit(paths, show_all=False):
                                  "size": size, "text": line,
                                  "declared": figw is not None})
     rows.sort(key=lambda r: -r["frac"])
+    #: A LINE WHOSE WIDTH IS UNKNOWN GETS NO VERDICT. Reporting CUT against an
+    #: assumed 6.4in states a measurement that was never taken, and a false CUT
+    #: costs more than a missing one here: it sends a seat to re-run a producer
+    #: and re-wrap prose that was fine. These are listed separately and excluded
+    #: from both counts, which is the honest shape of "I could not measure it".
+    unmeasured = [r for r in rows if not r["declared"] and r["frac"] >= RISK]
+    rows = [r for r in rows if r["declared"]]
     bad = [r for r in rows if r["frac"] >= RISK]
     print(f"scanned {len(files)} files, {len(rows)} text lines in "
           f"{len({(r['file'], r['fn']) for r in rows})} figure functions\n")
     for r in (rows if show_all else bad):
         tag = "CUT    " if r["frac"] >= CUT else "AT RISK"
-        note = "" if r["declared"] else "  [no figure_size declared; assumed 6.4in]"
+        note = ""
         print(f"{tag} {100 * r['frac']:5.1f}% of {r['figw']}in  "
               f"{os.path.relpath(r['file'])}:{r['fn']} {r['el']} "
               f"line {r['line']}{note}")
         print(f"          {r['text'][:150]}")
+    for r in unmeasured:
+        print(f"UNMEASURED     no width  {os.path.relpath(r['file'])}:{r['fn']} "
+              f"{r['el']} line {r['line']}  [figure_size not resolvable; "
+              f"would be {100 * r['frac']:.0f}% IF the default 6.4in applied]")
+        print(f"          {r['text'][:150]}")
     n_cut = sum(1 for r in rows if r["frac"] >= CUT)
     print(f"\n  CUT: {n_cut}   AT RISK: {len(bad) - n_cut}   "
-          f"clear: {len(rows) - len(bad)}")
+          f"clear: {len(rows) - len(bad)}   UNMEASURED: {len(unmeasured)}")
+    if unmeasured:
+        print("  UNMEASURED means the width could not be resolved, NOT that the line is long.")
     print("  A clean line here is not a guarantee: f-string slots are measured "
           "with a placeholder\n  and geom_text is not measured at all. LOOK AT "
           "THE IMAGE.")
