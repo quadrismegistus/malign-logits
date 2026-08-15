@@ -360,6 +360,16 @@ a count of how many instruments agree is a fact about how many got built
 (dario, [6193]). This is one construction, at n=1, and the honest status is
 *the first candidate that survives contact with the three discarded above*.
 
+**AND THE INSTRUMENT HAS A KNOWN BLIND SPOT IN THE DIRECTION THAT MATTERS
+HERE**, reported by its own author at [6238]: on an identity-matched frame the
+pole axis scores substitutions like `argue` x3.3, `rob` x2.1 and `pray` as
+near-neutral, so **dN cancels while something large happens.** Substitution the
+axis cannot score is substitution it does not count. English came back 95%
+SUPPRESSION on that instrument; if some of its substitutions are axis-neutral,
+the EN/ZH split is partly a fact about what the axis can see. **That does not
+kill the candidate -- it means the candidate and the instrument's blind spot
+push the same way, which is the worst configuration for telling them apart.**
+
 **The test, which needs their instrument at pair scale and costs nothing here**:
 if substitution tightens the chain, the per-pair suppression/substitution ratio
 should predict the `order_ratio` delta across the 25 pairs -- the same shape as
