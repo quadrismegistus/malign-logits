@@ -212,7 +212,11 @@ Producer `scripts/x_slot_ablation_stress.py`. Four attacks on the §4b result, a
 
 This is what turns the reading from "the size was overstated" into "the structure was not there". A magnitude can reverse because an instrument was fitted to the items it was declared on — that is the §4a weakness, already flagged. A claim about *which half of ΔN moves* is much harder to produce by pole-fitting, so its failure is not explained by the fitting. **Both halves of §4a were artefacts of its 22 items.**
 
-**What the arms actually show, stated at the size it is.** Removing safety costs about **+0.0033 of ΔN against a full-SFT effect of −0.0121** — roughly a quarter of the reduction, consistent in sign across 29/39 items and every cut, and consistent in magnitude with §1's independently-measured 23–38%. That is the whole of it. It is a small, reliable, minority share; no arm here shows a corpus that dominates, and the finding's title survives only in the weak sense that safety is not *most* of the effect.
+**What the arms actually show, stated at the size it is.** Removing safety costs about **+0.0033 of ΔN against a full-SFT effect of −0.0121** — roughly a quarter of the reduction, consistent in sign across 29/39 items and every cut, and consistent in magnitude with §1's independently-measured 23–38%. That is the whole of it. It is a small, minority share; no arm here shows a corpus that dominates, and the finding's title survives only in the weak sense that safety is not *most* of the effect.
+
+**AND §6'S CEILING BINDS EVERY NUMBER IN §4b AND §4c, WHICH I DID NOT CARRY FORWARD WHEN I WROTE THEM.** §6 already says it: *"All p-values here are prompt-level; they describe prompt sampling, not what a re-run with another seed would give. Among four leave-one-out arms an arm-level permutation test cannot go below p = 0.25."* **Every interval above is over ITEMS, not over training runs.** "The only arm whose CI excludes zero" is a statement about 39 prompts under four fixed checkpoints; it is not a statement that a differently-seeded no-safety run would land outside zero, and **nothing in this section can go below p = 0.25 at the arm level, whatever the item-level interval reads.** An earlier draft of this paragraph called the share "reliable" without that attached, which is the item-level word doing arm-level work. The consistency across trims, bootstrap and quality cuts is evidence that the *item* estimate is stable, and is not evidence about arm sampling at all.
+
+**This limit was three sections below and unmarked.** It is not a retraction, so a check that greps for retractions passes straight over it — @dario's [6205], found the same afternoon by reading forward past the retraction they had gone looking for. *A grep for retractions finds the one you grep for; the limits that follow it are not marked as retractions.*
 
 ## 5. The specification search, recorded because it is the honest bound
 
@@ -230,6 +234,18 @@ Six metric families were run on one population, each chosen **after** seeing the
 There is no multiplicity correction. Stopping at the first would have given a null; stopping at the second a finding. **The defence is not any p-value but the control block**: on `js_fallers` the three control arms give 0.79, 0.91, 0.97 and on `js_risers` 0.79, 0.73, 0.91 — six dead nulls against safety at 0.0025 and 0.0019. Specification search scatters and makes controls fire sometimes; these do not fire on the lexical metrics. They *do* fire elsewhere (math 0.024, wildchat 5.1e-07 on `js_tail`), so the metric space is live, which is what makes the clean control block mean something.
 
 Section 1 is the least exposed of the six: largest population, no set definition, no threshold, no twin, and a coverage guard that could have failed and did not.
+
+**§4b AND §4c ADD TO THIS LEDGER AND WERE NOT IN IT.** This section exists to hold every specification the finding has spent, and the 2026-08-15 additions spent more without recording them here — which is the defect this section was written to prevent, committed in the section's own blind spot. The additions:
+
+| | what it added |
+|---|---|
+| §4b registered test | **one specification, frozen before the run** (`registration_slot_ablation.md`, `7c4d1f4b`) — the only pre-registered arm anywhere in this finding |
+| §4c trims | four cuts per arm (k = 0,1,2,3) |
+| §4c bootstrap | one resampling of the same statistic |
+| §4c quality cuts | three nested populations (all, residual ≤ 0.30, residual ≤ 0.25 + leverage) |
+| §4c mechanism | suppression/substitution split, plus a paired ratio |
+
+**The honest reading of that ladder cuts both ways and the direction matters.** §4c's arms were run to try to BREAK a result, not to find one — a search that only ever removes support cannot manufacture it, and safety survived all of them. But the same freedom applied to a *positive* claim would be exactly what §5 warns about, and **nothing licenses reading §4c's four surviving cuts as four confirmations.** They are one estimate examined four ways. The control block here is the same one §5 relies on: `no-math` and `no-persona` sit at −0.00039 and +0.00077 and stay null through every cut, so the specification freedom is not producing significance wherever it is pointed.
 
 ---
 
@@ -250,6 +266,8 @@ Section 1 is the least exposed of the six: largest population, no set definition
 1. **The behavioural check.** Generate from full SFT and no-safety SFT on the same prompts and compare refusal and completion. Cheapest of the three, runs locally, and can return a clean negative that makes the rest moot.
 2. **Explicit minimal pairs.** The whole strength of the M01 design — matched twins, one word swapped — does not exist at the intensity safety training targets. This is stimulus work, not compute: all six checkpoints are already on disk, `twp` costs ~3 s per prompt per model on MPS, and a 200-pair battery is a ~2-hour local run at **$0**. A slot screen (section 4's `slot_k` on both members, rejecting pairs where MARKED ≈ UNMARKED) would catch at authoring time what cost this finding its register.
 3. **A registration.** On the argument in section 5 the metric should be section 1's `M_hi`, safety against the other three arms, frozen before the run — so the answer counts whichever way it lands.
+
+   **STILL OPEN. The 2026-08-15 registration does NOT discharge this item, and the resemblance is close enough to be misread.** `registration_slot_ablation.md` was frozen before its run and its answer counted against it — but **on a different metric, a different population, and a different instrument**: projected ΔN over 39 authored slot items, not `M_hi` over §1's population. What item 3 asks for is a frozen test of the *§1 result*, which remains the largest and least exposed arm in this finding and is the one carrying the 23–38%. **That has still never been registered.** A reader meeting §4b and then this list would reasonably conclude item 3 was done; it was not, and what was registered failed, which makes the confusion more likely rather than less.
 
 ---
 
