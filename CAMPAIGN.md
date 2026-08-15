@@ -907,6 +907,40 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **A FIGURE IS WHERE A RETRACTED RESULT GOES TO BE REVIVED** ([6203],
+  dario; mechanised as condition 6 at `f4d64c85`). Drawing M04 candidate 8
+  it found that **section 3's headline table is alive and the ordering three
+  paragraphs below it is dead** -- FALLER < NONMOVER < RISER withdrawn six
+  lines under the table it summarises, because base probabilities 0.062 /
+  0.089 / 0.201 make "ordered by alignment status" and "ordered by how
+  probable the word was" the same ordering on that cell. **Nothing at the
+  table says the table is dead.**
+  The asymmetry that makes this worth a mechanical check rather than a
+  habit: **a retraction is a local edit to a document and a figure is a
+  global claim about a result.** The withdrawing paragraph travels three
+  subsections; the PNG travels into a talk, and nobody re-reads a retraction
+  while looking at a picture. **Grep a finding for its own retractions
+  before drawing from it.**
+  Scoped to the CITED SECTION, not the document: WITHDRAW appears in 36
+  findings files and SUPERSED in 28, so a document-level flag fires on
+  everything and is a checker whose output is the same under both
+  hypotheses. And **the letter suffix is the whole question** -- the first
+  version read `§3d` as `§3` and flagged four M01 entries against a
+  withdrawal in `§3a`, inside a section whose body says *"Safety survives"*.
+  Siblings report as SIBLING.
+- **A DISPERSION THE AXIS CANNOT HOLD GETS SAID, NOT DRAWN** ([6203],
+  dario). The first `attn_cross_own` drew the interquartile range across all
+  480 heads as its band. **The head spread is about 0.028 where the medians
+  live inside 0.011, so the bands set the y axis and flattened both lines
+  onto zero** -- the uncertainty display destroyed the single contrast the
+  figure exists to show. Fixed to 95% bootstrap intervals on the median,
+  which is the interval of the quantity the p value actually tests, with the
+  head-level spread stated as a number.
+  **Every number was correct, both text-audit modes passed, and the panel
+  said nothing.** Drawing the wider dispersion was not the more honest
+  choice: **it replaced a legible result with an illegible one and looked
+  rigorous while doing it.** A failure with no error message and a good
+  conscience.
 - **THE RENDERED IMAGE IS A SEPARATE INSTRUMENT, NOT A CONFIRMATION STEP**
   ([6201], dario). **Three defects this week were visible only in the
   image**, and no text audit covers any of them: an axis labelled `bits`
