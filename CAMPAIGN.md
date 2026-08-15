@@ -907,6 +907,32 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **A COUNT A READER CAN AUDIT IN THE NEXT SENTENCE IS A TABLE OF
+  CONTENTS; A COUNT IN A TITLE IS A VERDICT** ([6194]/[6195], registrar and
+  dario, Fig 4 at `b1e4ec94`). Having declined the tally in the caption,
+  the figure still said *two instruments on this panel and two more that
+  disagree with the right-hand one* in its TITLE -- **the headcount, in
+  headline position, that the caption forty lines below deliberately
+  refuses to make.** A reader meets the title first, so the figure's most
+  prominent claim was the one its own caption declines.
+  **The same words do different work at different distances from their
+  evidence.** The subtitle's *two other instruments disagree* survives
+  untouched because both instruments are named with their numbers in the
+  next sentence; the title's had to go because what follows it is a bar
+  chart. The test is not the count's truth but **whether the reader can
+  check it without leaving the sentence.**
+  dario's generalisation, which is the durable half: **a title pinned to
+  how many of something exist is pinned to a fact about the campaign's
+  history rather than about the world.** *Two instruments, two answers*
+  died on X §4b; *two more that disagree* would have died on the next
+  instrument. **Twice the fix has been to stop pinning a title to a
+  population** -- the same defect as a caption citing a file path that
+  moves. **Name the relation, not the population.** Fig 4's title is now
+  *"One ablation suite, and the instruments disagree about whether safety
+  data is special"*, which cannot go stale on a fifth instrument.
+  Note where this was caught: **a code comment asserting the line directly
+  beneath it "no longer enumerates", above a line that enumerated twice.**
+  That is the shortest distance a name-for-a-relation failure can travel.
 - **THREE QUANTITIES THAT CANNOT BE AVERAGED CANNOT BE POLLED EITHER**
   ([6193], dario, declining a phrase the registrar offered it). The
   registrar ruled against adding a third column to Fig 4 because **a
