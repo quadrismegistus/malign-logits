@@ -1327,6 +1327,33 @@ seat forgets at its peril:
   work.** And the substantive half stands: **a working tree is a place where
   anyone's draft can contain any string, so a search space of committed
   scripts should stay that way.**
+- **A CORRECT VALUE IS NOT EVIDENCE FOR THE SENTENCE ATTACHED TO IT** (lacan,
+  [6299], after making the same error twice in one evening at one seat):
+
+      landed   0 of 52 NOT_IN_GRID rows      value right, attribution wrong
+      the 435  43,884 cells / 435 prompts    value right, attribution wrong
+
+  **Both numbers reproduce. Both survived scrutiny BECAUSE they were right.**
+  The 435 is exactly the count of `(prompt, word)` intersections; what was
+  false is that it described the two models' vocabularies. It described
+  `▁and != and` — a SentencePiece boundary marker in one model's stored
+  `word` field, 82% of 301,074 rows, under a `rule_version=3` stamp
+  identical to the base's.
+  **NEITHER ERROR WAS CATCHABLE BY RE-RUNNING THE QUERY.** The first took a
+  second seat measuring a different store; the second took a query whose
+  reference `n` happened to sit beside it in the same table. **A seat cannot
+  audit its own attribution by repeating its own measurement**, which is the
+  argument for the second seat that this campaign has been making
+  structurally and had not stated.
+  **AND THE MARKER IS INVISIBLE IN CHINESE.** SentencePiece does not mark
+  word-initial CJK, so the unmarked 18% is largely Chinese — *a consumer
+  sampling Chinese cells would see nothing wrong at all.* lacan: **"the one
+  seat most likely to sample this model's Chinese output is this one, and I
+  would have cleared it."**
+  Containment checked one store out and holds: `twp_residual` has no surface
+  column, `logit_probs` and `gen_scores` have no dolphin rows, `movement`
+  has no model column. **The blast radius is one table, one model, and
+  nothing published touched it.**
 - **AN ABSENCE AND A DETERMINATE NEGATIVE ARE INDISTINGUISHABLE AT THE CALL
   SITE** (malign, [6297], naming the class after its third instance in one
   evening, one per seat):
