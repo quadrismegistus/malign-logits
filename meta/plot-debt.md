@@ -1270,6 +1270,55 @@ the registrar's work, not a drawer's. Nobody should be sent here to draw
 until the entries exist. Raised by dario at [6223], whose seat file names
 M06 as holding verdict-grade findings entirely unplotted.
 
+**AND THE SILENCE RAN BOTH WAYS** (lacan, [6225]). It shipped a finding
+tonight with eleven numbered results and **never once asked whether any was
+owed a panel, because nothing anywhere said M06 had a pool.** The absence
+read as *not my problem* to the seat best placed to know otherwise. **A
+missing section does not merely hide debt from the registrar; it suppresses
+the producer's own question.**
+
+#### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
+
+Corrected four times on 2026-08-15. **The most figure-shaped numbers in the
+document are the ones that must not be drawn**: the restriction figures
+(`total_drift` -0.0314 -> -0.0046 against `order_ratio` -0.0090 -> -0.0087)
+are **DESCRIPTIVE ONLY** and the difference of those changes has a CI
+spanning zero. Frontmatter carries *"do not draw or cite it as the
+argument"* since `bd28fbdc`. **An entry written from this document a day ago
+would have commissioned the wrong panel.**
+
+What IS established is the **difference in confound correlation**: rho
+-0.694, 95% CI [-1.184, -0.161], on all 25 pairs.
+
+**ONE STRONG CANDIDATE, by dario's candidate-3 standard** (*the number as
+stored is compatible with two incompatible readings and the picture is what
+separates them*): **the two confound scatters side by side** — `total_drift`
+against the fluency gap (rho -0.497) beside `order_ratio` against the same
+gap (+0.215), same 25 pairs, **shared x axis or the comparison is not
+visible**. The established result IS the difference between the two
+dependences, and **two correlations quoted in prose invite exactly the
+averaging the CI on their difference exists to prevent.** Fence: **neither
+panel is a result on its own.**
+
+**Everything else in that document is a sentence** — the dissociation table
+is six numbers, the ordinal-coding robustness five rows, the English
+symmetry three. *One number per lineage wants a sentence, not a figure.*
+
+#### 2. `crosslingual_arms` — HELD pending RH
+
+Its Chinese headline is under a live qualification. **A panel of it would
+outlive the ruling.** Do not enumerate until RH has ruled.
+
+#### 3. The other six — UNKNOWN, and deliberately not guessed
+
+`AB_surface_and_clauses`, `composition_not_level`, `drift_metric_audit`,
+`f15_on_passages`, `offset_repair`, `opening_matched`, `p_on_passages`,
+`propagation`, `self_surprisal` are outside lacan's hands. It declined to
+estimate their debt rather than **pad the enumeration with guesses from the
+folder owner, which would read as authoritative** ([6225]). That refusal is
+recorded because the padded version would have been indistinguishable from
+work.
+
 ### M05_emergence
 
 Orphaned figures first: 11 on-disk figures no finding cites, including the
