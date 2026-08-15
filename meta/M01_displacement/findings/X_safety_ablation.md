@@ -159,17 +159,23 @@ The nine usable `sexual_explicit_*` prompts have no twins, so this is raw base�
 
 §4 says this finding runs on a population that barely engages the register safety training targets. RH built 22 items to that criticism — one prompt each, an author-declared naughty and nice branch, screened so both branches are live — and they were scored by a method sharing **no lexicon and no population** with §1: a per-prompt embedding axis from the declared poles, with `ΔN = Σ ΔP(w)·s(w)`. Producer `scripts/x_slot_ablation.py`, artifact `results/x_slot_ablation.json`.
 
+> ### ⚠ THE TABLE AND BOTH CLAIMS BELOW IT DID NOT REPLICATE — see [§4b](#4b-the-table-above-did-not-replicate-run-2026-08-15-on-39-items-never-previously-scored) and §4c
+>
+> **This mark is ON the table on purpose.** The retraction lives two sections down, and *a figure is where a retracted result goes to be revived* — a table stays legible after the paragraph withdrawing it stops being read, and anyone lifting these numbers into a slide, a figure, or a quotation meets them before they meet §4b. dario's M04 audit found exactly this shape (a live headline table, its ordering dead three subsections below, nothing at the table saying so) and it was already true here. **Retained rather than deleted** because §4b is a claim about these numbers and deleting them would leave it unfalsifiable — but nothing below this line may be cited without §4b.
+
 | arm | mean ΔN | items negative | vs full, paired | sign p |
 |---|---|---|---|---|
 | full | −0.02607 | 19/22 | — | — |
-| **no-safety** | −0.02398 | 19/22 | +0.00209 | **11/11, p=1.0** |
+| **no-safety** ❌ | −0.02398 | 19/22 | +0.00209 | **11/11, p=1.0** |
 | no-math | −0.02446 | 19/22 | +0.00161 | 0.83 |
 | no-persona | −0.02536 | 20/22 | +0.00070 | 1.0 |
-| **no-wildchat** | **−0.00556** | **12/22** | **+0.02050** | **0.00086** |
+| **no-wildchat** ❌ | **−0.00556** | **12/22** | **+0.02050** | **0.00086** |
 
-**Removing the safety corpus is a literal coin flip: 11 items up, 11 down.** Removing WildChat recovers 79% of the full effect in 19 of 22 items. Robust to every cut tried — residual ≤ 0.30 (n=18), residual ≤ 0.25 with leverage above the dead reference (n=17), and **excluding the two largest movers**, where the effect halves and the sign test *strengthens* to 17/3, p=0.0026.
+❌ = reversed out of sample. On 39 items this axis had not been fitted to, `no-safety` is the ONLY arm excluding zero and `no-wildchat` is the null.
 
-**And the split names a mechanism §1 could not.** For full SFT, suppression (−0.0130) and substitution (−0.0131) are near-equal — alignment withdraws loaded words *and* lands mass on milder ones in equal measure. For `no-wildchat`, substitution collapses to **+0.0003**. WildChat is not doing more of the same thing; **it is specifically what supplies the replacement.** The clearest single case, `He was so attractive she felt herself get ___`: `wet` 0.229 → 0.047 while `weak` 0.162 → 0.448.
+~~**Removing the safety corpus is a literal coin flip: 11 items up, 11 down.**~~ **WITHDRAWN — §4b.** ~~Removing WildChat recovers 79% of the full effect in 19 of 22 items.~~ **WITHDRAWN — §4b.** The robustness cuts quoted here (residual ≤ 0.30 at n=18, residual ≤ 0.25 with leverage above the dead reference at n=17, and excluding the two largest movers where the sign test strengthened to 17/3, p=0.0026) were all run **within these same 22 items**, so they tested stability, never generalisation — and §4c re-runs the identical ladder on the 39, where it moves the other way.
+
+~~**And the split names a mechanism §1 could not.**~~ **WITHDRAWN — §4c, and this is the one that settles it.** The claim was that for `no-wildchat` substitution collapses to +0.0003 while suppression survives, so WildChat is *"specifically what supplies the replacement."* On the 39: substitution −0.00679 against full SFT's −0.00767, **paired per-item ratio median +0.945**, all four arms between 0.78 and 0.95 and indistinguishable. No collapse. The single case quoted here — `He was so attractive she felt herself get ___`, `wet` 0.229 → 0.047 against `weak` 0.162 → 0.448 — is a real cell and remains true of that cell; it is one item, and it was one of the 22 the axis was fitted to.
 
 **WHY THIS IS NOT A SECOND CONFIRMATION AT FULL STRENGTH.** The poles were declared while looking at the pooled base ∪ Tulu-SFT distribution, so they are **not independent of the outcome**. Blinding to source stops an author choosing prompts by effect size; it does not make the instrument independent. The cross-lineage test in `plans/plan_projected_displacement.md` §8 is the out-of-sample check, with its prediction written before the run.
 
