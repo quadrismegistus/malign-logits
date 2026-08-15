@@ -41,6 +41,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -68,6 +69,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -94,7 +96,15 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED. gated=manual; RH applied 2026-08-10 and was REFUSED (recorded 2026-08-15). Not pending. Do not re-request without a new institutional route. config.json 403s, so vocab_size and tokenizer were never measured and this checkpoint CANNOT enter any full-vocabulary comparison even if access is later granted.",
+   "blocked_reason": "ACCESS DENIED [PERMANENT, 2026-08-15] gated=manual. RH applied 2026-08-10 and was REFUSED. NOT pending. config.json 403s, so vocab_size and tokenizer were NEVER MEASURED -- this checkpoint could not enter a full-vocabulary comparison even if access were granted, and the v2 card implies its tokenizer is the odd one out in the release.",
+   "exclusion": {
+    "kind": "access_denied",
+    "permanent": true,
+    "decided": "2026-08-15",
+    "why": "gated=manual. RH applied 2026-08-10 and was REFUSED. NOT pending.",
+    "also": "config.json 403s, so vocab_size and tokenizer were NEVER MEASURED -- this checkpoint could not enter a full-vocabulary comparison even if access were granted, and the v2 card implies its tokenizer is the odd one out in the release.",
+    "reversible_by": "a new institutional route, AND a measured vocab"
+   },
    "observations": 1
   },
   {
@@ -121,7 +131,15 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED, same refusal (recorded 2026-08-15). This is the CORRECT base for the -v2-instruct arm (different data, longer training, DIFFERENT TOKENIZER), which is why the pairing 6.7b -> 6.7b-v2-instruct is CROSS-LINEAGE and must not be made.",
+   "blocked_reason": "ACCESS DENIED [PERMANENT, 2026-08-15] same refusal. This is the CORRECT base for the -v2-instruct arm (different data mixture, longer training), which is why the tempting 6.7b -> 6.7b-v2-instruct pairing is CROSS-LINEAGE wearing a base->SFT edge and must not be made.",
+   "exclusion": {
+    "kind": "access_denied",
+    "permanent": true,
+    "decided": "2026-08-15",
+    "why": "same refusal.",
+    "also": "This is the CORRECT base for the -v2-instruct arm (different data mixture, longer training), which is why the tempting 6.7b -> 6.7b-v2-instruct pairing is CROSS-LINEAGE wearing a base->SFT edge and must not be made.",
+    "reversible_by": "a new institutional route"
+   },
    "observations": 0
   },
   {
@@ -148,7 +166,14 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "PERMANENT \u2014 ACCESS DENIED, same refusal (recorded 2026-08-15).",
+   "blocked_reason": "ACCESS DENIED [PERMANENT, 2026-08-15] same refusal.",
+   "exclusion": {
+    "kind": "access_denied",
+    "permanent": true,
+    "decided": "2026-08-15",
+    "why": "same refusal.",
+    "reversible_by": "a new institutional route"
+   },
    "observations": 1
   },
   {
@@ -176,6 +201,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -203,6 +229,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -230,6 +257,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -257,6 +285,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -284,6 +313,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -311,6 +341,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -338,6 +369,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -365,6 +397,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -392,6 +425,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -419,6 +453,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -446,6 +481,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -473,6 +509,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -500,6 +537,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -527,6 +565,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -554,6 +593,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -581,6 +621,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -608,6 +649,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -635,6 +677,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -662,6 +705,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -689,6 +733,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -716,6 +761,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -743,6 +789,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -776,6 +823,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -803,6 +851,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -830,6 +879,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -857,6 +907,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -884,6 +935,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -911,6 +963,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -938,6 +991,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -965,6 +1019,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -992,6 +1047,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1019,6 +1075,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1046,6 +1103,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1073,6 +1131,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1100,6 +1159,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1127,6 +1187,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -1154,6 +1215,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -1181,6 +1243,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1208,6 +1271,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1235,6 +1299,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1265,6 +1330,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1295,6 +1361,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1322,6 +1389,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1349,6 +1417,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1376,6 +1445,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1403,6 +1473,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1430,6 +1501,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1457,6 +1529,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1484,6 +1557,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1511,6 +1585,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1538,6 +1613,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -1565,6 +1641,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1592,6 +1669,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1619,6 +1697,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1646,6 +1725,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1673,6 +1753,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1700,6 +1781,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1727,6 +1809,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1754,6 +1837,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -1781,6 +1865,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1808,6 +1893,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1835,6 +1921,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1862,6 +1949,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1889,6 +1977,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1916,6 +2005,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1943,6 +2033,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -1970,6 +2061,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -1997,6 +2089,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2024,6 +2117,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2051,6 +2145,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2078,6 +2173,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2105,6 +2201,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2132,6 +2229,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2159,6 +2257,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2186,6 +2285,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2213,6 +2313,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2240,6 +2341,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2267,6 +2369,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2294,6 +2397,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2321,6 +2425,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2348,6 +2453,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2375,6 +2481,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -2402,6 +2509,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2429,6 +2537,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2456,6 +2565,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2483,6 +2593,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2510,6 +2621,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2537,6 +2649,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2564,6 +2677,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2591,6 +2705,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2618,6 +2733,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2645,6 +2761,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2676,6 +2793,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -2707,6 +2825,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -2738,6 +2857,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -2765,6 +2885,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2792,6 +2913,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2819,6 +2941,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2846,6 +2969,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2873,6 +2997,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2900,6 +3025,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2927,6 +3053,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2954,6 +3081,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -2981,6 +3109,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3008,6 +3137,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3035,6 +3165,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3062,6 +3193,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3089,6 +3221,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3116,6 +3249,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3143,6 +3277,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3170,6 +3305,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -3197,6 +3333,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -3224,6 +3361,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3251,6 +3389,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3278,6 +3417,14 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": {
+    "kind": "no_base_released",
+    "permanent": true,
+    "decided": "2026-08-15",
+    "why": "phi-4 is a SUPEREGO, not a base: pretrain -> midtrain/long-context -> SFT -> iterative DPO (incl. pivotal-token-search DPO). MICROSOFT NEVER RELEASED THE 14B PRETRAINED-ONLY CHECKPOINT, so phi-4 can never be the base arm of anything.",
+    "also": "It runs and its distribution is fine. Exclude from pair rosters, not from distribution rosters.",
+    "reversible_by": "Microsoft releasing the pretrained-only 14B"
+   },
    "observations": 0
   },
   {
@@ -3305,6 +3452,13 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": {
+    "kind": "no_base_released",
+    "permanent": true,
+    "decided": "2026-08-15",
+    "why": "ego ON TOP OF a superego: the chain is pretrain -> (unreleased) -> phi-4 (SFT+DPO) -> phi-4-reasoning (SFT). A HOLE IN THE MIDDLE, so no edge from it reaches a base.",
+    "reversible_by": "Microsoft releasing the pretrained-only 14B"
+   },
    "observations": 0
   },
   {
@@ -3332,6 +3486,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3358,7 +3513,14 @@
    "vocab_size": null,
    "local": false,
    "blocked": true,
-   "blocked_reason": "REPO IS GONE: 'not a local folder and is not a valid model identifier'. Previously recorded only under local_mps as an A",
+   "blocked_reason": "REPO DEAD [PERMANENT, 2026-08-10] REPO IS GONE: 404 at the API, not a permissions error.",
+   "exclusion": {
+    "kind": "repo_dead",
+    "permanent": true,
+    "decided": "2026-08-10",
+    "why": "REPO IS GONE: 404 at the API, not a permissions error.",
+    "reversible_by": "nothing we control; a re-upload by MosaicML"
+   },
    "observations": 2
   },
   {
@@ -3384,8 +3546,15 @@
    "arch": null,
    "vocab_size": null,
    "local": false,
-   "blocked": false,
-   "blocked_reason": null,
+   "blocked": true,
+   "blocked_reason": "REPO DEAD [PERMANENT, 2026-08-10] repo id DEAD -- 404 at the API.",
+   "exclusion": {
+    "kind": "repo_dead",
+    "permanent": true,
+    "decided": "2026-08-10",
+    "why": "repo id DEAD -- 404 at the API.",
+    "reversible_by": "nothing we control"
+   },
    "observations": 1
   },
   {
@@ -3413,6 +3582,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 2
   },
   {
@@ -3440,6 +3610,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3467,6 +3638,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3494,6 +3666,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3521,6 +3694,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3548,6 +3722,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3575,6 +3750,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3602,6 +3778,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3629,6 +3806,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3656,6 +3834,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3683,6 +3862,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3713,6 +3893,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3743,6 +3924,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3773,6 +3955,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3803,6 +3986,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3830,6 +4014,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3857,6 +4042,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3884,6 +4070,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3911,6 +4098,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3938,6 +4126,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3965,6 +4154,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -3992,6 +4182,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4019,6 +4210,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4049,6 +4241,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -4079,6 +4272,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -4106,6 +4300,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4133,6 +4328,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4163,6 +4359,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -4193,6 +4390,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 1
   },
   {
@@ -4220,6 +4418,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4247,6 +4446,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4274,6 +4474,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4301,6 +4502,7 @@
    "local": false,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4328,6 +4530,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   },
   {
@@ -4355,6 +4558,7 @@
    "local": true,
    "blocked": false,
    "blocked_reason": null,
+   "exclusion": null,
    "observations": 0
   }
  ]

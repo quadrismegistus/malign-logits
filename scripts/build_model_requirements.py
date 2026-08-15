@@ -219,27 +219,92 @@ COMPUTE_DTYPE.update({m: ("bfloat16", "vLLM refuses gemma2 at float16 as a HARD 
 #: reported BLOCKED: 0 with two gated checkpoints in the roster, which is the
 #: false-clean this whole file exists to prevent. A block is a fact about access
 #: or existence and belongs declared, with a date so it can be retired.
-#: PENDING AND DENIED ARE DIFFERENT STATES AND ONLY ONE OF THEM INVITES A RETRY.
-#: These three read "no grant yet" / "same request pending" until 2026-08-15,
-#: which is the tense that gets tried again — and a reader with a spare hour
-#: would have re-applied, waited, and re-checked a door that is shut. RH's
-#: access request was REFUSED, so the block is now PERMANENT and says so.
-#: Whoever revisits this should be arguing about whether to seek access by some
-#: other route, not about whether the request has come through.
+#: ── EXCLUSIONS, TYPED. A rejection is a DECIDED fact and it has KINDS.
+#:
+#: This was a flat {model: why} until 2026-08-15, and a flat map cannot express
+#: the difference that decides what a reader should do:
+#:
+#:   CANNOT RUN      the weights are unreachable. Nothing we do makes a cell.
+#:                   -> `blocked`, dropped from fleet plans.
+#:   CANNOT PAIR     the checkpoint runs fine and yields a perfectly good
+#:                   distribution; what is missing is the OTHER ARM. It must not
+#:                   be dropped from a roster that wants distributions, and must
+#:                   not be admitted to one that wants base->aligned edges.
+#:
+#: Collapsing those loses the reversal condition, which is the only part a
+#: future reader can act on. `phi-4` is the case that forced the distinction:
+#: it runs, it is a superego, and its base was NEVER RELEASED.
+#:
+#: PENDING AND DENIED ARE ALSO DIFFERENT STATES, AND ONLY ONE INVITES A RETRY.
+#: The gpt-sw3 rows read "no grant yet" / "same request pending" until 08-15 --
+#: the tense that gets tried again. RH's request was REFUSED. A reader with a
+#: spare hour would have re-applied and re-checked a shut door.
+EXCLUSIONS = {
+    "AI-Sweden-Models/gpt-sw3-6.7b": {
+        "kind": "access_denied", "permanent": True, "decided": "2026-08-15",
+        "why": "gated=manual. RH applied 2026-08-10 and was REFUSED. NOT pending.",
+        "also": "config.json 403s, so vocab_size and tokenizer were NEVER "
+                "MEASURED -- this checkpoint could not enter a full-vocabulary "
+                "comparison even if access were granted, and the v2 card implies "
+                "its tokenizer is the odd one out in the release.",
+        "reversible_by": "a new institutional route, AND a measured vocab",
+    },
+    "AI-Sweden-Models/gpt-sw3-6.7b-v2": {
+        "kind": "access_denied", "permanent": True, "decided": "2026-08-15",
+        "why": "same refusal.",
+        "also": "This is the CORRECT base for the -v2-instruct arm (different "
+                "data mixture, longer training), which is why the tempting "
+                "6.7b -> 6.7b-v2-instruct pairing is CROSS-LINEAGE wearing a "
+                "base->SFT edge and must not be made.",
+        "reversible_by": "a new institutional route",
+    },
+    "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct": {
+        "kind": "access_denied", "permanent": True, "decided": "2026-08-15",
+        "why": "same refusal.", "reversible_by": "a new institutional route",
+    },
+    "mosaicml/mpt-7b": {
+        "kind": "repo_dead", "permanent": True, "decided": "2026-08-10",
+        "why": "REPO IS GONE: 404 at the API, not a permissions error.",
+        "reversible_by": "nothing we control; a re-upload by MosaicML",
+    },
+    "mosaicml/mpt-7b-instruct": {
+        "kind": "repo_dead", "permanent": True, "decided": "2026-08-10",
+        "why": "repo id DEAD -- 404 at the API.",
+        "reversible_by": "nothing we control",
+    },
+    #: ── CANNOT PAIR. These RUN. They are excluded from base->aligned designs
+    #: only, and belong in any roster that wants a distribution rather than an
+    #: edge.
+    "microsoft/phi-4": {
+        "kind": "no_base_released", "permanent": True, "decided": "2026-08-15",
+        "why": "phi-4 is a SUPEREGO, not a base: pretrain -> midtrain/long-context "
+               "-> SFT -> iterative DPO (incl. pivotal-token-search DPO). "
+               "MICROSOFT NEVER RELEASED THE 14B PRETRAINED-ONLY CHECKPOINT, so "
+               "phi-4 can never be the base arm of anything.",
+        "also": "It runs and its distribution is fine. Exclude from pair rosters, "
+                "not from distribution rosters.",
+        "reversible_by": "Microsoft releasing the pretrained-only 14B",
+    },
+    "microsoft/phi-4-reasoning": {
+        "kind": "no_base_released", "permanent": True, "decided": "2026-08-15",
+        "why": "ego ON TOP OF a superego: the chain is pretrain -> (unreleased) "
+               "-> phi-4 (SFT+DPO) -> phi-4-reasoning (SFT). A HOLE IN THE "
+               "MIDDLE, so no edge from it reaches a base.",
+        "reversible_by": "Microsoft releasing the pretrained-only 14B",
+    },
+}
+
+#: KINDS THAT MEAN CANNOT RUN. Everything else runs and is excluded from PAIR
+#: designs only -- a distinction the old boolean could not carry.
+BLOCKING_KINDS = ("access_denied", "repo_dead")
+
 BLOCKED_DECLARED = {
-    "AI-Sweden-Models/gpt-sw3-6.7b":
-        "PERMANENT — ACCESS DENIED. gated=manual; RH applied 2026-08-10 and was "
-        "REFUSED (recorded 2026-08-15). Not pending. Do not re-request without a "
-        "new institutional route. config.json 403s, so vocab_size and tokenizer "
-        "were never measured and this checkpoint CANNOT enter any "
-        "full-vocabulary comparison even if access is later granted.",
-    "AI-Sweden-Models/gpt-sw3-6.7b-v2":
-        "PERMANENT — ACCESS DENIED, same refusal (recorded 2026-08-15). This is "
-        "the CORRECT base for the -v2-instruct arm (different data, longer "
-        "training, DIFFERENT TOKENIZER), which is why the pairing "
-        "6.7b -> 6.7b-v2-instruct is CROSS-LINEAGE and must not be made.",
-    "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct":
-        "PERMANENT — ACCESS DENIED, same refusal (recorded 2026-08-15).",
+    m: "%s [%s%s] %s%s" % (e["kind"].upper().replace("_", " "),
+                           "PERMANENT" if e.get("permanent") else "provisional",
+                           ", " + e["decided"] if e.get("decided") else "",
+                           e["why"],
+                           " " + e["also"] if e.get("also") else "")
+    for m, e in EXCLUSIONS.items() if e["kind"] in BLOCKING_KINDS
 }
 
 KERNELS = ("mamba", "zamba", "falcon-h1")
@@ -370,6 +435,11 @@ def main():
             "local": f["local"],
             "blocked": bool(blocked_why),
             "blocked_reason": blocked_why,
+            #: TYPED EXCLUSION beside the boolean. `blocked` means CANNOT RUN;
+            #: an exclusion of kind `no_base_released` runs perfectly well and
+            #: is excluded from PAIR designs only. A consumer that wants
+            #: distributions should read `exclusion`, not `blocked`.
+            "exclusion": EXCLUSIONS.get(mid),
             "observations": len(obs),
         })
 
