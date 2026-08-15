@@ -27,7 +27,7 @@ The statistic keeps two magnitudes at once — how much probability moved, and h
 
 `k` is the coder-assigned K rating (`malign_logits/fields.py`, `k_ratings_en/zh.json`, 27,242 English and 20,654 Chinese words on seven 1-7 scales). Every word contributes in proportion, so there is **no faller set to be redefined between arms** — the confound that made §3 below ambiguous until it was rechecked. And no twins are required, so the population is **2,583 prompts** rather than 684 pairs (2,202 English, 381 Chinese).
 
-**The paired tests run on 2,582 of them, and the one that drops is named rather than absorbed.** `他把她按在墙上，咆哮道` resolves under 1% of its probability mass at every arm (0.0017–0.0079 total scored) and none of what it resolves is in the K lexicon, so its weighted mean has no denominator. It is the same coverage failure as `explicit_5_zh` in §4a, and it would contribute a tie to `M_hi` in any case.
+**The paired tests run on 2,582 of them, and the one that drops is named rather than absorbed.** `他把她按在墙上，咆哮道` resolves under 1% of its probability mass at every arm (0.0017–0.0079 total scored) and none of what it resolves is in the K lexicon, so its weighted mean has no denominator. It is the same coverage failure as `explicit_5_zh` in **§4-EXPLICIT** (the subsection under §4 — *not* §4a-PROJECTED, whose table is withdrawn; the two share a number and this citation is unaffected by that withdrawal), and it would contribute a tie to `M_hi` in any case.
 
 **Transgressiveness** — full SFT lowers it −0.0115 from base. Each ablation against full, paired on prompt:
 
@@ -132,7 +132,9 @@ Across 600 prompts the most vulgar thing the base model wants to say at any M01 
 
 **The K scales are not interchangeable and the naming misleads.** `transgressiveness` is a **harm** scale — `rape` 7, `murder` 7, `kill` 6, `stole` 6, but `cock` **2**, `penis` **1**, `suck` **1**. The axis that fires on explicit sexual content is `vulgarity`, which is the sparse NOT_ESTABLISHED one. And `urinated` scores **1.00 on both**: K rates words out of context, and the transgression in a desecration pair is compositional — `urinated` × `churchyard cross` — which no word-level lexicon can see. Two independent reasons the desecration pairs measure nothing.
 
-### 4a. The explicit register, where safety does not separate at all
+### 4-EXPLICIT (numbered `4a` — the FIRST of two). The explicit register, where safety does not separate at all
+
+> **NOT the withdrawn section.** This file has two sections numbered `4a`; the withdrawal at §4b/§4c applies to the *other* one, `§4a-PROJECTED` below. Nothing here is retracted. The two citations that reach this section (§1's coverage note and §6's "nine prompts without twins") are marked to say so, because a reader following `§4a` with the withdrawal in mind would land on the wrong section and discount a result that stands.
 
 The nine usable `sexual_explicit_*` prompts have no twins, so this is raw base→arm with no DiD and general suppression uncontrolled:
 
@@ -238,7 +240,7 @@ Section 1 is the least exposed of the six: largest population, no set definition
 - **Nothing about DPO.** No ablated SFT has a DPO. Every number here is the SFT stage.
 - **Nothing beyond four training runs.** All p-values are prompt-level; they describe prompt sampling, not what a re-run with another seed would give. Among four leave-one-out arms an arm-level permutation test cannot go below p = 0.25.
 - **Nothing about behaviour.** No generation was run. Nothing here shows the no-safety model *acts* less safely, and if it does not, the distributional result is not about alignment's reaction whatever its p-value. This is the missing positive control and it is cheap.
-- **Nothing at explicit intensity with a control.** Section 4a is nine prompts without twins. The population that carries the weight is calibrated at norm violation, and only ~1.2% of its probability mass sits on k≥5 words anywhere.
+- **Nothing at explicit intensity with a control.** **§4-EXPLICIT** (the subsection under §4, *not* the withdrawn §4a-PROJECTED — they share a number) is nine prompts without twins. The population that carries the weight is calibrated at norm violation, and only ~1.2% of its probability mass sits on k≥5 words anywhere.
 - **The K ratings are one model's judgments** — `deepseek/deepseek-v4-flash` at temperature 0, frozen instrument `5b59a44c…`, built 2026-08-12. Transgressiveness IAA 0.83 against Claude Haiku 4.5; `register_level` (0.60) and `vulgarity` (sparse) are declared NOT_ESTABLISHED and `vulgarity` is used above only comparatively.
 
 ---
