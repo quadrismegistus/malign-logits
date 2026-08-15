@@ -32,10 +32,17 @@ per-pair deltas are drawn individually rather than summarised, and their range
 is stated: pairs move up to +/-0.02 in both directions, which is a substantial
 fraction of the -0.034 baseline ordering effect itself.
 
-The per-pair deltas are computed and discarded by `m06_crosslingual_ordering.py`,
-which writes only the sign-test summary. They are recovered here by replaying
-its loop with its own `sign_test` imported, and all four of its booked summaries
-are asserted against the replay.
+The per-pair deltas WERE computed and discarded; lacan emitted them at
+`e4333807` on this figure's account, so this producer reads `arms.<metric>.<lang>
+.per_pair` from the committed artifact instead of replaying the upstream loop.
+
+**A vector emitted beside a statistic silently claims to be that statistic's
+population** (lacan, [6252]): `sign_test` drops non-finite values internally, so
+a per-pair dict built by zipping names to deltas can carry pairs the `n` beside
+it never counted. That assert lives upstream now; it is mirrored here on the
+consumer side, because a figure that draws a range from the vector and prints an
+`n` from the summary is exactly where the mismatch would surface as a wrong
+number rather than an error.
 """
 import argparse
 import importlib.util
@@ -64,36 +71,42 @@ LABEL = {"mean_drift": "mean successive distance",
 C_DRIFT, C_ORD = "#b03030", "#1f4e79"
 
 
-def _replay():
-    """The per-pair deltas the summary discards, with the producer's own rule."""
+def _load():
+    """Per-pair deltas straight from the artifact, checked against their own n."""
     spec = importlib.util.spec_from_file_location("m06_ord_src", PRODUCER)
     m = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(m)
+    book = json.load(open(BOOKED))
 
-    pairs = [p for p in json.load(open(os.path.join(
-        ROOT, "data/base_aligned_pairs.json"))) if not p.get("ambiguous")]
+    out = {}
+    for metric, l in ROWS:
+        arm = book["arms"][metric][l]
+        pp = arm["per_pair"]
+        #: THE VECTOR MUST BE THE STATISTIC'S POPULATION, not merely beside it.
+        assert len(pp) == arm["n_pairs"], \
+            (f"{metric}/{l}: {len(pp)} per-pair entries against n_pairs "
+             f"{arm['n_pairs']}; the drawn range and the printed n would "
+             "describe different sets")
+        #: SORTED BY PAIR NAME, so the drawn order is a property of the data
+        #: and not of dict insertion. geom_jitter assigns offsets by ROW
+        #: POSITION, so an upstream reordering that changes no value still
+        #: changes every pixel -- caught by the PNG growing 633 bytes on a
+        #: refactor whose printed values were identical to the digit.
+        v = np.array([pp[k] for k in sorted(pp)], dtype=float)
+        assert np.isfinite(v).all(), f"{metric}/{l}: a per-pair delta is non-finite"
+        #: and it must REPRODUCE the summary printed next to it
+        r = m.sign_test(list(v))
+        for k in ("median", "up", "dn", "n_pairs"):
+            assert abs(r[k] - arm[k]) < 1e-9, \
+                f"{metric}/{l} {k}: per_pair gives {r[k]}, artifact says {arm[k]}"
+        out[(metric, l)] = v
+
+    #: the descriptive effect is cross-checked against the CELLS, so the panel's
+    #: baseline claim does not rest on the same file as its arm contrast
     df = pd.concat([pd.read_parquet(os.path.join(
         RESULTS, f"crosslingual_drift_{l}_full_cells.parquet"))
         for l in ("zh", "en")])
     df["ordering"] = df["mean_drift"] - df["mean_pairwise"]
-    bylang = {l: set(df[df.lang == l].model) for l in ("zh", "en")}
-    use = [p for p in pairs
-           if all(p[r] in bylang[l] for r in ("base", "aligned")
-                  for l in ("zh", "en"))]
-
-    out = {}
-    for metric, l in ROWS:
-        ds = []
-        for p in use:
-            b = df[(df.lang == l) & (df.model == p["base"])]
-            al = df[(df.lang == l) & (df.model == p["aligned"])]
-            shared = set(b.prompt) & set(al.prompt)
-            if len(shared) < m.MIN_SHARED_PROMPTS:
-                continue
-            bm = b[b.prompt.isin(shared)].groupby("prompt")[metric].median()
-            am = al[al.prompt.isin(shared)].groupby("prompt")[metric].median()
-            ds.append(float((am - bm).median()))
-        out[(metric, l)] = np.array(ds)
     return out, df, m
 
 
@@ -105,7 +118,7 @@ def ordering_dissociation():
                           scale_x_continuous, scale_y_continuous, theme,
                           theme_minimal)
 
-    deltas, df, m = _replay()
+    deltas, df, m = _load()
     book = json.load(open(BOOKED))
 
     #: the descriptive effect, which is what the arm null is measured against
@@ -137,13 +150,21 @@ def ordering_dissociation():
         ("the ordering deltas no longer span a substantial fraction of the "
          "baseline ordering effect; the panel's spread argument depends on it")
 
+    #: OFFSETS COMPUTED, NOT JITTERED. geom_jitter(random_state=0) does not
+    #: pin the positions: two renders of identical sorted data differed on
+    #: 51,612 pixels. The figure's dot placement was a property of the run
+    #: rather than of the data, which is the same defect as an artifact built
+    #: through a read with no ORDER BY. A seeded generator over the sorted
+    #: vector makes the panel reproducible.
+    rng = np.random.default_rng(0)
     rows = []
     for i, (metric, l) in enumerate(ROWS):
         v = deltas[(metric, l)]
         y = len(ROWS) - 1 - i
         col = C_DRIFT if metric == "mean_drift" else C_ORD
-        for x in v:
-            rows.append({"y": y, "x": float(x), "col": col})
+        off = rng.uniform(-0.055, 0.055, len(v))
+        for x, o in zip(v, off):
+            rows.append({"y": y + float(o), "x": float(x), "col": col})
     d = pd.DataFrame(rows)
 
     stats = []
@@ -173,8 +194,7 @@ def ordering_dissociation():
     p = (
         ggplot()
         + geom_vline(xintercept=0, color="#333333", size=0.6)
-        + geom_jitter(d, aes("x", "y", color="col"), size=2.4, alpha=0.75,
-                      width=0, height=0.055, random_state=0)
+        + geom_point(d, aes("x", "y", color="col"), size=2.4, alpha=0.75)
         + geom_segment(st, aes("med", "y0", xend="med", yend="y1"),
                        color="#1a1a1a", size=1.5)
         + geom_text(st, aes("lx", "lab_y", label="lab", color="col"), size=7.4,
