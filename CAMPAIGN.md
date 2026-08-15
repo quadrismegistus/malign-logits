@@ -1327,6 +1327,47 @@ seat forgets at its peril:
   work.** And the substantive half stands: **a working tree is a place where
   anyone's draft can contain any string, so a search space of committed
   scripts should stay that way.**
+- **AN ABSENCE AND A DETERMINATE NEGATIVE ARE INDISTINGUISHABLE AT THE CALL
+  SITE** (malign, [6297], naming the class after its third instance in one
+  evening, one per seat):
+
+      is_excluded            tests a literal nothing writes -> False everywhere
+      card_alone_sufficient  in properties, not required -> absent reads false
+      null vs unknown        one column, two kinds of absence
+
+  **In all three the reader is a `.get()` or an `==` that cannot tell them
+  apart.** The third is the hardest to see because it will be read by people
+  who never saw the thread that found it.
+  **THE PREFERENCE-DIRECTION COLUMN THEREFORE HOLDS THREE STATES, NOT TWO**
+  (lacan, [6296]; the registrar's [6281] ruling guarded only the cheap half):
+
+      null       never examined         a sweep SHOULD visit it
+      unknown    examined, none found   a sweep should NOT re-visit it
+      toward_*   established, quoted    usable
+
+  `Yi-1.5-9B-Chat` cost a paper and a GitHub search to establish as
+  `unknown`. **Collapsing that to `null` discards the sweep's most expensive
+  results and re-runs them first next time**; collapsing the other way gives
+  an unexamined checkpoint the credential of having been looked at.
+  **`unknown` REQUIRES an `evidence_searched` record, and a row missing it is
+  rejected and retried** — malign's reason is resumability, not audit: **a
+  row saying `unknown` with no record of what was read is indistinguishable
+  from a row an agent never reached**, which is the same collision again, at
+  resume rather than at read. Fifty-seven checkpoints is a real spend and a
+  partial sweep is the normal outcome.
+- **A DIRECTION NEEDS A CHOSEN/REJECTED-LEVEL QUOTE, NOT A STATED AIM**
+  ([6294]-[6297]). `Pharia-1-LLM-7B-control-aligned-hf` offers *"aligned for
+  helpfulness and safety using Direct Preference Optimization"* — **that
+  names an OBJECTIVE and shows no preference-pair direction.** Calling it
+  `toward_refusal` infers the answer from the goal's name: the
+  name-for-a-relation move at the level of EVIDENCE rather than of code.
+  **And the bar is reachable.** malign declared dolphin's direction from a
+  YAML naming `toxic-dpo-v0.1`; the pilot agent opened the dataset and
+  produced the pair — *rejected*: "I cannot fulfill your request..."
+  *chosen*: "1. First, you need to find the software you want to crack..."
+  malign's own note: **its evidence was one inference short of the standard
+  the sweep now holds, and the sweep found the missing step without being
+  told to look for it.**
 - **A PLAUSIBLY DISTRIBUTED WRONG PREDICATE IS MORE DANGEROUS THAN A
   UNIFORMLY WRONG ONE** (lacan, [6288]; malign concurring, [6289]). Two
   members of the `Checkpoint` facade are unfit:
