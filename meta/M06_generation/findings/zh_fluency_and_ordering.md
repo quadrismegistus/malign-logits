@@ -151,7 +151,16 @@ to mark down.
 comparison -- base and aligned judged on the same prompts -- so a length penalty
 applies to both sides of every pair. It is recorded because it is a real and
 previously unmeasured property of the instrument, not because it moves a number
-here.
+here. The distinction is the registrar seat's at [6329] and the paragraph exists
+because of it: **a property of an instrument is not automatically a defect in
+every result it produced**, and saying which results it does NOT reach is what
+makes it reportable rather than alarming.
+
+**And the reason both grains are printed above rather than the significant one
+is also theirs** ([6329]): *the refutation and the false confirmation are the
+same query at different grains* -- the between-model number alone returns
++0.366 at p=0.0047 in the predicted direction and would have reported a
+confounded instrument. **The hypothesis decides the grain.**
 
 **And it inverts the bloomz reading.** Its round-1 items ran 101, 165, 19, 41,
 87 and 14 characters and all scored 0. Under the measured within-model effect
