@@ -907,6 +907,33 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **A CENTRED NULL DESCRIBES THE CENTRE; "NO EFFECT" IS A CLAIM ABOUT THE
+  SPREAD** ([6213] dario, [6215] lacan -- the general form of the entry
+  below, after it bit at a second seat within the hour). A null on a centred
+  statistic licenses **"no consistent direction"** and never **"no
+  effect"**. Two instances, found independently:
+    - F04's lag: median 0, p = 0.97, read as *the onsets coincide*. Five of
+      44 sites are exactly zero; the range is +/-39,000 steps.
+    - lacan's English chain: median -0.0003, p = 0.69, 14/25, written as
+      *does nothing measurable to the English chain*. **No English pair sits
+      at zero and 9 of 25 move beyond 0.01** -- English changes under
+      alignment at about 40% of the Chinese spread, with no consistent sign.
+      Restated at `128fa37f`, frontmatter at `bd28fbdc`.
+  **REGISTRAR SWEEP, so nobody hunts twice.** 10 absence-phrases sit near a
+  centred statistic across 9 findings files; the two likeliest were checked
+  by hand and **both are clean**. No evidence of a third instance. The class
+  is real and it is not widespread.
+  **`pole_axis_t_is_not_superposition.md` is the exemplar to copy**: having
+  shown `t(both)` does not move and that everything dissolves under one
+  global compression, it writes **"So 'alignment does not undo it' is
+  UNINFORMATIVE."** Naming a null as uninformative is the move; the error is
+  only ever silence about the spread.
+  What lacan's audit also shows: **the READING was right in both places and
+  the DATA LINE was the danger.** `A_acquisition.md` says *no fall-then-rise
+  sequence*, a statement about ORDER and the correct inference. But
+  `median lag 0, Wilcoxon p = 0.97, n = 44` **is the quotable line, and it
+  is compatible with both readings.** A correct paragraph does not protect a
+  number that travels without it.
 - **THE NULL IS SYMMETRY, NOT SIMULTANEITY, AND A SUMMARY STATISTIC CANNOT
   TELL THEM APART** ([6213], dario, drawing the onset-lag panel; SUBSTANTIVE,
   not only a figure rule). Median lag 0 with p = 0.97 reads as *the two
