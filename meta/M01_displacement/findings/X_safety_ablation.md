@@ -254,9 +254,17 @@ Section 1 is the least exposed of the six: largest population, no set definition
 | share diagnostic (section 3) | `scripts/x_pair_ablation_share.py` |
 | McNemar / Fisher (section 3) | `scripts/x_pair_ablation_mcnemar.py` |
 | fixed-set recheck (section 3) | `scripts/x_pair_ablation_fixedset.py` |
-| projected ΔN on RH's items (4a) | `scripts/x_slot_ablation.py` → `results/x_slot_ablation.json` |
+| projected ΔN on RH's items (4a) | `scripts/x_slot_ablation.py` → `results/x_slot_ablation.json` — the **22-item** run, this producer's DEFAULT `--out` |
+| out-of-sample rerun (4b) | **same producer, `--out results/x_slot_ablation_61.json`** — 61 items, the 39 registered plus the 22 above |
+| registered verdict (4b) | `scripts/x_slot_ablation_report.py` → stdout; joins on `populations/reg_slot_new_items.json` and REFUSES if the join is not 39/39 |
+| stress arms (4c) | `scripts/x_slot_ablation_stress.py` → stdout — trims, bootstrap, quality cuts, substitution ratio |
+| per-item inspection | `scripts/x_slot_show.py "<prompt>"` — top-k with s(w) across base → SFT → 4 ablations → DPO |
+| the instrument itself | `malign_logits/slot_axis.py` — ONE copy of the axis maths and the gate constants |
+| what was frozen, and when | `registration_slot_ablation.md` at `7c4d1f4b`, before the 4b run |
 | JS by role (section 3a) | `scripts/x_pair_ablation_decompose.py` → `results/x_pair_ablation_decompose.csv` |
 | K ratings | `malign_logits/fields.py`, `lexicons/k_ratings_{en,zh}.json` |
 | arms | `data/model_registry.json` — never a literal in any producer above |
 
-Commits: `ce15fa5d` (DiD), `082ff538` (share), `5e54eec3` (binarised), `0c223549` (JS by role — framing corrected in 3a), `05c49d51` (norms).
+Commits: `ce15fa5d` (DiD), `082ff538` (share), `5e54eec3` (binarised), `0c223549` (JS by role — framing corrected in 3a), `05c49d51` (norms), `67c1052d` (4b/4c, the non-replication), `53db410b` (heading fixes).
+
+**ONE ADJACENCY TRAP IN THIS TABLE, NAMED BECAUSE IT IS THE FAILURE MODE THE POOL WARNS ABOUT.** §4a and §4b share a producer and differ only by a flag: `x_slot_ablation.py`'s **default** `--out` is the 22-item `x_slot_ablation.json`, so a reader who runs the producer named in the §4b row without `--out .../x_slot_ablation_61.json` reproduces the SUPERSEDED run and gets §4a's numbers back. That is a file merely adjacent to the one that matters, and it would look like a successful reproduction. Every row above was checked to exist and to be the artifact its producer actually reads or writes, on 2026-08-15 — not the artifact its name suggests.
