@@ -1282,10 +1282,16 @@ section withdrew that read.
    BLOCKED on the recapture provenance debt (above).
 5. **[REWRITTEN 2026-08-15 — registrar ruling on dario's refusal, [6219].
    THE ENTRY AS WRITTEN IS NOT DRAWABLE.]** Three defects, none of them in
-   the finding. (a) **The named parquet does not hold "257 complete-but-empty
-   cells"**: OLMo step 0 is 518 rows over 259 probes with 231
-   `payload_empty` (verified at the registrar's seat); 584 is the BATTERY's
-   text count, a different population. (b) **The two-lineage contrast merges
+   the finding. (a) **THE 257 IS CORRECT AND THE CITATION IS WRONG** (lacan,
+   [6221], correcting the registrar's first rewrite, which read as though
+   the number had drifted). *257 complete cells of 584* is a BATTERY-grain
+   measurement — `E_pythia_capacity.md` line 20, *"the same 584 texts by
+   declaration (sha e5a4f5f)"*. The entry cites `m05_curves.parquet`, which
+   is capacity probes: OLMo step 0 there is 518 rows over **259** probes
+   with 231 `payload_empty`. **257 and 259 are different quantities two
+   apart**, so a reader who notices concludes the finding drifted when the
+   truth is that the entry points at the wrong instrument. Fix the pointer,
+   not the number. (b) **The two-lineage contrast merges
    two grains** — at capacity-probe grain Pythia's step-0 floor is absent
    exactly like OLMo's, and *"Pythia step0 resolves ~5 words"* is
    battery-grain from [5430]; `E_pythia_capacity.md` Result 2 says so

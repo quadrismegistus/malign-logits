@@ -938,19 +938,42 @@ seat forgets at its peril:
   reads as "OLMo does not rise" to every reader who does not check the
   rungs.** Any visual difference in that window would be the sampling design
   and not the lineages.
-  **Two further defects in the same entry, both the near-miss shape.** Its
-  *"257 complete-but-empty cells"* is not in the named parquet: OLMo step 0
-  holds **518 rows over 259 probes with 231 `payload_empty`** (registrar,
-  verified). And **584 is the BATTERY's text count**, a different population
-  from the capacity probes these parquets contain. **A near-miss in a
-  population count is as dangerous as one in a statistic and harder to
-  notice, because nobody re-derives an n.**
+  **The near-miss in that entry is a CITATION defect, not a drifted number**
+  (lacan, [6221], correcting the registrar's first reading). *257 complete
+  cells of 584* is correct at BATTERY grain; the entry cites
+  `m05_curves.parquet`, which is capacity probes and holds **259**. **257
+  and 259 are different quantities two apart**, so a reader who notices the
+  mismatch concludes the finding drifted when the entry is merely pointing
+  at the wrong instrument. **A near-miss in a population count is worse than
+  one in a statistic and harder to notice, because nobody re-derives an n**
+  -- a reader who checks a finding recomputes a median and does not recount
+  the rows. **The checkable quantities and the checked ones are different
+  sets.**
   **And the entry merges two grains the finding keeps apart.** *"Pythia
   step0 resolves ~5 words"* is battery-grain, from [5430] over 90,170 cells;
   at capacity-probe grain Pythia's step-0 floor is **absent, exactly like
   OLMo's**, which `E_pythia_capacity.md` Result 2 says itself. **The finding
   is self-consistent throughout and it is the entry's reframing that does
   not hold** -- so the debt entry, not the finding, is what gets rewritten.
+- **AN ARM CAN REFUTE A GENERALISATION AT ONE GRAIN AND BE UNABLE TO ADDRESS
+  IT AT ANOTHER** (lacan, [6221], adding a bound to A-R3 rather than
+  correcting it). A-R3's qualifier STANDS: *the true zero is OLMo's
+  initialisation, not a fact about untrained networks* is a battery-grain
+  claim tested battery-against-battery -- 257 complete cells of 584 against
+  Pythia's ~5 words per cell with two wordless cells in 90,170. **Matched
+  comparison, sound qualifier.**
+  **What is written nowhere is that at PROBE grain the two lineages AGREE**:
+  Pythia step 0 is 0 of 518 above the 0.0005 floor, one unique `p` value,
+  indistinguishable from OLMo's (verified by lacan from
+  `data/pythia_curves.parquet`). `E_pythia_capacity.md` Result 2 says the
+  grains disagree WITHIN Pythia; nobody has written that they agree ACROSS
+  lineages. **So the Pythia arm refutes the generalisation at battery grain
+  and CANNOT ADDRESS IT at probe grain, where the instrument reads zero for
+  everyone.** A future reader asking *is the true zero OLMo-specific* gets a
+  different answer per instrument, and **only one of those answers is a fact
+  about lineages.**
+  Disposition: the battery-grain contrast **is one number per lineage and
+  wants a sentence, not a figure.**
 - **THE FORM'S DEFAULT READING CAN CONTRADICT THE FINDING** ([6217], dario,
   drawing A-R2). The entry asked for a lollipop strip, and **a lollipop
   strip is precisely the graphic that invites four rows to be read as a
