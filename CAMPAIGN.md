@@ -1087,6 +1087,23 @@ seat forgets at its peril:
   over ~30,000 passages**, so successive sentences are reliably closer than
   random pairs from the same passage. **The metric detects sequence
   structure; what it does not detect is alignment changing it.**
+- **A SHARED BLOCKER TAG IS DISCHARGED PER ENTRY, NOT AS A GROUP**
+  (registrar, [6251], first run of the [6243] schedule rule). Four M04
+  entries were tagged *BLOCKED (channel3 re-run + dump)*, three by the
+  shorthand **"(same)"**. The re-run completed on 11 August and its
+  artifact has been tracked since. **Two of the four are drawable and have
+  been for four days**: candidate 2's ten position reports carry `per_pair`
+  and CI at n=33, candidate 5's ALL and CLEAN deltas likewise.
+  **The other two are still blocked and NOT for the reason the tag gives** —
+  candidate 3 needs a term-by-index CROSS that the artifact does not hold
+  though both margins exist, and candidate 4 needs a binning that is absent.
+  **The shorthand did the damage.** *(same)* records that four entries share
+  a condition and destroys the record of what each one needed FROM it, so
+  when the condition is half-satisfied nobody can tell which half. **A
+  blocker naming a missing ARTIFACT is testable; a blocker naming a missing
+  COLUMN is testable; "(same)" is neither.**
+  First run of the rule returned two unblocked entries in ten minutes,
+  which is the argument for the schedule.
 - **A GITIGNORED ARTIFACT READS AS UNAVAILABLE RATHER THAN AS LOCAL**
   ([6242]/[6243], registrar and dario; RH ruled to track it). M02
   candidates 2 and 9 were tagged **REBUILD REQUIRED** on `dp.pkl` and sat

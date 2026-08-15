@@ -1268,7 +1268,33 @@ folder where the ladder runs that way.**
    pairs. §6 never says why. **The panel must state the drop or show all
    thirteen.**
 
-### M04_syntagmatic (Finding A items all blocked on produce-first)
+### M04_syntagmatic
+
+**BLOCKER TESTED 2026-08-15 (registrar, running the [6243] rule). CANDIDATES
+2 AND 5 ARE NOT BLOCKED AND HAVE NOT BEEN SINCE 11 AUGUST.** All four were
+tagged *BLOCKED (channel3 re-run + dump)*, three of them by the shorthand
+"(same)". **The re-run happened**: `A_post_utterance_shock.md`'s own status
+line says it reproduces exactly, and `results/A_post_utterance_shock.json`
+is **tracked, 61 KB, dated 11 Aug 19:47**, carrying 21 reports each with
+`per_pair`, `ci` and `n`.
+
+    candidate 2  position profile, indices 1-10, point-with-CI
+                 -> DRAWABLE. `position +1` .. `position +10`,
+                    n=33 each, per_pair and CI present.
+    candidate 5  pair-level strip, 33 pairs, ALL vs CLEAN medians
+                 -> DRAWABLE. `delta ALL` n=33, `delta CLEAN (arbiter)`
+                    n=27, both per_pair with CI. population.pairs = 33.
+    candidate 3  term x index grid
+                 -> STILL BLOCKED. The four terms exist and the ten
+                    positions exist; THEIR CROSS DOES NOT.
+    candidate 4  long-window sweep, disjoint bins beside cumulative
+                 -> STILL BLOCKED. No window or bin key in the artifact.
+
+**A SHARED BLOCKER TAG IS DISCHARGED PER ENTRY, NOT AS A GROUP.** One
+condition gated four entries, half of it has been satisfied for four days,
+and the "(same)" shorthand meant nobody re-read what each entry needed from
+it. **The two that remain blocked are blocked for a reason the tag does not
+state** — a missing cross and a missing binning, not a missing re-run. (Finding A items all blocked on produce-first)
 
 1. **[DISCHARGED via its shortlist link]** Attention §5 two-panel decay comparison (shortlist 9).
 2. A position profile, point-with-CI across indices 1–10, zero rule —
