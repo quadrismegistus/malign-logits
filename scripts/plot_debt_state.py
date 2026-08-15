@@ -187,6 +187,75 @@ def selection(txt, path):
     return {"file_rows": pop, "entry_counts": small[:4]}
 
 
+RETRACT = re.compile(
+    r"retract|withdraw|superseded|does not hold|did not hold|no longer holds"
+    r"|does NOT replicate|is dead|now dead|confounded", re.I)
+
+
+def retracted(folder, txt):
+    """CONDITION 6: is the SECTION this entry cites retracted further down it?
+
+    **dario, [6203], drawing M04 candidate 8.** Section 3's headline table is
+    alive and the ordering three paragraphs below it is dead: FALLER <
+    NONMOVER < RISER is withdrawn at `### Retraction:` six lines under the
+    table it summarises, because base probabilities 0.062 / 0.089 / 0.201
+    make "ordered by alignment status" and "ordered by how probable the word
+    was" the same ordering on that cell.
+
+    **A FIGURE IS WHERE A RETRACTED RESULT GOES TO BE REVIVED.** The picture
+    outlives the paragraph that withdrew it, and nobody re-reads a retraction
+    while looking at a PNG. **Nothing at the table says the table is dead.**
+
+    SECTION-SCOPED ON PURPOSE. Retraction vocabulary appears somewhere in
+    most findings documents -- WITHDRAW in 36 files, SUPERSED in 28 -- so a
+    document-level flag fires on nearly everything and means nothing. Scoped
+    to the cited section it points at the paragraph that matters.
+
+    Advisory. Returns the retracting headings so the reader can judge.
+    """
+    #: THE LETTER SUFFIX IS THE WHOLE QUESTION. The first version read
+    #: `§3d` as `§3` and flagged four M01 entries against a withdrawal that
+    #: lives in `§3a` -- sibling subsections of a section whose body says
+    #: **"Safety survives"**. Citing §3d is not citing §3a. Capture the
+    #: suffix and report a sibling retraction as SIBLING, because **a flag
+    #: stated at a precision it has not earned is the false-CUT error**
+    #: ([6199]) in a different tool.
+    hits = []
+    for doc_tok, sec, suf in re.findall(
+            r"\b([A-Z][A-Za-z_]*)\s*§\s*(\d+)([a-z]?)", txt):
+        for path in glob.glob(os.path.join(ROOT, "meta", folder,
+                                           "findings", "*.md")):
+            base = os.path.basename(path).lower()
+            if not (base.startswith(doc_tok.lower() + "_")
+                    or base.startswith(doc_tok.lower() + ".")):
+                continue
+            body = open(path, errors="ignore").read().splitlines()
+            start = None
+            for i, line in enumerate(body):
+                if re.match(r"^##\s+%s[.\s]" % re.escape(sec), line):
+                    start = i
+                elif start is not None and re.match(r"^##\s+(?!#)", line):
+                    break
+            else:
+                i = len(body)
+            if start is None:
+                continue
+            for line in body[start + 1:i]:
+                if not (line.startswith("#") and RETRACT.search(line)):
+                    continue
+                head = line.lstrip("# ").strip()
+                m = re.match(r"^%s([a-z])\b" % re.escape(sec), head)
+                if suf and m and m.group(1) != suf:
+                    kind = "SIBLING %s%s" % (sec, m.group(1))
+                elif suf and m and m.group(1) == suf:
+                    kind = "CITED %s%s" % (sec, suf)
+                else:
+                    kind = "IN §%s" % sec
+                hits.append("%s [%s] %s" % (os.path.basename(path), kind,
+                                            head[:64]))
+    return hits or None
+
+
 def state(folder, n, txt, sources=None, figs=None):
     mod = folder.split("_")[0]
     if sources is None:
