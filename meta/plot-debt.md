@@ -1137,23 +1137,66 @@ Ordering within each folder is the reader's ranking.
 1. **[DISCHARGED via its shortlist link]** E §3/§4 survivor scatter (shortlist 5).
 2. E §4 dumbbell, 65 rows, indiv vs inst dots joined, coloured by pattern —
    `b_word_delta_by_word.csv`. The words the argument quotes.
+   **AUDITED OPEN, dario [6197]. Two traps.** (a) **There are two different
+   65s in this document**: §2 books `p<0.01 -> 189, institutional 124,
+   individual 65`, and the next line books `Bonferroni -> 65 total`. This
+   entry means the SECOND. A figure has to say which. (b) **The
+   institutional/individual split is by the SIGN of `median_d`, not by which
+   arm moved more.** Splitting on |delta_indiv| vs |delta_inst| gives 37/28
+   against the booked 43/22. §3 exists to warn about this: `d>0` can mean the
+   word rises institutionally OR falls less there, and 35 of the 65 fall in
+   both arms. **Colouring by pattern answers the fence; colouring by sign
+   would launder it.** Verified: 65 at Bonferroni 7.1e-05 of 702 tested, and
+   all five §3 pattern counts reproduce.
 3. **[DISCHARGED via its shortlist link]** B_C §1 lineage dot plot (shortlist 8).
 4. B_C §2 `should`-confound seven-condition interval plot —
    `b_arm_cells.csv`. "Triples with a prompt-final modal AND survives
    without one" as a two-group comparison.
+   **AUDITED OPEN AND CLEAN, dario [6197].** Exactly seven conditions present:
+   `I_absent I_final I_final_ought I_medial we_absent we_final we_medial`.
+   Instrument correct.
 5. D §1 selection-not-construction small multiples: six verbs across 95
    rungs, each verb's pretraining maximum as a reference line —
    `f_verb_rungs.csv`. Nothing yet shows the ceiling.
-6. D §6 ICC spaghetti + scenario-unit marginal strip — `d_ladder.csv`
+   **AUDITED OPEN, dario [6197], WITH A DESIGN CONSTRAINT THIS ENTRY DID NOT
+   STATE.** 95 rungs confirmed; the six verbs (contact, ensure, explain,
+   appeal, quit, sue) are a real declared selection out of eleven. **But §1's
+   table reproduces 0/6 per arm and 6/6 POOLED across arms as a mean**
+   (`groupby(word, role, ckpt_idx).mass`). So if the small multiples are
+   per-arm curves, **the reference line is not on the same footing as the
+   curves it references** and the panel must say so or pool.
+6. D §6 ICC spaghetti + scenario-unit marginal strip — `d_ladder_fields.csv`
    (methodological pair, above).
+   **THIS ENTRY NAMED THE WRONG FILE, dario [6197].** It said `d_ladder.csv`;
+   **the ICC producer reads `d_ladder_fields.csv`** (`m03_icc_redeclare.py:41`)
+   and the two are not variants of one table. Corrected in place 2026-08-15.
+   **This is the queue-17 class: right study, wrong instrument, and every
+   mechanical check passes.**
 7. D §7 cross-corpus non-transfer, three scatter panels over 95 shared
    fields, 0.063 against 0.701 — `e_field_flow_arms.parquet` + root
    `data/m05_field_flow_fine.parquet`.
+   **AUDITED OPEN, dario [6197]; all four booked values reproduce to the digit**
+   via `e_general_vs_institutional.py --report`, which reads only committed
+   parquets. Two corrections. (a) **The 95 is NOT the intersection of the two
+   named files** — that is 267 (268 fields in the arms parquet, 287 in the
+   root). The 95 is a further restriction the entry does not name; read §7.
+   (b) **§7's table is print-only**: `report()` prints and writes nothing,
+   while `run()` writes the parquet. **The figure would be the first artifact
+   to hold those numbers**, which raises it from a redraw to a first
+   publication.
 8. A §4 hedge-vs-position paired slopes, +0.207 against +0.077 —
    `meta/M01_displacement/results/x_m03_kernel_decomp.csv`. Caption must say
    EXPLORATORY, uncorrected.
 9. B_C §6 reference-class dot plot, eight domains, pair count printed ON the
    mark — `c_pair_contrast.csv`.
+   **AUDITED OPEN AND THE CLEANEST OF THE SEVEN, dario [6197].** 748 pairs x 46
+   lineages = 34,408 rows, the file's exact count, and 8/8 per-domain pair
+   counts reproduce (property 104, violence 158, power 118, taboo 120,
+   betrayal 102, sexual 38, animal 50, institutional 7). **Carry onto the
+   panel: the file has THIRTEEN domains and §6 shows eight**, silently
+   dropping contradiction, death, other, profanity, substance — 51 of the 748
+   pairs. §6 never says why. **The panel must state the drop or show all
+   thirteen.**
 
 ### M04_syntagmatic (Finding A items all blocked on produce-first)
 
