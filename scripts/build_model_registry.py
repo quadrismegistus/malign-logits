@@ -271,6 +271,32 @@ SCALE_LADDERS = [
 #:
 #: `in_grid_spec` stays TRUE for a name the v3 roster asked -- it did ask, and
 #: rewriting that to False would falsify a receipt to make a test pass.
+#: Position and stage for the REMOVED/REPLACED rows. Declared 2026-08-15 from
+#: malign's [6267] research; kept beside REMOVED_MODELS so the reason a row
+#: exists and what the row IS sit together.
+#: **`microsoft/phi-4` is superego with NO PUBLIC BASE** -- pretrain (9.8T tok,
+#: ~40% synthetic) -> midtrain -> SFT -> iterative DPO with pivotal token
+#: search; the pretrained-only 14B checkpoint was never released. So it can
+#: never be the base arm of anything, and `phi-4-reasoning` is an ego ON TOP OF
+#: a superego, with a hole where the base would be. That is why both are
+#: REMOVED, and the position is still a fact about them.
+REMOVED_POSITION = {
+    "microsoft/phi-4": "superego",
+    "microsoft/phi-4-reasoning": "ego",
+    "AI-Sweden-Models/gpt-sw3-6.7b": "base",
+    "mosaicml/mpt-7b": "base",
+    "mosaicml/mpt-7b-instruct": "ego",
+    "THUDM/glm-4-9b-hf": "base",
+}
+REMOVED_STAGE = {
+    "microsoft/phi-4": "dpo",
+    "microsoft/phi-4-reasoning": "sft",
+    "AI-Sweden-Models/gpt-sw3-6.7b": "base",
+    "mosaicml/mpt-7b": "base",
+    "mosaicml/mpt-7b-instruct": "sft",
+    "THUDM/glm-4-9b-hf": "base",
+}
+
 REMOVED_MODELS = {
     "microsoft/phi-4": (
         "REMOVED", "no base model released, so it cannot form a base->aligned "
@@ -804,7 +830,19 @@ def main(a):
             if mid in rows:
                 continue
             r = dict(model_id=mid, nickname=NICKNAMES.get(mid, ""),
-                     family=meta.get("family", ""), position="",
+                     #: **POSITION IS DECLARED PER CHECKPOINT HERE, NOT LEFT
+                     #: EMPTY.** This hardcoded `position=""`, so all 8 rows
+                     #: arriving by this path had no position -- hence no
+                     #: relation, no group, no roster, no denominator (malign,
+                     #: [6265]). Evidence per row in the artifact's
+                     #: `position_evidence`; researched at [6267] from
+                     #: first-party cards and papers, declared by the
+                     #: registrar. **Per checkpoint and not per family,
+                     #: because Hermes-3's position varies BY SIZE within one
+                     #: release** -- 8B is SFT+DPO, 70B and 405B shipped the
+                     #: SFT checkpoints -- and a family slot cannot say that.
+                     family=meta.get("family", ""),
+                     position=meta.get("position", ""),
                      stage=meta.get("stage", ""), org=mid.split("/")[0],
                      params="", params_b=None, architecture="",
                      tokenizer_class="", vocab_size=None, cjk_tier="",
@@ -930,7 +968,16 @@ def main(a):
         r.update({"model_id": mid, "nickname": NICKNAMES.get(mid, mid.split("/")[-1]),
                   "org": mid.split("/")[0], "status": st, "exclusion_reason": why,
                   "in_grid_spec": mid in in_grid, "cells_in_store": scored.get(mid, 0),
-                  "pending_repair": None, "family": "", "position": "", "stage": ""})
+                  "pending_repair": None, "family": "",
+                  #: **A REMOVED ROW STILL HAS A POSITION AND IT IS KNOWN.**
+                  #: This hardcoded `""`, so the last 6 undeclared models were
+                  #: the ones whose status already said why they are unusable.
+                  #: Researched at [6267] from first-party cards and papers;
+                  #: declared by the registrar. **Being off-roster is not the
+                  #: same as being unknown**, and a null here reads as the
+                  #: second while meaning the first.
+                  "position": REMOVED_POSITION.get(mid, ""),
+                  "stage": REMOVED_STAGE.get(mid, "")})
         #: **THIRD PLACE THE TOKENIZER JOIN WAS MISSING.** This constructor
         #: makes an ALL-NULL row from an existing row's key set and fills a
         #: handful of fields, so a REMOVED model's measured properties are
