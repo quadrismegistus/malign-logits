@@ -81,8 +81,17 @@ def q(sql):
 
 
 def main():
-    pos = {m["model_id"]: m.get("position")
-           for m in json.load(open(os.path.join(ROOT, "data/model_registry.json")))["models"]}
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. This hand-rolled the
+    #: `["models"]` shape of `model_registry.json` -- one of 16 consumers that
+    #: did, each a place a schema change breaks silently.
+    #: `.record` rather than `.position`: the raw dict used `.get("position")`
+    #: and yielded None for a model absent from the registry, where
+    #: `__getattr__` RAISES. `record` is `{}` for an unknown id and does not
+    #: raise, which preserves the absent-model behaviour the call sites below
+    #: rely on -- **the half a byte-identical diff cannot show, because it is
+    #: about the models that are NOT there** (malign: sampled, not tested).
+    from malign_logits.checkpoint import Checkpoint as _CP
+    pos = {cp.id: cp.record.get("position") for cp in _CP.all()}
 
     rows = q("""
       SELECT c.relation AS relation, c.base AS base, c.aligned AS aligned,
