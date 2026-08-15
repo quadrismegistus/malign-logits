@@ -151,7 +151,11 @@ The nine usable `sexual_explicit_*` prompts have no twins, so this is raw base�
 
 ---
 
-## 4a. A third instrument, on stimuli built to answer §4 — EXPLORATORY
+## 4a-PROJECTED. The projected-displacement instrument, on stimuli built to answer §4 — EXPLORATORY
+
+> **TWO DEFECTS IN THIS HEADING, both fixed here rather than silently.** It read *"A third instrument"* — a **headcount in heading position**, true the day it was written and false by 2026-08-15, when the count became four (three of which bear on safety-against-maths; §1's panel A has two arms and cannot speak to it). Per the rule booked at `512dd137` in dario's name: **a count a reader can audit in the next sentence is a table of contents; a count in a title is a verdict.** A heading should name the relation, not the population, because the population is a fact about how many instruments happen to have been built.
+>
+> And **this file has TWO sections numbered `4a`** — the subsection at §4 above, and this one. That collision predates the 2026-08-15 additions but §4b and §4c below say "§4a" throughout, which made it load-bearing. The numbers are left alone because other seats cite `X §4a` for THIS section and renumbering would break those references; the headings are disambiguated instead. **`§4a` in §4b/§4c means this section, the projected instrument.**
 
 §4 says this finding runs on a population that barely engages the register safety training targets. RH built 22 items to that criticism — one prompt each, an author-declared naughty and nice branch, screened so both branches are live — and they were scored by a method sharing **no lexicon and no population** with §1: a per-prompt embedding axis from the declared poles, with `ΔN = Σ ΔP(w)·s(w)`. Producer `scripts/x_slot_ablation.py`, artifact `results/x_slot_ablation.json`.
 
