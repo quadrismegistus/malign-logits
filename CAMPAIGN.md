@@ -1327,6 +1327,38 @@ seat forgets at its peril:
   work.** And the substantive half stands: **a working tree is a place where
   anyone's draft can contain any string, so a search space of committed
   scripts should stay that way.**
+- **BETWEEN-GROUP AND WITHIN-GROUP CORRELATIONS CAN HAVE OPPOSITE SIGNS, AND
+  ONLY ONE OF THEM TESTS AN INSTRUMENT ARTEFACT** (lacan, [6328], answering
+  malign's [6326] length-confound challenge to M06's blind judging).
+
+      BETWEEN models   spearman(mean length, mean score)  +0.366  p=0.0047
+      WITHIN models    median spearman(item len, score)   -0.381  40 of 42
+                                                                  p=4.1e-10
+
+  **Longer models score higher; longer ITEMS score lower.** malign's worry
+  was that a coder scoring a 40-token passage has less to judge than one
+  scoring 400, so short output would depress the score. **If judging
+  rewarded length the WITHIN-model correlation would be positive.** It is
+  negative on 40 of 42 models. **So the between-model figure is not the
+  instrument rewarding length; it is a fact about models — ones that sustain
+  fluent Chinese produce more of it.**
+  **THE HYPOTHESIS DECIDES THE GRAIN.** A confound in the JUDGING is a
+  within-judge, within-model question, and the between-model correlation
+  cannot test it however strong it is. Running only the aggregate would have
+  confirmed malign's worry with a p of 0.0047 and been wrong.
+  **And it inverts the case that prompted it.** `bloomz-7b1`'s six round-1
+  items ran 101, 165, 19, 41, 87 and 14 characters — all short, and under
+  the measured within-model effect **short items get the FAVOURABLE read**.
+  It scored 0.00 WITH the length advantage. **The 0.00 is worse than it
+  looked, not milder**, and `cjk_tier` calling it FLUENT is a real false
+  positive that O1.1 catches by name.
+  **New property of the instrument, previously unmeasured**: M06's blind
+  judging penalises length within a model. Hypothesised mechanism, stated as
+  one — **58% of items sit at the 260-character clip**, so within-model
+  variation is mostly *stopped early* against *ran to the cap*, and a capped
+  passage has more opportunity to display an error or to be looping. **The
+  arm contrast is unaffected**: base and aligned are judged on the same
+  prompts, so the penalty applies to both sides.
 - **A CORRECT VALUE IS NOT EVIDENCE FOR THE SENTENCE ATTACHED TO IT** (lacan,
   [6299], after making the same error twice in one evening at one seat):
 
