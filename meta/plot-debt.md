@@ -1254,6 +1254,22 @@ Ordering within each folder is the reader's ranking.
    Attention §6 head-concentration Lorenz curve, 7x not the plan's 17x —
    `attn_undist_*.json`. Doubles as the visual correction to the plan.
 
+### M06_generation — NOT ENUMERATED (registrar debt, opened 2026-08-15)
+
+**This pool has never covered M06.** 11 findings documents and 7 figures
+exist in `meta/M06_generation/`; the per-folder lists run M01 to M05 only,
+so **M06's plot debt has never been written down and its absence from this
+file has been reading as "nothing owed".** Six of the eleven findings are
+named nowhere in this document at all:
+
+    AB_surface_and_clauses   crosslingual_arms   drift_metric_audit
+    f15_on_passages          p_on_passages       zh_fluency_and_ordering
+
+**This is a gap in the LEDGER, not in the drawing**, and enumerating it is
+the registrar's work, not a drawer's. Nobody should be sent here to draw
+until the entries exist. Raised by dario at [6223], whose seat file names
+M06 as holding verdict-grade findings entirely unplotted.
+
 ### M05_emergence
 
 Orphaned figures first: 11 on-disk figures no finding cites, including the
@@ -1327,7 +1343,19 @@ section withdrew that read.
    A-R2 acquisition ordering as a log-step lollipop strip: four families at
    stage1-2000, discourse tracking alone at 32000 — `m05_onsets.json`
    `base_order`.
-7. D-R4 three stacked mover lists, Step(base,SFT) / Step(base,DPO) /
+7. **[DISCHARGED 2026-08-15 — `fig35_step_movers.png`, dario, `f4ea175f`]**
+   **Case-3 debt discharged with it**: D-R4's numbers existed as prose plus
+   a live store and nothing else; `results/m05_d_r4_movers.json` is their
+   first committed form, stable across both read paths. Same 17 movers on
+   base→SFT and base→DPO with 16 in common, `Step(SFT, DPO)` empty.
+   **The empty panel is the argument AND the trap**: it is empty on 3 of the
+   22 target prompts and has movers on the other 19, so drawn alone it
+   asserts a rate that D-R4's own *"illustrative, not a rate"* declines to
+   make. The 3-of-22 accounting sits beside the empty axis and the third
+   empty prompt is named, since D-R4 gives only two. **D-R4's "agree to the
+   third decimal" measured: largest per-word delta difference 0.0023, a
+   disagreement IN the third decimal rather than beyond it.**
+   D-R4 three stacked mover lists, Step(base,SFT) / Step(base,DPO) /
    Step(SFT,DPO), the third deliberately empty — from
    `m05_word_trajectories.py`'s Step objects. The empty panel is the
    argument.
