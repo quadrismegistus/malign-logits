@@ -1003,6 +1003,27 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A STATISTIC DECLARED BEFORE THE NUMBERS IS THE ONLY DEFENCE THAT IS NOT
+  CIRCULAR** (lacan, [6246], on the zh ordering fork). Two statistics on the
+  same 25 pairs: `order_diff` gives 16/25, -0.0030, **p=0.23, null**;
+  `order_ratio` gives 18/25, -0.0090, **p=0.043, nominal.** **Whether
+  Chinese shows an ordering effect turns entirely on the statistic — the
+  difference is null on BOTH cell sets, so the population is not the fork.**
+  `plan_zh_ordering.md` declared the ratio at `f9480f7a` **before the
+  producer existed**, for a stated reason: *the subtraction is not
+  scale-free, and alignment is established to SHRINK the whole sentence set
+  in Chinese, so both terms shrink and the difference carries the spread
+  effect it exists to remove.*
+  **lacan's refusal is the rule: "I am not going to argue the ratio is right
+  because it returns a result. That is the whole reason the plan was
+  committed first, and it is the only defence I have."** A statistic chosen
+  after seeing both outcomes cannot be defended by its reasoning, however
+  good the reasoning is, because the reasoning was available for the other
+  choice too. **Pre-registration does not make the argument better; it makes
+  it checkable.**
+  And the honest fallback, offered unprompted: **if the difference is
+  preferred, the Chinese ordering effect does not survive it and the finding
+  should say so AT THE TOP rather than in a secondary line.**
 - **A BOOKED RULE DOES NOT FIRE ON ITS OWN INSTANCE; THE PICTURE DID**
   ([6244], dario, self-reported, and the sharpest thing to come out of the
   centred-null work). Drawing the M06 ordering dissociation, its first title
