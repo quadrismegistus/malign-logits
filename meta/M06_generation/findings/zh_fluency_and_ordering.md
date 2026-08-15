@@ -14,6 +14,22 @@ existed. Producers: `scripts/m06_zh_fluency_sample.py`, `m06_zh_fluency_judge.js
 Results: `results/zh_fluency_verdicts*.json`, `zh_fluency_arms.json`,
 `zh_ordering.json`. Single pass; [5503] applies.
 
+**THREE OF THE SIGN TESTS BELOW CARRY THEIR PER-PAIR VECTOR IN THE ARTIFACT**,
+added after dario flagged at [6244] that the producers emitted summaries only,
+so a figure had to replay their loops to recover the deltas and the two could
+then diverge with nothing to compare:
+
+    the fluency contrast   zh_fluency_arms.json  fluency_contrast.per_pair    25
+    the ordering contrasts zh_ordering.json      P2_contrast[...].per_pair    24 sets
+    the crosslingual arms  crosslingual_ordering[_full].json
+                                                 arms.<metric>.<lang>.per_pair 25 each
+
+Each vector is filtered to the population its own sign test counted, with an
+assert tying its length to the `n` printed beside it, so those counts can be
+checked pair by pair without re-running anything. **The rest of the sign tests
+in this finding -- the is-Chinese-at-all null and the four ordinal recodings --
+are NOT covered**, and are stated as summaries only.
+
 **No new generation and no new embedding.** Every number here comes from
 generations already in the store and from `mean_pairwise`, which
 `m06_crosslingual_drift.py` persisted for exactly this test.

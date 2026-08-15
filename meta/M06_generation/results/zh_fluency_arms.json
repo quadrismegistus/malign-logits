@@ -150,6 +150,33 @@
   "ci95": [
    0.22799999999999998,
    0.528
-  ]
+  ],
+  "per_pair": {
+   "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.20000000000000018,
+   "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.050000000000000044,
+   "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": 0.3999999999999999,
+   "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": -0.25,
+   "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": 0.44999999999999996,
+   "LLM360/Amber>LLM360/AmberSafe": 0.8499999999999999,
+   "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": 0.25,
+   "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.04999999999999982,
+   "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.3500000000000001,
+   "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.30000000000000027,
+   "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": 0.30000000000000004,
+   "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": 1.0,
+   "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": 1.15,
+   "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.10000000000000003,
+   "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": 0.35,
+   "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.3500000000000001,
+   "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.34999999999999987,
+   "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": 0.30000000000000004,
+   "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": 0.44999999999999996,
+   "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": 0.6499999999999999,
+   "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": 0.05789473684210533,
+   "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": 0.7,
+   "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": 1.25,
+   "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.050000000000000044,
+   "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": 0.09999999999999964
+  }
  }
 }

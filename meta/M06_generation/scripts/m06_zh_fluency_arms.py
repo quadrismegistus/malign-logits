@@ -276,6 +276,13 @@ def main():
                          med, p2))
         print()
 
+    #: A duplicate base>aligned key would silently collapse two pairs into one
+    #: in the per_pair dict below, and a collapsed pair presents as a SMALLER
+    #: POPULATION rather than as a bug -- the failure shape that costs most,
+    #: because the number it produces is never absurd.
+    assert len({"%s>%s" % (b, a) for _, b, a in d}) == len(d), (
+        "duplicate base>aligned key among the %d scored pairs" % len(d))
+
     json.dump({"_about":
                "Chinese fluency by arm, and whether it confounds the "
                "crosslingual drift contrast. Scores are FIRST ratings only; "
@@ -285,7 +292,18 @@ def main():
                "fluency_contrast": {
                    "pairs": len(d), "aligned_more_fluent": up,
                    "aligned_less_fluent": dn, "tied": eq,
-                   "sign_test_p": p, "mean": mean, "ci95": [lo, hi]}},
+                   "sign_test_p": p, "mean": mean, "ci95": [lo, hi],
+                   #: THE VECTOR THE 20/5 SUMMARISES, same reason as the two
+                   #: ordering producers (dario at [6244], done at e4333807):
+                   #: a summary alone forces the next figure to replay this
+                   #: loop, and the replayed and published versions can then
+                   #: diverge with nothing to compare. `d` is already filtered
+                   #: to pairs with both members scored, which is what `pairs`
+                   #: counts -- the assert below holds the two together so the
+                   #: vector cannot come to describe a wider population than
+                   #: the count printed beside it.
+                   "per_pair": {"%s>%s" % (b, a): delta
+                                for delta, b, a in d}}},
               open(OUT, "w"), indent=1)
     print("\n-> %s" % os.path.relpath(OUT, ROOT))
     return 0
