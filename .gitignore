@@ -316,9 +316,15 @@ data/twp_phasefalcon/
 data/f11_twp*/*.jsonl
 
 # Derived analysis pickles. Nothing rebuilds from them that cannot rebuild from
-# their producer, 0 are tracked, and meta/M02_frame_exit/results/dp.pkl is 8.8 MB
-# of embeddings that pole_axis_build.py regenerates in minutes.
+# their producer, and pole_axis_build.py regenerates dp.pkl in minutes.
 *.pkl
+# EXCEPT dp.pkl, tracked by RH's decision 2026-08-15. Being machine-local was
+# reading as a COMPUTE blocker in plot-debt -- M02 candidates 2 and 9 were tagged
+# REBUILD REQUIRED and sat closed behind it, when the artifact was present, newer
+# than its producer, and loaded clean ([6242]). At 8.8 MB it is far under the
+# 100 MiB hook, and tracking it retires the blocker on every machine, not just
+# the one that happens to hold the file.
+!meta/M02_frame_exit/results/dp.pkl
 
 # ── Y ANALYSIS TABLES ──────────────────────────────────────────────────────
 # Derived from data/raw/y_y-*/ plus results/y_confirmatory_coded.jsonl by
