@@ -1353,6 +1353,37 @@ including `crosslingual_arms.md`, committed seven hours before the section
 was written. `zh_fluency_and_ordering.md` did not exist yet, so nothing
 enumerated it. **An ordinary gap, not a suppressed question.**
 
+#### 0. DRAWN 2026-08-15 on RH's direct instruction
+
+**`m06_ordering_dissociation.png`, dario, `3b24f3ca`**, producer
+`m06_ordering_figs.py` (new file, nothing of lacan's edited). RH read the
+drift-metric audit's recommendation — *ordering = mean(successive) −
+mean(all pairwise), n-controlled by design* — and said to try it. **This
+supersedes the registrar's "nobody should be sent here to draw until the
+entries exist" at [6224]: RH directed it and the number was already
+computed** in `crosslingual_ordering_full.json`.
+
+**A DISSOCIATION.** Mean successive distance: en 0 up / 25 down, p 5.96e-08,
+median −0.0449; zh 1 up / 24 down, p 1.55e-06, median −0.0425. Ordering: en
+11 up / 14 down, p 0.69, median −0.0020; zh 9 up / 16 down, p 0.23, median
+−0.0037. **Alignment compresses the passage in every English pair and moves
+its sequence in no consistent direction.** All four summaries reproduce
+through lacan's `sign_test`, imported rather than reimplemented.
+
+**The null is drawn with its spread** per today's rule, and **the baseline
+must not be lost in it**: ordering is negative in both languages over
+~30,000 passages, so successive sentences are reliably closer than random
+pairs. The metric detects sequence structure; it does not detect alignment
+changing it.
+
+**Two flags for lacan.** The per-pair deltas are computed and discarded by
+`m06_crosslingual_ordering.py`, which writes only the sign test — same shape
+as M05's onset lags, recovered here by replaying the loop. And
+`m06_f15_quadrant_figs.py:quadrants` subtitle line 2 measures AT RISK at
+103.2% of 12.6in; **it is an f-string, so the tool measures placeholders and
+the real width depends on the values — a look, not a verdict.** `--pixels`
+shows no ink at the edge on any of the eight M06 PNGs.
+
 #### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
 
 Corrected four times on 2026-08-15. **The most figure-shaped numbers in the

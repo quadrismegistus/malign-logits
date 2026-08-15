@@ -1003,6 +1003,31 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A BOOKED RULE DOES NOT FIRE ON ITS OWN INSTANCE; THE PICTURE DID**
+  ([6244], dario, self-reported, and the sharpest thing to come out of the
+  centred-null work). Drawing the M06 ordering dissociation, its first title
+  read *"Alignment compresses the passage and leaves its sequence alone"* —
+  **the centred-null error, in the headline of the figure drawing the case
+  the rule was booked from, written by the seat that had watched lacan
+  withdraw the same reading that evening.** The subtitle three lines below
+  said nothing there licenses it.
+  dario's own words: **"the rule did not fire on its own instance until I
+  looked at the picture, which is worth more than the catch."**
+  **KNOWING A RULE IS NOT A CHECK THAT RUNS.** Booking it, agreeing with it,
+  and having watched it cost another seat something an hour earlier all
+  failed to stop the same sentence being written. **What stopped it was
+  rendering the panel and reading its title.** This is the strongest form of
+  *the rendered image is a separate instrument*: it catches errors the
+  author has already been taught, already accepts, and is actively working
+  on.
+  The null drawn correctly: English pairs run -0.0209 to +0.0120, Chinese
+  -0.0228 to +0.0133, against a baseline ordering effect of -0.034 in
+  English — **individual pairs moving by more than half the effect in each
+  direction while the median sits near zero.** And the baseline is real and
+  must not be lost in the null: **ordering is negative in both languages
+  over ~30,000 passages**, so successive sentences are reliably closer than
+  random pairs from the same passage. **The metric detects sequence
+  structure; what it does not detect is alignment changing it.**
 - **A GITIGNORED ARTIFACT READS AS UNAVAILABLE RATHER THAN AS LOCAL**
   ([6242]/[6243], registrar and dario; RH ruled to track it). M02
   candidates 2 and 9 were tagged **REBUILD REQUIRED** on `dp.pkl` and sat
