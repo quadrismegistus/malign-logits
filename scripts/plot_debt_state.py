@@ -279,6 +279,81 @@ def retracted(folder, txt):
     return hits or None
 
 
+def _cited_bodies(folder, txt):
+    """(path, section, lines) for every `Doc §N` the entry cites."""
+    out = []
+    for doc_tok, sec, _suf in re.findall(
+            r"\b([A-Z][A-Za-z_]*)\s*§\s*(\d+)([a-z]?)", txt):
+        for path in glob.glob(os.path.join(ROOT, "meta", folder,
+                                           "findings", "*.md")):
+            base = os.path.basename(path).lower()
+            if not base.startswith(doc_tok.lower() + "_"):
+                continue
+            body = open(path, errors="ignore").read().splitlines()
+            start = None
+            for i, line in enumerate(body):
+                if re.match(r"^##\s+%s[a-z]?[.\s]" % re.escape(sec), line):
+                    start = i if start is None else start
+                elif start is not None and re.match(r"^##\s+(?!#)", line) \
+                        and not re.match(r"^##\s+%s[a-z]" % re.escape(sec), line):
+                    break
+            else:
+                i = len(body)
+            if start is not None:
+                out.append((path, sec, body[start:i]))
+    return out
+
+
+def collision(folder, txt):
+    """CONDITION 7: does another quantity in the cited section print this number?
+
+    **dario, [6209], after the third instance in one week.** Two tests over
+    the same 28 numbers both print `p = 0.0019`, and only the
+    Kruskal-Wallis is admissible: the modal-sign count gives the identical
+    value against a naive 0.5 null, but the modal sign IS the majority, so
+    under random signs a five-prompt pair already agrees 3.44 times, the
+    correct null expects 19.24, and p is 0.077.
+
+    Earlier the same week: M03's finding E books **65 Bonferroni survivors
+    one line below 65 individual-leaning words at p<0.01**, and Attention §3
+    reports an ordering its own subsection withdraws.
+
+    **IN EVERY CASE THE DOCUMENT IS SCRUPULOUS AND THE COLLISION IS ONLY
+    DANGEROUS TO SOMEONE READING A FIGURE**, where there is no adjacent
+    paragraph to disambiguate. A panel carries the number without the
+    sentence that distinguishes it from its twin.
+
+    Advisory, and deliberately narrow: decimals and 2+ digit integers only,
+    reported with both lines so the reader can see whether the two uses are
+    the same quantity.
+
+    **IT CANNOT TELL A COLLISION FROM A CITATION.** An entry quoting a
+    table's value matches that table, which is correct behaviour and not a
+    clash -- `M03 9` quoting *sexual 38, animal 50* hits the very rows it
+    came from. **The check finds a number twice; only a reader can say
+    whether the second one is a different quantity.** That is why both lines
+    print. 4 of 59 entries flag, which is a shortlist and not a verdict.
+    """
+    hits = []
+    for path, sec, lines in _cited_bodies(folder, txt):
+        for num in set(re.findall(r"\b\d+\.\d{2,}\b", txt)) | \
+                   {x for x in re.findall(r"\b\d{2,5}\b", txt)}:
+            where = [l.strip() for l in lines
+                     if re.search(r"(?<![\d.])%s(?![\d])" % re.escape(num), l)]
+            uniq = {re.sub(r"\s+", " ", w)[:70] for w in where}
+            #: A COLLISION IS A COINCIDENCE BETWEEN TWO QUANTITIES, NOT A
+            #: VALUE THE SECTION IS ABOUT. `28` appears in ten lines of the
+            #: attention section because it HAS 28 cells; that is its
+            #: subject, not a clash. Flagging it buried dario's real
+            #: `0.0019` under noise. **Cap at three: past that the number is
+            #: the topic and a reader cannot mistake it for a twin.**
+            if 1 < len(uniq) <= 3:
+                hits.append("%s §%s: %r appears in %d distinct lines | %s"
+                            % (os.path.basename(path), sec, num, len(uniq),
+                               " || ".join(sorted(uniq)[:2])))
+    return hits or None
+
+
 def state(folder, n, txt, sources=None, figs=None):
     mod = folder.split("_")[0]
     if sources is None:
