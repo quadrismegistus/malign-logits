@@ -47,8 +47,11 @@ def main():
     v = {r["key"]: r["verdict"] for r in verdicts if r.get("key")}
     truth = json.load(open(os.path.join(
         OUTD, "zh_fluency_sample.json")))["truth"]
-    reg = {m["model_id"]: m for m in json.load(
-        open(os.path.join(ROOT, "data/model_registry.json")))["models"]}
+    #: VIA `Checkpoint`, not a hand-rolled parse of the registry file --
+    #: 1 of the 18 consumers named at [6321]. `Checkpoint(mid).record` is `{}`
+    #: for an unknown id, which is what the `or {}` at the call sites relied on
+    #: the raw dict for, so present and absent models both behave as before.
+    from malign_logits.checkpoint import Checkpoint
     #: the judged text, so character stats are on the SAME passages
     text = {}
     for i in range(12):
@@ -57,7 +60,7 @@ def main():
             text[it["key"]] = it["continuation"]
 
     def tier(m):
-        return (reg.get(m) or {}).get("cjk_tier") or "-"
+        return Checkpoint(m).record.get("cjk_tier") or "-"
 
     missing = [k for k in truth if k not in v]
     print("judged %d of %d passages (%d missing)"
@@ -80,7 +83,7 @@ def main():
         cs = [x for x in cs if x]
         rows.append({
             "model": m, "n": n, "mean": mean, "tier": tier(m),
-            "vocab": (reg.get(m) or {}).get("cjk_chars"),
+            "vocab": Checkpoint(m).record.get("cjk_chars"),
             "ok": (c["fluent"] + c["flawed"]) / n,
             "counts": [c[o] for o in ORDER],
             "ttr": st.median([x["ttr"] for x in cs]) if cs else float("nan"),
