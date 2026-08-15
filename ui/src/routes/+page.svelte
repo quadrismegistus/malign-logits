@@ -21,6 +21,9 @@
 	import SlotExplorer from '$lib/components/SlotExplorer.svelte';
 
 	let connected = $state(false);
+	if (typeof localStorage !== 'undefined') {
+		try { const v = localStorage.getItem('malign.sidebarOpen'); if (v === '1') queueMicrotask(() => (sidebarOpen = true)); } catch {}
+	}
 	let dataOnly = $state(false);
 	let serverInfo: ServerInfo | null = $state(null);
 	let prompts: string[] = $state([]);
@@ -28,6 +31,18 @@
 	//: SlotExplorer is the default tab: it is the authoring entry point and the
 	//: only one that needs no analysis run first.
 	let activeTab = $state('slot');
+	//: SIDEBAR COLLAPSED BY DEFAULT. Its controls (prompt, Analyze, the family
+	//: pickers) need a LOADED PSYCHE, and `malign serve --data-only` has none --
+	//: so in the mode this app is normally run in, 280px of the window was
+	//: permanently occupied by buttons that cannot fire. Collapsible always
+	//: rather than hidden when data_only, because the reason to want the width
+	//: back is not confined to that mode, and a control that appears and
+	//: disappears with server state is harder to find than one that is always
+	//: there. The choice is remembered, so this is a default and not a policy.
+	let sidebarOpen = $state(false);
+	$effect(() => {
+		try { localStorage.setItem('malign.sidebarOpen', sidebarOpen ? '1' : '0'); } catch {}
+	});
 	let loading = $state(false);
 	let progressText = $state('');
 	let error = $state('');
@@ -233,7 +248,15 @@
 	</header>
 
 	<div class="main">
-		<aside class="sidebar">
+		<button
+			class="sidebar-toggle"
+			onclick={() => (sidebarOpen = !sidebarOpen)}
+			title={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar — prompt and analysis controls'}
+			aria-label={sidebarOpen ? 'Collapse sidebar' : 'Expand sidebar'}
+			aria-expanded={sidebarOpen}
+		>{sidebarOpen ? '‹' : '›'}</button>
+
+		<aside class="sidebar" class:collapsed={!sidebarOpen}>
 			<div class="prompt-section">
 				<label for="prompt-input">Prompt</label>
 				<textarea
@@ -491,6 +514,28 @@
 	.main {
 		display: flex;
 		flex: 1;
+		overflow: hidden;
+	}
+
+	.sidebar-toggle {
+		width: 18px;
+		min-width: 18px;
+		border: none;
+		border-right: 1px solid #1a1a2e;
+		background: #0d0d17;
+		color: #777;
+		cursor: pointer;
+		font-size: 14px;
+		line-height: 1;
+		padding: 0;
+	}
+	.sidebar-toggle:hover { color: #ccc; background: #12121f; }
+
+	.sidebar.collapsed {
+		width: 0;
+		min-width: 0;
+		padding: 0;
+		border-right: none;
 		overflow: hidden;
 	}
 
