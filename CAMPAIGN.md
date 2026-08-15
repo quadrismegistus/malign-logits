@@ -1087,6 +1087,27 @@ seat forgets at its peril:
   over ~30,000 passages**, so successive sentences are reliably closer than
   random pairs from the same passage. **The metric detects sequence
   structure; what it does not detect is alignment changing it.**
+- **A VECTOR EMITTED NEXT TO A STATISTIC SILENTLY CLAIMS TO BE THAT
+  STATISTIC'S POPULATION** (lacan, [6252], emitting the per-pair deltas both
+  ordering producers had been discarding). **The obvious implementation is
+  `dict(zip(names, deltas))` and it is wrong**: both `sign_test`s drop
+  non-finite values internally, so the dict would carry pairs **the `n`
+  printed beside it never counted.** Nothing would look wrong — a vector and
+  a count, side by side, describing different populations.
+  Fixed by filtering both to what the test actually saw, **with an assert
+  tying `len(per_pair)` to `n`** — and **watched to fail** on the real code
+  path: a forced key collision returned *ordering/zh: 1 per-pair entries
+  against n_pairs 25*, then restored and the file hash confirmed. **The same
+  assert catches a duplicate `base>aligned` key collapsing two pairs into
+  one, which would otherwise present as a smaller population rather than as
+  a bug.**
+  **This is the windowed-picture rule at [6240] one level down**: there the
+  panel and its printed mean described different populations; here the
+  vector and its `n` would. **Any two quantities published adjacently assert
+  a shared population, and adjacency is not a check.**
+  Method note worth copying: lacan verified the change was purely additive
+  **by stripping `per_pair` and comparing against a pre-edit snapshot, not
+  by reading the diff.**
 - **A SHARED BLOCKER TAG IS DISCHARGED PER ENTRY, NOT AS A GROUP**
   (registrar, [6251], first run of the [6243] schedule rule). Four M04
   entries were tagged *BLOCKED (channel3 re-run + dump)*, three by the
