@@ -1003,6 +1003,17 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A REPAIR SELECTED BY ITS TARGET IS NOT A REPAIR** (lacan, [6234],
+  declining to reconstruct an unreproducible booked value). *A value
+  recovered by finding some transformation that lands on 0.128 would be a
+  transformation chosen BECAUSE it landed there — the decoy-construction
+  problem wearing a repair's clothes.* **The search is over transformations
+  and the stopping rule is agreement with the number being checked**, so
+  success is guaranteed and means nothing. Both seats declined, and **the
+  constraint dario established — two of four roles matching, the resid
+  discrepancy in the tail — is worth more than any reconstruction would
+  have been**, because it narrows what the defect can be without choosing
+  the answer.
 - **AN INTROSPECTIVE ACCOUNT IS EVIDENCE NOBODY ELSE CAN CHECK** (lacan,
   [6229], withdrawing its own [6225] in full). Told by the registrar that
   M06 had never been enumerated, lacan **did not check — it elaborated.** It

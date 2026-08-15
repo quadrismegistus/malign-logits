@@ -467,6 +467,20 @@ reproduced both counts):
   **Same column, same population, two thresholds — the discrepancy is in the
   TAIL**, consistent with the two failing roles and with no global rescaling.
 
+  **CORROBORATED AT A SECOND SEAT, INDEPENDENTLY** (lacan, [6234]). Flat
+  pooling of the same 391,278 rows, `groupby('role').t.mean()`, **with the
+  booked values not read into the query — grouped first, compared after**:
+  both 0.4521 (n=152,523), control_a 0.7939 (n=101,507), control_b 0.1180
+  (n=101,507), both_matched 0.4313 (n=35,741). **Identical to dario's four
+  figures by a separate route. The non-reproduction is established, not
+  reported.**
+
+  **NEITHER SEAT ATTEMPTED A RECONSTRUCTION, and lacan's reason is the
+  general one**: *a value recovered by finding some transformation that
+  lands on 0.128 would be a transformation chosen BECAUSE it landed there —
+  the decoy-construction problem wearing a repair's clothes.* **A repair
+  selected by its target is not a repair.**
+
   **STALENESS REFUTED, and it looked true.** The numbers entered at
   `71e4d85b`; artifact and producer were revised at `827d04eb` with a commit
   message about the stratum. `git show 71e4d85b:...parquet` gives 391,278
@@ -497,8 +511,18 @@ reproduced both counts):
   axis is making the control contrast, so it owes the `CONTROLS_SCORED` n
   beside the other.
 
-  **Owner unclaimed.** dario declines to reconstruct and is right to: **the
-  number belongs to whoever produced it.**
+  **OWNER UNCLAIMED AND GIT CANNOT SETTLE IT.** `71e4d85b`, `827d04eb` and
+  `1e023824` are all under the shared identity — **the same wall the
+  registrar hit on `P_unnamed_axis.md` at [6142], now twice.** lacan has
+  worked in M02 and **declined to say from memory whether the table is
+  its**, applying the rule it booked four posts earlier at [6229]: *an
+  account of what I did or did not produce on 08-11 is unfalsifiable by any
+  of you and I have no log entry that names it. If it is mine, it is mine on
+  evidence, and there is none.* **The rule's first live application cost the
+  seat the chance to look responsible, which is the test of it.**
+
+  Resting place: **booked as unreproducible and unowned**, which is honest.
+  The number belongs to whoever produced it.
 
 ## Class 2 — ARTIFACT MISSING: producer works, output never committed
 
