@@ -1069,6 +1069,38 @@ seat forgets at its peril:
   prose becomes a number on the panel**, which is the same discipline as the
   GloVe spread, and the general form is that **a phrase inherited from a
   findings document is an unaudited quantity wearing words.**
+- **A REFERENCE LINE ASSERTS A SCOPE, AND ITS SCOPE CAN BE UNDECLARED**
+  ([6231], dario, on M02 candidate 7). The finding's *"every other aligned
+  model, max 2.01%"* excludes the four Falcon3 rows **and the Olmo row
+  listed immediately above it** -- a maximum over **24 of 29, not 25**. The
+  table makes it visible to a careful reader by listing Olmo separately; the
+  prose does not say it.
+  **It matters more as a line than as a sentence.** A dashed reference at
+  2.01% reads as *the ceiling for everything below the carriers*, and its
+  actual scope is one row narrower. **This is condition 5 -- a count is a
+  selection rule compressed to an integer -- arriving in an ANNOTATION**,
+  and it joins dario's own [6227] finding that **a population assert
+  protects the data and nothing protects the annotation.** Every reference
+  line, span, arrow and bracket is a claim drawn as geometry: **it can
+  vanish silently, and it can carry a population nobody declared.**
+- **DRAW THE ELEMENT THAT LETS A READER REFUTE THE OBVIOUS COUNTER-
+  EXPLANATION** ([6231], dario). The two Mamba rows sit at 0.35% and 0.18%,
+  **numerically indistinguishable from twenty other floor rows**, and are
+  coloured and named anyway -- **on grounds that have nothing to do with
+  their values.** The obvious defence of a one-family result is *tiiuae
+  models do this*, and **a reader cannot rule that out from a sorted list
+  unless the vendor's other models are findable in it.**
+  So the panel's most deliberate element is not the one carrying the result;
+  it is the one that makes the leading rival hypothesis checkable. **Salience
+  by argumentative role, not by magnitude.**
+- **A FIGURE WHOSE JOB IS TO FORBID A READING** ([6231], dario; second of
+  three cases where an entry's purpose is NEGATIVE). Four models of 29 carry
+  68.4% of every strict hit, so *"aligned models emit control tokens 10x
+  more often" is a statement about Falcon3 wearing a roster's clothes.*
+  **The design goal is that the pooled figure cannot be quoted without its
+  carriers visible in the same picture** -- which is a different objective
+  from showing that alignment raises the rate, and produces a different
+  graphic. All 29 pairs drawn, carriers named.
 - **THE FORM'S DEFAULT READING CAN CONTRADICT THE FINDING** ([6217], dario,
   drawing A-R2). The entry asked for a lollipop strip, and **a lollipop
   strip is precisely the graphic that invites four rows to be read as a

@@ -1117,6 +1117,16 @@ Ordering within each folder is the reader's ranking.
 5. Non-universality slope plot, base→aligned per lineage, 12/46 reversers,
    AmberSafe −0.1392 named — `contradiction_null_by_pair_en.csv` + `_zh`.
 6. **[DISCHARGED via its shortlist link]** D_CONTRA-on-D_CONTROL dumbbell (shortlist 10).
+7. **[DISCHARGED 2026-08-15 — `eassist_ambient_concentration.png`, dario,
+   `2e5117d0`]** **A figure whose job is to forbid a reading.** Four models
+   of 29 carry 68.4% of strict hits, so all 29 pairs are drawn and the
+   carriers named: **the pooled ratio cannot be quoted without its carriers
+   visible in the same picture.** The two Mamba rows (0.35%, 0.18%) are
+   coloured on argumentative grounds, not numeric ones — the vendor defence
+   is unfalsifiable from a sorted list unless tiiuae's other models are
+   findable. **Undeclared selection recovered in a REFERENCE LINE**: *"every
+   other aligned model, max 2.01%"* is a max over 24 of 29, excluding Olmo
+   as well as the four Falcon3 rows. Asserted against the row count.
 7. Falcon3 concentration lollipop, 52.76% vs 2.01% ceiling, Mamba rows
    labelled to kill the vendor reading — `eassist_ambient.csv`.
 8. t(both) by depth, one line per role, base/aligned solid/dashed —
