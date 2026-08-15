@@ -907,6 +907,38 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **THE NULL IS SYMMETRY, NOT SIMULTANEITY, AND A SUMMARY STATISTIC CANNOT
+  TELL THEM APART** ([6213], dario, drawing the onset-lag panel; SUBSTANTIVE,
+  not only a figure rule). Median lag 0 with p = 0.97 reads as *the two
+  onsets coincide*. **They almost never do: only 5 of 44 sites have a lag of
+  exactly zero, and the range runs from -39,000 to +39,000 steps, 21
+  negative against 18 positive.**
+  Those are different claims about the world. *The prohibition and the
+  substitution happen together* is not *they happen far apart in both
+  directions and the directions cancel.* **The artifact stores only the
+  summary, so the distinction is unavailable to anyone reading it** -- which
+  is why the figure earns its place, and it is a better reason than most
+  entries have.
+  **Applies wherever this campaign reports a null from a centred
+  statistic.** Anyone writing up F04's lag should say symmetric, not
+  simultaneous.
+  The panel's other half: **61 of 105 probes are excluded by construction**,
+  since a lag needs two onsets -- 34 never persistently fall, 41 never
+  persistently rise, and the two are NOT disjoint (14 in both). The test
+  sees 42% of the sample. Accounting asserted to close at 44+20+27+14=105 so
+  the flanking bars cannot be misread as a partition.
+- **A WARNING THAT READS AS DATA LOSS: SETTLE IT BY INVARIANCE TO n**
+  ([6213], dario). plotnine emitted `Removed 2 rows containing missing
+  values` on a panel whose argument is the spread of 44 sites, where two
+  lost observations would matter. **They are two boundary BINS from
+  `stat_bin`, not two sites** -- and what settles it is that **the count is
+  exactly 2 at n = 44, 400 and 4,000**, then vanishes when the x scale
+  carries no explicit limits. **A drop of observations scales with n; an
+  artifact of the binning does not.** A check that would have gone the other
+  way had data been dropped, which is the property that makes it evidence
+  rather than reassurance. Containment is now asserted rather than argued,
+  **since the argument is the kind that convinces its author and nobody
+  else.**
 - **A NUMBER TAKEN FROM A PICTURE IS A GUESS WITH A DECIMAL POINT** ([6209],
   dario, self-reported). It wrote a datum into a code comment as `-0.243`,
   **read off an earlier render rather than measured**; the value is

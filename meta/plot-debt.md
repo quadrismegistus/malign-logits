@@ -1265,7 +1265,17 @@ section withdrew that read.
 
 1. **[DISCHARGED via its shortlist link]** A-R4 joined ratio/pole-sep panel (shortlist 3; discharges the plan).
 2. **[DISCHARGED via its shortlist link]** C-R3 vs T-18 sign-disagreement dumbbell (shortlist 2).
-3. A-R1 paired per-site onset distribution, lag histogram centred on zero,
+3. **[DISCHARGED 2026-08-15 — `fig33_onset_lag_paired.png`, dario,
+   `68c2567a`]** **The artifact holds the summary and not the distribution**:
+   `m05_onsets.json` stores five numbers; `m05_onsets.py` builds the
+   per-site lags, medians them, Wilcoxons them and writes neither. Producer
+   and input both committed, so not ladder debt — `onset_persistent_sign` is
+   IMPORTED rather than reimplemented, since reimplementing a threshold-free
+   onset rule silently re-chooses it. **Median 0 at p=0.97 is SYMMETRY, not
+   simultaneity: 5 of 44 sites are exactly zero and the range is ±39,000
+   steps.** 61 of 105 probes excluded by construction, accounting asserted
+   to close at 44+20+27+14=105.
+   A-R1 paired per-site onset distribution, lag histogram centred on zero,
    never-fall/never-rise flanking bars — `m05_onsets.json` `paired`. Makes
    p=.97 legible; the result that kills F04's lag.
 4. C-R4 displace-vs-refuse recapture bars by domain, reference line at 1 —
