@@ -315,7 +315,184 @@ def cross_own():
     return out
 
 
-REGISTRY = {"cross_own": cross_own}
+
+
+#: Section 3c's three contrasts. Predicted: FALLER below, NONMOVER and RISER
+#: together -- so the first two were predicted NEGATIVE and the third NULL.
+BOOKED_3C = {
+    "f_minus_n": {"med": +0.0174, "neg": 14, "p": 0.171,
+                  "label": "FALLER  -  NONMOVER", "pred": "predicted BELOW zero"},
+    "f_minus_r": {"med": -0.0278, "neg": 16, "p": 0.194,
+                  "label": "FALLER  -  RISER", "pred": "predicted BELOW zero"},
+    "n_minus_r": {"med": -0.0478, "neg": 18, "p": 0.0247,
+                  "label": "NONMOVER  -  RISER", "pred": "predicted NEAR zero"},
+}
+ROWS = ["f_minus_n", "f_minus_r", "n_minus_r"]
+DOT_C, MED_C, HI_C = "#9a9a9a", "#2b2b2b", "#b03030"
+
+
+def sweep_strips():
+    """M04 candidate 7: a null that prose cannot make credible, drawn."""
+    from scipy.stats import wilcoxon
+    from plotnine import (aes, element_blank, element_text, geom_point,
+                          geom_segment, geom_text, geom_vline, ggplot, labs,
+                          scale_color_identity, scale_x_continuous,
+                          scale_y_continuous, theme, theme_minimal)
+    import pandas as pd
+
+    #: THE ENTRY NAMES BOTH FILES AND THE CHOICE IS PROVABLY IMMATERIAL. The
+    #: small one carries the summary fields; `_full` adds per-head arrays and
+    #: is 230x larger. Rather than pick and hope, the summaries are asserted
+    #: equal and the small one is read.
+    small = json.load(open(os.path.join(RESULTS, "attn_norm_sweep.json")))
+    full = json.load(open(os.path.join(RESULTS, "attn_norm_sweep_full.json")))
+    assert len(small) == len(full) == BOOKED_SWEEP["cells"], "cell count"
+    for a, b in zip(small, full):
+        assert (a["pair"], a["prompt"]) == (b["pair"], b["prompt"]), "cell order"
+        for k in ROWS:
+            assert a[k] == b[k], \
+                f"attn_norm_sweep.json and _full disagree on {k}; the caption "
+    cells = small
+
+    rows, pts = [], []
+    for i, key in enumerate(ROWS):
+        b = BOOKED_3C[key]
+        v = np.array([c[key] for c in cells])
+        med, neg = float(np.median(v)), int((v < 0).sum())
+        _, p = wilcoxon(v)
+        assert abs(med - b["med"]) < 5e-5, f"{key} median {med:+.4f} vs {b['med']}"
+        assert neg == b["neg"], f"{key}: {neg} of 28 negative, not {b['neg']}"
+        assert abs(p - b["p"]) < 5e-4, f"{key}: p {p:.4f} vs {b['p']}"
+        y = len(ROWS) - 1 - i
+        rows.append({"y": y, "label": b["label"], "pred": b["pred"],
+                     "med": med, "neg": neg, "p": p})
+        for c in cells:
+            hi = "SmolLM2" in c["pair"] and c["prompt"] in (
+                "sexual_explicit_1", "sexual_explicit_3")
+            pts.append({"y": y, "v": c[key], "col": HI_C if hi else DOT_C,
+                        "sz": 2.6 if hi else 1.9, "key": key,
+                        "prompt": c["prompt"], "pair": c["pair"]})
+
+    #: THE ONLY NOMINALLY SIGNIFICANT CONTRAST IS THE ONE PREDICTED TO BE NULL,
+    #: which is the section's argument in one sentence and is asserted so the
+    #: panel cannot outlive it.
+    by = {r["label"]: r for r in rows}
+    sig = [r for r in rows if r["p"] < 0.05]
+    assert len(sig) == 1 and sig[0]["label"] == BOOKED_3C["n_minus_r"]["label"], \
+        ("the set of contrasts under p<0.05 has changed; the panel says the "
+         "only one is NONMOVER-RISER, which the prediction put near zero")
+    assert by[BOOKED_3C["f_minus_n"]["label"]]["med"] > 0, \
+        ("FALLER-NONMOVER no longer has its median on the wrong side of zero; "
+         "the panel's headline says it does")
+
+    d_pts, d_rows = pd.DataFrame(pts), pd.DataFrame(rows)
+    #: precomputed rather than expressed inside aes(): plotnine evaluates aes
+    #: strings, so an expression there works until it silently does not, and a
+    #: mapped `size` would build a scale and rescale the very values it shows
+    d_rows["y0"], d_rows["y1"] = d_rows.y - 0.24, d_rows.y + 0.24
+    d_rows["lab_y"], d_rows["pred_y"] = d_rows.y + 0.20, d_rows.y - 0.04
+    d_rows["stat_y"] = d_rows.y - 0.26
+    d_rows["stat"] = [f"{r.neg} of 28 below zero     Wilcoxon p {r.p:.3f}"
+                      for r in d_rows.itertuples()]
+    d_rows["lx"] = -1.02
+    plain = d_pts[d_pts.col == DOT_C]
+    hilit = d_pts[d_pts.col == HI_C]
+    #: the two prompts of ONE pair, opposite in sign, on the primary contrast
+    pair_lab = d_pts[(d_pts.key == "f_minus_n") & (d_pts.col == HI_C)]
+    e = {r.prompt: r.v for r in pair_lab.itertuples()}
+    assert e["sexual_explicit_1"] * e["sexual_explicit_3"] < 0, "signs agree now"
+    #: EACH LABEL ANCHORED TO ITS OWN DOT. The first version placed the left
+    #: one at a fixed offset of -0.30, which put it over unrelated cells and
+    #: made it read as labelling them.
+    ann = pd.DataFrame([
+        {"y": 2.34, "v": e["sexual_explicit_3"] + 0.012, "ha": "left",
+         "t": f"same pair, other prompt: {e['sexual_explicit_3']:+.4f}", "c": HI_C},
+        {"y": 2.34, "v": e["sexual_explicit_1"] - 0.012, "ha": "right",
+         "t": f"the cell every earlier table quotes: {e['sexual_explicit_1']:+.4f}",
+         "c": HI_C}])
+
+    p = (
+        ggplot()
+        + geom_vline(xintercept=0, color="#333333", size=0.6)
+        + geom_point(plain, aes("v", "y"), color=DOT_C, size=1.9, alpha=0.75)
+        + geom_point(hilit, aes("v", "y"), color=HI_C, size=2.8)
+        + geom_segment(d_rows, aes("med", "y0", xend="med", yend="y1"),
+                       color=MED_C, size=1.5)
+        + geom_text(d_rows, aes("lx", "lab_y", label="label"), size=7.6,
+                    ha="left", color="#222222")
+        + geom_text(d_rows, aes("lx", "pred_y", label="pred"), size=6.6,
+                    ha="left", color="#777777")
+        + geom_text(d_rows, aes("lx", "stat_y", label="stat"), size=6.6,
+                    ha="left", color="#444444")
+        + geom_text(ann, aes("v", "y", label="t", color="c", ha="ha"), size=6.4)
+        + scale_color_identity()
+        #: LIMITS SET FROM THE DATA, NOT FROM A ROUND NUMBER. The first version
+        #: ran to +/-1.0 while the cells span -0.47 to +0.51, so half the panel
+        #: was empty and the evidence sat compressed in the middle third.
+        + scale_x_continuous(limits=(-1.04, 0.58),
+                             breaks=[-0.4, -0.2, 0, 0.2, 0.4])
+        + scale_y_continuous(breaks=[], limits=(-0.55, len(ROWS) - 0.35))
+        + labs(
+            title="The one contrast that separates is the one the prediction said would not",
+            subtitle=(
+                "Each dot is one of 28 cells (6 model pairs x 5 prompts, arms auto-selected by a rule\n"
+                "committed BEFORE the sweep returned, so the prediction has a timestamp preceding its own\n"
+                "test). x is the paired difference in D_norm between two words in that cell; the heavy\n"
+                "tick is the median over cells.\n"
+                "THE PREDICTION WAS: FALLER BELOW, NONMOVER AND RISER TOGETHER. It fails on both halves.\n"
+                "FALLER-NONMOVER is a coin flip with its median on the WRONG side of zero. The only\n"
+                "contrast reaching p < 0.05 is NONMOVER-RISER, which the prediction put near zero.\n"
+                "NO PER-CELL p VALUE IS DRAWN, AND THAT IS DELIBERATE. Section 3c's own verdict is that\n"
+                "these run to p = 0 and p = 2e-32 in BOTH directions because each is computed across 250\n"
+                "to 480 massively correlated heads, and that they are not evidence about anything. The\n"
+                "CELL is the unit; encoding cell-level significance here would smuggle back the quantity\n"
+                "the section exists to disqualify. The spread of the dots is the evidence.\n"
+                "THE TWO RED DOTS ARE ONE PAIR ON TWO PROMPTS, and they are the sharpest single fact in\n"
+                "this figure. Same models, same instrument, opposite sign, both overwhelming on their own\n"
+                "cell-level tests. The left one is the cell every table in sections 2, 3 and 3b quotes.\n"
+                "WHAT THIS DOES NOT SAY. Not that alignment does nothing to attention-back: section 3e\n"
+                "finds a pair-level shift that is real and large, which this instrument divides out by\n"
+                "construction. What is refuted is that the effect ORDERS BY ALIGNMENT STATUS."),
+            x="paired difference in D_norm, per cell   (log ratio of ratios, scale-free)",
+            y="",
+            caption=(
+                "Producer: meta/M04_syntagmatic/scripts/attn_figures.py from\n"
+                "results/attn_norm_sweep.json (producer attn_norm_sweep.py). plot-debt M04 candidate 7.\n"
+                "The entry names attn_norm_sweep{,_full}.json and the choice is provably immaterial: the\n"
+                "two agree cell for cell on all three contrasts, asserted here before drawing. `_full`\n"
+                "adds per-head arrays and is 230x larger, so the small file is read.\n"
+                "Asserted before drawing: 28 cells in both files and in the same order; each contrast's\n"
+                "median, count below zero and Wilcoxon p against section 3c; that exactly one contrast\n"
+                "falls under p<0.05 and that it is NONMOVER-RISER; that FALLER-NONMOVER still has its\n"
+                "median on the wrong side of zero; and that the two SmolLM2 prompts still disagree in\n"
+                "sign. Each of those is a sentence on the panel, and none of them is quoted.\n"
+                "D_norm is section 3b's instrument and supersedes the raw and norm-weighted tables of\n"
+                "sections 2 and 3 wherever they disagree."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(13.0, 7.4),
+                plot_title=element_text(size=11.5, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
+                                           lineheight=1.45),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left",
+                                          lineheight=1.45),
+                legend_position="none",
+                axis_text_y=element_blank(),
+                panel_grid_major_y=element_blank(),
+                panel_grid_minor_y=element_blank())
+    )
+    out = os.path.join(FIGURES, "attn_sweep_refutation.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    for r in rows:
+        print(f"    {r['label']:<22} median {r['med']:+.4f}  {r['neg']}/28 below 0  p {r['p']:.4f}")
+    print(f"    one pair, two prompts: {e['sexual_explicit_1']:+.4f} and "
+          f"{e['sexual_explicit_3']:+.4f}")
+    print(f"    no per-cell p encoded, per section 3c")
+    return out
+
+
+REGISTRY = {"cross_own": cross_own, "sweep_strips": sweep_strips}
 
 
 def main():
