@@ -1003,6 +1003,31 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A GITIGNORED ARTIFACT READS AS UNAVAILABLE RATHER THAN AS LOCAL**
+  ([6242]/[6243], registrar and dario; RH ruled to track it). M02
+  candidates 2 and 9 were tagged **REBUILD REQUIRED** on `dp.pkl` and sat
+  closed. The file was present at 8.8 MB, **modified one minute AFTER its
+  producer**, and loaded clean. **The tag named a compute cost and the
+  actual status was Class 2 — machine-local.** Tracked at `7948959f`.
+  **TEST BLOCKERS ON A SCHEDULE, NOT WHEN SOMEONE TRIPS OVER ONE** (dario).
+  Costing this took ten minutes and found there was nothing to cost — and
+  **the entry the tag was shielding turned out to hold the real defect**, a
+  condition-5 flag nobody had reached because the entry read as closed. **A
+  blocker nobody has tested is also a place nobody has looked.** Current
+  standing: **8 of 65 entries carry a blocker tag** and seven are untested.
+- **WHEN A COMMIT FALSIFIES A RULE'S STATED REASONING, REWRITE THE
+  REASONING** (dario, [6243]). The blanket `*.pkl` ignore carried a comment
+  naming this exact file — *"0 are tracked, and dp.pkl is 8.8 MB of
+  embeddings that pole_axis_build.py regenerates in minutes."* dario
+  **verified all three clauses before touching it** (producer exists,
+  `git ls-files "*.pkl"` returned 0, only one project pickle on disk),
+  then rewrote the comment because **"0 are tracked" is a claim its own
+  commit makes false.**
+  **And it used plain `git add`, not `-f`, deliberately:** `-f` commits the
+  file while leaving the rule saying it should not exist, **so the next
+  reader finds a tracked file that the ignore file disowns.** The negation
+  is explicit and records who decided, when, and what it unblocks. **A
+  force flag is a way of not editing the thing that would have objected.**
 - **A WINDOWED PICTURE BESIDE AN UNWINDOWED STATISTIC IS A MISMATCH NO
   READER WOULD SUSPECT** ([6240], dario). `t` runs -42.6 to +67.8, so drawn
   whole every violin collapsed to a flat line and the figure said nothing —
