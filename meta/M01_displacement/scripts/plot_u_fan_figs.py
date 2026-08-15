@@ -174,7 +174,13 @@ def two_instruments():
                              labels=["0%", "25%", "50%", "75%", "100%"])
         + facet_wrap("~panel", nrow=1)
         + labs(
-            title="One ablation suite, two instruments, two answers: removing safety data is categorical behaviorally and unremarkable distributionally",
+            #: THE TITLE COUNTED THE INSTRUMENTS AND THE COUNT WENT STALE.
+            #: "two instruments, two answers" was true when drawn and stopped
+            #: being true when X section 4b landed. A figure that says TWO is
+            #: not merely omitting a third, it is DENYING it (registrar,
+            #: [6190]) -- so the title no longer enumerates, and says which
+            #: instruments are ON THIS PANEL rather than how many exist.
+            title="One ablation suite, two instruments on this panel and a third that disagrees: safety is categorical behaviorally and unremarkable distributionally",
             subtitle=(
                 "The Tulu 3 SFT data ablations. One base (Llama-3.1-8B), one recipe, five training sets,\n"
                 "everything held fixed but the corpus. Both panels are percent of the full data mix, with\n"
@@ -192,7 +198,16 @@ def two_instruments():
                 "and is read at run time by a module unchanged since 07-30 -- the two agreeing on every\n"
                 "ratio to better than 0.03 points.\n"
                 "THE NULL IS NOT CLEAN AND IS NOT LAUNDERED HERE: 2 of 6 pairwise comparisons are\n"
-                "significant, both involving −Persona, at under 2 percent of the full-mix effect."),
+                "significant, both involving −Persona, at under 2 percent of the full-mix effect.\n"
+                "AND A THIRD INSTRUMENT DISAGREES WITH THE RIGHT-HAND PANEL. X section 4b, run\n"
+                "2026-08-15, finds −Safety the ONLY arm excluding zero and strengthening as stimulus\n"
+                "quality rises, with −WildChat null. IT IS NOT DRAWN HERE AND IT IS NOT COMPARABLE:\n"
+                "the QUANTITY is a signed projection onto a pole axis, not JS over the union support;\n"
+                "the POPULATION is 39 items never previously scored, not these 2,182 prompts; and the\n"
+                "WEIGHT is descriptive and unregistered over four training runs, so no p-value in it\n"
+                "escapes a 1-in-4 arm-level ceiling by its own accounting. A third column would\n"
+                "assert that these are three measurements of one thing, which is the claim that is\n"
+                "false."),
             x="", y="percent of the full data mix",
             caption=(
                 "Producers: meta/M01_displacement/scripts/plot_u_fan_figs.py from results/u_fan_ci.json\n"
