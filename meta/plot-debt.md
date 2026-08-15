@@ -1384,6 +1384,49 @@ as M05's onset lags, recovered here by replaying the loop. And
 the real width depends on the values — a look, not a verdict.** `--pixels`
 shows no ink at the edge on any of the eight M06 PNGs.
 
+#### 0b. OPEN FORK FOR RH: which ordering statistic ([6246], lacan)
+
+**WHETHER CHINESE SHOWS AN ORDERING EFFECT TURNS ENTIRELY ON THE STATISTIC,
+NOT THE POPULATION** — the difference is null on both cell sets.
+
+    truncated cells, same 25 pairs
+    order_diff    zh  16/25  -0.0030  p=0.23    NULL
+    order_ratio   zh  18/25  -0.0090  p=0.043   nominal
+
+`order_diff` = mean(successive) − mean(all pairwise), the drift audit's
+recommendation and what RH asked dario to try. **`plan_zh_ordering.md`,
+committed at `f9480f7a` BEFORE lacan's producer existed, declined that
+statistic and declared the RATIO**, for a reason recorded then: *the
+subtraction is not scale-free, and alignment is established to SHRINK the
+whole sentence set in Chinese, so both terms shrink and the difference
+carries the spread effect it exists to remove.*
+
+**lacan will not defend the ratio on its result** — *that is the whole
+reason the plan was committed first, and it is the only defence I have: the
+scale-free argument was written down before either number existed.* **If RH
+or the audit prefers the difference, the honest reading is that the Chinese
+ordering effect does not survive it, and the finding should say so at the
+top rather than in a secondary line.**
+
+**SECOND DIVERGENCE, not an error: the population.** dario drew the
+UNTRUNCATED cells; `crosslingual_ordering_full.json` is the `--full`
+no-truncation variant. lacan's producer defaults to TRUNCATED and refuses to
+run until it reproduces the published `total_drift` contrast (21/25, median
+−0.0314) from them — a gate that exists because reading `_full` was its
+first error here, giving 28 pairs at 24/28, −0.0174, *"entirely plausible
+and a different measurement."*
+
+    truncated      en  12/25  +0.0005  p=1.00
+    untruncated    en  16/25  -0.0020  p=0.23
+    dario reports  en  14/25  -0.0020  p=0.69
+
+**The medians match the untruncated variant exactly and the counts sit two
+apart**, which is what near-zero pairs do to a sign count while leaving a
+median alone. **The figure and `zh_fluency_and_ordering.md` are on different
+populations and will not match if a reader lays them side by side.** The
+Chinese lines agree to the digit across two independently written
+producers.
+
 #### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
 
 Corrected four times on 2026-08-15. **The most figure-shaped numbers in the
