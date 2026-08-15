@@ -1,0 +1,2855 @@
+{
+ "_about": "SURFACE CONFORMANCE per (model, store): does a model's stored `word` field conform to the rule its cells claim? rule_version and dict_sha describe the rule DECLARED, not the normalisation APPLIED -- on 2026-08-15 a base and an arm carried identical stamps with 0% and 99% U+2581. Not a property of a checkpoint and not of an edge: the same checkpoint re-expanded writes clean surfaces.",
+ "_producer": "scripts/build_surface_conformance.py --write",
+ "_thresholds": {
+  "u2581_max": 0.01,
+  "byte_max": 0.01
+ },
+ "_verdict_rule": "the WORST script, never the pool -- a pooled rate on a CJK-heavy model dilutes an English defect below any threshold",
+ "_n_probes_per_script": 6,
+ "models": [
+  {
+   "model": "01-ai/Yi-1.5-9B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 752,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 925,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "01-ai/Yi-1.5-9B-Chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 657,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 881,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Aleph-Alpha/Pharia-1-LLM-7B-control-aligned-hf",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 639,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Aleph-Alpha/Pharia-1-LLM-7B-control-hf",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 677,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "BAAI/Aquila2-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 301,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 306,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "BAAI/AquilaChat2-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 466,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 481,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "BSC-LT/salamandra-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 827,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 7,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "BSC-LT/salamandra-7b-instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 647,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 6,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ContextualAI/archangel_sft-dpo_pythia2-8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 764,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1218,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ContextualAI/archangel_sft-kto_pythia2-8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 761,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 810,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ContextualAI/archangel_sft-ppo_pythia2-8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 752,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 801,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ContextualAI/archangel_sft-slic_pythia2-8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 758,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 796,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ContextualAI/archangel_sft_pythia2-8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 755,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 789,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "EleutherAI/pythia-2.8b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 792,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1200,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "EleutherAI/pythia-6.9b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 740,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1253,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceH4/mistral-7b-sft-beta",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 594,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 521,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceH4/zephyr-7b-beta",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 552,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 769,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceTB/SmolLM2-360M",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 763,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1511,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceTB/SmolLM2-360M-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 667,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1716,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceTB/SmolLM3-3B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 574,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 985,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceTB/SmolLM3-3B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 707,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 964,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "HuggingFaceTB/SmolLM3-3B-checkpoints",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 572,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 553,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "LLM360/Amber",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 932,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 715,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "LLM360/AmberChat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 593,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 452,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "LLM360/AmberSafe",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 385,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 550,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "NousResearch/Hermes-3-Llama-3.1-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 500,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 393,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "NousResearch/Nous-Hermes-2-Mistral-7B-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 648,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 505,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "OpenLLM-France/Lucie-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 841,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "OpenLLM-France/Lucie-7B-Instruct-v1.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 807,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "PKU-Alignment/alpaca-7b-reproduced",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 500,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 404,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "PKU-Alignment/beaver-7b-v1.0",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 362,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 622,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen2.5-0.5B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 754,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 935,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 726,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 900,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen2.5-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 649,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 837,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen2.5-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 516,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 712,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen3-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 405,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 738,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Qwen/Qwen3-8B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 696,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 911,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "RWKV/rwkv-4-7b-pile",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 751,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1478,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "RWKV/rwkv-raven-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 668,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1543,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 800,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 945,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 914,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 905,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Zyphra/Zamba2-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 712,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 519,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "Zyphra/Zamba2-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 686,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 529,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 522,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 452,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 620,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 553,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-math-data",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 621,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 538,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-persona-data",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 623,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 546,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-safety-data",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 628,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 489,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3-8B-SFT-no-wildchat-data",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 625,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 560,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Llama-3.1-Tulu-3.1-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 558,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 513,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMo-2-0425-1B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 767,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1370,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMo-2-0425-1B-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 644,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1573,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMo-2-0425-1B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 642,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 1059,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMo-2-0425-1B-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 643,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 979,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMoE-1B-7B-0125",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 704,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1357,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMoE-1B-7B-0125-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 556,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1479,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMoE-1B-7B-0125-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 533,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 1027,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/OLMoE-1B-7B-0125-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 611,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 1017,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-1025-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 716,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1273,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-1125-32B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 696,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1151,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 440,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 720,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-7B-Instruct-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 467,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1169,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-7B-Instruct-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 519,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 805,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-7B-Think-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 566,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 777,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3-7B-Think-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 582,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 752,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3.1-32B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 465,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 441,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3.1-32B-Instruct-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 477,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 862,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-3.1-32B-Instruct-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 540,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 540,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-Hybrid-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 723,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1045,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-Hybrid-Instruct-DPO-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 601,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1059,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "allenai/Olmo-Hybrid-Instruct-SFT-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 647,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 647,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "baichuan-inc/Baichuan2-7B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 852,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 607,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "baichuan-inc/Baichuan2-7B-Chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 548,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 538,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "bigscience/bloom-7b1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 860,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 968,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "bigscience/bloomz-7b1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 800,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 327,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "cognitivecomputations/Dolphin3.0-Llama3.1-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 408,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 462,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "cognitivecomputations/dolphin-2.6-mistral-7b-dpo",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 636,
+    "u2581_rate": 1.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 558,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.043
+   },
+   "worst_u2581": 1.0,
+   "worst_byte": 0.043,
+   "conforms": false
+  },
+  {
+   "model": "croissantllm/CroissantLLMBase",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 997,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "croissantllm/CroissantLLMChat-v0.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 815,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 420,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 674,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 479,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 397,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "deepseek-ai/deepseek-llm-7b-base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 660,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1039,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "deepseek-ai/deepseek-llm-7b-chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 648,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1034,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "google/gemma-2-9b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 551,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 791,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "google/gemma-2-9b-it",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 368,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 573,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "google/recurrentgemma-9b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 725,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 741,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "google/recurrentgemma-9b-it",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 412,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 466,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "huggyllama/llama-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 943,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 740,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ibm-granite/granite-3.0-8b-base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 958,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1010,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "ibm-granite/granite-3.0-8b-instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 745,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 993,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "inceptionai/jais-family-6p7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 752,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 379,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "inceptionai/jais-family-6p7b-chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 504,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 639,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "internlm/internlm2-base-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 732,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 546,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "internlm/internlm2-chat-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 659,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 549,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "internlm/internlm2-chat-7b-sft",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 632,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 563,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "kakaocorp/kanana-1.5-8b-base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 760,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 760,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "kakaocorp/kanana-1.5-8b-instruct-2505",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 408,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 602,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "kakaocorp/kanana-2-3b-base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 774,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 629,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "kakaocorp/kanana-2-3b-instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 702,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 698,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "llm-jp/llm-jp-3-7.2b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 782,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1244,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "llm-jp/llm-jp-3-7.2b-instruct2",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 637,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 760,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "llm-jp/llm-jp-3-7.2b-instruct3",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 615,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1118,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "lomahony/eleuther-pythia6.9b-hh-dpo",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 685,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1283,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "lomahony/eleuther-pythia6.9b-hh-sft",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 686,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 815,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/CT-LLM-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 757,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 925,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/CT-LLM-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 577,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 654,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/CT-LLM-SFT-DPO",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 579,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 969,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/neo_7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 753,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 966,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/neo_7b_instruct_v0.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 672,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 932,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "m-a-p/neo_7b_sft_v0.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 649,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 579,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "meta-llama/Llama-3.1-70B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 694,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 982,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "meta-llama/Llama-3.1-70B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 550,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 842,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "meta-llama/Llama-3.1-8B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 688,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 814,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "meta-llama/Llama-3.1-8B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 566,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 875,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "microsoft/phi-4",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 682,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1235,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "microsoft/phi-4-reasoning",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 628,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1273,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "mistralai/Mistral-7B-v0.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 758,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 910,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openGPT-X/Teuken-7B-base-v0.6",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 796,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openGPT-X/Teuken-7B-instruct-v0.6",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 569,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openbmb/MiniCPM5-1B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 655,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 811,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openbmb/MiniCPM5-1B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 674,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 830,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openbmb/MiniCPM5-1B-SFT",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 668,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 552,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "openchat/openchat-3.5-0106",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 638,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 627,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "stabilityai/stablelm-2-1_6b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 700,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1446,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "stabilityai/stablelm-2-1_6b-chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 446,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 1079,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "stabilityai/stablelm-2-zephyr-1_6b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 525,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1715,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "team-hatakeyama-phase2/Tanuki-8B-base-v1.0",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 752,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 481,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "teknium/OpenHermes-2.5-Mistral-7B",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 623,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 526,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon-H1-1.5B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 872,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1081,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon-H1-1.5B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 811,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 991,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon-H1-7B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 806,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 913,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon-H1-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 690,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 818,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-10B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 627,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1225,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-10B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 583,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1139,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-1B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 624,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1097,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-1B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 610,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1223,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-3B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 629,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1197,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-3B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 553,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1272,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-7B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 618,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1162,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 539,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1094,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-Mamba-7B-Base",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 684,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1070,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/Falcon3-Mamba-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 563,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1043,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/falcon-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 606,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 651,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/falcon-7b-instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 560,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 738,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/falcon-mamba-7b",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 649,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1047,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "tiiuae/falcon-mamba-7b-instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 575,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1122,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Chat",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 178,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 824,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "togethercomputer/RedPajama-INCITE-7B-Instruct",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 728,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 4,
+    "rows": 891,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "togethercomputer/RedPajama-INCITE-Base-7B-v0.1",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 746,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 1363,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "weblab-GENIAC/Tanuki-8B-dpo-v1.0",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 715,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": null,
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "zai-org/glm-4-9b-chat-hf",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 588,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 666,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  },
+  {
+   "model": "zai-org/glm-4-9b-hf",
+   "store": "true_word_probs",
+   "en": {
+    "prompts": 6,
+    "rows": 713,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "zh": {
+    "prompts": 6,
+    "rows": 891,
+    "u2581_rate": 0.0,
+    "byte_rate": 0.0
+   },
+   "worst_u2581": 0.0,
+   "worst_byte": 0.0,
+   "conforms": true
+  }
+ ]
+}
