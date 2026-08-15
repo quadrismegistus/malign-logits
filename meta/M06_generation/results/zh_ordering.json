@@ -44,145 +44,505 @@
    "n": 25,
    "neg": 18,
    "median": -0.008981341333335724,
-   "p": 0.043285250663757324
+   "p": 0.043285250663757324,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.03627932302590908,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.09441462372136089,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.011002667245076925,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.0018635041447244705,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.008981341333335724,
+    "LLM360/Amber>LLM360/AmberSafe": -0.03159280583490698,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.0015397962620653516,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0004366805411385455,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.008712212394364593,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.008765460727499397,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.009893788617885924,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.0234765841811585,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.012630866413865238,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.017315926260067394,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.02607500757127723,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.011259666116458011,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.009281130725140918,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.0032352574555470914,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.023971979291214474,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": 0.010743016845956133,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": 0.0013540736441127743,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": 0.005245030463745914,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": 0.013851720147048219,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.0329175525422698,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.06501114388182982
+   }
   },
   "order_ratio:zh:fluent>=1.5": {
    "n": 8,
    "neg": 6,
    "median": -0.008712212394364593,
-   "p": 0.2890625
+   "p": 0.2890625,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.03627932302590908,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0004366805411385455,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.008712212394364593,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.008765460727499397,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.011259666116458011,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.009281130725140918,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.023971979291214474,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.06501114388182982
+   }
   },
   "order_ratio:zh:fluent>=2.0": {
    "n": 6,
    "neg": 5,
    "median": -0.008712212394364593,
-   "p": 0.21875
+   "p": 0.21875,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.03627932302590908,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0004366805411385455,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.008712212394364593,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.008765460727499397,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.011259666116458011,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.06501114388182982
+   }
   },
   "order_ratio:en:ALL": {
    "n": 25,
    "neg": 14,
    "median": -0.00029332082169697404,
-   "p": 0.6900379657745361
+   "p": 0.6900379657745361,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.013900440141607073,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.002602724065223716,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": 0.001256705901936661,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.00614038799936345,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": 0.004580197920620088,
+    "LLM360/Amber>LLM360/AmberSafe": -0.0213557401447384,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.004362104976103842,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0101214568916147,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.006926365864770689,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.00018192705553476962,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.0022536678036955138,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": 0.00239128386382198,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": 0.010048996968783586,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.014066807951234717,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": 0.004265325489763716,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.00029332082169697404,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.01005360594884347,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": 0.006804894160833741,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.011486200555064052,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": 0.0010232271382226155,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.004963954809939941,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": -0.003700801812426935,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.002545155779182684,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.024086011173047095,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.014422998197186954
+   }
   },
   "order_ratio:en:fluent>=1.5": {
    "n": 8,
    "neg": 5,
    "median": -0.00018192705553476962,
-   "p": 0.7265625
+   "p": 0.7265625,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.013900440141607073,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0101214568916147,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.006926365864770689,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.00018192705553476962,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.00029332082169697404,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.01005360594884347,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.011486200555064052,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.014422998197186954
+   }
   },
   "order_ratio:en:fluent>=2.0": {
    "n": 6,
    "neg": 4,
    "median": -0.00018192705553476962,
-   "p": 0.6875
+   "p": 0.6875,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.013900440141607073,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0101214568916147,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.006926365864770689,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.00018192705553476962,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.00029332082169697404,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.014422998197186954
+   }
   },
   "order_diff:zh:ALL": {
    "n": 25,
    "neg": 16,
    "median": -0.002981917047500615,
-   "p": 0.2295229434967041
+   "p": 0.2295229434967041,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.015089818239212037,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.0246024319410324,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.002981917047500615,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.00014830147425332063,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.00363253962198895,
+    "LLM360/Amber>LLM360/AmberSafe": -0.009583647628625225,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": 0.0004439830780029186,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": 0.001627081839243573,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0027974362055460666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.0006811979611714702,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.005759063625335681,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.007158490419387801,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.003826785024007148,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.014248361682891841,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.00730240732828775,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.006518381230036417,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.009748623736699435,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.0009582971572875548,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.006624242226282754,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": 0.008991066360473622,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": 0.0027662014404932714,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": 0.0067598675727843505,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": 0.0074829201022784085,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.016134845936298402,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.023387334299087528
+   }
   },
   "order_diff:zh:fluent>=1.5": {
    "n": 8,
    "neg": 5,
    "median": -0.0006811979611714702,
-   "p": 0.7265625
+   "p": 0.7265625,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.015089818239212037,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": 0.001627081839243573,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0027974362055460666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.0006811979611714702,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.006518381230036417,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.009748623736699435,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.006624242226282754,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.023387334299087528
+   }
   },
   "order_diff:zh:fluent>=2.0": {
    "n": 6,
    "neg": 4,
    "median": -0.0006811979611714702,
-   "p": 0.6875
+   "p": 0.6875,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.015089818239212037,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": 0.001627081839243573,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0027974362055460666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.0006811979611714702,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.006518381230036417,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.023387334299087528
+   }
   },
   "order_diff:en:ALL": {
    "n": 25,
    "neg": 12,
    "median": 0.0005071509599685515,
-   "p": 1.0
+   "p": 1.0,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.006879960894584647,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.0014855783303578613,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -7.709360122680009e-05,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.0022528385440508487,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": 0.002577859369913716,
+    "LLM360/Amber>LLM360/AmberSafe": -0.005766502368450175,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.001790617918968178,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0014252289772033744,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.0033301661650339915,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.005809417645136537,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.00046232835451761115,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": 0.0035651588757832876,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": 0.005188482697804772,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.0014116702715556255,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": 0.0040452803532282635,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.004381952667236316,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.008743710146347698,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": 0.00517936027844745,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.003635386625925701,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": 0.0020069063107172507,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.0007237185955047409,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": 0.0005071509599685515,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.00117421798706054,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.008709471758206659,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.008964945673942598
+   }
   },
   "order_diff:en:fluent>=1.5": {
    "n": 8,
    "neg": 3,
    "median": 0.004381952667236316,
-   "p": 0.7265625
+   "p": 0.7265625,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.006879960894584647,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0014252289772033744,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.0033301661650339915,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.005809417645136537,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.004381952667236316,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": 0.008743710146347698,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.003635386625925701,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.008964945673942598
+   }
   },
   "order_diff:en:fluent>=2.0": {
    "n": 6,
    "neg": 2,
    "median": 0.004381952667236316,
-   "p": 0.6875
+   "p": 0.6875,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": 0.006879960894584647,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0014252289772033744,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.0033301661650339915,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.005809417645136537,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": 0.004381952667236316,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.008964945673942598
+   }
   },
   "mean_drift:zh:ALL": {
    "n": 25,
    "neg": 24,
    "median": -0.046699999999999964,
-   "p": 1.5497207641601562e-06
+   "p": 1.5497207641601562e-06,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.047133333333333305,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.1428,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.035116666666666574,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.012883333333333247,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.017450000000000077,
+    "LLM360/Amber>LLM360/AmberSafe": -0.10055833333333333,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.046699999999999964,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.008233333333333315,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.025233333333333385,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.010266666666666646,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.01689999999999997,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.08736666666666665,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.06039166666666665,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.11080000000000001,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.08179999999999993,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.04103333333333331,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.04620000000000002,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.03050833333333336,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.08249166666666663,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": -0.0522333333333333,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.023416666666666697,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": -0.06058333333333327,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.05365833333333336,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.04498333333333329,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.09773333333333328
+   }
   },
   "mean_drift:zh:fluent>=1.5": {
    "n": 8,
    "neg": 8,
    "median": -0.04103333333333331,
-   "p": 0.0078125
+   "p": 0.0078125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.047133333333333305,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.008233333333333315,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.025233333333333385,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.010266666666666646,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.04103333333333331,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.04620000000000002,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.08249166666666663,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.09773333333333328
+   }
   },
   "mean_drift:zh:fluent>=2.0": {
    "n": 6,
    "neg": 6,
    "median": -0.025233333333333385,
-   "p": 0.03125
+   "p": 0.03125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.047133333333333305,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.008233333333333315,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.025233333333333385,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.010266666666666646,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.04103333333333331,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.09773333333333328
+   }
   },
   "mean_drift:en:ALL": {
    "n": 25,
    "neg": 25,
    "median": -0.03634999999999999,
-   "p": 5.960464477539063e-08
+   "p": 5.960464477539063e-08,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012333333333333363,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.03524166666666664,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.0325,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": -0.006025000000000003,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.014483333333333293,
+    "LLM360/Amber>LLM360/AmberSafe": -0.13749166666666665,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.024500000000000022,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0374833333333332,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0393,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.06290000000000001,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.03634999999999999,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.02677500000000005,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.038933333333333375,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.0929666666666667,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.06288333333333337,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.060374999999999984,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.04423333333333335,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.009166666666666656,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.025141666666666618,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": -0.020866666666666672,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.02946666666666664,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": -0.04729166666666673,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.028949999999999976,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.060725,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.04753333333333337
+   }
   },
   "mean_drift:en:fluent>=1.5": {
    "n": 8,
    "neg": 8,
    "median": -0.0393,
-   "p": 0.0078125
+   "p": 0.0078125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012333333333333363,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0374833333333332,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0393,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.06290000000000001,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.060374999999999984,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.04423333333333335,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.025141666666666618,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.04753333333333337
+   }
   },
   "mean_drift:en:fluent>=2.0": {
    "n": 6,
    "neg": 6,
    "median": -0.0393,
-   "p": 0.03125
+   "p": 0.03125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012333333333333363,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0374833333333332,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.0393,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.06290000000000001,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.060374999999999984,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.04753333333333337
+   }
   },
   "total_drift:zh:ALL": {
    "n": 25,
    "neg": 21,
    "median": -0.031433333333333424,
-   "p": 0.0009105205535888672
+   "p": 0.0009105205535888672,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012766666666666704,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.033450000000000035,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.02629999999999999,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": 0.007783333333333475,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.008833333333333249,
+    "LLM360/Amber>LLM360/AmberSafe": -0.06300833333333328,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": 0.007149999999999879,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.004566666666666719,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.001966666666666672,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.010499999999999954,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.014866666666666695,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.0538333333333334,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.04135833333333333,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.07490000000000008,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.039383333333333326,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.047766666666666735,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.031433333333333424,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.03495833333333326,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.03926666666666667,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": -0.03530000000000011,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.012049999999999894,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": -0.03895000000000004,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.036658333333333404,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.005975000000000008,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.011333333333333306
+   }
   },
   "total_drift:zh:fluent>=1.5": {
    "n": 8,
    "neg": 6,
    "median": -0.011333333333333306,
-   "p": 0.2890625
+   "p": 0.2890625,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012766666666666704,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.004566666666666719,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.001966666666666672,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.010499999999999954,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.047766666666666735,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.031433333333333424,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": -0.03926666666666667,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.011333333333333306
+   }
   },
   "total_drift:zh:fluent>=2.0": {
    "n": 6,
    "neg": 4,
    "median": -0.004566666666666719,
-   "p": 0.6875
+   "p": 0.6875,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.012766666666666704,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.004566666666666719,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": 0.001966666666666672,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": 0.010499999999999954,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.047766666666666735,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.011333333333333306
+   }
   },
   "total_drift:en:ALL": {
    "n": 25,
    "neg": 24,
    "median": -0.020450000000000024,
-   "p": 1.5497207641601562e-06
+   "p": 1.5497207641601562e-06,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.010099999999999998,
+    "BSC-LT/salamandra-7b>BSC-LT/salamandra-7b-instruct": -0.015133333333333332,
+    "EleutherAI/pythia-6.9b>lomahony/eleuther-pythia6.9b-hh-dpo": -0.03675833333333334,
+    "HuggingFaceTB/SmolLM2-360M>HuggingFaceTB/SmolLM2-360M-Instruct": -0.007341666666666635,
+    "HuggingFaceTB/SmolLM3-3B-Base>HuggingFaceTB/SmolLM3-3B": -0.020450000000000024,
+    "LLM360/Amber>LLM360/AmberSafe": -0.1354166666666667,
+    "OpenLLM-France/Lucie-7B>OpenLLM-France/Lucie-7B-Instruct-v1.1": -0.03378333333333339,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0025333333333333874,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.01416666666666666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.04305000000000003,
+    "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T>TinyLlama/TinyLlama-1.1B-Chat-v1.0": -0.018266666666666653,
+    "allenai/OLMo-2-0425-1B>allenai/OLMo-2-0425-1B-DPO": -0.04716666666666669,
+    "allenai/OLMoE-1B-7B-0125>allenai/OLMoE-1B-7B-0125-DPO": -0.032199999999999895,
+    "huggyllama/llama-7b>PKU-Alignment/beaver-7b-v1.0": -0.07723333333333338,
+    "ibm-granite/granite-3.0-8b-base>ibm-granite/granite-3.0-8b-instruct": -0.03966666666666671,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.05219999999999997,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.0415416666666667,
+    "mistralai/Mistral-7B-v0.1>HuggingFaceH4/zephyr-7b-beta": -0.00649999999999995,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": 0.007400000000000018,
+    "tiiuae/Falcon3-10B-Base>tiiuae/Falcon3-10B-Instruct": -0.006991666666666674,
+    "tiiuae/Falcon3-1B-Base>tiiuae/Falcon3-1B-Instruct": -0.008199999999999985,
+    "tiiuae/Falcon3-3B-Base>tiiuae/Falcon3-3B-Instruct": -0.04088333333333333,
+    "tiiuae/Falcon3-7B-Base>tiiuae/Falcon3-7B-Instruct": -0.01093333333333335,
+    "togethercomputer/RedPajama-INCITE-Base-7B-v0.1>togethercomputer/RedPajama-INCITE-7B-Chat": -0.02915000000000001,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.017100000000000004
+   }
   },
   "total_drift:en:fluent>=1.5": {
    "n": 8,
    "neg": 7,
    "median": -0.01416666666666666,
-   "p": 0.0703125
+   "p": 0.0703125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.010099999999999998,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0025333333333333874,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.01416666666666666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.04305000000000003,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.05219999999999997,
+    "m-a-p/neo_7b>m-a-p/neo_7b_instruct_v0.1": -0.0415416666666667,
+    "openbmb/MiniCPM5-1B-Base>openbmb/MiniCPM5-1B": 0.007400000000000018,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.017100000000000004
+   }
   },
   "total_drift:en:fluent>=2.0": {
    "n": 6,
    "neg": 6,
    "median": -0.01416666666666666,
-   "p": 0.03125
+   "p": 0.03125,
+   "per_pair": {
+    "01-ai/Yi-1.5-9B>01-ai/Yi-1.5-9B-Chat": -0.010099999999999998,
+    "Qwen/Qwen2.5-0.5B>Qwen/Qwen2.5-0.5B-Instruct": -0.0025333333333333874,
+    "Qwen/Qwen2.5-7B>Qwen/Qwen2.5-7B-Instruct": -0.01416666666666666,
+    "Qwen/Qwen3-8B-Base>Qwen/Qwen3-8B": -0.04305000000000003,
+    "m-a-p/CT-LLM-Base>m-a-p/CT-LLM-SFT-DPO": -0.05219999999999997,
+    "zai-org/glm-4-9b-hf>zai-org/glm-4-9b-chat-hf": -0.017100000000000004
+   }
   }
  },
  "P3_comparison": {},

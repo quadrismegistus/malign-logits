@@ -213,6 +213,19 @@ def main():
                     continue
                 st2 = sign_test(pm.loc[keep].values)
                 tag = "ALL" if thr == 0 else "fluent>=%.1f" % thr
+                #: EMIT THE VECTOR THIS SUMMARISES. dario at [6244] on the
+                #: sibling producer: a seat drawing the figure had to replay
+                #: the loop to recover the deltas, so figure and artifact could
+                #: diverge with nothing to compare them against. `st2` is
+                #: computed first and unchanged, so nothing published moves.
+                #: NaN-filtered to sign_test's own population -- it drops
+                #: `x != x` internally, so an unfiltered dict would describe
+                #: more pairs than the `n` sitting beside it.
+                st2["per_pair"] = {p: float(pm.loc[p]) for p in keep
+                                   if pm.loc[p] == pm.loc[p]}
+                assert len(st2["per_pair"]) == st2["n"], (
+                    "%s/%s/%s: %d per-pair entries against n=%d"
+                    % (metric, lang, tag, len(st2["per_pair"]), st2["n"]))
                 out["P2_contrast"]["%s:%s:%s" % (metric, lang, tag)] = st2
                 print("    %-12s %-5s %-14s %4d %3d/%-3d %10.4f %10.4g"
                       % (metric, lang, tag, st2["n"], st2["neg"], st2["n"],

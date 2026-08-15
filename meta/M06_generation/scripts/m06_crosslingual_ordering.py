@@ -29,7 +29,7 @@ import argparse
 import json
 import os
 import sys
-from math import comb
+from math import comb, isfinite
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
@@ -90,7 +90,7 @@ def main():
         out["arms"][metric] = {}
         print("\n%s   (negative = alignment REDUCES)" % metric.upper())
         for l in ("zh", "en"):
-            ds = []
+            ds, names = [], []
             for p in use:
                 b = df[(df.lang == l) & (df.model == p["base"])]
                 al = df[(df.lang == l) & (df.model == p["aligned"])]
@@ -102,7 +102,24 @@ def main():
                 bm = b[b.prompt.isin(shared)].groupby("prompt")[metric].median()
                 am = al[al.prompt.isin(shared)].groupby("prompt")[metric].median()
                 ds.append(float((am - bm).median()))
+                names.append("%s>%s" % (p["base"], p["aligned"]))
             r = sign_test(ds)
+            #: EMIT THE VECTOR, NOT ONLY ITS SIGN TEST. dario at [6244]: a seat
+            #: drawing this had to replay the loop above to recover the numbers
+            #: it summarises, so their figure and this artifact could diverge
+            #: with nothing to compare. `ds` is unchanged and remains the sole
+            #: input to sign_test, so every value already published here is
+            #: untouched; this only stops the per-pair deltas being discarded.
+            #: FILTERED TO THE SIGN TEST'S OWN POPULATION -- sign_test drops
+            #: non-finite entries internally, so a dict built from the raw list
+            #: would carry pairs `n_pairs` never counted, and the vector would
+            #: quietly describe a wider population than the statistic above it.
+            pp = {n: d for n, d in zip(names, ds) if isfinite(d)}
+            assert len(pp) == r["n_pairs"], (
+                "%s/%s: %d per-pair entries against n_pairs %d -- a duplicate "
+                "base>aligned key would silently collapse two pairs into one"
+                % (metric, l, len(pp), r["n_pairs"]))
+            r["per_pair"] = pp
             out["arms"][metric][l] = r
             print("  %s  median %+.5f  %d up / %d dn  p %.3g  (pairs %d)"
                   % (l, r["median"], r["up"], r["dn"], r["p_sign"], r["n_pairs"]))
