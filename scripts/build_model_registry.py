@@ -527,7 +527,21 @@ def build():
                     #: 43 of 70 probed models differ between the two, and the
                     #: pair that cost 85 sites (llama-7b > beaver-7b-v1.0,
                     #: 32000 vs 32001) looked IDENTICAL on this field.
-                    vocab_size=int(cj["vocab_size"]) if cj.get("vocab_size") else None,
+                    #: **FALL BACK TO tokenizer_properties WHEN THE CJK SURVEY
+                    #: HAS NO ROW.** Taking this from `cj` alone left
+                    #: `vocab_size` NULL on 43 of 159 rows -- and the value
+                    #: EXISTED UPSTREAM for 38 of them (malign, [6322]). **36 of
+                    #: the 43 have data in the store**, so every consumer
+                    #: gating on `vocab_size` silently dropped 36 live models.
+                    #: The field was present and null, which reads as
+                    #: unmeasured rather than as dropped. The two sources are
+                    #: IDENTICAL on every model carrying both, checked
+                    #: 2026-08-15, so the fallback introduces no second fact.
+                    #: The residue is 5 -- gpt-sw3 x3 and mpt-7b x2, all
+                    #: `cells_in_store=0`, all gated or repo-dead.
+                    vocab_size=(int(cj["vocab_size"]) if cj.get("vocab_size")
+                                else int(tk["vocab_size"]) if tk.get("vocab_size") is not None
+                                else None),
                     #: THE THIRD NUMBER, joined 2026-08-15 from
                     #: data/tokenizer_properties.json, which this builder did
                     #: not read. `Checkpoint.vocab_size` returned None for a
@@ -917,6 +931,24 @@ def main(a):
                   "org": mid.split("/")[0], "status": st, "exclusion_reason": why,
                   "in_grid_spec": mid in in_grid, "cells_in_store": scored.get(mid, 0),
                   "pending_repair": None, "family": "", "position": "", "stage": ""})
+        #: **THIRD PLACE THE TOKENIZER JOIN WAS MISSING.** This constructor
+        #: makes an ALL-NULL row from an existing row's key set and fills a
+        #: handful of fields, so a REMOVED model's measured properties are
+        #: nulled even when they exist. After the declared-path join and the
+        #: extra-row join, three rows were still empty -- `phi-4`,
+        #: `phi-4-reasoning`, `glm-4-9b-hf` -- **all three measured on
+        #: 2026-08-15, and phi-4 carries 2,647 cells in the store.**
+        #: A REMOVED row is a name-carrier so receipts do not dangle; that is
+        #: a reason to keep the row, not a reason to discard facts we hold
+        #: about it. **Status is still decided above and is not touched here.**
+        _tkr = _tokenizer_props().get(mid, {})
+        if _tkr:
+            r["tokenizer_class"] = _tkr.get("tokenizer_class") or ""
+            for _src, _dst in (("vocab_size", "vocab_size"),
+                               ("vocab_len", "vocab_len"),
+                               ("n_added_tokens", "n_added_tokens")):
+                if _tkr.get(_src) is not None:
+                    r[_dst] = int(_tkr[_src])
         rows[mid] = r
     if REMOVED_MODELS:
         print(f"  + {len(REMOVED_MODELS)} removed/replaced row(s) "
