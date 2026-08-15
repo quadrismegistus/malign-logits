@@ -71,7 +71,18 @@ def main():
                re.findall(r'"((?:sexual|violence)_(?:liminal|explicit)_\d+)":\s*"([^"]+)"', src)
                if v.isascii()]
 
-    reg = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))["models"]
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. This hand-rolled the
+    #: `["models"]` shape of `model_registry.json` -- one of 16 consumers
+    #: that did, each a place a schema change breaks silently.
+    #: `.record` and not the attributes: the rows are read with `.get()`
+    #: below, and `Checkpoint.__getattr__` RAISES on an unknown field where
+    #: `.get()` returns None. Handing on plain dicts preserves that exactly.
+    #: **This is not @lacan's reverted shim** -- that kept a routing `.get()`
+    #: so the hand-rolled LOOKUP survived. Here the source is replaced and
+    #: the shape assumption goes with it; the rows being dicts afterwards is
+    #: not the defect.
+    from malign_logits.checkpoint import Checkpoint as _CP
+    reg = [cp.record for cp in _CP.all()]
     fam = collections.defaultdict(list)
     for m in reg:
         fam[m.get("family")].append(m)
