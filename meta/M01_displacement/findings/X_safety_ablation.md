@@ -4,9 +4,11 @@ grade: ungraded  # M-era regime: no registrar-issued grades; quotability lives i
 date: 2026-08-14
 role: finding
 topics: [ablation, safety-data, norms, tulu]
-description: "The safety corpus is not what makes an aligned model less transgressive. It carries 23-38% of the reduction; removing WildChat instead leaves the model ABOVE base. Descriptive, unregistered, n=4 training runs. Branches X 3e onto mass. Records a specification search of six metrics and the stimulus defect that bounds all of it."
+description: "The safety corpus is not what makes an aligned model less transgressive: it carries 23-38% of the reduction, and removing WildChat instead leaves the model ABOVE base. Descriptive, unregistered, n=4 training runs. BUT SEE 4b: the projected-displacement arm that agreed with this was RE-RUN OUT OF SAMPLE on 2026-08-15 and the ordering REVERSED -- on 39 fresh items safety is the only arm whose CI excludes zero and WildChat is the coin flip. The registered claims both fail. Read the title as contested."
 ---
 # Findings X, safety ablation: the prohibition corpus is not what does the prohibiting
+
+> **THE TITLE IS CONTESTED BY THIS FINDING'S OWN OUT-OF-SAMPLE ARM. See [§4b](#4b-the-table-above-did-not-replicate-run-2026-08-15-on-39-items-never-previously-scored).** It states §1's result, on the K-norms instrument, and that section stands as written. But the projected-displacement replication in §4a — which was the independent agreement the title leaned on — **did not survive 39 items it had not been fitted to**, and reversed: safety became the only arm reliably above zero. Two instruments still disagree with the title's negation and one now disagrees with the title. Nothing here is settled, and a reader quoting the title alone is quoting the half that was not re-tested.
 
 Opened 2026-08-14 from RH's question — *is safety data responsible for alignment's reaction to transgressive content?* — which began as a branch of [X_metonymy §3e](X_metonymy.md) and ended somewhere §3e could not see.
 
@@ -166,6 +168,39 @@ The nine usable `sexual_explicit_*` prompts have no twins, so this is raw base�
 **And the split names a mechanism §1 could not.** For full SFT, suppression (−0.0130) and substitution (−0.0131) are near-equal — alignment withdraws loaded words *and* lands mass on milder ones in equal measure. For `no-wildchat`, substitution collapses to **+0.0003**. WildChat is not doing more of the same thing; **it is specifically what supplies the replacement.** The clearest single case, `He was so attractive she felt herself get ___`: `wet` 0.229 → 0.047 while `weak` 0.162 → 0.448.
 
 **WHY THIS IS NOT A SECOND CONFIRMATION AT FULL STRENGTH.** The poles were declared while looking at the pooled base ∪ Tulu-SFT distribution, so they are **not independent of the outcome**. Blinding to source stops an author choosing prompts by effect size; it does not make the instrument independent. The cross-lineage test in `plans/plan_projected_displacement.md` §8 is the out-of-sample check, with its prediction written before the run.
+
+### 4b. THE TABLE ABOVE DID NOT REPLICATE. Run 2026-08-15, on 39 items never previously scored.
+
+The two claims this section supports were frozen as executable rules in `registration_slot_ablation.md` (7c4d1f4b) and tested on **39 items never run**, chosen precisely because predicting the 22 above would be predicting an observation. Producer `scripts/x_slot_ablation.py`, reporter `scripts/x_slot_ablation_report.py`, artifact `results/x_slot_ablation_61.json`. **Both claims fail, and the ordering reverses.**
+
+| arm | mean d, **39 new** | 95% CI | mean d, all 61 |
+|---|---|---|---|
+| **no-safety** | **+0.00329** | **[+0.00124, +0.00534]** — excludes 0 | +0.00285, excludes 0 |
+| no-wildchat | +0.00256 | [−0.00270, +0.00781] — includes 0 | **+0.00903**, excludes 0 |
+| no-persona | +0.00077 | [−0.00292, +0.00446] | +0.00074 |
+| no-math | −0.00039 | [−0.00306, +0.00227] | +0.00033 |
+
+**WildChat's effect lives in the 22 items the claim came from.** It is the largest arm on the 61 and a zero-spanning null on the fresh 39. The registration named this exact outcome in advance, in the section listing what would NOT count as support: *"Agreement on the 61 while the 39 disagree. If those diverge, the 22 were doing the work and the honest report is that the result does not extend."* It does not extend.
+
+**And "safety is a literal coin flip" is the sentence that inverted.** On the 39, `no-safety` is the ONLY arm whose interval excludes zero, 29/39 positive, and it holds at every cut — n=39, the n=35 twin collapse, and the n=61 pool. Safety carries a small, *consistent* share; WildChat is the arm that is now the coin flip. The 11/11 above was 22 items of an instrument whose poles were fitted on those items, which §4a already flagged as its weakness. This is what that weakness cost.
+
+**THE FALSIFIER THAT FIRED IS ALSO DEFECTIVE, AND IT IS MINE.** Claim A's falsifying rule was `mean d(no-safety) > mean d(no-wildchat)` — a bare comparison of two means with no uncertainty in it. It fired on a gap of 0.00073 against a paired CI of ±0.0055 and a sign test of 20+/19− at p=1.0, and it **reverses to "not falsified" under the five-item twin collapse declared in the same registration**. A decision rule whose verdict flips on a heterogeneity its own author declared four paragraphs earlier is measuring the counting convention. So the reportable content is **no difference established between safety and WildChat** — not that safety beats it. Registering a bright line does not make a bright line appropriate, and this is the second time this campaign has booked a rule that reads as decisive because it omitted the error bar.
+
+**Claim B fails on its own bounding requirement, not on its sign tests.** Both sign tests came back n.s. as predicted (vs no-math p=0.52, vs no-persona p=0.75). But the registration required the null be quoted as a bounded interval that *excludes the effect WildChat shows*, precisely so a null would not be cited as equality. At n=39 that interval is [−0.00009, +0.00745] and WildChat's own effect (+0.00256) sits inside it. It clears only on the 61, which is not the test set.
+
+**What survives.** The instrument is stable: 110 cells shared with the earlier run reproduce to max |ΔdN| = 1.66e-04, inside the documented 2.57e-04 cache-vs-fresh drift, 79/110 bit-identical. The reversal is not instrument noise. What survives §1–§4 is unaffected — those run on a different population with a different lexicon. What does not survive is §4a's ordering.
+
+### 4c. The reversal was stressed rather than reported, and it hardened
+
+Producer `scripts/x_slot_ablation_stress.py`. Four attacks on the §4b result, all on collected data.
+
+**Safety survives every one; WildChat dies on the first.** Trimming the k largest |d| items — the robustness test §4a itself ran, turned on the arm that now survives — leaves `no-safety` excluding zero at k=0,1,2,3 (+0.00329 → +0.00208), while `no-wildchat` falls to +0.00014 by k=2. A 20,000× bootstrap agrees with the t interval on all four arms. And **safety strengthens monotonically as stimulus quality rises**: +0.00329 (n=39) → +0.00388 at residual ≤ 0.30 (n=31) → +0.00441 at residual ≤ 0.25 with leverage above the dead reference (n=24), excluding zero at every step, while WildChat weakens to +0.00099 on the same ladder. An effect that grows with the quality of the items measuring it is the opposite profile from one carried by junk.
+
+**AND THE MECHANISM CLAIM FAILS, WHICH IS THE ONE THAT SETTLES IT.** §4a's sharpest sentence was that WildChat is *"specifically what supplies the replacement"* — for `no-wildchat` the substitution term collapsed to +0.0003 against full SFT's −0.0131, while suppression survived. On the 39 there is no collapse: substitution is −0.00679 against full's −0.00767, and the **paired per-item ratio has median +0.945** (IQR +0.48–1.48). All four arms sit between 0.78 and 0.95 and are indistinguishable from each other.
+
+This is what turns the reading from "the size was overstated" into "the structure was not there". A magnitude can reverse because an instrument was fitted to the items it was declared on — that is the §4a weakness, already flagged. A claim about *which half of ΔN moves* is much harder to produce by pole-fitting, so its failure is not explained by the fitting. **Both halves of §4a were artefacts of its 22 items.**
+
+**What the arms actually show, stated at the size it is.** Removing safety costs about **+0.0033 of ΔN against a full-SFT effect of −0.0121** — roughly a quarter of the reduction, consistent in sign across 29/39 items and every cut, and consistent in magnitude with §1's independently-measured 23–38%. That is the whole of it. It is a small, reliable, minority share; no arm here shows a corpus that dominates, and the finding's title survives only in the weak sense that safety is not *most* of the effect.
 
 ## 5. The specification search, recorded because it is the honest bound
 

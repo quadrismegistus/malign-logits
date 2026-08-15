@@ -110,6 +110,32 @@ DICT = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                     "..", "data", "dict", "jieba_dict_big.txt")
 
 
+_DICT_SHA = []
+
+
+def dict_sha():
+    """The 16-hex digest of the word list, which IS PART OF THE RULE.
+
+    Every writer to the `true_word_probs` stash must declare `rule_version` AND
+    `dict_sha`, and the store REFUSES a payload carrying neither -- correctly:
+    [2963].2 quarantined 13,940 rows whose rule could not be named. But the
+    value had no home, so a writer had to recompute the digest itself, and a
+    digest computed at the call site is the same defect one level down: a
+    writer that hashes a DIFFERENT file, or hashes it differently, silently
+    opens a SECOND rule partition, and `_twp_resolve_rule` then raises
+    AMBIGUOUS for every other reader of the stash. The failure would appear in
+    consumers that never wrote anything.
+
+    So it is computed once, here, beside the DICT it digests and the
+    RULE_VERSION it accompanies. Memoised: read once per process.
+    """
+    if not _DICT_SHA:
+        import hashlib
+        with open(DICT, "rb") as fh:
+            _DICT_SHA.append(hashlib.sha256(fh.read()).hexdigest()[:16])
+    return _DICT_SHA[0]
+
+
 def is_cjk(s):
     return bool(s) and bool(CJK.search(s))
 

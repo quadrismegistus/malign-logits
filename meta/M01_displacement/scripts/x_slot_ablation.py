@@ -143,14 +143,26 @@ def main():
             for (sf, _t1), m in w.items():
                 per[sf] = per.get(sf, 0.0) + m
             dists[(name, it["prompt"])] = (per, float(res["total"]))
-            #: A CACHE WRITE MUST NOT BE ABLE TO FAIL THE RUN.
+            #: A CACHE WRITE MUST NOT BE ABLE TO FAIL THE RUN -- but it MUST say
+            #: why it failed. The first version of this printed only the
+            #: exception TYPE, so 121 consecutive refusals read as
+            #: "cache write failed (KeyError)" while the store was telling us
+            #: exactly what was missing. A swallowed exception that discards its
+            #: own message turns a guard that explains itself into noise.
+            #:
+            #: WHAT IT WAS: `set_true_word_probs` REFUSES a payload that cannot
+            #: name the rule that produced it -- [2963].2 quarantined 13,940 rows
+            #: for exactly that -- and this payload carried neither field. The
+            #: refusal was correct and the producer was wrong.
             try:
                 cm.set_true_word_probs(mid, it["prompt"], {
                     "rows": [{"word": sf, "t1": t1, "p": m} for (sf, t1), m in w.items()],
-                    "residual": res, "batches": calls}, theta=twp.THETA)
+                    "residual": res, "batches": calls,
+                    "rule_version": twp.RULE_VERSION, "dict_sha": twp.dict_sha()},
+                    theta=twp.THETA)
             except Exception as e:
-                print("     cache write failed (%s), continuing" % type(e).__name__,
-                      flush=True)
+                print("     cache write failed (%s: %s), continuing"
+                      % (type(e).__name__, e), flush=True)
         print("  %-12s %d prompts in %.1f min  (%d cached, %d expanded)"
               % (name, len(items), (time.time()-t0)/60, hit, miss), flush=True)
         #: FREED EXPLICITLY. Six 8B checkpoints held together is ~96 GB.
