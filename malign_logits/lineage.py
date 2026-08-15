@@ -191,12 +191,22 @@ def representative(lineage, members=None, cells=None, target_b=None):
                 "Rebuild with scripts/build_lineage_map.py --write." % lineage)
     #: LOCAL, DECLARED-TARGET PATH. Sizes come from the registry, never from
     #: the model id -- the parse is what produced the archangel error.
-    import json as _json
-    reg = os.path.join(ROOT, "data", "model_registry.json")
-    with open(reg) as fh:
-        rows = _json.load(fh)["models"]
-    pb = {m["model_id"]: m.get("params_b") for m in rows}
-    stage = {m["model_id"]: str(m.get("stage", "")).lower() for m in rows}
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. This module -- inside the
+    #: package -- opened `data/model_registry.json` and hand-built two dicts
+    #: from it. **A library that bypasses its own store leaves no consumer a
+    #: reason not to**, and 27 of them did. It is the standing counter-example
+    #: and so it migrates first.
+    #: `is_known` guards the lookup because the raw version used `.get()` and
+    #: returned None for a model absent from the registry; `__getattr__`
+    #: raises instead, which is right for a typo and wrong here.
+    from .checkpoint import Checkpoint as _CP
+    pb, stage = {}, {}
+    for _m in members or []:
+        _c = _CP(_m)
+        if not _c.is_known:
+            continue
+        pb[_m] = getattr(_c, "params_b", None)
+        stage[_m] = str(getattr(_c, "stage", "") or "").lower()
     members = list(members or [])
     pool = [m for m in members if stage.get(m) in ("base", "id")] or members
     cand = [m for m in pool if m not in DERIVATIVES] or pool
