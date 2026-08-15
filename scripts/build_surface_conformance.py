@@ -2,8 +2,21 @@
 """Surface conformance per (MODEL, STORE): does a model's stored word field
 actually conform to the rule its cells CLAIM?
 
-    scripts/build_surface_conformance.py            report
-    scripts/build_surface_conformance.py --write    emit data/surface_conformance.json
+    scripts/build_surface_conformance.py             report (both stores)
+    scripts/build_surface_conformance.py --no-census stash half only
+    scripts/build_surface_conformance.py --out P.json  write a copy at P
+
+**THE REPO CARRIES NO COMMITTED COPY, DELIBERATELY.** `data/surface_conformance.json`
+was committed and then DELETED on 2026-08-15 under RH's ruling, recorded at
+`checkpoint.py:305`: *is that just surveying the current situation of ClickHouse,
+and not a true property of the models?* It is. The same checkpoint re-expanded
+conforms clean, so the file describes the STORE at a moment, not the model, and a
+snapshot recorded as though it were a property is false the moment the state
+moves. **Recompute it; do not carry it** -- it is seconds over both stores.
+
+`--out` therefore takes no default. A `--write` flag defaulting to the deleted
+path would silently recreate it, which is the trap `x_slot_ablation.py` was fixed
+for the same week: the flagless invocation reproducing a withdrawn artifact.
 
 WHY THIS EXISTS. On 2026-08-15 the dolphin discriminator returned a verdict on
 n=59 of a declared 2,200-prompt population. The cause was in the stored cells:
@@ -98,18 +111,34 @@ U2581_HEX = "E29681"
 def census_rows():
     """Every cell in the ClickHouse store, not a probe sample.
 
-    THE SECOND STORE IS THE POINT, not extra coverage (@malign, [6316]).
-    `true_word_probs` (the CacheManager stash) and `malign_logits.twp_words`
-    are two stores holding one fact, reconciled to synonymy on 10 Aug at RH's
-    instruction -- 400,644 cells, zero difference either way, from a starting
-    gap of ~127,000. **That was five days and several fleets ago.**
-    Conformance established on one store is not a property of the other,
-    however tightly they were once reconciled -- the argument @malign used
-    against `landed_v3` this afternoon, turned on this producer.
+    THE SECOND STORE IS THE POINT, not extra coverage. The two stores have
+    different JOBS and different AUTHORITY, per RH 2026-08-15 ([6318]):
 
-    Both rows are emitted per model and never collapsed. If they never
-    disagree the second row costs four lines and proves it; if they do, we
-    learn on the day it starts rather than when a registration returns n=59.
+        true_word_probs   INCLUSIVE  on-the-fly writes -- server.py /api/slot,
+                                     x_slot_show cache-on-miss, ad-hoc
+                                     expansion. WORKING STATE.
+        twp_words         SETTLED    the official prompts x checkpoints.
+                                     CITABLE.
+
+    **DIVERGENCE BETWEEN THEM IS THE DESIGNED STATE, NOT DRIFT.** An earlier
+    version of this docstring called a disagreement a drift signal, on the
+    strength of a 10 Aug reconciliation that closed a one-time 127k-cell gap.
+    That was a dated repair, not a standing invariant, and @malign withdrew the
+    reading at [6318]. A count gap between these stores must never be reported
+    as a reconciliation failure -- the stash is a superset by construction.
+
+    SO THE CROSS-STORE CHECK MEANS ONE THING ONLY: conformance agrees on the
+    OVERLAP. It does not say the stores are synonymous, and under the ruling
+    they should not be.
+
+    **AND THE STASH IS WHERE THIS CHECK EARNS ITS KEEP.** Its ingest path is
+    uncontrolled in exactly the shape that produced the dolphin defect:
+    `server.py` and `x_slot_show.py` write cells on a cache miss using whatever
+    normalisation the running process has -- no fleet, no manifest, no review.
+    That is *identical `rule_version` stamp, different applied normalisation*,
+    reachable any time someone opens the Slot Explorer on a new prompt.
+    ClickHouse is where the check protects a CITATION; the stash is where it
+    can actually catch something being written wrong.
 
     Returns (rows, None) or ([], reason) -- NEVER a silent empty. This half
     cannot run in every venv (`clickhouse_connect` is absent from some), and a
@@ -149,7 +178,9 @@ def census_rows():
             continue
         wu = max(x["u2581_rate"] for x in rates)
         wb = max(x["byte_rate"] for x in rates)
-        rows.append({"model": r["model"], "store": CH_STORE, "en": e, "zh": z,
+        #: CITABLE. The settled prompts x checkpoints (RH, [6318]).
+        rows.append({"model": r["model"], "store": CH_STORE,
+                     "authority": "citable", "en": e, "zh": z,
                      "worst_u2581": wu, "worst_byte": wb,
                      "conforms": wu <= U2581_MAX and wb <= BYTE_MAX})
     return rows, None
@@ -157,7 +188,16 @@ def census_rows():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--write", action="store_true")
+    #: `--out PATH`, NOT `--write`. The committed `data/surface_conformance.json`
+    #: was DELETED on 2026-08-15 under RH's ruling -- a snapshot of a mutable
+    #: store recorded as though it were a model property. A `--write` flag with
+    #: that path as its default would silently recreate the deleted file, which
+    #: is the adjacency trap `x_slot_ablation.py` was fixed for the same week:
+    #: the flagless invocation reproducing a withdrawn artifact. Naming a
+    #: destination is now a choice the caller makes out loud.
+    ap.add_argument("--out", default=None,
+                    help="write JSON here (no default -- the repo carries no "
+                         "committed copy; recompute, do not carry)")
     ap.add_argument("--n", type=int, default=6, help="probe prompts per script")
     ap.add_argument("--no-census", action="store_true",
                     help="stash probe only; the ClickHouse half needs "
@@ -185,7 +225,9 @@ def main():
         worst_u = max(x["u2581_rate"] for x in rates)
         worst_b = max(x["byte_rate"] for x in rates)
         ok = worst_u <= U2581_MAX and worst_b <= BYTE_MAX
-        row = {"model": mid, "store": "true_word_probs", "en": e, "zh": z,
+        #: WORKING STATE. Inclusive of on-the-fly writes; not citable.
+        row = {"model": mid, "store": "true_word_probs",
+               "authority": "working", "en": e, "zh": z,
                "worst_u2581": worst_u, "worst_byte": worst_b, "conforms": ok}
         out.append(row)
         if not ok:
@@ -216,7 +258,9 @@ def main():
                  format(sum((x["en"] or {}).get("rows", 0)
                             + (x["zh"] or {}).get("rows", 0)
                             for x in census), ",")))
-        print("  models in BOTH stores: %d | verdicts DISAGREEING: %d %s"
+        #: Says conformance agrees on the OVERLAP. NOT that the stores
+        #: are synonymous -- divergence is designed, see census_rows.
+        print("  conformance agrees on the overlap: %d models | DISAGREEING: %d %s"
               % (len(both), len(disagree),
                  disagree[:3] if disagree else ""))
     print()
@@ -234,8 +278,8 @@ def main():
     else:
         print("  all conform")
 
-    if a.write:
-        p = os.path.join(ROOT, "data/surface_conformance.json")
+    if a.out:
+        p = a.out if os.path.isabs(a.out) else os.path.join(ROOT, a.out)
         json.dump({
             "_about": "SURFACE CONFORMANCE per (model, store): does a model's "
                       "stored `word` field conform to the rule its cells claim? "
@@ -253,7 +297,9 @@ def main():
             "_stores": ["true_word_probs"] if census_skip
                        else ["true_word_probs", CH_STORE],
             "_census_skipped": census_skip,
-            "_cross_store": {"in_both": len(both),
+            "_authority": {"true_word_probs": "working -- inclusive of on-the-fly writes (server.py, x_slot_show cache-on-miss); NOT citable", CH_STORE: "citable -- the settled prompts x checkpoints (RH, docket 6318)"},
+            "_cross_store": {"_means": "conformance agrees on the OVERLAP; NOT that the stores are synonymous. Divergence is the designed state -- the stash is a superset by construction and a count gap is not a reconciliation failure.",
+                             "in_both": len(both),
                              "verdicts_disagree": len(disagree),
                              "disagreeing": sorted(disagree)},
             "models": out + census}, open(p, "w"), indent=1)
