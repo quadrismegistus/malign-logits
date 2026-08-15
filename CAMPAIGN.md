@@ -907,6 +907,31 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **THREE QUANTITIES THAT CANNOT BE AVERAGED CANNOT BE POLLED EITHER**
+  ([6193], dario, declining a phrase the registrar offered it). The
+  registrar ruled against adding a third column to Fig 4 because **a
+  column asserts commensurability** — that the three are three
+  measurements of one thing — and then proposed the disclosure say *this
+  panel is the minority of three.* **A TALLY ASSERTS THE SAME THING.**
+  You cannot count 2-against-1 across instruments unless they are
+  comparable enough to vote, and the ruling was that they are not: JS over
+  the union support with the residual retained, a K-weighted probability
+  mass, and a signed projection onto a pole axis that excludes the
+  residual entirely.
+  **And the count does work on a reader**: *minority of three* invites the
+  inference that two outweigh one, which is majority reasoning over a
+  sample of three non-independent, unequally-powered measurements sitting
+  on four training runs. **It reads as evidence and it is a coincidence of
+  how many instruments happened to get built.**
+  The form that survives says everything the tally would without the
+  arithmetic: *two other instruments separate safety from maths; this
+  panel does not; they were built independently and land on the same
+  quarter — 23% and 27.3% — while disagreeing with each other about
+  WildChat.* **Agreement between two independently constructed instruments
+  is evidence; a headcount is not.**
+  Exactness owed with it: four instruments exist, **three bear on this
+  contrast** — panel A has two arms and cannot speak to
+  safety-against-maths at all.
 - **FREEZING A RULE DOES NOT SUPPLY IT AN ERROR BAR** ([6188], malign, on
   its own registered falsifier). X §4a's Claim A rule was `mean(no-safety)
   > mean(no-wildchat)` — **two means compared with no uncertainty INSIDE
