@@ -19,10 +19,30 @@ retraction withdraws it**: the three words' base probabilities are 0.062,
 how probable the word was" are the same ordering. A second cell where the
 faller is 33x more probable than the riser refuses BOTH accounts.
 
-So this panel draws the faller-against-non-mover contrast and the mode
-comparison, and it does not draw the three-way ordering at all. A figure is
-where a retracted result goes to be revived, because the picture outlives the
-paragraph that withdrew it.
+So this panel does not draw the three-way ordering at all. A figure is where a
+retracted result goes to be revived, because the picture outlives the paragraph
+that withdrew it.
+
+AND THE RETRACTION IS NOT THE ONLY THING SECTION 3 LOST
+--------------------------------------------------------
+Reading forward past the retraction, on registrar's prompt at [6204], two more
+limits reach this panel and neither is in the queue entry:
+
+- **Section 3b supersedes the instrument.** D_norm, a scale-free log ratio of
+  ratios, "is the right quantity and the earlier tables should be read as
+  superseded by it wherever they disagree." Section 3's table, which this panel
+  draws, is norm-weighted D. It is drawn anyway because the cross/own
+  comparison is defined in it and not in D_norm -- so the panel makes no claim
+  about which word moved more, only about the two modes.
+- **Section 3c refutes the contrast on this axis.** Over 28 cells the
+  faller-minus-non-mover median is +0.0174 with 14 of 28 negative, p = 0.171:
+  it does not order by alignment status. The cell drawn here gives -0.0393 and
+  the SAME PAIR on `sexual_explicit_3` gives +0.1885 at p = 2e-32.
+
+Section 4 is what licenses the panel: "what survives is the `cross`/`own` split
+itself... a fact about the design rather than about alignment." The height of
+the dark line is not a result; the existence of the gap between the modes is.
+Both fences are recomputed by `_sweep()` before drawing rather than quoted.
 
 THE BAND IS THE UNCERTAINTY OF THE MEDIAN, AND THE FIRST VERSION GOT IT WRONG
 ------------------------------------------------------------------------------
@@ -87,6 +107,45 @@ def _diff(mode):
     return (f - n).reshape(-1, f.shape[-1]), d
 
 
+#: Section 3c's 28-cell sweep, which is the fence this panel has to carry.
+BOOKED_SWEEP = {"cells": 28, "fn_med": +0.0174, "fn_neg": 14, "fn_p": 0.171,
+                "e1": -0.0393, "e3": +0.1885}
+
+
+def _sweep():
+    """Section 3c re-derived: the contrast on this panel's axis does not replicate.
+
+    THE PANEL DRAWS ONE CELL AND SECTION 3c RAN 28. Without this, a reader takes
+    the dark line's depth for a result; with it, the depth is one draw from a
+    set whose median sits on the other side of zero. The numbers are DERIVED
+    here rather than quoted, because a fence quoted from a document is a fence
+    that goes stale silently -- which is the whole reason this figure exists.
+    """
+    import numpy as np
+    from scipy.stats import wilcoxon
+
+    cells = json.load(open(os.path.join(RESULTS, "attn_norm_sweep_full.json")))
+    assert len(cells) == BOOKED_SWEEP["cells"], \
+        f"sweep has {len(cells)} cells, section 3c reports 28"
+    v = np.array([c["f_minus_n"] for c in cells])
+    med, neg = float(np.median(v)), int((v < 0).sum())
+    _, p = wilcoxon(v)
+    assert abs(med - BOOKED_SWEEP["fn_med"]) < 5e-5, f"sweep median {med:+.4f}"
+    assert neg == BOOKED_SWEEP["fn_neg"], f"{neg} of 28 negative, not 14"
+    assert abs(p - BOOKED_SWEEP["fn_p"]) < 5e-4, f"sweep p {p:.4f}"
+    #: THE NON-REPLICATION INSIDE ONE PAIR, which is the sharpest form of it:
+    #: same models, same instrument, opposite sign, both overwhelming.
+    by = {c["prompt"]: c for c in cells if "SmolLM2" in c["pair"]}
+    e1, e3 = by["sexual_explicit_1"], by["sexual_explicit_3"]
+    assert abs(e1["f_minus_n"] - BOOKED_SWEEP["e1"]) < 5e-5, "explicit_1 moved"
+    assert abs(e3["f_minus_n"] - BOOKED_SWEEP["e3"]) < 5e-5, "explicit_3 moved"
+    assert e1["f_minus_n"] * e3["f_minus_n"] < 0, \
+        ("the two prompts of this pair no longer disagree in SIGN; the panel "
+         "says they do and that is section 3c's sharpest evidence")
+    return {"med": med, "neg": neg, "p": float(p), "e1": e1["f_minus_n"],
+            "e3": e3["f_minus_n"], "p_e3": e3["p_fn"]}
+
+
 def cross_own():
     """M04 candidate 8: the two modes disagree, and only one of them is a result."""
     from scipy.stats import wilcoxon
@@ -97,6 +156,7 @@ def cross_own():
                           theme_minimal)
     import pandas as pd
 
+    SWEEP = _sweep()
     frames, cells, iqr = {}, {}, {}
     for mode in ("cross", "own"):
         diff, d = _diff(mode)
@@ -180,19 +240,31 @@ def cross_own():
         + scale_y_continuous(breaks=[-0.010, -0.005, 0.0, 0.005],
                              labels=["-0.010", "-0.005", "0", "+0.005"])
         + labs(
-            title="The same contrast, measured two ways: the effect is in what the aligned model WRITES, not in how it reads",
+            title="An effect that appears only when each arm writes its own continuation, and vanishes when both read one text",
             subtitle=(
                 "Attention paid back to a forced word, aligned minus base, faller MINUS non-mover, median\n"
                 "over 480 heads (32 layers x 15) at each position after the word. Dark = OWN, where each\n"
                 "arm writes its own continuation; grey = CROSS, where both models read one text. Bands are\n"
                 "95% bootstrap intervals FOR THE MEDIAN; dots mark the six positions section 3 tabulates.\n"
-                "THE ONLY DIFFERENCE BETWEEN THE MODES IS WHETHER EACH ARM WRITES ITS OWN CONTINUATION,\n"
-                "so a result present in `own` and absent in `cross` is not about how the aligned model\n"
-                "attends to a given text. `own` binds LESS to a demoted word early and MORE late.\n"
-                "SMALL p IS NOT EVIDENCE OF AN EFFECT HERE. `cross` returns p = 0.0006 at j=7 on a\n"
-                "median of -0.0004, with the sign alternating position to position. The test asks\n"
-                "whether the median differs from zero and answers yes about a quantity that is nearly\n"
-                "zero. Read the axis, not the p.\n"
+                "WHAT SURVIVES IS THE SPLIT BETWEEN THE MODES, AND ONLY THAT (section 4). The only\n"
+                "difference between them is whether each arm writes its own continuation, so an effect\n"
+                "present in `own` and absent in `cross` lives in what gets WRITTEN, not in how a given\n"
+                "text is attended to. That is a fact about the design rather than about alignment.\n"
+                "WHAT DOES NOT SURVIVE IS THE HEIGHT OF THE DARK LINE. This same contrast was run over\n"
+                f"28 cells with the better instrument: {SWEEP['neg']} of 28 negative, median {SWEEP['med']:+.4f} on the WRONG\n"
+                f"side, p = {SWEEP['p']:.3f}. It does not order by alignment status. The cell drawn here gives\n"
+                f"{SWEEP['e1']:+.4f} and the SAME PAIR on `sexual_explicit_3` gives {SWEEP['e3']:+.4f} at p = {SWEEP['p_e3']:.0e} --\n"
+                "opposite sign, both overwhelming. One cell is one cell.\n"
+                "AND THIS PANEL'S INSTRUMENT IS THE SUPERSEDED ONE. Section 3b establishes D_norm, a\n"
+                "scale-free log ratio of ratios, as the right quantity and says the earlier tables\n"
+                "should be read as superseded by it wherever they disagree. Norm-weighted D is drawn\n"
+                "here because the cross/own comparison is defined in it and not in D_norm, so this\n"
+                "panel makes NO claim about which word moved more. Only about the two modes.\n"
+                "SMALL p IS NOT EVIDENCE FOR EITHER MODE. `cross` returns p = 0.0006 at j=7 on a median\n"
+                "of -0.0004, sign alternating position to position; `own` returns p = 1.1e-19. Section\n"
+                "3c's verdict covers both: per-cell p values over 250 to 480 massively correlated heads\n"
+                "run to p = 0 in both directions and are not evidence about anything. The CELL is the\n"
+                "unit, and at the cell level there are 28 of them. Read the axis, not the p.\n"
                 "THE BANDS ARE THE UNCERTAINTY OF THE MEDIAN AND NOT THE SPREAD OF THE HEADS, whose\n"
                 f"interquartile range is about {iqr['own']:.3f} in `own` and {iqr['cross']:.3f} in `cross` --\n"
                 "tens of times the medians drawn here. That spread cannot share this axis without\n"
@@ -202,8 +274,8 @@ def cross_own():
                 "the three words' base probabilities are 0.062, 0.089 and 0.201, so on this cell that\n"
                 "ordering is indistinguishable from ordering by how probable the word was. A second cell\n"
                 "whose faller is 33x more probable than its riser refuses BOTH accounts.\n"
-                "ONE CELL. One prompt (`sexual_explicit_1`), one pair (SmolLM2-360M to its Instruct),\n"
-                "three words, 24 samples, a 32-token window. Nothing here is a corpus result."),
+                "SLICE. One prompt (`sexual_explicit_1`), one pair (SmolLM2-360M to its Instruct),\n"
+                "three words, 24 samples, a 32-token window, 480 heads."),
             x="position after the forced word (j)",
             y="attention-back, aligned minus base:  faller minus non-mover",
             caption=(
@@ -218,10 +290,14 @@ def cross_own():
                 "`cross` stays inside 0.002, that `own` exceeds it at least fivefold, and that `cross`\n"
                 "changes sign at least five times across the window.\n"
                 "The file is NAMED, not globbed: attn_delta_smollm2_e1_cross_w200.json is a 200-token\n"
-                "window sibling, and a glob would make the window a lottery."),
+                "window sibling, and a glob would make the window a lottery.\n"
+                "THE REFUTATION IS DERIVED, NOT QUOTED. Section 3c's 28-cell sweep is recomputed from\n"
+                "results/attn_norm_sweep_full.json before drawing: 28 cells, 14 negative, median and\n"
+                "Wilcoxon p, both prompts of the SmolLM2 pair, and that their signs still disagree. A\n"
+                "fence copied out of a document goes stale silently, which is what this figure is for."),
         )
         + theme_minimal()
-        + theme(figure_size=(12.6, 7.6),
+        + theme(figure_size=(12.6, 9.2),
                 plot_title=element_text(size=11.5, weight="bold", ha="left"),
                 plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
                                            lineheight=1.45),
