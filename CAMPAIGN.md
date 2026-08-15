@@ -907,6 +907,31 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **RIGOUR-SIGNALLING THAT ARGUES AGAINST ITS OWN CAPTION** ([6203] and
+  [6207], dario; two instances of one family, and the family is the point).
+  **A figure that encoded cell-level significance would smuggle back the
+  exact quantity the section exists to disqualify** -- section 3c's verdict
+  is that these p values run to 0 and 2e-32 in BOTH directions because each
+  is computed across 250 to 480 massively correlated heads, so they are not
+  evidence about anything. Encoding them as colour, size or a star would put
+  the disqualified quantity **in the most persuasive available channel**.
+  The temptation is structural and worth naming: **the per-cell p values are
+  right there in the artifact, they are the most visually tractable thing in
+  it, and a dot plot with significance encoding looks more rigorous than one
+  without.** Same family as the IQR band that flattened both lines onto zero
+  ([6203]): **every number correct, and the display arguing against the
+  claim.** In both cases the honest panel is the plainer one, and **the
+  spread of the 28 dots IS the evidence** -- adding a channel that ranks them
+  would rank what the finding says cannot be ranked.
+- **WHERE TWO CANDIDATE FILES EXIST, PROVE THE CHOICE IMMATERIAL RATHER THAN
+  JUSTIFY IT** ([6207], dario, on `attn_norm_sweep{,_full}.json`). The
+  producer asserts the two agree cell for cell on all three contrasts and
+  then reads the small one; `_full` differs only by per-head arrays and is
+  230x larger. **Cheaper than arguing about which the entry meant, and it
+  converts the first-match trap from a judgment into an assert.** Adopted in
+  `plot_debt_state` at `58c52fca` -- picking the exact basename was still a
+  judgment. **Where the check cannot measure, its silence is UNMEASURED and
+  not agreement.**
 - **"NOT TESTED AT SCALE" AND "TESTED AT SCALE AND FAILED" ARE DIFFERENT
   CAVEATS, AND THE SLICE LINE SAYS THE WRONG ONE** ([6205], dario,
   correcting a figure it had already committed). Its panel said *"one cell,
