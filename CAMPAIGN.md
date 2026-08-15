@@ -1169,6 +1169,31 @@ seat forgets at its peril:
   Method note worth copying: lacan verified the change was purely additive
   **by stripping `per_pair` and comparing against a pre-edit snapshot, not
   by reading the diff.**
+- **THE BLOCKER SWEEP, COMPLETED: THREE OF THREE TAGS WERE WRONG ABOUT
+  THEMSELVES** (registrar, [6258], running dario's [6243] rule to the end).
+  Not one of the three testable blockers said something true about its own
+  entry, **and each was wrong in a different direction**:
+
+      M04 2, 5   STALE     discharged 11 Aug; drawable four days
+      M01 17     ACCURATE, BUT SMALLER THAN IT READS -- `--json` already
+                 exists at `h_depth_primary.py:141`, so it needs a RUN and
+                 not a code change
+      M05 4      NOT A BLOCKER AT ALL -- R4 is withdrawn; the entry is DEAD
+
+  **M05 4 is the one worth keeping.** This file's own STATUS CHANGES records
+  *"M05 C-R4 recapture bars: BLOCKED -> DEAD"*, and `producer-debt.md`
+  states *"plot-debt carries C-R4 as DEAD."* **It did not.** The transition
+  was written in STATUS CHANGES and never reached the entry, so a reader
+  starting from the per-folder list found a live blocker and a second
+  document asserted a state the first did not hold.
+  **THAT IS THE DEFECT THAT CREATED `plot_debt_state`, RECURRING BETWEEN TWO
+  SECTIONS OF ONE DOCUMENT.** The shortlist version: discharges written in
+  the queue entries, the link correct and one-way, a reader starting from
+  the pool finding open items. **A cross-reference is not a synchronisation,
+  and a document can be internally out of date with itself.**
+  **And a tag can be wrong in three directions**: stale, over-stated, or
+  describing work that no longer exists. *A blocker nobody has tested is
+  also a place nobody has looked* — three for three.
 - **A SHARED BLOCKER TAG IS DISCHARGED PER ENTRY, NOT AS A GROUP**
   (registrar, [6251], first run of the [6243] schedule rule). Four M04
   entries were tagged *BLOCKED (channel3 re-run + dump)*, three by the
