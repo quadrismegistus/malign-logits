@@ -129,6 +129,8 @@
 	//: cannot be measured word-wise, which is worth knowing before writing it.
 	let axis = $state<Record<string, number> | null>(null);
 	let poleGap = $state(0);
+	let purity = $state(1);
+	let defectors = $state<string[]>([]);
 	let axisLoading = $state(false);
 	let sortByAxis = $state(false);
 
@@ -151,6 +153,9 @@
 			//: condition the UI never satisfies. A missing field should degrade to
 			//: a dash, not take the render down -- the contract can change again.
 			poleGap = typeof j.pole_gap === 'number' ? j.pole_gap : NaN;
+			//: Same defensive read as pole_gap, same reason.
+			purity = typeof j.purity === 'number' ? j.purity : 1;
+			defectors = Array.isArray(j.defectors) ? j.defectors : [];
 			sortByAxis = true;
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
@@ -402,6 +407,13 @@
 					<span class="val" class:good={stats.lev >= LEV_MOVER}
 						  class:bad={stats.lev < LEV_DEAD}>{stats.lev.toFixed(4)}</span>
 					<span class="cnt">mover {LEV_MOVER} · dead {LEV_DEAD} @k40</span>
+				</div>
+				<div class="branch">
+					<span class="lbl">purity</span>
+					<span class="val" class:good={purity >= 1} class:bad={purity < 1}>{purity.toFixed(2)}</span>
+					<span class="cnt">{defectors.length
+						? `MISTAGGED: ${defectors.join(', ')} — declared on one side, scores on the other`
+						: 'every declared pole word lands on its own side of the axis'}</span>
 				</div>
 				<div class="branch">
 					<span class="lbl">tagged</span>

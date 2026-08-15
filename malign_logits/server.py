@@ -476,11 +476,22 @@ class ModelHandler(BaseHTTPRequestHandler):
                 #: supplies its own word list. The UI does exactly that, so it
                 #: got `undefined.toFixed(3)` on the first render. A field that
                 #: needs no probabilities must not be gated on having them.
+                #: `purity` AND `defectors` JOIN THEM, ON THE SAME ARGUMENT.
+                #: They are properties of the poles alone, so gating them on a
+                #: distribution would reproduce the `pole_gap` regression
+                #: verbatim -- and they are what an author needs BEFORE a run,
+                #: since a defector is a tagging error visible with no model.
+                from .slot_axis import LEV_MOVER, LEV_DEAD
                 self._respond(200, dict({
                     "prompt": prompt, "axis_norm": ax.norm,
                     "pole_gap": ax.pole_gap,
                     "n_poles": [len(naughty), len(nice)],
-                    "lev_mover": 0.1027, "lev_dead": 0.0694,
+                    "purity": ax.purity, "defectors": ax.defectors,
+                    #: IMPORTED, NOT RETYPED. These two sat here as literals --
+                    #: the exact duplication `slot_axis.py` was extracted to
+                    #: end, and how the CLI and the UI once disagreed about one
+                    #: item. A constant with two homes has two values eventually.
+                    "lev_mover": LEV_MOVER, "lev_dead": LEV_DEAD,
                     "naughty_mass": (sum(probs.get(w, 0.0) for w in naughty)
                                      if probs else None),
                     "nice_mass": (sum(probs.get(w, 0.0) for w in nice)
