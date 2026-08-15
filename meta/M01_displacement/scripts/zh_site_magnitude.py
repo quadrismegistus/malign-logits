@@ -93,8 +93,11 @@ def zh_pairs():
 def cjk_edges():
     """{base: [aligned arms]} over pairs whose BOTH arms clear tier >= PARTIAL."""
     import x_bodypart_classes as B
-    reg = {m["model_id"]: m for m in json.load(
-        open(os.path.join(ROOT, "data/model_registry.json")))["models"]}
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. `.record` because the rows are
+    #: read with `.get()` below and `__getattr__` raises where `.get()`
+    #: returns None -- the absent-model path a byte-identical diff cannot show.
+    from malign_logits.checkpoint import Checkpoint as _CP
+    reg = {cp.id: cp.record for cp in _CP.all()}
     same, cross = B.roster()
     edges = collections.defaultdict(list)
     for b, a in same + cross:

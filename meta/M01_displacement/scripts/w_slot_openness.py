@@ -101,7 +101,11 @@ def main():
     #: BASE MODELS ONLY. Openness is a property of the prompt as the unaligned
     #: model sees it; measuring it on aligned models would confound the
     #: moderator with the thing it moderates.
-    reg = json.load(open(os.path.join(ROOT, "data", "model_registry.json")))["models"]
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE. `.record` because the rows are
+    #: read with `.get()` below and `__getattr__` raises where `.get()`
+    #: returns None -- the absent-model path a byte-identical diff cannot show.
+    from malign_logits.checkpoint import Checkpoint as _CP
+    reg = [cp.record for cp in _CP.all()]
     bases = [m["model_id"] for m in reg if m.get("position") == "base"]
     print("base models: %d\n" % len(bases))
 

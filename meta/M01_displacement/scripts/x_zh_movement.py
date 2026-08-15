@@ -62,8 +62,15 @@ CJK_OK = {"FLUENT", "MARGINAL", "PARTIAL"}
 def zh_roster():
     """base>superego pairs whose BOTH arms can actually write Chinese."""
     import x_bodypart_classes as B
-    reg = {m["model_id"]: m for m in
-           json.load(open(os.path.join(ROOT, "data", "model_registry.json")))["models"]}
+    #: THROUGH `Checkpoint`, NOT THE RAW FILE.
+    #: **`.record` IS NOT THE RAW ROW AND THE DIFFERENCE IS THE ABSENT-VALUE
+    #: COLLISION.** `ModelInfo` is a dataclass with defaults, so `record`
+    #: returns `corpus=""` where the JSON omits the key and `.get()` gave
+    #: None. Six fields differ on all 159 rows -- corpus, country, open_data,
+    #: open_weight, org_type, scale. **This file reads none of them**, which
+    #: is why the substitution is safe here and must be re-checked per file.
+    from malign_logits.checkpoint import Checkpoint as _CP
+    reg = {cp.id: cp.record for cp in _CP.all()}
     same, cross = B.roster()
     keep, dropped = [], []
     for b, a in same + cross:
