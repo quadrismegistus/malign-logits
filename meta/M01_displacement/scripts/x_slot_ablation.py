@@ -73,8 +73,23 @@ def words(v):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("yaml")
-    ap.add_argument("--out", default=os.path.join(
-        ROOT, "meta/M01_displacement/results/x_slot_ablation.json"))
+    #: REQUIRED, NO DEFAULT -- and the default it used to have was the trap.
+    #: This producer serves two runs: 4a's 22 items (x_slot_ablation.json) and
+    #: 4b's 61 (x_slot_ablation_61.json), which SUPERSEDES it. The default was
+    #: 4a's path, so anyone reproducing 4b by running the producer named in the
+    #: finding, without the flag, silently rebuilt the WITHDRAWN run, got 4a's
+    #: numbers, and had every reason to call the reproduction successful. A
+    #: failed reproduction that looks like a successful one is the expensive
+    #: kind: nothing errors and the wrong answer is the reassuring one.
+    #:
+    #: It was documented in the finding's artifact table first. A PROSE WARNING
+    #: ABOUT A TRAP IS WEAKER THAN REMOVING THE TRAP -- per dario, [6207]:
+    #: proving the choice immaterial, or forcing it, converts a judgment into an
+    #: assert. Here the two files are emphatically NOT immaterial (22 items
+    #: against 61), so the choice is forced rather than proved away.
+    ap.add_argument("--out", required=True,
+                    help="output json; REQUIRED -- 4a and 4b differ only by "
+                         "this flag and 4b supersedes 4a")
     ap.add_argument("--limit", type=int, default=0)
     a = ap.parse_args()
 

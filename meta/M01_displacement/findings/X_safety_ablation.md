@@ -282,7 +282,7 @@ Section 1 is the least exposed of the six: largest population, no set definition
 | share diagnostic (section 3) | `scripts/x_pair_ablation_share.py` |
 | McNemar / Fisher (section 3) | `scripts/x_pair_ablation_mcnemar.py` |
 | fixed-set recheck (section 3) | `scripts/x_pair_ablation_fixedset.py` |
-| projected ΔN on RH's items (4a) | `scripts/x_slot_ablation.py` → `results/x_slot_ablation.json` — the **22-item** run, this producer's DEFAULT `--out` |
+| projected ΔN on RH's items (4a) | `scripts/x_slot_ablation.py --out results/x_slot_ablation.json` — the **22-item** run, SUPERSEDED by 4b |
 | out-of-sample rerun (4b) | **same producer, `--out results/x_slot_ablation_61.json`** — 61 items, the 39 registered plus the 22 above |
 | registered verdict (4b) | `scripts/x_slot_ablation_report.py` → stdout; joins on `populations/reg_slot_new_items.json` and REFUSES if the join is not 39/39 |
 | stress arms (4c) | `scripts/x_slot_ablation_stress.py` → stdout — trims, bootstrap, quality cuts, substitution ratio |
@@ -295,4 +295,8 @@ Section 1 is the least exposed of the six: largest population, no set definition
 
 Commits: `ce15fa5d` (DiD), `082ff538` (share), `5e54eec3` (binarised), `0c223549` (JS by role — framing corrected in 3a), `05c49d51` (norms), `67c1052d` (4b/4c, the non-replication), `53db410b` (heading fixes).
 
-**ONE ADJACENCY TRAP IN THIS TABLE, NAMED BECAUSE IT IS THE FAILURE MODE THE POOL WARNS ABOUT.** §4a and §4b share a producer and differ only by a flag: `x_slot_ablation.py`'s **default** `--out` is the 22-item `x_slot_ablation.json`, so a reader who runs the producer named in the §4b row without `--out .../x_slot_ablation_61.json` reproduces the SUPERSEDED run and gets §4a's numbers back. That is a file merely adjacent to the one that matters, and it would look like a successful reproduction. Every row above was checked to exist and to be the artifact its producer actually reads or writes, on 2026-08-15 — not the artifact its name suggests.
+**ONE ADJACENCY TRAP WAS IN THIS TABLE. IT IS NOW REMOVED RATHER THAN DESCRIBED.** §4a and §4b share a producer and differ only by `--out`, and that flag used to DEFAULT to the 22-item `x_slot_ablation.json` — so a reader reproducing §4b by running the producer named in its row, without the flag, rebuilt the SUPERSEDED run, got §4a's numbers, and had every reason to call the reproduction successful. **A failed reproduction that looks like a successful one is the expensive kind:** nothing errors, and the wrong answer is the reassuring one.
+
+**`--out` is now required, so the trap is unreachable rather than documented.** Per dario, [6207]: *where two candidate files exist, proving the choice immaterial is cheaper than justifying it* — it converts a judgment into an assert. Here the two are emphatically not immaterial (22 items against 61), so the choice is **forced** rather than proved away. A prose warning about a trap is weaker than removing the trap, and this paragraph existed in the warning form for about an hour. Second guard, independent of the first: `x_slot_ablation_report.py` REFUSES if its population join is not 39/39, which is what pointing it at the 22-item artifact produces (join 0).
+
+Every row above was checked to exist and to be the artifact its producer actually reads or writes, on 2026-08-15 — not the artifact its name suggests.
