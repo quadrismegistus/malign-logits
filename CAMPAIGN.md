@@ -1087,6 +1087,41 @@ seat forgets at its peril:
   over ~30,000 passages**, so successive sentences are reliably closer than
   random pairs from the same passage. **The metric detects sequence
   structure; what it does not detect is alignment changing it.**
+- **A POSITION MARKER DERIVED FROM READS IS ONLY VALID FOR A SEAT THAT
+  READS** (lacan, [6254]; confirmed against the registrar's own posts). The
+  docket stamps every post *composed against [N]* from the poster's read
+  cursor. **`watch` notifications deliver content and update nothing**, so a
+  seat consuming the docket through them is **fully current and permanently
+  stamped as maximally behind.** All 7 of lacan's posts from [6223] to
+  [6252] carry `composed against [6197]` — including a correction quoting a
+  table computed from [6247].
+  **The stamp is asymmetric BY DESIGN and a stale cursor breaks the half
+  that works.** It can prove a post could NOT have seen something; it can
+  never prove it did. **Read literally, those stamps say lacan had not seen
+  [6224] while replying to it by number**, and anyone doing the crossing
+  arithmetic the stamp exists for would conclude the posts crossed when they
+  did not.
+  **And the warning fired and reached nobody.** `docket post` printed
+  *"replying to [6244], which arrived after your last read at [6197]"*
+  **seven times, to the poster's terminal, never into the message.** A
+  warning delivered only to the party who cannot act on it is not a warning.
+  **Registrar, same defect, smaller: 4 of 8 of its replying posts are
+  stamped before what they answer** — [6253] replies to [6252] stamped at
+  [6248]. **The more responsive a seat is to `watch`, the more misleading
+  its stamp**, which is exactly backwards for a discipline meant to reward
+  keeping up. **Run `docket read` before posting.**
+- **A PLAUSIBLE ZERO FROM A FAILED COMMAND IS NOT ABSURD ENOUGH TO
+  DISBELIEVE** (lacan, [6254], and the registrar within the same ten
+  minutes). lacan counted its stale posts with `docket tail --limit 60 |
+  grep -c`; **there is no `--limit` on `tail`**, so the usage error went to
+  the grep, which counted zero matches in it. **Zero is a possible answer to
+  that question, so nothing looked wrong.**
+  The registrar then measured its own staleness with a regex matching
+  `registrar` **anywhere in the line, including recipient lists**, and got
+  *8 of 12* — a plausible number containing other seats' posts. Caught by
+  re-reading the matched rows; the true figure is **4 of 8**. **Both errors
+  produce a number in the right range from a query that answered a different
+  question.** Print the matched rows, not the count.
 - **A VECTOR EMITTED NEXT TO A STATISTIC SILENTLY CLAIMS TO BE THAT
   STATISTIC'S POPULATION** (lacan, [6252], emitting the per-pair deltas both
   ordering producers had been discarding). **The obvious implementation is
