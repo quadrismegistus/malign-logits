@@ -199,6 +199,20 @@ class Checkpoint:
 
         **Use `has_data` for "is this model in the store".** This answers a
         question about the v3 grid run and nothing else.
+
+        **BUT DO NOT SWITCH THE EXISTING CALLERS TO `has_data`** (lacan,
+        [6313], correcting this seat). All six sites gate a STEP, not a model:
+        `if s.pre.landed_v3 and s.post.landed_v3`. That is not *do we have
+        data for these two* -- it is **do we have data for these two FROM THE
+        SAME RUN**. `has_data` would admit a step whose endpoints were
+        expanded in different runs under different conditions, **which is
+        exactly the failure of 2026-08-15**: `rule_version=3` on both sides of
+        a pair that could not be compared word-to-word.
+        **This property is a same-run guarantee that was wearing a has-data
+        name, and the rename made the guarantee visible.** For a cross-arm
+        comparison it is the stricter and correct gate; the 95-vs-152 gap is
+        the price of the guarantee, not a coverage bug. **Whoever wants the
+        other 57 should widen the RUN, not loosen the gate.**
         """
         return self.id in _landed()
 
@@ -209,10 +223,19 @@ class Checkpoint:
         Reads `cells_in_store`, a registry column populated on all 159 rows --
         **no glob, no directory, no run.** 152 of 159 are nonzero.
 
-        NB the column name overstates: dolphin reads 2,579, which is its PROMPT
-        count against 301,074 cells. The predicate is safe either way -- prompts
-        are nonzero exactly when cells are -- but do not quote the value as a
-        cell count.
+        **THE COLUMN NAME IS WRONG ON EVERY ROW, NOT MISLEADING ON ONE**
+        (lacan, [6313], generalising this seat's dolphin flag). Measured over
+        all 152 models carrying the field:
+
+            equals the twp_words PROMPT count   126
+            equals the twp_words CELL count       0
+            equals neither                       26
+
+        **Zero of 152 equal a cell count.** It is a prompt count wherever it
+        matches anything. `has_data` is unaffected -- it uses the SIGN, and
+        the sign is sound -- but **the value must never be quoted as a
+        magnitude**, and the error is two orders of magnitude on dolphin
+        (2,579 against 301,074).
         """
         n = getattr(self._info, "cells_in_store", None) if self._info else None
         return bool(n)
