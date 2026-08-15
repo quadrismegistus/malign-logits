@@ -40,6 +40,7 @@ aligned arms. `EleutherAI/pythia-2.8b` alone contributes four archangel arms.
 
 ```
 data/model_registry.json        -> position (base / ego / superego)
+                                   *** GENERATED. See the warning below. ***
 data/lineage_map_models.json    -> model_to_lineage, lineage_to_representative
 MODEL_FAMILIES                  -> which arms are canonical
 ```
@@ -51,6 +52,45 @@ is_representative = l2r.get(m2l.get(base)) == base
 is_model_pair     = position(base)=="base" and position(aligned)=="superego"
                     and kind == "canonical"
 ```
+
+## Where `position` actually lives, and why editing the JSON does nothing
+
+**`data/model_registry.json` IS GENERATED.** `scripts/build_model_registry.py`
+joins the DECLARATION in `MODEL_FAMILIES` (`malign_logits/__init__.py`) to
+measured artifacts, each naming its own producer in `_provenance`, and
+separates `declared` / `derived` / `measured` on purpose — the builder's own
+docstring records why: *an architecture claim was asserted from a spec read
+and was wrong; a stage field says `dpo` for all four archangel arms because
+it was derived from a family label rather than from the name that carries
+the method.*
+
+**So `position` is a DECLARED fact and a fix goes in `__init__.py`. Editing
+the JSON is overwritten on the next build.** Established by malign at
+[6265]; **an earlier version of this file named the JSON as the source of
+position and did not say it was downstream**, which would send a reader to
+edit the file that gets regenerated. `CLAUDE.md` calls `MODEL_FAMILIES` the
+single source of truth without saying the registry is generated from it.
+
+**14 CHECKPOINTS ARE IN THE REGISTRY AND IN NO TAXONOMY** (malign, [6265];
+verified at the registrar's seat: **145 ids declared in `MODEL_FAMILIES`, 159
+registry rows, 14 with no `position`, and those 14 are exactly the ones
+absent from the declaration** — 145 + 14 = 159).
+
+    AI-Sweden-Models/gpt-sw3-6.7b        microsoft/phi-4
+    NousResearch/Hermes-3-Llama-3.1-8B   microsoft/phi-4-reasoning
+    NousResearch/Nous-Hermes-2-Mistral-7B-DPO   mosaicml/mpt-7b
+    THUDM/glm-4-9b-hf                    mosaicml/mpt-7b-instruct
+    cognitivecomputations/Dolphin3.0-Llama3.1-8B  openchat/openchat-3.5-0106
+    cognitivecomputations/dolphin-2.6-mistral-7b-dpo
+    teknium/OpenHermes-2.5-Mistral-7B    tiiuae/falcon-7b
+                                          tiiuae/falcon-7b-instruct
+
+**No position, so no relation, so no group, so no roster, so no
+denominator.** This is `build_fleet.py`'s defect in the registry rather than
+in a shard — that file's docstring: *a model absent from the plan is absent
+from the denominator too.* **They are invisible to every relation-based plan
+and nothing reports them missing.** RH has malign researching all 14; **the
+declaration is the registrar's and the results come here first.**
 
 **`is_model_pair` is POSITION-DEFINED, per RH's rule of 2026-08-12 that a model
 pair is base→superego.** That is why it holds whether the contrast is a
