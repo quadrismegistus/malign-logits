@@ -186,6 +186,22 @@ claims register holds the quotable forms and outranks everything**.
 
 ## The method ledger, short form
 
+**166 RULES, 2,598 LINES, ONE FLAT SECTION — AND 51 OF THEM WERE BOOKED ON
+2026-08-15 ALONE.** This section's job is to be re-read after a compaction
+and **nobody re-reads 2,600 lines**, so in practice it is consulted by
+whoever already remembers which rule they want, which is the population that
+does not need it. Until it is restructured — **not tonight, and not by one
+seat unannounced** — read the index instead:
+
+    uv run python scripts/campaign_index.py             # all 166, one line each
+    uv run python scripts/campaign_index.py grep WORD   # by topic
+    uv run python scripts/campaign_index.py --since 6200  # booked from [N] on
+
+**It generates rather than transcribes.** A hand-written index is stale the
+first time anyone books a rule without updating it, and this campaign booked
+that exact defect twice on 2026-08-15 ([6179], [6258]). Same argument as
+`ch.inventory_md()`.
+
 The rules this campaign paid for, each with the docket arc that minted it.
 The long form lives in the claims register; these are the ones a returning
 seat forgets at its peril:
