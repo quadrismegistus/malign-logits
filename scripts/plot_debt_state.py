@@ -164,7 +164,21 @@ def selection(txt, path):
     #: *eight domains of thirteen* are selections written in words. **A digit
     #: predicate is a claim that selections are written in digits**, and half
     #: of these are not.
-    got = {int(x) for x in re.findall(r"\b\d{2,6}\b", txt)}
+    #: A DOCKET ID IS NOT A COUNT, AND NEITHER IS A CHECKPOINT STEP. Found by
+    #: hand-checking the ONE flag outside the sample this check was tuned on:
+    #: `M05 5` flagged [5430, 257, 128], of which only 257 is a selection --
+    #: 5430 is the docket post that qualified the entry and 128 is
+    #: `step 128`. **A checker validated only on the sample that motivated it
+    #: is the subsample error one level up**, which is the rule this same
+    #: commit booked. Strip both before counting.
+    #: **THE STRIP MOVES NO TALLY: 20 entries flag with it and 20 without.**
+    #: It changes the integers PRINTED BESIDE each flag, which is the whole
+    #: output a human acts on -- so the count test says it is dead and it is
+    #: not. A mutation that leaves the headline unchanged can still be
+    #: load-bearing on the part a reader uses; measure the thing consumed,
+    #: not the thing counted.
+    clean = re.sub(r"\[\d{3,6}\]|\bstep\s*\d+", " ", txt, flags=re.I)
+    got = {int(x) for x in re.findall(r"\b\d{2,6}\b", clean)}
     got |= {v for w, v in WORD_NUM.items()
             if re.search(r"\b%s\b" % w, txt, re.I)}
     small = sorted({v for v in got if 1 < v < pop}, reverse=True)
