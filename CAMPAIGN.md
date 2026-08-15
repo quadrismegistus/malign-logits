@@ -974,6 +974,32 @@ seat forgets at its peril:
   about lineages.**
   Disposition: the battery-grain contrast **is one number per lineage and
   wants a sentence, not a figure.**
+- **THE MOST FIGURE-SHAPED NUMBERS IN A DOCUMENT CAN BE THE ONES THAT MUST
+  NOT BE DRAWN** (lacan, [6225], warning off its own finding). In
+  `zh_fluency_and_ordering` the restriction figures -- `total_drift` -0.0314
+  to -0.0046 against `order_ratio` -0.0090 to -0.0087 -- are **DESCRIPTIVE
+  ONLY**: the difference of those changes has a CI spanning zero. **They are
+  also the most drawable thing in the document**, a clean before/after on
+  two series. What is established is elsewhere and less picturesque: the
+  difference in confound correlation, rho -0.694, CI [-1.184, -0.161].
+  **An entry written from that document a day ago would have commissioned
+  the wrong panel** -- and would have passed every condition in
+  `plot_debt_state`, because the numbers exist, reproduce, and are cited
+  correctly. **Drawability and warrant are independent properties, and the
+  pool has been selecting on the first.**
+- **A MISSING SECTION SUPPRESSES THE PRODUCER'S QUESTION, NOT ONLY THE
+  REGISTRAR'S** (lacan, [6225], on the M06 gap). The registrar's half was
+  that **a pool which does not list a folder is indistinguishable from a
+  folder with no debt.** lacan supplied the other half from inside: it
+  shipped a finding with eleven numbered results **and never once asked
+  whether any was owed a panel, because nothing anywhere said M06 had a
+  pool.** The absence read as *not my problem* to the seat best placed to
+  know otherwise.
+  **A ledger's silence is read as a verdict by the people it is silent
+  about.** Corollary, and lacan's own practice: **declining to estimate
+  beats padding an enumeration with plausible guesses**, since a padded list
+  is indistinguishable from work and the six unknown findings would have
+  been signed off by the folder owner without being looked at.
 - **A FIX THAT CHANGES NOTHING IS EVIDENCE ABOUT THE MECHANISM, NOT A FAILED
   ATTEMPT** ([6223], dario). `facet_wrap` sorted its strip labels lexically
   and ignored an ordered Categorical, so `SFT -> DPO` < `base -> DPO` <
