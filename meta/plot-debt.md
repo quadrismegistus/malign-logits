@@ -1235,9 +1235,23 @@ Ordering within each folder is the reader's ranking.
    from the data, labels anchored to their own dots.
    Attention §3c refutation strips, three contrasts over 28 cells —
    `attn_norm_sweep{,_full}.json`. A null prose cannot make credible.
-8. Attention §3 cross-vs-own two lines against position —
+8. **[DISCHARGED 2026-08-15 — `attn_cross_own.png`, dario, `82d0d13a`]**
+   Corrected after commit: §3b supersedes the instrument and §3c refutes the
+   contrast on the y axis, so the panel claims the EXISTENCE of the gap
+   between modes and not the height of the line. IQR across 480 heads
+   replaced by bootstrap CI on the median, the head spread stated as a
+   number.
+   Attention §3 cross-vs-own two lines against position —
    `attn_delta_smollm2_e1_{cross,own}.json`. The one surviving fact.
-9. Attention §6 head-concentration Lorenz curve, 7x not the plan's 17x —
+9. **[DISCHARGED 2026-08-15 — `attn_head_concentration.png`, dario,
+   `3e6bd3ff`]** **THE ENTRY'S GLOB IS WRONG AND ITS NEAREST MEMBER NEARLY
+   REPRODUCES.** §6's values are not in `attn_undist_*.json`; they are in
+   `attn_smoke_smollm2_undist.json`, which that glob does not match. The
+   glob's SmolLM2 member is a different prompt and gives 6.7x against the
+   booked 6.9x. **A near-miss gets rounded to agreement; only the leading
+   head caught it** (`L23.H10` where §6 says `L8.H9`). The plan's 17x is
+   stated and not drawn — a Lorenz curve on two numbers would be invention.
+   Attention §6 head-concentration Lorenz curve, 7x not the plan's 17x —
    `attn_undist_*.json`. Doubles as the visual correction to the plan.
 
 ### M05_emergence
