@@ -724,8 +724,227 @@ def baseline_strips():
     return out
 
 
+
+
+#: Section 6's head-concentration numbers. THE ENTRY NAMES `attn_undist_*.json`
+#: AND THE DERIVATION READS A FILE THAT GLOB DOES NOT MATCH: every value below
+#: reproduces from attn_smoke_smollm2_undist.json, on `sexual_explicit_1`. The
+#: globbed SmolLM2 file is a different prompt (`sexual_liminal_6`) and gives
+#: 6.7x against the booked 6.9x -- close enough to look like rounding and not be.
+BOOKED_6 = {
+    "raw": {"mean": 0.0128, "max": 0.0882, "top5": 0.203, "leader": "L8.H9"},
+    "norm_weighted": {"mean": 0.0850, "max": 0.6407, "top5": 0.234,
+                      "leader": "L27.H5"},
+}
+BOOKED_6_STABLE = {"raw": (0.206, 0.203), "norm_weighted": (0.245, 0.234),
+                   "shared": 4}
+BOOKED_6_SEQS = 60
+#: The plan's figure, which section 6 corrects. Mean and max only: there is no
+#: distribution behind it in this repository, so it is STATED and never drawn.
+PLAN = {"mean": 0.021, "max": 0.356, "ratio": 17}
+BOOKED_SRC = "attn_smoke_smollm2_undist.json"
+ENTRY_GLOB = "attn_undist_*.json"
+
+
+def _heads(d, key):
+    """Per-head mean over sequences, flattened. (n_seq, layers, heads) -> heads."""
+    a = np.array(d[key])
+    return a.mean(axis=0).ravel(), a.shape[2]
+
+
+def _lorenz(h):
+    """Cumulative share of mass against cumulative share of heads, richest first."""
+    s = np.sort(h)[::-1]
+    x = np.arange(1, len(s) + 1) / len(s)
+    return x, np.cumsum(s) / s.sum()
+
+
+def head_concentration():
+    """M04 candidate 9: concentration is real, smaller than the plan, model-specific."""
+    import glob
+    from plotnine import (aes, element_text, geom_abline, geom_line, geom_point,
+                          geom_text, geom_vline, ggplot, labs,
+                          scale_color_identity, scale_x_continuous,
+                          scale_y_continuous, theme, theme_minimal)
+    import pandas as pd
+
+    src = os.path.join(RESULTS, BOOKED_SRC)
+    d = json.load(open(src))
+    assert d["prompt"] == "sexual_explicit_1", f"prompt {d['prompt']!r}"
+    assert len(d["meta"]) == BOOKED_6_SEQS, f"{len(d['meta'])} sequences, not 60"
+
+    #: THE ENTRY'S GLOB DOES NOT REACH THE FILE THE NUMBERS COME FROM, and that
+    #: is asserted rather than noted, so the day someone renames the artifact
+    #: into the glob this stops claiming a discrepancy that has been fixed.
+    globbed = {os.path.basename(g)
+               for g in glob.glob(os.path.join(RESULTS, ENTRY_GLOB))}
+    assert BOOKED_SRC not in globbed, \
+        (f"{BOOKED_SRC} now matches the entry's glob {ENTRY_GLOB}; the caption "
+         "says it does not")
+
+    stats = {}
+    for key, b in BOOKED_6.items():
+        h, H = _heads(d, key)
+        k = int(round(0.05 * h.size))
+        top5 = float(np.sort(h)[::-1][:k].sum() / h.sum())
+        lead = int(np.argmax(h))
+        name = f"L{lead // H}.H{lead % H}"
+        assert abs(h.mean() - b["mean"]) < 5e-5, f"{key} mean {h.mean():.4f}"
+        assert abs(h.max() - b["max"]) < 5e-5, f"{key} max {h.max():.4f}"
+        assert abs(top5 - b["top5"]) < 5e-4, f"{key} top-5% {top5:.4f}"
+        assert name == b["leader"], f"{key} leader {name}, not {b['leader']}"
+        #: stability: the same statistic at n=8 and n=60
+        a = np.array(d[key])
+        h8 = a[:8].mean(axis=0).ravel()
+        t8 = float(np.sort(h8)[::-1][:k].sum() / h8.sum())
+        e8, e60 = BOOKED_6_STABLE[key]
+        assert abs(t8 - e8) < 5e-4 and abs(top5 - e60) < 5e-4, \
+            f"{key} stability {t8:.4f}->{top5:.4f} vs booked {e8}->{e60}"
+        shared = len(set(np.argsort(h)[::-1][:5]) & set(np.argsort(h8)[::-1][:5]))
+        assert shared == BOOKED_6_STABLE["shared"], \
+            f"{key}: {shared} of the top 5 heads shared between n=8 and n=60"
+        stats[key] = {"h": h, "mean": float(h.mean()), "max": float(h.max()),
+                      "top5": top5, "leader": name, "ratio": h.max() / h.mean()}
+
+    #: the other models, measured HERE and not booked anywhere. They are drawn
+    #: because concentration is the thing the plan attributed to a model, and a
+    #: single curve cannot show that it varies. Labelled as this producer's.
+    others = []
+    for g in sorted(glob.glob(os.path.join(RESULTS, ENTRY_GLOB))):
+        dd = json.load(open(g))
+        h, _ = _heads(dd, "raw")
+        k = int(round(0.05 * h.size))
+        others.append({
+            "model": os.path.basename(g)[12:-5].split("_")[1].split("-inter")[0],
+            "prompt": dd["prompt"], "h": h, "n_heads": int(h.size),
+            "ratio": float(h.max() / h.mean()),
+            "top5": float(np.sort(h)[::-1][:k].sum() / h.sum())})
+    assert len(others) == 5, f"{len(others)} files match {ENTRY_GLOB}"
+    #: the plan blamed the model; measured the same way, OLMo is the second
+    #: LEAST concentrated of the five, so the 17x is not a model difference
+    olmo = [o for o in others if "OLMo" in o["model"]]
+    assert len(olmo) == 1 and olmo[0]["ratio"] < stats["raw"]["ratio"], \
+        ("OLMo is no longer less concentrated than the booked SmolLM2 run; the "
+         "panel says the plan's 17x cannot be a model difference")
+
+    curves, marks = [], []
+    for key, col, lab in (("raw", "#1f4e79", "SmolLM2-360M, raw  (section 6)"),
+                          ("norm_weighted", "#1a7a6a",
+                           "SmolLM2-360M, norm-weighted  (section 6)")):
+        x, y = _lorenz(stats[key]["h"])
+        curves.append(pd.DataFrame({"x": x, "y": y, "col": col, "lab": lab,
+                                    "sz": 1.15}))
+    for o in others:
+        x, y = _lorenz(o["h"])
+        curves.append(pd.DataFrame({"x": x, "y": y, "col": "#b8b8b8",
+                                    "lab": o["model"], "sz": 0.6}))
+    d_c = pd.concat(curves)
+    thin, thick = d_c[d_c.sz < 1], d_c[d_c.sz > 1]
+
+    ends = pd.DataFrame([
+        {"x": 1.005, "y": 1.0, "t": "", "c": "#000000"}])
+    lab5 = pd.DataFrame([
+        {"x": 0.062, "y": stats["norm_weighted"]["top5"] + 0.048,
+         "t": f"norm-weighted: top 5% of heads carry {100*stats['norm_weighted']['top5']:.1f}%",
+         "c": "#1a7a6a"},
+        {"x": 0.062, "y": stats["raw"]["top5"] - 0.062,
+         "t": f"raw: top 5% carry {100*stats['raw']['top5']:.1f}%",
+         "c": "#1f4e79"}])
+    olab = pd.DataFrame([
+        {"x": 0.55, "y": 0.10 + 0.052 * i,
+         "t": f"{o['model']}  ({o['prompt']}, {o['n_heads']} heads)   "
+              f"max/mean {o['ratio']:.1f}x   top 5%: {100*o['top5']:.1f}%",
+         "c": "#8a8a8a"}
+        for i, o in enumerate(sorted(others, key=lambda z: z["ratio"]))])
+
+    p = (
+        ggplot()
+        + geom_abline(intercept=0, slope=1, linetype="dashed", color="#999999",
+                      size=0.5)
+        + geom_line(thin, aes("x", "y", group="lab"), color="#b8b8b8", size=0.6)
+        + geom_line(thick, aes("x", "y", color="col", group="lab"), size=1.15)
+        + geom_vline(xintercept=0.05, color="#666666", size=0.4,
+                     linetype="dotted")
+        + geom_point(pd.DataFrame([
+            {"x": 0.05, "y": stats[k]["top5"],
+             "c": "#1f4e79" if k == "raw" else "#1a7a6a"}
+            for k in BOOKED_6]), aes("x", "y", color="c"), size=3.0)
+        + geom_text(lab5, aes("x", "y", label="t", color="c"), size=6.6,
+                    ha="left")
+        + geom_text(olab, aes("x", "y", label="t", color="c"), size=6.2,
+                    ha="left")
+        + scale_color_identity()
+        + scale_x_continuous(limits=(0, 1), breaks=[0, 0.05, 0.25, 0.5, 0.75, 1.0],
+                             labels=["0", "5%", "25%", "50%", "75%", "100%"])
+        + scale_y_continuous(limits=(0, 1),
+                             breaks=[0, 0.203, 0.234, 0.5, 0.75, 1.0],
+                             labels=["0", "20.3%", "23.4%", "50%", "75%", "100%"])
+        + labs(
+            title="Head concentration is real, smaller than the plan claims, and a property of the model rather than a constant",
+            subtitle=(
+                "Cumulative share of attention-back mass against cumulative share of heads, heads ranked\n"
+                "richest first, over 60 undisturbed sequences. The dashed diagonal is perfectly uniform\n"
+                "attention; the further a curve bows above it the more the mass sits in few heads.\n"
+                "THE PLAN CITES 17x AND THE MEASUREMENT IS 6.9x RAW, 7.5x NORM-WEIGHTED. That is\n"
+                f"max-over-mean across heads: {BOOKED_6['raw']['mean']} / {BOOKED_6['raw']['max']} raw against the plan's\n"
+                f"{PLAN['mean']} / {PLAN['max']}. The head-level design survives -- the top 5% of heads carry 20.3%\n"
+                "and 23.4% of the mass, four to five times uniform -- but at a fraction of the claimed\n"
+                "enrichment.\n"
+                "THE PLAN'S NUMBER IS NOT DRAWN AS A CURVE, because no distribution behind it exists in\n"
+                "this repository: it is a mean and a max from a one-prompt probe. A curve fitted to two\n"
+                "numbers would be an invention, so the figure states it and shows what can be measured.\n"
+                "AND IT IS NOT A MODEL DIFFERENCE. Section 6 says the 17x is another model and should not\n"
+                "be quoted for these. It was an OLMo probe -- and OLMo measured the same way here is the\n"
+                "second LEAST concentrated of the five, at 4.1x. Whatever produces 17x, it is not the\n"
+                "choice of model.\n"
+                "THE RANKING IS STABLE. Top-5% mass moves 0.206 to 0.203 raw and 0.245 to 0.234\n"
+                "norm-weighted between n=8 and n=60, with 4 of the top 5 heads shared on both\n"
+                "instruments. `L8.H9` leads raw, `L27.H5` norm-weighted.\n"
+                "THE GREY CURVES ARE MEASURED HERE AND BOOKED NOWHERE. They are four other models plus a\n"
+                "second SmolLM2 prompt, drawn because a single curve cannot show that concentration\n"
+                "varies. They are not section 6's evidence and their spread, 3.1x to 8.0x, is this\n"
+                "producer's own arithmetic."),
+            x="share of heads, ranked richest first",
+            y="share of attention-back mass",
+            caption=(
+                "Producer: meta/M04_syntagmatic/scripts/attn_figures.py from\n"
+                "results/attn_smoke_smollm2_undist.json (producer attn_curve.py). plot-debt M04\n"
+                "candidate 9.\n"
+                "THE ENTRY NAMES results/attn_undist_*.json AND SECTION 6'S NUMBERS ARE NOT IN IT. Every\n"
+                "value here reproduces from attn_smoke_smollm2_undist.json, which that glob does not\n"
+                "match. The globbed SmolLM2 file is a different prompt (sexual_liminal_6) and gives 6.7x\n"
+                "against the booked 6.9x, close enough to read as rounding and not be. That the booked\n"
+                "file still falls outside the glob is asserted, so this caption cannot outlive a rename.\n"
+                "Asserted before drawing: the prompt and 60 sequences; mean, max, top-5% mass and the\n"
+                "leading head for both raw and norm-weighted; the n=8 against n=60 stability pair for\n"
+                "both; that 4 of the top 5 heads are shared; that five files match the entry's glob; and\n"
+                "that OLMo remains less concentrated than the booked run, which is what makes the\n"
+                "not-a-model-difference sentence testable rather than rhetorical."),
+        )
+        + theme_minimal()
+        + theme(figure_size=(12.4, 8.6),
+                plot_title=element_text(size=11.0, weight="bold", ha="left"),
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
+                                           lineheight=1.45),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left",
+                                          lineheight=1.45))
+    )
+    out = os.path.join(FIGURES, "attn_head_concentration.png")
+    p.save(out, dpi=300, verbose=False)
+    print(f"  wrote {out}")
+    for k, s in stats.items():
+        print(f"    {k:<14} mean {s['mean']:.4f} max {s['max']:.4f} "
+              f"{s['ratio']:.1f}x  top5% {s['top5']:.3f}  leader {s['leader']}")
+    print(f"    booked source {BOOKED_SRC} does NOT match the entry's {ENTRY_GLOB}")
+    for o in sorted(others, key=lambda z: z["ratio"]):
+        print(f"    (context) {o['model']:<12} {o['prompt']:<18} "
+              f"{o['ratio']:.1f}x  top5% {o['top5']:.3f}")
+    return out
+
+
 REGISTRY = {"cross_own": cross_own, "sweep_strips": sweep_strips,
-            "baseline_strips": baseline_strips}
+            "baseline_strips": baseline_strips,
+            "head_concentration": head_concentration}
 
 
 def main():
