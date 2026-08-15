@@ -103,6 +103,82 @@ def _get_slot_model(model_id):
         return _slot[model_id]
 
 
+#: ── GLOBAL NAUGHTY-NICE AXIS, RH's construct-validity instrument.
+#:
+#:      a_i = [mean_j V(p_i + naughty_j) - mean_k V(p_i + nice_k)] / ||...||
+#:      G   = mean_i a_i        Ghat = G / ||G||        cos_i = a_i . Ghat
+#:
+#: AVERAGE THE UNIT AXES, NOT THE RAW POLE VECTORS. Each a_i is already a
+#: difference of two centroids over the SAME prompt, so p_i has cancelled before
+#: the average. Pooling raw vectors instead would average 60-odd different
+#: SENTENCES and the residue would be mostly prompt. Normalising first also
+#: means every item votes once, rather than items with widely separated poles
+#: dominating -- and pole separation partly reflects how many words were tagged.
+#:
+#: LEAVE-ONE-OUT when the queried prompt is itself in the corpus, so an item is
+#: never scored against a direction it helped define.
+#:
+#: ||G|| IS THE STATISTIC WORTH WATCHING, not any single cosine: the mean
+#: resultant length, 0.388 over the first 61 items against ~1/sqrt(n) = 0.128
+#: for no shared direction. It answers "do these items measure one construct or
+#: several", which is the question that decides whether a pooled mean dN means
+#: anything.
+_GAXIS = {"sig": None, "axes": None}
+
+
+def _global_axes():
+    """{prompt: unit axis} over every declared item, rebuilt when a yaml changes."""
+    import glob as _glob
+    import numpy as _np
+    import yaml as _yaml
+    from .slot_axis import Axis
+    root = Path(__file__).parent.parent
+    files = sorted(_glob.glob(str(root / "pair_drafts" / "**" / "*.yaml"),
+                              recursive=True))
+    files = [f for f in files if not f.endswith("_run_combined.yaml")]
+    sig = tuple((f, os.path.getmtime(f)) for f in files)
+    if _GAXIS["sig"] == sig:
+        return _GAXIS["axes"]
+    def _w(v):
+        if isinstance(v, str):
+            v = v.replace(",", " ").split()
+        return [str(x).strip() for x in (v or []) if str(x).strip()]
+    out = {}
+    for f in files:
+        try:
+            items = _yaml.safe_load(open(f)) or []
+        except Exception:
+            continue
+        for it in items:
+            if not (isinstance(it, dict) and it.get("prompt")):
+                continue
+            n, c = _w(it.get("naughty")), _w(it.get("nice"))
+            if not n or not c:
+                continue
+            try:
+                ax = Axis(str(it["prompt"]).strip(), n, c)
+            except Exception:
+                continue
+            if ax.ok:
+                out[str(it["prompt"]).strip()] = ax.axis
+    _GAXIS["sig"], _GAXIS["axes"] = sig, out
+    return out
+
+
+def _global_cos(prompt, axis_vec):
+    """(cos to the global axis, n items it was built from), leave-one-out."""
+    import numpy as _np
+    axes = _global_axes()
+    others = [v for p, v in axes.items() if p != str(prompt).strip()]
+    if len(others) < 3:
+        return None, len(others)
+    G = _np.mean(others, axis=0)
+    nrm = float(_np.linalg.norm(G))
+    if nrm < 1e-9:
+        return None, len(others)
+    return float(_np.dot(axis_vec, G / nrm)), len(others)
+
+
 def _slot_item_id(prompt, top_nice, top_naughty):
     """`nn_reachedforhis_hand-cock` — RH's format.
 
@@ -160,7 +236,7 @@ def _slot_save(body):
     block = ("\n- item_id: %s\n  prompt: %s\n  naughty: %s\n  nice: %s\n"
              % (item_id, json.dumps(prompt, ensure_ascii=False),
                 ", ".join(naughty), ", ".join(nice)))
-    for k in ("naughty_mass", "nice_mass", "share"):
+    for k in ("naughty_mass", "nice_mass", "share", "global_cos"):
         if body.get(k) is not None:
             block += "  %s: %.4f\n" % (k, float(body[k]))
     block += "  writer: \"slot-explorer\"\n"
@@ -482,11 +558,19 @@ class ModelHandler(BaseHTTPRequestHandler):
                 #: verbatim -- and they are what an author needs BEFORE a run,
                 #: since a defector is a tagging error visible with no model.
                 from .slot_axis import LEV_MOVER, LEV_DEAD
+                try:
+                    _gc, _gn = _global_cos(prompt, ax.axis)
+                except Exception:
+                    #: NEVER FAILS THE PANEL. This reads every draft yaml and
+                    #: embeds their poles; a malformed draft must cost a field,
+                    #: not the response.
+                    _gc, _gn = None, 0
                 self._respond(200, dict({
                     "prompt": prompt, "axis_norm": ax.norm,
                     "pole_gap": ax.pole_gap,
                     "n_poles": [len(naughty), len(nice)],
                     "purity": ax.purity, "defectors": ax.defectors,
+                    "global_cos": _gc, "global_n": _gn,
                     #: IMPORTED, NOT RETYPED. These two sat here as literals --
                     #: the exact duplication `slot_axis.py` was extracted to
                     #: end, and how the CLI and the UI once disagreed about one

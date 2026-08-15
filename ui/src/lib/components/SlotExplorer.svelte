@@ -134,6 +134,8 @@
 	//: whole point and a mismatch reintroduces the stretch silently.
 	let scatterW = $state(0);
 	let vbW = $derived(scatterW > 0 ? Math.max(100, (scatterW / 420) * 100) : 100);
+	let globalCos = $state(NaN);
+	let globalN = $state(0);
 	let purity = $state(1);
 	let defectors = $state<string[]>([]);
 	let axisLoading = $state(false);
@@ -161,6 +163,11 @@
 			//: Same defensive read as pole_gap, same reason.
 			purity = typeof j.purity === 'number' ? j.purity : 1;
 			defectors = Array.isArray(j.defectors) ? j.defectors : [];
+			//: cos of THIS item's axis against the mean of every other declared
+			//: item's axis. Leave-one-out server-side, so an item is never scored
+			//: against a direction it helped define.
+			globalCos = typeof j.global_cos === 'number' ? j.global_cos : NaN;
+			globalN = typeof j.global_n === 'number' ? j.global_n : 0;
 			sortByAxis = true;
 		} catch (e) {
 			error = e instanceof Error ? e.message : String(e);
@@ -290,7 +297,13 @@
 				body: JSON.stringify({
 					prompt, path: savePath,
 					naughty: byMass(naughty), nice: byMass(nice),
-					naughty_mass: naughtyMass, nice_mass: niceMass, share
+					naughty_mass: naughtyMass, nice_mass: niceMass, share,
+					//: RECORDED AT AUTHORING TIME, not recomputed at analysis time.
+					//: A value stored with the item is a fact about when it was
+					//: written; one recomputed during a later pass is a knob that
+					//: can be turned after seeing results. Any rule that ever
+					//: filters or flips on this must read the stored number.
+					global_cos: Number.isFinite(globalCos) ? +globalCos.toFixed(4) : null
 				})
 			});
 			const j = await r.json();
@@ -395,50 +408,56 @@
 	{:else if resp?.skipped}
 		<p class="error">instrument REFUSED this prompt: {resp.skipped}</p>
 	{:else if resp}
+		<!-- DESCRIPTIONS ARE TOOLTIPS, NOT INLINE TEXT. Each field's gloss is the
+		     longest thing in its row, so inline they set the wrap points and three
+		     wrapped rows of prose sat above the graph permanently. Hover keeps the
+		     explanation one gesture away for whoever needs it and gives the pixels
+		     to the panel that is actually being read. The COUNTS stay inline --
+		     "3 words" is data, not a gloss. -->
 		<div class="branches">
-			<div class="branch naughty-b">
+			<div class="branch naughty-b" title="Summed word probability over every word you tagged NAUGHTY.">
 				<span class="lbl">naughty</span>
 				<span class="val">{naughtyMass.toFixed(4)}</span>
-				<span class="cnt">{naughty.size} words</span>
+				<span class="cnt">{naughty.size}w</span>
 			</div>
-			<div class="branch nice-b">
+			<div class="branch nice-b" title="Summed word probability over every word you tagged NICE.">
 				<span class="lbl">nice</span>
 				<span class="val">{niceMass.toFixed(4)}</span>
-				<span class="cnt">{nice.size} words</span>
+				<span class="cnt">{nice.size}w</span>
 			</div>
 			{#if stats}
-				<div class="branch">
+				<div class="branch" title="Spread of probability mass along the axis — THE GATE. A known mover reads {LEV_MOVER}, a known dead item {LEV_DEAD}, both at k=40. An item can only register movement if its mass sits at different positions on the axis.">
 					<span class="lbl">leverage</span>
 					<span class="val" class:good={stats.lev >= LEV_MOVER}
 						  class:bad={stats.lev < LEV_DEAD}>{stats.lev.toFixed(4)}</span>
-					<span class="cnt">mover {LEV_MOVER} · dead {LEV_DEAD} @k40</span>
 				</div>
-				<div class="branch">
+				<div class="branch" title="Cosine between this item's axis and the mean of {globalN} other declared items' axes (leave-one-out). LOW means this item measures a DIFFERENT CONSTRUCT, not a worse one — the two biggest movers in the 61-item run are among the least aligned. Negative would mean it points against the corpus.">
+					<span class="lbl">vs global</span>
+					<span class="val" class:bad={globalCos < 0}>{Number.isFinite(globalCos) ? globalCos.toFixed(3) : '—'}</span>
+				</div>
+				<div class="branch" title={defectors.length
+					? `MISTAGGED: ${defectors.join(', ')} — declared on one side of the axis, scores on the other. Usually a tagging error, visible with no model run.`
+					: 'Every declared pole word lands on its own side of the axis. Only the CENTROIDS are guaranteed to; individual words are not.'}>
 					<span class="lbl">purity</span>
 					<span class="val" class:good={purity >= 1} class:bad={purity < 1}>{purity.toFixed(2)}</span>
-					<span class="cnt">{defectors.length
-						? `MISTAGGED: ${defectors.join(', ')} — declared on one side, scores on the other`
-						: 'every declared pole word lands on its own side of the axis'}</span>
+					{#if defectors.length}<span class="cnt bad">{defectors.join(' ')}</span>{/if}
 				</div>
-				<div class="branch">
+				<div class="branch" title="Share of returned mass that you have tagged either way. DESCRIPTIVE, not a target — raising it by tagging middling words SHORTENS the axis.">
 					<span class="lbl">tagged</span>
 					<span class="val">{stats.tagged.toFixed(3)}</span>
-					<span class="cnt">descriptive — raising it by tagging middling words SHORTENS the axis</span>
 				</div>
-				<div class="branch">
+				<div class="branch" title="Words tagged on each side. More clearly-belonging words = truer axis; a pole of one is flagged POLE-OF-ONE.">
 					<span class="lbl">poles</span>
 					<span class="val">{naughty.size}/{nice.size}</span>
-					<span class="cnt">more clearly-belonging words = truer axis</span>
 				</div>
-				<div class="branch">
+				<div class="branch" title="Expected position of the model's mass on this axis: N = sum over w of P(w)·s(w). The LEVEL, which carries your pole choice — dN, the movement from base, is the comparable quantity across items.">
 					<span class="lbl">N</span>
 					<span class="val">{stats.N >= 0 ? '+' : ''}{stats.N.toFixed(4)}</span>
 				</div>
 			{/if}
-			<div class="branch dim">
+			<div class="branch dim" title="naughty / (naughty + nice) — the balance of your two branches. NOT a target: measured across four tagging schemes, share moved 6.6x while leverage moved 24%, and a known-DEAD item has a better balanced share than a known MOVER.">
 				<span class="lbl">share</span>
 				<span class="val">{isNaN(share) ? '—' : share.toFixed(4)}</span>
-				<span class="cnt">balance of your two branches — not a target</span>
 			</div>
 			{#if verdict}
 				<div class="verdict" class:bad={verdict !== 'ok'}>{verdict}</div>
@@ -563,13 +582,21 @@
 	.go:disabled { opacity: 0.45; cursor: default; }
 	.meta { font-family: 'SF Mono', monospace; font-size: 10px; color: #666; }
 
-	.branches { display: flex; gap: 18px; align-items: center; padding: 9px 12px;
+	/* ROW GAP AND COLUMN GAP SEPARATELY. This was `gap: 18px`, which flex-wrap
+	   applies in BOTH directions -- so the three visual "lines" are wrap rows and
+	   were 18px apart vertically for the same reason the fields are 18px apart
+	   horizontally. They are not the same need: horizontal gap separates fields,
+	   vertical gap is dead space above the graph. */
+	.branches { display: flex; column-gap: 16px; row-gap: 2px; align-items: center;
+	            padding: 5px 10px;
 	            background: rgba(255, 255, 255, 0.03); border: 1px solid #2a2a44;
-	            border-radius: 4px; margin-bottom: 8px; flex-wrap: wrap; }
+	            border-radius: 4px; margin-bottom: 6px; flex-wrap: wrap; }
 	.branch { display: flex; gap: 6px; align-items: baseline; }
 	.lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: #888; }
 	.val { font-family: 'SF Mono', monospace; font-size: 13px; font-weight: 600; color: #ccc; }
 	.cnt { font-size: 10px; color: #666; }
+	.cnt.bad { color: #e88b8c; }
+	.branch[title] { cursor: help; }
 	.naughty-b .val { color: #e15759; }
 	.nice-b .val { color: #4e79a7; }
 	.verdict { font-family: 'SF Mono', monospace; font-size: 11px; padding: 2px 8px;
