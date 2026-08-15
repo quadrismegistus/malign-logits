@@ -1135,7 +1135,14 @@ Ordering within each folder is the reader's ranking.
 ### M03_proceduralization
 
 1. **[DISCHARGED via its shortlist link]** E §3/§4 survivor scatter (shortlist 5).
-2. E §4 dumbbell, 65 rows, indiv vs inst dots joined, coloured by pattern —
+2. **[DISCHARGED 2026-08-15 — `e_survivor_dumbbell.png`, dario, `ba1b7986`
+   + `b4978e16`]** Both [6197] traps are pinned as asserts rather than
+   described: one refuses to draw if the two 65s ever stop colliding, one
+   refuses if the by-larger-movement split ever agrees with the by-sign
+   split. Title names the relation (*the arms differ by degree and almost
+   never by direction*), not a count — its first draft said 61 and the
+   number is 59. Leading fixed at `lineheight=1.45`.
+   E §4 dumbbell, 65 rows, indiv vs inst dots joined, coloured by pattern —
    `b_word_delta_by_word.csv`. The words the argument quotes.
    **AUDITED OPEN, dario [6197]. Two traps.** (a) **There are two different
    65s in this document**: §2 books `p<0.01 -> 189, institutional 124,

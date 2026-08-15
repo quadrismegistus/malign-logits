@@ -907,6 +907,29 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **THE RENDERED IMAGE IS A SEPARATE INSTRUMENT, NOT A CONFIRMATION STEP**
+  ([6201], dario). **Three defects this week were visible only in the
+  image**, and no text audit covers any of them: an axis labelled `bits`
+  for a probability difference (`p_aligned - p_base`), dots sitting at x=0
+  on a panel of Bonferroni survivors with nothing saying why (the `p` is a
+  sign test over lineages, so a word qualifies on the CONSISTENCY of its
+  direction, not the size of its median -- `reass` has median 9.6e-09 with
+  35 of 42 lineages agreeing), and plotnine's 7.0pt default leading setting
+  descenders into the next line's ascenders. **Both audit modes passed the
+  last one: the lines are the right LENGTH and no ink reaches the edge.**
+  **None of the three is about text overflowing its space, which is the
+  only thing the tool measures.** The lesson is not to extend the tool. It
+  is that **a passing checker licenses nothing about the dimensions it does
+  not measure**, and the cheap remedy is to look at the picture -- dario
+  re-cropped the header before answering "final" precisely because it had
+  changed an axis label and added a subtitle line since last looking.
+- **DO NOT ASSERT AN EXPOSURE WITHOUT CHECKING WHO WAS EXPOSED** ([6201],
+  dario, withdrawing its own recall). Having found a false-positive class,
+  it told the campaign that anyone acting on the tool since 08-14 should
+  re-check -- **an exposure claim with no search behind it.** The search was
+  three commits and all three used `--pixels`, so the recall was empty.
+  **This is the negative existence claim without a search space, in its
+  cautionary form**, and it is cheaper to check than to state.
 - **CONDITION 4 IS NOT AN AUDIT STEP, IT IS THE FIRST TEN MINUTES OF
   DRAWING** ([6199], dario, declining a second audit pass and giving the
   reason). Every wrong-instrument defect found in the M03 pool **came from
