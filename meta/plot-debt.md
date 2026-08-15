@@ -1096,7 +1096,12 @@ Ordering within each folder is the reader's ranking.
 16. Y_superego §7.4 de-vulgarisation without de-intensification —
     `y_passages.parquet` + `y_tokens/`, diverging lollipop by valence.
 17. H2 per-pair median d + L50/N spread 0.000–0.861 — needs `--json` written
-    first (produce-first list), sorted dots, the one reversal named.
+    first **[BLOCKER TESTED 2026-08-15 AND ACCURATE, BUT SMALLER THAN
+    IT READS: the flag EXISTS.** `h_depth_primary.py:141` already defines
+    `--json`, so this needs a RUN, not a code change. No committed artifact
+    carries per-pair median d or the L50/N spread — `h2_depth_receipt.json`
+    is a receipt (population, shards, events), `h2_regate.json`'s `per_pair`
+    is a usability gate, and neither holds the quantity.] (produce-first list), sorted dots, the one reversal named.
 18. T-7 concreteness: both tails draining to the middle — `s_concreteness.csv`,
     before/after density. What a difference of means cannot show.
 19. T-5/S-8 sink structure, `whispered` 50-in/0-out vs pure sources —
@@ -1532,8 +1537,19 @@ section withdrew that read.
    A-R1 paired per-site onset distribution, lag histogram centred on zero,
    never-fall/never-rise flanking bars — `m05_onsets.json` `paired`. Makes
    p=.97 legible; the result that kills F04's lag.
-4. C-R4 displace-vs-refuse recapture bars by domain, reference line at 1 —
-   BLOCKED on the recapture provenance debt (above).
+4. **[DEAD, not blocked — registrar 2026-08-15, blocker sweep.]** R4 is
+   WITHDRAWN ([5781]); this file's own STATUS CHANGES records **"M05 C-R4
+   recapture bars: BLOCKED -> DEAD"** at line 883, and `producer-debt.md`
+   states *"plot-debt carries C-R4 as DEAD."* **It did not — the transition
+   was written in STATUS CHANGES and never reached the entry.** The link
+   existed, was correct, and ran ONE WAY: a reader starting from the
+   per-folder list found a blocked entry, and `producer-debt` asserted a
+   state this file did not hold. **The same defect that created
+   `plot_debt_state`, recurring between two sections of one document.**
+   `m05_pair_displacement.py --recapture` writes `results/m05_recapture.json`
+   and the artifact exists; what remains lost is the original session
+   DEFINITION, relevant only if R4 is revived.
+   C-R4 displace-vs-refuse recapture bars by domain, reference line at 1.
 5. **[REWRITTEN 2026-08-15 — registrar ruling on dario's refusal, [6219].
    THE ENTRY AS WRITTEN IS NOT DRAWABLE.]** Three defects, none of them in
    the finding. (a) **THE 257 IS CORRECT AND THE CITATION IS WRONG** (lacan,
