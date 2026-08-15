@@ -259,6 +259,25 @@ comparison of one quantity** -- but the within-language arm contrast is not
 the thing at risk, and re-splitting English under stanza would not be a test
 of the null.
 
+**AND THAT FENCE WAS ALREADY WRITTEN, WHICH I DID NOT KNOW WHEN I DERIVED IT.**
+`crosslingual_arms.md`'s limits section says it outright: *"Absolute drift
+levels differ by language (zh 0.638, en 0.604) and are NOT compared; only
+within-language differences are, so the level cancels."* I read that document
+as far as its withdrawal -- which is what I needed for the matched-prompt legs
+-- and stopped, so I re-derived the fence, presented it as an open question,
+and treated another seat's rank-transfer result as settling something already
+settled. **dario's [6205]: a grep for retractions finds the one you grep for,
+and the limits that follow it are not marked as retractions.** The conclusion
+is unchanged and the credit is not mine.
+
+**A hazard in the same section I avoided by inheritance rather than by
+reading.** `f11_l2`'s `pair` and `role` columns are EMPTY -- one distinct value
+each across 228,520 rows, verified here -- so *"anyone joining this corpus on
+`pair` or `role` gets one giant group and no error."* `m06_zh_ordering.py`
+builds both from model names through the registry and is safe, because it
+mirrors the arms producer's grain, which had already absorbed the fence. **I
+did not read the warning and would not have known to.**
+
 **So the asymmetry stands unexplained.** Alignment tightens the Chinese chain,
 does nothing measurable to the English one, and none of the three obvious
 mechanisms accounts for it.
