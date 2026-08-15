@@ -368,6 +368,39 @@ pieces. An id in that gap passes the guard and raises
 `IndexError: OUT_OF_RANGE: piece id is out of range` inside `IdToPiece`. The
 stricter bound is `min(model_vocab, len(tokenizer))`.
 
+**AND THAT HAZARD HAS NO INSTANCE IN THIS ROSTER — MEASURED 2026-08-15, RECORDED
+SO NOBODY GUARDS AGAINST IT AGAIN.** Across the 150 checkpoints carrying both
+fields in `data/tokenizer_properties.json`:
+
+    vocab_size == vocab_len                                75
+    vocab_size <  vocab_len   (tokenizer LONGER)           75
+    vocab_size >  vocab_len   (MODEL PADDED PAST IT)        0
+
+The gap runs the *other* way on every model that has one — Pharia +821,
+MiniCPM5 +488, kanana +259 — and that direction is harmless for `twp`, which
+bounds by `model.config.vocab_size` and therefore cannot emit an id the model
+does not have. So half the roster has a vocab/tokenizer mismatch and none of it
+is this one. **A named hazard with no instance is worth recording as such: the
+cost of the entry is that the next seat writes a guard against a thing that does
+not happen.**
+
+**WHAT DOES HAPPEN IS THE SAME QUESTION ONE LEVEL OUT, AND NO PER-MODEL FIELD
+CAN ANSWER IT.** `llama-7b > beaver-7b-v1.0` died on a CUDA device-side assert
+after 85 sites at 32000 against 32001 — **both models internally consistent**,
+and the failure entirely in the edge: llama asked to embed an id from beaver's
+vocabulary. Per-edge overlap is measured in `data/edge_token_overlap.json`
+(`n_shared`, `cover`, `bos_matches`), and until 2026-08-15 nothing outside its
+own producer read it.
+
+**AND TOKEN-ID OVERLAP IS NOT SURFACE CONFORMANCE.** `dolphin-2.6-mistral-7b-dpo`
+differs from its base by one token in 32,000 — `cover` ~1.0, `bos_matches` true,
+**COMPARABLE on every field of that artifact** — while 99% of its stored English
+`word` fields carried a SentencePiece `▁` and its CJK cells carried byte-fallback
+`<0xNN>` tokens, under a `rule_version=3` stamp identical to its base's. The
+stamp names the rule DECLARED, not the normalisation APPLIED.
+`scripts/build_surface_conformance.py` is the check; it reads the worst script
+rather than the pool, because pooled it reads 82% and looks mild.
+
 ### 2.23 (ARCHITECTURE x ENGINE): four models vLLM SUPPORTED AND REMOVED
 
 Distinct from "never implemented" and worth its own row, because the fix is
