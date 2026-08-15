@@ -65,12 +65,26 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", default=os.path.join(
         ROOT, "meta/M01_displacement/results/x_slot_ablation_61.json"))
+    #: ALL 61 IS NOT AN OUT-OF-SAMPLE TEST AND THE LABEL SAYS SO EVERY TIME.
+    #: 22 of the 61 are the items 4a's claims were derived from, so a stress
+    #: result over the full set is a stability check on an estimate that
+    #: contains its own source. Useful -- it is the larger n and RH asked for
+    #: it -- and it can never be quoted as replication.
+    ap.add_argument("--all", action="store_true",
+                    help="stress ALL 61 items, not just the 39 registered")
     a = ap.parse_args()
     items = json.load(open(a.results))["items"]
     pset = {p.strip() for p in json.load(open(POP))}
     reg = [r for r in items if r["prompt"].strip() in pset]
     assert len(reg) == len(pset), "population join is %d of %d" % (len(reg), len(pset))
-    print("  stressing the %d registered items\n" % len(reg))
+    if a.all:
+        n_src = len(items) - len(reg)
+        reg = items
+        print("  stressing ALL %d items -- %d registered + %d that 4a's claims "
+              "were DERIVED FROM.\n  NOT an out-of-sample test; read as stability, "
+              "never as replication.\n" % (len(items), len(pset), n_src))
+    else:
+        print("  stressing the %d registered items\n" % len(reg))
 
     # ── A. TRIMMED
     print("  A. TRIMMED MEANS -- drop the k largest |d| items per arm")
