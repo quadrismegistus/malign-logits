@@ -132,12 +132,23 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--models", type=int, default=None, help="pilot: first N")
+    ap.add_argument("--only", default=None,
+                    help="comma-separated model ids; MERGES into the existing "
+                         "artifact instead of replacing it")
     a = ap.parse_args()
 
     from malign_logits.registry import Registry
     R = Registry()
     models = sorted(R.models())
-    if a.models:
+    if a.only:
+        want = [m.strip() for m in a.only.split(",") if m.strip()]
+        unknown = [m for m in want if m not in models]
+        if unknown:
+            #: A MODEL NOT IN THE REGISTRY IS A TYPO OR A DECLARATION GAP, and
+            #: silently measuring nothing looks identical to measuring cleanly.
+            raise SystemExit("not in registry: %s" % ", ".join(unknown))
+        models = want
+    elif a.models:
         models = models[:a.models]
     stamp = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S")
 
@@ -179,7 +190,32 @@ def main():
               % (full, sum(1 for e in edges if e["cover"] < 0.5),
                  sum(1 for e in edges if not e["bos_matches"])))
 
-    if a.write:
+    if a.write and a.only:
+        #: **A SUBSET WRITE MUST MERGE OR IT DELETES THE REST.** `--write`
+        #: dumps `props`, which holds only what THIS run measured: writing a
+        #: 4-model run would have destroyed 150 committed rows. The subset
+        #: path therefore loads the artifact and updates it, and the
+        #: edge file is left ALONE -- edges are computed from the full set and
+        #: a partial recomputation would drop every edge not touched.
+        prior = {}
+        if os.path.exists(OUT_MODELS):
+            with open(OUT_MODELS, encoding="utf-8") as fh:
+                prior = json.load(fh)
+        merged = dict(prior.get("models") or {})
+        merged.update(props)
+        pf = dict(prior.get("_failed") or {})
+        for m in models:
+            pf.pop(m, None)
+        pf.update(failed)
+        json.dump({**{k: v for k, v in prior.items()
+                      if k not in ("models", "_failed", "_n_models", "_computed_at")},
+                   "_computed_at": stamp, "_n_models": len(merged),
+                   "_merged_from": sorted(models), "_failed": pf,
+                   "models": merged},
+                  open(OUT_MODELS, "w"), indent=1, ensure_ascii=False)
+        print("\nMERGED %d model(s) into %s -- now %d rows (edges untouched)"
+              % (len(props), OUT_MODELS, len(merged)))
+    elif a.write:
         json.dump({"_about": "MEASURED tokenizer properties. Regenerate with "
                              "scripts/build_tokenizer_properties.py --write. "
                              "Not declarations: a change here means a repo moved.",

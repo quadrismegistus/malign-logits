@@ -1,7 +1,13 @@
 {
  "_about": "MEASURED tokenizer properties. Regenerate with scripts/build_tokenizer_properties.py --write. Not declarations: a change here means a repo moved.",
- "_computed_at": "2026-08-10T13:56:30",
- "_n_models": 150,
+ "_computed_at": "2026-08-15T12:45:08",
+ "_n_models": 154,
+ "_merged_from": [
+  "THUDM/glm-4-9b-hf",
+  "allenai/Olmo-3-7B-Think",
+  "microsoft/phi-4",
+  "microsoft/phi-4-reasoning"
+ ],
  "_failed": {
   "AI-Sweden-Models/gpt-sw3-6.7b-v2": "You are trying to access a gated repo.",
   "AI-Sweden-Models/gpt-sw3-6.7b-v2-instruct": "You are trying to access a gated repo."
@@ -2095,6 +2101,62 @@
   },
   "zai-org/glm-4-9b-hf": {
    "model": "zai-org/glm-4-9b-hf",
+   "revision": "",
+   "tokenizer_class": "TokenizersBackend",
+   "vocab_size": 151329,
+   "vocab_len": 151343,
+   "vocab_sha": "051da3f263579f99",
+   "n_added_tokens": 14,
+   "bos_token": null,
+   "bos_token_id": null,
+   "add_bos_token": false,
+   "prepends_id": 151331,
+   "probe_ids_len": 7
+  },
+  "microsoft/phi-4": {
+   "model": "microsoft/phi-4",
+   "revision": "",
+   "tokenizer_class": "TokenizersBackend",
+   "vocab_size": 100352,
+   "vocab_len": 100352,
+   "vocab_sha": "d6346f098c58c6ac",
+   "n_added_tokens": 96,
+   "bos_token": "<|endoftext|>",
+   "bos_token_id": 100257,
+   "add_bos_token": false,
+   "prepends_id": null,
+   "probe_ids_len": 7
+  },
+  "microsoft/phi-4-reasoning": {
+   "model": "microsoft/phi-4-reasoning",
+   "revision": "",
+   "tokenizer_class": "TokenizersBackend",
+   "vocab_size": 100352,
+   "vocab_len": 100352,
+   "vocab_sha": "225c54db5e294861",
+   "n_added_tokens": 96,
+   "bos_token": "<|endoftext|>",
+   "bos_token_id": 100257,
+   "add_bos_token": false,
+   "prepends_id": null,
+   "probe_ids_len": 7
+  },
+  "allenai/Olmo-3-7B-Think": {
+   "model": "allenai/Olmo-3-7B-Think",
+   "revision": "",
+   "tokenizer_class": "TokenizersBackend",
+   "vocab_size": 100278,
+   "vocab_len": 100278,
+   "vocab_sha": "2f3c015ee8742712",
+   "n_added_tokens": 22,
+   "bos_token": "<|endoftext|>",
+   "bos_token_id": 100257,
+   "add_bos_token": false,
+   "prepends_id": null,
+   "probe_ids_len": 7
+  },
+  "THUDM/glm-4-9b-hf": {
+   "model": "THUDM/glm-4-9b-hf",
    "revision": "",
    "tokenizer_class": "TokenizersBackend",
    "vocab_size": 151329,
