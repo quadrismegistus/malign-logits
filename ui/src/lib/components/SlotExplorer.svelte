@@ -129,6 +129,11 @@
 	//: cannot be measured word-wise, which is worth knowing before writing it.
 	let axis = $state<Record<string, number> | null>(null);
 	let poleGap = $state(0);
+	//: The scatter's own pixel width, so the viewBox can match its aspect ratio.
+	//: 420 is the CSS height; if that changes, change it here -- the pair is the
+	//: whole point and a mismatch reintroduces the stretch silently.
+	let scatterW = $state(0);
+	let vbW = $derived(scatterW > 0 ? Math.max(100, (scatterW / 420) * 100) : 100);
 	let purity = $state(1);
 	let defectors = $state<string[]>([]);
 	let axisLoading = $state(false);
@@ -469,12 +474,21 @@
 		</p>
 
 		{#if view === 'scatter'}
-			<div class="scatterwrap">
-				<svg viewBox="0 0 100 100" preserveAspectRatio="none" class="scatter">
-					<line x1="50" y1="4" x2="50" y2="96" class="mid" />
+			<div class="scatterwrap" bind:clientWidth={scatterW}>
+				<!-- WIDTH-MATCHED viewBox, WHICH IS WHY THE TEXT IS NOT STRETCHED.
+				     This was `0 0 100 100` with preserveAspectRatio="none" in a box
+				     ~1900x420, so 100 units mapped to 1900px across and 100 to 420px
+				     down: a 4.5x HORIZONTAL SCALE APPLIED TO EVERY GLYPH. The words
+				     came out looking letter-spaced, which is a rendering artifact and
+				     not a property of anything measured. Sizing the viewBox to the
+				     element's own aspect makes the scale uniform, so "none" is now a
+				     no-op rather than a distortion, and a 2.4-unit font is 2.4 units
+				     in both directions. -->
+				<svg viewBox="0 0 {vbW} 100" preserveAspectRatio="none" class="scatter">
+					<line x1={vbW / 2} y1="4" x2={vbW / 2} y2="96" class="mid" />
 					{#each pts as pt (pt.word)}
 						<text
-							x={pt.cx} y={pt.cy}
+							x={pt.cx * vbW / 100} y={pt.cy}
 							class:tn={naughty.has(pt.word)} class:tc={nice.has(pt.word)}
 							onclick={() => tag(pt.word, 'nice')}
 							oncontextmenu={(e) => tag(pt.word, 'naughty', e)}
