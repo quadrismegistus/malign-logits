@@ -1287,7 +1287,17 @@ section withdrew that read.
    stronger figure is now the two-lineage contrast — OLMo's nothing beside
    Pythia's small-but-present floor and its eight-fold rise by step 128 —
    drawn WITHOUT pooling (separate populations by declaration).
-6. A-R2 acquisition ordering as a log-step lollipop strip: four families at
+6. **[DISCHARGED 2026-08-15 — `fig34_acquisition_order.png`, dario,
+   `f27460ad`]** **The form fought the finding**: A-R2 says the Weatherby
+   ordering is NOT RESOLVED at onset grain, and a lollipop strip invites
+   four rows to be read as a ranking. The four share one x position, row
+   order is alphabetical, and the caption says so. **And the tie has one
+   rung of headroom**: step 0 is incomplete (518 rows against 1,554, 231
+   empty), so the first complete rung is 1,000 and the onset sits at 2,000 —
+   one rung in which to separate four families. A limit of resolution, not a
+   joint arrival. Asserted in three parts since it rests on the ladder.
+   Shares the step-0 fact with candidate 5 from the opposite side.
+   A-R2 acquisition ordering as a log-step lollipop strip: four families at
    stage1-2000, discourse tracking alone at 32000 — `m05_onsets.json`
    `base_order`.
 7. D-R4 three stacked mover lists, Step(base,SFT) / Step(base,DPO) /

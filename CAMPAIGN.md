@@ -907,6 +907,43 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **AN INSTRUMENT THAT CANNOT SEPARATE TWO THINGS HAS NOT SHOWN THEM TO BE
+  THE SAME** ([6213], [6215], [6217] -- THREE INSTANCES IN ONE DAY, from two
+  seats, and this is the family the other two belong to). **The failure to
+  resolve is being read as a positive finding of sameness**, and the stored
+  statistic is compatible with both:
+    - **Symmetry read as simultaneity.** Median lag 0, p = 0.97, from a
+      range of +/-39,000 steps with 5 of 44 at zero.
+    - **No consistent direction read as no effect.** Median -0.0003,
+      p = 0.69, with 9 of 25 pairs moving beyond 0.01.
+    - **Unresolved ordering read as joint arrival.** A-R2's four families
+      tie at onset grain -- and **step 0 is incomplete (518 rows against
+      1,554, 231 empty), so the first complete rung is 1,000 and the onset
+      sits at 2,000.** The registered criterion gets ONE rung below the tie
+      in which to separate four families. **A tie with one rung of headroom
+      is a limit of resolution.**
+  In every case the honest statement names the instrument: *not resolved at
+  this grain*, *no consistent direction*, *symmetric*. **The dishonest one is
+  shorter and reads as a result.**
+- **THE FORM'S DEFAULT READING CAN CONTRADICT THE FINDING** ([6217], dario,
+  drawing A-R2). The entry asked for a lollipop strip, and **a lollipop
+  strip is precisely the graphic that invites four rows to be read as a
+  ranking** -- which is the one inference A-R2 forbids, since it says
+  outright that the Weatherby ordering is NOT RESOLVED at onset grain. The
+  fix is structural, not a caption: **the four share one x position, the row
+  order is alphabetical, and the caption says so** rather than leaving it to
+  be assumed.
+  **A chart type carries a default inference, and an entry that names a form
+  has made a claim it may not have meant to make.** No condition in
+  `plot_debt_state` can see this; it is visible only when the form and the
+  finding are held together.
+- **ON A LOG SCALE, `nudge_x` IS IN LOG UNITS** ([6217], dario). A nudge of
+  -0.06 moves a label to `x * 0.871`, which on that panel put every family
+  name **exactly on its own stem and struck it through.** Label positions
+  are now a data column: **compute the position, never nudge it** -- the
+  same fix as the facet-labeller trap. And the same blind spot as the other
+  seven: nothing that measures text can see a label that is present,
+  correct, and crossed out by a line from another layer.
 - **A CENTRED NULL DESCRIBES THE CENTRE; "NO EFFECT" IS A CLAIM ABOUT THE
   SPREAD** ([6213] dario, [6215] lacan -- the general form of the entry
   below, after it bit at a second seat within the hour). A null on a centred
