@@ -61,7 +61,20 @@ DEBT = os.path.join(ROOT, "meta", "plot-debt.md")
 def entries():
     """(folder, n, text) for every per-folder candidate entry."""
     s = open(DEBT, encoding="utf-8").read()
-    pf = s[s.index("## Per-folder candidate lists"):s.index("## Fences: do-not-plot")]
+    #: THE SLICE WAS THE BUG, TWICE IN ONE DAY. This read
+    #: `[Per-folder candidate lists : Fences]` and therefore could not see
+    #: `## M06 mediation candidates`, which sits AFTER the fences heading --
+    #: four open candidates the tool reported as a folder with no entries.
+    #: **The registrar then published "M06 has never been enumerated" to
+    #: three seats on that silence.** Same defect as condition 6's original
+    #: scope, which dario corrected at [6205] hours earlier: **a range
+    #: delimited by one heading cannot see a section past it.**
+    #: Take everything from the per-folder lists to the end, minus the
+    #: fences block, so a section appended anywhere below is still read.
+    start = s.index("## Per-folder candidate lists")
+    fences = s.index("## Fences: do-not-plot")
+    nxt = s.find("\n## ", fences + 1)
+    pf = s[start:fences] + (s[nxt:] if nxt != -1 else "")
     #: AN ENTRY IS A BLOCK, NOT A LINE. The first version of this function read
     #: one line per entry and missed every continuation -- so `M01 15`'s named
     #: artifact, which sits on its second line, was invisible and the entry
@@ -74,7 +87,12 @@ def entries():
         if cur:
             out.append((cur[0], cur[1], re.sub(r"\s+", " ", " ".join(cur[2]))))
     for line in pf.splitlines():
-        h = re.match(r"^### (\S+)", line)
+        #: AND THE FOLDER HEADING IS NOT ALWAYS `###`. `## M06 mediation
+        #: candidates` is `##`, so with the slice fixed its four entries were
+        #: silently attributed to M05, the last `###` seen. **A wrong folder
+        #: is worse than a missing one: it inflates a folder that is done and
+        #: keeps hiding the one that is not.** Match either level.
+        h = re.match(r"^##+ (M\d+\S*)", line)
         if h:
             flush(); cur = None
             folder = h.group(1)

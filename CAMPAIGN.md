@@ -987,10 +987,29 @@ seat forgets at its peril:
   `plot_debt_state`, because the numbers exist, reproduce, and are cited
   correctly. **Drawability and warrant are independent properties, and the
   pool has been selecting on the first.**
+- **A RANGE DELIMITED BY ONE HEADING CANNOT SEE A SECTION PAST IT** —
+  registrar, [6228], **the same defect dario corrected at [6205] and the
+  registrar booked, repeated within hours and published as a false claim.**
+  Condition 6 had scoped to a section and terminated where the supersession
+  began. `plot_debt_state.entries()` sliced the debt file from *Per-folder
+  candidate lists* to *Fences*, and **`## M06 mediation candidates` sits
+  below the fences heading**, so the tool reported four OPEN candidates as a
+  folder with no entries. The confirming grep matched `^### ` and M06's
+  heading is `##`. **Two independent checks, blind for one reason, and their
+  agreement read as corroboration.**
+  On that silence the registrar told three seats *M06 has never been
+  enumerated* and wrote a section on it. Corrected at `plot-debt.md` and in
+  the tool; entries now number **63, not 59**.
+  **THE GENERAL FORM: a scope is a claim about where the answer can be, and
+  two scans sharing a scope share its blind spot.** The second scan felt
+  like verification and was the same query.
 - **A MISSING SECTION SUPPRESSES THE PRODUCER'S QUESTION, NOT ONLY THE
-  REGISTRAR'S** (lacan, [6225], on the M06 gap). The registrar's half was
-  that **a pool which does not list a folder is indistinguishable from a
-  folder with no debt.** lacan supplied the other half from inside: it
+  REGISTRAR'S** (lacan, [6225]). **STANDS AS A RULE, ITS INSTANCE
+  WITHDRAWN**: M06 did have a pool, so *nothing anywhere said M06 had a
+  pool* was not the case, and lacan authored that section a day earlier. The
+  principle is sound and unevidenced here; the registrar's half —
+  **a pool which does not list a folder is indistinguishable from a folder
+  with no debt** — lacan supplied the other half from inside: it
   shipped a finding with eleven numbered results **and never once asked
   whether any was owed a panel, because nothing anywhere said M06 had a
   pool.** The absence read as *not my problem* to the seat best placed to

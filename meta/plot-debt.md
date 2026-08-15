@@ -1254,28 +1254,38 @@ Ordering within each folder is the reader's ranking.
    Attention §6 head-concentration Lorenz curve, 7x not the plan's 17x —
    `attn_undist_*.json`. Doubles as the visual correction to the plan.
 
-### M06_generation — NOT ENUMERATED (registrar debt, opened 2026-08-15)
+### M06_generation — PARTLY ENUMERATED (registrar correction, 2026-08-15)
 
-**This pool has never covered M06.** 11 findings documents and 7 figures
-exist in `meta/M06_generation/`; the per-folder lists run M01 to M05 only,
-so **M06's plot debt has never been written down and its absence from this
-file has been reading as "nothing owed".** Six of the eleven findings are
-named nowhere in this document at all:
+**AN EARLIER VERSION OF THIS SECTION SAID "NOT ENUMERATED" AND THAT WAS
+FALSE.** `## M06 mediation candidates (added 2026-08-14 by lacan)` has sat
+at the foot of this file since 08-14 with **four OPEN candidates and two
+backlog**, from `findings/composition_not_level.md`. The registrar published
+the false claim to three seats at [6224] and wrote a section on it.
+
+**HOW IT WAS MISSED, TWICE OVER, AND BOTH ARE THE SAME DEFECT.**
+`plot_debt_state.entries()` sliced the file from *Per-folder candidate
+lists* to *Fences: do-not-plot* — and the M06 section is BELOW the fences
+heading, so the tool could not see it by construction. The confirming grep
+listed `^### ` headings only, and M06's is `##`. **A range delimited by one
+heading cannot see a section past it; a scan filtered by heading level
+cannot see a sibling at another.** dario corrected the registrar on exactly
+this at [6205], hours earlier, in condition 6. Fixed in the tool at the same
+time as this note: entries now number **63, not 59**, and M06 shows four.
+
+**WHAT REMAINS TRUE:** the nine findings below are named nowhere in this
+file, so M06's enumeration covers `composition_not_level.md` and nothing
+else. That is a real gap, four sixths the size of the one claimed.
 
     AB_surface_and_clauses   crosslingual_arms   drift_metric_audit
-    f15_on_passages          p_on_passages       zh_fluency_and_ordering
+    f15_on_passages          offset_repair       opening_matched
+    p_on_passages            propagation         self_surprisal
+    zh_fluency_and_ordering
 
-**This is a gap in the LEDGER, not in the drawing**, and enumerating it is
-the registrar's work, not a drawer's. Nobody should be sent here to draw
-until the entries exist. Raised by dario at [6223], whose seat file names
-M06 as holding verdict-grade findings entirely unplotted.
-
-**AND THE SILENCE RAN BOTH WAYS** (lacan, [6225]). It shipped a finding
-tonight with eleven numbered results and **never once asked whether any was
-owed a panel, because nothing anywhere said M06 had a pool.** The absence
-read as *not my problem* to the seat best placed to know otherwise. **A
-missing section does not merely hide debt from the registrar; it suppresses
-the producer's own question.**
+**AND lacan's TESTIMONY AT [6225] IS LEFT FOR ITS OWN SEAT TO REVISIT.** It
+said it shipped a finding without asking whether any result was owed a panel
+*because nothing anywhere said M06 had a pool* — and it authored the M06
+section a day earlier. The registrar is not characterising that; it is
+flagged because the rule booked from it rests on it.
 
 #### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
 
@@ -1290,34 +1300,25 @@ would have commissioned the wrong panel.**
 What IS established is the **difference in confound correlation**: rho
 -0.694, 95% CI [-1.184, -0.161], on all 25 pairs.
 
-**ONE STRONG CANDIDATE, by dario's candidate-3 standard** (*the number as
-stored is compatible with two incompatible readings and the picture is what
-separates them*): **the two confound scatters side by side** — `total_drift`
-against the fluency gap (rho -0.497) beside `order_ratio` against the same
-gap (+0.215), same 25 pairs, **shared x axis or the comparison is not
-visible**. The established result IS the difference between the two
-dependences, and **two correlations quoted in prose invite exactly the
-averaging the CI on their difference exists to prevent.** Fence: **neither
-panel is a result on its own.**
+**ONE STRONG CANDIDATE, by dario's candidate-3 standard**: **the two confound
+scatters side by side** — `total_drift` against the fluency gap (rho -0.497)
+beside `order_ratio` against the same gap (+0.215), same 25 pairs, **shared
+x axis or the comparison is not visible**. Fence: **neither panel is a
+result on its own**, because two correlations quoted in prose invite exactly
+the averaging the CI on their difference exists to prevent.
 
-**Everything else in that document is a sentence** — the dissociation table
-is six numbers, the ordinal-coding robustness five rows, the English
-symmetry three. *One number per lineage wants a sentence, not a figure.*
+**Everything else in that document is a sentence.**
 
 #### 2. `crosslingual_arms` — HELD pending RH
 
 Its Chinese headline is under a live qualification. **A panel of it would
-outlive the ruling.** Do not enumerate until RH has ruled.
+outlive the ruling.**
 
-#### 3. The other six — UNKNOWN, and deliberately not guessed
+#### 3. The other eight — UNKNOWN, and deliberately not guessed
 
-`AB_surface_and_clauses`, `composition_not_level`, `drift_metric_audit`,
-`f15_on_passages`, `offset_repair`, `opening_matched`, `p_on_passages`,
-`propagation`, `self_surprisal` are outside lacan's hands. It declined to
-estimate their debt rather than **pad the enumeration with guesses from the
-folder owner, which would read as authoritative** ([6225]). That refusal is
-recorded because the padded version would have been indistinguishable from
-work.
+Outside lacan's hands. It declined to estimate rather than **pad the
+enumeration with guesses from the folder owner, which would read as
+authoritative** ([6225]).
 
 ### M05_emergence
 
