@@ -1280,7 +1280,28 @@ section withdrew that read.
    p=.97 legible; the result that kills F04's lag.
 4. C-R4 displace-vs-refuse recapture bars by domain, reference line at 1 —
    BLOCKED on the recapture provenance debt (above).
-5. A-R3 the true zero: log-scale resolved mass at stage1-step0 against
+5. **[REWRITTEN 2026-08-15 — registrar ruling on dario's refusal, [6219].
+   THE ENTRY AS WRITTEN IS NOT DRAWABLE.]** Three defects, none of them in
+   the finding. (a) **The named parquet does not hold "257 complete-but-empty
+   cells"**: OLMo step 0 is 518 rows over 259 probes with 231
+   `payload_empty` (verified at the registrar's seat); 584 is the BATTERY's
+   text count, a different population. (b) **The two-lineage contrast merges
+   two grains** — at capacity-probe grain Pythia's step-0 floor is absent
+   exactly like OLMo's, and *"Pythia step0 resolves ~5 words"* is
+   battery-grain from [5430]; `E_pythia_capacity.md` Result 2 says so
+   itself. (c) **The window does not exist for OLMo**: `Olmo-3-1025-7B` has
+   ZERO rungs strictly between step 0 and 1000 where Pythia has ten, so
+   Pythia's rise from step 8 to 128 falls entirely inside a gap in OLMo's
+   ladder. **An empty panel beside a rising one reads as "OLMo does not
+   rise".**
+   **DRAW INSTEAD** (dario's proposal, adopted): both lineages on their own
+   ladders, never pooled, **OLMo's sub-1000 stretch drawn as a GAP and not a
+   line**, the capacity-probe rise stated on Pythia's side alone (0, then
+   18, 95 and 283 rows of 518 above the floor at steps 8, 128 and 1000), and
+   the battery-grain vocabulary claim NAMED on the panel and not drawn,
+   since its population is in neither file. Makes [5430] legible: **at
+   capacity-probe grain the true zero is NOT OLMo-specific.**
+   Superseded original: A-R3 the true zero: log-scale resolved mass at stage1-step0 against
    theta, 257 complete-but-empty cells marked; zh twin panel —
    `m05_curves.parquet`. QUALIFIED by [5430]: the zero is OLMo's
    initialisation, not general (Pythia step0 resolves ~5 words). The

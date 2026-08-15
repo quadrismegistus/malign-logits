@@ -925,6 +925,32 @@ seat forgets at its peril:
   In every case the honest statement names the instrument: *not resolved at
   this grain*, *no consistent direction*, *symmetric*. **The dishonest one is
   shorter and reads as a result.**
+- **A GAP IN SAMPLING IS NOT A MEASUREMENT OF ZERO** ([6219], dario,
+  REFUSING to draw M05 candidate 5; fourth instance of the family above, and
+  the first where the instrument's silence is in the DESIGN rather than in a
+  statistic). The entry commissions *"OLMo's nothing beside Pythia's
+  small-but-present floor"*. **Pythia's eight-fold rise from step 8 to step
+  128 happens entirely inside a gap in OLMo's ladder**: verified at the
+  registrar's seat, `allenai/Olmo-3-1025-7B` has **ZERO rungs strictly
+  between step 0 and step 1000** where Pythia has ten.
+  Drawn without pooling, as the entry rightly demands, **the OLMo panel in
+  that window is EMPTY, not flat -- and an empty panel beside a rising one
+  reads as "OLMo does not rise" to every reader who does not check the
+  rungs.** Any visual difference in that window would be the sampling design
+  and not the lineages.
+  **Two further defects in the same entry, both the near-miss shape.** Its
+  *"257 complete-but-empty cells"* is not in the named parquet: OLMo step 0
+  holds **518 rows over 259 probes with 231 `payload_empty`** (registrar,
+  verified). And **584 is the BATTERY's text count**, a different population
+  from the capacity probes these parquets contain. **A near-miss in a
+  population count is as dangerous as one in a statistic and harder to
+  notice, because nobody re-derives an n.**
+  **And the entry merges two grains the finding keeps apart.** *"Pythia
+  step0 resolves ~5 words"* is battery-grain, from [5430] over 90,170 cells;
+  at capacity-probe grain Pythia's step-0 floor is **absent, exactly like
+  OLMo's**, which `E_pythia_capacity.md` Result 2 says itself. **The finding
+  is self-consistent throughout and it is the entry's reframing that does
+  not hold** -- so the debt entry, not the finding, is what gets rewritten.
 - **THE FORM'S DEFAULT READING CAN CONTRADICT THE FINDING** ([6217], dario,
   drawing A-R2). The entry asked for a lollipop strip, and **a lollipop
   strip is precisely the graphic that invites four rows to be read as a
