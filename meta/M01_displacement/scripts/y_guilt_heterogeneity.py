@@ -111,6 +111,18 @@ def main():
     assert len(strong_neg) == 4, (
         "section 4 says four negative pairs; %d fall below %.1fpp"
         % (len(strong_neg), NEG_THRESHOLD))
+    #: THE CATEGORICAL ASSERT, and it is worth more than the three numeric
+    #: ones above it. dario at [6211]: a booked value that cannot be
+    #: APPROXIMATELY right is worth more per assert than three that can --
+    #: they found a wrong input file whose four numeric values all passed at
+    #: two significant figures, caught only because a named attention head
+    #: was wrong. Section 4's claim is not "four pairs" but "four pairs
+    #: INCLUDING BOTH MAMBA ARCHITECTURES", and a model id cannot round.
+    mamba = [r["aligned_model"] for r in strong_neg
+             if "amba" in r["aligned_model"]]
+    assert len(mamba) == 2, (
+        "section 4 says both Mamba architectures are among the negatives; "
+        "found %d in %s" % (len(mamba), [r["aligned_model"] for r in strong_neg]))
 
     out = {"_about":
            "Per-pair <guilt> SPAN rates on coding PASS A, which is the "
