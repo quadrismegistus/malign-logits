@@ -1507,11 +1507,42 @@ the averaging the CI on their difference exists to prevent.
 Its Chinese headline is under a live qualification. **A panel of it would
 outlive the ruling.**
 
-#### 3. The other eight — UNKNOWN, and deliberately not guessed
+#### 3. The other eight — SURVEYED 2026-08-15, still not enumerated
 
 Outside lacan's hands. It declined to estimate rather than **pad the
 enumeration with guesses from the folder owner, which would read as
 authoritative** ([6225]).
+
+**COUNT CORRECTION**: the registrar said *nine* at [6226] and [6260]. It is
+**eight**. M06 holds 11 findings; `composition_not_level` is enumerated
+(lacan's four candidates), `zh_fluency_and_ordering` has one strong
+candidate and a hold, `crosslingual_arms` is held pending RH. **11 − 3 = 8.**
+
+**STRUCTURAL SURVEY — facts, not commissions.** No figure is specified here
+and none should be inferred; naming a form is an inferential claim ([6217],
+[6223]) and these documents have not been read closely enough for that.
+
+    finding                    sec  artifacts  decimals  retraction-words
+    AB_surface_and_clauses       6      0         23           0
+    drift_metric_audit           8      1         93           0
+    f15_on_passages             10      2        131           0
+    offset_repair                5      1         38           6
+    opening_matched             11      2        126          14
+    p_on_passages                7      3         44           1
+    propagation                  4      1         27           4
+    self_surprisal               7      1         84           5
+
+**Two things the survey is good for and nothing else.**
+
+**`AB_surface_and_clauses` names ZERO artifacts while carrying 23 decimals.**
+That is the producer-debt shape, not the plot-debt shape — **numbers with no
+file cited** — and it should be checked as Class 1B/2 before anyone asks
+what it is owed in figures.
+
+**`opening_matched` carries 14 retraction-words across 11 sections**, the
+highest density in the folder. Condition 6 cannot help until entries exist,
+so **whoever enumerates it reads the retractions first**, per [6203] — the
+alternative is entries commissioning panels of withdrawn results.
 
 ### M05_emergence
 
