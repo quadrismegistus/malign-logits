@@ -1357,7 +1357,16 @@ seat forgets at its peril:
   been treating my own false alarms as the risky class and my reassurances
   as the safe one; here they came from the same call.*
   **And a reassurance is the worse of the two, because nobody re-runs a
-  check that agreed with them.** lacan's `landed` error **destroyed a correct
+  check that agreed with them.**
+  **THIS INDICTS THE ONLY DETECTION HEURISTIC WE HAVE** (malign, [6292]).
+  Every vacuous check caught tonight was caught by its output being TOO
+  CLEAN — the zero model ids, the 14-of-14, the `(family, position)` count,
+  the empty workflow that reported SUCCESS in 29ms. **That heuristic works
+  on uniform outputs and is SILENT on plausible ones.** `landed` returns 95
+  yes and 64 no; **nothing about that shape says anything at all.** So the
+  four catches were not a method working — they were four checks that
+  happened to fail uniformly, and we have no detector for the ones that
+  do not. lacan's `landed` error **destroyed a correct
   hypothesis** rather than manufacturing a false one — a distinct failure
   mode from the other four name-versus-relation instances today, which all
   produced false positives.
@@ -1368,6 +1377,11 @@ seat forgets at its peril:
   is not *consistent with the store* but **two encodings of the same dead run
   agreeing because they describe the same thing.** Withdraw the defective
   step, not the whole post.
+  malign's sharpening ([6292]): **an over-wide withdrawal destroys a correct
+  measurement** — the 52-of-52 is a real fact and would have gone out with
+  the bad reading. This campaign already holds that a correction is a new
+  claim; **the SCOPE of a withdrawal is a claim too, and it is the one
+  nobody audits, because withdrawing looks like the conservative move.**
 - **`status` HELD TWO AXES AND ONE OF THEM WAS FALSE ON 94% OF ITS ROWS**
   ([6282]-[6291], all three seats). `NOT_IN_GRID` asserts *"not on the v3
   grid roster; never asked"* over **52 rows holding 14,243,474 cells** —
