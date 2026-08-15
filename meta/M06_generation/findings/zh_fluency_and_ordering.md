@@ -299,8 +299,22 @@ mirrors the arms producer's grain, which had already absorbed the fence. **I
 did not read the warning and would not have known to.**
 
 **So the asymmetry stands unexplained.** Alignment tightens the Chinese chain,
-does nothing measurable to the English one, and none of the three obvious
+shows no consistent direction in English, and none of the three obvious
 mechanisms accounts for it.
+
+**AND "NULL" HERE MEANS CANCELLING, NOT ABSENT** -- dario's distinction at
+[6213], where a median lag of 0 at p=0.97 read as *the two onsets coincide*
+when only 5 of 44 sites were actually at zero. Checked here:
+
+    lang  median     IQR      range              |median| / IQR
+    en    -0.0003   0.0095   -0.024 to +0.014        0.03
+    zh    -0.0090   0.0253   -0.094 to +0.014        0.35
+
+**No English pair sits at zero**, and 9 of 25 move by more than 0.01. English
+passages do change under alignment; the changes are about 40% the spread of the
+Chinese ones and carry no consistent sign, so the centre cancels. **The null is
+SYMMETRY, and "alignment does nothing to the English chain" is a different and
+stronger claim that this evidence does not make.**
 
 ### One candidate exists, from another instrument, and it is n=1
 
