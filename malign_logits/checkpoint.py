@@ -340,28 +340,21 @@ class Checkpoint:
     #: -- every migrating consumer would have lost the one artifact answering
     #: *can these two distributions be compared at all* ([6304], malign).
     #:
+    #: `cp.tokenizer` LIVED HERE FOR TWO HOURS AND IS GONE. It read
+    #: `tokenizer_properties.json` directly to serve `vocab_len` and
+    #: `n_added_tokens`, which the registry did not carry. **That was a second
+    #: read path standing in for an unfinished join** -- RH, 2026-08-15: *is
+    #: that just one more file we have to maintain?* The join now runs in
+    #: `build_model_registry.py` on BOTH row-construction paths, the columns
+    #: are on the row, and `cp.vocab_len` resolves through `__getattr__` like
+    #: any other. **A field the registry lacks is a join to add, not a bypass
+    #: to keep.**
+    #:
     #: EACH RETURNS None ONLY FOR "NO ROW", NEVER FOR A MEASURED ZERO. Tonight
     #: booked that collision three times: `is_excluded` testing a literal nothing
     #: writes, a schema field absent-reading-as-false, and null-versus-unknown.
     #: A caller that needs to tell "unmeasured" from "measured clean" uses the
     #: `_measured` companions rather than truthiness.
-
-    @cached_property
-    def tokenizer(self):
-        """The `data/tokenizer_properties.json` row, or None if unmeasured.
-
-        Carries `vocab_len` and `n_added_tokens`, which the registry row does
-        NOT: the runbook's §2.22 lesson is that a vocab guard on the model does
-        not protect the tokenizer and the stricter bound is
-        `min(model_vocab, len(tokenizer))`. Somebody measured both and nothing
-        read either.
-        """
-        return _tokenizer_props().get(self.id)
-
-    @property
-    def tokenizer_measured(self):
-        """Whether a tokenizer row exists. Distinct from its values being zero."""
-        return self.id in _tokenizer_props()
 
 
     def comparable_with(self, other, store=None):

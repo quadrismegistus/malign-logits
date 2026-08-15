@@ -396,6 +396,27 @@ PARAMS_OVERRIDE = {
 }
 
 
+def _tokenizer_props():
+    """{model_id: row} from data/tokenizer_properties.json, 150 models.
+
+    MEASURED by scripts/build_tokenizer_properties.py, which loads each
+    tokenizer. Read here and nowhere else: a per-model measurement belongs in
+    the registry join, not in a second read path that consumers reach for
+    directly. Absent file -> {}, so a machine without it builds a registry
+    without the columns rather than failing.
+    """
+    import json as _json
+    fp = os.path.join(PATH_DATA, "tokenizer_properties.json")
+    if not os.path.exists(fp):
+        return {}
+    d = _json.load(open(fp, encoding="utf-8"))
+    rows = d.get("models") if isinstance(d, dict) else d
+    if isinstance(rows, dict):
+        return {k: v for k, v in rows.items() if isinstance(v, dict)}
+    return {r["model"]: r for r in (rows or [])
+            if isinstance(r, dict) and "model" in r}
+
+
 def params_from_name(mid):
     """(display, billions). None when the name does not carry a size.
 
@@ -477,6 +498,7 @@ def build():
             if "family" not in r:
                 w = sw["weights"].get(mid, {})
                 cj = sw["cjk"].get(mid, {})
+                tk = _tokenizer_props().get(mid, {})
                 bo = sw["bos"].get(mid, {})
                 rt = sw["roundtrip"].get(mid, {})
                 method = METHOD_IN_NAME.search(mid)
@@ -506,6 +528,35 @@ def build():
                     #: pair that cost 85 sites (llama-7b > beaver-7b-v1.0,
                     #: 32000 vs 32001) looked IDENTICAL on this field.
                     vocab_size=int(cj["vocab_size"]) if cj.get("vocab_size") else None,
+                    #: THE THIRD NUMBER, joined 2026-08-15 from
+                    #: data/tokenizer_properties.json, which this builder did
+                    #: not read. `Checkpoint.vocab_size` returned None for a
+                    #: value measured and committed in another file, and under
+                    #: the plan making that class the only read path, tokenizer
+                    #: comparability was about to become unreachable ([6304]).
+                    #:
+                    #: **THREE VOCABULARY NUMBERS, ALL LOAD-BEARING, DIFFERING
+                    #: ON 37 OF 92 MODELS.** pythia-2.8b is the clean example:
+                    #:
+                    #:   vocab_size         50254  tokenizer.vocab_size, BASE
+                    #:                             pieces, excludes added tokens
+                    #:   vocab_len          50277  len(tokenizer), base + added.
+                    #:                             GOVERNS IdToPiece: an id in
+                    #:                             [vocab_size, vocab_len) is a
+                    #:                             real token this misses.
+                    #:   vocab_size_config  50304  the config's embedding rows.
+                    #:                             GOVERNS the out-of-range
+                    #:                             embedding assert.
+                    #:
+                    #: Neither existing column is `len(tokenizer)`, so this is a
+                    #: fourth fact and not a fourth name for one. `vocab_size`
+                    #: is IDENTICAL to tokenizer_properties' own on every model
+                    #: that has both -- that one WAS a duplicate and is not
+                    #: re-joined.
+                    vocab_len=(int(tk["vocab_len"]) if tk.get("vocab_len") is not None
+                               else None),
+                    n_added_tokens=(int(tk["n_added_tokens"])
+                                    if tk.get("n_added_tokens") is not None else None),
                     cjk_tier=cj.get("tier", ""),
                     cjk_chars=int(cj["cjk_chars"]) if cj.get("cjk_chars") else None,
                     weights_format=w.get("weights_format", ""),
@@ -748,6 +799,29 @@ def main(a):
                      loader_override="", generation="",
                      in_grid_spec=False,
                      status="ACTIVE", exclusion_reason="", pending_repair=None)
+            #: **JOIN THE MEASUREMENTS HERE TOO.** This constructor hardcodes
+            #: `tokenizer_class=""` and `vocab_size=None`, and the tokenizer
+            #: join added 2026-08-15 sits in the DECLARED path only -- so the
+            #: 14 rows that arrive via `registry_extra_models.json` came out
+            #: empty even when measured. `dolphin-2.6-mistral-7b-dpo`, the
+            #: model that cost three seats an evening, had
+            #: `vocab_size 32000 / vocab_len 32001 / 4 added` sitting in
+            #: `tokenizer_properties.json` and `vocab_size: None` in the
+            #: registry. **A second constructor is a second place for a join
+            #: to be missing**, and nothing announced the gap: the field was
+            #: present and null, which reads as unmeasured.
+            #: `vocab_size` here comes from tokenizer_properties rather than
+            #: the CJK survey, which has no row for these models. The two are
+            #: IDENTICAL on every model carrying both, checked 2026-08-15.
+            _tk = _tokenizer_props().get(mid, {})
+            if _tk:
+                r["tokenizer_class"] = _tk.get("tokenizer_class") or ""
+                if _tk.get("vocab_size") is not None:
+                    r["vocab_size"] = int(_tk["vocab_size"])
+                if _tk.get("vocab_len") is not None:
+                    r["vocab_len"] = int(_tk["vocab_len"])
+                if _tk.get("n_added_tokens") is not None:
+                    r["n_added_tokens"] = int(_tk["n_added_tokens"])
             _cj = json.load(open(CURATED)) if os.path.exists(CURATED) else {}
             r.update((_cj.get("models") or {}).get(mid, {}))   # curated wins
             _of = (_cj.get("orgs") or {}).get(mid.split("/")[0], {})
