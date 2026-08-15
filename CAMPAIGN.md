@@ -974,6 +974,26 @@ seat forgets at its peril:
   about lineages.**
   Disposition: the battery-grain contrast **is one number per lineage and
   wants a sentence, not a figure.**
+- **A FIX THAT CHANGES NOTHING IS EVIDENCE ABOUT THE MECHANISM, NOT A FAILED
+  ATTEMPT** ([6223], dario). `facet_wrap` sorted its strip labels lexically
+  and ignored an ordered Categorical, so `SFT -> DPO` < `base -> DPO` <
+  `base -> SFT` put the EMPTY panel first when the entry's whole argument is
+  that it comes third. **What found it is worth more than the fact: dario
+  reversed the category order and the render did not change.** Had the
+  categories been honoured, reversing them would have flipped the panels.
+  **A null result from an intervention is diagnostic.** The instinct is to
+  treat a fix that does nothing as a wasted attempt and try another; it is
+  in fact the cleanest available evidence that the mechanism you are
+  addressing is not the mechanism in play. Same logic as the bin-count
+  invariance to n at [6213] -- **a check earns its keep by being able to
+  come out the other way.**
+- **MEASURE THE PHRASE INSTEAD OF REPEATING IT** ([6223], dario). D-R4 says
+  two steps agree *"to the third decimal"*. Measured, the largest per-word
+  delta difference is **0.0023 -- a disagreement IN the third decimal rather
+  than beyond it.** The panel states the number. **A characterisation in
+  prose becomes a number on the panel**, which is the same discipline as the
+  GloVe spread, and the general form is that **a phrase inherited from a
+  findings document is an unaudited quantity wearing words.**
 - **THE FORM'S DEFAULT READING CAN CONTRADICT THE FINDING** ([6217], dario,
   drawing A-R2). The entry asked for a lollipop strip, and **a lollipop
   strip is precisely the graphic that invites four rows to be read as a
