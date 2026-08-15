@@ -374,8 +374,17 @@ def dumbbell():
         + theme_minimal()
         + theme(figure_size=(13.0, 13.6),
                 plot_title=element_text(size=11.5, weight="bold", ha="left"),
-                plot_subtitle=element_text(size=7.0, color="#444444", ha="left"),
-                plot_caption=element_text(size=6.3, color="#666666", ha="left"),
+                #: lineheight is not cosmetic here. plotnine's default leading
+                #: on a multi-line subtitle sets descenders against the next
+                #: line's ascenders at these sizes, and a fence nobody can read
+                #: is a fence that does not travel. Caught by cropping the
+                #: header out of the PNG and looking, which is the only
+                #: instrument that sees it: both text audit modes pass, because
+                #: the lines are the right LENGTH.
+                plot_subtitle=element_text(size=7.0, color="#444444", ha="left",
+                                           lineheight=1.45),
+                plot_caption=element_text(size=6.3, color="#666666", ha="left",
+                                          lineheight=1.45),
                 axis_text_y=element_text(size=5.8),
                 panel_grid_major_y=element_blank(),
                 panel_grid_minor_y=element_blank(),
