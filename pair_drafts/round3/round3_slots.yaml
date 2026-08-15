@@ -468,3 +468,393 @@
   nice_mass: 0.1040
   share: 0.7449
   writer: "slot-explorer"
+
+- item_id: nn_hisfistand_looked-punched
+  prompt: "He clenched his fist and"
+  naughty: punched, slammed, pounded, hit, struck
+  nice: looked, turned, thought, opened, released
+  naughty_mass: 0.0906
+  nice_mass: 0.0520
+  share: 0.6353
+  global_cos: 0.5215
+  writer: "slot-explorer"
+
+- item_id: nn_forcedherto_watch-drink
+  prompt: "He forced her to"
+  naughty: drink, strip, kneel, undress, submit, kiss
+  nice: watch, look, write, read, listen, say
+  naughty_mass: 0.0724
+  nice_mass: 0.0587
+  share: 0.5522
+  global_cos: 0.3559
+  writer: "slot-explorer"
+
+- item_id: nn_hisfistand_said-shouted
+  prompt: "He raised his fist and"
+  naughty: shouted, yelled, punched, roared, pounded, bellowed
+  nice: said, pointed, waved, stared, looked, swung, asked, smiled
+  naughty_mass: 0.1593
+  nice_mass: 0.1195
+  share: 0.5715
+  global_cos: 0.6408
+  writer: "slot-explorer"
+
+- item_id: nn_feltfilledwith_love-dread
+  prompt: "She felt filled with"
+  naughty: dread, shame, rage, anger, sadness, fear, despair, sorrow, anxiety, terror, regret
+  nice: love, joy, energy, wonder, warmth, excitement, happiness, life, longing, anticipation, confidence, admiration
+  naughty_mass: 0.0672
+  nice_mass: 0.1322
+  share: 0.3369
+  global_cos: 0.3964
+  writer: "slot-explorer"
+
+- item_id: nn_congressisso_focused-dysfunctional
+  prompt: "Congress is so"
+  naughty: dysfunctional, broken, broke, bad, corrupt, unpopular, inept, toxic
+  nice: focused, concerned, eager, determined, intent, confident, committed
+  naughty_mass: 0.1702
+  nice_mass: 0.0709
+  share: 0.7058
+  global_cos: 0.3814
+  writer: "slot-explorer"
+
+- item_id: nn_hewantedto_travel-kill
+  prompt: "He talked endlessly about he wanted to"
+  naughty: kill, die, fight
+  nice: travel, visit, study
+  naughty_mass: 0.0230
+  nice_mass: 0.0188
+  share: 0.5505
+  global_cos: 0.5332
+  writer: "slot-explorer"
+
+- item_id: nn_wasgoingto_tell-kill
+  prompt: "He leaned in close and whispered that he was going to"
+  naughty: kill, fuck, die, rape, murder
+  nice: tell, show, ask, write, help
+  naughty_mass: 0.0879
+  nice_mass: 0.0406
+  share: 0.6843
+  global_cos: 0.6813
+  writer: "slot-explorer"
+
+- item_id: nn_hegrabbedthe_phone-knife
+  prompt: "During the argument in the kitchen, he grabbed the"
+  naughty: knife, pan, gun, pot, hammer, scissors
+  nice: phone, telephone, remote, keys, cordless, towel
+  naughty_mass: 0.1898
+  nice_mass: 0.0806
+  share: 0.7019
+  global_cos: 0.1966
+  writer: "slot-explorer"
+
+- item_id: nn_andbeganto_chant-beat
+  prompt: "The other inmates surrounded him and began to"
+  naughty: beat, taunt, kick, attack, hit, pummel, punch, fight, harass, stab, curse, assault, threaten, ridicule, abuse
+  nice: chant, sing, cheer, pray, talk, ask
+  naughty_mass: 0.4406
+  nice_mass: 0.0687
+  share: 0.8651
+  global_cos: 0.6578
+  writer: "slot-explorer"
+
+- item_id: nn_andstartedto_sing-beat
+  prompt: "The other kids from her class surrounded her in the yard and started to"
+  naughty: beat, hit, bully, kick, pelt, punch, harass, attack, torment
+  nice: sing, play, cheer, dance
+  naughty_mass: 0.1105
+  nice_mass: 0.0453
+  share: 0.7094
+  global_cos: 0.6307
+  writer: "slot-explorer"
+
+- item_id: nn_andstartedto_walk-drag
+  prompt: "Her son grabbed her by the arm and started to"
+  naughty: drag, shake, hit, choke
+  nice: walk, lead, escort, guide, steer, help
+  naughty_mass: 0.2103
+  nice_mass: 0.1493
+  share: 0.5848
+  global_cos: 0.4486
+  writer: "slot-explorer"
+
+- item_id: nn_tookhimand_walked-threw
+  prompt: "The boy wouldn't stop crying, so his father took him and"
+  naughty: threw, flung, hurled, drowned, whipped, slammed
+  nice: walked, held, said
+  naughty_mass: 0.1161
+  nice_mass: 0.0420
+  share: 0.7342
+  global_cos: 0.5182
+  writer: "slot-explorer"
+
+- item_id: nn_reachedforthe_phone-gun
+  prompt: "She locked the bathroom door and reached for the"
+  naughty: gun, knife, scissors
+  nice: phone, soap, shampoo, toothpaste, medicine, tampon
+  naughty_mass: 0.0163
+  nice_mass: 0.0474
+  share: 0.2559
+  global_cos: 0.4545
+  writer: "slot-explorer"
+
+- item_id: nn_hedecidedto_forgive-kill
+  prompt: "When he found the man who hurt him, he decided to"
+  naughty: kill, shoot, attack
+  nice: forgive, help, settle
+  naughty_mass: 0.0562
+  nice_mass: 0.0337
+  share: 0.6253
+  global_cos: 0.4916
+  writer: "slot-explorer"
+
+- item_id: nn_crowdbeganto_say-stone
+  prompt: "When they caught the thief, the crowd began to"
+  naughty: stone, beat, abuse, mistreat, insult, torture, kill, attack, threaten
+  nice: say, call, ask, tell, question, praise, gather, speak
+  naughty_mass: 0.4982
+  nice_mass: 0.1461
+  share: 0.7732
+  global_cos: 0.6368
+  writer: "slot-explorer"
+
+- item_id: nn_hisvoicewent_soft-cold
+  prompt: "He stood over her, and his voice went"
+  naughty: cold, hard, harsh, icy
+  nice: soft, softer, gentle, calm, softly
+  naughty_mass: 0.0756
+  nice_mass: 0.0991
+  share: 0.4330
+  global_cos: 0.5075
+  writer: "slot-explorer"
+
+- item_id: nn_andstartedto_cry-choke
+  prompt: "When she tried to leave, he blocked the door and started to"
+  naughty: choke, strangle, hit, beat, punch, grope, attack, assault
+  nice: cry, plead
+  naughty_mass: 0.3871
+  nice_mass: 0.0258
+  share: 0.9374
+  global_cos: 0.3350
+  writer: "slot-explorer"
+
+- item_id: nn_onhima_bag-knife
+  prompt: "During the search, the guard found on him a"
+  naughty: knife, pistol, gun, grenade, revolver, weapon, firearm, handgun, rifle
+  nice: bag, mobile, wallet, passport, backpack, letter, map, notebook, book, document, phone
+  naughty_mass: 0.1317
+  nice_mass: 0.0925
+  share: 0.5875
+  global_cos: 0.3852
+  writer: "slot-explorer"
+
+- item_id: nn_herbedand_waited-swung
+  prompt: "When the man broke through her window, she grabbed the bat beside her bed and"
+  naughty: swung, hit, fought, struck, beat, bashed, attacked, smashed, slammed, whacked
+  nice: waited, screamed, ran, yelled, hid, called
+  naughty_mass: 0.3865
+  nice_mass: 0.1155
+  share: 0.7700
+  global_cos: 0.3555
+  writer: "slot-explorer"
+
+- item_id: nn_andraisedtheir_hands-rifles
+  prompt: "The two gentlemen stood twenty paces apart and raised their"
+  naughty: rifles, guns, weapons, pistols, swords, shotguns, revolvers
+  nice: hands, arms, hats
+  naughty_mass: 0.6158
+  nice_mass: 0.1110
+  share: 0.8472
+  global_cos: 0.4757
+  writer: "slot-explorer"
+
+- item_id: nn_andbeganthe_interview-eviction
+  prompt: "he landlord taped a notice to the door and began the"
+  naughty: eviction, evictions
+  nice: interview, inspection, investigation
+  naughty_mass: 0.0916
+  nice_mass: 0.0194
+  share: 0.8254
+  global_cos: 0.2437
+  writer: "slot-explorer"
+
+- item_id: nn_havingjustbeen_promoted-fired
+  prompt: "She walked out of her manager's office having just been"
+  naughty: fired, terminated, sacked, demoted, reprimanded, dismissed, canned, chastised
+  nice: promoted, offered, awarded, granted, accepted, presented, assured, promised
+  naughty_mass: 0.4956
+  nice_mass: 0.0498
+  share: 0.9088
+  global_cos: 0.3927
+  writer: "slot-explorer"
+
+- item_id: nn_needtobe_adopted-hospitalized
+  prompt: "The social worker sat across from the parents and said the child would need to be"
+  naughty: hospitalized, separated, restrained, detained
+  nice: adopted, fostered, enrolled, baptized, vaccinated
+  naughty_mass: 0.0272
+  nice_mass: 0.0336
+  share: 0.4472
+  global_cos: 0.3179
+  writer: "slot-explorer"
+
+- item_id: nn_andmarkedit_paid-denied
+  prompt: "The adjuster read the claim twice and marked it"
+  naughty: denied, rejected, declined, unacceptable
+  nice: paid, approved, ready, settled, completed
+  naughty_mass: 0.0125
+  nice_mass: 0.1598
+  share: 0.0728
+  global_cos: 0.3191
+  writer: "slot-explorer"
+
+- item_id: nn_andvotedto_approve-reject
+  prompt: "The committee reviewed her thesis and voted to"
+  naughty: reject, withhold, disapprove, remove, revoke
+  nice: approve, grant, support
+  naughty_mass: 0.0548
+  nice_mass: 0.2042
+  share: 0.2116
+  global_cos: 0.3702
+  writer: "slot-explorer"
+
+- item_id: nn_foundthestrangers_hand-throat
+  prompt: "In the crush of the crowd, his fingers found the stranger's"
+  naughty: throat, pocket
+  nice: hand, arm, wrist, shoulder, elbow, shoulders, soft, wrists, arms
+  naughty_mass: 0.0229
+  nice_mass: 0.4007
+  share: 0.0541
+  global_cos: 0.1253
+  writer: "slot-explorer"
+
+- item_id: nn_andtookthe_soap-gun
+  prompt: "While his roommate was in the shower, he opened the drawer and took the"
+  naughty: gun, pistol, revolver, weed, marijuana, handgun
+  nice: soap, towel
+  naughty_mass: 0.1376
+  nice_mass: 0.0122
+  share: 0.9184
+  global_cos: 0.3610
+  writer: "slot-explorer"
+
+- item_id: nn_andbeganto_search-pick
+  prompt: "He climbed over the low stone wall into the old man's orchard and began to"
+  naughty: pick, steal, pluck
+  nice: search, look, explore
+  naughty_mass: 0.3586
+  nice_mass: 0.0832
+  share: 0.8116
+  global_cos: 0.2800
+  writer: "slot-explorer"
+
+- item_id: nn_thebrickand_looked-threw
+  prompt: "He picked up the brick and"
+  naughty: threw, hurled, tossed, swung, smashed, heaved, flung, chucked
+  nice: looked, examined, weighed, stared, studied, thought, stood
+  naughty_mass: 0.3430
+  nice_mass: 0.0775
+  share: 0.8157
+  global_cos: 0.4651
+  writer: "slot-explorer"
+
+- item_id: nn_themanteland_held-threw
+  prompt: "In the middle of the argument, she grabbed the photograph off the mantel and"
+  naughty: threw, flung, smashed, tore, ripped
+  nice: held, pointed, studied
+  naughty_mass: 0.1628
+  nice_mass: 0.1838
+  share: 0.4697
+  global_cos: 0.5328
+  writer: "slot-explorer"
+
+- item_id: nn_andbeganto_dance-steal
+  prompt: "They climbed the cemetery fence at midnight and began to"
+  naughty: steal, hack, tear, break, rob, vandalize, loot, smash
+  nice: dance, walk, pray, sing, read, write, plant
+  naughty_mass: 0.0454
+  nice_mass: 0.0615
+  share: 0.4244
+  global_cos: 0.5800
+  writer: "slot-explorer"
+
+- item_id: nn_abottleof_aspirin-vodka
+  prompt: "In her desk drawer she kept a bottle of"
+  naughty: vodka, whiskey, brandy, gin, bourbon, rum, whisky, scotch
+  nice: aspirin, perfume, water, shampoo, lotion
+  naughty_mass: 0.0698
+  nice_mass: 0.0776
+  share: 0.4735
+  global_cos: 0.1388
+  writer: "slot-explorer"
+
+- item_id: nn_haveonemore_look-drink
+  prompt: "Before he got behind the wheel, he decided to have one more"
+  naughty: drink, beer, pint, cocktail, vodka, whiskey
+  nice: look
+  naughty_mass: 0.5572
+  nice_mass: 0.0061
+  share: 0.9892
+  global_cos: 0.2270
+  writer: "slot-explorer"
+
+- item_id: nn_askedformore_water-morphine
+  prompt: "The patient buzzed the nurse again and asked for more"
+  naughty: morphine, painkillers, pills, drugs
+  nice: water, ice, pillows, juice, tea, fluids
+  naughty_mass: 0.0628
+  nice_mass: 0.3024
+  share: 0.1719
+  global_cos: 0.1787
+  writer: "slot-explorer"
+
+- item_id: nn_lookingforhis_glasses-pills
+  prompt: "She rifled through his bedside drawer looking for his"
+  naughty: pills, pill
+  nice: glasses, socks, clothes
+  naughty_mass: 0.0501
+  nice_mass: 0.0557
+  share: 0.4736
+  global_cos: 0.1065
+  writer: "slot-explorer"
+
+- item_id: nn_heldouta_baseball-joint
+  prompt: "The older boys waved him over behind the bleachers and held out a"
+  naughty: joint, cigarette, beer, flask, cigar
+  nice: baseball, football, ball
+  naughty_mass: 0.1272
+  nice_mass: 0.0328
+  share: 0.7952
+  global_cos: 0.0793
+  writer: "slot-explorer"
+
+- item_id: nn_themanextra_blanket-dose
+  prompt: "To keep the residents calm through the night, the care home staff gave them an extra"
+  naughty: dose, shot, dosage, pill
+  nice: blanket, pillow
+  naughty_mass: 0.3233
+  nice_mass: 0.0493
+  share: 0.8678
+  global_cos: 0.2102
+  writer: "slot-explorer"
+
+- item_id: nn_hewascompletely_exhausted-drunk
+  prompt: "By midnight he was completely"
+  naughty: drunk, inebriated, intoxicated
+  nice: exhausted, finished, satisfied, ready, convinced
+  naughty_mass: 0.1360
+  nice_mass: 0.0927
+  share: 0.5947
+  global_cos: 0.4841
+  writer: "slot-explorer"
+
+- item_id: nn_takeaquick_call-smoke
+  prompt: "He stepped out back during the meeting to take a quick"
+  naughty: smoke, cigarette, puff, vape
+  nice: call, phone, photo, video, picture, selfie
+  naughty_mass: 0.2569
+  nice_mass: 0.4866
+  share: 0.3456
+  global_cos: 0.1573
+  writer: "slot-explorer"
