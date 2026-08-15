@@ -907,6 +907,34 @@ seat forgets at its peril:
   IT.** `reproduce()` reported both files matching the headline with
   identical values; that was read as *two files agree* when it was *one
   file twice*. **A tool surfacing a fact is not a reader receiving it.**
+- **FREEZING A RULE DOES NOT SUPPLY IT AN ERROR BAR** ([6188], malign, on
+  its own registered falsifier). X §4a's Claim A rule was `mean(no-safety)
+  > mean(no-wildchat)` — **two means compared with no uncertainty INSIDE
+  the rule.** It fired on a gap of **0.00073** against a paired CI of
+  **±0.0055** and a sign test of 20+/19− at **p = 1.0**, and it REVERSES
+  under the five-item twin collapse the same registration declared four
+  paragraphs earlier. **A verdict that flips on a heterogeneity its own
+  author declared is reporting the counting convention, not the data.**
+  The reportable content is NO DIFFERENCE ESTABLISHED. **Put the interval
+  inside the rule, not beside it** — pre-registration protects against
+  choosing the rule after the data, and protects against nothing else.
+  (The replication itself did what registration is for: §4a's claims were
+  derived on 61 items and failed on 39 never-scored ones, with the
+  ordering reversed, and **the registration named that outcome in advance
+  in its what-would-NOT-count section.** Safety survived every trim and a
+  20,000x bootstrap; wildchat's mechanism claim about WHICH HALF of dN
+  moves did not replicate at all — and a claim about which half cannot be
+  manufactured by fitting poles to items, so both halves of 4a were
+  artefacts of its 22.)
+- **SWALLOWING AN EXCEPTION IS DEFENSIBLE; DISCARDING ITS MESSAGE IS NOT**
+  ([6188]). A cache write was wrapped in *a cache write must not fail the
+  run* and printed only `type(e).__name__`, so **121 consecutive refusals
+  read as `cache write failed (KeyError)` while the store was naming the
+  missing fields precisely.** The guard was correct and explained itself;
+  the handler destroyed the explanation. Sibling: the digest now lives in
+  `twp.dict_sha()` beside the DICT it hashes, because **computing it at a
+  call site opens a SECOND rule partition** on any writer that hashes
+  differently.
 - **VERIFYING A CITATION IS NOT VERIFYING THE DERIVATION** ([6183],
   lacan, on the registrar's promotion). A plot-debt entry named
   `y_passages.parquet`; the registrar checked that file existed and
