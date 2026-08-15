@@ -302,7 +302,8 @@ class Checkpoint:
 
     # -- MEASURED ARTIFACTS ------------------------------------------------
     #: WHAT IS DELIBERATELY *NOT* HERE: the surface fingerprint.
-    #: `data/surface_fingerprint.json` measures how a model's cells were WRITTEN
+    #: `scripts/build_surface_conformance.py` measures how a model's cells were
+    #: WRITTEN
     #: into `twp_words`. RH, 2026-08-15: *is that just surveying the current
     #: situation of ClickHouse, and not a true property of the models?* **It is.**
     #: The same checkpoint re-expanded fingerprints clean, so it describes the
@@ -312,6 +313,25 @@ class Checkpoint:
     #: **It is also a 5.6-second query over all 401 models.** Recompute it; do
     #: not carry it. Hanging it off `Checkpoint` would have put store diagnostics
     #: on the model object and given the staleness somewhere to hide.
+    #:
+    #: **NAMED BY PRODUCER, NOT BY ARTIFACT, DELIBERATELY** (malign [6318],
+    #: lacan [6319] withdrawing a one-word fix in favour of it). This comment
+    #: first named `data/surface_fingerprint.json`, which was deleted as a
+    #: duplicate within the hour; pointing it at `surface_conformance.json`
+    #: would dangle again the moment the recompute-do-not-carry ruling above is
+    #: applied to that file too. **A comment whose referent is a generated
+    #: artifact outlives the artifact; the producer is the stable name.**
+    #:
+    #: AND THE TWO STORES ARE NOT PEERS (RH, 2026-08-15):
+    #:     true_word_probs        the stash. INCLUSIVE of on-the-fly writes --
+    #:                            server.py, x_slot_show cache-on-miss.
+    #:                            authority: WORKING
+    #:     malign_logits.twp_words  the settled prompts x checkpoints.
+    #:                            authority: CITABLE
+    #: **Divergence between them is the DESIGNED state, not drift.** The stash
+    #: is a superset by construction and a count gap must never be reported as
+    #: a reconciliation failure -- the 10 Aug instruction closed a one-time
+    #: 127k-cell gap and was not a standing invariant.
     #: THREE COMMITTED MEASUREMENTS THIS CLASS COULD NOT SEE, until 2026-08-15.
     #: `grep tokenizer_properties|edge_token_overlap malign_logits/*.py` returned
     #: ZERO, and `Checkpoint(...).vocab_size` returned None for a value measured
