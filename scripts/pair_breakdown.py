@@ -158,7 +158,7 @@ def main(a):
     fams = Family.all() if a.all else [Family(a.family)]
     for f in fams:
         for s in Step.chain(f):
-            if s.pre.landed and s.post.landed and s.prompts and s not in seen:
+            if s.pre.landed_v3 and s.post.landed_v3 and s.prompts and s not in seen:
                 seen.add(s)
                 steps.append(s)
 

@@ -6,7 +6,7 @@
     cp.stage           # "kto"      -- the preference METHOD, not just "aligned"
     cp.position        # "superego" -- the taxonomy's slot
     cp.architecture, cp.cjk_tier, cp.vocab_size, cp.weights_format
-    cp.in_spec, cp.landed, cp.is_excluded
+    cp.in_spec, cp.has_data, cp.landed_v3, cp.is_excluded
     cp.base, cp.children, cp.siblings
 
 A THIN FACADE OVER `Registry`, WHICH IS THE STORE. `data/model_registry.json` is the
@@ -153,9 +153,26 @@ class Checkpoint:
         return dict(vars(self._info)) if self._info else {}
 
     # -- status -------------------------------------------------------------
+    #: VIABILITY STATUSES -- "this checkpoint cannot be used", as distinct from
+    #: "it was not in that run". `EXCLUDED` is declared in the builder's schema
+    #: and written by `build_model_registry.py:821`, but REMOVED rows are stamped
+    #: AFTER that loop by design, so the value has 0 rows today. Testing the SET
+    #: keeps the predicate correct whether or not the branch ever fires.
+    #: **`NOT_IN_GRID` IS DELIBERATELY ABSENT**: it means "not scheduled in the v3
+    #: run" and is FALSE-as-exclusion on 49 of the 52 rows carrying it, which
+    #: hold 14,243,474 cells between them ([6285]).
+    VIABILITY_EXCLUDED = frozenset({"REMOVED", "REPLACED", "EXCLUDED"})
+
     @property
     def is_excluded(self):
-        return getattr(self._info, "status", None) == "EXCLUDED"
+        """Whether this checkpoint is unusable: dead repo, no base, superseded.
+
+        **TESTS A SET, NOT A LITERAL.** The old version compared `status` to
+        `"EXCLUDED"`, a value no producer writes -- it returned False for all
+        159 rows and could never have returned True ([6282], lacan). Six rows
+        are excluded in practice and every one read as fine.
+        """
+        return getattr(self._info, "status", None) in self.VIABILITY_EXCLUDED
 
     @property
     def exclusion(self):
@@ -171,10 +188,35 @@ class Checkpoint:
                 getattr(self._info, "pending_repair", None))
 
     @property
-    def landed(self):
-        """Has cells in `data/twp_grid_v3`. Distinct from `in_grid_spec`, which is
-        whether it was SCHEDULED -- the gap between them is the run's progress."""
+    def landed_v3(self):
+        """Has a file in `data/twp_grid_v3/` -- ONE RUN'S OUTPUT DIRECTORY.
+
+        **RENAMED FROM `landed` on 2026-08-15 because the old name was reached
+        for whenever anyone meant "do we have data".** It globs 95 files last
+        written 31 July, against 401 models in the store. lacan used it to
+        measure store coverage, contradicted a correct measurement from another
+        seat with it, and published the contradiction ([6288]).
+
+        **Use `has_data` for "is this model in the store".** This answers a
+        question about the v3 grid run and nothing else.
+        """
         return self.id in _landed()
+
+    @property
+    def has_data(self):
+        """Whether the store holds cells for this model.
+
+        Reads `cells_in_store`, a registry column populated on all 159 rows --
+        **no glob, no directory, no run.** 152 of 159 are nonzero.
+
+        NB the column name overstates: dolphin reads 2,579, which is its PROMPT
+        count against 301,074 cells. The predicate is safe either way -- prompts
+        are nonzero exactly when cells are -- but do not quote the value as a
+        cell count.
+        """
+        n = getattr(self._info, "cells_in_store", None) if self._info else None
+        return bool(n)
+
 
     @property
     def in_spec(self):
@@ -277,17 +319,19 @@ class Checkpoint:
 
     # -- collection ---------------------------------------------------------
     @staticmethod
-    def all(landed=None, **fields):
+    def all(landed_v3=None, has_data=None, **fields):
         """Every registered checkpoint, filtered on any registry field.
 
             Checkpoint.all(architecture="ssm", in_grid_spec=True)
             Checkpoint.all(status="EXCLUDED")
-            Checkpoint.all(cjk_tier="FLUENT", landed=True)
+            Checkpoint.all(cjk_tier="FLUENT", has_data=True)
         """
         out = []
         for mid in _registry().models():
             cp = Checkpoint(mid)
-            if landed is not None and cp.landed != landed:
+            if landed_v3 is not None and cp.landed_v3 != landed_v3:
+                continue
+            if has_data is not None and cp.has_data != has_data:
                 continue
             if any(getattr(cp._info, k, None) != v for k, v in fields.items()):
                 continue

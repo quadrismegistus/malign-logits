@@ -159,12 +159,12 @@ def main(a):
         seen = set()
         for f in Family.all():
             for s in Step.chain(f):
-                if s.pre.landed and s.post.landed and s not in seen:
+                if s.pre.landed_v3 and s.post.landed_v3 and s not in seen:
                     seen.add(s)
                     steps.append(s)
     else:
         f = Family(a.family)
-        steps = [s for s in Step.chain(f) if s.pre.landed and s.post.landed]
+        steps = [s for s in Step.chain(f) if s.pre.landed_v3 and s.post.landed_v3]
     if not steps:
         print("no step with both arms landed")
         return

@@ -183,7 +183,7 @@ class Family:
 
     @property
     def landed(self):
-        return [cp for cp in self.checkpoints if cp.landed]
+        return [cp for cp in self.checkpoints if cp.landed_v3]
 
     # -- collection ------------------------------------------------------------
     @staticmethod

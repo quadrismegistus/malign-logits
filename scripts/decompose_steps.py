@@ -126,7 +126,7 @@ def mode_steps(a, rule):
     texts = [p.text for p in Prompts.where(language="en")]
     fams = Family.all() if a.all else [Family(a.family)]
     for f in fams:
-        chain = [s for s in Step.chain(f) if s.pre.landed and s.post.landed and s.prompts]
+        chain = [s for s in Step.chain(f) if s.pre.landed_v3 and s.post.landed_v3 and s.prompts]
         if len(chain) < 2:
             continue
         s1, s2 = chain[0], chain[1]
@@ -149,7 +149,7 @@ def mode_language(a, rule):
     seen, steps = set(), []
     for f in Family.all():
         for s in Step.chain(f):
-            if s.pre.landed and s.post.landed and s.prompts and s not in seen:
+            if s.pre.landed_v3 and s.post.landed_v3 and s.prompts and s not in seen:
                 seen.add(s)
                 steps.append(s)
 
