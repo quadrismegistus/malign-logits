@@ -1522,22 +1522,38 @@ candidate and a hold, `crosslingual_arms` is held pending RH. **11 − 3 = 8.**
 and none should be inferred; naming a form is an inferential claim ([6217],
 [6223]) and these documents have not been read closely enough for that.
 
-    finding                    sec  artifacts  decimals  retraction-words
-    AB_surface_and_clauses       6      0         23           0
-    drift_metric_audit           8      1         93           0
-    f15_on_passages             10      2        131           0
-    offset_repair                5      1         38           6
-    opening_matched             11      2        126          14
-    p_on_passages                7      3         44           1
-    propagation                  4      1         27           4
-    self_surprisal               7      1         84           5
+**THE ARTIFACT COLUMN WAS MEASURING CITATION STYLE, NOT CITATION PRESENCE**
+(lacan, [6262], closing the flag below). The first version counted
+BACKTICKED paths only. Recounted on any form:
+
+    finding                    sec  bt  any  producers  decimals  retract
+    AB_surface_and_clauses       6   0   1       2         23        0
+    drift_metric_audit           8   1   1       1         93        0
+    f15_on_passages             10   2   2       2        131        0
+    offset_repair                5   1   1       2         38        6
+    opening_matched             11   2   2       3        126       14
+    p_on_passages                7   3   3       2         44        1
+    propagation                  4   1   2       2         27        4
+    self_surprisal               7   1   1       2         84        5
+
+**Every one of the eight cites at least one artifact and at least one
+producer.** A document with a tidy `Producers:` header and one that names
+its producer mid-sentence are **indistinguishable to a count and very
+different to a reader** — and only the second kind was invisible.
 
 **Two things the survey is good for and nothing else.**
 
-**`AB_surface_and_clauses` names ZERO artifacts while carrying 23 decimals.**
-That is the producer-debt shape, not the plot-debt shape — **numbers with no
-file cited** — and it should be checked as Class 1B/2 before anyone asks
-what it is owed in figures.
+**~~`AB_surface_and_clauses` names ZERO artifacts~~ — FALSE POSITIVE, closed
+by lacan at [6262] in four commands.** It cites producer and artifact in
+running prose at lines 25-27: *"sign test over pairs, Wilcoxon beside
+(results/m06_verdicts.json) [...] Producer m06_verdicts.py at the commit of
+record; measures from m06_style.py."* All three exist and are tracked, and
+lacan resolved the frontmatter's `p .028` against the artifact rather than
+against the citation — `hard:clause_len_words_mean/p_sign` = 0.027533.
+**No 1B/2 debt and no figures owed on that account.**
+**The registrar's detector matched a FORMAT; the property wanted is a
+RELATION** — *does this document cite what produced its numbers.* Tonight's
+class, in the survey written after booking it four times.
 
 **`opening_matched` carries 14 retraction-words across 11 sections**, the
 highest density in the folder. Condition 6 cannot help until entries exist,
