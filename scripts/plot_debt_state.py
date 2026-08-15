@@ -98,6 +98,81 @@ def _numbers(txt):
     return (dec + ints)[:3]
 
 
+WORD_NUM = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7,
+            "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12,
+            "thirteen": 13, "fourteen": 14, "fifteen": 15}
+
+
+def population(path):
+    """Rows in the named artifact, or None if it cannot be counted cheaply."""
+    try:
+        if path.endswith(".parquet"):
+            import pyarrow.parquet as pq
+            return pq.ParquetFile(path).metadata.num_rows
+        if path.endswith((".csv", ".tsv")):
+            with open(path, errors="ignore") as f:
+                return sum(1 for _ in f) - 1
+        if path.endswith((".jsonl", ".json")) and path.endswith(".jsonl"):
+            with open(path, errors="ignore") as f:
+                return sum(1 for line in f if line.strip())
+    except Exception:
+        return None
+    return None
+
+
+def selection(txt, path):
+    """CONDITION 5: does the entry quote a count SMALLER than its file holds?
+
+    **dario's finding on the M03 audit ([6197]), and it would have pointed at
+    five of seven entries.** Conditions 1-4 ask whether the artifact is the
+    right one. This asks what the entry did to it. *65 rows* against a
+    702-row file, *six verbs* against eleven, *eight domains* against
+    thirteen, *95 shared fields* against 267 -- in every case the number was
+    real and the route to it was not the obvious one.
+
+    **A COUNT IN AN ENTRY IS A SELECTION RULE COMPRESSED TO AN INTEGER, AND
+    THE RULE LIVES IN THE FINDING, NEVER IN THE ENTRY.** The drawer who reads
+    only the entry reconstructs the number by the obvious route and gets a
+    different one: dario split `b_word_delta_by_word` on which arm moved more
+    and got 37/28 against the booked 43/22, because the split is by the SIGN
+    of `median_d`. Same file, same 65 words, wrong figure.
+
+    Advisory, like condition 4. A mismatch means GO READ THE DOC; it does not
+    mean the entry is wrong. Section numbers and years trip it too, which is
+    the acceptable direction to be wrong in.
+
+    **THE DENOMINATOR IS A ROW COUNT AND THE ENTRY MAY NOT BE ABOUT ROWS.**
+    Candidate 7 prints `95 of 763003` and the honest comparison is 95 of 267
+    FIELDS -- the entry counts columns, the checker counts rows. The flag is
+    right and the number beside it is the wrong instrument, which is
+    condition 4 turned on this function. **Read the printed denominator as a
+    reason to look, never as the entry's own denominator.**
+
+    Measured against dario's hand audit of M03: fires on all five it found,
+    plus candidate 8, which dario also flagged as spanning two populations.
+    Both clauses were mutation-checked ACROSS THE WHOLE POOL and both move
+    the count (19 real; 24 without the smaller-than filter; 14 without the
+    spelled-out words). **On M03's seven alone the smaller-than clause looked
+    vacuous** -- a sample too small to discriminate will report a live clause
+    as dead, so mutation-check on the full population or not at all.
+    """
+    pop = population(path)
+    if not pop or pop < 2:
+        return None
+    #: SPELLED-OUT NUMBERS COUNT. The first version matched `\d{2,6}` only and
+    #: missed two of the five dario found by hand -- *six verbs of eleven* and
+    #: *eight domains of thirteen* are selections written in words. **A digit
+    #: predicate is a claim that selections are written in digits**, and half
+    #: of these are not.
+    got = {int(x) for x in re.findall(r"\b\d{2,6}\b", txt)}
+    got |= {v for w, v in WORD_NUM.items()
+            if re.search(r"\b%s\b" % w, txt, re.I)}
+    small = sorted({v for v in got if 1 < v < pop}, reverse=True)
+    if not small:
+        return None
+    return {"file_rows": pop, "entry_counts": small[:4]}
+
+
 def state(folder, n, txt, sources=None, figs=None):
     mod = folder.split("_")[0]
     if sources is None:
@@ -108,11 +183,19 @@ def state(folder, n, txt, sources=None, figs=None):
 
     #: 1. the artifact it names
     named = re.findall(r"`([^`]+\.(?:csv|json|parquet|tsv))`", txt)
-    have = []
+    have, all_hits = [], []
     for a in named:
         base = os.path.basename(a).split("{")[0]
-        have += [h for h in glob.glob(os.path.join(ROOT, "**", "*%s*" % base),
-                                      recursive=True) if ".git" not in h][:1]
+        hits = [h for h in glob.glob(os.path.join(ROOT, "**", "*%s*" % base),
+                                     recursive=True) if ".git" not in h]
+        #: EXACT BASENAME FIRST. A `*d_ladder.csv*` glob also returns
+        #: `d_ladder_fields.csv`, and on candidate 7 the first hit was a
+        #: 763,003-row file against the 267 the entry is actually about --
+        #: **the same first-match trap I warned dario about two posts before
+        #: writing this line.** Prefer the exact name; keep the rest visible.
+        exact = [h for h in hits if os.path.basename(h) == os.path.basename(a)]
+        have += (exact or hits)[:1]
+        all_hits += hits
 
     #: 2. a producer asserting its numbers -- the condition that catches a
     #: figure already drawn, and the one the bad promotion skipped
@@ -140,10 +223,13 @@ def state(folder, n, txt, sources=None, figs=None):
             except Exception:
                 cols = ["<unreadable>"]
             break
+    #: 5. a count that is a SELECTION, not a population. See selection().
+    sel = selection(txt, have[0]) if have else None
+
     return {"artifact": bool(have) if named else None, "named": named,
             "numbers": nums, "drawn_by": drawn_by, "marked": marked,
             "tracked": all(_tracked(h) for h in have) if have else None,
-            "columns": cols}
+            "columns": cols, "selection": sel}
 
 
 def reproduce(entry_numbers, path):
@@ -221,7 +307,7 @@ def main():
 
     sources = {f: open(f, errors="ignore").read()
                for f in glob.glob(os.path.join(ROOT, "meta", "*", "scripts", "*.py"))}
-    n_open = 0
+    n_open = n_sel = 0
     print("  %-22s %-3s %-40s %s" % ("FOLDER", "#", "ENTRY", "STATE"))
     for f, n, t in rows:
         st = state(f, n, t, sources)
@@ -234,10 +320,18 @@ def main():
         else:
             lab = "plausibly open -- VERIFY PER-ENTRY"
             n_open += 1
+            if st["selection"]:
+                s = st["selection"]
+                n_sel += 1
+                lab += "  [SELECTS %s of %d -- read the doc]" % (
+                    "/".join(str(x) for x in s["entry_counts"][:2]), s["file_rows"])
         if only_open and "plausibly" not in lab:
             continue
         print("  %-22s %-3s %-40s %s" % (f, n, t[:40], lab))
-    print("\n  %d entries, %d plausibly open." % (len(rows), n_open))
+    print("\n  %d entries, %d plausibly open, %d quoting a SELECTION."
+          % (len(rows), n_open, n_sel))
+    print("  A count in an entry is a selection rule compressed to an integer,")
+    print("  and the rule is in the FINDING, not the entry (dario, [6197]).")
     print("  PLAUSIBLY OPEN IS NOT OPEN. Read what the entry specifies and look")
     print("  for a producer asserting it before promoting -- inputs-present is")
     print("  what made queue 16 wrong.")
