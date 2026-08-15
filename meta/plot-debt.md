@@ -1140,7 +1140,8 @@ folder where the ladder runs that way.**
 
 1. **[DISCHARGED via its shortlist link]** Calibration number line (shortlist 4).
 2. Next-word three-role word dumbbells (`kill` −9.9/−1.3/−21.3; the epistemic
-   residual) — `dp.pkl`, REBUILD REQUIRED first.
+   residual) — `dp.pkl` — **TRACKED at `7948959f`, RH's call 2026-08-15.
+   Formerly tagged REBUILD REQUIRED; there was no rebuild. DRAWABLE.**
 3. **[DISCHARGED 2026-08-15 — `l3_role_geometry.png`, dario, `803befee`,
    under the registrar's [6235] ruling]** Measured values only, the
    document's table off the panel, the disagreement stated on its face and
@@ -1182,7 +1183,9 @@ folder where the ladder runs that way.**
 8. t(both) by depth, one line per role, base/aligned solid/dashed —
    `l3_geometry_union.parquet`.
 9. Nobody-near-a-pole histogram, poles at ±0.45–0.48, observed −0.12–+0.15 —
-   `dp.pkl` (rebuild). Forecloses the pole-migration misreading of F11.
+   `dp.pkl` — **TRACKED at `7948959f`; no rebuild was ever
+   required.** But see the condition-5 flag above: the observed range is an
+   unnamed aggregate. Forecloses the pole-migration misreading of F11.
 10. E-QA by domain at the twins — `exit_markers_fc_bypair.csv`. INTERNAL
     ONLY until the coded pass; FIRST LOOK status, a figure makes a number
     quotable.
