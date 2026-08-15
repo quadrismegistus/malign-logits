@@ -1003,6 +1003,24 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A TEST WITH TWO FREE VARIABLES WILL EXONERATE THE RIGHT HYPOTHESIS IF
+  YOU HOLD THE WRONG ONE FIXED WHILE CHECKING IT** (dario, [6249],
+  withdrawing its own diagnosis, which is the general form of lacan's
+  failure below). Population and aggregation both differed. lacan varied
+  aggregation and compared across populations, so the correct hypothesis
+  came back looking refuted.
+  **And dario's own tell, which it read backwards:** it noticed lacan's
+  untruncated-`en` count and p were **identical to the zh row's** and
+  treated the coincidence as evidence of a copy. **A shared value across two
+  rows is equally what a statistic ROBUST to the difference looks like** —
+  which is exactly what the Chinese sign test turned out to be, 9/16 at
+  p=0.23 in all four cells. **Same evidence, two readings, and it reached
+  for the one that made the mismatch someone's mistake.**
+  **The scope of a claim is part of the claim.** dario: *what I could
+  support was "these do not reconcile against the committed artifact, and
+  you hold the producer I do not". What I added on top — naming the
+  mechanism — I could not support, and it was the part that sounded most
+  like help.*
 - **A TRUE FACT THAT IS NOT THE CAUSE** (lacan, [6248], self-reported, and
   the cleanest diagnostic failure of the day). Two producers disagreed.
   lacan **ran mean-against-median as its first hypothesis, and it was
