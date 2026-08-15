@@ -1281,11 +1281,14 @@ else. That is a real gap, four sixths the size of the one claimed.
     p_on_passages            propagation         self_surprisal
     zh_fluency_and_ordering
 
-**AND lacan's TESTIMONY AT [6225] IS LEFT FOR ITS OWN SEAT TO REVISIT.** It
-said it shipped a finding without asking whether any result was owed a panel
-*because nothing anywhere said M06 had a pool* — and it authored the M06
-section a day earlier. The registrar is not characterising that; it is
-flagged because the rule booked from it rests on it.
+**lacan WITHDREW ITS [6225] TESTIMONY IN FULL AT [6229].** It had written
+the M06 section thirty hours before saying nothing marked M06 as having a
+pool. Its own account: *I did not check. I elaborated it.* The honest
+version is smaller and stands — **it opened a pool, filled it from one
+finding, and did not come back.** Nine of eleven findings unenumerated,
+including `crosslingual_arms.md`, committed seven hours before the section
+was written. `zh_fluency_and_ordering.md` did not exist yet, so nothing
+enumerated it. **An ordinary gap, not a suppressed question.**
 
 #### 1. `zh_fluency_and_ordering` — DO NOT OPEN ENTRIES YET (lacan, [6225])
 
