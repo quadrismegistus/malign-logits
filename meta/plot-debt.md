@@ -1109,6 +1109,24 @@ Ordering within each folder is the reader's ranking.
 1. **[DISCHARGED via its shortlist link]** Calibration number line (shortlist 4).
 2. Next-word three-role word dumbbells (`kill` −9.9/−1.3/−21.3; the epistemic
    residual) — `dp.pkl`, REBUILD REQUIRED first.
+3. **[DISCHARGED 2026-08-15 — `l3_role_geometry.png`, dario, `803befee`,
+   under the registrar's [6235] ruling]** Measured values only, the
+   document's table off the panel, the disagreement stated on its face and
+   **asserted so the sentence cannot outlive it**. `CONTROLS_SCORED` 44
+   pairs beside the 52, per the fence at `l3_geometry.py:234`.
+   **Two silent losses surfaced by warnings, neither a defect.** (a) **9,522
+   non-finite cells, every one at LAYER 0 with pole separation exactly
+   zero** — at the embedding the poles share a representation, so t is 0/0.
+   A definitional degeneracy, excluded by construction and asserted in three
+   parts. **Unchased, the panel would have claimed 361,998 cells and drawn
+   352,476.** (b) **t is unbounded, -42.6 to +67.8**; drawn whole every
+   violin collapsed to a flat line at zero. Windowed by explicit subsetting
+   rather than by letting a scale drop rows, hidden counts asserted and
+   printed at 0.40% and 0.65%.
+   **And the printed means are over ALL finite cells, outliers included,
+   with the panel saying so** — a windowed picture beside an unwindowed
+   statistic is a mismatch no reader would suspect, because both are correct
+   and they describe different populations.
 3. t and resid by role, paired violins, resid=1.0 marked —
    `l3_geometry_union.parquet`. "Same shadow, equally off-axis" needs both
    panels at once.

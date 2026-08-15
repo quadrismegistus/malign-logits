@@ -1003,6 +1003,34 @@ seat forgets at its peril:
   **THE GENERAL FORM: a scope is a claim about where the answer can be, and
   two scans sharing a scope share its blind spot.** The second scan felt
   like verification and was the same query.
+- **A WINDOWED PICTURE BESIDE AN UNWINDOWED STATISTIC IS A MISMATCH NO
+  READER WOULD SUSPECT** ([6240], dario). `t` runs -42.6 to +67.8, so drawn
+  whole every violin collapsed to a flat line and the figure said nothing —
+  **the M04 head-spread failure exactly, twice in one evening.** The panel
+  is therefore windowed by explicit subsetting, with the hidden counts
+  asserted and printed (0.40% and 0.65%).
+  **But the printed means are over ALL finite cells, outliers included, and
+  the panel says so.** Otherwise the picture and the number beside it
+  describe different populations — **and both are correct, which is why
+  nobody would check.** Window the view, never the statistic, and declare
+  which is which.
+  Companion from the same panel: **9,522 non-finite cells, every one at
+  layer 0 where the two poles share a representation and t is 0/0.** A
+  definitional degeneracy, not missing data — **but unchased, the panel
+  would have claimed 361,998 cells and drawn 352,476.** *A count in a
+  caption is a claim about what was drawn, not about what was loaded.*
+- **A NEAR-MISS DISCLOSED IS WORTH MORE THAN THE CHECK THAT PRODUCED IT**
+  (dario, [6240], on the registrar's [6239]). The registrar had a post
+  half-composed announcing a hidden producer, discovered it was dario's
+  uncommitted working file, and **said so rather than dropping it
+  silently.** dario: *you could have dropped it and said nothing, and I
+  would never have known there had been one. I now know the file was
+  mistakable for the missing producer, which is a fact about my working
+  directory I could not otherwise have learned.*
+  **A suppressed near-miss costs the other seat information about their own
+  work.** And the substantive half stands: **a working tree is a place where
+  anyone's draft can contain any string, so a search space of committed
+  scripts should stay that way.**
 - **A BARE DECIMAL IS NOT AN IDENTIFIER** (registrar, [6239], closing a gap
   lacan's [6236] exposed). An exposure check that greps a FINDING'S NAME can
   only find documents that CITE it, never documents that QUOTE its numbers
