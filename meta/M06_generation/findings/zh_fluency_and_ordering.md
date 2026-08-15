@@ -222,6 +222,30 @@ all pairwise distances, so **1.0 is a null by construction rather than by
 estimation.** P1 holds: 0.938-0.964 across arms and languages, so passages are
 locally coherent and the metric behaves.
 
+**AND THE PASSAGE-LEVEL NOISE DOES NOT REACH IT, checked because `f15_on_passages.md`
+establishes that it should be asked.** That finding decomposes the same family of
+metrics on 9,501 three-sample cells and reports `total_drift` at **ICC 0.082 --
+92% noise at the passage level** -- with `mean_drift`, which this ratio is built
+from, at 0.141. Reproduced here to the digit before relying on it.
+
+**It does not touch these results, for two reasons that are worth separating.**
+
+    P1's LEVEL is an aggregate over thousands of passages:
+        zh base  n=5,782  mean 0.9490  SE 0.00081
+        zh algn  n=5,438  mean 0.9344  SE 0.00107
+        en base  n=6,173  mean 0.9628  SE 0.00081
+        en algn  n=6,281  mean 0.9592  SE 0.00098
+    Distance from the null of 1.0 is 0.04-0.07, i.e. forty standard errors.
+
+**And nothing here MEDIAN-SPLITS a drift axis**, which is the specific failure
+F15's quadrants hit: a median split on a 92%-noise axis assigns passages to
+sides close to at random, so the axis cannot carry a flow however real the
+underlying shift. `order_ratio` is continuous and every contrast is aggregated
+to (pair, prompt) cells and then to pair medians before any comparison.
+
+**No passage-level drift statement is made anywhere in this document and none
+would be interpretable if it were.**
+
 `crosslingual_arms.md` proposes the DIFFERENCE, `mean_drift - mean_pairwise`.
 That is not scale-free, and alignment is established to shrink the whole set,
 so both terms shrink and the difference carries the spread effect it exists to
